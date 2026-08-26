@@ -3,6 +3,9 @@
 import { buildTwoSectionProjectionSafely, incidenceDensity, projectionDensity, estimateProjectionPairCount, PROJECTION_BUDGETS } from "../algorithms/projection.js";
 import { vcmp } from "./parsers.js";
 import { arrayMin, arrayMax } from "./numeric.js";
+import { computedDerived, DERIVED_STATUS, resourceLimitedDerived } from "./derivedResults.js";
+
+export { DERIVED_STATUS, notRequestedDerived } from "./derivedResults.js";
 
 /**
  * RFC 4180-compatible CSV cell/row serialization (V7310-D08). A cell is
@@ -31,13 +34,6 @@ export function csvDocument(rows, delimiter = ",") {
 
 export const buildH2V = hes => hes.map(h => ({ hid: h.id, vertices: [...h.vertices], time: h.time, weight: h.weight }));
 
-export const DERIVED_STATUS = Object.freeze({
-  NOT_REQUESTED: "not_requested",
-  COMPUTED: "computed",
-  OVER_BUDGET: "over_budget",
-  ERROR: "error",
-});
-
 export const DERIVED_LIMITS = Object.freeze({
   maxH2HNeighborRefs: 200_000,
   maxTriadNeighborRefs: 200_000,
@@ -48,10 +44,6 @@ export const EXPORT_BUDGETS = Object.freeze({
   matrixMaxCells: 1_000_000,
   matrixMaxEstimatedBytes: 4_000_000,
 });
-
-export function notRequestedDerived(type) {
-  return { type, status: DERIVED_STATUS.NOT_REQUESTED, value: null, estimate: null, limits: null, reason: "not requested" };
-}
 
 export function buildV2H(hes) {
   const m = new Map();
@@ -410,18 +402,23 @@ export function countTriads(hes) {
 
 export function countTriadsBounded(hes, { maxNeighborRefs = DERIVED_LIMITS.maxTriadNeighborRefs } = {}) {
   const estimate = estimateH2HNeighborReferences(hes, maxNeighborRefs);
-  const limits = { maxNeighborRefs };
+  const limits = { maxNeighborRefs, maxHyperedges: 2_000 };
   if (estimate.overBudget) {
-    return {
-      type: "triads",
-      status: DERIVED_STATUS.OVER_BUDGET,
-      value: null,
+    return resourceLimitedDerived("triads", {
       estimate,
       limits,
       reason: `projection exceeds configured analysis budget (${estimate.references.toLocaleString()} estimated references > ${maxNeighborRefs.toLocaleString()})`,
-    };
+    });
   }
-  return { type: "triads", status: DERIVED_STATUS.COMPUTED, value: countTriads(hes), estimate, limits, reason: null };
+  const value = countTriads(hes);
+  if (value === null) {
+    return resourceLimitedDerived("triads", {
+      estimate,
+      limits,
+      reason: `triad count is limited to 2,000 hyperedges; received ${hes.length.toLocaleString()}`,
+    });
+  }
+  return computedDerived("triads", value, { estimate, limits });
 }
 
 export function validateHes(hes) {

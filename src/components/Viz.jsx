@@ -3,6 +3,12 @@ import { T, PALETTE } from "../theme.js";
 import { vcmp } from "../utils/parsers.js";
 import { arrayMax } from "../utils/numeric.js";
 import { buildV2VBounded, DERIVED_STATUS } from "../utils/mappings.js";
+import {
+  createGraphIdentifierMap,
+  getGraphIdentifierValue,
+  graphIdentifiersEqual,
+  setGraphIdentifierValue,
+} from "../utils/graphIdentifiers.js";
 
 export default function Viz({
   hyperedges,
@@ -55,18 +61,18 @@ export default function Viz({
   const searchHit = useMemo(() => { if (!search.trim()) return null; const q = search.trim().toLowerCase(); return verts.find(v => String(v).toLowerCase() === q) || verts.find(v => String(v).toLowerCase().includes(q)) || null; }, [search, verts]);
 
   const initPos = useCallback((W, H) => {
-    const nodes = {};
+    const nodes = createGraphIdentifierMap();
     if (layout === "circular") {
-      verts.forEach((v, i) => { const a = (i / verts.length) * 2 * Math.PI - Math.PI / 2, r = Math.min(W, H) * 0.44; nodes[v] = { id: v, x: W / 2 + r * Math.cos(a), y: H / 2 + r * Math.sin(a), vx: 0, vy: 0 }; });
+      verts.forEach((v, i) => { const a = (i / verts.length) * 2 * Math.PI - Math.PI / 2, r = Math.min(W, H) * 0.44; setGraphIdentifierValue(nodes, v, { id: v, x: W / 2 + r * Math.cos(a), y: H / 2 + r * Math.sin(a), vx: 0, vy: 0 }); });
     } else if (layout === "grid") {
       // Proper grid layout: sqrt(n) columns
       const cols = Math.max(2, Math.ceil(Math.sqrt(verts.length)));
       const rows = Math.ceil(verts.length / cols);
       const cw = (W - 80) / cols, rh = (H - 80) / rows;
-      verts.forEach((v, i) => { const col = i % cols, row = Math.floor(i / cols); nodes[v] = { id: v, x: 40 + cw * col + cw / 2, y: 40 + rh * row + rh / 2, vx: 0, vy: 0 }; });
+      verts.forEach((v, i) => { const col = i % cols, row = Math.floor(i / cols); setGraphIdentifierValue(nodes, v, { id: v, x: 40 + cw * col + cw / 2, y: 40 + rh * row + rh / 2, vx: 0, vy: 0 }); });
     } else {
       // force — start on a circle with jitter
-      verts.forEach((v, i) => { const a = (i / verts.length) * 2 * Math.PI, r = Math.min(W, H) * 0.42; nodes[v] = { id: v, x: W / 2 + r * Math.cos(a) + (Math.random() - .5) * 60, y: H / 2 + r * Math.sin(a) + (Math.random() - .5) * 60, vx: 0, vy: 0 }; });
+      verts.forEach((v, i) => { const a = (i / verts.length) * 2 * Math.PI, r = Math.min(W, H) * 0.42; setGraphIdentifierValue(nodes, v, { id: v, x: W / 2 + r * Math.cos(a) + (Math.random() - .5) * 60, y: H / 2 + r * Math.sin(a) + (Math.random() - .5) * 60, vx: 0, vy: 0 }); });
     }
     return nodes;
   }, [layout, verts]);
@@ -84,11 +90,13 @@ export default function Viz({
     // happens on first mount or when the person explicitly picks a
     // different layout.
     const prev = stateRef.current;
-    const isFreshLayout = !prev || prev.layoutKind !== layout;
+    const isFreshLayout = !prev || prev.layoutKind !== layout || !(prev.nodes instanceof Map);
     const placed = initPos(W, H); // candidate positions, used only for vertices with no prior position
-    const nodes = isFreshLayout ? placed : {};
+    const nodes = isFreshLayout ? placed : createGraphIdentifierMap();
     if (!isFreshLayout) {
-      verts.forEach(v => { nodes[v] = prev.nodes[v] ?? placed[v]; });
+      verts.forEach(v => {
+        setGraphIdentifierValue(nodes, v, getGraphIdentifierValue(prev.nodes, v) ?? getGraphIdentifierValue(placed, v));
+      });
     }
 
     stateRef.current = {
@@ -109,9 +117,9 @@ export default function Viz({
       const s = stateRef.current, t = s.transform, ns = s.nodes;
       // Force simulation (only in force layout)
       if (s.alpha > 0.001 && layout === "force" && verts.length <= 700) {
-        const A = s.alpha, arr = Object.values(ns);
+        const A = s.alpha, arr = [...ns.values()];
         for (let i = 0; i < arr.length; i++) for (let j = i + 1; j < arr.length; j++) { const a = arr[i], b = arr[j]; const dx = b.x - a.x, dy = b.y - a.y, d2 = dx * dx + dy * dy || 1, d = Math.sqrt(d2), f = 4000 / d2 * A; a.vx -= f * dx / d; a.vy -= f * dy / d; b.vx += f * dx / d; b.vy += f * dy / d; }
-        v2vEdges.forEach(({ u, v }) => { const a = ns[u], b = ns[v]; if (!a || !b) return; const dx = b.x - a.x, dy = b.y - a.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = (d - 90) * 0.03 * A; a.vx += f * dx / d; a.vy += f * dy / d; b.vx -= f * dx / d; b.vy -= f * dy / d; });
+        v2vEdges.forEach(({ u, v }) => { const a = getGraphIdentifierValue(ns, u), b = getGraphIdentifierValue(ns, v); if (!a || !b) return; const dx = b.x - a.x, dy = b.y - a.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = (d - 90) * 0.03 * A; a.vx += f * dx / d; a.vy += f * dy / d; b.vx -= f * dx / d; b.vy -= f * dy / d; });
         arr.forEach(n => { if (s.drag?.id === n.id) return; n.vx += (W / 2 - n.x) * 0.005 * A; n.vy += (H / 2 - n.y) * 0.005 * A; n.vx *= 0.75; n.vy *= 0.75; n.x += n.vx; n.y += n.vy; n.x = Math.max(24, Math.min(W - 24, n.x)); n.y = Math.max(24, Math.min(H - 24, n.y)); });
         s.alpha *= 0.993;
       }
@@ -129,7 +137,7 @@ export default function Viz({
       if (viewMode === "hypergraph") {
         // Draw hyperedge ellipses
         he.forEach((h, i) => {
-          const pts = h.vertices.map(v => ns[v]).filter(Boolean); if (!pts.length) return;
+          const pts = h.vertices.map(v => getGraphIdentifierValue(ns, v)).filter(Boolean); if (!pts.length) return;
           const color = PALETTE[i % PALETTE.length];
           const selected = hiHEs.has(h.id), dimmed = anySelect && !selected;
           const cx = pts.reduce((s, p) => s + p.x, 0) / pts.length, cy = pts.reduce((s, p) => s + p.y, 0) / pts.length;
@@ -147,7 +155,7 @@ export default function Viz({
 
       // Draw edges (always shown; in linegraph mode this IS the graph)
       v2vEdges.forEach(({ u, v }) => {
-        const a = ns[u], b = ns[v]; if (!a || !b) return;
+        const a = getGraphIdentifierValue(ns, u), b = getGraphIdentifierValue(ns, v); if (!a || !b) return;
         const hi = hiVerts.has(String(u)) && hiVerts.has(String(v)), dim = anySelect && !hi;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
         ctx.strokeStyle = hi ? "rgba(79,62,232,0.85)" : "rgba(60,60,100," + (dim ? "0.05" : viewMode === "linegraph" ? "0.4" : "0.18") + ")";
@@ -157,16 +165,16 @@ export default function Viz({
       // Algorithm traversal edges (BFS/DFS tree), drawn on top when present.
       if (algoHighlight?.edgesUsed?.length) {
         algoHighlight.edgesUsed.forEach(({ from, to }) => {
-          const a = ns[from], b = ns[to]; if (!a || !b) return;
+          const a = getGraphIdentifierValue(ns, from), b = getGraphIdentifierValue(ns, to); if (!a || !b) return;
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
           ctx.strokeStyle = T.green; ctx.lineWidth = 2.5; ctx.stroke();
         });
       }
 
       // Draw nodes
-      Object.values(ns).forEach(n => {
+      ns.forEach(n => {
         const isDrag = s.drag?.id === n.id;
-        const isHi = hiVerts.has(String(n.id)) || String(selV) === String(n.id) || String(searchHit) === String(n.id);
+        const isHi = hiVerts.has(String(n.id)) || graphIdentifiersEqual(selV, n.id) || graphIdentifiersEqual(searchHit, n.id);
         const dim = anySelect && !isHi;
         const r = isHi ? 13 : isDrag ? 14 : 8;
         const vid = String(n.id);
@@ -193,20 +201,20 @@ export default function Viz({
   }, [he, verts, v2vEdges, selHE, selV, searchHit, layout, viewMode, initPos, algoHighlight, componentColors]);
 
   function toWorld(cx, cy) { const t = stateRef.current?.transform || { x: 0, y: 0, s: 1 }; return { wx: (cx - t.x) / t.s, wy: (cy - t.y) / t.s }; }
-  function hitNode(wx, wy) { const s = stateRef.current; if (!s) return null; let best = null, bd = Infinity; Object.values(s.nodes).forEach(n => { const d = Math.hypot(n.x - wx, n.y - wy); if (d < 18 / s.transform.s && d < bd) { bd = d; best = n; } }); return best; }
+  function hitNode(wx, wy) { const s = stateRef.current; if (!s) return null; let best = null, bd = Infinity; s.nodes.forEach(n => { const d = Math.hypot(n.x - wx, n.y - wy); if (d < 18 / s.transform.s && d < bd) { bd = d; best = n; } }); return best; }
   function getXY(e) { const r = canvasRef.current.getBoundingClientRect(); const src = e.touches ? e.touches[0] : e; return { cx: src.clientX - r.left, cy: src.clientY - r.top }; }
-  const onDown = useCallback(e => { e.preventDefault(); const s = stateRef.current; if (!s) return; const { cx, cy } = getXY(e); const { wx, wy } = toWorld(cx, cy); const hit = hitNode(wx, wy); if (hit) { s.drag = { id: hit.id }; s.alpha = Math.max(s.alpha, 0.3); setSelV(v => String(v) === String(hit.id) ? null : hit.id); setSelHE(null); } else { s.pan = { cx, cy, tx: s.transform.x, ty: s.transform.y }; setSelV(null); setSelHE(null); } }, []);
+  const onDown = useCallback(e => { e.preventDefault(); const s = stateRef.current; if (!s) return; const { cx, cy } = getXY(e); const { wx, wy } = toWorld(cx, cy); const hit = hitNode(wx, wy); if (hit) { s.drag = { id: hit.id }; s.alpha = Math.max(s.alpha, 0.3); setSelV(v => graphIdentifiersEqual(v, hit.id) ? null : hit.id); setSelHE(null); } else { s.pan = { cx, cy, tx: s.transform.x, ty: s.transform.y }; setSelV(null); setSelHE(null); } }, []);
   const onMove = useCallback(e => {
     e.preventDefault(); const s = stateRef.current; if (!s) return;
     const { cx, cy } = getXY(e);
-    if (s.drag) { const { wx, wy } = toWorld(cx, cy); const n = s.nodes[s.drag.id]; if (n) { n.x = wx; n.y = wy; n.vx = 0; n.vy = 0; } }
+    if (s.drag) { const { wx, wy } = toWorld(cx, cy); const n = getGraphIdentifierValue(s.nodes, s.drag.id); if (n) { n.x = wx; n.y = wy; n.vx = 0; n.vy = 0; } }
     else if (s.pan) { s.transform.x = s.pan.tx + (cx - s.pan.cx); s.transform.y = s.pan.ty + (cy - s.pan.cy); }
     else {
       const { wx, wy } = toWorld(cx, cy); const hit = hitNode(wx, wy);
       if (hit) { const inHEs = he.filter(h => h.vertices.map(String).includes(String(hit.id))); setInfo({ x: cx, y: cy, title: String(hit.id), lines: ["degree: " + inHEs.length, "in: " + (inHEs.map(h => h.id).join(", ") || "none")] }); }
       else if (viewMode === "hypergraph") {
         let found = null, minR = Infinity;
-        he.forEach(h => { const pts = h.vertices.map(v => stateRef.current?.nodes[v]).filter(Boolean); if (!pts.length) return; const cx2 = pts.reduce((s, p) => s + p.x, 0) / pts.length, cy2 = pts.reduce((s, p) => s + p.y, 0) / pts.length; const rx = Math.max(28, arrayMax(pts.map(p => Math.abs(p.x - cx2))) + 28), ry = Math.max(28, arrayMax(pts.map(p => Math.abs(p.y - cy2))) + 28); const ex = (wx - cx2) / rx, ey = (wy - cy2) / ry; if (ex * ex + ey * ey <= 1 && rx + ry < minR) { minR = rx + ry; found = h; } });
+        he.forEach(h => { const pts = h.vertices.map(v => getGraphIdentifierValue(stateRef.current.nodes, v)).filter(Boolean); if (!pts.length) return; const cx2 = pts.reduce((s, p) => s + p.x, 0) / pts.length, cy2 = pts.reduce((s, p) => s + p.y, 0) / pts.length; const rx = Math.max(28, arrayMax(pts.map(p => Math.abs(p.x - cx2))) + 28), ry = Math.max(28, arrayMax(pts.map(p => Math.abs(p.y - cy2))) + 28); const ex = (wx - cx2) / rx, ey = (wy - cy2) / ry; if (ex * ex + ey * ey <= 1 && rx + ry < minR) { minR = rx + ry; found = h; } });
         if (found) { const ls = ["cardinality: " + found.vertices.length, "vertices: " + found.vertices.join(", ")]; if (found.time != null) ls.push("time: " + found.time); if (found.weight && found.weight !== 1) ls.push("weight: " + found.weight); setInfo({ x: cx, y: cy, title: found.id, lines: ls }); }
         else setInfo(null);
       } else setInfo(null);
@@ -318,7 +326,7 @@ export default function Viz({
         </div>
       </div>
       <div style={{ marginTop: 10, display: "flex", gap: 6, flexWrap: "wrap" }}>
-        {[...verts].sort(vcmp).map(v => { const active = String(selV) === String(v) || (selHE != null && he.find(h => h.id === selHE)?.vertices.map(String).includes(String(v))) || String(searchHit) === String(v); return (<div key={String(v)} onClick={() => { setSelV(x => String(x) === String(v) ? null : v); setSelHE(null); }} style={{ padding: "4px 12px", borderRadius: 16, cursor: "pointer", border: "1px solid " + (active ? T.accent : T.border), background: active ? T.accentLt : "transparent", fontSize: 13, fontFamily: "monospace", color: active ? T.accent : T.textDim, transition: "all .12s", fontWeight: active ? 700 : 400 }}>{String(v)}</div>); })}
+        {[...verts].sort(vcmp).map(v => { const active = graphIdentifiersEqual(selV, v) || (selHE != null && he.find(h => h.id === selHE)?.vertices.map(String).includes(String(v))) || graphIdentifiersEqual(searchHit, v); return (<div key={String(v)} onClick={() => { setSelV(x => graphIdentifiersEqual(x, v) ? null : v); setSelHE(null); }} style={{ padding: "4px 12px", borderRadius: 16, cursor: "pointer", border: "1px solid " + (active ? T.accent : T.border), background: active ? T.accentLt : "transparent", fontSize: 13, fontFamily: "monospace", color: active ? T.accent : T.textDim, transition: "all .12s", fontWeight: active ? 700 : 400 }}>{String(v)}</div>); })}
       </div>
     </div>
   );

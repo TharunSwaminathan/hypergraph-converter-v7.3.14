@@ -39,7 +39,9 @@ export function parseExpectedOutputText(text, fileName = "") {
       };
     }
   }
-  const h2v = {};
+  // Preserve the plain-object API while removing prototype semantics from
+  // arbitrary user-supplied hyperedge identifiers.
+  const h2v = Object.create(null);
   for (const line of lines) {
     const separator = line.indexOf(":");
     if (separator < 0) return null;

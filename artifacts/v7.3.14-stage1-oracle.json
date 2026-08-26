@@ -1,0 +1,82 @@
+{
+  "stage": 1,
+  "scope": "canonical_identity_and_result_state_contracts",
+  "historicalStage0Evidence": "artifacts/v7.3.14-stage0-oracle.json",
+  "fixedCount": 6,
+  "total": 6,
+  "checks": [
+    {
+      "id": "HG713-C06",
+      "title": "CSR/CSC rejects unsupported identifiers before coercion",
+      "fixed": true,
+      "evidence": {
+        "fixturesRejected": 2,
+        "accidentalObjectIdentifier": false
+      }
+    },
+    {
+      "id": "HG713-S03",
+      "title": "Visualization node storage treats reserved identifiers as data",
+      "fixed": true,
+      "evidence": {
+        "nodeStore": "Map",
+        "reservedKeys": [
+          "__proto__",
+          "constructor",
+          "toString"
+        ]
+      }
+    },
+    {
+      "id": "N01",
+      "title": "Simple/H2V rejects duplicate hyperedge identity",
+      "fixed": true,
+      "evidence": {
+        "diagnostic": "Line 2 hyperedge ID duplicates Line 1 hyperedge ID: \"duplicate\""
+      }
+    },
+    {
+      "id": "N02",
+      "title": "Literal null identifier remains distinct from unset state",
+      "fixed": true,
+      "evidence": {
+        "nullEqualsLiteralNull": false
+      }
+    },
+    {
+      "id": "N03",
+      "title": "Expected-output comparison preserves reserved hyperedge IDs",
+      "fixed": true,
+      "evidence": {
+        "ownKeys": [
+          "__proto__"
+        ],
+        "expectedHyperedges": 1
+      }
+    },
+    {
+      "id": "HG713-R07",
+      "title": "Bounded triad result cannot report computed plus null",
+      "fixed": true,
+      "evidence": {
+        "result": {
+          "type": "triads",
+          "status": "over_budget",
+          "value": null,
+          "estimate": {
+            "references": 0,
+            "overBudget": false,
+            "largestVertexDegree": 1
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxHyperedges": 2000
+          },
+          "reason": "triad count is limited to 2,000 hyperedges; received 2,001"
+        },
+        "computedNullRejected": true,
+        "computedZeroAccepted": true
+      }
+    }
+  ]
+}

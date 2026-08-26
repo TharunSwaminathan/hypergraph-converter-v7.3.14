@@ -1,5 +1,7 @@
 ﻿// Format parsers: turn raw pasted/uploaded text into a normalized hyperedge list.
 
+import { normalizeGraphIdentifier, normalizeUniqueGraphIdentifiers } from "./graphIdentifiers.js";
+
 export function tok(s) { const n = Number(s); return (String(s).trim() !== "" && !isNaN(n)) ? n : String(s).trim(); }
 export function vcmp(a, b) { if (typeof a === typeof b) return a < b ? -1 : a > b ? 1 : 0; return typeof a === "number" ? -1 : 1; }
 export function cleanToken(s) { return String(s ?? "").trim().replace(/^["']|["']$/g, ""); }
@@ -23,19 +25,6 @@ function parseFiniteWeight(value, path, { defaultValue = 1, allowMissing = true 
   const n = typeof value === "number" ? value : Number(value);
   if (!Number.isFinite(n)) failAt(path, `must be a finite number; received ${JSON.stringify(value)}`);
   return n;
-}
-
-function normalizeIdentifierValue(value, path) {
-  if (typeof value === "string") {
-    const cleaned = cleanToken(value);
-    if (!cleaned) failAt(path, "must be a non-empty string or finite number identifier; received blank string");
-    return cleaned;
-  }
-  if (typeof value === "number") {
-    if (!Number.isFinite(value)) failAt(path, `must be a finite number identifier; received ${String(value)}`);
-    return String(value);
-  }
-  failAt(path, `must be a string or finite number identifier; received ${Array.isArray(value) ? "array" : value === null ? "null" : typeof value}`);
 }
 
 function normalizeTimeValue(value, path) {
@@ -88,12 +77,13 @@ export function normalizeHyperedges(raw, { pathPrefix = "hyperedges" } = {}) {
   for (const [i, h] of (raw ?? []).entries()) {
     const path = `${pathPrefix}[${i}]`;
     if (!isPlainObject(h)) failAt(path, `must be an object; received ${Array.isArray(h) ? "array" : typeof h}`);
-    let id = h.id ?? h.hid;
-    id = id == null || id === "" ? `h${i + 1}` : normalizeIdentifierValue(id, `${path}.id`);
+    const hasExplicitId = Object.hasOwn(h, "id") || Object.hasOwn(h, "hid");
+    const rawId = Object.hasOwn(h, "id") ? h.id : h.hid;
+    const id = hasExplicitId ? normalizeGraphIdentifier(rawId, { path: `${path}.id` }) : `h${i + 1}`;
     if (usedIds.has(id)) failAt(`${path}.id`, `duplicates ${usedIds.get(id)}.id: "${id}"`);
     usedIds.set(id, path);
     const membership = membershipArrayFrom(h, path);
-    const verts = uniquePreserve(membership.value.map((value, j) => normalizeIdentifierValue(value, `${path}.${membership.field}[${j}]`)));
+    const verts = uniquePreserve(membership.value.map((value, j) => normalizeGraphIdentifier(value, { path: `${path}.${membership.field}[${j}]` })));
     if (verts.length === 0) warnings.push(`Hyperedge "${id}" has no vertices.`);
     const w = parseFiniteWeight(h.weight, `${path}.weight`, { defaultValue: 1 });
     const rawAttributes = h.attributes;
@@ -193,7 +183,7 @@ export function parseCornell(nv, sv, tv) {
   });
 }
 export function parseSimple(t) {
-  return t.trim().split("\n").filter(l => l.trim() && !l.startsWith("#")).map((l, i) => {
+  const hyperedges = t.trim().split("\n").filter(l => l.trim() && !l.startsWith("#")).map((l, i) => {
     const { line: cl, meta } = extractMeta(l);
     const ci = cl.indexOf(":");
     if (ci === -1) throw new Error("Line " + (i + 1) + ": missing colon");
@@ -201,6 +191,10 @@ export function parseSimple(t) {
     const vertices = cl.slice(ci + 1).trim().split(/[\s,]+/).map(tok).filter(v => v !== "");
     return { id, vertices, time: meta.time != null ? meta.time : null, weight: parseFiniteWeight(meta.weight, `Line ${i + 1} weight`, { defaultValue: 1 }) };
   });
+  normalizeUniqueGraphIdentifiers(hyperedges.map(edge => edge.id), {
+    pathForIndex: index => `Line ${index + 1} hyperedge ID`,
+  });
+  return hyperedges;
 }
 export function parseCSVFmt(t) {
   return parseCsvDocument(t)
@@ -341,36 +335,46 @@ export function parseCSRJson(t) {
   const csc = data.h2vCSC ?? data.csc ?? ((data.columnPointers || csr.columnPointers) ? csr : null);
   if (csc && (csc.columnPointers || data.columnPointers) && (csc.rowIndices || data.rowIndices)) {
     if (!vertexIds || !hyperedgeIds) throw new Error("CSC JSON missing vertexIds or hyperedgeIds.");
-    const { pointers: columnPointers, indices: rowIndices } = validateSparseMatrixStructure({
+    const {
+      pointers: columnPointers,
+      indices: rowIndices,
+      primaryIds: normalizedVertexIds,
+      foreignIds: normalizedHyperedgeIds,
+    } = validateSparseMatrixStructure({
       format: "CSC JSON",
       pointers: csc.columnPointers ?? data.columnPointers,
       indices: csc.rowIndices ?? data.rowIndices,
       primaryIds: vertexIds,
       foreignIds: hyperedgeIds,
     });
-    const hes = hyperedgeIds.map((hid, row) => ({
-      id: String(hid),
+    const hes = normalizedHyperedgeIds.map((hid, row) => ({
+      id: hid,
       vertices: [],
       time: hyperedgeTimes?.[row] ?? null,
       weight: hyperedgeWeights?.[row] ?? 1,
     }));
-    vertexIds.forEach((vertexId, col) => {
+    normalizedVertexIds.forEach((vertexId, col) => {
       for (let ptr = columnPointers[col]; ptr < columnPointers[col + 1]; ptr += 1) {
-        hes[rowIndices[ptr]].vertices.push(String(vertexId));
+        hes[rowIndices[ptr]].vertices.push(vertexId);
       }
     });
     return hes;
   }
   if (!vertexIds || !hyperedgeIds) throw new Error("CSR JSON missing vertexIds or hyperedgeIds.");
-  const { pointers: offsets, indices } = validateSparseMatrixStructure({
+  const {
+    pointers: offsets,
+    indices,
+    primaryIds: normalizedHyperedgeIds,
+    foreignIds: normalizedVertexIds,
+  } = validateSparseMatrixStructure({
     format: "CSR JSON",
     pointers: csr.offsets ?? csr.rowOffsets ?? data.rowOffsets,
     indices: csr.indices ?? csr.columnIndices ?? data.columnIndices,
     primaryIds: hyperedgeIds,
     foreignIds: vertexIds,
   });
-  return hyperedgeIds.map((hid, row) => ({
-    id: String(hid), vertices: indices.slice(offsets[row], offsets[row + 1]).map(idx => String(vertexIds[idx])),
+  return normalizedHyperedgeIds.map((hid, row) => ({
+    id: hid, vertices: indices.slice(offsets[row], offsets[row + 1]).map(idx => normalizedVertexIds[idx]),
     time: hyperedgeTimes?.[row] ?? null, weight: hyperedgeWeights?.[row] ?? 1
   }));
 }
@@ -391,29 +395,39 @@ export function parseCSRCsv(t) {
     return weights?.[i] ?? 1;
   };
   if (data.get("columnPointers") && data.get("rowIndices")) {
-    const { pointers, indices: rowIndices } = validateSparseMatrixStructure({
+    const {
+      pointers,
+      indices: rowIndices,
+      primaryIds: normalizedVertexIds,
+      foreignIds: normalizedHyperedgeIds,
+    } = validateSparseMatrixStructure({
       format: "CSC CSV",
       pointers: data.get("columnPointers"),
       indices: data.get("rowIndices"),
       primaryIds: vIds,
       foreignIds: hIds,
     });
-    const hes = hIds.map((hid, i) => ({ id: String(hid), vertices: [], time: timeAt(i), weight: weightAt(i) }));
-    vIds.forEach((vertexId, col) => {
+    const hes = normalizedHyperedgeIds.map((hid, i) => ({ id: hid, vertices: [], time: timeAt(i), weight: weightAt(i) }));
+    normalizedVertexIds.forEach((vertexId, col) => {
       for (let ptr = pointers[col]; ptr < pointers[col + 1]; ptr += 1) {
-        hes[rowIndices[ptr]].vertices.push(String(vertexId));
+        hes[rowIndices[ptr]].vertices.push(vertexId);
       }
     });
     return hes;
   }
-  const { pointers: offs, indices: idxs } = validateSparseMatrixStructure({
+  const {
+    pointers: offs,
+    indices: idxs,
+    primaryIds: normalizedHyperedgeIds,
+    foreignIds: normalizedVertexIds,
+  } = validateSparseMatrixStructure({
     format: "CSR CSV",
     pointers: data.get("rowOffsets") ?? data.get("offsets"),
     indices: data.get("columnIndices") ?? data.get("indices"),
     primaryIds: hIds,
     foreignIds: vIds,
   });
-  return hIds.map((hid, i) => ({ id: String(hid), vertices: idxs.slice(offs[i], offs[i + 1]).map(idx => String(vIds[idx])), time: timeAt(i), weight: weightAt(i) }));
+  return normalizedHyperedgeIds.map((hid, i) => ({ id: hid, vertices: idxs.slice(offs[i], offs[i + 1]).map(idx => normalizedVertexIds[idx]), time: timeAt(i), weight: weightAt(i) }));
 }
 
 function validateOptionalMetadataVector(vector, expectedLength, label, { weights = false } = {}) {
@@ -452,19 +466,11 @@ export function validateSparseMatrixStructure({ format, pointers, indices, prima
 
   if (!Array.isArray(primaryIds) || !primaryIds.length) fail("missing or empty ID list for the pointer dimension.");
   if (!Array.isArray(foreignIds) || !foreignIds.length) fail("missing or empty ID list for the index dimension.");
-  primaryIds.forEach((id, i) => { if (id == null || String(id).trim() === "") fail(`ID list entry ${i + 1} (pointer dimension) is missing/blank.`); });
-  foreignIds.forEach((id, i) => { if (id == null || String(id).trim() === "") fail(`ID list entry ${i + 1} (index dimension) is missing/blank.`); });
-  const primarySeen = new Set();
-  primaryIds.forEach(id => {
-    const key = String(id);
-    if (primarySeen.has(key)) fail(`duplicate ID "${key}" in the pointer-dimension ID list makes the representation ambiguous.`);
-    primarySeen.add(key);
+  const normalizedPrimaryIds = normalizeUniqueGraphIdentifiers(primaryIds, {
+    pathForIndex: index => `${format}: ID list entry ${index + 1} (pointer dimension)`,
   });
-  const foreignSeen = new Set();
-  foreignIds.forEach(id => {
-    const key = String(id);
-    if (foreignSeen.has(key)) fail(`duplicate ID "${key}" in the index-dimension ID list makes the representation ambiguous.`);
-    foreignSeen.add(key);
+  const normalizedForeignIds = normalizeUniqueGraphIdentifiers(foreignIds, {
+    pathForIndex: index => `${format}: ID list entry ${index + 1} (index dimension)`,
   });
 
   if (!Array.isArray(pointers)) fail("pointer array is missing.");
@@ -503,7 +509,12 @@ export function validateSparseMatrixStructure({ format, pointers, indices, prima
     return n;
   });
 
-  return { pointers: numericPointers, indices: numericIndices };
+  return {
+    pointers: numericPointers,
+    indices: numericIndices,
+    primaryIds: normalizedPrimaryIds,
+    foreignIds: normalizedForeignIds,
+  };
 }
 
 export function parseAdjList(t) {

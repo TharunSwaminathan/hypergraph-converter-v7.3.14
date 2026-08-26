@@ -1,0 +1,62 @@
+{
+  "stage": 1,
+  "scope": "canonical_identity_and_result_state_contracts",
+  "baselineCommit": "0cfd14d45b652426905a72a02bf66cf8a9b621df",
+  "approvedStage0Commit": "b13fc1eaae5cf53680cbade12b01ffc0097bd2a0",
+  "historicalStage0Evidence": "artifacts/v7.3.14-stage0-oracle.json",
+  "issues": [
+    {
+      "id": "HG713-C06",
+      "status": "fixed",
+      "positiveRegression": "tests/stage1-canonical-identity-contract.test.mjs",
+      "evidence": "CSR/CSC identifier arrays now pass through the canonical string/finite-number validator before output construction."
+    },
+    {
+      "id": "HG713-S03",
+      "status": "fixed",
+      "positiveRegression": "tests/stage1-canonical-identity-contract.test.mjs",
+      "evidence": "Visualization nodes use a Map keyed through the canonical identifier helper."
+    },
+    {
+      "id": "N03",
+      "status": "fixed",
+      "positiveRegression": "tests/stage1-canonical-identity-contract.test.mjs",
+      "evidence": "Compact expected H2V text uses a null-prototype object and preserves __proto__ as an own data key."
+    },
+    {
+      "id": "N01",
+      "status": "fixed",
+      "positiveRegression": "tests/stage1-canonical-identity-contract.test.mjs",
+      "evidence": "Simple/H2V rejects duplicate canonical hyperedge IDs with both source locations in the diagnostic."
+    },
+    {
+      "id": "N02",
+      "status": "fixed",
+      "positiveRegression": "tests/stage1-canonical-identity-contract.test.mjs",
+      "evidence": "Nullable visualization selections use presence-aware identifier equality; null and undefined no longer equal the literal ID null."
+    },
+    {
+      "id": "HG713-R07",
+      "status": "fixed",
+      "positiveRegression": "tests/stage1-result-state-contract.test.mjs",
+      "evidence": "Computed-result construction rejects null/undefined and the 2,001-hyperedge triad path reports over_budget."
+    }
+  ],
+  "deferredObservations": [
+    {
+      "status": "not_assessed_in_stage1",
+      "scope": "custom-parser bounded clone object keys",
+      "reason": "The generated worker clone contains an ordinary object keyed by arbitrary result properties; changing sandbox serialization is outside Stage 1 and protected by Stage 0 preservation."
+    },
+    {
+      "status": "not_assessed_in_stage1",
+      "scope": "transformation-plan diagnostic filename keys",
+      "reason": "Generated diagnostic objects are keyed by uploaded filenames; a scoped assessment belongs to a later approved stage rather than a blind Map migration."
+    },
+    {
+      "status": "not_assessed_in_stage1",
+      "scope": "generic object-key canonicalization helpers",
+      "reason": "graphFingerprint and several fixed-key registries use ordinary objects, but Stage 1 found no evidence that those stores are graph-identifier collections."
+    }
+  ]
+}
