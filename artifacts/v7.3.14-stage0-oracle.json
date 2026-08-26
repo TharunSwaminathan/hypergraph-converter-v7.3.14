@@ -1,0 +1,531 @@
+{
+  "stage": 0,
+  "packageVersion": "7.3.13",
+  "projectRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+  "referenceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\baseline-main-7.3.11\\hypergraph-converter-main",
+  "targetArchive": "C:\\Users\\tharu\\Downloads\\College\\candi\\hypergraph-converter-v7.3.13-portable.zip",
+  "mainArchive": "C:\\Users\\tharu\\Downloads\\College\\candi\\hypergraph-converter-main.zip",
+  "generatedAt": "2026-08-26T22:00:41.841Z",
+  "environment": {
+    "platform": "win32",
+    "architecture": "x64",
+    "node": "v24.19.0"
+  },
+  "summary": {
+    "total": 24,
+    "reproduced": 24,
+    "notReproduced": 0
+  },
+  "timings": {
+    "currentDuplicateOverlapMs": 9.22,
+    "mainDuplicateOverlapMs": 41.83,
+    "mainOneHugeEdge1KAdjacencyMs": 474.04,
+    "denseMatrix400x400Ms": 252.22,
+    "lineGraph632Ms": 135.47
+  },
+  "results": [
+    {
+      "id": "HG713-R01",
+      "title": "Hypergraph Force lost topology-aware attraction",
+      "reproduced": true,
+      "method": "differential_source",
+      "evidence": {
+        "currentLineGraphOnly": true,
+        "forceStillConsumesV2V": true,
+        "mainAlwaysBuildsV2V": true
+      }
+    },
+    {
+      "id": "HG713-R02",
+      "title": "Hypergraph co-membership lines disappeared",
+      "reproduced": true,
+      "method": "source",
+      "evidence": {
+        "hypergraphModeSuppliesEmptyV2V": true,
+        "drawLoopUsesV2V": true
+      }
+    },
+    {
+      "id": "HG713-R03",
+      "title": "Whitespace-row built-in example is misparsed",
+      "reproduced": true,
+      "method": "differential_runtime",
+      "evidence": {
+        "detectedAs": "csv",
+        "currentMemberships": [
+          [
+            "1 2 3"
+          ],
+          [
+            "2 4"
+          ],
+          [
+            "1 3 4 5"
+          ]
+        ],
+        "mainMemberships": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            1,
+            3,
+            4,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "id": "HG713-R04",
+      "title": "Projection budget conflates candidate work and unique output",
+      "reproduced": true,
+      "method": "differential_runtime",
+      "evidence": {
+        "candidatePairs": 207000,
+        "currentEstimateAtAbort": 200790,
+        "currentBudget": 200000,
+        "mainUniqueEdges": 1035
+      }
+    },
+    {
+      "id": "HG713-R05",
+      "title": "Core algorithms unnecessarily require full V2V",
+      "reproduced": true,
+      "method": "differential_runtime",
+      "evidence": {
+        "currentFailures": {
+          "adjacency": "V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit.",
+          "bfs": "V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit.",
+          "dfs": "V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit.",
+          "connected_components": "V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+        },
+        "mainVertices": 1000,
+        "mainDegreeV0": 999
+      }
+    },
+    {
+      "id": "HG713-R06",
+      "title": "Force has a 700/701 cliff and reheat can be a no-op",
+      "reproduced": true,
+      "method": "source",
+      "evidence": {
+        "forceGuard": "verts.length <= 700",
+        "reheatOnlySetsAlpha": true
+      }
+    },
+    {
+      "id": "HG713-R07",
+      "title": "Bounded triad wrapper produces computed plus null",
+      "reproduced": true,
+      "method": "runtime_and_source",
+      "evidence": {
+        "result": {
+          "type": "triads",
+          "status": "computed",
+          "value": null,
+          "estimate": {
+            "references": 0,
+            "overBudget": false,
+            "largestVertexDegree": 1
+          },
+          "limits": {
+            "maxNeighborRefs": 200000
+          },
+          "reason": null
+        },
+        "rendererThrows": true
+      }
+    },
+    {
+      "id": "HG713-R08",
+      "title": "Portable ZIP lost Unix executable metadata",
+      "reproduced": true,
+      "method": "archive_runtime",
+      "evidence": {
+        "targetShellModes": [
+          {
+            "name": "hypergraph-converter-v7.3.13/check-local-model-runtime.sh",
+            "createSystem": 0,
+            "mode": 0
+          },
+          {
+            "name": "hypergraph-converter-v7.3.13/configure-ollama-origins.example.sh",
+            "createSystem": 0,
+            "mode": 0
+          },
+          {
+            "name": "hypergraph-converter-v7.3.13/run-local-runtime-bridge.sh",
+            "createSystem": 0,
+            "mode": 0
+          },
+          {
+            "name": "hypergraph-converter-v7.3.13/run-with-ollama.sh",
+            "createSystem": 0,
+            "mode": 0
+          },
+          {
+            "name": "hypergraph-converter-v7.3.13/setup-ollama-model.sh",
+            "createSystem": 0,
+            "mode": 0
+          },
+          {
+            "name": "hypergraph-converter-v7.3.13/smoke-test-qwen3-8b.sh",
+            "createSystem": 0,
+            "mode": 0
+          }
+        ],
+        "mainShellModes": [
+          {
+            "name": "hypergraph-converter-main/check-local-model-runtime.sh",
+            "createSystem": 3,
+            "mode": 33261
+          },
+          {
+            "name": "hypergraph-converter-main/configure-ollama-origins.example.sh",
+            "createSystem": 3,
+            "mode": 33261
+          },
+          {
+            "name": "hypergraph-converter-main/run-local-runtime-bridge.sh",
+            "createSystem": 3,
+            "mode": 33261
+          },
+          {
+            "name": "hypergraph-converter-main/run-with-ollama.sh",
+            "createSystem": 3,
+            "mode": 33261
+          },
+          {
+            "name": "hypergraph-converter-main/setup-ollama-model.sh",
+            "createSystem": 3,
+            "mode": 33261
+          },
+          {
+            "name": "hypergraph-converter-main/smoke-test-qwen3-8b.sh",
+            "createSystem": 3,
+            "mode": 33261
+          }
+        ]
+      }
+    },
+    {
+      "id": "HG713-C01",
+      "title": "Read-only language can authorize graph mutation",
+      "reproduced": true,
+      "method": "runtime",
+      "evidence": {
+        "compilations": [
+          {
+            "query": "Keep the workspace untouched while describing create hyperedge h3 with vertices 8 and 9.",
+            "speechAct": "imperative_request",
+            "sideEffectClass": "graph_edit_preview",
+            "dispatchAuthorized": true,
+            "mode": "action"
+          },
+          {
+            "query": "I do not consent to any operation. Tell me what create hyperedge h3 with vertices 8 and 9 would change.",
+            "speechAct": "imperative_request",
+            "sideEffectClass": "graph_edit_preview",
+            "dispatchAuthorized": true,
+            "mode": "action"
+          },
+          {
+            "query": "Read Create hyperedge h3 with vertices 8 and 9 as text and explain its semantics.",
+            "speechAct": "imperative_request",
+            "sideEffectClass": "graph_edit_preview",
+            "dispatchAuthorized": true,
+            "mode": "action"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HG713-C02",
+      "title": "Read-only pending correction wording replaces staged graph action",
+      "reproduced": true,
+      "method": "runtime",
+      "evidence": {
+        "routes": [
+          {
+            "query": "Keep the workspace untouched while describing change the pending vertex from 6 to 7.",
+            "route": "graph_replacement",
+            "mode": "execute",
+            "executionAuthorized": true,
+            "authorizedPendingCorrection": true
+          },
+          {
+            "query": "I do not consent to any operation. Tell me what change the pending vertex from 6 to 7 would change.",
+            "route": "graph_replacement",
+            "mode": "execute",
+            "executionAuthorized": true,
+            "authorizedPendingCorrection": true
+          },
+          {
+            "query": "Read change the pending vertex from 6 to 7 as text and explain its semantics.",
+            "route": "graph_replacement",
+            "mode": "execute",
+            "executionAuthorized": true,
+            "authorizedPendingCorrection": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "HG713-C03",
+      "title": "Ordinary graph load eagerly derives base structures and strings",
+      "reproduced": true,
+      "method": "source",
+      "evidence": {
+        "eagerDerivedProducts": [
+          "h2v",
+          "v2h",
+          "csr",
+          "h2v_text",
+          "v2h_text"
+        ]
+      }
+    },
+    {
+      "id": "HG713-C04",
+      "title": "Dense Matrix export repeats membership scans per cell",
+      "reproduced": true,
+      "method": "runtime_and_source",
+      "evidence": {
+        "cells": 160801,
+        "elapsedMs": 252.22
+      }
+    },
+    {
+      "id": "HG713-C05",
+      "title": "Allowed Line Graph work can block and redraw too much",
+      "reproduced": true,
+      "method": "runtime_and_source",
+      "evidence": {
+        "uniqueEdges": 199396,
+        "elapsedMs": 135.47,
+        "continuousRaf": true
+      }
+    },
+    {
+      "id": "HG713-C06",
+      "title": "CSR/CSC invalid identifiers are silently string-coerced",
+      "reproduced": true,
+      "method": "runtime",
+      "evidence": {
+        "parsedVertexId": "[object Object]"
+      }
+    },
+    {
+      "id": "HG713-C07",
+      "title": "Incidence metadata conflicts are silently discarded",
+      "reproduced": true,
+      "method": "runtime",
+      "evidence": {
+        "retainedWeight": 2,
+        "retainedTime": "t1"
+      }
+    },
+    {
+      "id": "HG713-C08",
+      "title": "Malformed H2H and adjacency syntax is accepted",
+      "reproduced": true,
+      "method": "runtime",
+      "evidence": {
+        "malformedH2HResults": [
+          {
+            "ok": true,
+            "value": [
+              {
+                "id": "h1",
+                "vertices": [],
+                "time": null,
+                "weight": 1
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "value": [
+              {
+                "id": "h1",
+                "vertices": [
+                  "a"
+                ],
+                "time": null,
+                "weight": 1
+              },
+              {
+                "id": "h2",
+                "vertices": [
+                  "a"
+                ],
+                "time": null,
+                "weight": 1
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "value": [
+              {
+                "id": "h1",
+                "vertices": [
+                  "a"
+                ],
+                "time": null,
+                "weight": 1
+              },
+              {
+                "id": "h2",
+                "vertices": [
+                  "a"
+                ],
+                "time": null,
+                "weight": 1
+              }
+            ]
+          }
+        ],
+        "malformedAdjacencyResults": [
+          {
+            "ok": true,
+            "value": [
+              {
+                "id": "h0",
+                "vertices": [
+                  "A",
+                  "B"
+                ],
+                "time": null,
+                "weight": 1
+              },
+              {
+                "id": "h1",
+                "vertices": [
+                  "A",
+                  "C"
+                ],
+                "time": null,
+                "weight": 1
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "value": [
+              {
+                "id": "h0",
+                "vertices": [
+                  "A",
+                  "B:"
+                ],
+                "time": null,
+                "weight": 1
+              },
+              {
+                "id": "h1",
+                "vertices": [
+                  "A",
+                  "C"
+                ],
+                "time": null,
+                "weight": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HG713-C09",
+      "title": "Graph Preview hides valid weight zero",
+      "reproduced": true,
+      "method": "source",
+      "evidence": {
+        "truthinessChecks": 3,
+        "fixtureWeight": 0
+      }
+    },
+    {
+      "id": "HG713-S01",
+      "title": "Preview claims ring clicks but click path only hit-tests nodes",
+      "reproduced": true,
+      "method": "source",
+      "evidence": {
+        "ringClickClaimed": true,
+        "clickHitTest": "node_only"
+      }
+    },
+    {
+      "id": "HG713-S02",
+      "title": "Numeric vertex zero search falls through truthiness fallback",
+      "reproduced": true,
+      "method": "source_and_language_runtime",
+      "evidence": {
+        "javascriptFallbackForNumericZero": null
+      }
+    },
+    {
+      "id": "HG713-S03",
+      "title": "Plain-object node storage mishandles __proto__",
+      "reproduced": true,
+      "method": "source_and_language_runtime",
+      "evidence": {
+        "ownProtoNode": false
+      }
+    },
+    {
+      "id": "HG713-S04",
+      "title": "Canvas backing size does not observe container resize",
+      "reproduced": true,
+      "method": "source",
+      "evidence": {
+        "readsOffsetWidth": true,
+        "resizeObserverPresent": false
+      }
+    },
+    {
+      "id": "N01",
+      "title": "Simple/H2V accepts duplicate hyperedge IDs",
+      "reproduced": true,
+      "method": "runtime",
+      "evidence": {
+        "parsedIds": [
+          "duplicate",
+          "duplicate"
+        ]
+      }
+    },
+    {
+      "id": "N02",
+      "title": "Literal null identifier collides with unset Preview state",
+      "reproduced": true,
+      "method": "source_and_language_runtime",
+      "evidence": {
+        "unsetString": "null",
+        "literalId": "null",
+        "collide": true
+      }
+    },
+    {
+      "id": "N03",
+      "title": "Expected-output text parser loses __proto__ hyperedge ID",
+      "reproduced": true,
+      "method": "runtime",
+      "evidence": {
+        "ownKeys": [],
+        "expectedHyperedges": 0,
+        "warnings": [
+          "Unexpected IDs: __proto__."
+        ]
+      }
+    }
+  ]
+}
