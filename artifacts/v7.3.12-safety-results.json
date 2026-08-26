@@ -1,0 +1,32 @@
+{
+  "release": "v7.3.12",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "independent_read_only_safety",
+      "test": "tests/readonly-safety-v7-3-12.test.mjs",
+      "baseStateChangingCommandExamples": 164,
+      "readOnlyFrames": 30,
+      "totalRequests": 4920,
+      "failures": 0
+    },
+    {
+      "name": "existing_compositional_help_safety",
+      "test": "tests/deterministic-compositional-help-safety-v7-3-10.test.mjs",
+      "totalRequests": 6560,
+      "status": "passed"
+    },
+    {
+      "name": "existing_explicit_no_action_safety",
+      "test": "tests/deterministic-explicit-no-action-safety-v7-3-10.test.mjs",
+      "totalRequests": 3280,
+      "status": "passed"
+    },
+    {
+      "name": "existing_expanded_readonly_safety",
+      "test": "tests/expanded-readonly-safety-v7-3-11.test.mjs",
+      "totalRequests": 3772,
+      "status": "passed"
+    }
+  ]
+}

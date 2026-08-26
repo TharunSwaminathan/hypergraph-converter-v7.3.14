@@ -1,0 +1,36 @@
+{
+  "name": "hypergraph-converter-studio",
+  "private": true,
+  "version": "7.3.13",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:github": "vite build --base=/hypergraph-converter/",
+    "lint": "eslint .",
+    "test": "node scripts/run-node-tests.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "acorn": "^8.18.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "happy-dom": "^20.11.2",
+    "vite": "^8.0.12"
+  },
+  "overrides": {
+    "brace-expansion": "^5.0.9",
+    "nanoid": "3.3.18",
+    "postcss": "^8.5.18"
+  }
+}

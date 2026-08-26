@@ -1,0 +1,46 @@
+{
+  "release": "7.3.13",
+  "packageName": "hypergraph-converter-v7.3.13-portable.zip",
+  "expectedRoot": "hypergraph-converter-v7.3.13/",
+  "baseline": {
+    "archive": "C:/Users/tharu/Downloads/College/candi/v7.3.12/hypergraph-converter-v7.3.12-portable.zip",
+    "sha256": "AA6BA52D91677E1C9BCD9780AD159A11A925382CECDD33047964300EC2F01B54",
+    "recheckedUnchanged": true
+  },
+  "packageMetadata": {
+    "name": "hypergraph-converter-studio",
+    "version": "7.3.13"
+  },
+  "excludedPatterns": [
+    "node_modules/",
+    "dist/",
+    ".git/",
+    "__MACOSX/",
+    ".DS_Store",
+    "v7.3.13-evidence-inspection/"
+  ],
+  "includedReleaseArtifacts": [
+    "artifacts/v7.3.13-remediation-plan.md",
+    "artifacts/v7.3.13-issue-resolution-register.json",
+    "artifacts/v7.3.13-test-summary.md",
+    "artifacts/v7.3.13-safety-results.json",
+    "artifacts/v7.3.13-pending-results.json",
+    "artifacts/v7.3.13-parser-results.json",
+    "artifacts/v7.3.13-performance-results.json",
+    "artifacts/v7.3.13-custom-parser-results.json",
+    "artifacts/v7.3.13-bridge-results.json",
+    "artifacts/v7.3.13-upload-results.json",
+    "artifacts/v7.3.13-browser-smoke.md",
+    "artifacts/v7.3.13-package-verification.json",
+    "artifacts/v7.3.13-changed-files.txt"
+  ],
+  "validationSummary": {
+    "test": "PASS: Node test suite passed 158/158 files in 40.6s.",
+    "lint": "PASS: eslint .",
+    "build": "PASS: vite production build.",
+    "buildGithub": "PASS: vite build --base=/hypergraph-converter/.",
+    "audit": "PASS: npm audit and npm audit --omit=dev both found 0 vulnerabilities.",
+    "browserSmoke": "PASS: production preview rendered with zero console errors."
+  },
+  "finalZipSha256": "Reported in the final handoff after archive creation; it cannot be embedded inside the zipped source tree without changing the archive hash."
+}

@@ -1,0 +1,24 @@
+{
+  "release": "7.3.13",
+  "status": "pass",
+  "focus": "Custom Parser guard scope correctness",
+  "tests": [
+    "tests/custom-parser-scope-v7-3-13.test.mjs",
+    "tests/custom-parser-workflow-v7-3.test.mjs",
+    "tests/custom-parser-conversation.test.mjs"
+  ],
+  "verifiedAllowed": [
+    "local variables whose names resemble blocked globals",
+    "destructuring bindings",
+    "object literal keys such as location/process",
+    "property access on local data rows",
+    "regex literals containing blocked-word text"
+  ],
+  "verifiedBlocked": [
+    "forbidden free globals",
+    "dynamic code execution",
+    "prototype/constructor escape patterns",
+    "network/host-runtime access attempts"
+  ],
+  "note": "This remains a defense-in-depth guard for trusted/reviewed local parser code, not a hostile-code security sandbox."
+}

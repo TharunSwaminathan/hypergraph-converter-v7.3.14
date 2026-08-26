@@ -1,0 +1,29 @@
+{
+  "release": "v7.3.12",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "bounded_v2v_projection",
+      "test": "tests/data-resource-integrity-v7-3-12.test.mjs",
+      "estimatedPairsFixture": 3123750,
+      "result": "projection is reported over-budget instead of materialized"
+    },
+    {
+      "name": "lazy_projection_budget",
+      "test": "tests/projection-budgets-v7-3-11.test.mjs",
+      "result": "passed"
+    },
+    {
+      "name": "large_array_minmax",
+      "test": "tests/large-array-minmax-v7-3-11.test.mjs",
+      "arrayElements": 1000000,
+      "degreeDistributionHyperedges": 200000,
+      "result": "passed"
+    },
+    {
+      "name": "upload_policy",
+      "test": "tests/upload-policy-v7-3-12.test.mjs",
+      "result": "file count, single-file size, aggregate size, bounded concurrency, and abort behavior passed"
+    }
+  ]
+}

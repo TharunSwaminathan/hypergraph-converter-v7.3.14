@@ -1,0 +1,27 @@
+{
+  "release": "v7.3.12",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "invalid_limit_startup",
+      "test": "tests/bridge-limits-v7-3-12.test.mjs",
+      "result": "invalid numeric body-limit env fails startup"
+    },
+    {
+      "name": "health_endpoint",
+      "test": "tests/bridge-limits-v7-3-12.test.mjs",
+      "result": "health endpoint reports configured limits"
+    },
+    {
+      "name": "ollama_tags_forwarding",
+      "test": "tests/bridge-limits-v7-3-12.test.mjs",
+      "result": "local mock upstream tags request forwards successfully"
+    },
+    {
+      "name": "oversized_request_block",
+      "test": "tests/bridge-limits-v7-3-12.test.mjs",
+      "httpStatus": 413,
+      "result": "oversized chat request is rejected before forwarding"
+    }
+  ]
+}

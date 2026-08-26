@@ -1,0 +1,21 @@
+# Safe example only. Review before running anything that changes your environment.
+$Origins = "https://hypergraphproject.github.io,https://YOUR_USERNAME.github.io,http://localhost:5173,http://127.0.0.1:5173"
+
+Write-Host "Ollama origins example"
+Write-Host ""
+Write-Host "Allowed origins:"
+Write-Host $Origins
+Write-Host ""
+Write-Host "Windows user environment variable command:"
+Write-Host "[Environment]::SetEnvironmentVariable('OLLAMA_ORIGINS', '$Origins', 'User')"
+Write-Host ""
+Write-Host "After setting it, fully quit/restart Ollama."
+Write-Host ""
+Write-Host "Linux/WSL systemd notes:"
+Write-Host "sudo systemctl edit ollama"
+Write-Host ""
+Write-Host "[Service]"
+Write-Host "Environment=`"OLLAMA_ORIGINS=$Origins`""
+Write-Host ""
+Write-Host "sudo systemctl daemon-reload"
+Write-Host "sudo systemctl restart ollama"

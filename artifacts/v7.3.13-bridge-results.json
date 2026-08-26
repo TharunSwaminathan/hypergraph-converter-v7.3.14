@@ -1,0 +1,19 @@
+{
+  "release": "7.3.13",
+  "status": "pass",
+  "focus": "Local runtime bridge streaming, caps, CORS, and robustness",
+  "tests": [
+    "tests/bridge-streaming-v7-3-13.test.mjs",
+    "tests/bridge-robustness-v7-3-13.test.mjs",
+    "tests/bridge-limits-v7-3-12.test.mjs"
+  ],
+  "verifiedBehaviors": [
+    "Upstream model bytes stream to the browser without waiting for full generation.",
+    "Response byte caps are counted during streaming.",
+    "Backpressure is respected with drain waits.",
+    "Upstream requests are aborted when caps/timeouts/client disconnects require it.",
+    "Invalid request-limit configuration fails safely.",
+    "Bridge logs do not include full prompt contents.",
+    "Bridge remains a local-only allowlisted proxy and not a general open proxy."
+  ]
+}

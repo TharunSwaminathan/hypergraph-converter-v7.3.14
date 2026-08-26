@@ -1,0 +1,16 @@
+{
+  "release": "7.3.13",
+  "status": "pass",
+  "focus": "Upload cancellation and detection sampling",
+  "tests": [
+    "tests/upload-cancellation-v7-3-13.test.mjs",
+    "tests/upload-policy-v7-3-12.test.mjs"
+  ],
+  "verifiedBehaviors": [
+    "Detection reads use bounded samples before full-file reads.",
+    "Full upload reads can observe AbortSignal cancellation.",
+    "Starting a new upload aborts the previous upload controller.",
+    "AbortError results are ignored instead of committed.",
+    "Stale upload batches cannot overwrite the active batch after cancellation."
+  ]
+}

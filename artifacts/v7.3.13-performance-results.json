@@ -1,0 +1,22 @@
+{
+  "release": "7.3.13",
+  "status": "pass",
+  "focus": "Lazy derived requests and bounded projection/export work",
+  "tests": [
+    "tests/resource-budgets-v7-3-13.test.mjs",
+    "tests/projection-semantics-v7-3-6.test.mjs",
+    "tests/large-array-minmax-v7-3-11.test.mjs"
+  ],
+  "controls": {
+    "h2hV2vLazyRequesting": "selected mapping/export subtype gates derived computation",
+    "v2vReferenceBudget": 400000,
+    "matrixExportBudget": "cell/byte estimate checked before allocation",
+    "exportPreview": "selected export text is memoized and reused"
+  },
+  "verifiedBehaviors": [
+    "Ordinary mapping section state no longer requests H2H and V2V together.",
+    "A single high-degree hyperedge that would exceed V2V reference/output budget refuses before materialization.",
+    "Matrix CSV can return structured over_budget instead of allocating unbounded dense output.",
+    "Canonical JSON and clique CSV export paths reuse a provided V2V result."
+  ]
+}

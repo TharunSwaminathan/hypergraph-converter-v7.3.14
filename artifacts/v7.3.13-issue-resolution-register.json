@@ -1,0 +1,203 @@
+{
+  "release": "7.3.13",
+  "baseline": {
+    "archive": "hypergraph-converter-v7.3.12-portable.zip",
+    "sha256": "AA6BA52D91677E1C9BCD9780AD159A11A925382CECDD33047964300EC2F01B54",
+    "preservedUnchanged": true
+  },
+  "summary": {
+    "critical": 2,
+    "high": 4,
+    "medium": 7,
+    "low": 2,
+    "total": 15,
+    "fixed": 15
+  },
+  "issues": [
+    {
+      "id": "V7312-D01",
+      "severity": "Critical",
+      "title": "Whole-request read-only safety still authorizes state-changing operations",
+      "status": "fixed",
+      "rootCause": "Action phrase detection was allowed to survive some read-only/request-for-explanation wrappers as executable intent.",
+      "repair": "Request semantics now require a positively authorized executable clause for state-changing plans. Read-only wrappers, hypotheticals, quoted/reported commands, and explicit no-action scopes remain non-mutating.",
+      "tests": [
+        "tests/readonly-safety-v7-3-13.test.mjs",
+        "scripts/verify-v7-3-13-readonly-safety.mjs",
+        "tests/deterministic-nlu-heldout-corpus.test.mjs",
+        "tests/expanded-readonly-safety-v7-3-11.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D02",
+      "severity": "Critical",
+      "title": "Read-only questions can still replace pending graph state",
+      "status": "fixed",
+      "rootCause": "Pending replacement relied too heavily on global execute classification plus typed correction shape.",
+      "repair": "Pending graph replacement now requires executable semantics plus explicit pending-correction authorization. Safe impact questions and exact pending controls are routed separately.",
+      "tests": [
+        "tests/pending-preservation-v7-3-13.test.mjs",
+        "tests/deterministic-pending-submission-router-v7-3-10.test.mjs",
+        "tests/correction-safety-v7-3-10.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D03",
+      "severity": "High",
+      "title": "H2H/V2V lazy computation is effectively eager",
+      "status": "fixed",
+      "rootCause": "The broad Mappings/Export sections requested both derived projections even when the user had not selected them.",
+      "repair": "Added selected derived-view state and request helpers so H2H/V2V are requested only for the selected mapping/export subtype.",
+      "tests": [
+        "tests/resource-budgets-v7-3-13.test.mjs",
+        "tests/regression-v7-3-5.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D04",
+      "severity": "High",
+      "title": "Projection budgets do not sufficiently bound output/main-thread work",
+      "status": "fixed",
+      "rootCause": "Projection safety only bounded estimated pairs and allowed large adjacency-reference/output-row materialization.",
+      "repair": "Projection builders now enforce output/reference budgets before materializing oversized V2V projections.",
+      "tests": [
+        "tests/resource-budgets-v7-3-13.test.mjs",
+        "tests/projection-semantics-v7-3-6.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D05",
+      "severity": "High",
+      "title": "Dense Matrix CSV export is unbounded O(VxE)",
+      "status": "fixed",
+      "rootCause": "Matrix CSV export built every dense cell and preview calls could recompute expensive text.",
+      "repair": "Added matrix cell/byte estimates, structured over-budget refusal, and memoized selected export text.",
+      "tests": [
+        "tests/resource-budgets-v7-3-13.test.mjs",
+        "tests/lossless-csv-export-v7-3-11.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D06",
+      "severity": "High",
+      "title": "JSON validation silently coerces malformed identifiers/metadata",
+      "status": "fixed",
+      "rootCause": "Canonical JSON path normalized values before validating IDs, vertices, duplicates, finite weights, and time metadata.",
+      "repair": "JSON hyperedge input now fails closed on invalid IDs, duplicate IDs, invalid vertices, invalid time values, and non-finite weights.",
+      "tests": [
+        "tests/parser-validation-v7-3-13.test.mjs",
+        "tests/parser-validation-v7-3-11.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D07",
+      "severity": "Medium",
+      "title": "Built-in text parsers accept malformed/lossy input",
+      "status": "fixed",
+      "rootCause": "Several parsers silently dropped malformed lines, accepted invalid weights, or tolerated broken CSV quoting.",
+      "repair": "CSV quote parsing, incidence rows, edge list arity, H2V/V2H/H2H syntax, and finite weights are validated with explicit parse errors.",
+      "tests": [
+        "tests/parser-validation-v7-3-13.test.mjs",
+        "tests/parser-profile-v3.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D08",
+      "severity": "Medium",
+      "title": "Custom Parser guard has lexical false positives",
+      "status": "fixed",
+      "rootCause": "The guard searched stripped source text rather than resolving lexical scopes and free identifiers.",
+      "repair": "The guard now uses Acorn AST/scope analysis so local bindings, destructuring names, object keys, and regex literals are allowed while forbidden free globals/prototype escapes remain blocked.",
+      "tests": [
+        "tests/custom-parser-scope-v7-3-13.test.mjs",
+        "tests/custom-parser-workflow-v7-3.test.mjs",
+        "tests/custom-parser-conversation.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D09",
+      "severity": "Medium",
+      "title": "Bridge response caps broke token streaming",
+      "status": "fixed",
+      "rootCause": "The bridge buffered the entire upstream response before writing to the client.",
+      "repair": "Bridge forwarding now streams upstream chunks through response-cap accounting with backpressure and abort handling.",
+      "tests": [
+        "tests/bridge-streaming-v7-3-13.test.mjs",
+        "tests/bridge-robustness-v7-3-13.test.mjs",
+        "tests/bridge-limits-v7-3-12.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D10",
+      "severity": "Medium",
+      "title": "Upload cancellation and detection sampling incomplete",
+      "status": "fixed",
+      "rootCause": "Full File.text() reads were not cancellable and the advertised detection sample limit was unused.",
+      "repair": "File detection reads bounded samples first; full reads use cancellable stream/FileReader paths, abort prior upload controllers, and ignore stale aborted commits.",
+      "tests": [
+        "tests/upload-cancellation-v7-3-13.test.mjs",
+        "tests/upload-policy-v7-3-12.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D11",
+      "severity": "Medium",
+      "title": "configure_local_model misreports successful no-ops",
+      "status": "fixed",
+      "rootCause": "AgentChatPanel traced ok:true settings results as committed state mutations even when changedState:false.",
+      "repair": "The configure_local_model path now uses result.changedState for stateMutationCommitted.",
+      "tests": [
+        "tests/local-model-settings-trace-v7-3-13.test.mjs",
+        "tests/agent-chat-panel-dom-v7-3-13.test.mjs",
+        "tests/agent-local-model.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D12",
+      "severity": "Medium",
+      "title": "Real component/browser lifecycle coverage missing",
+      "status": "fixed",
+      "rootCause": "Prior coverage relied heavily on source-order checks rather than rendered component submission paths.",
+      "repair": "Added happy-dom AgentChatPanel lifecycle tests and ran a production browser smoke covering app shell, assistant settings, runtime diagnostics, algorithms, and console errors.",
+      "tests": [
+        "tests/agent-chat-panel-dom-v7-3-13.test.mjs",
+        "artifacts/v7.3.13-browser-smoke.md"
+      ]
+    },
+    {
+      "id": "V7312-D13",
+      "severity": "Medium",
+      "title": "Export paths duplicate expensive projection work",
+      "status": "fixed",
+      "rootCause": "Canonical/clique exporters rebuilt V2V projection and preview generated selected export text more than once.",
+      "repair": "Exports reuse memoized V2V result and App computes exportContent once for preview/copy/download paths.",
+      "tests": [
+        "tests/resource-budgets-v7-3-13.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D14",
+      "severity": "Low",
+      "title": "MODEL_SETUP active heading stale",
+      "status": "fixed",
+      "rootCause": "Active setup documentation still identified an older version.",
+      "repair": "README, MODEL_SETUP, command docs, package metadata, and release notes now identify v7.3.13 where active-version text is expected.",
+      "tests": [
+        "tests/regression-v7-3-9.test.mjs",
+        "tests/deterministic-command-reference-doc.test.mjs"
+      ]
+    },
+    {
+      "id": "V7312-D15",
+      "severity": "Low",
+      "title": "CSV serializer documentation says CRLF but implementation emits LF",
+      "status": "fixed",
+      "rootCause": "csvDocument documentation and implementation disagreed.",
+      "repair": "CSV document helper now emits CRLF rows as documented, with round-trip tests updated accordingly.",
+      "tests": [
+        "tests/lossless-csv-export-v7-3-11.test.mjs",
+        "tests/resource-budgets-v7-3-13.test.mjs"
+      ]
+    }
+  ]
+}

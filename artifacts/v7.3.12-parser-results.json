@@ -1,0 +1,26 @@
+{
+  "release": "v7.3.12",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "json_and_csr_validation",
+      "test": "tests/data-resource-integrity-v7-3-12.test.mjs",
+      "result": "malformed JSON vertices, invalid weights, invalid attributes, and mismatched CSR/CSC metadata vectors are rejected before graph commit"
+    },
+    {
+      "name": "custom_parser_safety",
+      "test": "tests/data-resource-integrity-v7-3-12.test.mjs",
+      "result": "comments/strings do not trigger blocked-token false positives; real cycles are rejected; shared acyclic aliases pass"
+    },
+    {
+      "name": "trusted_parser_guard",
+      "test": "tests/parser-sandbox.test.mjs",
+      "result": "passed"
+    },
+    {
+      "name": "v7_3_11_parser_validation",
+      "test": "tests/parser-validation-v7-3-11.test.mjs",
+      "result": "passed"
+    }
+  ]
+}

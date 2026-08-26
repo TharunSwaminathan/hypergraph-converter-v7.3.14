@@ -1,0 +1,19 @@
+{
+  "release": "7.3.13",
+  "status": "pass",
+  "focus": "Built-in parser validation and CSV serialization",
+  "tests": [
+    "tests/parser-validation-v7-3-13.test.mjs",
+    "tests/parser-validation-v7-3-11.test.mjs",
+    "tests/parser-profile-v3.test.mjs",
+    "tests/lossless-csv-export-v7-3-11.test.mjs"
+  ],
+  "repairs": [
+    "Canonical JSON rejects duplicate hyperedge IDs, invalid hyperedge IDs, invalid vertex identifiers, non-finite weights, and object/non-scalar time metadata.",
+    "CSV parsing rejects unterminated quotes, quote characters in unquoted fields, and characters after closing quotes.",
+    "Incidence rows require hyperedge_id and vertex_id and reject non-finite weights.",
+    "Edge-list rows require exactly two columns.",
+    "H2V/V2H/H2H malformed colon syntax is rejected instead of silently ignored.",
+    "CSV document output emits CRLF row separators as documented."
+  ]
+}

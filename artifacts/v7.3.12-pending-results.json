@@ -1,0 +1,27 @@
+{
+  "release": "v7.3.12",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "pending_state_preservation",
+      "test": "tests/pending-preservation-v7-3-12.test.mjs",
+      "readOnlyWrappers": 20,
+      "result": "read-only wrappers did not route as graph replacements"
+    },
+    {
+      "name": "legacy_correction_safety",
+      "test": "tests/correction-safety-v7-3-10.test.mjs",
+      "result": "direct typed correction remains replacement; read-only correction remains deterministic control/help"
+    },
+    {
+      "name": "pending_submission_router",
+      "test": "tests/deterministic-pending-submission-router-v7-3-10.test.mjs",
+      "result": "passed"
+    },
+    {
+      "name": "live_pending_router_integration",
+      "test": "tests/agent-chat-pending-router-integration-v7-3-10.test.mjs",
+      "result": "passed"
+    }
+  ]
+}

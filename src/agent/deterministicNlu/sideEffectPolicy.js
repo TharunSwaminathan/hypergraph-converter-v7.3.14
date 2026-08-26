@@ -1,0 +1,196 @@
+import { speechActIsReadOnly } from "./speechActClassifier.js";
+
+export const SIDE_EFFECT_CLASSES = Object.freeze([
+  "read_only",
+  "reversible_mapping_edit",
+  "reversible_grouping_edit",
+  "workflow_preparation",
+  "requires_parser_run_confirmation",
+  "requires_graph_apply_confirmation",
+  "graph_edit_preview",
+  "navigation",
+  "file_picker",
+  "batch_state_edit",
+  "destructive_batch_state",
+  "runtime_control",
+  "runtime_probe",
+  "confirmation_control",
+  "download_or_copy",
+  "cancellation",
+  "unknown",
+]);
+
+const GROUPING_OPERATIONS = new Set([
+  "SET_PARSE_MODE",
+  "CREATE_GROUP",
+  "RENAME_GROUP",
+  "MOVE_FILE_TO_GROUP",
+  "MARK_VALIDATION_FILE",
+  "MARK_UPDATE_STREAM",
+  "IGNORE_FILE",
+]);
+
+const READ_ONLY_WORKFLOW = new Set([
+  "SHOW_WORKFLOW_STATUS",
+  "SHOW_TRANSFORMATION_PLAN",
+  "SHOW_RECONCILIATION_REPORT",
+  "SHOW_UNMATCHED_ROWS",
+  "SHOW_GENERATED_PARSER",
+  "PREVIEW_GRAPH_RESULT",
+]);
+
+const NAVIGATION_INTENTS = new Set([
+  "NAVIGATE_STATS",
+  "NAVIGATE_STATISTICS",
+  "NAVIGATE_VISUALIZATION",
+  "NAVIGATE_MAPPINGS",
+  "NAVIGATE_EXPORT",
+  "NAVIGATE_WORKSPACE",
+  "OPEN_RUNTIME_DIAGNOSTICS",
+  "OPEN_ASSISTANT_SETTINGS",
+]);
+
+const RUNTIME_CONTROL_INTENTS = new Set([
+  "TEST_LOCAL_MODEL_CONNECTION",
+  "STOP_LOCAL_MODEL_TASK",
+]);
+
+export function classifyCompiledSideEffect(compilation = {}) {
+  const typedKind = compilation.typedKind ?? null;
+  const typedValue = compilation.typedValue ?? null;
+  const compiled = compilation.compiled ?? {};
+  const operations = compiled.draft?.operations
+    ?? compiled.plan?.operations
+    ?? compiled.operations
+    ?? typedValue?.operations
+    ?? (Array.isArray(typedValue) ? typedValue : []);
+
+  if (typedKind === "GroundedQuestion") return "read_only";
+  if (typedKind === "DeterministicHelpQuery") return "read_only";
+  if (typedKind === "LegacyActionIntent") return typedValue?.sideEffect ?? compiled.action?.sideEffect ?? "read_only";
+  if (typedKind === "DatasetMappingPatch") {
+    if (!operations.length) return "read_only";
+    return operations.every(operation => GROUPING_OPERATIONS.has(operation.type))
+      ? "reversible_grouping_edit"
+      : "reversible_mapping_edit";
+  }
+  if (typedKind === "GraphMutationPlan") return operations.length ? "graph_edit_preview" : "read_only";
+  if (typedKind === "ParserWorkflowOperation") {
+    const types = operations.map(operation => operation.type);
+    if (types.includes("APPLY_CUSTOM_PARSER_RESULT_CONFIRMATION")) return "requires_graph_apply_confirmation";
+    if (types.includes("RUN_CUSTOM_PARSER_CONFIRMATION")) return "requires_parser_run_confirmation";
+    if (types.length && types.every(type => READ_ONLY_WORKFLOW.has(type))) return "read_only";
+    return types.length ? "workflow_preparation" : "read_only";
+  }
+  if (typedKind === "DashboardControlIntent") {
+    const intent = typedValue?.canonicalIntent ?? compiled.canonicalIntent ?? compilation.intent;
+    if (RUNTIME_CONTROL_INTENTS.has(intent)) return "runtime_control";
+    if (NAVIGATION_INTENTS.has(intent) || /^NAVIGATE_|^OPEN_|^SET_/.test(String(intent ?? ""))) return "navigation";
+    return "read_only";
+  }
+  return "read_only";
+}
+
+export function authorizeSpeechActSideEffect({ speechAct = "unknown", sideEffectClass = "unknown" } = {}) {
+  if (speechAct === "cancellation") {
+    return {
+      allowed: [
+        "cancellation",
+        "read_only",
+        "runtime_control",
+        "confirmation_control",
+      ].includes(sideEffectClass),
+      reason: "cancellation_scope",
+    };
+  }
+  if (speechActIsReadOnly(speechAct)) {
+    return {
+      allowed: sideEffectClass === "read_only",
+      reason: sideEffectClass === "read_only" ? "read_only_speech_act" : `${speechAct}_blocks_${sideEffectClass}`,
+    };
+  }
+  if (speechAct === "declarative_mapping_statement") {
+    return {
+      allowed: ["reversible_mapping_edit", "reversible_grouping_edit", "read_only"].includes(sideEffectClass),
+      reason: "declarative_mapping_scope",
+    };
+  }
+  if (speechAct === "declarative_graph_statement") {
+    return {
+      allowed: ["graph_edit_preview", "read_only"].includes(sideEffectClass),
+      reason: "declarative_graph_scope",
+    };
+  }
+  if (["imperative_request", "polite_interrogative_request", "correction"].includes(speechAct)) {
+    return { allowed: sideEffectClass !== "unknown", reason: "action_request" };
+  }
+  return {
+    allowed: sideEffectClass === "read_only",
+    reason: sideEffectClass === "read_only" ? "unknown_read_only" : "unknown_speech_act_blocks_side_effect",
+  };
+}
+
+export function sideEffectIsStateChanging(sideEffectClass) {
+  return [
+    "reversible_mapping_edit",
+    "reversible_grouping_edit",
+    "workflow_preparation",
+    "requires_parser_run_confirmation",
+    "requires_graph_apply_confirmation",
+    "graph_edit_preview",
+    "navigation",
+    "file_picker",
+    "batch_state_edit",
+    "destructive_batch_state",
+    "runtime_control",
+    "runtime_probe",
+    "confirmation_control",
+    "download_or_copy",
+  ].includes(sideEffectClass);
+}
+
+export function authorizeCompiledSideEffect({
+  semantics = null,
+  sideEffectClass = "unknown",
+  plan = null,
+  context = {},
+} = {}) {
+  if (!sideEffectIsStateChanging(sideEffectClass)) {
+    return { allowed: true, reason: "read_only_or_non_mutating_side_effect" };
+  }
+  if (!semantics) {
+    return { allowed: false, reason: "missing_request_semantics" };
+  }
+  if (semantics.mode !== "execute" || semantics.executionAuthorized !== true) {
+    return {
+      allowed: false,
+      reason: "request_semantics_do_not_authorize_execution",
+      blockedSideEffect: sideEffectClass,
+      plan,
+      context,
+    };
+  }
+  if (semantics.readOnlyScope) {
+    return {
+      allowed: false,
+      reason: "read_only_scope_blocks_side_effect",
+      blockedSideEffect: sideEffectClass,
+      plan,
+      context,
+    };
+  }
+  if (["declarative_mapping_statement", "declarative_graph_statement"].includes(context?.speechAct)) {
+    return { allowed: true, reason: "declarative_speech_act_authorized" };
+  }
+  const executableClause = (semantics.clauses ?? []).some(clause => clause.executable === true);
+  if (!executableClause && (semantics.clauses ?? []).length) {
+    return {
+      allowed: false,
+      reason: "no_executable_clause_for_side_effect",
+      blockedSideEffect: sideEffectClass,
+      plan,
+      context,
+    };
+  }
+  return { allowed: true, reason: "request_semantics_authorized" };
+}

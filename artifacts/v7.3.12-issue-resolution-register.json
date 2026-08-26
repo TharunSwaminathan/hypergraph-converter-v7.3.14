@@ -1,0 +1,124 @@
+{
+  "release": "v7.3.12",
+  "sourceBaseline": {
+    "zip": "C:/Users/tharu/Downloads/College/candi/hypergraph-converter-v7.3.11-ui-update.zip",
+    "expectedSha256": "58ED346C20C720178CFDBD04477CC27BB84BD898D27B510AF08D726F2961F0BF",
+    "preservationRequirement": "Source archive must remain unchanged."
+  },
+  "issues": [
+    {
+      "id": "D01",
+      "status": "fixed",
+      "summary": "Whole-request semantics and final side-effect authorization now block read-only, reported, hypothetical, quoted, negated, deferred, and explanatory wrappers from becoming state-changing actions.",
+      "evidence": ["tests/readonly-safety-v7-3-12.test.mjs", "tests/deterministic-nlu-heldout-corpus.test.mjs"]
+    },
+    {
+      "id": "D02",
+      "status": "fixed",
+      "summary": "Pending graph replacement now requires executable request semantics plus a typed pending graph-correction phrase.",
+      "evidence": ["tests/pending-preservation-v7-3-12.test.mjs", "tests/correction-safety-v7-3-10.test.mjs"]
+    },
+    {
+      "id": "D03",
+      "status": "fixed",
+      "summary": "Derived H2H/V2V/triad work is bounded and lazy instead of eagerly materializing large projections.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs", "tests/projection-budgets-v7-3-11.test.mjs"]
+    },
+    {
+      "id": "D04",
+      "status": "fixed",
+      "summary": "Unavailable over-budget V2V density/projection state is represented as not-computed/over-budget, not as a successful zero result.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D05",
+      "status": "fixed",
+      "summary": "Clique/projection exports now refuse over-budget materialization with an explanatory preview instead of producing misleading empty/header-only output.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D06",
+      "status": "fixed",
+      "summary": "JSON hyperedge normalization validates object shape, vertex arrays, finite weights, and plain attributes before graph commit.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D07",
+      "status": "fixed",
+      "summary": "Custom Parser safety scans ignore comments/strings and avoid false positives for harmless row fields while preserving host/global blocks.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs", "tests/parser-validation-v7-3-11.test.mjs"]
+    },
+    {
+      "id": "D08",
+      "status": "fixed",
+      "summary": "Custom Parser serializability checks reject true cycles while allowing shared acyclic aliases.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D09",
+      "status": "fixed",
+      "summary": "Local model setting updates report unchanged state truthfully while remaining compatible with older adapters.",
+      "evidence": ["tests/agent-local-model.test.mjs", "tests/parameterized-command-execution-v7-3-10.test.mjs"]
+    },
+    {
+      "id": "D10",
+      "status": "verified_existing_behavior",
+      "summary": "Submission request coordinator owner-token behavior was inspected and preserved.",
+      "evidence": ["tests/submission-request-coordinator-v7-3-10.test.mjs"]
+    },
+    {
+      "id": "D11",
+      "status": "fixed",
+      "summary": "Local runtime bridge now enforces strict request-body limits before forwarding.",
+      "evidence": ["tests/bridge-limits-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D12",
+      "status": "fixed",
+      "summary": "Local runtime bridge now validates numeric env limits and bounds upstream timeout/response reading.",
+      "evidence": ["tests/bridge-limits-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D13",
+      "status": "fixed",
+      "summary": "Upload handling now uses shared count/size limits and bounded read concurrency.",
+      "evidence": ["tests/upload-policy-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D14",
+      "status": "fixed",
+      "summary": "CSR/CSC optional metadata vectors are validated for exact length and finite numeric values.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs", "tests/parser-validation-v7-3-11.test.mjs"]
+    },
+    {
+      "id": "D15",
+      "status": "fixed",
+      "summary": "Duplicate hyperedge signatures use unambiguous JSON serialization; zero weights and metadata are preserved.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs"]
+    },
+    {
+      "id": "D16",
+      "status": "fixed",
+      "summary": "Falsy-but-valid values such as weight 0 are not treated as missing or absent.",
+      "evidence": ["tests/data-resource-integrity-v7-3-12.test.mjs", "tests/lossless-csv-export-v7-3-11.test.mjs"]
+    },
+    {
+      "id": "D17",
+      "status": "partially_verified",
+      "summary": "Build/test/lint validation passed; interactive browser smoke was not run in this environment and is not claimed as passed.",
+      "evidence": ["npm run build", "npm run build:github", "npm run test", "artifacts/v7.3.12-browser-smoke.md"]
+    },
+    {
+      "id": "D18",
+      "status": "fixed_source_verified",
+      "summary": "Tools tabs now expose tablist/tab/tabpanel semantics with roving keyboard navigation while preserving mounted panels.",
+      "evidence": ["npm run lint", "npm run build"]
+    },
+    {
+      "id": "D19",
+      "status": "fixed",
+      "summary": "Release identity, docs, package metadata, audit override, and portable packaging rules were updated for v7.3.12.",
+      "evidence": ["README.md", "MODEL_SETUP.md", "docs/RELEASE_v7.3.12.md", "package.json", "package-lock.json"]
+    }
+  ]
+}

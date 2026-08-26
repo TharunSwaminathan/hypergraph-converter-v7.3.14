@@ -1,0 +1,25 @@
+{
+  "release": "7.3.13",
+  "status": "pass",
+  "focus": "Pending graph-action preservation under read-only wrappers",
+  "tests": [
+    {
+      "file": "tests/pending-preservation-v7-3-13.test.mjs",
+      "result": "pass",
+      "cases": {
+        "readOnlyPendingWrappers": 20,
+        "preservedPendingState": 20,
+        "graphReplacementMisroutes": 0
+      }
+    },
+    {
+      "file": "tests/deterministic-pending-submission-router-v7-3-10.test.mjs",
+      "result": "pass"
+    },
+    {
+      "file": "tests/correction-safety-v7-3-10.test.mjs",
+      "result": "pass"
+    }
+  ],
+  "policy": "Pending graph replacement requires executable semantics, explicit pending-correction authorization, typed correction form, and a graph mutation candidate. Read-only impact/help/status text does not replace the staged action."
+}
