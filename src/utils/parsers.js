@@ -1,11 +1,19 @@
 ﻿// Format parsers: turn raw pasted/uploaded text into a normalized hyperedge list.
 
-import { normalizeTextGraphIdentifier, normalizeUniqueGraphIdentifiers } from "./graphIdentifiers.js";
+import { normalizeGraphIdentifier, normalizeTextGraphIdentifier, normalizeUniqueGraphIdentifiers } from "./graphIdentifiers.js";
 
 export function tok(s) { const n = Number(s); return (String(s).trim() !== "" && !isNaN(n)) ? n : String(s).trim(); }
 export function vcmp(a, b) { if (typeof a === typeof b) return a < b ? -1 : a > b ? 1 : 0; return typeof a === "number" ? -1 : 1; }
 export function cleanToken(s) { return String(s ?? "").trim().replace(/^["']|["']$/g, ""); }
 export function uniquePreserve(arr) { const seen = new Set(), out = []; for (const v of arr ?? []) { const c = cleanToken(v); if (c && !seen.has(c)) { seen.add(c); out.push(c); } } return out; }
+
+// parseCsvDocument already trims unquoted fields and deliberately preserves
+// whitespace in quoted fields. Do not erase that distinction when applying
+// the legacy numeric-token policy downstream.
+function csvIdentifierToken(value) {
+  const text = String(value ?? "");
+  return text !== text.trim() ? text : tok(text);
+}
 
 function failAt(path, message) {
   throw new Error(`${path} ${message}`);
@@ -30,6 +38,16 @@ function parseFiniteWeight(value, path, { defaultValue = 1, allowMissing = true 
 function normalizeTimeValue(value, path) {
   if (value == null || value === "") return null;
   if (typeof value === "string") return cleanToken(value);
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) failAt(path, `must be string, number, or null; received ${String(value)}`);
+    return value;
+  }
+  failAt(path, `must be string, number, or null; received ${Array.isArray(value) ? "array" : typeof value}`);
+}
+
+function normalizeStructuredTimeValue(value, path) {
+  if (value == null || value === "") return null;
+  if (typeof value === "string") return value;
   if (typeof value === "number") {
     if (!Number.isFinite(value)) failAt(path, `must be string, number, or null; received ${String(value)}`);
     return value;
@@ -72,26 +90,38 @@ export function extractMeta(line) {
   return { line: cleaned, meta };
 }
 
-export function normalizeHyperedges(raw, { pathPrefix = "hyperedges" } = {}) {
+export function normalizeHyperedges(raw, { pathPrefix = "hyperedges", identifierMode = "text" } = {}) {
+  const normalizeIdentifier = identifierMode === "structured" ? normalizeGraphIdentifier : normalizeTextGraphIdentifier;
+  const normalizeTime = identifierMode === "structured" ? normalizeStructuredTimeValue : normalizeTimeValue;
   const warnings = []; const usedIds = new Map(); const out = [];
   for (const [i, h] of (raw ?? []).entries()) {
     const path = `${pathPrefix}[${i}]`;
     if (!isPlainObject(h)) failAt(path, `must be an object; received ${Array.isArray(h) ? "array" : typeof h}`);
     const hasExplicitId = Object.hasOwn(h, "id") || Object.hasOwn(h, "hid");
     const rawId = Object.hasOwn(h, "id") ? h.id : h.hid;
-    const id = hasExplicitId ? normalizeTextGraphIdentifier(rawId, { path: `${path}.id` }) : `h${i + 1}`;
+    const id = hasExplicitId ? normalizeIdentifier(rawId, { path: `${path}.id` }) : `h${i + 1}`;
     if (usedIds.has(id)) failAt(`${path}.id`, `duplicates ${usedIds.get(id)}.id: "${id}"`);
     usedIds.set(id, path);
     const membership = membershipArrayFrom(h, path);
-    const verts = uniquePreserve(membership.value.map((value, j) => normalizeTextGraphIdentifier(value, { path: `${path}.${membership.field}[${j}]` })));
+    const normalizedVertices = membership.value.map((value, j) => normalizeIdentifier(value, { path: `${path}.${membership.field}[${j}]` }));
+    const verts = identifierMode === "structured" ? [...new Set(normalizedVertices)] : uniquePreserve(normalizedVertices);
     if (verts.length === 0) warnings.push(`Hyperedge "${id}" has no vertices.`);
     const w = parseFiniteWeight(h.weight, `${path}.weight`, { defaultValue: 1 });
     const rawAttributes = h.attributes;
     if (rawAttributes != null && !isPlainObject(rawAttributes)) failAt(`${path}.attributes`, `must be a plain object; received ${Array.isArray(rawAttributes) ? "array" : typeof rawAttributes}`);
     const attributes = rawAttributes != null ? { ...rawAttributes } : {};
-    out.push({ id, vertices: verts, time: normalizeTimeValue(h.time ?? h.timestamp ?? null, `${path}.time`), weight: w, attributes });
+    out.push({ id, vertices: verts, time: normalizeTime(h.time ?? h.timestamp ?? null, `${path}.time`), weight: w, attributes });
   }
   return { hyperedges: out, warnings };
+}
+
+const STRUCTURED_OUTPUT_FORMATS = new Set(["csv", "incidence", "h2h", "csr_json", "csr_csv", "adjlist"]);
+
+/** Canonicalize one format parser's output without reinterpreting decoded structured payload as raw text. */
+export function normalizeParsedHyperedges(format, raw) {
+  return normalizeHyperedges(raw, {
+    identifierMode: STRUCTURED_OUTPUT_FORMATS.has(format) ? "structured" : "text",
+  });
 }
 
 // Parsers
@@ -197,12 +227,27 @@ export function parseSimple(t) {
   return hyperedges;
 }
 export function parseCSVFmt(t) {
-  return parseCsvDocument(t)
+  const text = String(t ?? "");
+  // The historical CSV route accepted whitespace-separated hyperedge rows.
+  // RFC CSV is selected only when its delimiters/quotes are actually present.
+  if (!/[,"]/.test(text)) return parseWhitespaceRows(text);
+  return parseCsvDocument(text)
     .filter(cells => cells.some(cell => cell.trim() !== "") && !(cells[0] ?? "").startsWith("#"))
     .map((cells, i) => {
-      const vertices = cells.map(tok).filter(v => v !== "");
+      const vertices = cells.map(csvIdentifierToken).filter(v => v !== "");
       if (!vertices.length) throw new Error(`CSV row ${i + 1}: expected at least one vertex.`);
       return { id: "h" + i, vertices, time: null, weight: 1 };
+    });
+}
+
+export function parseWhitespaceRows(t) {
+  return String(t ?? "").split(/\r\n|\n|\r/)
+    .map((line, index) => ({ line, lineNumber: index + 1 }))
+    .filter(({ line }) => line.trim() && !line.trimStart().startsWith("#"))
+    .map(({ line, lineNumber }, index) => {
+      const vertices = line.trim().split(/\s+/).filter(Boolean).map(tok);
+      if (!vertices.length) throw new Error(`Whitespace row ${lineNumber}: expected at least one vertex.`);
+      return { id: "h" + index, vertices, time: null, weight: 1 };
     });
 }
 export function parseEdgeList(t) {
@@ -281,19 +326,40 @@ export function parseIncidence(t) {
       const hasVertexHeader = /^(vertex_id|vertex|vid|node_id|node)$/.test(header[1] ?? "");
       if (hasHyperedgeHeader && hasVertexHeader) return;
     }
-    const hid = (cells[0] ?? "").trim(), vid = cells[1] ?? "";
-    if (!hid) throw new Error(`Incidence row ${index + 1}: missing hyperedge_id.`);
+    const hid = String(cells[0] ?? ""), vid = cells[1] ?? "";
+    if (!hid.trim()) throw new Error(`Incidence row ${index + 1}: missing hyperedge_id.`);
     if (vid == null || String(vid).trim() === "") throw new Error(`Incidence row ${index + 1}: missing vertex_id.`);
-    const rowWeight = parseFiniteWeight(cells[3], `Incidence row ${index + 1} weight`, { defaultValue: 1 });
-    if (!map.has(hid)) map.set(hid, { id: hid, vertices: [], time: cells[2] || null, weight: rowWeight });
-    else {
-      const edge = map.get(hid);
-      if (edge.time == null && cells[2]) edge.time = cells[2];
-      if ((edge.weight == null || edge.weight === 1) && cells[3] !== undefined && cells[3] !== "") edge.weight = rowWeight;
+    const rowNumber = index + 1;
+    const hasExplicitTime = cells[2] !== undefined && cells[2] !== "";
+    const hasExplicitWeight = cells[3] !== undefined && cells[3] !== "";
+    const rowTime = hasExplicitTime ? cells[2] : null;
+    const rowWeight = parseFiniteWeight(cells[3], `Incidence row ${rowNumber} weight`, { defaultValue: 1 });
+    if (!map.has(hid)) {
+      map.set(hid, {
+        edge: { id: hid, vertices: [], time: rowTime, weight: rowWeight },
+        explicitTimeRow: hasExplicitTime ? rowNumber : null,
+        explicitWeightRow: hasExplicitWeight ? rowNumber : null,
+      });
+    } else {
+      const state = map.get(hid);
+      if (hasExplicitTime && state.explicitTimeRow != null && rowTime !== state.edge.time) {
+        throw new Error(`Incidence row ${rowNumber}: hyperedge ${JSON.stringify(hid)} time ${JSON.stringify(rowTime)} conflicts with explicit time ${JSON.stringify(state.edge.time)} first supplied on row ${state.explicitTimeRow}.`);
+      }
+      if (hasExplicitTime && state.explicitTimeRow == null) {
+        state.edge.time = rowTime;
+        state.explicitTimeRow = rowNumber;
+      }
+      if (hasExplicitWeight && state.explicitWeightRow != null && rowWeight !== state.edge.weight) {
+        throw new Error(`Incidence row ${rowNumber}: hyperedge ${JSON.stringify(hid)} weight ${rowWeight} conflicts with explicit weight ${state.edge.weight} first supplied on row ${state.explicitWeightRow}.`);
+      }
+      if (hasExplicitWeight && state.explicitWeightRow == null) {
+        state.edge.weight = rowWeight;
+        state.explicitWeightRow = rowNumber;
+      }
     }
-    map.get(hid).vertices.push(tok(vid));
+    map.get(hid).edge.vertices.push(csvIdentifierToken(vid));
   });
-  return [...map.values()];
+  return [...map.values()].map(state => state.edge);
 }
 export function parseV2HText(t) {
   const m = new Map();
@@ -310,20 +376,53 @@ export function parseV2HText(t) {
 }
 export function parseH2HText(t) {
   const hv = new Map();
-  t.trim().split("\n").filter(l => l.trim() && !l.startsWith("#")).forEach(l => {
-    const ci = l.indexOf(":"); if (ci === -1) throw new Error(`H2H line is missing a colon: ${l}`);
-    const hid = cleanToken(l.slice(0, ci).trim().replace(/^h/, ""));
+  const declared = new Map();
+  String(t ?? "").split(/\r\n|\n|\r/).forEach((rawLine, index) => {
+    const lineNumber = index + 1;
+    const l = rawLine.trim();
+    if (!l || l.startsWith("#")) return;
+    const ci = l.indexOf(":");
+    if (ci === -1) throw new Error(`H2H line ${lineNumber}: missing structural colon.`);
+    const hid = l.slice(0, ci).trim();
+    if (!hid) throw new Error(`H2H line ${lineNumber}: blank hyperedge id.`);
+    if (declared.has(hid)) throw new Error(`H2H line ${lineNumber}: hyperedge ID ${JSON.stringify(hid)} duplicates line ${declared.get(hid)}.`);
+    declared.set(hid, lineNumber);
     if (!hv.has(hid)) hv.set(hid, new Set());
-    [...l.matchAll(/h?(\S+?)\[shared:\s*([^\]]+)\]/g)].forEach(m => {
-      const nid = cleanToken(m[1].replace(/^h/, ""));
-      m[2].split(/[\s,]+/).map(s => tok(cleanToken(s))).filter(v => v !== "").forEach(v => {
-        hv.get(hid).add(v); if (!hv.has(nid)) hv.set(nid, new Set()); hv.get(nid).add(v);
-      });
-    });
+    const rhs = l.slice(ci + 1).trim();
+    if (rhs === "(none)") return;
+    if (!rhs) throw new Error(`H2H line ${lineNumber}: expected "(none)" or at least one neighbor clause.`);
+
+    let cursor = 0;
+    while (cursor < rhs.length) {
+      while (/\s/.test(rhs[cursor] ?? "")) cursor += 1;
+      const neighborStart = cursor;
+      const open = rhs.indexOf("[", cursor);
+      if (open === -1) throw new Error(`H2H line ${lineNumber}: expected a complete neighbor[shared: ...] clause.`);
+      const nid = rhs.slice(neighborStart, open).trim();
+      if (!nid) throw new Error(`H2H line ${lineNumber}: expected a neighbor hyperedge id at column ${ci + cursor + 2}.`);
+      if (nid.includes(":")) throw new Error(`H2H line ${lineNumber}: unexpected extra structural colon in neighbor ${JSON.stringify(nid)}.`);
+      cursor = open;
+      const close = rhs.indexOf("]", cursor + 1);
+      if (close === -1) throw new Error(`H2H line ${lineNumber}: neighbor ${JSON.stringify(nid)} has an unterminated shared-vertex clause.`);
+      const clause = rhs.slice(cursor + 1, close);
+      const match = /^shared\s*:\s*(.*)$/i.exec(clause);
+      if (!match) throw new Error(`H2H line ${lineNumber}: neighbor ${JSON.stringify(nid)} must use [shared: ...].`);
+      const shared = match[1].split(/[\s,]+/).map(tok).filter(v => v !== "");
+      if (!shared.length) throw new Error(`H2H line ${lineNumber}: neighbor ${JSON.stringify(nid)} has no shared vertex ids.`);
+      if (!hv.has(nid)) hv.set(nid, new Set());
+      shared.forEach(v => { hv.get(hid).add(v); hv.get(nid).add(v); });
+      cursor = close + 1;
+      while (/\s/.test(rhs[cursor] ?? "")) cursor += 1;
+      if (cursor === rhs.length) break;
+      if (rhs[cursor] !== ",") throw new Error(`H2H line ${lineNumber}: unexpected trailing text after neighbor ${JSON.stringify(nid)}; clauses must be comma-separated.`);
+      cursor += 1;
+      while (/\s/.test(rhs[cursor] ?? "")) cursor += 1;
+      if (cursor === rhs.length) throw new Error(`H2H line ${lineNumber}: trailing comma without another neighbor clause.`);
+    }
   });
   if (hv.size === 0) throw new Error("Cannot parse h2h format.");
   return [...hv.entries()].sort((a, b) => { const an = Number(a[0]), bn = Number(b[0]); return isNaN(an) || isNaN(bn) ? a[0] < b[0] ? -1 : 1 : an - bn; })
-    .map(([hid, vs]) => ({ id: "h" + hid, vertices: [...vs].sort(vcmp), time: null, weight: 1 }));
+    .map(([hid, vs]) => ({ id: hid, vertices: [...vs].sort(vcmp), time: null, weight: 1 }));
 }
 export function parseCSRJson(t) {
   let data; try { data = JSON.parse(t); } catch (e) { throw new Error("CSR JSON parse failed: " + e.message, { cause: e }); }
@@ -520,10 +619,18 @@ export function validateSparseMatrixStructure({ format, pointers, indices, prima
 export function parseAdjList(t) {
   const hes = [];
   const seenPairs = new Set();
-  t.trim().split("\n").filter(l => l.trim() && !l.startsWith("#")).forEach(l => {
-    const p = l.replace(":", "").trim().split(/[\s,]+/).map(tok).filter(v => v !== "");
-    const src = p[0];
-    p.slice(1).forEach(dst => {
+  String(t ?? "").split(/\r\n|\n|\r/).forEach((rawLine, index) => {
+    const l = rawLine.trim();
+    if (!l || l.startsWith("#")) return;
+    const firstColon = l.indexOf(":");
+    if (firstColon === -1) throw new Error(`Adjacency line ${index + 1}: missing structural colon.`);
+    if (firstColon !== l.lastIndexOf(":")) throw new Error(`Adjacency line ${index + 1}: expected exactly one structural colon.`);
+    const sourceText = l.slice(0, firstColon).trim();
+    if (!sourceText) throw new Error(`Adjacency line ${index + 1}: blank source vertex id.`);
+    const neighborTexts = l.slice(firstColon + 1).trim().split(/[\s,]+/).filter(Boolean);
+    if (!neighborTexts.length) throw new Error(`Adjacency line ${index + 1}: source ${JSON.stringify(sourceText)} has no neighbor ids.`);
+    const src = tok(sourceText);
+    neighborTexts.map(tok).forEach(dst => {
       const key = [String(src), String(dst)].sort().join("\u0000");
       if (seenPairs.has(key)) return;
       seenPairs.add(key);
@@ -579,39 +686,66 @@ export function autoDetect(text) {
     }
     return "json";
   }
-  const lines = t.split("\n").filter(l => l.trim() && !l.startsWith("#"));
+  const lines = t.split(/\r\n|\n|\r/).map(line => line.trim()).filter(line => line && !line.startsWith("#"));
   if (!lines.length) return "simple";
-  const l0 = lines[0];
-  const lower0 = l0.toLowerCase();
   const looksHyperedgeId = value => /^(?:h|he|e|edge|hyperedge)[\w.-]*\d*$/i.test(cleanToken(value));
-  const looksVertexId = value => /^(?:v|vertex)[\w.-]*\d*$/i.test(cleanToken(value));
   const splitMembership = line => line.split(/[,\s]+/).map(cleanToken).filter(Boolean);
-  if (l0.includes(",") && (lower0.startsWith("vertexids") || lower0.startsWith("hyperedgeids"))) return "csr_csv";
-  const cells = l0.split(",").map(cleanToken);
-  if (cells.length >= 2 && !l0.includes(":")) {
-    const header = cells.map(cell => cell.toLowerCase());
-    const incidenceHeader = header.some(cell => /^(h|hid|hyperedge|hyperedge_id|edge|edge_id)$/.test(cell))
-      && header.some(cell => /^(v|vid|vertex|vertex_id|node|node_id)$/.test(cell));
-    const rowWidths = lines.slice(0, 8).map(line => line.split(",").map(cleanToken).filter(Boolean).length);
-    const fixedWideRows = rowWidths.length > 0 && rowWidths.every(width => width >= 3);
-    const firstColumnLooksHyperedge = lines.slice(0, 8)
-      .map(line => line.split(",").map(cleanToken).filter(Boolean)[0])
-      .filter(Boolean)
-      .some(looksHyperedgeId);
-    if (incidenceHeader || (!fixedWideRows && firstColumnLooksHyperedge)) return "incidence";
+  const findStructuralColon = line => {
+    let quoted = false;
+    for (let i = 0; i < line.length; i += 1) {
+      if (line[i] === '"') {
+        if (quoted && line[i + 1] === '"') { i += 1; continue; }
+        quoted = !quoted;
+      } else if (!quoted && line[i] === ":") return i;
+    }
+    return -1;
+  };
+
+  // A shared-clause marker is specific to H2H even when it occurs on a later
+  // malformed line. Route there once; let the strict parser report the error.
+  if (lines.some(line => /\[\s*shared\s*:/i.test(line) || /:\s*\(none\)\s*$/i.test(line))) return "h2h";
+
+  const colonPositions = lines.map(findStructuralColon);
+  if (colonPositions.every(position => position >= 0)) {
+    const records = lines.map((line, index) => ({
+      lhs: cleanToken(line.slice(0, colonPositions[index])),
+      rhs: splitMembership(line.slice(colonPositions[index] + 1)),
+    }));
+    const allLeftHyperedges = records.every(record => looksHyperedgeId(record.lhs));
+    const allRightHyperedges = records.every(record => record.rhs.length > 0 && record.rhs.every(looksHyperedgeId));
+    if (allLeftHyperedges) return "simple";
+    if (allRightHyperedges && records.every(record => !looksHyperedgeId(record.lhs))) return "v2h";
+    const allColonsUseAdjacencySpacing = lines.every((line, index) => /\s/.test(line[colonPositions[index] + 1] ?? ""));
+    if (!t.includes(",") || allColonsUseAdjacencySpacing) return "adjlist";
+  }
+
+  if (t.includes(",") || t.includes('"')) {
+    let rows;
+    try {
+      rows = parseCsvDocument(t).filter(row => row.some(cell => cell.trim() !== "") && !(row[0] ?? "").startsWith("#"));
+    } catch {
+      return "csv";
+    }
+    const normalizedRows = rows.map(row => row.map(cell => cleanToken(cell)));
+    const first = normalizedRows[0] ?? [];
+    const rowKeys = new Set(normalizedRows.map(row => String(row[0] ?? "").toLowerCase()));
+    if ((rowKeys.has("vertexids") && rowKeys.has("hyperedgeids"))
+      && (rowKeys.has("rowoffsets") || rowKeys.has("offsets") || rowKeys.has("columnpointers"))) return "csr_csv";
+    const header = first.map(cell => cell.toLowerCase().replace(/[\s-]+/g, "_"));
+    const incidenceHeader = /^(hyperedge_id|hyperedge|hid|edge_id|edge)$/.test(header[0] ?? "")
+      && /^(vertex_id|vertex|vid|node_id|node)$/.test(header[1] ?? "");
+    if (incidenceHeader) return "incidence";
+    const dataRows = normalizedRows.filter(row => row.length >= 2 && row.length <= 4);
+    const firstColumnCounts = new Map();
+    dataRows.forEach(row => firstColumnCounts.set(row[0], (firstColumnCounts.get(row[0]) ?? 0) + 1));
+    const repeatedExplicitHyperedge = dataRows.length === normalizedRows.length
+      && [...firstColumnCounts.entries()].some(([id, count]) => count > 1 && looksHyperedgeId(id));
+    if (repeatedExplicitHyperedge) return "incidence";
     return "csv";
   }
-  if (l0.includes(":") && l0.match(/h\d+\[shared:/i)) return "h2h";
-  if (l0.includes(":")) {
-    const lhs = cleanToken(l0.slice(0, l0.indexOf(":")).trim());
-    const rhs = splitMembership(l0.slice(l0.indexOf(":") + 1));
-    const rhsLooksHyperedges = rhs.length > 0 && rhs.every(looksHyperedgeId);
-    if (rhsLooksHyperedges && !looksHyperedgeId(lhs)) return "v2h";
-    if (looksHyperedgeId(lhs)) return "simple";
-    if (looksVertexId(lhs) && rhsLooksHyperedges) return "v2h";
-    return "adjlist";
-  }
-  if (l0.split(/\s+/).length === 2) return "edgelist";
+
+  const rowWidths = lines.map(line => line.split(/\s+/).filter(Boolean).length);
+  if (rowWidths.every(width => width === 2)) return "edgelist";
   return "csv";
 }
 

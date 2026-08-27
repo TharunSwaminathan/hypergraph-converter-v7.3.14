@@ -1,0 +1,42 @@
+{
+  "stage": 2,
+  "kind": "prechange_characterization",
+  "approvedParentCommit": "1c2f8e5fbb030d22c0728e29fef123b519c04b18",
+  "historicalReference": "baseline-main-7.3.11/hypergraph-converter-main",
+  "capturedBeforeProductionEdits": true,
+  "results": [
+    {
+      "id": "HG713-R03",
+      "currentApprovedBehavior": [["1 2 3"], ["2 4"], ["1 3 4 5"]],
+      "intendedHistoricalMainBehavior": [[1, 2, 3], [2, 4], [1, 3, 4, 5]],
+      "classification": "confirmed_regression"
+    },
+    {
+      "id": "HG713-C07",
+      "currentApprovedBehavior": "Both contradictory time and weight fixtures returned a graph; the first explicit non-default value silently won.",
+      "classification": "confirmed_data_integrity_defect"
+    },
+    {
+      "id": "HG713-C08",
+      "currentApprovedBehavior": "All Stage 0 malformed H2H and adjacency fixtures returned graphs instead of rejecting unconsumed or structurally invalid text.",
+      "classification": "confirmed_fail_open_defect"
+    },
+    {
+      "id": "S2-N01",
+      "currentApprovedBehavior": "parseCSVFmt stripped significant leading/trailing whitespace preserved by RFC quoting; parseIncidence did the same for quoted hyperedge and vertex IDs.",
+      "classification": "newly_confirmed_pre_existing_round_trip_defect",
+      "dependency": "directly_coupled_to_stage2_csv_paths"
+    },
+    {
+      "id": "S2-N02",
+      "currentApprovedBehavior": "expH2H -> parseH2HText changed edge-A to hedge-A and __proto__ to h__proto__ by stripping/reinserting a prefix.",
+      "classification": "newly_confirmed_pre_existing_round_trip_defect",
+      "dependency": "directly_coupled_to_stage2_h2h_grammar"
+    }
+  ],
+  "evidenceNotes": [
+    "All four new focused regression files were run before production edits and failed at their first corrected-behavior assertion.",
+    "The permanent Stage 0 oracle remains unchanged and independently records HG713-R03, HG713-C07, and HG713-C08.",
+    "GitHub/main is referenced only for the intended historical whitespace-row behavior, not for RFC or malformed-input behavior."
+  ]
+}

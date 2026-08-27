@@ -5,7 +5,7 @@ import BarChart from "./components/BarChart.jsx";
 import Viz from "./components/Viz.jsx";
 import { Pill, StatCard, MappingBox } from "./components/ui.jsx";
 import { useUpload, useMultiUpload } from "./hooks/useFileUpload.js";
-import { normalizeHyperedges, autoDetect, parseInputFormat } from "./utils/parsers.js";
+import { normalizeParsedHyperedges, autoDetect, parseInputFormat } from "./utils/parsers.js";
 import { arrayMax } from "./utils/numeric.js";
 import { parseBatchUpdates, applyBatchUpdates, batchUpdatesToMutationOperations } from "./utils/batchUpdates.js";
 import {
@@ -384,7 +384,7 @@ function AppCore() {
       try {
         const raw = parseInputFormat(targetFormat, payload);
         if (!raw || !raw.length) throw new Error("No hyperedges found. Check your input.");
-        const { hyperedges: norm, warnings: w } = normalizeHyperedges(raw);
+        const { hyperedges: norm, warnings: w } = normalizeParsedHyperedges(targetFormat, raw);
         const commit = commitGraph(norm, {
           source: "parse",
           summary: `Parsed ${norm.length} hyperedge${norm.length === 1 ? "" : "s"} from ${targetFormat}.`,

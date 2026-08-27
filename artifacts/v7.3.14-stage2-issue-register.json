@@ -1,0 +1,83 @@
+{
+  "stage": 2,
+  "scope": "parser_and_auto_detection_correctness",
+  "parentCommit": "1c2f8e5fbb030d22c0728e29fef123b519c04b18",
+  "issues": [
+    {
+      "id": "HG713-R03",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-whitespace-auto-detect.test.mjs",
+      "evidence": "The existing CSV public route now dispatches internally to a distinct whitespace-row grammar when RFC delimiters/quotes are absent."
+    },
+    {
+      "id": "HG713-C07",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-incidence-metadata.test.mjs",
+      "evidence": "Incidence parsing tracks first explicit time/weight values and their rows; a later different explicit value rejects the whole parse."
+    },
+    {
+      "id": "HG713-C08",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-h2h-adjacency-grammar.test.mjs",
+      "evidence": "H2H uses a bounded cursor parser with full RHS consumption; adjacency requires exactly one structural colon and at least one neighbor."
+    },
+    {
+      "id": "STAGE2-AUTO-DETECT",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-whitespace-auto-detect.test.mjs",
+      "evidence": "Detection examines the complete relevant document structure and routes once; it does not parse every format until one succeeds."
+    },
+    {
+      "id": "S2-N01",
+      "status": "fixed",
+      "severity": "high",
+      "classification": "newly_confirmed_pre_existing_round_trip_defect",
+      "positiveRegressions": [
+        "tests/stage2-rfc-csv-preservation.test.mjs",
+        "tests/stage2-incidence-metadata.test.mjs"
+      ],
+      "evidence": "RFC-decoded row/incidence identifiers and time payload survive both the format parser and the shared canonical commit boundary. Default raw-text cleanup remains unchanged."
+    },
+    {
+      "id": "S2-N02",
+      "status": "fixed",
+      "severity": "medium",
+      "classification": "newly_confirmed_pre_existing_round_trip_defect",
+      "positiveRegression": "tests/stage2-h2h-adjacency-grammar.test.mjs",
+      "evidence": "H2H no longer strips/reinserts h prefixes and preserves supported arbitrary exporter IDs, including reserved names, spaces, commas, and literal quote characters."
+    }
+  ],
+  "compatibilityDecisions": [
+    {
+      "topic": "public_format_id",
+      "decision": "Keep the existing csv route; select a separately testable whitespace-row or RFC CSV lexer internally."
+    },
+    {
+      "topic": "two_token_whitespace_rows",
+      "decision": "Select edgelist when every relevant row has exactly two tokens because its canonical pair-hyperedge output is equivalent; mixed widths select csv/whitespace rows."
+    },
+    {
+      "topic": "headerless_incidence",
+      "decision": "Auto-detect only the strong multi-row signature of a repeated hyperedge-like first column; otherwise preserve normal CSV precedence and allow explicit Incidence selection."
+    },
+    {
+      "topic": "h2h_simple_ambiguity",
+      "decision": "A line such as h1: garbage remains Simple by existing structural precedence because it is valid H2V text; an H2H shared-clause or (none) marker routes to strict H2H validation."
+    },
+    {
+      "topic": "adjacency_isolated_source",
+      "decision": "Reject A: because the canonical hypergraph produced by this adapter represents undirected pairs and has no standalone-vertex representation."
+    }
+  ],
+  "knownFormatLimitations": [
+    {
+      "scope": "H2H projection import",
+      "classification": "intentional_lossiness",
+      "detail": "H2H carries shared memberships only; exclusive vertices, graph metadata, and shared-vertex tokens containing the unescaped H2H separators cannot be reconstructed."
+    }
+  ]
+}
