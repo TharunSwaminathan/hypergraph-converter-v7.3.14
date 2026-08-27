@@ -1,6 +1,6 @@
 ﻿// Format parsers: turn raw pasted/uploaded text into a normalized hyperedge list.
 
-import { normalizeGraphIdentifier, normalizeUniqueGraphIdentifiers } from "./graphIdentifiers.js";
+import { normalizeTextGraphIdentifier, normalizeUniqueGraphIdentifiers } from "./graphIdentifiers.js";
 
 export function tok(s) { const n = Number(s); return (String(s).trim() !== "" && !isNaN(n)) ? n : String(s).trim(); }
 export function vcmp(a, b) { if (typeof a === typeof b) return a < b ? -1 : a > b ? 1 : 0; return typeof a === "number" ? -1 : 1; }
@@ -79,11 +79,11 @@ export function normalizeHyperedges(raw, { pathPrefix = "hyperedges" } = {}) {
     if (!isPlainObject(h)) failAt(path, `must be an object; received ${Array.isArray(h) ? "array" : typeof h}`);
     const hasExplicitId = Object.hasOwn(h, "id") || Object.hasOwn(h, "hid");
     const rawId = Object.hasOwn(h, "id") ? h.id : h.hid;
-    const id = hasExplicitId ? normalizeGraphIdentifier(rawId, { path: `${path}.id` }) : `h${i + 1}`;
+    const id = hasExplicitId ? normalizeTextGraphIdentifier(rawId, { path: `${path}.id` }) : `h${i + 1}`;
     if (usedIds.has(id)) failAt(`${path}.id`, `duplicates ${usedIds.get(id)}.id: "${id}"`);
     usedIds.set(id, path);
     const membership = membershipArrayFrom(h, path);
-    const verts = uniquePreserve(membership.value.map((value, j) => normalizeGraphIdentifier(value, { path: `${path}.${membership.field}[${j}]` })));
+    const verts = uniquePreserve(membership.value.map((value, j) => normalizeTextGraphIdentifier(value, { path: `${path}.${membership.field}[${j}]` })));
     if (verts.length === 0) warnings.push(`Hyperedge "${id}" has no vertices.`);
     const w = parseFiniteWeight(h.weight, `${path}.weight`, { defaultValue: 1 });
     const rawAttributes = h.attributes;
