@@ -1,0 +1,53 @@
+{
+  "stage": 3,
+  "corrective": "read_only_incidence_index_hardening",
+  "parentCommit": "a2de8d8ed81b568b30d59ecbbbb367d13771ebb9",
+  "issues": [
+    {
+      "id": "S3-N01",
+      "title": "Read-only collection proxy allows prototype mutation",
+      "severity": "Medium",
+      "status": "fixed",
+      "preFix": {
+        "topLevelMap": "Object.setPrototypeOf(proxy, null) succeeded; hasHyperedge then threw A valid incidence index is required.",
+        "nestedSet": "Object.setPrototypeOf(proxy, null) succeeded; getHyperedgeVertexIds then threw ids is not iterable.",
+        "evidence": "artifacts/v7.3.14-stage3-corrective-prechange.json"
+      },
+      "postFix": {
+        "objectSetPrototypeOf": "Rejected with a read-only TypeError for three top-level Maps and two nested Sets.",
+        "reflectSetPrototypeOf": "Rejected with a read-only TypeError for three top-level Maps and two nested Sets.",
+        "prototypeAndQueries": "Map.prototype/Set.prototype remain unchanged and all incidence queries continue to work after every rejected attempt.",
+        "evidence": "artifacts/v7.3.14-stage3-corrective-oracle.json"
+      },
+      "sourceDiff": {
+        "productionFiles": [
+          "src/graph/incidenceIndex.js"
+        ],
+        "summary": "Added the Proxy setPrototypeOf trap and clarified that the read-only contract covers derived collection topology while canonical records remain source references."
+      },
+      "testsAdded": [
+        "tests/stage3-corrective-readonly-prototype.test.mjs"
+      ],
+      "preservationGates": {
+        "stage3TargetedTests": "4/4 passed",
+        "stage3Oracle": "8/8 passed",
+        "correctiveOracle": "4/4 passed",
+        "randomDifferential": "3000/3000 passed; seed 7537428",
+        "stage2Tests": "11/11 passed",
+        "stage2Oracles": "6/6, 3/3, 3/3, and 2/2 passed",
+        "stage1Tests": "3/3 passed",
+        "stage1Oracle": "6/6 passed",
+        "stage0Tests": "2/2 passed",
+        "adjacentGraphTests": "4/4 passed",
+        "projectionTests": "2/2 passed",
+        "fullSuite": "178/178 files passed",
+        "lint": "passed",
+        "productionBuild": "passed with the existing large-chunk warning",
+        "githubPagesBuild": "passed with the existing large-chunk warning",
+        "npmAudit": "0 vulnerabilities",
+        "npmAuditProduction": "0 vulnerabilities",
+        "gitDiffCheck": "passed"
+      }
+    }
+  ]
+}

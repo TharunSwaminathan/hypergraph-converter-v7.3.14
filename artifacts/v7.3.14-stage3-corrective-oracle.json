@@ -1,0 +1,117 @@
+{
+  "stage": 3,
+  "corrective": "S3-N01",
+  "severity": "Medium",
+  "status": "fixed",
+  "parentCommit": "a2de8d8ed81b568b30d59ecbbbb367d13771ebb9",
+  "fixedCount": 4,
+  "total": 4,
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64"
+  },
+  "checks": [
+    {
+      "id": "S3-N01",
+      "title": "Read-only incidence collections reject prototype mutation without query damage",
+      "fixed": true,
+      "evidence": [
+        {
+          "operation": "Object.setPrototypeOf",
+          "collection": "hyperedgesById",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Object.setPrototypeOf",
+          "collection": "vertexToHyperedges",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Object.setPrototypeOf",
+          "collection": "hyperedgeToVertices",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Object.setPrototypeOf",
+          "collection": "vertexToHyperedges[a]",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Object.setPrototypeOf",
+          "collection": "hyperedgeToVertices[h]",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Reflect.setPrototypeOf",
+          "collection": "hyperedgesById",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Reflect.setPrototypeOf",
+          "collection": "vertexToHyperedges",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Reflect.setPrototypeOf",
+          "collection": "hyperedgeToVertices",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Reflect.setPrototypeOf",
+          "collection": "vertexToHyperedges[a]",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        },
+        {
+          "operation": "Reflect.setPrototypeOf",
+          "collection": "hyperedgeToVertices[h]",
+          "readOnlyTypeError": true,
+          "prototypeUnchanged": true,
+          "queriesWorkAfterAttempt": true
+        }
+      ]
+    },
+    {
+      "id": "S3-N01-NATIVE-MUTATOR-BYPASS",
+      "title": "Native Map/Set mutators cannot operate on the collection proxies",
+      "fixed": true,
+      "evidence": {
+        "mapBypass": "Method Map.prototype.set called on incompatible receiver #<Map>",
+        "setBypass": "Method Set.prototype.add called on incompatible receiver #<Set>"
+      }
+    },
+    {
+      "id": "S3-CANONICAL-REFERENCE-POLICY",
+      "title": "Read-only topology retains the original canonical hyperedge record reference",
+      "fixed": true,
+      "evidence": {
+        "sameReference": true
+      }
+    },
+    {
+      "id": "S3-CORRECTIVE-SOURCE-SCOPE",
+      "title": "Corrective remains a local proxy hardening with no projection dependency",
+      "fixed": true,
+      "evidence": {
+        "setPrototypeOfTrapCount": 1
+      }
+    }
+  ]
+}

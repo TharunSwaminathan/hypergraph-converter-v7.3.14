@@ -14,7 +14,9 @@ const COLLECTION_MUTATORS = new Set(["add", "set", "delete", "clear"]);
  *
  * The builder is pure and deliberately uncached. Canonical graph mutations
  * remain owned by the existing commit path; callers rebuild this index from
- * the new canonical array after a graph/version change.
+ * the new canonical array after a graph/version change. Its derived collection
+ * topology is read-only, while hyperedgesById intentionally retains references
+ * to the canonical source records rather than deep-freezing or cloning them.
  */
 export function buildIncidenceIndex(canonicalHyperedges) {
   if (!Array.isArray(canonicalHyperedges)) {
@@ -145,6 +147,9 @@ function readonlyCollection(collection, label) {
       throw new TypeError(`${label} is read-only.`);
     },
     deleteProperty() {
+      throw new TypeError(`${label} is read-only.`);
+    },
+    setPrototypeOf() {
       throw new TypeError(`${label} is read-only.`);
     },
   });
