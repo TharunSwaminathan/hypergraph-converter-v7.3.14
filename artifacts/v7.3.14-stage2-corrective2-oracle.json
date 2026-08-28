@@ -1,0 +1,196 @@
+{
+  "stage": 2,
+  "kind": "corrective2_behavior_oracle",
+  "parentCorrectiveCommit": "90aa5a2a8066502f9a950ff8d062385602c5b613",
+  "fixedCount": 3,
+  "total": 3,
+  "checks": [
+    {
+      "id": "S2-R03C",
+      "title": "Comment-aware RFC masking is shared by CSV, Incidence, and CSR/CSC routes",
+      "fixed": true,
+      "evidence": {
+        "incidenceDetected": "incidence",
+        "incidenceParsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "a",
+                "b"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "csrDetected": "csr_csv",
+        "csrParsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "v1"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "cscDetected": "csr_csv",
+        "cscParsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "v1"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "S2-R03D",
+      "title": "Only lexically valid RFC quoting masks H2H structure",
+      "fixed": true,
+      "evidence": {
+        "quoteDetection": {
+          "balancedQuotedSource": "h2h",
+          "oddQuotedSource": "h2h",
+          "oddQuotedNeighbor": "h2h",
+          "balancedInternalQuoteSource": "h2h",
+          "oddQuotedSharedVertex": "h2h",
+          "validQuotedCsv": "csv",
+          "validMultilineQuotedCsv": "csv",
+          "malformedQuotedCsvWithoutH2H": "csv"
+        },
+        "successfulExportRoundTrips": [
+          {
+            "id": "plain",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "internal space",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "edge,comma",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "edge]bracket",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "\"literal-quote\"",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "\"odd",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "odd\"",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "foo\"bar\"baz",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "__proto__",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "constructor",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "toString",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          },
+          {
+            "id": "null",
+            "exportOk": true,
+            "detectedAs": "h2h",
+            "parseOk": true,
+            "exactIds": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "S2-N03B",
+      "title": "Unrepresentable H2H preview remains explanatory while data download fails closed",
+      "fixed": true,
+      "evidence": {
+        "validExport": {
+          "ok": true,
+          "text": "h1: h2[shared: shared]\nh2: h1[shared: shared]",
+          "reason": null,
+          "assessment": {
+            "ok": true
+          }
+        },
+        "refusedExport": {
+          "ok": false,
+          "text": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"edge:colon\" contains the structural colon delimiter.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss.",
+          "reason": "Unrepresentable hyperedge identifier \"edge:colon\" contains the structural colon delimiter.",
+          "assessment": {
+            "ok": false,
+            "kind": "hyperedge",
+            "identifier": "edge:colon",
+            "reason": "contains the structural colon delimiter",
+            "rowIndex": 0
+          }
+        },
+        "appContract": {
+          "h2hDescriptorUsesStructuredResult": true,
+          "refusalReturnsBeforeDownload": true,
+          "refusalHasNoFilename": true,
+          "directUiDownloadRemoved": true,
+          "guardedUiHandlerInstalled": true
+        }
+      }
+    }
+  ]
+}

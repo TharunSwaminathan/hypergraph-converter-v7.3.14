@@ -1,0 +1,47 @@
+{
+  "stage": 2,
+  "kind": "corrective2_prechange_characterization",
+  "parentCommit": "90aa5a2a8066502f9a950ff8d062385602c5b613",
+  "confirmedGaps": {
+    "S2-R03C": {
+      "incidenceDetectedAs": "incidence",
+      "incidenceDirectParse": {
+        "ok": false,
+        "error": "CSV parse error at character 11: quote appears inside an unquoted field."
+      },
+      "incidenceDetectedDispatch": {
+        "ok": false,
+        "error": "CSV parse error at character 11: quote appears inside an unquoted field."
+      },
+      "csrDetectedAs": "csr_csv",
+      "csrDirectParse": {
+        "ok": false,
+        "error": "CSV parse error at character 11: quote appears inside an unquoted field."
+      },
+      "csrDetectedDispatch": {
+        "ok": false,
+        "error": "CSV parse error at character 11: quote appears inside an unquoted field."
+      }
+    },
+    "S2-R03D": {
+      "balancedQuotedSource": "h2h",
+      "oddQuotedSource": "csv",
+      "oddQuotedNeighbor": "simple",
+      "balancedInternalQuoteSource": "h2h",
+      "oddQuotedSharedVertex": "h2h",
+      "validQuotedCsv": "csv",
+      "malformedQuotedCsvWithoutH2H": "csv"
+    },
+    "S2-N03B": {
+      "unsafeH2HStringResult": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"edge:colon\" contains the structural colon delimiter.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss.",
+      "uiDownloadsCurrentTextDirectly": true,
+      "agentDownloadsBeforeReturningSuccess": true,
+      "structuredH2HResultAvailable": false
+    }
+  },
+  "failingCorrectiveTests": [
+    "tests/stage2-corrective2-commented-csv-routes.test.mjs",
+    "tests/stage2-corrective2-h2h-quote-invariant.test.mjs",
+    "tests/stage2-corrective2-h2h-download-contract.test.mjs"
+  ]
+}

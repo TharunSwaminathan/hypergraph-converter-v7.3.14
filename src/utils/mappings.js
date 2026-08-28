@@ -260,16 +260,24 @@ export function assessH2HExportRepresentability(rows = []) {
   return { ok: true };
 }
 
-export function expH2H(rows) {
+export function expH2HResult(rows) {
   const assessment = assessH2HExportRepresentability(rows);
   if (!assessment.ok) {
-    return [
+    const reason = "Unrepresentable " + assessment.kind + " identifier "
+      + JSON.stringify(assessment.identifier) + " " + assessment.reason + ".";
+    const text = [
       "# H2H export not generated.",
-      "# Unrepresentable " + assessment.kind + " identifier " + JSON.stringify(assessment.identifier) + " " + assessment.reason + ".",
+      "# " + reason,
       "# Use H2V or Canonical JSON to preserve this graph without identifier loss.",
     ].join("\n");
+    return { ok: false, text, reason, assessment };
   }
-  return rows.map(x => x.hid + ": " + (x.neighbors.length ? x.neighbors.map((n, i) => n + "[shared: " + x.sharedVertices[i].join(",") + "]").join(", ") : "(none)")).join("\n");
+  const text = rows.map(x => x.hid + ": " + (x.neighbors.length ? x.neighbors.map((n, i) => n + "[shared: " + x.sharedVertices[i].join(",") + "]").join(", ") : "(none)")).join("\n");
+  return { ok: true, text, reason: null, assessment };
+}
+
+export function expH2H(rows) {
+  return expH2HResult(rows).text;
 }
 export const expV2V = r => r.map(x => x.src + " -- " + x.dst + " [shared: " + x.hyperedges.join(",") + ", weight=" + x.weight + "]").join("\n");
 

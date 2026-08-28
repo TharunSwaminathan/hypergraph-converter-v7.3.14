@@ -1,0 +1,44 @@
+{
+  "stage": 2,
+  "kind": "corrective2_issue_register",
+  "parentCorrectiveCommit": "90aa5a2a8066502f9a950ff8d062385602c5b613",
+  "issues": [
+    {
+      "id": "S2-R03C",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-corrective2-commented-csv-routes.test.mjs",
+      "evidence": "CSV row-hypergraph, Incidence, and CSR/CSC CSV routes share the same quote-state-aware full-line comment masking. Strict parseCsvDocument behavior remains unchanged."
+    },
+    {
+      "id": "S2-R03D",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-corrective2-h2h-quote-invariant.test.mjs",
+      "evidence": "Auto Detect masks H2H-looking payload only while RFC quote syntax is lexically valid and balanced. Invalid RFC quote syntax uses comment-masked raw structure for H2H evidence; malformed CSV without a structural H2H signature still routes to CSV."
+    },
+    {
+      "id": "S2-N03B",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-corrective2-h2h-download-contract.test.mjs",
+      "evidence": "expH2HResult returns structured success/refusal state while expH2H remains a string compatibility wrapper. H2H refusal text remains previewable/copyable, but UI and agent download paths return before invoking the downloader and do not return a filename."
+    }
+  ],
+  "contracts": {
+    "commentAwareCsvRoutes": [
+      "csv",
+      "incidence",
+      "csr_csv"
+    ],
+    "strictCsvParserUnchanged": true,
+    "h2hQuotePolicy": "Lexically valid and balanced RFC quotes protect payload. Invalid/unclosed RFC quoting cannot hide a credible structural H2H signature.",
+    "successfulH2HExportInvariant": "Every identifier class accepted by expH2HResult must produce text that Auto Detect classifies as h2h and parseInputFormat('h2h') consumes without identifier corruption.",
+    "identifierRefusalDownload": "Preview and copy remain available as diagnostic text; H2H data download returns ok:false and no filename without invoking dl().",
+    "overBudgetH2HBehavior": "Preserved separately. A non-computed projection has no identifier assessment result and retains the pre-existing projection diagnostic behavior."
+  },
+  "evidence": {
+    "prechange": "artifacts/v7.3.14-stage2-corrective2-prechange.json",
+    "correctedBehavior": "artifacts/v7.3.14-stage2-corrective2-oracle.json"
+  }
+}

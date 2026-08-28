@@ -240,6 +240,9 @@ function scanFormatSyntax(value) {
   let lineHasOnlyWhitespace = true;
   let hasDataComma = false;
   let hasDataQuote = false;
+  let fieldHasNonWhitespace = false;
+  let afterClosingQuote = false;
+  let rfcQuoteSyntaxValid = true;
 
   for (let index = 0; index < text.length; index += 1) {
     const ch = text[index];
@@ -251,6 +254,8 @@ function scanFormatSyntax(value) {
       if (isLineBreak) {
         inComment = false;
         lineHasOnlyWhitespace = true;
+        fieldHasNonWhitespace = false;
+        afterClosingQuote = false;
       }
       continue;
     }
@@ -263,6 +268,14 @@ function scanFormatSyntax(value) {
     }
 
     rfcText += ch;
+    if (!inQuotes && afterClosingQuote) {
+      if (ch === " " || ch === "\t") {
+        structuralText += ch;
+        continue;
+      }
+      if (ch !== "," && !isLineBreak) rfcQuoteSyntaxValid = false;
+      afterClosingQuote = false;
+    }
     if (ch === "\"") {
       hasDataQuote = true;
       structuralText += "\"";
@@ -272,7 +285,9 @@ function scanFormatSyntax(value) {
         index += 1;
         continue;
       }
+      if (!inQuotes && fieldHasNonWhitespace) rfcQuoteSyntaxValid = false;
       inQuotes = !inQuotes;
+      afterClosingQuote = !inQuotes;
       lineHasOnlyWhitespace = false;
       continue;
     }
@@ -281,9 +296,48 @@ function scanFormatSyntax(value) {
     structuralText += inQuotes && !isLineBreak ? " " : ch;
     if (isLineBreak) lineHasOnlyWhitespace = true;
     else if (!/\s/.test(ch)) lineHasOnlyWhitespace = false;
+    if (!inQuotes) {
+      if (ch === "," || isLineBreak) fieldHasNonWhitespace = false;
+      else if (!/\s/.test(ch)) fieldHasNonWhitespace = true;
+    }
   }
 
-  return { structuralText, rfcText, hasDataComma, hasDataQuote };
+  return {
+    structuralText,
+    rfcText,
+    hasDataComma,
+    hasDataQuote,
+    quotesBalanced: !inQuotes,
+    rfcQuoteSyntaxValid: rfcQuoteSyntaxValid && !inQuotes,
+  };
+}
+
+/**
+ * Mask only historical full-line # comments while retaining every physical
+ * line ending. Quote state crosses physical lines, so # inside a multiline
+ * RFC field remains payload. Strict RFC parsing itself stays unchanged.
+ */
+export function maskCsvFullLineComments(value) {
+  return scanFormatSyntax(value).rfcText;
+}
+
+function parseCsvDocumentWithComments(value, syntax = null) {
+  const commentMaskedText = syntax?.rfcText ?? maskCsvFullLineComments(value);
+  return parseCsvDocument(commentMaskedText)
+    .filter(cells => cells.some(cell => cell.trim() !== "") && !(cells[0] ?? "").startsWith("#"));
+}
+
+function hasStructuralH2HSignature(value) {
+  return String(value ?? "")
+    .split(/\r\n|\n|\r/)
+    .some(line => {
+      const colon = line.indexOf(":");
+      if (colon < 0 || !line.slice(0, colon).trim()) return false;
+      const rhs = line.slice(colon + 1);
+      if (/^\s*\(none\)\s*$/i.test(rhs)) return true;
+      const marker = rhs.search(/\[\s*shared\s*:/i);
+      return marker >= 0 && Boolean(rhs.slice(0, marker).trim());
+    });
 }
 
 export function parseCSVFmt(t) {
@@ -292,8 +346,7 @@ export function parseCSVFmt(t) {
   // The historical CSV route accepted whitespace-separated hyperedge rows.
   // RFC CSV is selected only by delimiters/quotes in non-comment data.
   if (!syntax.hasDataComma && !syntax.hasDataQuote) return parseWhitespaceRows(text);
-  return parseCsvDocument(syntax.rfcText)
-    .filter(cells => cells.some(cell => cell.trim() !== "") && !(cells[0] ?? "").startsWith("#"))
+  return parseCsvDocumentWithComments(text, syntax)
     .map((cells, i) => {
       const vertices = cells.map(csvIdentifierToken).filter(v => v !== "");
       if (!vertices.length) throw new Error(`CSV row ${i + 1}: expected at least one vertex.`);
@@ -378,7 +431,7 @@ export function parseCsvDocument(text) {
 }
 
 export function parseIncidence(t) {
-  const rows = parseCsvDocument(t).filter(cells => cells.some(cell => cell.trim() !== "") && !(cells[0] ?? "").startsWith("#"));
+  const rows = parseCsvDocumentWithComments(t);
   const map = new Map();
   rows.forEach((cells, index) => {
     if (index === 0) {
@@ -540,7 +593,7 @@ export function parseCSRJson(t) {
 }
 export function parseCSRCsv(t) {
   const data = new Map();
-  parseCsvDocument(t).filter(cells => cells.some(cell => cell.trim() !== "") && !(cells[0] ?? "").startsWith("#")).forEach(cells => {
+  parseCsvDocumentWithComments(t).forEach(cells => {
     data.set(cells[0].trim(), cells.slice(1));
   });
   const vIds = data.get("vertexIds"); const hIds = data.get("hyperedgeIds");
@@ -766,17 +819,9 @@ export function autoDetect(text) {
   // A structural shared clause is specific to H2H. Quoted RFC payloads and
   // ignored comments are masked by the scanner, while malformed real H2H is
   // still routed to the strict parser for its detailed error.
-  const hasStructuralH2HSignature = syntax.structuralText
-    .split(/\r\n|\n|\r/)
-    .some(line => {
-      const colon = line.indexOf(":");
-      if (colon < 0 || !line.slice(0, colon).trim()) return false;
-      const rhs = line.slice(colon + 1);
-      if (/^\s*\(none\)\s*$/i.test(rhs)) return true;
-      const marker = rhs.search(/\[\s*shared\s*:/i);
-      return marker >= 0 && Boolean(rhs.slice(0, marker).trim());
-    });
-  if (hasStructuralH2HSignature) return "h2h";
+  const maskedH2HSignature = hasStructuralH2HSignature(syntax.structuralText);
+  const invalidRfcQuoteH2HSignature = !syntax.rfcQuoteSyntaxValid && hasStructuralH2HSignature(syntax.rfcText);
+  if (maskedH2HSignature || invalidRfcQuoteH2HSignature) return "h2h";
 
   const colonPositions = lines.map(findStructuralColon);
   if (colonPositions.every(position => position >= 0)) {

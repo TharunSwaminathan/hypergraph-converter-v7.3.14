@@ -10,7 +10,7 @@ import { arrayMax } from "./utils/numeric.js";
 import { parseBatchUpdates, applyBatchUpdates, batchUpdatesToMutationOperations } from "./utils/batchUpdates.js";
 import {
   buildH2V, buildV2H, buildH2HBounded, buildV2VBounded, buildCSR,
-  expH2V, expV2H, expH2H, expV2V, expIncidence, expBipartite, expClique, expMatrixResult, expCSRCsv, expCanonicalJSON,
+  expH2V, expV2H, expH2HResult, expV2V, expIncidence, expBipartite, expClique, expMatrixResult, expCSRCsv, expCanonicalJSON,
   computeStats, countTriadsBounded, validateHes, notRequestedDerived, DERIVED_STATUS,
 } from "./utils/mappings.js";
 import { shouldRequestH2H, shouldRequestV2V } from "./utils/derivedRequests.js";
@@ -3584,7 +3584,14 @@ function AppCore() {
   const st = useMemo(() => finalHes ? computeStats(finalHes) : null, [finalHes]);
   const ht = useMemo(() => expH2V(h2v), [h2v]);
   const vt = useMemo(() => expV2H(v2h), [v2h]);
-  const ht2 = useMemo(() => h2hResult.status === DERIVED_STATUS.COMPUTED ? expH2H(h2h) : `# H2H projection not computed.\n# ${h2hResult.reason ?? "Open the Mappings tab to request it."}`, [h2h, h2hResult]);
+  const h2hExportResult = useMemo(
+    () => h2hResult.status === DERIVED_STATUS.COMPUTED ? expH2HResult(h2h) : null,
+    [h2h, h2hResult.status],
+  );
+  const ht2 = useMemo(
+    () => h2hExportResult?.text ?? "# H2H projection not computed.\n# " + (h2hResult.reason ?? "Open the Mappings tab to request it."),
+    [h2hExportResult, h2hResult.reason],
+  );
   const vvt = useMemo(() => v2vResult.status === DERIVED_STATUS.COMPUTED ? expV2V(v2v) : `# V2V projection not computed.\n# ${v2vResult.reason ?? "Open the Mappings tab to request it."}`, [v2v, v2vResult]);
 
   const h2vRows = h2v.map(r => [r.hid, r.time ?? "—", r.vertices.join(", "), r.weight != null && r.weight !== 1 ? r.weight : "1", String(r.vertices.length)]);
@@ -3670,7 +3677,7 @@ function AppCore() {
   const EXPORTS = useMemo(() => [
     { id: "h2v_txt", label: "h2v text", fn: "h2v.txt", text: () => ht },
     { id: "v2h_txt", label: "v2h text", fn: "v2h.txt", text: () => vt },
-    { id: "h2h_txt", label: "h2h text", fn: "h2h.txt", text: () => ht2 },
+    { id: "h2h_txt", label: "h2h text", fn: "h2h.txt", text: () => ht2, result: () => h2hExportResult },
     { id: "canonical", label: "Canonical JSON", fn: "canonical.json", text: () => expCanonicalJSON(finalHes ?? [], { fmt }, { v2vResult }) },
     { id: "incidence", label: "Incidence CSV", fn: "incidence.csv", text: () => expIncidence(finalHes ?? []) },
     { id: "bipartite", label: "Bipartite CSV", fn: "bipartite.csv", text: () => expBipartite(finalHes ?? []) },
@@ -3680,7 +3687,7 @@ function AppCore() {
     { id: "csr_csv", label: "CSR CSV", fn: "csr.csv", text: () => expCSRCsv(csr) },
     { id: "full_json", label: "Full JSON", fn: "hypergraph.json", text: () => JSON.stringify({ metadata: { E: st?.E, V: st?.V, h2hStatus: h2hResult.status, h2hReason: h2hResult.reason }, hyperedges: finalHes, h2v, v2h, h2h: h2hResult.status === DERIVED_STATUS.COMPUTED ? h2h : null }, null, 2) },
     { id: "all_txt", label: "All mappings", fn: "all_mappings.txt", text: () => [ht, vt, ht2].join("\n\n---\n\n") },
-  ], [csr, finalHes, fmt, h2h, h2hResult, h2v, ht, ht2, st, v2h, vt, v2vResult]);
+  ], [csr, finalHes, fmt, h2h, h2hExportResult, h2hResult, h2v, ht, ht2, st, v2h, vt, v2vResult]);
   const curExp = EXPORTS.find(e => e.id === expId) ?? EXPORTS[0];
   const exportContent = useMemo(() => curExp.text(), [curExp]);
 
@@ -3729,8 +3736,16 @@ function AppCore() {
     if (!finalHes?.length) return { ok: false, error: "No graph is loaded yet." };
     const selected = EXPORTS.find(item => item.id === exportId);
     if (!selected) return { ok: false, error: "Unknown export preview." };
-    dl(selected.fn, selected.id === expId ? exportContent : selected.text());
+    const selectedText = selected.id === expId ? exportContent : selected.text();
+    const resolved = selected.result?.() ?? { ok: true, text: selectedText, reason: null };
+    if (!resolved.ok) return { ok: false, error: resolved.reason ?? "This export is unavailable.", exportId: selected.id };
+    dl(selected.fn, resolved.text ?? selectedText);
     return { ok: true, exportId: selected.id, filename: selected.fn };
+  }
+
+  function downloadCurrentExport() {
+    const result = downloadExportForAgent(curExp.id);
+    if (!result.ok) showNotice("Download not started — " + result.error);
   }
 
   async function copyAiPromptForAgent(targetExportId = "canonical") {
@@ -4925,7 +4940,7 @@ function AppCore() {
                 </div>
                 <div style={{ padding: 20 }}>
                   <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
-                    <button onClick={() => dl(curExp.fn, exportContent)} style={{ padding: "8px 20px", borderRadius: 8, background: T.accent, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>↓ Download {curExp.fn}</button>
+                    <button onClick={downloadCurrentExport} style={{ padding: "8px 20px", borderRadius: 8, background: T.accent, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>↓ Download {curExp.fn}</button>
                     <button onClick={() => { navigator.clipboard.writeText(exportContent); showNotice("Copied " + curExp.fn); }} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.border, background: "transparent", color: T.textDim, fontSize: 13, cursor: "pointer" }}>Copy</button>
                   </div>
                   <div style={{ background: T.card, borderRadius: 8, padding: 14, border: "1px solid " + T.border }}>
