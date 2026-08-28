@@ -1,0 +1,44 @@
+{
+  "stage": 2,
+  "kind": "final_corrective_issue_register",
+  "parentCorrectiveCommit": "6c8b1fba3d2aa964bf0c2905fcac4ce3c4cab669",
+  "issues": [
+    {
+      "id": "S2-N04",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-final-corrective-leading-hash-csv.test.mjs",
+      "evidence": "Only the quote-aware lexical scanner decides whether a physical # line is a comment. RFC-decoded first cells are never reclassified as comments, and first-column leading-# export data is RFC-quoted so Incidence CSV round-trips."
+    },
+    {
+      "id": "S2-N03C",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-final-corrective-h2h-availability.test.mjs",
+      "evidence": "H2H export availability is structured for computed, unrepresentable, over-budget, and not-requested states. Non-computed results retain diagnostic preview text but return ok:false before any downloader side effect and never return a filename."
+    }
+  ],
+  "contracts": {
+    "commentAuthority": "A full physical line is ignored only when its first non-whitespace character is # outside RFC quotes. Post-decoding firstCell.startsWith('#') filtering is prohibited.",
+    "strictCsvParserUnchanged": true,
+    "leadingHashSerialization": "A first-column data value beginning with # is RFC-quoted so its physical row cannot be mistaken for a comment.",
+    "h2hAvailability": {
+      "computedRepresentable": "ok:true",
+      "computedUnrepresentable": "ok:false",
+      "overBudget": "ok:false",
+      "notRequestedOrUnavailable": "ok:false"
+    },
+    "nonComputedH2HDownload": "Preview and copy retain diagnostics; Download returns before dl(), reports no successful filename, and does not force projection computation."
+  },
+  "deferredRisks": [
+    {
+      "id": "DEFERRED-EXPORT-RESULT-CONTRACTS",
+      "scope": "later resource/export stage",
+      "note": "Matrix and Clique descriptors were intentionally not redesigned in this corrective. Their result/download availability contracts should be audited in the appropriate later stage."
+    }
+  ],
+  "evidence": {
+    "prechange": "artifacts/v7.3.14-stage2-final-corrective-prechange.json",
+    "correctedBehavior": "artifacts/v7.3.14-stage2-final-corrective-oracle.json"
+  }
+}

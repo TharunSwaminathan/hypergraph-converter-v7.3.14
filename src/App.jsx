@@ -10,7 +10,7 @@ import { arrayMax } from "./utils/numeric.js";
 import { parseBatchUpdates, applyBatchUpdates, batchUpdatesToMutationOperations } from "./utils/batchUpdates.js";
 import {
   buildH2V, buildV2H, buildH2HBounded, buildV2VBounded, buildCSR,
-  expH2V, expV2H, expH2HResult, expV2V, expIncidence, expBipartite, expClique, expMatrixResult, expCSRCsv, expCanonicalJSON,
+  expH2V, expV2H, expH2HResult, expH2HAvailabilityResult, expV2V, expIncidence, expBipartite, expClique, expMatrixResult, expCSRCsv, expCanonicalJSON,
   computeStats, countTriadsBounded, validateHes, notRequestedDerived, DERIVED_STATUS,
 } from "./utils/mappings.js";
 import { shouldRequestH2H, shouldRequestV2V } from "./utils/derivedRequests.js";
@@ -3585,13 +3585,12 @@ function AppCore() {
   const ht = useMemo(() => expH2V(h2v), [h2v]);
   const vt = useMemo(() => expV2H(v2h), [v2h]);
   const h2hExportResult = useMemo(
-    () => h2hResult.status === DERIVED_STATUS.COMPUTED ? expH2HResult(h2h) : null,
-    [h2h, h2hResult.status],
+    () => h2hResult.status === DERIVED_STATUS.COMPUTED
+      ? { ...expH2HResult(h2h), status: h2hResult.status }
+      : expH2HAvailabilityResult(h2h, { status: h2hResult.status, reason: h2hResult.reason }),
+    [h2h, h2hResult.reason, h2hResult.status],
   );
-  const ht2 = useMemo(
-    () => h2hExportResult?.text ?? "# H2H projection not computed.\n# " + (h2hResult.reason ?? "Open the Mappings tab to request it."),
-    [h2hExportResult, h2hResult.reason],
-  );
+  const ht2 = h2hExportResult.text;
   const vvt = useMemo(() => v2vResult.status === DERIVED_STATUS.COMPUTED ? expV2V(v2v) : `# V2V projection not computed.\n# ${v2vResult.reason ?? "Open the Mappings tab to request it."}`, [v2v, v2vResult]);
 
   const h2vRows = h2v.map(r => [r.hid, r.time ?? "—", r.vertices.join(", "), r.weight != null && r.weight !== 1 ? r.weight : "1", String(r.vertices.length)]);

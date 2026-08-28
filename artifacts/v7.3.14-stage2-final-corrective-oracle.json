@@ -1,0 +1,168 @@
+{
+  "stage": 2,
+  "kind": "final_corrective_behavior_oracle",
+  "parentCorrectiveCommit": "6c8b1fba3d2aa964bf0c2905fcac4ce3c4cab669",
+  "fixedCount": 2,
+  "total": 2,
+  "checks": [
+    {
+      "id": "S2-N04",
+      "title": "Lexical comments and RFC-quoted leading-# data remain distinct and Incidence export round-trips",
+      "fixed": true,
+      "evidence": {
+        "quotedCsv": [
+          {
+            "id": "h0",
+            "vertices": [
+              "#payload",
+              "x"
+            ],
+            "time": null,
+            "weight": 1
+          },
+          {
+            "id": "h1",
+            "vertices": [
+              "second",
+              "row"
+            ],
+            "time": null,
+            "weight": 1
+          }
+        ],
+        "quotedIncidence": [
+          {
+            "id": "#h1",
+            "vertices": [
+              "a",
+              "b"
+            ],
+            "time": null,
+            "weight": 1
+          }
+        ],
+        "detectedExport": "incidence",
+        "incidenceExport": "hyperedge_id,vertex_id,time,weight\r\n\"#h1\",a,,1\r\n\"#h1\",b,,1\r\n__proto__,constructor,,1\r\nconstructor,toString,,1\r\ntoString,null,,1\r\nnull,0,,1\r\n0,0,,1",
+        "roundTrip": [
+          {
+            "id": "#h1",
+            "vertices": [
+              "a",
+              "b"
+            ],
+            "time": null,
+            "weight": 1
+          },
+          {
+            "id": "__proto__",
+            "vertices": [
+              "constructor"
+            ],
+            "time": null,
+            "weight": 1
+          },
+          {
+            "id": "constructor",
+            "vertices": [
+              "toString"
+            ],
+            "time": null,
+            "weight": 1
+          },
+          {
+            "id": "toString",
+            "vertices": [
+              "null"
+            ],
+            "time": null,
+            "weight": 1
+          },
+          {
+            "id": "null",
+            "vertices": [
+              0
+            ],
+            "time": null,
+            "weight": 1
+          },
+          {
+            "id": "0",
+            "vertices": [
+              0
+            ],
+            "time": null,
+            "weight": 1
+          }
+        ],
+        "multiline": [
+          {
+            "id": "h0",
+            "vertices": [
+              "line 1\n# payload\nline 3",
+              "x"
+            ],
+            "time": null,
+            "weight": 1
+          },
+          {
+            "id": "h1",
+            "vertices": [
+              "second",
+              "row"
+            ],
+            "time": null,
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "S2-N03C",
+      "title": "Every H2H availability state is explicit and non-computed downloads fail closed",
+      "fixed": true,
+      "evidence": {
+        "computed": {
+          "ok": true,
+          "text": "h1: h2[shared: shared]\nh2: h1[shared: shared]",
+          "reason": null,
+          "assessment": {
+            "ok": true
+          },
+          "status": "computed"
+        },
+        "unrepresentable": {
+          "ok": false,
+          "text": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"edge:colon\" contains the structural colon delimiter.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss.",
+          "reason": "Unrepresentable hyperedge identifier \"edge:colon\" contains the structural colon delimiter.",
+          "assessment": {
+            "ok": false,
+            "kind": "hyperedge",
+            "identifier": "edge:colon",
+            "reason": "contains the structural colon delimiter",
+            "rowIndex": 0
+          },
+          "status": "computed"
+        },
+        "overBudget": {
+          "ok": false,
+          "text": "# H2H projection not computed.\n# H2H projection exceeds the configured safety budget.",
+          "reason": "H2H projection exceeds the configured safety budget.",
+          "assessment": null,
+          "status": "over_budget"
+        },
+        "notRequested": {
+          "ok": false,
+          "text": "# H2H projection not computed.\n# Open the Mappings tab to request it.",
+          "reason": "Open the Mappings tab to request it.",
+          "assessment": null,
+          "status": "not_requested"
+        },
+        "appContract": {
+          "descriptorAlwaysReturnsStructuredResult": true,
+          "refusalPrecedesDownloader": true,
+          "refusalHasNoFilename": true
+        }
+      }
+    }
+  ]
+}

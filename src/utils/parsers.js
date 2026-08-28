@@ -324,7 +324,7 @@ export function maskCsvFullLineComments(value) {
 function parseCsvDocumentWithComments(value, syntax = null) {
   const commentMaskedText = syntax?.rfcText ?? maskCsvFullLineComments(value);
   return parseCsvDocument(commentMaskedText)
-    .filter(cells => cells.some(cell => cell.trim() !== "") && !(cells[0] ?? "").startsWith("#"));
+    .filter(cells => cells.some(cell => cell.trim() !== ""));
 }
 
 function hasStructuralH2HSignature(value) {
@@ -800,9 +800,9 @@ export function autoDetect(text) {
     }
     return "json";
   }
-  const lines = t.split(/\r\n|\n|\r/).map(line => line.trim()).filter(line => line && !line.startsWith("#"));
-  if (!lines.length) return "simple";
   const syntax = scanFormatSyntax(t);
+  const lines = syntax.rfcText.split(/\r\n|\n|\r/).map(line => line.trim()).filter(Boolean);
+  if (!lines.length) return "simple";
   const looksHyperedgeId = value => /^(?:h|he|e|edge|hyperedge)[\w.-]*\d*$/i.test(cleanToken(value));
   const splitMembership = line => line.split(/[,\s]+/).map(cleanToken).filter(Boolean);
   const findStructuralColon = line => {
@@ -840,7 +840,7 @@ export function autoDetect(text) {
   if (syntax.hasDataComma || syntax.hasDataQuote) {
     let rows;
     try {
-      rows = parseCsvDocument(syntax.rfcText).filter(row => row.some(cell => cell.trim() !== "") && !(row[0] ?? "").startsWith("#"));
+      rows = parseCsvDocument(syntax.rfcText).filter(row => row.some(cell => cell.trim() !== ""));
     } catch {
       return "csv";
     }

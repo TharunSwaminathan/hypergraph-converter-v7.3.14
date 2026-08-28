@@ -1,0 +1,48 @@
+{
+  "stage": 2,
+  "kind": "final_corrective_prechange_characterization",
+  "parentCommit": "6c8b1fba3d2aa964bf0c2905fcac4ce3c4cab669",
+  "confirmedGaps": {
+    "S2-N04": {
+      "quotedCsv": {
+        "ok": true,
+        "value": [
+          {
+            "id": "h0",
+            "vertices": [
+              "second",
+              "row"
+            ],
+            "time": null,
+            "weight": 1
+          }
+        ]
+      },
+      "quotedIncidence": {
+        "ok": true,
+        "value": []
+      },
+      "quotedIncidenceDetectedAs": "incidence",
+      "incidenceExport": "hyperedge_id,vertex_id,time,weight\r\n#h1,a,,1\r\n#h1,b,,1",
+      "incidenceExportPhysicalDataRows": [
+        "#h1,a,,1",
+        "#h1,b,,1"
+      ],
+      "incidenceExportDetectedAs": "incidence",
+      "incidenceExportRoundTrip": {
+        "ok": true,
+        "value": []
+      }
+    },
+    "S2-N03C": {
+      "nonComputedH2HResultIsNullable": true,
+      "genericFallbackCanReturnSuccess": true,
+      "overBudgetDownloadBehavior": "Falls through the nullable result to ok:true and can download the diagnostic as h2h.txt.",
+      "notRequestedDownloadBehavior": "Falls through the nullable result to ok:true and can download the diagnostic as h2h.txt."
+    }
+  },
+  "failingCorrectiveTests": [
+    "tests/stage2-final-corrective-leading-hash-csv.test.mjs",
+    "tests/stage2-final-corrective-h2h-availability.test.mjs"
+  ]
+}

@@ -17,15 +17,16 @@ export { DERIVED_STATUS, notRequestedDerived } from "./derivedResults.js";
  * with CRLF, which is what the RFC specifies and what spreadsheet tools
  * expect; this is used consistently for every CSV export in this file.
  */
-export function csvCell(value, delimiter = ",") {
+export function csvCell(value, delimiter = ",", { protectLeadingComment = false } = {}) {
   const s = value == null ? "" : String(value);
-  const needsQuoting = s.includes(delimiter) || s.includes("\"") || s.includes("\n") || s.includes("\r") || /^\s|\s$/.test(s);
+  const needsQuoting = (protectLeadingComment && s.startsWith("#"))
+    || s.includes(delimiter) || s.includes("\"") || s.includes("\n") || s.includes("\r") || /^\s|\s$/.test(s);
   if (!needsQuoting) return s;
   return "\"" + s.replace(/"/g, "\"\"") + "\"";
 }
 
 export function csvRow(cells, delimiter = ",") {
-  return cells.map(cell => csvCell(cell, delimiter)).join(delimiter);
+  return cells.map((cell, index) => csvCell(cell, delimiter, { protectLeadingComment: index === 0 })).join(delimiter);
 }
 
 export function csvDocument(rows, delimiter = ",") {
@@ -274,6 +275,16 @@ export function expH2HResult(rows) {
   }
   const text = rows.map(x => x.hid + ": " + (x.neighbors.length ? x.neighbors.map((n, i) => n + "[shared: " + x.sharedVertices[i].join(",") + "]").join(", ") : "(none)")).join("\n");
   return { ok: true, text, reason: null, assessment };
+}
+
+export function expH2HAvailabilityResult(rows, availability = {}) {
+  const status = availability.status ?? DERIVED_STATUS.NOT_REQUESTED;
+  if (status === DERIVED_STATUS.COMPUTED) {
+    return { ...expH2HResult(rows), status };
+  }
+  const reason = availability.reason ?? "Open the Mappings tab to request it.";
+  const text = ["# H2H projection not computed.", "# " + reason].join("\n");
+  return { ok: false, text, reason, assessment: null, status };
 }
 
 export function expH2H(rows) {
