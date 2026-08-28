@@ -1,0 +1,317 @@
+{
+  "stage": 2,
+  "kind": "corrective_behavior_oracle",
+  "parentStage2Commit": "f2f5da21bee2db4ac4bb0e133779c10e2829de13",
+  "fixedCount": 3,
+  "total": 3,
+  "checks": [
+    {
+      "id": "S2-R03A",
+      "title": "Auto Detect recognizes H2H structure only outside RFC-quoted payload",
+      "fixed": true,
+      "evidence": {
+        "quotedShared": "csv",
+        "quotedWholeH2H": "csv",
+        "quotedMultilineH2H": "csv",
+        "unquotedCsvPayload": "csv",
+        "h2h": "h2h",
+        "h2hMultipleShared": "h2h",
+        "quotedH2hSource": "h2h",
+        "h2hNone": "h2h",
+        "approvedSimpleAmbiguity": "simple",
+        "malformedStructuralH2h": "h2h"
+      }
+    },
+    {
+      "id": "S2-R03B",
+      "title": "Ignored full-line comments cannot select RFC grammar or corrupt multiline payload",
+      "fixed": true,
+      "evidence": {
+        "commentOutputs": {
+          "comma": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "leadingSpace": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "quote": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "betweenRows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "crlf": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "both": [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        },
+        "multilineCsvDocument": [
+          [
+            "line one\n# not a comment because this is inside the quoted field\nline three",
+            "x"
+          ]
+        ],
+        "multilineCsvFormat": [
+          [
+            "line one\n# not a comment because this is inside the quoted field\nline three",
+            "x"
+          ]
+        ],
+        "multilineAutoDetect": "csv",
+        "commentNeutralAdjacency": {
+          "withoutComment": "adjlist",
+          "withPunctuatedComment": "adjlist"
+        }
+      }
+    },
+    {
+      "id": "S2-N03",
+      "title": "Legacy H2H export emits only the characterized lossless identifier subset",
+      "fixed": true,
+      "evidence": {
+        "outcome": "GUARDED",
+        "representableHyperedgeIds": [
+          "plain",
+          "internal space",
+          "edge,comma",
+          "edge]bracket",
+          "\"literal-quote\"",
+          "__proto__",
+          "null"
+        ],
+        "unrepresentableHyperedgeIds": [
+          "edge:colon",
+          "edge[bracket",
+          " leading",
+          "trailing ",
+          "line\nbreak",
+          "#comment-like"
+        ],
+        "representableSharedVertexIds": [
+          "v:1",
+          "left[open",
+          "\"quoted\"",
+          "__proto__",
+          "null",
+          "0"
+        ],
+        "unrepresentableSharedVertexIds": [
+          "shared,comma",
+          "shared space",
+          "ends]",
+          "007",
+          "Infinity",
+          "line\nbreak"
+        ],
+        "hyperedgeGuards": [
+          {
+            "id": "edge:colon",
+            "assessment": {
+              "ok": false,
+              "kind": "hyperedge",
+              "identifier": "edge:colon",
+              "reason": "contains the structural colon delimiter",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"edge:colon\" contains the structural colon delimiter.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "edge[bracket",
+            "assessment": {
+              "ok": false,
+              "kind": "hyperedge",
+              "identifier": "edge[bracket",
+              "reason": "contains the neighbor-clause opening delimiter",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"edge[bracket\" contains the neighbor-clause opening delimiter.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": " leading",
+            "assessment": {
+              "ok": false,
+              "kind": "hyperedge",
+              "identifier": " leading",
+              "reason": "has leading or trailing whitespace",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \" leading\" has leading or trailing whitespace.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "trailing ",
+            "assessment": {
+              "ok": false,
+              "kind": "hyperedge",
+              "identifier": "trailing ",
+              "reason": "has leading or trailing whitespace",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"trailing \" has leading or trailing whitespace.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "line\nbreak",
+            "assessment": {
+              "ok": false,
+              "kind": "hyperedge",
+              "identifier": "line\nbreak",
+              "reason": "contains a line break",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"line\\nbreak\" contains a line break.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "#comment-like",
+            "assessment": {
+              "ok": false,
+              "kind": "hyperedge",
+              "identifier": "#comment-like",
+              "reason": "would be parsed as a full-line comment",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable hyperedge identifier \"#comment-like\" would be parsed as a full-line comment.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          }
+        ],
+        "sharedVertexGuards": [
+          {
+            "id": "shared,comma",
+            "assessment": {
+              "ok": false,
+              "kind": "shared-vertex",
+              "identifier": "shared,comma",
+              "reason": "contains the shared-vertex list delimiter",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable shared-vertex identifier \"shared,comma\" contains the shared-vertex list delimiter.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "shared space",
+            "assessment": {
+              "ok": false,
+              "kind": "shared-vertex",
+              "identifier": "shared space",
+              "reason": "contains whitespace",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable shared-vertex identifier \"shared space\" contains whitespace.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "ends]",
+            "assessment": {
+              "ok": false,
+              "kind": "shared-vertex",
+              "identifier": "ends]",
+              "reason": "contains the shared-clause closing delimiter",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable shared-vertex identifier \"ends]\" contains the shared-clause closing delimiter.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "007",
+            "assessment": {
+              "ok": false,
+              "kind": "shared-vertex",
+              "identifier": "007",
+              "reason": "would be normalized to a different numeric token on import",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable shared-vertex identifier \"007\" would be normalized to a different numeric token on import.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "Infinity",
+            "assessment": {
+              "ok": false,
+              "kind": "shared-vertex",
+              "identifier": "Infinity",
+              "reason": "would import as a non-finite numeric token",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable shared-vertex identifier \"Infinity\" would import as a non-finite numeric token.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          },
+          {
+            "id": "line\nbreak",
+            "assessment": {
+              "ok": false,
+              "kind": "shared-vertex",
+              "identifier": "line\nbreak",
+              "reason": "contains whitespace",
+              "rowIndex": 0
+            },
+            "exported": "# H2H export not generated.\n# Unrepresentable shared-vertex identifier \"line\\nbreak\" contains whitespace.\n# Use H2V or Canonical JSON to preserve this graph without identifier loss."
+          }
+        ],
+        "representableSharedRoundTrips": [
+          {
+            "id": "v:1",
+            "exact": true
+          },
+          {
+            "id": "left[open",
+            "exact": true
+          },
+          {
+            "id": "\"quoted\"",
+            "exact": true
+          },
+          {
+            "id": "__proto__",
+            "exact": true
+          },
+          {
+            "id": "null",
+            "exact": true
+          },
+          {
+            "id": "0",
+            "exact": true
+          }
+        ]
+      }
+    }
+  ]
+}

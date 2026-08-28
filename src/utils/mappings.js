@@ -196,7 +196,81 @@ export function buildCSR(hes) {
 // Export helpers
 export const expH2V = r => r.map(x => x.hid + (x.time != null ? " [t=" + x.time + "]" : "") + (x.weight != null && x.weight !== 1 ? " @weight=" + x.weight : "") + ": " + x.vertices.join(", ")).join("\n");
 export const expV2H = r => r.map(x => String(x.vid) + ": " + x.hyperedges.join(", ")).join("\n");
-export const expH2H = r => r.map(x => x.hid + ": " + (x.neighbors.length ? x.neighbors.map((n, i) => n + "[shared: " + x.sharedVertices[i].join(",") + "]").join(", ") : "(none)")).join("\n");
+
+function h2hHyperedgeIdentifierIssue(value) {
+  const id = String(value ?? "");
+  if (!id) return "is blank";
+  if (/^\s|\s$/.test(id)) return "has leading or trailing whitespace";
+  if (/[\r\n]/.test(id)) return "contains a line break";
+  if (id.startsWith("#")) return "would be parsed as a full-line comment";
+  if (id.includes(":")) return "contains the structural colon delimiter";
+  if (id.includes("[")) return "contains the neighbor-clause opening delimiter";
+  return null;
+}
+
+function h2hSharedVertexIdentifierIssue(value) {
+  const id = String(value ?? "");
+  if (!id) return "is blank";
+  if (/\s/.test(id)) return "contains whitespace";
+  if (id.includes(",")) return "contains the shared-vertex list delimiter";
+  if (id.includes("]")) return "contains the shared-clause closing delimiter";
+  const numericValue = Number(id);
+  if (!Number.isNaN(numericValue)) {
+    if (!Number.isFinite(numericValue)) return "would import as a non-finite numeric token";
+    if (String(numericValue) !== id) return "would be normalized to a different numeric token on import";
+  }
+  return null;
+}
+
+/**
+ * The legacy H2H text grammar has no escaping mechanism. Characterize its
+ * exact lossless subset so export can fail closed instead of emitting a graph
+ * that silently imports with different identifiers.
+ */
+export function assessH2HExportRepresentability(rows = []) {
+  for (const [rowIndex, row] of (rows ?? []).entries()) {
+    const hyperedgeIds = [row?.hid, ...(row?.neighbors ?? [])];
+    for (const value of hyperedgeIds) {
+      const reason = h2hHyperedgeIdentifierIssue(value);
+      if (reason) {
+        return {
+          ok: false,
+          kind: "hyperedge",
+          identifier: String(value ?? ""),
+          reason,
+          rowIndex,
+        };
+      }
+    }
+    for (const vertices of (row?.sharedVertices ?? [])) {
+      for (const value of (vertices ?? [])) {
+        const reason = h2hSharedVertexIdentifierIssue(value);
+        if (reason) {
+          return {
+            ok: false,
+            kind: "shared-vertex",
+            identifier: String(value ?? ""),
+            reason,
+            rowIndex,
+          };
+        }
+      }
+    }
+  }
+  return { ok: true };
+}
+
+export function expH2H(rows) {
+  const assessment = assessH2HExportRepresentability(rows);
+  if (!assessment.ok) {
+    return [
+      "# H2H export not generated.",
+      "# Unrepresentable " + assessment.kind + " identifier " + JSON.stringify(assessment.identifier) + " " + assessment.reason + ".",
+      "# Use H2V or Canonical JSON to preserve this graph without identifier loss.",
+    ].join("\n");
+  }
+  return rows.map(x => x.hid + ": " + (x.neighbors.length ? x.neighbors.map((n, i) => n + "[shared: " + x.sharedVertices[i].join(",") + "]").join(", ") : "(none)")).join("\n");
+}
 export const expV2V = r => r.map(x => x.src + " -- " + x.dst + " [shared: " + x.hyperedges.join(",") + ", weight=" + x.weight + "]").join("\n");
 
 export function expIncidence(hes) {

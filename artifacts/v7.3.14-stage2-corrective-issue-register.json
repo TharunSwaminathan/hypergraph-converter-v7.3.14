@@ -1,0 +1,78 @@
+{
+  "stage": 2,
+  "kind": "corrective_issue_register",
+  "parentStage2Commit": "f2f5da21bee2db4ac4bb0e133779c10e2829de13",
+  "issues": [
+    {
+      "id": "S2-R03A",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-corrective-detection-comments.test.mjs",
+      "evidence": "A single quote-state scanner masks RFC-quoted payload before structural H2H signature detection, including across embedded physical newlines. Real shared clauses and (none) outside quotes still route to strict H2H parsing."
+    },
+    {
+      "id": "S2-R03B",
+      "status": "fixed",
+      "severity": "high",
+      "positiveRegression": "tests/stage2-corrective-detection-comments.test.mjs",
+      "evidence": "RFC-vs-whitespace dispatch ignores comma and quote punctuation on full physical comment lines whose first non-whitespace character is #. Comment masking is quote-state-aware, so a # line inside a multiline RFC field remains data."
+    },
+    {
+      "id": "S2-N03",
+      "status": "guarded",
+      "severity": "high",
+      "classification": "confirmed_pre_existing_format_representability_defect",
+      "positiveRegression": "tests/stage2-corrective-h2h-representability.test.mjs",
+      "evidence": "The legacy unescaped H2H exporter now emits only its characterized lossless identifier subset. An unrepresentable hyperedge or shared-vertex identifier produces an explicit non-generated diagnostic instead of silently corrupt text."
+    }
+  ],
+  "h2hRepresentability": {
+    "hyperedgeIdentifiers": {
+      "representableRule": "A non-empty identifier with no leading/trailing whitespace, CR/LF, structural colon, or opening square bracket, and which does not begin with #.",
+      "confirmedRepresentable": [
+        "plain",
+        "internal space",
+        "edge,comma",
+        "edge]bracket",
+        "\"literal-quote\"",
+        "__proto__",
+        "null"
+      ],
+      "guarded": [
+        "edge:colon",
+        "edge[bracket",
+        " leading",
+        "trailing ",
+        "line\\nbreak",
+        "#comment-like"
+      ],
+      "contextNote": "A # prefix can appear to survive when another neighbor row reintroduces the ID, but an isolated source line is discarded as a comment; it is therefore not globally representable."
+    },
+    "sharedVertexIdentifiers": {
+      "representableRule": "A non-empty token with no whitespace, comma, or closing square bracket. Numeric-looking tokens must import as a finite number whose canonical string is identical to the exported token.",
+      "confirmedRepresentable": [
+        "v:1",
+        "left[open",
+        "\"quoted\"",
+        "__proto__",
+        "null",
+        "0"
+      ],
+      "guarded": [
+        "shared,comma",
+        "shared space",
+        "ends]",
+        "007",
+        "Infinity",
+        "line\\nbreak"
+      ]
+    },
+    "outcome": "GUARDED",
+    "futureOwner": "A future explicitly approved H2H format-design stage",
+    "futureWork": "Introduce a versioned escaping/quoting grammar only with old-format compatibility and complete import/export round-trip tests. No new syntax was invented in this corrective pass."
+  },
+  "evidence": {
+    "prechange": "artifacts/v7.3.14-stage2-corrective-prechange.json",
+    "correctedBehavior": "artifacts/v7.3.14-stage2-corrective-oracle.json"
+  }
+}

@@ -1,0 +1,646 @@
+{
+  "stage": 2,
+  "kind": "corrective_prechange_characterization",
+  "parentCommit": "f2f5da21bee2db4ac4bb0e133779c10e2829de13",
+  "confirmedGaps": {
+    "S2-R03A": {
+      "quotedShared": "h2h",
+      "quotedWholeH2H": "h2h",
+      "quotedMultilineH2H": "h2h",
+      "unquotedCsvPayload": "h2h"
+    },
+    "S2-R03B": {
+      "comma": {
+        "ok": true,
+        "value": [
+          [
+            "1 2 3"
+          ],
+          [
+            "2 4"
+          ]
+        ]
+      },
+      "leadingSpace": {
+        "ok": true,
+        "value": [
+          [
+            "1 2 3"
+          ],
+          [
+            "2 4"
+          ]
+        ]
+      },
+      "quote": {
+        "ok": false,
+        "error": "CSV parse error at character 11: quote appears inside an unquoted field."
+      },
+      "betweenRows": {
+        "ok": true,
+        "value": [
+          [
+            "1 2 3"
+          ],
+          [
+            "2 4"
+          ]
+        ]
+      },
+      "crlf": {
+        "ok": true,
+        "value": [
+          [
+            "1 2 3"
+          ],
+          [
+            "2 4"
+          ]
+        ]
+      },
+      "both": {
+        "ok": false,
+        "error": "CSV parse error at character 3: quote appears inside an unquoted field."
+      }
+    }
+  },
+  "h2hRepresentability": {
+    "hyperedgeIds": [
+      {
+        "id": "plain",
+        "exported": "plain: other[shared: shared]\nother: plain[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "plain",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": "edge:colon",
+        "exported": "edge:colon: other[shared: shared]\nother: edge:colon[shared: shared]",
+        "parsed": {
+          "ok": false,
+          "error": "H2H line 1: unexpected extra structural colon in neighbor \"colon: other\"."
+        },
+        "exactIds": false
+      },
+      {
+        "id": "edge[bracket",
+        "exported": "edge[bracket: other[shared: shared]\nother: edge[bracket[shared: shared]",
+        "parsed": {
+          "ok": false,
+          "error": "H2H line 2: neighbor \"edge\" must use [shared: ...]."
+        },
+        "exactIds": false
+      },
+      {
+        "id": "edge]bracket",
+        "exported": "edge]bracket: other[shared: shared]\nother: edge]bracket[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "edge]bracket",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": "internal space",
+        "exported": "internal space: other[shared: shared]\nother: internal space[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "internal space",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": " leading",
+        "exported": " leading: other[shared: shared]\nother:  leading[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "leading",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": false
+      },
+      {
+        "id": "trailing ",
+        "exported": "trailing : other[shared: shared]\nother: trailing [shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "trailing",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": false
+      },
+      {
+        "id": "edge,comma",
+        "exported": "edge,comma: other[shared: shared]\nother: edge,comma[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "edge,comma",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": "\"literal-quote\"",
+        "exported": "\"literal-quote\": other[shared: shared]\nother: \"literal-quote\"[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "\"literal-quote\"",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": "__proto__",
+        "exported": "__proto__: other[shared: shared]\nother: __proto__[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "__proto__",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": "null",
+        "exported": "null: other[shared: shared]\nother: null[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "null",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": "#comment-like",
+        "exported": "#comment-like: other[shared: shared]\nother: #comment-like[shared: shared]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "#comment-like",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "other",
+              "vertices": [
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactIds": true
+      },
+      {
+        "id": "line\nbreak",
+        "exported": "line\nbreak: other[shared: shared]\nother: line\nbreak[shared: shared]",
+        "parsed": {
+          "ok": false,
+          "error": "H2H line 1: missing structural colon."
+        },
+        "exactIds": false
+      }
+    ],
+    "sharedVertexIds": [
+      {
+        "id": "plain",
+        "exported": "h1: h2[shared: plain]\nh2: h1[shared: plain]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "plain"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "plain"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": true
+      },
+      {
+        "id": "v:1",
+        "exported": "h1: h2[shared: v:1]\nh2: h1[shared: v:1]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "v:1"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "v:1"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": true
+      },
+      {
+        "id": "left[open",
+        "exported": "h1: h2[shared: left[open]\nh2: h1[shared: left[open]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "left[open"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "left[open"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": true
+      },
+      {
+        "id": "ends]",
+        "exported": "h1: h2[shared: ends]]\nh2: h1[shared: ends]]",
+        "parsed": {
+          "ok": false,
+          "error": "H2H line 1: unexpected trailing text after neighbor \"h2\"; clauses must be comma-separated."
+        },
+        "exactShared": false
+      },
+      {
+        "id": "shared,comma",
+        "exported": "h1: h2[shared: shared,comma]\nh2: h1[shared: shared,comma]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "comma",
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "comma",
+                "shared"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": false
+      },
+      {
+        "id": "shared space",
+        "exported": "h1: h2[shared: shared space]\nh2: h1[shared: shared space]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "shared",
+                "space"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "shared",
+                "space"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": false
+      },
+      {
+        "id": "\"quoted\"",
+        "exported": "h1: h2[shared: \"quoted\"]\nh2: h1[shared: \"quoted\"]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "\"quoted\""
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "\"quoted\""
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": true
+      },
+      {
+        "id": "__proto__",
+        "exported": "h1: h2[shared: __proto__]\nh2: h1[shared: __proto__]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "__proto__"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "__proto__"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": true
+      },
+      {
+        "id": "null",
+        "exported": "h1: h2[shared: null]\nh2: h1[shared: null]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                "null"
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                "null"
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": true
+      },
+      {
+        "id": "0",
+        "exported": "h1: h2[shared: 0]\nh2: h1[shared: 0]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                0
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                0
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": true
+      },
+      {
+        "id": "007",
+        "exported": "h1: h2[shared: 007]\nh2: h1[shared: 007]",
+        "parsed": {
+          "ok": true,
+          "value": [
+            {
+              "id": "h1",
+              "vertices": [
+                7
+              ],
+              "time": null,
+              "weight": 1
+            },
+            {
+              "id": "h2",
+              "vertices": [
+                7
+              ],
+              "time": null,
+              "weight": 1
+            }
+          ]
+        },
+        "exactShared": false
+      },
+      {
+        "id": "line\nbreak",
+        "exported": "h1: h2[shared: line\nbreak]\nh2: h1[shared: line\nbreak]",
+        "parsed": {
+          "ok": false,
+          "error": "H2H line 1: neighbor \"h2\" has an unterminated shared-vertex clause."
+        },
+        "exactShared": false
+      }
+    ]
+  },
+  "failingCorrectiveTests": [
+    "tests/stage2-corrective-detection-comments.test.mjs",
+    "tests/stage2-corrective-h2h-representability.test.mjs"
+  ]
+}
