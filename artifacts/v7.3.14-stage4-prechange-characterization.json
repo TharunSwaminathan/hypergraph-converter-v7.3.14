@@ -1,0 +1,306 @@
+{
+  "stage": 4,
+  "kind": "pre_change_characterization",
+  "parentCommit": "88288e8e73a8b2e2de569ed037b37a7d168a1fa6",
+  "allRequiredFailuresReproduced": true,
+  "architecture": {
+    "bfsImportsProjectedAdjacency": true,
+    "dfsImportsProjectedAdjacency": true,
+    "connectedComponentsImportsProjectedAdjacency": true,
+    "graphModelCallsBoundedProjection": true,
+    "projectionUsesNulJoinedKey": false,
+    "effectiveBudgetUsesMinimumOfUnrelatedDimensions": true,
+    "projectionCallers": [
+      {
+        "file": "src/algorithms/graphModel.js",
+        "line": 23,
+        "source": "const projectionResult = buildTwoSectionProjectionSafely(hyperedges, { weightPolicy: PROJECTION_WEIGHT_POLICIES.UNWEIGHTED });"
+      },
+      {
+        "file": "src/algorithms/graphModel.js",
+        "line": 76,
+        "source": "const projectionResult = buildTwoSectionProjectionSafely(hyperedges, {"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 35,
+        "source": "export function estimateProjectionPairCount(hyperedges = [], ceiling = PROJECTION_BUDGETS.maxEstimatedPairs) {"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 56,
+        "source": "export function buildTwoSectionProjection(hyperedges = [], {"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 116,
+        "source": "export function buildTwoSectionProjectionSafely(hyperedges = [], options = {}) {"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 122,
+        "source": "const { estimatedPairs, overBudget, largestHyperedgeSize } = estimateProjectionPairCount(hyperedges, effectivePairBudget);"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 134,
+        "source": "return { ok: true, projection: buildTwoSectionProjection(hyperedges, options) };"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 142,
+        "source": "export function buildTwoSectionProjectionSample(hyperedges = [], { sampleSize = 500, ...options } = {}) {"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 145,
+        "source": "...buildTwoSectionProjection(sampled, options),"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 160,
+        "source": "const { overBudget } = estimateProjectionPairCount(hyperedges, budget);"
+      },
+      {
+        "file": "src/algorithms/projection.js",
+        "line": 162,
+        "source": "const projection = buildTwoSectionProjection(hyperedges);"
+      },
+      {
+        "file": "src/App.jsx",
+        "line": 3580,
+        "source": "const v2vResult = useMemo(() => finalHes && v2vRequested ? buildV2VBounded(finalHes) : notRequestedDerived(\"v2v\"), [finalHes, v2vRequested]);"
+      },
+      {
+        "file": "src/components/Viz.jsx",
+        "line": 59,
+        "source": "const v2vProjection = useMemo(() => viewMode === \"linegraph\" ? buildV2VBounded(he) : { status: DERIVED_STATUS.NOT_REQUESTED, edges: [], reason: \"Hypergraph view does not require V2V clique edges.\" }, [he, viewMode]);"
+      },
+      {
+        "file": "src/utils/mappings.js",
+        "line": 128,
+        "source": "const result = buildTwoSectionProjectionSafely(hes, { weightPolicy: \"count_shared_hyperedges\" });"
+      },
+      {
+        "file": "src/utils/mappings.js",
+        "line": 136,
+        "source": "export function buildV2VBounded(hes) {"
+      },
+      {
+        "file": "src/utils/mappings.js",
+        "line": 137,
+        "source": "const result = buildTwoSectionProjectionSafely(hes, { weightPolicy: \"count_shared_hyperedges\" });"
+      },
+      {
+        "file": "src/utils/mappings.js",
+        "line": 168,
+        "source": "estimate: estimateProjectionPairCount(hes),"
+      },
+      {
+        "file": "src/utils/mappings.js",
+        "line": 308,
+        "source": "const result = v2vResult ?? buildV2VBounded(hes);"
+      },
+      {
+        "file": "src/utils/mappings.js",
+        "line": 410,
+        "source": "const result = v2vResult ?? buildV2VBounded(hes);"
+      }
+    ]
+  },
+  "resultContracts": {
+    "bfsKeys": [
+      "algorithm",
+      "startVertex",
+      "visitOrder",
+      "edgesUsed",
+      "distances",
+      "steps",
+      "reached",
+      "total"
+    ],
+    "bfsStepKeys": [
+      "visited",
+      "frontier",
+      "current",
+      "newlyDiscovered"
+    ],
+    "dfsKeys": [
+      "algorithm",
+      "startVertex",
+      "visitOrder",
+      "edgesUsed",
+      "distances",
+      "steps",
+      "reached",
+      "total"
+    ],
+    "dfsStepKeys": [
+      "visited",
+      "frontier",
+      "current",
+      "newlyDiscovered"
+    ],
+    "connectedComponentsKeys": [
+      "algorithm",
+      "components",
+      "vertexToComponent",
+      "count"
+    ],
+    "componentKeys": [
+      "id",
+      "vertices",
+      "size",
+      "color"
+    ],
+    "unknownBfs": {
+      "algorithm": "bfs",
+      "startVertex": "missing",
+      "visitOrder": [],
+      "edgesUsed": [],
+      "distances": [],
+      "steps": [],
+      "reached": 0,
+      "total": 4
+    },
+    "unknownDfs": {
+      "algorithm": "dfs",
+      "startVertex": "missing",
+      "visitOrder": [],
+      "edgesUsed": [],
+      "distances": [],
+      "steps": [],
+      "reached": 0,
+      "total": 4
+    }
+  },
+  "projectionContracts": {
+    "exactProjectionKeys": [
+      "vertices",
+      "edges",
+      "warnings",
+      "weightPolicy"
+    ],
+    "safeSuccessKeys": [
+      "ok",
+      "projection"
+    ],
+    "safeRefusalKeys": [
+      "ok",
+      "overBudget",
+      "estimatedPairs",
+      "largestHyperedgeSize",
+      "budget",
+      "budgets",
+      "reason"
+    ],
+    "estimateKeys": [
+      "estimatedPairs",
+      "overBudget",
+      "largestHyperedgeSize"
+    ]
+  },
+  "reproductions": {
+    "HG713-R04": {
+      "reproduced": true,
+      "expectedCandidatePairs": 207000,
+      "expectedUniqueEdges": 1035,
+      "effectiveBudget": 200000,
+      "result": {
+        "ok": false,
+        "overBudget": true,
+        "estimatedPairs": 200790,
+        "largestHyperedgeSize": 46,
+        "budget": 200000,
+        "budgets": {
+          "maxEstimatedPairs": 2000000,
+          "maxProjectedEdges": 2000000,
+          "maxOutputRows": 200000,
+          "maxAdjacencyReferences": 400000
+        },
+        "reason": "estimated 200,790 candidate/output rows exceeds the 200,000 effective projection safety limit"
+      },
+      "adapter": {
+        "ok": false,
+        "type": "v2v",
+        "status": "over_budget",
+        "edges": null,
+        "value": null,
+        "overBudget": true,
+        "estimatedPairs": 200790,
+        "largestHyperedgeSize": 46,
+        "budget": 200000,
+        "estimate": {
+          "pairs": 200790,
+          "largestHyperedgeSize": 46
+        },
+        "limits": {
+          "maxPairs": 2000000,
+          "effectiveMaxRows": 200000,
+          "maxRows": 200000,
+          "maxAdjacencyReferences": 400000
+        },
+        "reason": "estimated 200,790 candidate/output rows exceeds the 200,000 effective projection safety limit"
+      }
+    },
+    "HG713-R05": {
+      "reproduced": true,
+      "expectedCandidatePairs": 499500,
+      "failures": {
+        "buildAdjacencyList": {
+          "ok": false,
+          "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+        },
+        "runBFS": {
+          "ok": false,
+          "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+        },
+        "runDFS": {
+          "ok": false,
+          "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+        },
+        "runConnectedComponents": {
+          "ok": false,
+          "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+        }
+      }
+    },
+    "S4-N01A": {
+      "reproduced": true,
+      "expectedDistinctEdges": 2,
+      "actualEdges": [
+        {
+          "src": "a",
+          "dst": "b\u0000c",
+          "weight": 2,
+          "hyperedges": [
+            "h1",
+            "h2"
+          ]
+        }
+      ]
+    },
+    "S4-N01B": {
+      "reproduced": true,
+      "expectedDistinctEdges": 1,
+      "actualEdges": [
+        {
+          "src": "01",
+          "dst": "1",
+          "weight": 1,
+          "hyperedges": [
+            "h1"
+          ]
+        },
+        {
+          "src": "1",
+          "dst": "01",
+          "weight": 1,
+          "hyperedges": [
+            "h2"
+          ]
+        }
+      ]
+    }
+  }
+}

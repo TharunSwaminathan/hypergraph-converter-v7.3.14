@@ -1,6 +1,6 @@
-﻿import { buildAdjacencyList, getAllVertices } from "./graphModel.js";
-import { traverse } from "./traversal.js";
 import { PALETTE } from "../theme.js";
+import { buildIncidenceIndex } from "../graph/incidenceIndex.js";
+import { createIncidenceTraversal } from "./traversal.js";
 
 /**
  * Finds connected components of a hypergraph's 2-section by repeatedly
@@ -13,16 +13,15 @@ import { PALETTE } from "../theme.js";
  * }}
  */
 export function runConnectedComponents(hyperedges) {
-  const adjacency = buildAdjacencyList(hyperedges);
-  const allVertices = getAllVertices(hyperedges);
+  const index = buildIncidenceIndex(hyperedges);
+  const incidenceTraversal = createIncidenceTraversal(index);
   const visited = new Set();
   const components = [];
   const vertexToComponent = new Map();
 
-  for (const vertex of allVertices) {
+  for (const vertex of index.vertices) {
     if (visited.has(vertex)) continue;
-    const { visitOrder } = traverse(adjacency, vertex, "bfs");
-    visitOrder.forEach(v => visited.add(v));
+    const visitOrder = incidenceTraversal.collectComponent(vertex, visited);
     const id = components.length;
     visitOrder.forEach(v => vertexToComponent.set(v, id));
     components.push({

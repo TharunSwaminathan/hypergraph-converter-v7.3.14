@@ -1,0 +1,882 @@
+{
+  "stage": 4,
+  "kind": "traversal_and_projection_resource_oracle",
+  "parentCommit": "88288e8e73a8b2e2de569ed037b37a7d168a1fa6",
+  "passed": 11,
+  "total": 11,
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64",
+    "timingCaveat": "Node timings are local characterization measurements, not browser responsiveness guarantees."
+  },
+  "projectionBudgets": {
+    "maxCandidatePairWork": 2000000,
+    "maxUniqueProjectedEdges": 200000,
+    "maxProjectedEdgeSupportReferences": 2000000,
+    "maxAdjacencyReferences": 400000,
+    "maxRenderEdges": 200000,
+    "maxExportRows": 200000,
+    "maxMatrixCells": 1000000,
+    "maxSynchronousWork": 2000000,
+    "maxEstimatedPairs": 2000000,
+    "maxProjectedEdges": 200000,
+    "maxOutputRows": 200000
+  },
+  "performance": {
+    "TinyBasicProjection": {
+      "elapsedMs": 5.940099999999802,
+      "usage": {
+        "candidatePairWork": 4,
+        "uniqueProjectedEdges": 4,
+        "projectedEdgeSupportReferences": 4,
+        "adjacencyReferences": 8,
+        "renderEdges": 4,
+        "exportRows": 4,
+        "matrixCells": 16,
+        "synchronousWork": 4
+      }
+    },
+    "DuplicateOverlapProjection": {
+      "elapsedMs": 35.582400000000234,
+      "usage": {
+        "candidatePairWork": 207000,
+        "uniqueProjectedEdges": 1035,
+        "projectedEdgeSupportReferences": 207000,
+        "adjacencyReferences": 2070,
+        "renderEdges": 1035,
+        "exportRows": 1035,
+        "matrixCells": 2116,
+        "synchronousWork": 207000
+      }
+    },
+    "DenseProjectionRefusal": {
+      "elapsedMs": 5.5547999999998865,
+      "exceededResource": "candidatePairWork",
+      "usage": {
+        "candidatePairWork": 4498500,
+        "uniqueProjectedEdges": 0,
+        "projectedEdgeSupportReferences": 0,
+        "adjacencyReferences": 0,
+        "renderEdges": 0,
+        "exportRows": 0,
+        "matrixCells": 0,
+        "synchronousWork": 4498500
+      }
+    },
+    "LargeSparseConnectedComponents": {
+      "elapsedMs": 40.839500000000044,
+      "count": 1,
+      "largestComponentSize": 10001
+    },
+    "OneHugeEdge": {
+      "1000": {
+        "cc": {
+          "algorithm": "cc",
+          "fixture": "OneHugeEdge1000",
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "elapsedMs": 19.643299999999996,
+          "heapBefore": 4946832,
+          "heapAfter": 5752016,
+          "heapDelta": 805184,
+          "count": 1,
+          "largestComponentSize": 1000,
+          "reached": null,
+          "visitCount": 1000,
+          "treeEdgeCount": 0,
+          "distanceCount": 0,
+          "maxDistance": null,
+          "stepCount": 0,
+          "visitedTraceReferences": 0,
+          "frontierTraceReferences": 0,
+          "newlyDiscoveredTraceReferences": 0
+        },
+        "bfs": {
+          "algorithm": "bfs",
+          "fixture": "OneHugeEdge1000",
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "elapsedMs": 29.902,
+          "heapBefore": 4946832,
+          "heapAfter": 18311264,
+          "heapDelta": 13364432,
+          "count": null,
+          "largestComponentSize": null,
+          "reached": 1000,
+          "visitCount": 1000,
+          "treeEdgeCount": 999,
+          "distanceCount": 1000,
+          "maxDistance": 1,
+          "stepCount": 1000,
+          "visitedTraceReferences": 500500,
+          "frontierTraceReferences": 499500,
+          "newlyDiscoveredTraceReferences": 999
+        },
+        "dfs": {
+          "algorithm": "dfs",
+          "fixture": "OneHugeEdge1000",
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "elapsedMs": 65.7227,
+          "heapBefore": 4946832,
+          "heapAfter": 35126112,
+          "heapDelta": 30179280,
+          "count": null,
+          "largestComponentSize": null,
+          "reached": 1000,
+          "visitCount": 1000,
+          "treeEdgeCount": 999,
+          "distanceCount": 1000,
+          "maxDistance": 999,
+          "stepCount": 1000,
+          "visitedTraceReferences": 500500,
+          "frontierTraceReferences": 499500,
+          "newlyDiscoveredTraceReferences": 499500
+        }
+      },
+      "5000": {
+        "cc": {
+          "algorithm": "cc",
+          "fixture": "OneHugeEdge5000",
+          "hyperedges": 1,
+          "vertices": 5000,
+          "incidences": 5000,
+          "elapsedMs": 444.9012,
+          "heapBefore": 5171640,
+          "heapAfter": 11949832,
+          "heapDelta": 6778192,
+          "count": 1,
+          "largestComponentSize": 5000,
+          "reached": null,
+          "visitCount": 5000,
+          "treeEdgeCount": 0,
+          "distanceCount": 0,
+          "maxDistance": null,
+          "stepCount": 0,
+          "visitedTraceReferences": 0,
+          "frontierTraceReferences": 0,
+          "newlyDiscoveredTraceReferences": 0
+        },
+        "bfs": {
+          "algorithm": "bfs",
+          "fixture": "OneHugeEdge5000",
+          "hyperedges": 1,
+          "vertices": 5000,
+          "incidences": 5000,
+          "elapsedMs": 587.9233999999999,
+          "heapBefore": 5171640,
+          "heapAfter": 256635552,
+          "heapDelta": 251463912,
+          "count": null,
+          "largestComponentSize": null,
+          "reached": 5000,
+          "visitCount": 5000,
+          "treeEdgeCount": 4999,
+          "distanceCount": 5000,
+          "maxDistance": 1,
+          "stepCount": 5000,
+          "visitedTraceReferences": 12502500,
+          "frontierTraceReferences": 12497500,
+          "newlyDiscoveredTraceReferences": 4999
+        },
+        "dfs": {
+          "algorithm": "dfs",
+          "fixture": "OneHugeEdge5000",
+          "hyperedges": 1,
+          "vertices": 5000,
+          "incidences": 5000,
+          "elapsedMs": 1891.8953999999999,
+          "heapBefore": 5171640,
+          "heapAfter": 752232624,
+          "heapDelta": 747060984,
+          "count": null,
+          "largestComponentSize": null,
+          "reached": 5000,
+          "visitCount": 5000,
+          "treeEdgeCount": 4999,
+          "distanceCount": 5000,
+          "maxDistance": 4999,
+          "stepCount": 5000,
+          "visitedTraceReferences": 12502500,
+          "frontierTraceReferences": 12497500,
+          "newlyDiscoveredTraceReferences": 12497500
+        }
+      }
+    }
+  },
+  "checks": [
+    {
+      "id": "STAGE4-PRECHANGE",
+      "title": "All four mandated Stage 4 failures were captured before production edits",
+      "passed": true,
+      "evidence": {
+        "HG713-R04": {
+          "reproduced": true,
+          "expectedCandidatePairs": 207000,
+          "expectedUniqueEdges": 1035,
+          "effectiveBudget": 200000,
+          "result": {
+            "ok": false,
+            "overBudget": true,
+            "estimatedPairs": 200790,
+            "largestHyperedgeSize": 46,
+            "budget": 200000,
+            "budgets": {
+              "maxEstimatedPairs": 2000000,
+              "maxProjectedEdges": 2000000,
+              "maxOutputRows": 200000,
+              "maxAdjacencyReferences": 400000
+            },
+            "reason": "estimated 200,790 candidate/output rows exceeds the 200,000 effective projection safety limit"
+          },
+          "adapter": {
+            "ok": false,
+            "type": "v2v",
+            "status": "over_budget",
+            "edges": null,
+            "value": null,
+            "overBudget": true,
+            "estimatedPairs": 200790,
+            "largestHyperedgeSize": 46,
+            "budget": 200000,
+            "estimate": {
+              "pairs": 200790,
+              "largestHyperedgeSize": 46
+            },
+            "limits": {
+              "maxPairs": 2000000,
+              "effectiveMaxRows": 200000,
+              "maxRows": 200000,
+              "maxAdjacencyReferences": 400000
+            },
+            "reason": "estimated 200,790 candidate/output rows exceeds the 200,000 effective projection safety limit"
+          }
+        },
+        "HG713-R05": {
+          "reproduced": true,
+          "expectedCandidatePairs": 499500,
+          "failures": {
+            "buildAdjacencyList": {
+              "ok": false,
+              "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+            },
+            "runBFS": {
+              "ok": false,
+              "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+            },
+            "runDFS": {
+              "ok": false,
+              "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+            },
+            "runConnectedComponents": {
+              "ok": false,
+              "error": "Error: V2V projection not computed: estimated 499,500 candidate pairs exceeds the 200,000 safety limit."
+            }
+          }
+        },
+        "S4-N01A": {
+          "reproduced": true,
+          "expectedDistinctEdges": 2,
+          "actualEdges": [
+            {
+              "src": "a",
+              "dst": "b\u0000c",
+              "weight": 2,
+              "hyperedges": [
+                "h1",
+                "h2"
+              ]
+            }
+          ]
+        },
+        "S4-N01B": {
+          "reproduced": true,
+          "expectedDistinctEdges": 1,
+          "actualEdges": [
+            {
+              "src": "01",
+              "dst": "1",
+              "weight": 1,
+              "hyperedges": [
+                "h1"
+              ]
+            },
+            {
+              "src": "1",
+              "dst": "01",
+              "weight": 1,
+              "hyperedges": [
+                "h2"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "HG713-R05-ARCHITECTURE",
+      "title": "CC/BFS/DFS use the incidence index without a projection import",
+      "passed": true,
+      "evidence": {
+        "imports": {
+          "bfs.js": [
+            "import { buildIncidenceIndex } from \"../graph/incidenceIndex.js\";",
+            "import { createIncidenceTraversal } from \"./traversal.js\";"
+          ],
+          "dfs.js": [
+            "import { buildIncidenceIndex } from \"../graph/incidenceIndex.js\";",
+            "import { createIncidenceTraversal } from \"./traversal.js\";"
+          ],
+          "connectedComponents.js": [
+            "import { PALETTE } from \"../theme.js\";",
+            "import { buildIncidenceIndex } from \"../graph/incidenceIndex.js\";",
+            "import { createIncidenceTraversal } from \"./traversal.js\";"
+          ],
+          "traversal.js": []
+        }
+      }
+    },
+    {
+      "id": "STAGE4-TRAVERSAL-DIFFERENTIAL",
+      "title": "Affordable traversal results match the pre-change implementation exactly",
+      "passed": true,
+      "evidence": {
+        "seed": 7602964,
+        "graphs": 3000,
+        "bfsRuns": 14865,
+        "dfsRuns": 14865,
+        "ccRuns": 3000,
+        "mismatchCounts": {
+          "bfs": 0,
+          "dfs": 0,
+          "connectedComponents": 0
+        }
+      }
+    },
+    {
+      "id": "STAGE4-HUGE-TRAVERSAL",
+      "title": "OneHugeEdge1K and 5K complete without V2V materialization",
+      "passed": true,
+      "evidence": {
+        "1000": {
+          "cc": {
+            "algorithm": "cc",
+            "fixture": "OneHugeEdge1000",
+            "hyperedges": 1,
+            "vertices": 1000,
+            "incidences": 1000,
+            "elapsedMs": 19.643299999999996,
+            "heapBefore": 4946832,
+            "heapAfter": 5752016,
+            "heapDelta": 805184,
+            "count": 1,
+            "largestComponentSize": 1000,
+            "reached": null,
+            "visitCount": 1000,
+            "treeEdgeCount": 0,
+            "distanceCount": 0,
+            "maxDistance": null,
+            "stepCount": 0,
+            "visitedTraceReferences": 0,
+            "frontierTraceReferences": 0,
+            "newlyDiscoveredTraceReferences": 0
+          },
+          "bfs": {
+            "algorithm": "bfs",
+            "fixture": "OneHugeEdge1000",
+            "hyperedges": 1,
+            "vertices": 1000,
+            "incidences": 1000,
+            "elapsedMs": 29.902,
+            "heapBefore": 4946832,
+            "heapAfter": 18311264,
+            "heapDelta": 13364432,
+            "count": null,
+            "largestComponentSize": null,
+            "reached": 1000,
+            "visitCount": 1000,
+            "treeEdgeCount": 999,
+            "distanceCount": 1000,
+            "maxDistance": 1,
+            "stepCount": 1000,
+            "visitedTraceReferences": 500500,
+            "frontierTraceReferences": 499500,
+            "newlyDiscoveredTraceReferences": 999
+          },
+          "dfs": {
+            "algorithm": "dfs",
+            "fixture": "OneHugeEdge1000",
+            "hyperedges": 1,
+            "vertices": 1000,
+            "incidences": 1000,
+            "elapsedMs": 65.7227,
+            "heapBefore": 4946832,
+            "heapAfter": 35126112,
+            "heapDelta": 30179280,
+            "count": null,
+            "largestComponentSize": null,
+            "reached": 1000,
+            "visitCount": 1000,
+            "treeEdgeCount": 999,
+            "distanceCount": 1000,
+            "maxDistance": 999,
+            "stepCount": 1000,
+            "visitedTraceReferences": 500500,
+            "frontierTraceReferences": 499500,
+            "newlyDiscoveredTraceReferences": 499500
+          }
+        },
+        "5000": {
+          "cc": {
+            "algorithm": "cc",
+            "fixture": "OneHugeEdge5000",
+            "hyperedges": 1,
+            "vertices": 5000,
+            "incidences": 5000,
+            "elapsedMs": 444.9012,
+            "heapBefore": 5171640,
+            "heapAfter": 11949832,
+            "heapDelta": 6778192,
+            "count": 1,
+            "largestComponentSize": 5000,
+            "reached": null,
+            "visitCount": 5000,
+            "treeEdgeCount": 0,
+            "distanceCount": 0,
+            "maxDistance": null,
+            "stepCount": 0,
+            "visitedTraceReferences": 0,
+            "frontierTraceReferences": 0,
+            "newlyDiscoveredTraceReferences": 0
+          },
+          "bfs": {
+            "algorithm": "bfs",
+            "fixture": "OneHugeEdge5000",
+            "hyperedges": 1,
+            "vertices": 5000,
+            "incidences": 5000,
+            "elapsedMs": 587.9233999999999,
+            "heapBefore": 5171640,
+            "heapAfter": 256635552,
+            "heapDelta": 251463912,
+            "count": null,
+            "largestComponentSize": null,
+            "reached": 5000,
+            "visitCount": 5000,
+            "treeEdgeCount": 4999,
+            "distanceCount": 5000,
+            "maxDistance": 1,
+            "stepCount": 5000,
+            "visitedTraceReferences": 12502500,
+            "frontierTraceReferences": 12497500,
+            "newlyDiscoveredTraceReferences": 4999
+          },
+          "dfs": {
+            "algorithm": "dfs",
+            "fixture": "OneHugeEdge5000",
+            "hyperedges": 1,
+            "vertices": 5000,
+            "incidences": 5000,
+            "elapsedMs": 1891.8953999999999,
+            "heapBefore": 5171640,
+            "heapAfter": 752232624,
+            "heapDelta": 747060984,
+            "count": null,
+            "largestComponentSize": null,
+            "reached": 5000,
+            "visitCount": 5000,
+            "treeEdgeCount": 4999,
+            "distanceCount": 5000,
+            "maxDistance": 4999,
+            "stepCount": 5000,
+            "visitedTraceReferences": 12502500,
+            "frontierTraceReferences": 12497500,
+            "newlyDiscoveredTraceReferences": 12497500
+          }
+        }
+      }
+    },
+    {
+      "id": "HG713-R04",
+      "title": "DuplicateOverlap computes exact small output under independent resource limits",
+      "passed": true,
+      "evidence": {
+        "elapsedMs": 35.582400000000234,
+        "usage": {
+          "candidatePairWork": 207000,
+          "uniqueProjectedEdges": 1035,
+          "projectedEdgeSupportReferences": 207000,
+          "adjacencyReferences": 2070,
+          "renderEdges": 1035,
+          "exportRows": 1035,
+          "matrixCells": 2116,
+          "synchronousWork": 207000
+        },
+        "edgeCount": 1035,
+        "adapterStatus": "computed"
+      }
+    },
+    {
+      "id": "STAGE4-RESOURCE-REFUSALS",
+      "title": "Candidate, unique-edge, and support-reference limits fail with machine-readable specificity",
+      "passed": true,
+      "evidence": {
+        "candidateRefusal": {
+          "ok": false,
+          "overBudget": true,
+          "exceededResource": "candidatePairWork",
+          "usage": {
+            "candidatePairWork": 135,
+            "uniqueProjectedEdges": 0,
+            "projectedEdgeSupportReferences": 0,
+            "adjacencyReferences": 0,
+            "renderEdges": 0,
+            "exportRows": 0,
+            "matrixCells": 0,
+            "synchronousWork": 135
+          },
+          "limits": {
+            "maxCandidatePairWork": 100,
+            "maxUniqueProjectedEdges": null,
+            "maxProjectedEdgeSupportReferences": null,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": null
+          },
+          "estimatedPairs": 135,
+          "largestHyperedgeSize": 10,
+          "budget": 100,
+          "budgets": {
+            "maxCandidatePairWork": 100,
+            "maxUniqueProjectedEdges": null,
+            "maxProjectedEdgeSupportReferences": null,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": null,
+            "maxEstimatedPairs": 100,
+            "maxProjectedEdges": null,
+            "maxOutputRows": 200000
+          },
+          "resourceMaterialization": {
+            "candidatePairWork": "measured",
+            "uniqueProjectedEdges": "materialized",
+            "projectedEdgeSupportReferences": "materialized",
+            "adjacencyReferences": "declared_downstream_estimate",
+            "renderEdges": "declared_downstream_estimate",
+            "exportRows": "declared_downstream_estimate",
+            "matrixCells": "declared_downstream_estimate",
+            "synchronousWork": "measured_deterministic_units"
+          },
+          "reason": "estimated 135 candidate-pair work units exceeds the 100 candidatePairWork projection safety limit"
+        },
+        "uniqueRefusal": {
+          "ok": false,
+          "overBudget": true,
+          "exceededResource": "uniqueProjectedEdges",
+          "usage": {
+            "candidatePairWork": 6,
+            "uniqueProjectedEdges": 6,
+            "projectedEdgeSupportReferences": 5,
+            "adjacencyReferences": 12,
+            "renderEdges": 6,
+            "exportRows": 6,
+            "matrixCells": 0,
+            "synchronousWork": 6
+          },
+          "limits": {
+            "maxCandidatePairWork": null,
+            "maxUniqueProjectedEdges": 5,
+            "maxProjectedEdgeSupportReferences": null,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": null
+          },
+          "estimatedPairs": 15,
+          "largestHyperedgeSize": 6,
+          "budget": 5,
+          "budgets": {
+            "maxCandidatePairWork": null,
+            "maxUniqueProjectedEdges": 5,
+            "maxProjectedEdgeSupportReferences": null,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": null,
+            "maxEstimatedPairs": null,
+            "maxProjectedEdges": 5,
+            "maxOutputRows": 200000
+          },
+          "resourceMaterialization": {
+            "candidatePairWork": "measured",
+            "uniqueProjectedEdges": "materialized",
+            "projectedEdgeSupportReferences": "materialized",
+            "adjacencyReferences": "declared_downstream_estimate",
+            "renderEdges": "declared_downstream_estimate",
+            "exportRows": "declared_downstream_estimate",
+            "matrixCells": "declared_downstream_estimate",
+            "synchronousWork": "measured_deterministic_units"
+          },
+          "reason": "6 unique projected edges exceeds the 5 uniqueProjectedEdges projection safety limit"
+        },
+        "supportRefusal": {
+          "ok": false,
+          "overBudget": true,
+          "exceededResource": "projectedEdgeSupportReferences",
+          "usage": {
+            "candidatePairWork": 11,
+            "uniqueProjectedEdges": 6,
+            "projectedEdgeSupportReferences": 11,
+            "adjacencyReferences": 12,
+            "renderEdges": 6,
+            "exportRows": 6,
+            "matrixCells": 0,
+            "synchronousWork": 11
+          },
+          "limits": {
+            "maxCandidatePairWork": null,
+            "maxUniqueProjectedEdges": null,
+            "maxProjectedEdgeSupportReferences": 10,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": null
+          },
+          "estimatedPairs": 18,
+          "largestHyperedgeSize": 4,
+          "budget": 10,
+          "budgets": {
+            "maxCandidatePairWork": null,
+            "maxUniqueProjectedEdges": null,
+            "maxProjectedEdgeSupportReferences": 10,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": null,
+            "maxEstimatedPairs": null,
+            "maxProjectedEdges": null,
+            "maxOutputRows": 200000
+          },
+          "resourceMaterialization": {
+            "candidatePairWork": "measured",
+            "uniqueProjectedEdges": "materialized",
+            "projectedEdgeSupportReferences": "materialized",
+            "adjacencyReferences": "declared_downstream_estimate",
+            "renderEdges": "declared_downstream_estimate",
+            "exportRows": "declared_downstream_estimate",
+            "matrixCells": "declared_downstream_estimate",
+            "synchronousWork": "measured_deterministic_units"
+          },
+          "reason": "11 projected-edge support references exceeds the 10 projectedEdgeSupportReferences projection safety limit"
+        }
+      }
+    },
+    {
+      "id": "STAGE4-DOWNSTREAM-SEPARATION",
+      "title": "Render/export/matrix/adjacency declarations do not become candidate preflight limits",
+      "passed": true,
+      "evidence": {
+        "usage": {
+          "candidatePairWork": 30,
+          "uniqueProjectedEdges": 15,
+          "projectedEdgeSupportReferences": 30,
+          "adjacencyReferences": 30,
+          "renderEdges": 15,
+          "exportRows": 15,
+          "matrixCells": 36,
+          "synchronousWork": 30
+        },
+        "limits": {
+          "maxCandidatePairWork": null,
+          "maxUniqueProjectedEdges": null,
+          "maxProjectedEdgeSupportReferences": null,
+          "maxAdjacencyReferences": 1,
+          "maxRenderEdges": 1,
+          "maxExportRows": 1,
+          "maxMatrixCells": 1,
+          "maxSynchronousWork": null
+        },
+        "materialization": {
+          "candidatePairWork": "measured",
+          "uniqueProjectedEdges": "materialized",
+          "projectedEdgeSupportReferences": "materialized",
+          "adjacencyReferences": "declared_downstream_estimate",
+          "renderEdges": "declared_downstream_estimate",
+          "exportRows": "declared_downstream_estimate",
+          "matrixCells": "declared_downstream_estimate",
+          "synchronousWork": "measured_deterministic_units"
+        }
+      }
+    },
+    {
+      "id": "S4-N01",
+      "title": "Projected pair identity is collision-safe and numeric lexical ties have deterministic exact-string orientation",
+      "passed": true,
+      "evidence": {
+        "nulEdges": [
+          {
+            "src": "a",
+            "dst": "b\u0000c",
+            "weight": 1,
+            "hyperedges": [
+              "h1"
+            ]
+          },
+          {
+            "src": "a\u0000b",
+            "dst": "c",
+            "weight": 1,
+            "hyperedges": [
+              "h2"
+            ]
+          }
+        ],
+        "lexicalEdges": [
+          {
+            "src": "01",
+            "dst": "1",
+            "weight": 2,
+            "hyperedges": [
+              "h1",
+              "h2"
+            ]
+          },
+          {
+            "src": "1",
+            "dst": "1.0",
+            "weight": 2,
+            "hyperedges": [
+              "h3",
+              "h4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "STAGE4-PROJECTION-DIFFERENTIAL",
+      "title": "Ordinary projection behavior matches the pre-change implementation across every weight policy",
+      "passed": true,
+      "evidence": {
+        "seed": 7603220,
+        "graphs": 3000,
+        "policies": 4,
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "STAGE4-WEIGHTS",
+      "title": "All four projection weight policies retain zero and support metadata semantics",
+      "passed": true,
+      "evidence": {
+        "count_shared_hyperedges": {
+          "src": "a",
+          "dst": "b",
+          "weight": 2,
+          "hyperedges": [
+            "h0",
+            "h1"
+          ]
+        },
+        "sum_hyperedge_weights": {
+          "src": "a",
+          "dst": "b",
+          "weight": 2,
+          "hyperedges": [
+            "h0",
+            "h1"
+          ]
+        },
+        "min_hyperedge_weight": {
+          "src": "a",
+          "dst": "b",
+          "weight": 0,
+          "hyperedges": [
+            "h0",
+            "h1"
+          ]
+        },
+        "unweighted": {
+          "src": "a",
+          "dst": "b",
+          "weight": 1,
+          "hyperedges": [
+            "h0",
+            "h1"
+          ]
+        }
+      }
+    },
+    {
+      "id": "STAGE4-DENSE-SAFETY",
+      "title": "Genuinely dense projection still fails closed before catastrophic materialization",
+      "passed": true,
+      "evidence": {
+        "elapsedMs": 5.5547999999998865,
+        "result": {
+          "ok": false,
+          "overBudget": true,
+          "exceededResource": "candidatePairWork",
+          "usage": {
+            "candidatePairWork": 4498500,
+            "uniqueProjectedEdges": 0,
+            "projectedEdgeSupportReferences": 0,
+            "adjacencyReferences": 0,
+            "renderEdges": 0,
+            "exportRows": 0,
+            "matrixCells": 0,
+            "synchronousWork": 4498500
+          },
+          "limits": {
+            "maxCandidatePairWork": 2000000,
+            "maxUniqueProjectedEdges": 200000,
+            "maxProjectedEdgeSupportReferences": 2000000,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": 2000000
+          },
+          "estimatedPairs": 4498500,
+          "largestHyperedgeSize": 3000,
+          "budget": 2000000,
+          "budgets": {
+            "maxCandidatePairWork": 2000000,
+            "maxUniqueProjectedEdges": 200000,
+            "maxProjectedEdgeSupportReferences": 2000000,
+            "maxAdjacencyReferences": 400000,
+            "maxRenderEdges": 200000,
+            "maxExportRows": 200000,
+            "maxMatrixCells": 1000000,
+            "maxSynchronousWork": 2000000,
+            "maxEstimatedPairs": 2000000,
+            "maxProjectedEdges": 200000,
+            "maxOutputRows": 200000
+          },
+          "resourceMaterialization": {
+            "candidatePairWork": "measured",
+            "uniqueProjectedEdges": "materialized",
+            "projectedEdgeSupportReferences": "materialized",
+            "adjacencyReferences": "declared_downstream_estimate",
+            "renderEdges": "declared_downstream_estimate",
+            "exportRows": "declared_downstream_estimate",
+            "matrixCells": "declared_downstream_estimate",
+            "synchronousWork": "measured_deterministic_units"
+          },
+          "reason": "estimated 4,498,500 candidate-pair work units exceeds the 2,000,000 candidatePairWork projection safety limit"
+        }
+      }
+    }
+  ]
+}

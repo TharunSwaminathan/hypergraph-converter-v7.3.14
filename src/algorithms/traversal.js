@@ -20,14 +20,63 @@ export function traverse(adjacency, startVertex, mode = "bfs") {
   if (!adjacency.has(start)) {
     return { visitOrder: [], edgesUsed: [], distances: new Map(), steps: [] };
   }
-  return mode === "dfs" ? traverseDfs(adjacency, start) : traverseBfs(adjacency, start);
+  const neighborsFor = vertex => [...(adjacency.get(vertex) ?? [])].sort();
+  return mode === "dfs" ? traverseDfs(neighborsFor, start) : traverseBfs(neighborsFor, start);
+}
+
+// The pre-Stage-4 DFS could only run while the projection preflight stayed at
+// or below this candidate-pair boundary. Above it there is no successful
+// legacy trace contract to retain, so the incidence traversal uses an
+// equivalent duplicate-free pending stack and keeps one complete step per
+// visited vertex instead of amplifying stale stack entries quadratically.
+const LEGACY_DFS_TRACE_CANDIDATE_LIMIT = 200_000;
+
+/**
+ * Creates a per-run incidence traversal facade. Hyperedge member lists are
+ * sorted at most once, the incidence index is never rebuilt here, and no V2V
+ * edge collection or projected adjacency is materialized.
+ */
+export function createIncidenceTraversal(index) {
+  const neighborsFor = createIncidenceNeighborProvider(index);
+  const useCompactDfsTrace = exceedsCandidatePairs(index, LEGACY_DFS_TRACE_CANDIDATE_LIMIT);
+  return Object.freeze({
+    traverse(startVertex, mode = "bfs") {
+      const start = String(startVertex);
+      if (!index.vertexToHyperedges.has(start)) {
+        return { visitOrder: [], edgesUsed: [], distances: new Map(), steps: [] };
+      }
+      if (mode === "dfs") {
+        return useCompactDfsTrace
+          ? traverseDfsWithUniquePending(neighborsFor, start)
+          : traverseDfs(neighborsFor, start);
+      }
+      return traverseBfs(neighborsFor, start);
+    },
+    collectComponent(startVertex, visited) {
+      const start = String(startVertex);
+      if (!index.vertexToHyperedges.has(start) || visited.has(start)) return [];
+      const visitOrder = [];
+      const queue = [start];
+      visited.add(start);
+      for (let offset = 0; offset < queue.length; offset += 1) {
+        const current = queue[offset];
+        visitOrder.push(current);
+        for (const neighbor of neighborsFor(current)) {
+          if (visited.has(neighbor)) continue;
+          visited.add(neighbor);
+          queue.push(neighbor);
+        }
+      }
+      return visitOrder;
+    },
+  });
 }
 
 // BFS: mark a vertex visited the moment it is *enqueued*, not when it's
 // dequeued. This is the standard, correct way to run BFS — it guarantees
 // each vertex is enqueued exactly once and that `distances` holds true
 // shortest-path (fewest-edges) distances from `start`.
-function traverseBfs(adjacency, start) {
+function traverseBfs(neighborsFor, start) {
   const visitOrder = [];
   const edgesUsed = [];
   const distances = new Map([[start, 0]]);
@@ -39,9 +88,8 @@ function traverseBfs(adjacency, start) {
     const current = queue.shift();
     visitOrder.push(current);
 
-    const neighbors = [...(adjacency.get(current) ?? [])].sort();
     const newlyDiscovered = [];
-    for (const neighbor of neighbors) {
+    for (const neighbor of neighborsFor(current)) {
       if (visited.has(neighbor)) continue;
       visited.add(neighbor);
       distances.set(neighbor, distances.get(current) + 1);
@@ -67,7 +115,7 @@ function traverseBfs(adjacency, start) {
 // sit on the stack more than once (pushed by more than one still-unvisited
 // parent); the `visited.has(current)` check below discards the stale
 // duplicates once the first one has been processed.
-function traverseDfs(adjacency, start) {
+function traverseDfs(neighborsFor, start) {
   const visitOrder = [];
   const edgesUsed = [];
   const distances = new Map();
@@ -90,7 +138,7 @@ function traverseDfs(adjacency, start) {
       distances.set(current, 0);
     }
 
-    const neighbors = [...(adjacency.get(current) ?? [])].sort();
+    const neighbors = neighborsFor(current);
     const newlyDiscovered = [];
     // Push in reverse sorted order so the stack (LIFO) pops neighbors back
     // out in ascending order — matching the usual "visit the first sorted
@@ -106,4 +154,110 @@ function traverseDfs(adjacency, start) {
   }
 
   return { visitOrder, edgesUsed, distances, steps };
+}
+
+function createIncidenceNeighborProvider(index) {
+  const sortedMembers = new Map();
+  const membersFor = hyperedgeId => {
+    if (!sortedMembers.has(hyperedgeId)) {
+      sortedMembers.set(hyperedgeId, [...(index.hyperedgeToVertices.get(hyperedgeId) ?? [])].sort());
+    }
+    return sortedMembers.get(hyperedgeId);
+  };
+
+  return vertex => {
+    const incidentHyperedges = index.vertexToHyperedges.get(vertex);
+    if (!incidentHyperedges?.size) return [];
+    if (incidentHyperedges.size === 1) {
+      const [hyperedgeId] = incidentHyperedges;
+      return membersFor(hyperedgeId).filter(member => member !== vertex);
+    }
+    const neighbors = new Set();
+    for (const hyperedgeId of incidentHyperedges) {
+      for (const member of membersFor(hyperedgeId)) if (member !== vertex) neighbors.add(member);
+    }
+    return [...neighbors].sort();
+  };
+}
+
+function exceedsCandidatePairs(index, limit) {
+  let candidatePairs = 0;
+  for (const members of index.hyperedgeToVertices.values()) {
+    candidatePairs += members.size > 1 ? members.size * (members.size - 1) / 2 : 0;
+    if (candidatePairs > limit) return true;
+  }
+  return false;
+}
+
+// Above the legacy success boundary, retain exact recursive-style DFS visit,
+// tree-edge, distance, current, and newlyDiscovered semantics while removing
+// stale duplicate pending entries. The linked pending set supports O(1)
+// reprioritization and keeps the exposed frontier complete and deterministic.
+function traverseDfsWithUniquePending(neighborsFor, start) {
+  const visitOrder = [];
+  const edgesUsed = [];
+  const distances = new Map();
+  const steps = [];
+  const visited = new Set();
+  const pending = createLinkedPendingStack();
+  pending.push(start, null);
+
+  while (pending.size > 0) {
+    const { vertex: current, parent } = pending.pop();
+    if (visited.has(current)) continue;
+    visited.add(current);
+    visitOrder.push(current);
+    if (parent !== null) {
+      edgesUsed.push({ from: parent, to: current });
+      distances.set(current, distances.get(parent) + 1);
+    } else {
+      distances.set(current, 0);
+    }
+
+    const neighbors = neighborsFor(current);
+    const newlyDiscovered = neighbors.filter(neighbor => !visited.has(neighbor));
+    for (let index = newlyDiscovered.length - 1; index >= 0; index -= 1) {
+      pending.push(newlyDiscovered[index], current);
+    }
+    steps.push({ visited: [...visitOrder], frontier: pending.values(), current, newlyDiscovered });
+  }
+
+  return { visitOrder, edgesUsed, distances, steps };
+}
+
+function createLinkedPendingStack() {
+  const nodes = new Map();
+  let first = null;
+  let last = null;
+  return {
+    get size() { return nodes.size; },
+    push(vertex, parent) {
+      const existing = nodes.get(vertex);
+      if (existing) remove(existing);
+      const node = { vertex, parent, previous: last, next: null };
+      if (last) last.next = node;
+      else first = node;
+      last = node;
+      nodes.set(vertex, node);
+    },
+    pop() {
+      if (!last) return null;
+      const node = last;
+      remove(node);
+      return { vertex: node.vertex, parent: node.parent };
+    },
+    values() {
+      const values = [];
+      for (let node = first; node; node = node.next) values.push(node.vertex);
+      return values;
+    },
+  };
+
+  function remove(node) {
+    if (node.previous) node.previous.next = node.next;
+    else first = node.next;
+    if (node.next) node.next.previous = node.previous;
+    else last = node.previous;
+    nodes.delete(node.vertex);
+  }
 }

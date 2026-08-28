@@ -1,5 +1,5 @@
-import { buildAdjacencyList } from "./graphModel.js";
-import { traverse } from "./traversal.js";
+import { buildIncidenceIndex } from "../graph/incidenceIndex.js";
+import { createIncidenceTraversal } from "./traversal.js";
 
 /**
  * Runs depth-first search over a hypergraph's 2-section, starting at
@@ -10,8 +10,8 @@ import { traverse } from "./traversal.js";
  * @param {string|number} startVertex
  */
 export function runDFS(hyperedges, startVertex) {
-  const adjacency = buildAdjacencyList(hyperedges);
-  const result = traverse(adjacency, startVertex, "dfs");
+  const index = buildIncidenceIndex(hyperedges);
+  const result = createIncidenceTraversal(index).traverse(startVertex, "dfs");
   return {
     algorithm: "dfs",
     startVertex: String(startVertex),
@@ -20,6 +20,6 @@ export function runDFS(hyperedges, startVertex) {
     distances: result.distances,
     steps: result.steps,
     reached: result.visitOrder.length,
-    total: adjacency.size,
+    total: index.vertices.length,
   };
 }

@@ -11,18 +11,25 @@ import { buildTwoSectionProjectionSafely, PROJECTION_WEIGHT_POLICIES } from "./p
 
 /**
  * @param {Array<{id: string, vertices: Array<string|number>}>} hyperedges
+ * @param {object} [resourceLimits] optional projection/adjacency resource overrides
  * @returns {Map<string, Set<string>>} vertex id (stringified) -> set of neighbor vertex ids
  */
-export function buildAdjacencyList(hyperedges) {
+export function buildAdjacencyList(hyperedges, resourceLimits = {}) {
   const adjacency = new Map();
   const ensure = v => {
     const key = String(v);
     if (!adjacency.has(key)) adjacency.set(key, new Set());
     return adjacency.get(key);
   };
-  const projectionResult = buildTwoSectionProjectionSafely(hyperedges, { weightPolicy: PROJECTION_WEIGHT_POLICIES.UNWEIGHTED });
+  const projectionResult = buildTwoSectionProjectionSafely(hyperedges, {
+    ...resourceLimits,
+    weightPolicy: PROJECTION_WEIGHT_POLICIES.UNWEIGHTED,
+  });
   if (!projectionResult.ok) {
-    throw new Error(`V2V projection not computed: estimated ${projectionResult.estimatedPairs.toLocaleString()} candidate pairs exceeds the ${projectionResult.budget.toLocaleString()} safety limit.`);
+    throw new Error(`V2V projection not computed: ${projectionResult.reason}.`);
+  }
+  if (projectionResult.usage.adjacencyReferences > projectionResult.limits.maxAdjacencyReferences) {
+    throw new Error(`V2V adjacency not computed: ${projectionResult.usage.adjacencyReferences.toLocaleString()} adjacency references exceeds the ${projectionResult.limits.maxAdjacencyReferences.toLocaleString()} adjacencyReferences safety limit.`);
   }
   const projection = projectionResult.projection;
   projection.vertices.forEach(ensure);
@@ -78,7 +85,10 @@ export function buildWeightedAdjacency(hyperedges) {
     defaultWeight: 1,
   });
   if (!projectionResult.ok) {
-    throw new Error(`Weighted V2V projection not computed: estimated ${projectionResult.estimatedPairs.toLocaleString()} candidate pairs exceeds the ${projectionResult.budget.toLocaleString()} safety limit.`);
+    throw new Error(`Weighted V2V projection not computed: ${projectionResult.reason}.`);
+  }
+  if (projectionResult.usage.adjacencyReferences > projectionResult.limits.maxAdjacencyReferences) {
+    throw new Error(`Weighted V2V adjacency not computed: ${projectionResult.usage.adjacencyReferences.toLocaleString()} adjacency references exceeds the ${projectionResult.limits.maxAdjacencyReferences.toLocaleString()} adjacencyReferences safety limit.`);
   }
   const projection = projectionResult.projection;
   projection.vertices.forEach(ensure);

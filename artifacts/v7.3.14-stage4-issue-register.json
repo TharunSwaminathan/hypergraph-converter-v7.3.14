@@ -1,0 +1,81 @@
+{
+  "stage": 4,
+  "parentCommit": "88288e8e73a8b2e2de569ed037b37a7d168a1fa6",
+  "issues": [
+    {
+      "id": "HG713-R04",
+      "title": "Projection resource limits conflate candidate work with actual output",
+      "severity": "High",
+      "status": "fixed",
+      "preChange": "DuplicateOverlap was refused because 207,000 candidate encounters exceeded the unrelated 200,000 output/adjacency-derived effective limit.",
+      "postChange": "Independent candidate, unique-edge, support-reference, synchronous-work, adjacency, render, export, and matrix dimensions are reported. DuplicateOverlap computes 1,035 exact edges from 207,000 candidates and 207,000 retained support references.",
+      "evidence": [
+        "artifacts/v7.3.14-stage4-prechange-characterization.json",
+        "artifacts/v7.3.14-stage4-oracle.json",
+        "tests/stage4-projection-resources-identity.test.mjs"
+      ]
+    },
+    {
+      "id": "HG713-R05",
+      "title": "CC/BFS/DFS require a full V2V projection",
+      "severity": "High",
+      "status": "fixed",
+      "preChange": "All three algorithms imported projected adjacency and failed on OneHugeEdge1K before traversal at 499,500 candidate pairs.",
+      "postChange": "Each algorithm builds one Stage 3 incidence index per run and lazily enumerates sorted logical V2V neighbors through incidence relations. No migrated path imports graphModel or projection.js.",
+      "evidence": [
+        "artifacts/v7.3.14-stage4-prechange-characterization.json",
+        "artifacts/v7.3.14-stage4-oracle.json",
+        "tests/stage4-incidence-traversal.test.mjs",
+        "tests/stage4-large-incidence-traversal.test.mjs"
+      ]
+    },
+    {
+      "id": "S4-N01",
+      "title": "Projected pair identity is not collision-safe or totally ordered",
+      "severity": "High",
+      "status": "fixed",
+      "preChange": "A NUL-joined key collapsed two distinct pairs, while numerically equal lexical IDs such as 01 and 1 could produce two opposite orientations.",
+      "postChange": "Nested Maps key exact endpoint strings without serialization, and numeric ties use an exact-string tie-breaker. NUL, numeric-lexical, prototype-like, literal-null, zero, Unicode, and reversed-membership cases pass.",
+      "evidence": [
+        "artifacts/v7.3.14-stage4-prechange-characterization.json",
+        "artifacts/v7.3.14-stage4-oracle.json",
+        "tests/stage4-projection-resources-identity.test.mjs",
+        "tests/stage4-projection-differential.test.mjs"
+      ]
+    },
+    {
+      "id": "S4-OBS01",
+      "title": "BFS/DFS animation traces retain quadratic result amplification",
+      "severity": "Medium",
+      "status": "deferred",
+      "disposition": "Register for a later trace/performance architecture stage; Stage 4 preserves complete steps and does not silently truncate them.",
+      "evidence": {
+        "OneHugeEdge5K_BFS": {
+          "visitedTraceReferences": 12502500,
+          "frontierTraceReferences": 12497500,
+          "observedHeapDeltaBytes": 251463912
+        },
+        "OneHugeEdge5K_DFS": {
+          "visitedTraceReferences": 12502500,
+          "frontierTraceReferences": 12497500,
+          "newlyDiscoveredTraceReferences": 12497500,
+          "observedHeapDeltaBytes": 747060984
+        },
+        "source": "artifacts/v7.3.14-stage4-oracle.json"
+      }
+    }
+  ],
+  "validation": {
+    "stage4Oracle": "11/11 passed",
+    "traversalDifferential": "3,000 graphs; 14,865 BFS, 14,865 DFS, 3,000 CC; zero mismatches",
+    "projectionDifferential": "3,000 graphs x 4 policies; zero mismatches",
+    "fullSuite": "182/182 test files passed",
+    "lint": "passed",
+    "productionBuild": "passed with existing large-chunk warning",
+    "githubPagesBuild": "passed with existing large-chunk warning",
+    "npmAudit": "0 vulnerabilities",
+    "npmAuditProduction": "0 vulnerabilities",
+    "browserValidation": "No repository browser-smoke infrastructure exists; no browser dependency was added.",
+    "gitDiffCheck": "passed"
+  }
+}
