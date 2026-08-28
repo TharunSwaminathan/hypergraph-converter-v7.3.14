@@ -1,0 +1,49 @@
+{
+  "stage": 3,
+  "kind": "incidence_index_foundation_issue_register",
+  "parentCommit": "e84732d773584b99592ae827b0e33616aecde090",
+  "issues": [
+    {
+      "id": "STAGE3-F01",
+      "status": "implemented",
+      "severity": "foundation",
+      "productionModule": "src/graph/incidenceIndex.js",
+      "evidence": "A pure canonical incidence-index builder now exposes deterministic vertex/hyperedge order, prototype-safe bidirectional Map/Set relations, canonical record references, counts, and safe query helpers without persistent projected neighbors or independent mutation state."
+    }
+  ],
+  "contracts": {
+    "sourceOfTruth": "The canonical hyperedge array remains authoritative; the index is derived and has no mutation API or cache.",
+    "ordering": "Hyperedges follow canonical array order; vertices use first-seen canonical order; hyperedge memberships preserve first-seen canonical membership order; incident hyperedges follow canonical hyperedge order.",
+    "identifiers": "The public builder accepts already-canonical exact string identifiers only. It reuses the Stage 1 identifier validator and rejects input that would require normalization.",
+    "malformedInput": "Null, undefined, non-array input, malformed records, missing IDs, duplicate hyperedge IDs, non-array membership, and noncanonical identifiers fail clearly.",
+    "duplicates": "Duplicate membership is deduplicated in derived Set relations without mutating the source array.",
+    "metadata": "hyperedgesById references the canonical hyperedge record; time, weight, attributes, and vertex arrays are neither cloned nor rewritten.",
+    "invalidation": "No cache exists in Stage 3. Callers rebuild from the current canonical array after existing graph identity/version changes.",
+    "complexity": "Construction is O(H + V + I) and creates no H2H/V2V pairs or projected-neighbor state."
+  },
+  "deferredConsumers": [
+    {
+      "scope": "Stage 4 or later",
+      "locations": [
+        "src/algorithms/graphModel.js",
+        "src/algorithms/connectedComponents.js",
+        "src/algorithms/bfs.js",
+        "src/algorithms/dfs.js",
+        "src/components/Viz.jsx",
+        "src/utils/mappings.js",
+        "src/graph/entityResolver.js",
+        "src/App.jsx"
+      ],
+      "note": "Existing consumers and resolver-specific rebuilds remain unchanged until their explicitly authorized migration stages."
+    }
+  ],
+  "evidence": {
+    "prechange": "artifacts/v7.3.14-stage3-prechange-characterization.json",
+    "oracle": "artifacts/v7.3.14-stage3-oracle.json",
+    "targetedTests": [
+      "tests/stage3-incidence-index-structure.test.mjs",
+      "tests/stage3-incidence-index-differential.test.mjs",
+      "tests/stage3-incidence-index-scaling-rebuild.test.mjs"
+    ]
+  }
+}

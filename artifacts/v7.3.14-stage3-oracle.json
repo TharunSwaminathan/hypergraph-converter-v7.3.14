@@ -1,0 +1,243 @@
+{
+  "stage": 3,
+  "kind": "incidence_index_behavior_oracle",
+  "parentCommit": "e84732d773584b99592ae827b0e33616aecde090",
+  "fixedCount": 8,
+  "total": 8,
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64",
+    "timingCaveat": "Elapsed times are measurements on this Node environment only, not browser scalability claims."
+  },
+  "checks": [
+    {
+      "id": "STAGE3-STRUCTURE",
+      "title": "Incidence index contains exact deterministic bidirectional relations",
+      "fixed": true,
+      "evidence": {
+        "vertices": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "hyperedges": [
+          "h0",
+          "h1"
+        ],
+        "cIncidences": [
+          "h0",
+          "h1"
+        ],
+        "h0Members": [
+          "a",
+          "b",
+          "c"
+        ],
+        "counts": {
+          "hyperedges": 2,
+          "vertices": 4,
+          "incidences": 5
+        }
+      }
+    },
+    {
+      "id": "STAGE3-IDENTIFIERS",
+      "title": "Canonical and prototype-like identifiers retain exact lookup semantics",
+      "fixed": true,
+      "evidence": {
+        "identifierValues": [
+          "0",
+          "null",
+          "__proto__",
+          "constructor",
+          "toString",
+          " A ",
+          "\"foo\"",
+          "A,1",
+          "Δ😀",
+          "#h1"
+        ],
+        "indexedVertices": [
+          "0",
+          "null",
+          "__proto__",
+          "constructor",
+          "toString",
+          " A ",
+          "\"foo\"",
+          "A,1",
+          "Δ😀",
+          "#h1"
+        ]
+      }
+    },
+    {
+      "id": "STAGE3-IMMUTABILITY-DUPLICATES",
+      "title": "Construction leaves source data unchanged and deduplicates only derived incidence relationships",
+      "fixed": true,
+      "evidence": {
+        "sourceUnchanged": true,
+        "members": [
+          "a",
+          "b"
+        ],
+        "counts": {
+          "hyperedges": 1,
+          "vertices": 2,
+          "incidences": 2
+        }
+      }
+    },
+    {
+      "id": "STAGE3-EMPTY-SINGLETON",
+      "title": "Empty and singleton hyperedges retain canonical incidence semantics",
+      "fixed": true,
+      "evidence": {
+        "hyperedges": [
+          "empty",
+          "single"
+        ],
+        "counts": {
+          "hyperedges": 2,
+          "vertices": 1,
+          "incidences": 1
+        }
+      }
+    },
+    {
+      "id": "STAGE3-RANDOM-DIFFERENTIAL",
+      "title": "Seeded incidence traversal matches exact V2V neighbors and connectedness",
+      "fixed": true,
+      "evidence": {
+        "seed": 7537428,
+        "generatedCases": 3000,
+        "v2vAffordableCasesCompared": 3000,
+        "projectedNeighborMismatches": 0,
+        "connectednessMismatches": 0
+      }
+    },
+    {
+      "id": "STAGE3-STRUCTURAL-SCALING",
+      "title": "Large fixtures remain O(H + V + I) without persistent projected neighbors",
+      "fixed": true,
+      "evidence": {
+        "TinyBasic": {
+          "hyperedges": 2,
+          "vertices": 4,
+          "incidences": 5,
+          "elapsedMsMedian": 0.001999999999981128,
+          "samplesMs": [
+            0.006600000000020145,
+            0.0018999999999778083,
+            0.0018000000000029104,
+            0.0020000000000095497,
+            0.001999999999981128
+          ],
+          "mapEntries": 8,
+          "setEntries": 10
+        },
+        "LargeSparse": {
+          "hyperedges": 10000,
+          "vertices": 10001,
+          "incidences": 20000,
+          "elapsedMsMedian": 12.1481,
+          "samplesMs": [
+            12.1481,
+            14.131399999999985,
+            7.930300000000017,
+            12.321199999999976,
+            10.82589999999999
+          ],
+          "mapEntries": 30001,
+          "setEntries": 40000
+        },
+        "OneHugeEdge1K": {
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "elapsedMsMedian": 0.17219999999997526,
+          "samplesMs": [
+            0.15449999999998454,
+            0.14240000000000919,
+            0.17219999999997526,
+            0.36930000000000973,
+            0.36810000000002674
+          ],
+          "mapEntries": 1002,
+          "setEntries": 2000
+        },
+        "OneHugeEdge5K": {
+          "hyperedges": 1,
+          "vertices": 5000,
+          "incidences": 5000,
+          "elapsedMsMedian": 1.9958999999999776,
+          "samplesMs": [
+            1.9958999999999776,
+            1.8780999999999892,
+            2.080600000000004,
+            2.0627000000000066,
+            1.95180000000002
+          ],
+          "mapEntries": 5002,
+          "setEntries": 10000
+        },
+        "DuplicateOverlap": {
+          "hyperedges": 200,
+          "vertices": 46,
+          "incidences": 9200,
+          "elapsedMsMedian": 1.1278000000000077,
+          "samplesMs": [
+            1.1278000000000077,
+            1.641999999999996,
+            3.3215000000000146,
+            0.6532000000000266,
+            0.6409999999999911
+          ],
+          "mapEntries": 446,
+          "setEntries": 18400
+        }
+      }
+    },
+    {
+      "id": "STAGE3-NO-PROJECTION-DEPENDENCY",
+      "title": "Index construction has no mapping, graph-model, or projection dependency",
+      "fixed": true,
+      "evidence": {
+        "imports": [
+          "import { normalizeGraphIdentifier } from \"../utils/graphIdentifiers.js\";"
+        ]
+      }
+    },
+    {
+      "id": "STAGE3-REBUILD",
+      "title": "Pure rebuilds cannot retain stale graph state or leak between graphs",
+      "fixed": true,
+      "evidence": {
+        "stateA": {
+          "vertices": [
+            "a",
+            "b"
+          ],
+          "hyperedges": [
+            "h1"
+          ]
+        },
+        "stateB": {
+          "vertices": [
+            "b",
+            "c"
+          ],
+          "hyperedges": [
+            "h2"
+          ]
+        },
+        "cleared": {
+          "hyperedges": 0,
+          "vertices": 0,
+          "incidences": 0
+        }
+      }
+    }
+  ]
+}
