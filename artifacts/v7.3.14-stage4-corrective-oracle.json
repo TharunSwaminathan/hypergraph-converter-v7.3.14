@@ -1,0 +1,328 @@
+{
+  "stage": 4,
+  "corrective": "S4-N01C",
+  "severity": "High",
+  "status": "fixed",
+  "parentStage4Commit": "f08780eaf1320ae7989b00fcd279f6037234b797",
+  "passed": 6,
+  "total": 6,
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64"
+  },
+  "checks": [
+    {
+      "id": "S4-N01C-PRECHANGE",
+      "title": "Pre-fix collation equality and split orientation were captured before production editing",
+      "passed": true,
+      "evidence": [
+        {
+          "name": "latin-small-e-acute",
+          "composed": "é",
+          "decomposed": "é",
+          "composedCodePoints": [
+            "U+00E9"
+          ],
+          "decomposedCodePoints": [
+            "U+0065",
+            "U+0301"
+          ],
+          "exactStringsDistinct": true,
+          "localeCompareResult": 0,
+          "projectedVertexCount": 2,
+          "projectedVertices": [
+            "é",
+            "é"
+          ],
+          "projectedEdgeCount": 2,
+          "projectedEdges": [
+            {
+              "src": "é",
+              "dst": "é",
+              "weight": 1,
+              "hyperedges": [
+                "h1"
+              ]
+            },
+            {
+              "src": "é",
+              "dst": "é",
+              "weight": 1,
+              "hyperedges": [
+                "h2"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "latin-capital-a-ring",
+          "composed": "Å",
+          "decomposed": "Å",
+          "composedCodePoints": [
+            "U+00C5"
+          ],
+          "decomposedCodePoints": [
+            "U+0041",
+            "U+030A"
+          ],
+          "exactStringsDistinct": true,
+          "localeCompareResult": 0,
+          "projectedVertexCount": 2,
+          "projectedVertices": [
+            "Å",
+            "Å"
+          ],
+          "projectedEdgeCount": 2,
+          "projectedEdges": [
+            {
+              "src": "Å",
+              "dst": "Å",
+              "weight": 1,
+              "hyperedges": [
+                "h1"
+              ]
+            },
+            {
+              "src": "Å",
+              "dst": "Å",
+              "weight": 1,
+              "hyperedges": [
+                "h2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4-N01C-TOTAL-ORDER",
+      "title": "Collation equality receives an exact deterministic tie-break without Unicode normalization",
+      "passed": true,
+      "evidence": {
+        "exactTieBreakPresent": true,
+        "unicodeNormalizationAbsent": true
+      }
+    },
+    {
+      "id": "S4-N01C-UNICODE-IDENTITY",
+      "title": "Both composed/decomposed fixtures retain two exact vertices and one unordered pair",
+      "passed": true,
+      "evidence": [
+        {
+          "name": "latin-small-e-acute",
+          "composed": "é",
+          "decomposed": "é",
+          "exactStringsDistinct": true,
+          "localeCompareResult": 0,
+          "projectedVertices": [
+            "é",
+            "é"
+          ],
+          "projectedEdges": [
+            {
+              "src": "é",
+              "dst": "é",
+              "weight": 2,
+              "hyperedges": [
+                "h1",
+                "h2"
+              ]
+            }
+          ],
+          "reversedProjectedEdges": [
+            {
+              "src": "é",
+              "dst": "é",
+              "weight": 2,
+              "hyperedges": [
+                "h2",
+                "h1"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "latin-capital-a-ring",
+          "composed": "Å",
+          "decomposed": "Å",
+          "exactStringsDistinct": true,
+          "localeCompareResult": 0,
+          "projectedVertices": [
+            "Å",
+            "Å"
+          ],
+          "projectedEdges": [
+            {
+              "src": "Å",
+              "dst": "Å",
+              "weight": 2,
+              "hyperedges": [
+                "h1",
+                "h2"
+              ]
+            }
+          ],
+          "reversedProjectedEdges": [
+            {
+              "src": "Å",
+              "dst": "Å",
+              "weight": 2,
+              "hyperedges": [
+                "h2",
+                "h1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4-N01C-WEIGHTS",
+      "title": "All four projection policies retain one pair, both supports, and their established zero semantics",
+      "passed": true,
+      "evidence": {
+        "count_shared_hyperedges": [
+          {
+            "src": "é",
+            "dst": "é",
+            "weight": 2,
+            "hyperedges": [
+              "h0",
+              "h2"
+            ]
+          }
+        ],
+        "sum_hyperedge_weights": [
+          {
+            "src": "é",
+            "dst": "é",
+            "weight": 2,
+            "hyperedges": [
+              "h0",
+              "h2"
+            ]
+          }
+        ],
+        "min_hyperedge_weight": [
+          {
+            "src": "é",
+            "dst": "é",
+            "weight": 0,
+            "hyperedges": [
+              "h0",
+              "h2"
+            ]
+          }
+        ],
+        "unweighted": [
+          {
+            "src": "é",
+            "dst": "é",
+            "weight": 1,
+            "hyperedges": [
+              "h0",
+              "h2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S4-N01-PRESERVATION",
+      "title": "Previous NUL and numeric-lexical identity corrections remain intact",
+      "passed": true,
+      "evidence": {
+        "nulEdges": [
+          {
+            "src": "a",
+            "dst": "b\u0000c",
+            "weight": 1,
+            "hyperedges": [
+              "h1"
+            ]
+          },
+          {
+            "src": "a\u0000b",
+            "dst": "c",
+            "weight": 1,
+            "hyperedges": [
+              "h2"
+            ]
+          }
+        ],
+        "numericLexical": [
+          {
+            "left": "01",
+            "right": "1",
+            "edges": [
+              {
+                "src": "01",
+                "dst": "1",
+                "weight": 2,
+                "hyperedges": [
+                  "h1",
+                  "h2"
+                ]
+              }
+            ]
+          },
+          {
+            "left": "1.0",
+            "right": "1",
+            "edges": [
+              {
+                "src": "1",
+                "dst": "1.0",
+                "weight": 2,
+                "hyperedges": [
+                  "h1",
+                  "h2"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S4-ORDERING-PRESERVATION",
+      "title": "Representative ordinary locale ordering remains unchanged",
+      "passed": true,
+      "evidence": {
+        "vertices": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "edges": [
+          {
+            "src": "alpha",
+            "dst": "beta",
+            "weight": 1,
+            "hyperedges": [
+              "ordinary"
+            ]
+          },
+          {
+            "src": "alpha",
+            "dst": "gamma",
+            "weight": 1,
+            "hyperedges": [
+              "ordinary"
+            ]
+          },
+          {
+            "src": "beta",
+            "dst": "gamma",
+            "weight": 1,
+            "hyperedges": [
+              "ordinary"
+            ]
+          }
+        ],
+        "warnings": [],
+        "weightPolicy": "count_shared_hyperedges"
+      }
+    }
+  ]
+}

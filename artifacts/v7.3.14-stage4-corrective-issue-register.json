@@ -1,0 +1,58 @@
+{
+  "stage": 4,
+  "corrective": "exact_total_order_for_projected_pair_identity",
+  "parentStage4Commit": "f08780eaf1320ae7989b00fcd279f6037234b797",
+  "issues": [
+    {
+      "id": "S4-N01C",
+      "title": "Nonnumeric comparator is not an exact total order",
+      "severity": "High",
+      "status": "fixed",
+      "preFix": {
+        "identity": "NFC and NFD spellings were exact-distinct but localeCompare returned zero.",
+        "projection": "Reversed memberships produced two opposite-oriented edges, each weight 1, with h1/h2 support split.",
+        "fixtures": [
+          "U+00E9 versus U+0065 U+0301",
+          "U+00C5 versus U+0041 U+030A"
+        ],
+        "evidence": "artifacts/v7.3.14-stage4-corrective-prechange.json"
+      },
+      "postFix": {
+        "ordering": "Ordinary locale ordering remains primary; exact code-unit ordering resolves only locale collation ties between distinct strings.",
+        "identity": "Both Unicode spellings remain separate canonical vertices; no normalization, trimming, or case folding was added.",
+        "projection": "Each fixture produces one consistently oriented edge with weight 2 and both support IDs.",
+        "evidence": "artifacts/v7.3.14-stage4-corrective-oracle.json"
+      },
+      "sourceDiff": {
+        "productionFiles": [
+          "src/algorithms/projection.js"
+        ],
+        "summary": "Added an exact-string fallback when localeCompare returns zero for nonidentical identifiers."
+      },
+      "testsAdded": [
+        "tests/stage4-corrective-exact-total-order.test.mjs"
+      ],
+      "preservationGates": {
+        "correctiveRegression": "passed: 2 Unicode collation ties and 4 weight policies",
+        "correctiveOracle": "6/6 passed",
+        "stage4ProjectionResourceIdentity": "passed",
+        "stage4ProjectionDifferential": "3000 graphs x 4 policies passed; seed 7603220",
+        "stage4TraversalDifferential": "3000 graphs, 14865 BFS, 14865 DFS, 3000 CC passed; seed 7602964",
+        "stage4LargeIncidence": "1000- and 5000-vertex fixtures passed",
+        "stage4Oracle": "11/11 passed",
+        "stage3Corrective": "regression passed; oracle 4/4",
+        "stage3Original": "3/3 tests and oracle 8/8 passed",
+        "stage2": "11/11 tests; oracles 6/6, 3/3, 3/3, and 2/2 passed",
+        "stage1": "3/3 tests and oracle 6/6 passed",
+        "stage0": "2/2 preservation tests passed",
+        "fullSuite": "183/183 files passed",
+        "lint": "passed",
+        "productionBuild": "passed with pre-existing large-chunk warning",
+        "githubPagesBuild": "passed with pre-existing large-chunk warning",
+        "npmAudit": "0 vulnerabilities",
+        "npmAuditProduction": "0 vulnerabilities",
+        "gitDiffCheck": "passed"
+      }
+    }
+  ]
+}

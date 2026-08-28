@@ -369,5 +369,8 @@ function compareVertexId(left, right) {
     if (a === b) return 0;
     return a < b ? -1 : 1;
   }
-  return a.localeCompare(b);
+  const localeOrder = a.localeCompare(b);
+  if (localeOrder !== 0) return localeOrder;
+  if (a === b) return 0;
+  return a < b ? -1 : 1;
 }

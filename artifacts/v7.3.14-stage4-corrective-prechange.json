@@ -1,0 +1,87 @@
+{
+  "stage": "4-corrective",
+  "issue": "S4-N01C",
+  "kind": "prechange_exact_total_order_reproduction",
+  "parentStage4Commit": "f08780eaf1320ae7989b00fcd279f6037234b797",
+  "runtime": "v24.19.0",
+  "allRequiredFailuresReproduced": true,
+  "fixtures": [
+    {
+      "name": "latin-small-e-acute",
+      "composed": "é",
+      "decomposed": "é",
+      "composedCodePoints": [
+        "U+00E9"
+      ],
+      "decomposedCodePoints": [
+        "U+0065",
+        "U+0301"
+      ],
+      "exactStringsDistinct": true,
+      "localeCompareResult": 0,
+      "projectedVertexCount": 2,
+      "projectedVertices": [
+        "é",
+        "é"
+      ],
+      "projectedEdgeCount": 2,
+      "projectedEdges": [
+        {
+          "src": "é",
+          "dst": "é",
+          "weight": 1,
+          "hyperedges": [
+            "h1"
+          ]
+        },
+        {
+          "src": "é",
+          "dst": "é",
+          "weight": 1,
+          "hyperedges": [
+            "h2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "latin-capital-a-ring",
+      "composed": "Å",
+      "decomposed": "Å",
+      "composedCodePoints": [
+        "U+00C5"
+      ],
+      "decomposedCodePoints": [
+        "U+0041",
+        "U+030A"
+      ],
+      "exactStringsDistinct": true,
+      "localeCompareResult": 0,
+      "projectedVertexCount": 2,
+      "projectedVertices": [
+        "Å",
+        "Å"
+      ],
+      "projectedEdgeCount": 2,
+      "projectedEdges": [
+        {
+          "src": "Å",
+          "dst": "Å",
+          "weight": 1,
+          "hyperedges": [
+            "h1"
+          ]
+        },
+        {
+          "src": "Å",
+          "dst": "Å",
+          "weight": 1,
+          "hyperedges": [
+            "h2"
+          ]
+        }
+      ]
+    }
+  ],
+  "conclusion": "Distinct canonical Unicode identifiers that collate equally split one unordered pair into opposite orientations."
+}
