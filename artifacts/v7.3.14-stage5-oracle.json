@@ -1,0 +1,607 @@
+{
+  "stage": 5,
+  "kind": "graph_preview_correctness_and_scalable_layout_oracle",
+  "parentCommit": "e576ee3849ad679ce847ac143ab1b077f69893d5",
+  "status": "passed",
+  "passed": 14,
+  "total": 14,
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64"
+  },
+  "forceConstants": {
+    "exactRepulsionMaxVertices": 700,
+    "approximateRepulsionSamplesPerVertex": 24,
+    "repulsionStrength": 4000,
+    "topologyAttractionStrength": 0.032,
+    "centeringStrength": 0.005,
+    "velocityDamping": 0.75,
+    "alphaDecay": 0.985,
+    "settledAlpha": 0.002,
+    "nodeMargin": 24
+  },
+  "performance": {
+    "configuredSettleRafCount": 412,
+    "rafLifecycle": {
+      "firstScheduled": true,
+      "duplicatePrevented": true,
+      "idleAfterSettle": true,
+      "restarted": true,
+      "cancelledOnDispose": true,
+      "draws": 5
+    },
+    "TinyBasic": {
+      "name": "TinyBasic",
+      "hyperedges": 2,
+      "vertices": 4,
+      "incidences": 5,
+      "attractionRelationships": 5,
+      "storedPairSprings": 0,
+      "forceMode": "exact",
+      "repulsionMode": "exact_pairwise",
+      "visual": {
+        "totalIncidences": 5,
+        "totalCandidateRelations": 4,
+        "renderedVisualRelations": 4
+      },
+      "visualStatus": "complete",
+      "finite": true,
+      "indexMs": 0.09819999999999851,
+      "initializationMs": 0.1039999999999992,
+      "forceTicks": 20,
+      "forceTicksMs": 0.432699999999997,
+      "alphaAfterTicks": 0.7391364333471014
+    },
+    "DuplicateOverlap": {
+      "name": "DuplicateOverlap",
+      "hyperedges": 200,
+      "vertices": 46,
+      "incidences": 9200,
+      "attractionRelationships": 9200,
+      "storedPairSprings": 0,
+      "forceMode": "exact",
+      "repulsionMode": "exact_pairwise",
+      "visual": {
+        "totalIncidences": 9200,
+        "totalCandidateRelations": 207000,
+        "renderedVisualRelations": 1035
+      },
+      "visualStatus": "sampled",
+      "finite": true,
+      "indexMs": 3.276299999999999,
+      "initializationMs": 3.2897000000000034,
+      "forceTicks": 10,
+      "forceTicksMs": 5.6717999999999975,
+      "alphaAfterTicks": 0.8597304422591431
+    },
+    "transitions": {
+      "699": {
+        "vertexCount": 699,
+        "forceMode": "exact",
+        "repulsionMode": "exact_pairwise",
+        "repulsionWork": 243951,
+        "attractionWork": 699,
+        "positionChanged": true,
+        "finite": true,
+        "reheatAlpha": 1
+      },
+      "700": {
+        "vertexCount": 700,
+        "forceMode": "exact",
+        "repulsionMode": "exact_pairwise",
+        "repulsionWork": 244650,
+        "attractionWork": 700,
+        "positionChanged": true,
+        "finite": true,
+        "reheatAlpha": 1
+      },
+      "701": {
+        "vertexCount": 701,
+        "forceMode": "approximate",
+        "repulsionMode": "deterministic_sampled",
+        "repulsionWork": 16824,
+        "attractionWork": 701,
+        "positionChanged": true,
+        "finite": true,
+        "reheatAlpha": 1
+      },
+      "702": {
+        "vertexCount": 702,
+        "forceMode": "approximate",
+        "repulsionMode": "deterministic_sampled",
+        "repulsionWork": 16848,
+        "attractionWork": 702,
+        "positionChanged": true,
+        "finite": true,
+        "reheatAlpha": 1
+      },
+      "1000": {
+        "vertexCount": 1000,
+        "forceMode": "approximate",
+        "repulsionMode": "deterministic_sampled",
+        "repulsionWork": 24000,
+        "attractionWork": 1000,
+        "positionChanged": true,
+        "finite": true,
+        "reheatAlpha": 1
+      }
+    },
+    "OneHugeEdge1K": {
+      "name": "OneHugeEdge1K",
+      "hyperedges": 1,
+      "vertices": 1000,
+      "incidences": 1000,
+      "attractionRelationships": 1000,
+      "storedPairSprings": 0,
+      "forceMode": "approximate",
+      "repulsionMode": "deterministic_sampled",
+      "visual": {
+        "totalIncidences": 1000,
+        "totalCandidateRelations": 499500,
+        "renderedVisualRelations": 64
+      },
+      "visualStatus": "sampled",
+      "finite": true,
+      "indexMs": 0.3920999999999992,
+      "initializationMs": 0.5294999999999987,
+      "forceTicks": 10,
+      "forceTicksMs": 11.532000000000004,
+      "alphaAfterTicks": 0.8597304422591431
+    },
+    "OneHugeEdge5K": {
+      "name": "OneHugeEdge5K",
+      "hyperedges": 1,
+      "vertices": 5000,
+      "incidences": 5000,
+      "attractionRelationships": 5000,
+      "storedPairSprings": 0,
+      "forceMode": "approximate",
+      "repulsionMode": "deterministic_sampled",
+      "visual": {
+        "totalIncidences": 5000,
+        "totalCandidateRelations": 12497500,
+        "renderedVisualRelations": 64
+      },
+      "visualStatus": "sampled",
+      "finite": true,
+      "indexMs": 3.184100000000001,
+      "initializationMs": 4.0017,
+      "forceTicks": 10,
+      "forceTicksMs": 47.2996,
+      "alphaAfterTicks": 0.8597304422591431,
+      "heapDeltaBytes": 2379000
+    }
+  },
+  "checks": [
+    {
+      "id": "STAGE5-PRECHANGE",
+      "title": "Required Preview defects were characterized before production editing",
+      "passed": true,
+      "evidence": {
+        "HG713-R01": {
+          "reproduced": true,
+          "evidence": {
+            "callPath": [
+              "Hypergraph mode",
+              "V2V NOT_REQUESTED",
+              "v2vEdges = []",
+              "spring loop has zero topology edges"
+            ],
+            "TinyBasicHypergraphTopologySpringCount": 0,
+            "TinyBasicExactLineGraphEdgesWhenRequested": 4,
+            "OneHugeEdge1KHypergraphStoredSprings": 0,
+            "OneHugeEdge1KAnalyticalRequestStatus": "NOT_REQUESTED in Hypergraph mode",
+            "hugeProjectionCharacterization": {
+              "status": "over_budget",
+              "reason": "200,001 unique projected edges exceeds the 200,000 uniqueProjectedEdges projection safety limit"
+            }
+          }
+        },
+        "HG713-R02": {
+          "reproduced": true,
+          "evidence": {
+            "TinyBasicHypergraphVisualCoMembershipLines": 0,
+            "reason": "The only line source is v2vEdges, which is empty in Hypergraph mode."
+          }
+        },
+        "HG713-R06": {
+          "reproduced": true,
+          "evidence": {
+            "threshold": {
+              "699": {
+                "vertices": 699,
+                "forceTickGateOpen": true,
+                "reheatSetsAlpha": true,
+                "topologyOrRepulsionWorkRuns": true
+              },
+              "700": {
+                "vertices": 700,
+                "forceTickGateOpen": true,
+                "reheatSetsAlpha": true,
+                "topologyOrRepulsionWorkRuns": true
+              },
+              "701": {
+                "vertices": 701,
+                "forceTickGateOpen": false,
+                "reheatSetsAlpha": true,
+                "topologyOrRepulsionWorkRuns": false
+              },
+              "702": {
+                "vertices": 702,
+                "forceTickGateOpen": false,
+                "reheatSetsAlpha": true,
+                "topologyOrRepulsionWorkRuns": false
+              }
+            },
+            "reheatAt700": "alpha raised and force gate runs",
+            "reheatAt701": "alpha raised but force gate remains closed"
+          }
+        },
+        "HG713-C05": {
+          "reproduced": true,
+          "evidence": {
+            "raf": "draw unconditionally schedules the next frame after every render, including settled/static layouts",
+            "lineGraph": "Every computed v2vEdges entry is traversed every frame with no Preview-specific visual budget",
+            "exactProjectionStatusRemainsSeparate": "computed"
+          }
+        },
+        "HG713-C09": {
+          "reproduced": true,
+          "evidence": {
+            "fixture": [
+              {
+                "id": "h-zero",
+                "vertices": [
+                  "a",
+                  "b"
+                ],
+                "time": 0,
+                "weight": 0,
+                "attributes": {}
+              }
+            ],
+            "hoverShowsWeightZero": false,
+            "sidebarShowsWeightZero": false,
+            "listShowsWeightZero": false
+          }
+        },
+        "HG713-S01": {
+          "reproduced": true,
+          "evidence": {
+            "hoverRingPath": "ellipse interior geometry exists in onMove",
+            "clickRingPath": "absent; non-node mouse-down starts pan and clears selection"
+          }
+        },
+        "HG713-S02": {
+          "reproduced": true,
+          "evidence": {
+            "fixture": [
+              {
+                "id": "h0",
+                "vertices": [
+                  0,
+                  "0",
+                  "control"
+                ],
+                "time": null,
+                "weight": 1,
+                "attributes": {}
+              }
+            ],
+            "numericZeroExactFindResult": 0,
+            "truthinessChainResult": null
+          }
+        },
+        "HG713-S03": {
+          "reproduced": false,
+          "status": "already_protected",
+          "evidence": {
+            "fixture": [
+              {
+                "id": "__proto__",
+                "vertices": [
+                  "__proto__",
+                  "constructor",
+                  "toString"
+                ],
+                "time": null,
+                "weight": 1,
+                "attributes": {}
+              },
+              {
+                "id": "constructor",
+                "vertices": [
+                  "toString",
+                  "ordinary"
+                ],
+                "time": null,
+                "weight": 1,
+                "attributes": {}
+              }
+            ],
+            "storage": "createGraphIdentifierMap() returns Map; access uses getGraphIdentifierValue/setGraphIdentifierValue",
+            "unsafeObjectPositionIndexFound": false
+          }
+        },
+        "HG713-S04": {
+          "reproduced": true,
+          "evidence": {
+            "initialSizing": "canvas.offsetWidth and fixed 520 CSS pixels",
+            "resizeObserver": false,
+            "postContainerResizeBackingStoreUpdate": false
+          }
+        },
+        "N02": {
+          "reproduced": false,
+          "status": "already_protected",
+          "evidence": {
+            "fixture": [
+              {
+                "id": "h-null",
+                "vertices": [
+                  "null",
+                  "ordinary"
+                ],
+                "time": null,
+                "weight": 1,
+                "attributes": {}
+              }
+            ],
+            "unsetSelection": null,
+            "literalIdentifier": "null",
+            "explicitPresenceChecks": true
+          }
+        }
+      }
+    },
+    {
+      "id": "HG713-R01",
+      "title": "Incidence-centroid topology materially attracts shared members",
+      "passed": true,
+      "evidence": {
+        "initialDistance": 250,
+        "attractedDistance": 60.28327613527085,
+        "controlDistance": 170.47044764198404,
+        "ticks": 40
+      }
+    },
+    {
+      "id": "HG713-R01-NO-V2V",
+      "title": "Hypergraph Force has no full-V2V dependency",
+      "passed": true,
+      "evidence": {
+        "layoutImportsProjection": false
+      }
+    },
+    {
+      "id": "HG713-R06",
+      "title": "Force uses meaningful exact/approximate strategies across the former 700 cliff",
+      "passed": true,
+      "evidence": {
+        "699": {
+          "vertexCount": 699,
+          "forceMode": "exact",
+          "repulsionMode": "exact_pairwise",
+          "repulsionWork": 243951,
+          "attractionWork": 699,
+          "positionChanged": true,
+          "finite": true,
+          "reheatAlpha": 1
+        },
+        "700": {
+          "vertexCount": 700,
+          "forceMode": "exact",
+          "repulsionMode": "exact_pairwise",
+          "repulsionWork": 244650,
+          "attractionWork": 700,
+          "positionChanged": true,
+          "finite": true,
+          "reheatAlpha": 1
+        },
+        "701": {
+          "vertexCount": 701,
+          "forceMode": "approximate",
+          "repulsionMode": "deterministic_sampled",
+          "repulsionWork": 16824,
+          "attractionWork": 701,
+          "positionChanged": true,
+          "finite": true,
+          "reheatAlpha": 1
+        },
+        "702": {
+          "vertexCount": 702,
+          "forceMode": "approximate",
+          "repulsionMode": "deterministic_sampled",
+          "repulsionWork": 16848,
+          "attractionWork": 702,
+          "positionChanged": true,
+          "finite": true,
+          "reheatAlpha": 1
+        },
+        "1000": {
+          "vertexCount": 1000,
+          "forceMode": "approximate",
+          "repulsionMode": "deterministic_sampled",
+          "repulsionWork": 24000,
+          "attractionWork": 1000,
+          "positionChanged": true,
+          "finite": true,
+          "reheatAlpha": 1
+        }
+      }
+    },
+    {
+      "id": "HG713-R02-C05",
+      "title": "Visual co-membership and Line Graph LOD are bounded separately from analytical data",
+      "passed": true,
+      "evidence": {
+        "huge1kVisual": {
+          "totalIncidences": 1000,
+          "totalCandidateRelations": 499500,
+          "renderedVisualRelations": 64
+        },
+        "lineVisual": {
+          "status": "lod",
+          "complete": false,
+          "analyticalEdgeCount": 5500,
+          "renderedEdgeCount": 4000,
+          "reason": "Line Graph computed exactly; Preview is showing a deterministic bounded visual subset."
+        }
+      }
+    },
+    {
+      "id": "STAGE5-RAF",
+      "title": "RAF stops when settled, restarts, prevents duplicates, and cancels on dispose",
+      "passed": true,
+      "evidence": {
+        "firstScheduled": true,
+        "duplicatePrevented": true,
+        "idleAfterSettle": true,
+        "restarted": true,
+        "cancelledOnDispose": true,
+        "draws": 5
+      }
+    },
+    {
+      "id": "HG713-S01",
+      "title": "Ring hit testing uses the shared rendered perimeter geometry",
+      "passed": true,
+      "evidence": {
+        "ring": {
+          "cx": 150,
+          "cy": 100,
+          "rx": 78,
+          "ry": 28
+        },
+        "hit": {
+          "hyperedge": {
+            "id": "ring",
+            "vertices": [
+              "a",
+              "b"
+            ],
+            "time": null,
+            "weight": 1,
+            "attributes": {}
+          },
+          "bounds": {
+            "cx": 150,
+            "cy": 100,
+            "rx": 78,
+            "ry": 28
+          },
+          "perimeterDistance": 0,
+          "size": 106,
+          "index": 0
+        }
+      }
+    },
+    {
+      "id": "HG713-S02",
+      "title": "Numeric vertex zero resolves without a truthiness false-negative",
+      "passed": true,
+      "evidence": {
+        "result": 0
+      }
+    },
+    {
+      "id": "N02",
+      "title": "Literal null remains distinct from unset search state",
+      "passed": true,
+      "evidence": {
+        "unset": null,
+        "literal": "null"
+      }
+    },
+    {
+      "id": "HG713-S03",
+      "title": "Prototype-like positions remain Map-backed and finite through Force",
+      "passed": true,
+      "evidence": {
+        "keys": [
+          "__proto__",
+          "constructor",
+          "toString",
+          "ordinary"
+        ],
+        "forceMode": "exact"
+      }
+    },
+    {
+      "id": "HG713-C09",
+      "title": "Weight zero is present in Preview metadata",
+      "passed": true,
+      "evidence": [
+        [
+          "vertices",
+          "a"
+        ],
+        [
+          "cardinality",
+          "1"
+        ],
+        [
+          "weight",
+          "0"
+        ]
+      ]
+    },
+    {
+      "id": "HG713-S04",
+      "title": "Canvas backing dimensions follow CSS size and DPR independently",
+      "passed": true,
+      "evidence": {
+        "dpr1": {
+          "cssWidth": 640,
+          "cssHeight": 400,
+          "dpr": 1,
+          "backingWidth": 640,
+          "backingHeight": 400
+        },
+        "dpr2": {
+          "cssWidth": 640,
+          "cssHeight": 400,
+          "dpr": 2,
+          "backingWidth": 1280,
+          "backingHeight": 800
+        }
+      }
+    },
+    {
+      "id": "STAGE5-VIEW-ISOLATION",
+      "title": "View switching changes only visual edge selection, not Hypergraph topology Force",
+      "passed": true,
+      "evidence": {
+        "topologyMode": "incidence_centroid",
+        "analyticalProjectionRequestedOnlyFor": "linegraph"
+      }
+    },
+    {
+      "id": "STAGE5-ONE-HUGE-EDGE",
+      "title": "OneHugeEdge1K uses 1,000 incidence attractions without stored clique springs",
+      "passed": true,
+      "evidence": {
+        "name": "OneHugeEdge1K",
+        "hyperedges": 1,
+        "vertices": 1000,
+        "incidences": 1000,
+        "attractionRelationships": 1000,
+        "storedPairSprings": 0,
+        "forceMode": "approximate",
+        "repulsionMode": "deterministic_sampled",
+        "visual": {
+          "totalIncidences": 1000,
+          "totalCandidateRelations": 499500,
+          "renderedVisualRelations": 64
+        },
+        "visualStatus": "sampled",
+        "finite": true,
+        "indexMs": 0.3920999999999992,
+        "initializationMs": 0.5294999999999987,
+        "forceTicks": 10,
+        "forceTicksMs": 11.532000000000004,
+        "alphaAfterTicks": 0.8597304422591431
+      }
+    }
+  ]
+}

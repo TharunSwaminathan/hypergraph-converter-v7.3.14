@@ -1,0 +1,88 @@
+{
+  "stage": 5,
+  "scope": "graph_preview_correctness_and_scalable_layout",
+  "parentCommit": "e576ee3849ad679ce847ac143ab1b077f69893d5",
+  "issues": [
+    {
+      "id": "HG713-R01",
+      "severity": "High",
+      "status": "fixed",
+      "prechangeEvidence": "Hypergraph mode returned V2V NOT_REQUESTED, v2vEdges was empty, and the only topology spring loop therefore performed zero topology work.",
+      "postchangeEvidence": "Force consumes the Stage 3 incidence index and applies centroid attraction once per incidence in O(I); deterministic disconnected/overlap tests and oracle HG713-R01 pass."
+    },
+    {
+      "id": "HG713-R02",
+      "severity": "Medium",
+      "status": "fixed",
+      "prechangeEvidence": "Hypergraph mode rendered zero co-membership lines because its only visual line source was the unrequested analytical V2V projection.",
+      "postchangeEvidence": "A dedicated deterministic visual co-membership overlay is complete when affordable and fair-share sampled when bounded, with user-visible status."
+    },
+    {
+      "id": "HG713-R06",
+      "severity": "High",
+      "status": "fixed",
+      "prechangeEvidence": "The Force tick was guarded by verts.length <= 700; 701+ silently stopped while Reheat only changed alpha.",
+      "postchangeEvidence": "Exact pairwise repulsion is selected through 700 and deterministic 24-sample-per-vertex approximation from 701 upward. All 699/700/701/702/1000 fixtures move finite positions and Reheat restores alpha."
+    },
+    {
+      "id": "HG713-C05",
+      "severity": "High",
+      "status": "partially_fixed_stage5",
+      "prechangeEvidence": "Every computed analytical Line Graph edge was drawn on every frame and draw unconditionally scheduled another RAF forever.",
+      "postchangeEvidence": "Preview renders at most 4,000 deterministic Line Graph edges, preserves the exact analytical/export result, communicates LOD, and stops RAF when idle.",
+      "deferred": "Permitted Stage 4 analytical projection construction still runs synchronously on the main thread; worker/cancellation architecture remains Stage 7 scope."
+    },
+    {
+      "id": "HG713-C09",
+      "severity": "Medium",
+      "status": "fixed",
+      "prechangeEvidence": "Truthiness guards suppressed weight 0 in ring hover, selected metadata, and the hyperedge list.",
+      "postchangeEvidence": "Semantic presence checks display weight 0 and negative values while preserving the existing weight-1/null policy."
+    },
+    {
+      "id": "HG713-S01",
+      "severity": "Medium",
+      "status": "fixed",
+      "prechangeEvidence": "Mouse-down tested vertices only; any non-node click started pan and cleared selection even though rings were advertised as clickable.",
+      "postchangeEvidence": "Pointer priority is vertex, then shared-geometry ring perimeter, then empty-canvas pan/clear. Nearest perimeter, smaller ring, then display order resolves overlap."
+    },
+    {
+      "id": "HG713-S02",
+      "severity": "Medium",
+      "status": "fixed",
+      "prechangeEvidence": "find(...) || find(...) converted an exact numeric 0 result into a false-negative.",
+      "postchangeEvidence": "Search uses explicit undefined detection; numeric/canonical zero resolves and renders through explicit null-state checks."
+    },
+    {
+      "id": "HG713-S03",
+      "severity": "High",
+      "status": "already_fixed_preserved",
+      "prechangeEvidence": "Stage 1 had already moved Viz position state to createGraphIdentifierMap()/Map access; no unsafe position object remained.",
+      "postchangeEvidence": "Initialization, merge, lookup, Force, hit testing, drag, hover, search, and selection remain Map-backed; prototype-like IDs pass unit, DOM, Stage 1, and oracle gates."
+    },
+    {
+      "id": "HG713-S04",
+      "severity": "Medium",
+      "status": "fixed",
+      "prechangeEvidence": "Canvas used offsetWidth plus fixed height during effect setup and had no ResizeObserver, leaving backing dimensions stale after container resize.",
+      "postchangeEvidence": "ResizeObserver drives independent CSS/backing sizes, DPR 1/2 tests pass, DPR is capped at 3, and resize preserves positions, transform, selection, search, and Force energy."
+    },
+    {
+      "id": "N02",
+      "severity": "High",
+      "status": "already_fixed_preserved",
+      "prechangeEvidence": "Explicit selV/searchHit != null checks already distinguished unset null from literal identifier \"null\".",
+      "postchangeEvidence": "Empty search returns unset null; query/selection \"null\" remains an exact graph identifier in pure and DOM tests."
+    }
+  ],
+  "evidence": {
+    "prechange": "artifacts/v7.3.14-stage5-prechange-characterization.json",
+    "oracle": "artifacts/v7.3.14-stage5-oracle.json",
+    "tests": [
+      "tests/stage5-preview-layout.test.mjs",
+      "tests/stage5-preview-geometry-runtime.test.mjs",
+      "tests/stage5-preview-render-budget.test.mjs",
+      "tests/stage5-preview-dom-integration.test.mjs"
+    ]
+  }
+}

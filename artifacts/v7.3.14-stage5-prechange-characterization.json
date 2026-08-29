@@ -1,0 +1,321 @@
+{
+  "stage": 5,
+  "kind": "prechange_graph_preview_characterization",
+  "parentCommit": "e576ee3849ad679ce847ac143ab1b077f69893d5",
+  "runtime": "v24.19.0",
+  "sourceFile": "src/components/Viz.jsx",
+  "sourceCallPaths": {
+    "hypergraphForce": [
+      "viewMode hypergraph",
+      "v2vProjection NOT_REQUESTED",
+      "v2vEdges []",
+      "force spring v2vEdges.forEach has zero work"
+    ],
+    "lineGraph": [
+      "viewMode linegraph",
+      "buildV2VBounded(he)",
+      "all computed edges mapped to v2vEdges",
+      "every edge drawn every RAF"
+    ],
+    "raf": [
+      "effect schedules draw",
+      "draw unconditionally schedules draw",
+      "cleanup cancels latest frame"
+    ],
+    "interaction": [
+      "mouse down",
+      "node hit -> drag/select",
+      "otherwise -> pan/clear; no ring hit"
+    ],
+    "resize": [
+      "effect",
+      "offsetWidth + fixed H=520",
+      "backing dimensions assigned once per effect; no ResizeObserver"
+    ],
+    "panZoomReset": [
+      "pan mutates transform",
+      "wheel zooms around cursor",
+      "reset restores transform and alpha, then clears selection"
+    ]
+  },
+  "controls": {
+    "TinyBasic": {
+      "hyperedges": 2,
+      "vertices": 4,
+      "incidences": 5,
+      "hypergraphVisualLines": 0,
+      "exactLineGraphEdges": 4
+    },
+    "disconnected": {
+      "graph": [
+        [
+          "a",
+          "b"
+        ],
+        [
+          "c",
+          "d"
+        ]
+      ],
+      "hypergraphTopologySprings": 0
+    },
+    "OneHugeEdge1K": {
+      "hyperedges": 1,
+      "vertices": 1000,
+      "incidences": 1000,
+      "forceGateOpen": false,
+      "storedPairSprings": 0
+    },
+    "forceThreshold": {
+      "699": {
+        "vertices": 699,
+        "forceTickGateOpen": true,
+        "reheatSetsAlpha": true,
+        "topologyOrRepulsionWorkRuns": true
+      },
+      "700": {
+        "vertices": 700,
+        "forceTickGateOpen": true,
+        "reheatSetsAlpha": true,
+        "topologyOrRepulsionWorkRuns": true
+      },
+      "701": {
+        "vertices": 701,
+        "forceTickGateOpen": false,
+        "reheatSetsAlpha": true,
+        "topologyOrRepulsionWorkRuns": false
+      },
+      "702": {
+        "vertices": 702,
+        "forceTickGateOpen": false,
+        "reheatSetsAlpha": true,
+        "topologyOrRepulsionWorkRuns": false
+      }
+    },
+    "PrototypeIDs": [
+      {
+        "id": "__proto__",
+        "vertices": [
+          "__proto__",
+          "constructor",
+          "toString"
+        ],
+        "time": null,
+        "weight": 1,
+        "attributes": {}
+      },
+      {
+        "id": "constructor",
+        "vertices": [
+          "toString",
+          "ordinary"
+        ],
+        "time": null,
+        "weight": 1,
+        "attributes": {}
+      }
+    ],
+    "LiteralNullID": [
+      {
+        "id": "h-null",
+        "vertices": [
+          "null",
+          "ordinary"
+        ],
+        "time": null,
+        "weight": 1,
+        "attributes": {}
+      }
+    ],
+    "WeightZero": [
+      {
+        "id": "h-zero",
+        "vertices": [
+          "a",
+          "b"
+        ],
+        "time": 0,
+        "weight": 0,
+        "attributes": {}
+      }
+    ]
+  },
+  "issues": {
+    "HG713-R01": {
+      "reproduced": true,
+      "evidence": {
+        "callPath": [
+          "Hypergraph mode",
+          "V2V NOT_REQUESTED",
+          "v2vEdges = []",
+          "spring loop has zero topology edges"
+        ],
+        "TinyBasicHypergraphTopologySpringCount": 0,
+        "TinyBasicExactLineGraphEdgesWhenRequested": 4,
+        "OneHugeEdge1KHypergraphStoredSprings": 0,
+        "OneHugeEdge1KAnalyticalRequestStatus": "NOT_REQUESTED in Hypergraph mode",
+        "hugeProjectionCharacterization": {
+          "status": "over_budget",
+          "reason": "200,001 unique projected edges exceeds the 200,000 uniqueProjectedEdges projection safety limit"
+        }
+      }
+    },
+    "HG713-R02": {
+      "reproduced": true,
+      "evidence": {
+        "TinyBasicHypergraphVisualCoMembershipLines": 0,
+        "reason": "The only line source is v2vEdges, which is empty in Hypergraph mode."
+      }
+    },
+    "HG713-R06": {
+      "reproduced": true,
+      "evidence": {
+        "threshold": {
+          "699": {
+            "vertices": 699,
+            "forceTickGateOpen": true,
+            "reheatSetsAlpha": true,
+            "topologyOrRepulsionWorkRuns": true
+          },
+          "700": {
+            "vertices": 700,
+            "forceTickGateOpen": true,
+            "reheatSetsAlpha": true,
+            "topologyOrRepulsionWorkRuns": true
+          },
+          "701": {
+            "vertices": 701,
+            "forceTickGateOpen": false,
+            "reheatSetsAlpha": true,
+            "topologyOrRepulsionWorkRuns": false
+          },
+          "702": {
+            "vertices": 702,
+            "forceTickGateOpen": false,
+            "reheatSetsAlpha": true,
+            "topologyOrRepulsionWorkRuns": false
+          }
+        },
+        "reheatAt700": "alpha raised and force gate runs",
+        "reheatAt701": "alpha raised but force gate remains closed"
+      }
+    },
+    "HG713-C05": {
+      "reproduced": true,
+      "evidence": {
+        "raf": "draw unconditionally schedules the next frame after every render, including settled/static layouts",
+        "lineGraph": "Every computed v2vEdges entry is traversed every frame with no Preview-specific visual budget",
+        "exactProjectionStatusRemainsSeparate": "computed"
+      }
+    },
+    "HG713-C09": {
+      "reproduced": true,
+      "evidence": {
+        "fixture": [
+          {
+            "id": "h-zero",
+            "vertices": [
+              "a",
+              "b"
+            ],
+            "time": 0,
+            "weight": 0,
+            "attributes": {}
+          }
+        ],
+        "hoverShowsWeightZero": false,
+        "sidebarShowsWeightZero": false,
+        "listShowsWeightZero": false
+      }
+    },
+    "HG713-S01": {
+      "reproduced": true,
+      "evidence": {
+        "hoverRingPath": "ellipse interior geometry exists in onMove",
+        "clickRingPath": "absent; non-node mouse-down starts pan and clears selection"
+      }
+    },
+    "HG713-S02": {
+      "reproduced": true,
+      "evidence": {
+        "fixture": [
+          {
+            "id": "h0",
+            "vertices": [
+              0,
+              "0",
+              "control"
+            ],
+            "time": null,
+            "weight": 1,
+            "attributes": {}
+          }
+        ],
+        "numericZeroExactFindResult": 0,
+        "truthinessChainResult": null
+      }
+    },
+    "HG713-S03": {
+      "reproduced": false,
+      "status": "already_protected",
+      "evidence": {
+        "fixture": [
+          {
+            "id": "__proto__",
+            "vertices": [
+              "__proto__",
+              "constructor",
+              "toString"
+            ],
+            "time": null,
+            "weight": 1,
+            "attributes": {}
+          },
+          {
+            "id": "constructor",
+            "vertices": [
+              "toString",
+              "ordinary"
+            ],
+            "time": null,
+            "weight": 1,
+            "attributes": {}
+          }
+        ],
+        "storage": "createGraphIdentifierMap() returns Map; access uses getGraphIdentifierValue/setGraphIdentifierValue",
+        "unsafeObjectPositionIndexFound": false
+      }
+    },
+    "HG713-S04": {
+      "reproduced": true,
+      "evidence": {
+        "initialSizing": "canvas.offsetWidth and fixed 520 CSS pixels",
+        "resizeObserver": false,
+        "postContainerResizeBackingStoreUpdate": false
+      }
+    },
+    "N02": {
+      "reproduced": false,
+      "status": "already_protected",
+      "evidence": {
+        "fixture": [
+          {
+            "id": "h-null",
+            "vertices": [
+              "null",
+              "ordinary"
+            ],
+            "time": null,
+            "weight": 1,
+            "attributes": {}
+          }
+        ],
+        "unsetSelection": null,
+        "literalIdentifier": "null",
+        "explicitPresenceChecks": true
+      }
+    }
+  },
+  "allRequiredFailuresReproduced": true,
+  "protectedPrechangeContracts": true
+}
