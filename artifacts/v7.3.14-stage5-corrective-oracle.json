@@ -1,0 +1,62 @@
+{
+  "stage": "5-corrective",
+  "issue": "S5-N01",
+  "parentCommit": "2b61a6e4f7d6764bf0796b2c265c87d0fb3ad7cd",
+  "status": "PASS",
+  "summary": {
+    "passed": 10,
+    "total": 10
+  },
+  "checks": [
+    {
+      "family": "pre-fix node-drag reproduction",
+      "status": "PASS",
+      "evidence": "selection committed; requested (520, 131.2), observed (400, 31.19999999999999)"
+    },
+    {
+      "family": "pre-fix selected-state pan reproduction",
+      "status": "PASS",
+      "evidence": "selection cleared; requested delta (60, 30), translation remained (0, 0)"
+    },
+    {
+      "family": "post-fix node drag survives selection commit",
+      "status": "PASS",
+      "evidence": "complete mouse gesture moved the selected node to the requested world coordinate"
+    },
+    {
+      "family": "post-fix pan survives selection clearing",
+      "status": "PASS",
+      "evidence": "selected-state and unselected-state canvas gestures applied their exact requested deltas"
+    },
+    {
+      "family": "mouseup/mouseleave/touch terminate gestures",
+      "status": "PASS",
+      "evidence": "later mouse/touch movement made no position/transform change and the RAF queue became empty"
+    },
+    {
+      "family": "graph replacement rejects stale drag",
+      "status": "PASS",
+      "evidence": "replacement excluding dragged vertex retained no drag and neither source graph was mutated"
+    },
+    {
+      "family": "layout/view replacement interaction safety",
+      "status": "PASS",
+      "evidence": "incompatible layout cancels drag; incompatible view cancels pan"
+    },
+    {
+      "family": "RAF becomes idle after gestures",
+      "status": "PASS",
+      "evidence": "mouseup/leave/end/replacement drained the deterministic RAF queue without duplicate loops"
+    },
+    {
+      "family": "node/ring selection behavior preserved",
+      "status": "PASS",
+      "evidence": "ring selects h0, node priority selects and drags a, empty canvas clears selection"
+    },
+    {
+      "family": "Stage 5 force/render architecture untouched",
+      "status": "PASS",
+      "evidence": "incidence-centroid attraction=5, pair springs=0, co-membership=4 complete, exact analytical 5500 with visual LOD 4000"
+    }
+  ]
+}

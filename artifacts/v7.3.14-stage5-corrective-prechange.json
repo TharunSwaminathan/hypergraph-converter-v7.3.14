@@ -1,0 +1,45 @@
+{
+  "stage": "5-corrective-prechange",
+  "parentCommit": "2b61a6e4f7d6764bf0796b2c265c87d0fb3ad7cd",
+  "capturedBeforeProductionEditing": true,
+  "runtimeHarness": "happy-dom + React DOM + Vite SSR + deterministic canvas/RAF",
+  "sourceSequence": {
+    "nodeDown": "s.drag set -> setSelV/setSelHE -> selection-dependent effect cleanup/recreate -> drag:null",
+    "selectedPan": "s.pan set -> selection cleared -> selection-dependent effect cleanup/recreate -> pan:null"
+  },
+  "nodeDrag": {
+    "selectionCommitted": true,
+    "initialPosition": {
+      "x": 400,
+      "y": 31.19999999999999
+    },
+    "requestedPosition": {
+      "x": 520,
+      "y": 131.2
+    },
+    "observedPosition": {
+      "x": 400,
+      "y": 31.19999999999999
+    },
+    "moved": false,
+    "reproduced": true
+  },
+  "selectedStatePan": {
+    "selectionCleared": true,
+    "initialTranslation": {
+      "x": 0,
+      "y": 0
+    },
+    "requestedDelta": {
+      "x": 60,
+      "y": 30
+    },
+    "observedTranslation": {
+      "x": 0,
+      "y": 0
+    },
+    "moved": false,
+    "reproduced": true
+  },
+  "rootCause": "The visualization effect recreates mutable simulation state for selection dependencies and unconditionally initializes drag and pan to null."
+}

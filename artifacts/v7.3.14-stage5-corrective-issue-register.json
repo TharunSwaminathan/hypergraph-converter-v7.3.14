@@ -1,0 +1,27 @@
+{
+  "stage": "5-corrective",
+  "parentCommit": "2b61a6e4f7d6764bf0796b2c265c87d0fb3ad7cd",
+  "issues": [
+    {
+      "id": "S5-N01",
+      "severity": "Medium",
+      "status": "fixed",
+      "title": "Selection rerender clears active drag or pan",
+      "prechangeEvidence": {
+        "nodeDrag": "After node a was selected, a requested move from (400, 31.2) to (520, 131.2) left it at (400, 31.2).",
+        "selectedStatePan": "After prior selection was cleared, a requested (+60,+30) pan left translation at (0,0).",
+        "artifact": "artifacts/v7.3.14-stage5-corrective-prechange.json"
+      },
+      "rootCause": "The selection-dependent visualization effect reconstructed mutable runtime state with drag:null and pan:null.",
+      "postchangeEvidence": {
+        "contract": "Compatible graph/layout/view effect recreation preserves pan and preserves drag only while its vertex still exists.",
+        "termination": "Mouseup, mouseleave, touchend, graph replacement, layout replacement, view replacement, and unmount clear incompatible interaction state.",
+        "tests": [
+          "tests/stage5-corrective-interaction.test.mjs",
+          "tests/stage5-preview-dom-integration.test.mjs"
+        ],
+        "oracle": "artifacts/v7.3.14-stage5-corrective-oracle.json"
+      }
+    }
+  ]
+}

@@ -28,7 +28,8 @@ globalThis.ResizeObserver = class ResizeObserver {
   emit(width, height) { this.callback([{ target: this.target, contentRect: { width, height } }]); }
 };
 
-const context = canvasContext();
+const drawProbe = { arcs: [], translations: [] };
+const context = canvasContext(drawProbe);
 window.HTMLCanvasElement.prototype.getContext = () => context;
 window.HTMLCanvasElement.prototype.toDataURL = () => "data:image/png;base64,probe";
 window.HTMLCanvasElement.prototype.getBoundingClientRect = function getBoundingClientRect() {
@@ -51,6 +52,7 @@ try {
     await act(async () => { root.render(React.createElement(Viz, props)); });
   };
   await render({});
+  flushFrames(rafCallbacks, 2);
 
   const canvas = document.querySelector("canvas");
   assert.ok(canvas, "Graph Preview canvas must render");
@@ -60,8 +62,38 @@ try {
 
   await mouseDown(canvas, 656.8, 260, act);
   assert.match(text(), /Selected\s*h0/, "ring click must select the hyperedge");
-  await mouseDown(canvas, 400, 31.2, act);
+  const initialNodeA = latestNode(drawProbe, 4, 0);
+  await mouseDown(canvas, initialNodeA.x, initialNodeA.y, act);
   assert.match(text(), /Selected\s*a/, "node click has priority over ring selection");
+  const draggedNodeA = { x: initialNodeA.x + 100, y: initialNodeA.y + 80 };
+  await mouseMove(canvas, draggedNodeA.x, draggedNodeA.y, act);
+  flushFrames(rafCallbacks, 1);
+  assertPoint(latestNode(drawProbe, 4, 0), draggedNodeA, "node drag must survive its selection commit");
+  await mouseUp(canvas, draggedNodeA.x, draggedNodeA.y, act);
+  flushFrames(rafCallbacks, 4);
+
+  const translationBeforePan = latestTranslation(drawProbe);
+  await mouseDown(canvas, 20, 480, act);
+  assert.doesNotMatch(text(), /Selected\s/, "empty-canvas pan keeps the existing selection-clearing contract");
+  await mouseMove(canvas, 80, 510, act);
+  flushFrames(rafCallbacks, 1);
+  assertPoint(latestTranslation(drawProbe), {
+    x: translationBeforePan.x + 60,
+    y: translationBeforePan.y + 30,
+  }, "pan must survive selection clearing");
+  await mouseUp(canvas, 80, 510, act);
+  flushFrames(rafCallbacks, 4);
+
+  const translationWithoutSelection = latestTranslation(drawProbe);
+  await mouseDown(canvas, 20, 480, act);
+  await mouseMove(canvas, 50, 500, act);
+  flushFrames(rafCallbacks, 1);
+  assertPoint(latestTranslation(drawProbe), {
+    x: translationWithoutSelection.x + 30,
+    y: translationWithoutSelection.y + 20,
+  }, "pan without a prior selection must remain functional");
+  await mouseUp(canvas, 50, 500, act);
+  flushFrames(rafCallbacks, 4);
 
   await render({
     hyperedges: [record("h-zero", ["0", "__proto__", "null"], { time: 0, weight: 0 })],
@@ -151,8 +183,20 @@ function button(label) {
 }
 
 async function mouseDown(canvas, clientX, clientY, act) {
+  await mouse(canvas, "mousedown", clientX, clientY, act, 1);
+}
+
+async function mouseMove(canvas, clientX, clientY, act) {
+  await mouse(canvas, "mousemove", clientX, clientY, act, 1);
+}
+
+async function mouseUp(canvas, clientX, clientY, act) {
+  await mouse(canvas, "mouseup", clientX, clientY, act, 0);
+}
+
+async function mouse(canvas, type, clientX, clientY, act, buttons) {
   await act(async () => {
-    canvas.dispatchEvent(new window.MouseEvent("mousedown", { bubbles: true, cancelable: true, clientX, clientY }));
+    canvas.dispatchEvent(new window.MouseEvent(type, { bubbles: true, cancelable: true, clientX, clientY, buttons }));
   });
 }
 
@@ -164,11 +208,28 @@ function flushFrames(queue, limit) {
   }
 }
 
-function canvasContext() {
+function latestNode(probe, vertexCount, index) {
+  const nodes = probe.arcs.filter(({ radius }) => radius <= 14).slice(-vertexCount);
+  assert.equal(nodes.length, vertexCount);
+  return nodes[index];
+}
+
+function latestTranslation(probe) {
+  return probe.translations.at(-1) ?? { x: 0, y: 0 };
+}
+
+function assertPoint(actual, expected, message) {
+  assert.ok(Math.abs(actual.x - expected.x) < 0.001 && Math.abs(actual.y - expected.y) < 0.001,
+    `${message}: expected (${expected.x}, ${expected.y}), received (${actual.x}, ${actual.y})`);
+}
+
+function canvasContext(probe) {
   return {
-    setTransform() {}, clearRect() {}, save() {}, restore() {}, translate() {}, scale() {},
+    setTransform() {}, clearRect() {}, save() {}, restore() {}, scale() {},
     beginPath() {}, ellipse() {}, fill() {}, stroke() {}, setLineDash() {}, fillText() {},
-    moveTo() {}, lineTo() {}, arc() {},
+    moveTo() {}, lineTo() {},
+    translate(x, y) { probe.translations.push({ x, y }); },
+    arc(x, y, radius) { probe.arcs.push({ x, y, radius }); },
     fillStyle: "", strokeStyle: "", lineWidth: 1, font: "", textAlign: "",
   };
 }

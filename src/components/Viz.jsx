@@ -129,15 +129,30 @@ export default function Viz({
       });
     }
 
+    // Selection/search/highlight updates recreate this drawing effect, but
+    // must not cancel the pointer gesture that caused the UI update. Carry an
+    // interaction only while it still belongs to the exact graph/layout/view;
+    // graph replacement also validates away a removed dragged vertex.
+    const interactionCompatible = !graphChanged
+      && prev?.layoutKind === layout
+      && prev?.viewMode === viewMode;
+    const drag = interactionCompatible
+      && prev.drag
+      && getGraphIdentifierValue(nodes, prev.drag.id)
+      ? prev.drag
+      : null;
+    const pan = interactionCompatible ? prev.pan : null;
+
     stateRef.current = {
       nodes,
       transform: prev?.transform ?? { x: 0, y: 0, s: 1 },
-      drag: null,
-      pan: null,
+      drag,
+      pan,
       alpha: isFreshLayout
         ? (layout === "force" ? 1 : 0)
         : graphChanged && layout === "force" ? Math.max(prev.alpha, 0.3) : prev.alpha,
       layoutKind: layout,
+      viewMode,
       graph: he,
       forceDiagnostics: prev?.forceDiagnostics ?? { strategy: forceStrategy, repulsionWork: 0, attractionWork: 0 },
     };
