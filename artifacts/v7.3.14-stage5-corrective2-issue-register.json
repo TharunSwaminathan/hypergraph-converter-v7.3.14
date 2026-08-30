@@ -1,0 +1,28 @@
+{
+  "stage": "5-corrective2",
+  "parentCommit": "d688b065dd284207b679a432d0f18147f2acce8d",
+  "issues": [
+    {
+      "id": "S5-N02",
+      "severity": "Medium",
+      "status": "fixed",
+      "title": "Outside-canvas mouse release can leave stale Preview gesture state",
+      "prechangeEvidence": {
+        "stalePan": "After a held pan moved to (+40,+20), a buttons-zero mousemove changed translation by another 50 px to (+80,+50).",
+        "staleDrag": "After a held node move, a buttons-zero mousemove changed node position by 72.11102550927978 px.",
+        "artifact": "artifacts/v7.3.14-stage5-corrective2-prechange.json"
+      },
+      "rootCause": "Viz.onMove applied active drag/pan state without checking MouseEvent.buttons, while canvas-local mouseup and mouseleave were the only release termination paths.",
+      "postchangeContract": {
+        "mousemove": "A mousemove with buttons===0 clears stale drag/pan before applying node or transform changes; touch movement is not classified by this guard.",
+        "fallbacks": "Canvas mouseup, canvas mouseleave, window mouseup, window blur, touchend, and touchcancel terminate transient interaction state.",
+        "preservation": "S5-N01 compatible rerender carry-forward, selection behavior, world transform, node positions, graph/layout/view state, and Force/render/LOD architecture remain intact."
+      },
+      "postchangeEvidence": {
+        "test": "tests/stage5-corrective2-gesture-termination.test.mjs",
+        "oracle": "artifacts/v7.3.14-stage5-corrective2-oracle.json",
+        "browser": "artifacts/v7.3.14-stage5-corrective2-browser.json"
+      }
+    }
+  ]
+}

@@ -272,6 +272,12 @@ export default function Viz({
   }, [he, viewMode]);
   const onMove = useCallback(e => {
     e.preventDefault(); const s = stateRef.current; if (!s) return;
+    const isMouseMove = !e.touches && typeof e.buttons === "number";
+    if (isMouseMove && e.buttons === 0 && (s.drag || s.pan)) {
+      s.drag = null;
+      s.pan = null;
+      requestDrawRef.current();
+    }
     const { cx, cy } = getXY(e);
     if (s.drag) { const { wx, wy } = toWorld(cx, cy); const n = getGraphIdentifierValue(s.nodes, s.drag.id); if (n) { n.x = wx; n.y = wy; n.vx = 0; n.vy = 0; } requestDrawRef.current(); }
     else if (s.pan) { s.transform.x = s.pan.tx + (cx - s.pan.cx); s.transform.y = s.pan.ty + (cy - s.pan.cy); requestDrawRef.current(); }
@@ -285,8 +291,16 @@ export default function Viz({
       } else setInfo(null);
     }
   }, [he, viewMode]);
-  const onUp = useCallback(() => { const s = stateRef.current; if (s) { s.drag = null; s.pan = null; requestDrawRef.current(); } }, []);
+  const onUp = useCallback(() => { const s = stateRef.current; if (s && (s.drag || s.pan)) { s.drag = null; s.pan = null; requestDrawRef.current(); } }, []);
   const onWheel = useCallback(e => { e.preventDefault(); const s = stateRef.current; if (!s) return; const r = canvasRef.current.getBoundingClientRect(); const cx = e.clientX - r.left, cy = e.clientY - r.top; const ns2 = Math.min(8, Math.max(0.1, s.transform.s * Math.exp(-e.deltaY * 0.001))); s.transform.x = cx - (cx - s.transform.x) * (ns2 / s.transform.s); s.transform.y = cy - (cy - s.transform.y) * (ns2 / s.transform.s); s.transform.s = ns2; setZoom(Math.round(ns2 * 100)); requestDrawRef.current(); }, []);
+  useEffect(() => {
+    window.addEventListener("mouseup", onUp);
+    window.addEventListener("blur", onUp);
+    return () => {
+      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("blur", onUp);
+    };
+  }, [onUp]);
   useEffect(() => { const c = canvasRef.current; if (!c) return; c.addEventListener("wheel", onWheel, { passive: false }); return () => c.removeEventListener("wheel", onWheel); }, [onWheel]);
   const reset = useCallback(() => { const s = stateRef.current; if (s) { s.transform = { x: 0, y: 0, s: 1 }; if (layout === "force") s.alpha = 0.8; } setZoom(100); setSelHE(null); setSelV(null); requestDrawRef.current(); }, [layout]);
   const reheat = useCallback(() => { if (layout !== "force") return; if (reheatForceState(stateRef.current)) requestDrawRef.current(); }, [layout]);
@@ -364,7 +378,7 @@ export default function Viz({
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 260px", gap: 12 }}>
         <div ref={containerRef} style={{ position: "relative", minWidth: 0, minHeight: 520, borderRadius: 14, overflow: "hidden", border: "1px solid " + T.border, background: "#FFFFFF", boxShadow: "0 4px 16px rgba(0,0,0,0.07)" }}>
-          <canvas ref={canvasRef} onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={() => { onUp(); setInfo(null); }} onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp} style={{ width: "100%", height: canvasSize.height, display: "block", cursor: "crosshair" }} />
+          <canvas ref={canvasRef} onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={() => { onUp(); setInfo(null); }} onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp} onTouchCancel={onUp} style={{ width: "100%", height: canvasSize.height, display: "block", cursor: "crosshair" }} />
           {info && (<div style={{ position: "absolute", left: Math.min(info.x + 16, 400), top: Math.max(0, info.y - 12), background: "rgba(255,255,255,0.97)", border: "1px solid " + T.border, borderRadius: 10, padding: "10px 16px", pointerEvents: "none", fontSize: 13, fontFamily: "monospace", color: T.text, zIndex: 10, boxShadow: "0 4px 20px rgba(0,0,0,0.12)", whiteSpace: "nowrap" }}><div style={{ fontWeight: 700, color: T.accent, marginBottom: 5 }}>{info.title}</div>{info.lines.map((l, i) => <div key={i} style={{ color: T.textDim, lineHeight: 1.8 }}>{l}</div>)}</div>)}
           {viewMode === "linegraph" && v2vProjection.status === DERIVED_STATUS.OVER_BUDGET && (
             <div style={{ position: "absolute", left: 16, top: 16, right: 16, background: "rgba(255,255,255,0.96)", border: "1px solid " + T.amber + "66", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: T.textDim, boxShadow: "0 4px 16px rgba(0,0,0,0.08)" }}>

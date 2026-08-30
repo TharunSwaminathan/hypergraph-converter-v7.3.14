@@ -1,0 +1,72 @@
+{
+  "stage": "5-corrective2",
+  "issue": "S5-N02",
+  "parentCommit": "d688b065dd284207b679a432d0f18147f2acce8d",
+  "status": "PASS",
+  "summary": {
+    "passed": 12,
+    "total": 12
+  },
+  "checks": [
+    {
+      "family": "pre-fix stale pan reproduction",
+      "status": "PASS",
+      "evidence": "buttons-zero movement changed translation by 50px"
+    },
+    {
+      "family": "pre-fix stale drag reproduction",
+      "status": "PASS",
+      "evidence": "buttons-zero movement changed node position by 72.11102550927978px"
+    },
+    {
+      "family": "buttons-zero pan self-heal",
+      "status": "PASS",
+      "evidence": "buttons-zero mousemove cleared stale pan before transform mutation"
+    },
+    {
+      "family": "buttons-zero drag self-heal",
+      "status": "PASS",
+      "evidence": "buttons-zero mousemove cleared stale drag before node mutation"
+    },
+    {
+      "family": "global mouseup termination",
+      "status": "PASS",
+      "evidence": "one stable window mouseup listener terminates either transient gesture"
+    },
+    {
+      "family": "window blur termination",
+      "status": "PASS",
+      "evidence": "window focus loss clears drag/pan without resetting world state"
+    },
+    {
+      "family": "mouseleave preservation",
+      "status": "PASS",
+      "evidence": "canvas-local mouseleave remains a direct termination path"
+    },
+    {
+      "family": "touchend and touchcancel termination",
+      "status": "PASS",
+      "evidence": "touch termination remains independent of MouseEvent.buttons"
+    },
+    {
+      "family": "RAF idle after termination",
+      "status": "PASS",
+      "evidence": "each static termination path drains the deterministic RAF queue"
+    },
+    {
+      "family": "S5-N01 rerender-survival preserved",
+      "status": "PASS",
+      "evidence": "compatible drag/pan carry-forward and replacement cancellation remain green"
+    },
+    {
+      "family": "selection and ring behavior preserved",
+      "status": "PASS",
+      "evidence": "ring selection, node priority, and empty-canvas selection clearing remain green"
+    },
+    {
+      "family": "Force/render/LOD architecture unchanged",
+      "status": "PASS",
+      "evidence": "incidence Force topology, bounded visual overlay, exact analytical projection, and 4,000-edge LOD remain unchanged"
+    }
+  ]
+}
