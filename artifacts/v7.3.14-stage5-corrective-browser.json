@@ -1,0 +1,83 @@
+{
+  "stage": "5-corrective-closure",
+  "status": "BLOCKED",
+  "commit": "d598317e6fb543ca33166d392a2038f1d444c719",
+  "servedUrl": "http://127.0.0.1:5173/",
+  "browser": {
+    "name": "Codex In-app Browser",
+    "engine": "Chromium",
+    "version": "not exposed by the browser-control API"
+  },
+  "productionSourceChanged": false,
+  "correctiveTestsChanged": false,
+  "nodeDrag": {
+    "status": "PASS",
+    "details": "In Circular layout, vertex 0 was pressed at approximately (499,456), selection committed as vertex:0, and the held gesture visibly moved it to approximately (580,520). Moving after release did not continue drag; clicks at the moved position toggled selection off and on."
+  },
+  "selectedPan": {
+    "status": "PASS",
+    "details": "With vertex 0 selected, empty-canvas drag from (100,680) to (160,650) cleared selection and applied (+60,-30). Vertex 0 was then hit at its translated position (640,490)."
+  },
+  "unselectedPan": {
+    "status": "PASS",
+    "details": "With no selection, empty-canvas drag applied a further (+40,-20). Vertex 0 was then hit at its translated position (680,470)."
+  },
+  "gestureTermination": {
+    "status": "FAIL",
+    "failedContract": "mouseleave termination",
+    "details": "After reset, an empty-canvas pan began at (100,600), moved through (80,600) and (50,600), then left horizontally at (20,600). Immediately after release outside, the graph reflected the last in-canvas -50px horizontal delta. Moving back to (100,600) with no button pressed restored the graph to its original translation, proving stateRef.current.pan remained active after the real Chromium mouseleave sequence.",
+    "expected": "Post-leave pointer movement without a pressed button must not change graph translation.",
+    "observed": "Post-leave pointer movement changed graph translation by +50px."
+  },
+  "ringSelection": {
+    "status": "PASS",
+    "details": "Clicking the visible h0 ring perimeter selected hyperedge:h0 and displayed its metadata."
+  },
+  "nodeSelection": {
+    "status": "PASS",
+    "details": "Clicking/dragging vertex 0 selected vertex:0 even where ring geometry overlapped; subsequent clicks at the moved position toggled normally."
+  },
+  "searchZero": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "searchPrototype": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "searchLiteralNull": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "weightZero": {
+    "status": "PASS",
+    "details": "The h0 sidebar showed w0, and selected h0 metadata showed weight: 0."
+  },
+  "zoom": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "resize": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "reheat": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "viewSwitch": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "lodStatus": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "analyticalRefusal": {
+    "status": "NOT_PERFORMED",
+    "reason": "Validation stopped immediately after the mandatory mouseleave failure."
+  },
+  "consoleErrorCount": 0,
+  "consoleErrors": [],
+  "stopReason": "A concrete real-browser mouseleave interaction defect was reproduced. The closure specification requires stopping before any additional production correction."
+}
