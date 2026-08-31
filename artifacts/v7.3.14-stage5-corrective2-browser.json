@@ -1,0 +1,104 @@
+{
+  "stage": "5-corrective2-browser",
+  "issue": "S5-N02",
+  "status": "PASS",
+  "commit": "177ce749ffc5affe8b79ee9d83a64e16c6c8e59b",
+  "servedUrl": "http://127.0.0.1:5173/",
+  "browser": {
+    "name": "Codex In-app Browser",
+    "engine": "Chromium",
+    "version": "not exposed by the browser-control API"
+  },
+  "fixture": {
+    "format": "H2V / Simple",
+    "text": "h0 [t=0]: 0, __proto__, null @weight=0\nh1: null, A, B\nh2: 0, A",
+    "hyperedges": 3,
+    "vertices": 5,
+    "layout": "Circular"
+  },
+  "nodeDrag": {
+    "status": "PASS",
+    "details": "Vertex 0 selection committed during the held gesture, the node moved materially to the requested position, release stopped movement, and clicks at the moved position toggled selection off and on."
+  },
+  "outsideCanvasNodeDragTermination": {
+    "status": "PASS",
+    "details": "Vertex 0 selection committed, the held drag crossed the canvas left edge and released outside, and two later empty-canvas pointer moves with no button pressed left the node and graph unchanged."
+  },
+  "selectedPan": {
+    "status": "PASS",
+    "details": "With vertex 0 selected, an empty-canvas (+60,-30) drag cleared selection and translated the graph; vertex 0 was then selected at its translated position."
+  },
+  "unselectedPan": {
+    "status": "PASS",
+    "details": "With no selection, a further empty-canvas (+40,-20) drag translated the graph; vertex 0 was then selected at its new translated position."
+  },
+  "outsideCanvasPanTermination": {
+    "status": "PASS",
+    "details": "A held pan crossed the canvas left edge and released outside. After returning, successive no-button movements produced no further translation or visible graph change."
+  },
+  "mouseleave": {
+    "status": "PASS",
+    "details": "Both real outside-canvas sequences crossed the canvas boundary and did not continue after return. Canvas-local mouseleave remained part of the composite defense."
+  },
+  "windowMouseup": {
+    "status": "PASS",
+    "details": "Real pointer release outside the canvas terminated both pan and node drag. The window-listener path is isolated independently in tests/stage5-corrective2-gesture-termination.test.mjs."
+  },
+  "windowBlur": {
+    "status": "NOT_BROWSER_OBSERVED",
+    "automatedStatus": "PASS",
+    "reason": "The browser-control surface did not expose a safe isolated real-window blur action. The window blur listener is isolated in the corrective browser-DOM test; this artifact does not label the unperformed browser-only subcheck PASS."
+  },
+  "nodeSelection": {
+    "status": "PASS",
+    "details": "Node click selected vertex 0, node priority over ring remained correct, and repeated clicks toggled selection normally."
+  },
+  "ringSelection": {
+    "status": "PASS",
+    "details": "Clicking the visible h0 ring perimeter selected hyperedge h0 and displayed its metadata."
+  },
+  "searchZero": {
+    "status": "PASS",
+    "observed": "Found: 0"
+  },
+  "searchPrototype": {
+    "status": "PASS",
+    "observed": "Found: __proto__"
+  },
+  "searchLiteralNull": {
+    "status": "PASS",
+    "observed": "Found: null"
+  },
+  "weightZero": {
+    "status": "PASS",
+    "details": "The h0 list entry showed w0 and selected metadata showed weight: 0."
+  },
+  "zoom": {
+    "status": "PASS",
+    "details": "Pointer-centered wheel input changed the visible zoom from 100% to 115% and visibly changed the canvas transform."
+  },
+  "resize": {
+    "status": "PASS",
+    "details": "Viewport resize changed canvas CSS/backing width from 916 to 736, restored both to 916, preserved explicit vertex A selection, and preserved zoom state."
+  },
+  "reheat": {
+    "status": "PASS",
+    "details": "Force advanced visibly, the Reheat control was enabled, and Reheat produced additional visible movement."
+  },
+  "viewSwitch": {
+    "status": "PASS",
+    "details": "Hypergraph to Line Graph to Hypergraph completed with the expected edges=co-membership and rings=hyperedges states; no stale interaction resumed."
+  },
+  "lodStatus": {
+    "status": "PASS",
+    "details": "A 100-vertex hyperedge reported: Line Graph computed exactly. Previewing 4,000 of 4,950 edges using deterministic LOD; exports remain exact."
+  },
+  "analyticalRefusal": {
+    "status": "PASS",
+    "details": "A 3,000-vertex hyperedge reported Line Graph not computed because estimated 4,498,500 candidate-pair work units exceeded the 2,000,000 safety limit."
+  },
+  "consoleErrorCount": 0,
+  "consoleErrors": [],
+  "consoleWarningCount": 0,
+  "consoleWarnings": []
+}
