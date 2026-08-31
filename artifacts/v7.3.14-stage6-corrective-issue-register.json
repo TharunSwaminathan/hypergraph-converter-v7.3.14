@@ -1,0 +1,23 @@
+{
+  "stage": 6,
+  "parentStage6Commit": "1b08b07920523aeebe25c3e4a602137bc699c7fa",
+  "issues": [
+    {
+      "id": "S6-N01",
+      "severity": "Medium",
+      "status": "fixed",
+      "title": "Stage 6 algorithm compatibility adapter silently coerces unsupported identifier types",
+      "rootCause": "The adapter and shortest query boundary used broad JavaScript String coercion instead of the approved Stage 1 identifier validator.",
+      "resolution": "Algorithm records and non-null shortest query IDs now use normalizeGraphIdentifier; malformed or missing hyperedge IDs are never synthesized.",
+      "productionFiles": [
+        "src/algorithms/algorithmIncidence.js",
+        "src/algorithms/shortestPath.js"
+      ],
+      "evidence": {
+        "prechange": "artifacts/v7.3.14-stage6-corrective-prechange.json",
+        "oracle": "artifacts/v7.3.14-stage6-corrective-oracle.json",
+        "focusedTest": "tests/stage6-corrective-identifier-boundary.test.mjs"
+      }
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "stage": 6,
+  "kind": "canonical_identifier_boundary_corrective_oracle",
+  "parentStage6Commit": "1b08b07920523aeebe25c3e4a602137bc699c7fa",
+  "prechangeCommit": "0175748",
+  "issue": "S6-N01",
+  "status": "passed",
+  "passed": 13,
+  "total": 13,
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64"
+  },
+  "differential": {
+    "shortest": {
+      "seed": 6975797,
+      "graphs": 3000,
+      "runs": 12000,
+      "mismatches": 0,
+      "fixed": {
+        "unknown": {
+          "algorithm": "shortest_path",
+          "startVertex": "missing",
+          "targetVertex": "d",
+          "distances": [],
+          "previous": [],
+          "path": [],
+          "reachable": false,
+          "edgesUsed": [],
+          "steps": [],
+          "warnings": []
+        },
+        "unreachable": {
+          "algorithm": "shortest_path",
+          "startVertex": "a",
+          "targetVertex": "b",
+          "distances": [
+            [
+              "a",
+              0
+            ]
+          ],
+          "previous": [],
+          "path": [],
+          "reachable": false,
+          "edgesUsed": [],
+          "steps": [
+            {
+              "visited": [
+                "a"
+              ],
+              "frontier": [],
+              "current": "a",
+              "newlyDiscovered": []
+            }
+          ],
+          "warnings": []
+        }
+      }
+    },
+    "kCore": {
+      "seed": 113305363,
+      "graphs": 3000,
+      "mismatches": 0
+    }
+  },
+  "stage6Oracle": {
+    "status": "passed",
+    "passed": 15,
+    "total": 15
+  },
+  "triadSamePatternAssessment": {
+    "contract": "canonical-only application producer",
+    "applicationEntry": "countTriadsBounded(finalHes)",
+    "canonicalizationEntry": "normalizeParsedHyperedges(targetFormat, raw)",
+    "productionChangeRequired": false
+  },
+  "checks": [
+    {
+      "id": "S6C-01",
+      "title": "Pre-fix arbitrary coercion reproduced on the exact parent",
+      "passed": true,
+      "evidence": {
+        "objectVertexSilentlyCoerced": true,
+        "booleanVertexSilentlyCoerced": true,
+        "nullHyperedgeIdSynthesized": true,
+        "objectHyperedgeIdSilentlyCoerced": true,
+        "invalidStartObjectSilentlyCoerced": true,
+        "invalidTargetObjectSilentlyCoerced": true,
+        "unsupportedFamiliesNotUniformlyRejectedBeforeCoercion": true
+      }
+    },
+    {
+      "id": "S6C-02",
+      "title": "Finite-number compatibility is preserved",
+      "passed": true,
+      "evidence": {
+        "hyperedges": [
+          "1"
+        ],
+        "vertices": [
+          "0",
+          "2"
+        ],
+        "shortest": {
+          "startVertex": "0",
+          "targetVertex": "2",
+          "reachable": true,
+          "distances": [
+            [
+              "0",
+              0
+            ],
+            [
+              "2",
+              1
+            ]
+          ],
+          "path": [
+            "0",
+            "2"
+          ]
+        },
+        "kCore": {
+          "status": "computed",
+          "coreness": [
+            [
+              "0",
+              1
+            ],
+            [
+              "2",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "S6C-03",
+      "title": "Exact structured strings are preserved",
+      "passed": true,
+      "evidence": {
+        "hyperedges": [
+          " exact "
+        ],
+        "vertices": [
+          " A ",
+          "\"foo\"",
+          "__proto__",
+          "constructor",
+          "toString",
+          "null",
+          "#lead",
+          "é",
+          "é",
+          "😀"
+        ]
+      }
+    },
+    {
+      "id": "S6C-04",
+      "title": "Invalid graph vertex types are rejected",
+      "passed": true,
+      "evidence": {
+        "rejectedFamilies": [
+          "object",
+          "array",
+          "boolean",
+          "boolean",
+          "BigInt",
+          "null",
+          "undefined",
+          "NaN",
+          "Infinity",
+          "-Infinity",
+          "blank string",
+          "blank string"
+        ]
+      }
+    },
+    {
+      "id": "S6C-05",
+      "title": "Invalid hyperedge ID types and missing IDs are rejected",
+      "passed": true,
+      "evidence": {
+        "rejectedFamilies": [
+          "object",
+          "array",
+          "boolean",
+          "boolean",
+          "BigInt",
+          "null",
+          "undefined",
+          "NaN",
+          "Infinity",
+          "-Infinity",
+          "blank string",
+          "blank string",
+          "missing"
+        ]
+      }
+    },
+    {
+      "id": "S6C-06",
+      "title": "Invalid shortest query ID types are rejected",
+      "passed": true,
+      "evidence": {
+        "rejectedStartFamilies": [
+          "object",
+          "array",
+          "boolean",
+          "boolean",
+          "BigInt",
+          "null",
+          "undefined",
+          "NaN",
+          "Infinity",
+          "-Infinity",
+          "blank string",
+          "blank string"
+        ],
+        "rejectedTargetFamilies": [
+          "object",
+          "array",
+          "boolean",
+          "boolean",
+          "BigInt",
+          "NaN",
+          "Infinity",
+          "-Infinity",
+          "blank string",
+          "blank string"
+        ]
+      }
+    },
+    {
+      "id": "S6C-07",
+      "title": "Null/undefined target absence semantics are preserved",
+      "passed": true,
+      "evidence": {
+        "null": {
+          "startVertex": "a",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "a",
+              0
+            ],
+            [
+              "b",
+              1
+            ]
+          ],
+          "path": []
+        },
+        "undefined": {
+          "startVertex": "a",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "a",
+              0
+            ],
+            [
+              "b",
+              1
+            ]
+          ],
+          "path": []
+        }
+      }
+    },
+    {
+      "id": "S6C-08",
+      "title": "Unknown valid string behavior is preserved",
+      "passed": true,
+      "evidence": {
+        "startVertex": "missing",
+        "targetVertex": "b",
+        "reachable": false,
+        "distances": [],
+        "path": []
+      }
+    },
+    {
+      "id": "S6C-09",
+      "title": "Literal-null, prototype, and Unicode identities are preserved",
+      "passed": true,
+      "evidence": {
+        "hyperedges": [
+          "__proto__"
+        ],
+        "vertices": [
+          "null",
+          "__proto__",
+          "constructor",
+          "toString",
+          "é",
+          "é"
+        ]
+      }
+    },
+    {
+      "id": "S6C-10",
+      "title": "Shortest differential is unchanged",
+      "passed": true,
+      "evidence": {
+        "seed": 6975797,
+        "graphs": 3000,
+        "runs": 12000,
+        "mismatches": 0,
+        "fixed": {
+          "unknown": {
+            "algorithm": "shortest_path",
+            "startVertex": "missing",
+            "targetVertex": "d",
+            "distances": [],
+            "previous": [],
+            "path": [],
+            "reachable": false,
+            "edgesUsed": [],
+            "steps": [],
+            "warnings": []
+          },
+          "unreachable": {
+            "algorithm": "shortest_path",
+            "startVertex": "a",
+            "targetVertex": "b",
+            "distances": [
+              [
+                "a",
+                0
+              ]
+            ],
+            "previous": [],
+            "path": [],
+            "reachable": false,
+            "edgesUsed": [],
+            "steps": [
+              {
+                "visited": [
+                  "a"
+                ],
+                "frontier": [],
+                "current": "a",
+                "newlyDiscovered": []
+              }
+            ],
+            "warnings": []
+          }
+        }
+      }
+    },
+    {
+      "id": "S6C-11",
+      "title": "K-core differential is unchanged",
+      "passed": true,
+      "evidence": {
+        "seed": 113305363,
+        "graphs": 3000,
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "S6C-12",
+      "title": "Stage 1 identity contract remains authoritative",
+      "passed": true,
+      "evidence": {
+        "stage1": {
+          "fixedCount": 6,
+          "total": 6
+        },
+        "centralPolicyUsedByAdapter": true,
+        "centralPolicyUsedByQueries": true
+      }
+    },
+    {
+      "id": "S6C-13",
+      "title": "Stage 6 architecture and canonical-only triad entry are unchanged",
+      "passed": true,
+      "evidence": {
+        "incidenceFoundation": "buildIncidenceIndex(canonical)",
+        "shortestProjectionMaterialization": false,
+        "triadContract": "canonical-only application producer; Stats passes finalHes",
+        "triadProductionChanged": false
+      }
+    }
+  ]
+}

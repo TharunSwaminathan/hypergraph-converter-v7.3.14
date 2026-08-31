@@ -1,4 +1,5 @@
 import { buildAlgorithmIncidenceIndex } from "./algorithmIncidence.js";
+import { normalizeGraphIdentifier } from "../utils/graphIdentifiers.js";
 import {
   compareVertexId,
   normalizedHyperedgeWeight,
@@ -22,8 +23,10 @@ export function runShortestPathWithDiagnostics(hyperedges, options = {}) {
 
 function executeShortestPath(hyperedges, { startVertex, targetVertex = null } = {}) {
   const startedAt = performanceNow();
-  const start = String(startVertex);
-  const target = targetVertex != null ? String(targetVertex) : null;
+  const start = normalizeGraphIdentifier(startVertex, { path: "startVertex" });
+  const target = targetVertex == null
+    ? null
+    : normalizeGraphIdentifier(targetVertex, { path: "targetVertex" });
   const index = buildAlgorithmIncidenceIndex(hyperedges);
   const warnings = [];
   const warned = new Set();

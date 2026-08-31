@@ -1,4 +1,5 @@
 import { buildIncidenceIndex } from "../graph/incidenceIndex.js";
+import { normalizeGraphIdentifier } from "../utils/graphIdentifiers.js";
 
 /**
  * Algorithms consume the app's canonical graph, whose IDs are strings. The
@@ -7,10 +8,16 @@ import { buildIncidenceIndex } from "../graph/incidenceIndex.js";
  * the boundary, then build the shared Stage 3 incidence index exactly once.
  */
 export function buildAlgorithmIncidenceIndex(hyperedges = []) {
-  const canonical = (hyperedges ?? []).map((hyperedge, index) => ({
-    ...hyperedge,
-    id: String(hyperedge?.id ?? `h${index}`),
-    vertices: (hyperedge?.vertices ?? []).map(String),
-  }));
+  const canonical = (hyperedges ?? []).map((hyperedge, index) => {
+    const path = `hyperedges[${index}]`;
+    if (!hyperedge || typeof hyperedge !== "object" || Array.isArray(hyperedge)) return hyperedge;
+    const id = normalizeGraphIdentifier(hyperedge.id, { path: `${path}.id` });
+    const vertices = Array.isArray(hyperedge.vertices)
+      ? hyperedge.vertices.map((vertex, vertexIndex) => normalizeGraphIdentifier(vertex, {
+        path: `${path}.vertices[${vertexIndex}]`,
+      }))
+      : hyperedge.vertices;
+    return { ...hyperedge, id, vertices };
+  });
   return buildIncidenceIndex(canonical);
 }
