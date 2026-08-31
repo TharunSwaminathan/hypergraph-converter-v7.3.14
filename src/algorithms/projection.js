@@ -321,7 +321,10 @@ function orientPair(left, right) {
   return compareVertexId(left, right) <= 0 ? [left, right] : [right, left];
 }
 
-function normalizedHyperedgeWeight(hyperedge, { weightPolicy, defaultWeight, warnings, warned }) {
+// Exported for Stage 6's lazy Dijkstra neighbor producer. Keeping the weight
+// interpretation here makes the eager projection and lazy algorithm share one
+// policy, including warning wording/order and zero-weight handling.
+export function normalizedHyperedgeWeight(hyperedge, { weightPolicy, defaultWeight, warnings, warned }) {
   if (weightPolicy === PROJECTION_WEIGHT_POLICIES.COUNT_SHARED_HYPEREDGES || weightPolicy === PROJECTION_WEIGHT_POLICIES.UNWEIGHTED) return 1;
   const id = String(hyperedge?.id ?? "(unknown)");
   const raw = hyperedge?.weight;
@@ -358,7 +361,8 @@ function warnOnce(warnings, warned, id, message) {
   warnings.push(message);
 }
 
-function compareVertexId(left, right) {
+// Exported so lazy algorithm views retain the projection's exact total order.
+export function compareVertexId(left, right) {
   const a = String(left);
   const b = String(right);
   const an = Number(a);

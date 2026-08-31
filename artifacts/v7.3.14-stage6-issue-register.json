@@ -1,0 +1,147 @@
+{
+  "stage": 6,
+  "parentCommit": "bd2e374144585627f0d0bbb3667f0e17423b3471",
+  "issues": [
+    {
+      "id": "HG713-R05-SP",
+      "status": "completed_stage6",
+      "before": "Weighted shortest path required complete MIN_HYPEREDGE_WEIGHT two-section projection and adjacency materialization.",
+      "resolution": "One incidence index per run plus transient per-expanded-vertex minimum-weight projected neighbors; complete semantics differentially preserved.",
+      "evidence": {
+        "randomGraphs": 3000,
+        "randomRuns": 12000,
+        "mismatches": 0,
+        "OneHugeEdge1K": {
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 1000,
+          "neighborCandidateEncounters": 999000,
+          "neighborMapsBuilt": 1000,
+          "neighborEntriesProduced": 999000,
+          "maxTransientNeighborEntries": 999,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 169.75600000000003
+        }
+      }
+    },
+    {
+      "id": "HG713-R05-KCORE",
+      "status": "completed_stage6",
+      "before": "K-core routed through general projection objects and generic adjacency limits.",
+      "resolution": "Exact deduplicated two-section Sets with candidate, unique-edge, adjacency-reference, and synchronous-work limits; partial results never escape.",
+      "evidence": {
+        "randomGraphs": 3000,
+        "mismatches": 0,
+        "DuplicateOverlap": {
+          "status": "computed",
+          "exceededResource": null,
+          "degeneracy": 45,
+          "corenessSize": 46,
+          "usage": {
+            "hyperedges": 200,
+            "vertices": 46,
+            "incidences": 9200,
+            "incidenceIndexBuilds": 1,
+            "candidatePairWork": 207000,
+            "uniqueProjectedEdges": 1035,
+            "adjacencyReferences": 2070,
+            "synchronousWork": 210151,
+            "elapsedMs": 34.44380000000001
+          },
+          "reason": null
+        },
+        "OneHugeEdge1K": {
+          "status": "over_budget",
+          "exceededResource": "uniqueProjectedEdges",
+          "degeneracy": null,
+          "corenessSize": null,
+          "usage": {
+            "hyperedges": 1,
+            "vertices": 1000,
+            "incidences": 1000,
+            "incidenceIndexBuilds": 1,
+            "candidatePairWork": 200001,
+            "uniqueProjectedEdges": 200001,
+            "adjacencyReferences": 400000,
+            "synchronousWork": 200001,
+            "elapsedMs": 61.3377999999999
+          },
+          "reason": "200,001 unique projected edges exceeds the 200,000 K-core safety limit"
+        }
+      }
+    },
+    {
+      "id": "HG713-R07",
+      "status": "completed_stage6",
+      "history": "Stage 1 prevented computed/null and the Stats crash by enforcing a present computed value; Stage 6 removed the remaining producer sentinel and arbitrary 2,000-hyperedge policy.",
+      "resolution": "Numeric-only exact producer, structured work-bounded producer, finite computed-value invariant, and defensive Stats renderer.",
+      "evidence": {
+        "ManySingletons2001": {
+          "type": "triads",
+          "status": "computed",
+          "value": 0,
+          "estimate": {
+            "hyperedges": 2001,
+            "references": 0,
+            "h2hNeighborReferences": 0,
+            "candidatePairWork": 0,
+            "wedgeWork": 0,
+            "synchronousWork": 0
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
+          },
+          "reason": null
+        },
+        "Singletons5K": {
+          "type": "triads",
+          "status": "computed",
+          "value": 0,
+          "estimate": {
+            "hyperedges": 5000,
+            "references": 0,
+            "h2hNeighborReferences": 0,
+            "candidatePairWork": 0,
+            "wedgeWork": 0,
+            "synchronousWork": 0
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
+          },
+          "reason": null
+        },
+        "denseRefusal": {
+          "type": "triads",
+          "status": "over_budget",
+          "value": null,
+          "estimate": {
+            "hyperedges": 200,
+            "references": 39800,
+            "h2hNeighborReferences": 39800,
+            "candidatePairWork": 915400,
+            "wedgeWork": 2009502,
+            "synchronousWork": 915400
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
+          },
+          "exceededResource": "wedgeWork",
+          "reason": "2,009,502 triad wedge work units exceeds the 2,000,000 triad safety limit"
+        }
+      }
+    }
+  ]
+}

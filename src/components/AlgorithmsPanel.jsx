@@ -145,6 +145,15 @@ function DegreeDistributionResult({ result }) {
 }
 
 function KCoreResult({ result }) {
+  if (result.status === "over_budget") {
+    return (
+      <div style={{ padding: "12px 14px", background: T.amberLt, border: "1px solid " + T.amber + "55", borderRadius: 9 }}>
+        <div style={{ color: T.amber, fontSize: 13, fontWeight: 700, marginBottom: 5 }}>K-core not computed — resource limit reached</div>
+        <div style={{ color: T.textDim, fontSize: 12, lineHeight: 1.55 }}>{result.reason}</div>
+        <div style={{ color: T.textFaint, fontSize: 11, marginTop: 6, fontFamily: "monospace" }}>Exceeded resource: {result.exceededResource}</div>
+      </div>
+    );
+  }
   return (
     <div>
       <div style={{ display: "flex", gap: 10, marginBottom: 16, flexWrap: "wrap" }}>

@@ -61,21 +61,27 @@
       "evidence": {
         "result": {
           "type": "triads",
-          "status": "over_budget",
-          "value": null,
+          "status": "computed",
+          "value": 0,
           "estimate": {
+            "hyperedges": 2001,
             "references": 0,
-            "overBudget": false,
-            "largestVertexDegree": 1
+            "h2hNeighborReferences": 0,
+            "candidatePairWork": 0,
+            "wedgeWork": 0,
+            "synchronousWork": 0
           },
           "limits": {
             "maxNeighborRefs": 200000,
-            "maxHyperedges": 2000
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
           },
-          "reason": "triad count is limited to 2,000 hyperedges; received 2,001"
+          "reason": null
         },
         "computedNullRejected": true,
-        "computedZeroAccepted": true
+        "computedZeroAccepted": true,
+        "stage6WorkBasedResult": true
       }
     }
   ]

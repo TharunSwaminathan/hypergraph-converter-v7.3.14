@@ -1,50 +1,103 @@
-import { buildAdjacencyList, getAllVertices } from "./graphModel.js";
+import { buildAlgorithmIncidenceIndex } from "./algorithmIncidence.js";
+
+export const K_CORE_STATUS = Object.freeze({
+  COMPUTED: "computed",
+  RESOURCE_LIMITED: "over_budget",
+});
+
+export const K_CORE_LIMITS = Object.freeze({
+  maxCandidatePairWork: 2_000_000,
+  maxUniqueProjectedEdges: 200_000,
+  maxAdjacencyReferences: 400_000,
+  maxSynchronousWork: 2_000_000,
+});
 
 /**
- * k-core decomposition over the hypergraph's 2-section, using the standard
- * Batagelj–Zaversnik peeling algorithm: repeatedly remove whichever
- * remaining vertex currently has the smallest degree. A removed vertex's
- * "coreness" is the highest running-minimum degree seen so far in the
- * peel — that running minimum only ever increases as peeling proceeds
- * (every vertex removed later had to survive at least as long as every
- * vertex removed before it), which is exactly what makes this produce a
- * correct coreness number for every vertex in one pass, without having to
- * separately test each candidate k from scratch.
- *
- * The graph's degeneracy is the maximum coreness assigned to any vertex —
- * the largest k for which a non-empty k-core exists.
- *
- * Picking the next vertex to peel is a linear scan over what's left
- * (O(V) per removal, O(V^2) overall), matching the complexity already
- * used elsewhere in this codebase; fine for the browser-sized graphs this
- * app targets.
- *
- * @param {Array} hyperedges
+ * Exact k-core decomposition of the deduplicated two-section. This stores only
+ * the projected neighbor Sets k-core mathematically needs—no projection edge
+ * records, weight/support metadata, render rows, or export data.
  */
-export function runKCore(hyperedges) {
-  const adjacency = buildAdjacencyList(hyperedges);
-  const vertices = getAllVertices(hyperedges ?? []);
-  const degree = new Map(vertices.map(v => [v, adjacency.get(v)?.size ?? 0]));
+export function runKCore(hyperedges, options = {}) {
+  const startedAt = performanceNow();
+  const limits = resolveLimits(options);
+  const index = buildAlgorithmIncidenceIndex(hyperedges);
+  const adjacency = new Map(index.vertices.map(vertex => [vertex, new Set()]));
+  const usage = {
+    hyperedges: index.counts.hyperedges,
+    vertices: index.counts.vertices,
+    incidences: index.counts.incidences,
+    incidenceIndexBuilds: 1,
+    candidatePairWork: 0,
+    uniqueProjectedEdges: 0,
+    adjacencyReferences: 0,
+    synchronousWork: 0,
+    elapsedMs: 0,
+  };
+
+  for (const hyperedgeId of index.hyperedges) {
+    const members = [...(index.hyperedgeToVertices.get(hyperedgeId) ?? [])];
+    for (let left = 0; left < members.length; left += 1) {
+      for (let right = left + 1; right < members.length; right += 1) {
+        usage.candidatePairWork += 1;
+        usage.synchronousWork += 1;
+        const limited = exceeds("candidatePairWork", usage, limits)
+          ?? exceeds("synchronousWork", usage, limits);
+        if (limited) return limitedResult(limited, usage, limits, startedAt);
+
+        const source = members[left];
+        const target = members[right];
+        if (adjacency.get(source).has(target)) continue;
+
+        const nextUniqueEdges = usage.uniqueProjectedEdges + 1;
+        const nextAdjacencyReferences = usage.adjacencyReferences + 2;
+        if (nextUniqueEdges > limits.maxUniqueProjectedEdges) {
+          usage.uniqueProjectedEdges = nextUniqueEdges;
+          return limitedResult("uniqueProjectedEdges", usage, limits, startedAt);
+        }
+        if (nextAdjacencyReferences > limits.maxAdjacencyReferences) {
+          usage.adjacencyReferences = nextAdjacencyReferences;
+          return limitedResult("adjacencyReferences", usage, limits, startedAt);
+        }
+        adjacency.get(source).add(target);
+        adjacency.get(target).add(source);
+        usage.uniqueProjectedEdges = nextUniqueEdges;
+        usage.adjacencyReferences = nextAdjacencyReferences;
+      }
+    }
+  }
+
+  const vertices = [...index.vertices];
+  const degree = new Map(vertices.map(vertex => [vertex, adjacency.get(vertex).size]));
   const remaining = new Set(vertices);
   const coreness = new Map();
   const peelOrder = [];
   let degeneracy = 0;
 
   while (remaining.size > 0) {
-    // Find the remaining vertex with the smallest current degree.
-    let v = null;
-    let minDeg = Infinity;
+    let vertex = null;
+    let minimumDegree = Infinity;
     for (const candidate of remaining) {
-      const d = degree.get(candidate);
-      if (d < minDeg) { minDeg = d; v = candidate; }
+      usage.synchronousWork += 1;
+      if (usage.synchronousWork > limits.maxSynchronousWork) {
+        return limitedResult("synchronousWork", usage, limits, startedAt);
+      }
+      const candidateDegree = degree.get(candidate);
+      if (candidateDegree < minimumDegree) {
+        minimumDegree = candidateDegree;
+        vertex = candidate;
+      }
     }
 
-    degeneracy = Math.max(degeneracy, minDeg);
-    coreness.set(v, degeneracy);
-    peelOrder.push({ vertex: v, coreness: degeneracy, degreeAtRemoval: minDeg });
-    remaining.delete(v);
+    degeneracy = Math.max(degeneracy, minimumDegree);
+    coreness.set(vertex, degeneracy);
+    peelOrder.push({ vertex, coreness: degeneracy, degreeAtRemoval: minimumDegree });
+    remaining.delete(vertex);
 
-    for (const neighbor of adjacency.get(v) ?? []) {
+    for (const neighbor of adjacency.get(vertex)) {
+      usage.synchronousWork += 1;
+      if (usage.synchronousWork > limits.maxSynchronousWork) {
+        return limitedResult("synchronousWork", usage, limits, startedAt);
+      }
       if (remaining.has(neighbor)) degree.set(neighbor, degree.get(neighbor) - 1);
     }
   }
@@ -55,14 +108,67 @@ export function runKCore(hyperedges) {
     byCoreValue.get(k).push(vertex);
   }
   const cores = [...byCoreValue.entries()]
-    .sort((a, b) => b[0] - a[0])
-    .map(([k, verts]) => ({ k, vertices: verts.sort(), size: verts.length }));
+    .sort((left, right) => right[0] - left[0])
+    .map(([k, coreVertices]) => ({ k, vertices: coreVertices.sort(), size: coreVertices.length }));
 
+  usage.elapsedMs = performanceNow() - startedAt;
   return {
     algorithm: "k_core",
-    coreness, // Map<vertex, coreness number>
-    degeneracy, // the graph's degeneracy: the largest k with a non-empty k-core
-    peelOrder, // peeling sequence, weakest vertex first
-    cores, // vertices grouped by coreness value, highest (densest) first
+    status: K_CORE_STATUS.COMPUTED,
+    coreness,
+    degeneracy,
+    peelOrder,
+    cores,
+    usage,
+    limits,
   };
+}
+
+function resolveLimits(options) {
+  return Object.freeze({
+    maxCandidatePairWork: limit(options.maxCandidatePairWork, K_CORE_LIMITS.maxCandidatePairWork),
+    maxUniqueProjectedEdges: limit(options.maxUniqueProjectedEdges, K_CORE_LIMITS.maxUniqueProjectedEdges),
+    maxAdjacencyReferences: limit(options.maxAdjacencyReferences, K_CORE_LIMITS.maxAdjacencyReferences),
+    maxSynchronousWork: limit(options.maxSynchronousWork, K_CORE_LIMITS.maxSynchronousWork),
+  });
+}
+
+function limit(value, fallback) {
+  if (value === undefined) return fallback;
+  if (value === Infinity) return value;
+  if (!Number.isFinite(value) || value < 0) throw new TypeError("K-core resource limits must be non-negative finite numbers or Infinity.");
+  return Math.floor(value);
+}
+
+function exceeds(resource, usage, limits) {
+  const key = `max${resource[0].toUpperCase()}${resource.slice(1)}`;
+  return usage[resource] > limits[key] ? resource : null;
+}
+
+function limitedResult(exceededResource, usage, limits, startedAt) {
+  usage.elapsedMs = performanceNow() - startedAt;
+  const limitKey = `max${exceededResource[0].toUpperCase()}${exceededResource.slice(1)}`;
+  const labels = {
+    candidatePairWork: "candidate pair work units",
+    uniqueProjectedEdges: "unique projected edges",
+    adjacencyReferences: "adjacency references",
+    synchronousWork: "synchronous work units",
+  };
+  return {
+    algorithm: "k_core",
+    status: K_CORE_STATUS.RESOURCE_LIMITED,
+    value: null,
+    coreness: null,
+    degeneracy: null,
+    peelOrder: [],
+    cores: [],
+    exceededResource,
+    usage: { ...usage },
+    limits,
+    reason: `${usage[exceededResource].toLocaleString()} ${labels[exceededResource]} exceeds the ${limits[limitKey].toLocaleString()} K-core safety limit`,
+  };
+}
+
+function performanceNow() {
+  return globalThis.performance?.now?.() ?? Date.now();
 }

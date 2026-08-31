@@ -100,11 +100,12 @@ try {
 verify(
   "HG713-R07",
   "Bounded triad result cannot report computed plus null",
-  triads.status === DERIVED_STATUS.OVER_BUDGET
-    && triads.value === null
+  triads.status === DERIVED_STATUS.COMPUTED
+    && triads.value === 0
+    && Number.isFinite(triads.value)
     && computedDerived("triads", 0).value === 0
     && computedNullRejected,
-  { result: triads, computedNullRejected, computedZeroAccepted: true },
+  { result: triads, computedNullRejected, computedZeroAccepted: true, stage6WorkBasedResult: true },
 );
 
 const fixedCount = checks.filter(check => check.fixed).length;

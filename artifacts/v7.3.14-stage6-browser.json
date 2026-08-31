@@ -1,0 +1,54 @@
+{
+  "stage": 6,
+  "kind": "real_chromium_algorithm_and_stats_validation",
+  "parentCommit": "bd2e374144585627f0d0bbb3667f0e17423b3471",
+  "environment": {
+    "browser": "Codex In-app Browser (Chromium)",
+    "url": "http://127.0.0.1:5173/",
+    "server": "Vite local development server"
+  },
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "TinyBasic weighted shortest path",
+      "status": "PASS",
+      "evidence": "Start 1, target 2, distance 1, one hop, visible path 1 -> 2."
+    },
+    {
+      "name": "zero-weight shortest path",
+      "status": "PASS",
+      "evidence": "h0: a,b @weight=0 rendered distance 0 and path a -> b."
+    },
+    {
+      "name": "unreachable shortest path",
+      "status": "PASS",
+      "evidence": "Disconnected singleton vertices rendered distance unreachable and 'No path exists from a to b.'"
+    },
+    {
+      "name": "small exact K-core",
+      "status": "PASS",
+      "evidence": "Loaded example rendered degeneracy 3, five vertices, and one coreness-3 shell."
+    },
+    {
+      "name": "resource-limited K-core",
+      "status": "PASS",
+      "evidence": "OneHugeEdge1K rendered a resource-limit state: 200,001 unique projected edges exceeds 200,000; exceededResource=uniqueProjectedEdges."
+    },
+    {
+      "name": "TinyBasic Stats",
+      "status": "PASS",
+      "evidence": "Statistics opened and rendered line-graph triangles = 1."
+    },
+    {
+      "name": "ManySingletons2001 Stats",
+      "status": "PASS",
+      "evidence": "Statistics opened and rendered line-graph triangles = 0 with 2,001 validation issues; the application error boundary did not appear."
+    },
+    {
+      "name": "browser console",
+      "status": "PASS",
+      "evidence": "0 error-level console entries after all Stage 6 flows."
+    }
+  ],
+  "consoleErrors": []
+}

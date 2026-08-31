@@ -19,6 +19,7 @@ import {
   buildBatchCustomParserTemplate, normalizeCustomParserOutput,
 } from "./utils/customParser.js";
 import AlgorithmsPanel from "./components/AlgorithmsPanel.jsx";
+import TriadStatistic from "./components/TriadStatistic.jsx";
 import AdvancedOptionsPanel from "./components/AdvancedOptionsPanel.jsx";
 import { useAlgorithms } from "./hooks/useAlgorithms.js";
 import AgentChatPanel from "./components/AgentChatPanel.jsx";
@@ -4904,7 +4905,7 @@ function AppCore() {
                     </div>
                     <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 12, padding: 18, boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}>
                       <div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: .6, fontWeight: 600, marginBottom: 8 }}>Line-Graph Triangles</div>
-                      {triadResult.status === DERIVED_STATUS.COMPUTED ? <div style={{ fontSize: 32, fontWeight: 800, color: T.amber, fontFamily: "monospace", marginBottom: 4 }}>{triadResult.value.toLocaleString()}</div> : <div style={{ fontSize: 13, color: T.textDim, marginBottom: 4 }}>Not computed — {triadResult.reason}</div>}
+                      <TriadStatistic result={triadResult} />
                       <div style={{ fontSize: 12, color: T.textDim, marginBottom: 14 }}>Triangles in the line graph</div>
                       <div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: .6, fontWeight: 600, marginBottom: 8 }}>
                         Validation {issues.length === 0 ? <span style={{ color: T.green }}>✓ Clean</span> : <span style={{ color: T.rose }}>{issues.length} issue{issues.length !== 1 ? "s" : ""}</span>}

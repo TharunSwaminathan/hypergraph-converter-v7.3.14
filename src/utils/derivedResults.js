@@ -20,6 +20,9 @@ export function computedDerived(type, value, details = {}) {
   if (value === null || value === undefined) {
     throw new TypeError(`A computed ${type ?? "derived"} result must contain a present value.`);
   }
+  if (typeof value === "number" && !Number.isFinite(value)) {
+    throw new TypeError(`A computed ${type ?? "derived"} numeric result must be finite.`);
+  }
   return {
     type,
     status: DERIVED_STATUS.COMPUTED,

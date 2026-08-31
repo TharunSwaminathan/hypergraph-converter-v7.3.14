@@ -38,6 +38,9 @@ export const buildH2V = hes => hes.map(h => ({ hid: h.id, vertices: [...h.vertic
 export const DERIVED_LIMITS = Object.freeze({
   maxH2HNeighborRefs: 200_000,
   maxTriadNeighborRefs: 200_000,
+  maxTriadCandidatePairWork: 2_000_000,
+  maxTriadWedgeWork: 2_000_000,
+  maxTriadSynchronousWork: 4_000_000,
   maxMappingRows: 2_000,
 });
 
@@ -479,50 +482,158 @@ export function computeStats(hes) {
   };
 }
 
-export function countTriads(hes) {
-  if (hes.length > 2000) return null;
-  const v2h = new Map();
-  hes.forEach(h => h.vertices.forEach(v => {
-    const k = String(v);
-    if (!v2h.has(k)) v2h.set(k, []);
-    v2h.get(k).push(h.id);
-  }));
-  const adj = new Map();
-  hes.forEach(h => { adj.set(h.id, new Set()); });
-  hes.forEach(h => h.vertices.forEach(v => (v2h.get(String(v)) || []).forEach(o => {
-    if (o !== h.id) adj.get(h.id).add(o);
-  })));
-  let count = 0;
-  hes.forEach(h => {
-    const ns = [...adj.get(h.id)];
-    for (let a = 0; a < ns.length; a += 1) {
-      for (let b = a + 1; b < ns.length; b += 1) {
-        if (adj.get(ns[a])?.has(ns[b])) count += 1;
+/**
+ * Exact line-graph triangle count. This function has a numeric-only contract;
+ * bounded application paths must call countTriadsBounded so resource refusal
+ * is represented structurally instead of by the historical null sentinel.
+ */
+export function countTriadsExact(hes) {
+  return countTriadsFromAdjacency(buildTriadAdjacencyUnbounded(hes));
+}
+
+// Compatibility name retained for existing small exact callers.
+export const countTriads = countTriadsExact;
+
+export function countTriadsBounded(hes, options = {}) {
+  const limits = triadLimits(options);
+  const built = buildTriadAdjacencyBounded(hes, limits);
+  if (!built.ok) {
+    return resourceLimitedDerived("triads", {
+      estimate: built.usage,
+      limits,
+      exceededResource: built.exceededResource,
+      reason: built.reason,
+    });
+  }
+  const value = countTriadsFromAdjacency(built.adjacency);
+  if (!Number.isFinite(value)) {
+    throw new TypeError("A computed triad result must be a finite number.");
+  }
+  return computedDerived("triads", value, { estimate: built.usage, limits });
+}
+
+function buildTriadAdjacencyUnbounded(hes) {
+  return buildTriadAdjacencyBounded(hes, {
+    maxNeighborRefs: Infinity,
+    maxCandidatePairWork: Infinity,
+    maxWedgeWork: Infinity,
+    maxSynchronousWork: Infinity,
+  }).adjacency;
+}
+
+function buildTriadAdjacencyBounded(hes, limits) {
+  const adjacency = new Map();
+  const vertexToHyperedges = new Map();
+  for (const [index, hyperedge] of (hes ?? []).entries()) {
+    const hyperedgeId = String(hyperedge?.id ?? `h${index}`);
+    if (!adjacency.has(hyperedgeId)) adjacency.set(hyperedgeId, new Set());
+    for (const value of new Set((hyperedge?.vertices ?? []).map(String))) {
+      if (!vertexToHyperedges.has(value)) vertexToHyperedges.set(value, new Set());
+      vertexToHyperedges.get(value).add(hyperedgeId);
+    }
+  }
+
+  const usage = {
+    hyperedges: adjacency.size,
+    references: 0,
+    h2hNeighborReferences: 0,
+    candidatePairWork: 0,
+    wedgeWork: 0,
+    synchronousWork: 0,
+  };
+  for (const incident of vertexToHyperedges.values()) {
+    const hyperedgeIds = [...incident];
+    for (let left = 0; left < hyperedgeIds.length; left += 1) {
+      for (let right = left + 1; right < hyperedgeIds.length; right += 1) {
+        usage.candidatePairWork += 1;
+        usage.synchronousWork += 1;
+        if (usage.candidatePairWork > limits.maxCandidatePairWork) {
+          return triadRefusal("candidatePairWork", usage, limits);
+        }
+        if (usage.synchronousWork > limits.maxSynchronousWork) {
+          return triadRefusal("synchronousWork", usage, limits);
+        }
+        const source = hyperedgeIds[left];
+        const target = hyperedgeIds[right];
+        if (adjacency.get(source).has(target)) continue;
+        const nextReferences = usage.h2hNeighborReferences + 2;
+        if (nextReferences > limits.maxNeighborRefs) {
+          usage.references = nextReferences;
+          usage.h2hNeighborReferences = nextReferences;
+          return triadRefusal("h2hNeighborReferences", usage, limits);
+        }
+        adjacency.get(source).add(target);
+        adjacency.get(target).add(source);
+        usage.references = nextReferences;
+        usage.h2hNeighborReferences = nextReferences;
       }
     }
-  });
+  }
+
+  for (const neighbors of adjacency.values()) {
+    const degree = neighbors.size;
+    usage.wedgeWork += degree > 1 ? degree * (degree - 1) / 2 : 0;
+    if (!Number.isSafeInteger(usage.wedgeWork) || usage.wedgeWork > limits.maxWedgeWork) {
+      usage.wedgeWork = Math.min(usage.wedgeWork, Number.MAX_SAFE_INTEGER);
+      return triadRefusal("wedgeWork", usage, limits);
+    }
+  }
+  if (usage.synchronousWork + usage.wedgeWork > limits.maxSynchronousWork) {
+    usage.synchronousWork += usage.wedgeWork;
+    return triadRefusal("synchronousWork", usage, limits);
+  }
+  usage.synchronousWork += usage.wedgeWork;
+  return { ok: true, adjacency, usage };
+}
+
+function countTriadsFromAdjacency(adjacency) {
+  let count = 0;
+  for (const neighbors of adjacency.values()) {
+    const neighborIds = [...neighbors];
+    for (let left = 0; left < neighborIds.length; left += 1) {
+      for (let right = left + 1; right < neighborIds.length; right += 1) {
+        if (adjacency.get(neighborIds[left])?.has(neighborIds[right])) count += 1;
+      }
+    }
+  }
   return Math.floor(count / 3);
 }
 
-export function countTriadsBounded(hes, { maxNeighborRefs = DERIVED_LIMITS.maxTriadNeighborRefs } = {}) {
-  const estimate = estimateH2HNeighborReferences(hes, maxNeighborRefs);
-  const limits = { maxNeighborRefs, maxHyperedges: 2_000 };
-  if (estimate.overBudget) {
-    return resourceLimitedDerived("triads", {
-      estimate,
-      limits,
-      reason: `projection exceeds configured analysis budget (${estimate.references.toLocaleString()} estimated references > ${maxNeighborRefs.toLocaleString()})`,
-    });
-  }
-  const value = countTriads(hes);
-  if (value === null) {
-    return resourceLimitedDerived("triads", {
-      estimate,
-      limits,
-      reason: `triad count is limited to 2,000 hyperedges; received ${hes.length.toLocaleString()}`,
-    });
-  }
-  return computedDerived("triads", value, { estimate, limits });
+function triadLimits(options) {
+  return Object.freeze({
+    maxNeighborRefs: derivedLimit(options.maxNeighborRefs, DERIVED_LIMITS.maxTriadNeighborRefs),
+    maxCandidatePairWork: derivedLimit(options.maxCandidatePairWork, DERIVED_LIMITS.maxTriadCandidatePairWork),
+    maxWedgeWork: derivedLimit(options.maxWedgeWork, DERIVED_LIMITS.maxTriadWedgeWork),
+    maxSynchronousWork: derivedLimit(options.maxSynchronousWork, DERIVED_LIMITS.maxTriadSynchronousWork),
+  });
+}
+
+function derivedLimit(value, fallback) {
+  if (value === undefined) return fallback;
+  if (value === Infinity) return value;
+  if (!Number.isFinite(value) || value < 0) throw new TypeError("Triad resource limits must be non-negative finite numbers or Infinity.");
+  return Math.floor(value);
+}
+
+function triadRefusal(exceededResource, usage, limits) {
+  const limitKey = {
+    h2hNeighborReferences: "maxNeighborRefs",
+    candidatePairWork: "maxCandidatePairWork",
+    wedgeWork: "maxWedgeWork",
+    synchronousWork: "maxSynchronousWork",
+  }[exceededResource];
+  const labels = {
+    h2hNeighborReferences: "H2H neighbor references",
+    candidatePairWork: "H2H candidate-pair work units",
+    wedgeWork: "triad wedge work units",
+    synchronousWork: "synchronous work units",
+  };
+  return {
+    ok: false,
+    exceededResource,
+    usage: { ...usage },
+    reason: `${usage[exceededResource].toLocaleString()} ${labels[exceededResource]} exceeds the ${limits[limitKey].toLocaleString()} triad safety limit`,
+  };
 }
 
 export function validateHes(hes) {

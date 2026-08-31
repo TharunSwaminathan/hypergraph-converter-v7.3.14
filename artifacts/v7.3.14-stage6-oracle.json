@@ -1,0 +1,915 @@
+{
+  "stage": 6,
+  "kind": "weighted_shortest_path_k_core_statistics_oracle",
+  "parentCommit": "bd2e374144585627f0d0bbb3667f0e17423b3471",
+  "status": "passed",
+  "passed": 15,
+  "total": 15,
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64"
+  },
+  "shortestDifferential": {
+    "seed": 6975797,
+    "graphs": 3000,
+    "runs": 12000,
+    "mismatches": 0,
+    "fixed": {
+      "unknown": {
+        "algorithm": "shortest_path",
+        "startVertex": "missing",
+        "targetVertex": "d",
+        "distances": [],
+        "previous": [],
+        "path": [],
+        "reachable": false,
+        "edgesUsed": [],
+        "steps": [],
+        "warnings": []
+      },
+      "unreachable": {
+        "algorithm": "shortest_path",
+        "startVertex": "a",
+        "targetVertex": "b",
+        "distances": [
+          [
+            "a",
+            0
+          ]
+        ],
+        "previous": [],
+        "path": [],
+        "reachable": false,
+        "edgesUsed": [],
+        "steps": [
+          {
+            "visited": [
+              "a"
+            ],
+            "frontier": [],
+            "current": "a",
+            "newlyDiscovered": []
+          }
+        ],
+        "warnings": []
+      }
+    }
+  },
+  "kCoreDifferential": {
+    "seed": 113305363,
+    "graphs": 3000,
+    "mismatches": 0
+  },
+  "performance": {
+    "shortest": {
+      "TinyBasic": {
+        "elapsedMs": 0.04959999999999809,
+        "heapDeltaBytesObserved": 32664,
+        "metrics": {
+          "hyperedges": 2,
+          "vertices": 4,
+          "incidences": 5,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 4,
+          "neighborCandidateEncounters": 8,
+          "neighborMapsBuilt": 4,
+          "neighborEntriesProduced": 8,
+          "maxTransientNeighborEntries": 3,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 0.029200000000003
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "d",
+          "targetDistance": 2,
+          "distancesSize": 4,
+          "pathLength": 3,
+          "warningCount": 0
+        }
+      },
+      "WeightZero": {
+        "elapsedMs": 0.007400000000018281,
+        "heapDeltaBytesObserved": 15368,
+        "metrics": {
+          "hyperedges": 1,
+          "vertices": 2,
+          "incidences": 2,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 2,
+          "neighborCandidateEncounters": 2,
+          "neighborMapsBuilt": 2,
+          "neighborEntriesProduced": 2,
+          "maxTransientNeighborEntries": 1,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 0.006199999999978445
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "b",
+          "targetDistance": 0,
+          "distancesSize": 2,
+          "pathLength": 2,
+          "warningCount": 0
+        }
+      },
+      "OverlapMin": {
+        "elapsedMs": 0.006300000000010186,
+        "heapDeltaBytesObserved": 18088,
+        "metrics": {
+          "hyperedges": 2,
+          "vertices": 2,
+          "incidences": 4,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 2,
+          "neighborCandidateEncounters": 4,
+          "neighborMapsBuilt": 2,
+          "neighborEntriesProduced": 2,
+          "maxTransientNeighborEntries": 1,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 0.0056000000000153705
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "b",
+          "targetDistance": 2,
+          "distancesSize": 2,
+          "pathLength": 2,
+          "warningCount": 0
+        }
+      },
+      "DuplicateOverlap": {
+        "elapsedMs": 2.0224999999999795,
+        "heapDeltaBytesObserved": 1924984,
+        "metrics": {
+          "hyperedges": 200,
+          "vertices": 46,
+          "incidences": 9200,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 2,
+          "neighborCandidateEncounters": 18000,
+          "neighborMapsBuilt": 2,
+          "neighborEntriesProduced": 90,
+          "maxTransientNeighborEntries": 45,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 2.016300000000001
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "v1",
+          "targetDistance": 1,
+          "distancesSize": 46,
+          "pathLength": 2,
+          "warningCount": 0
+        }
+      },
+      "LargeSparse": {
+        "elapsedMs": 31.062999999999988,
+        "heapDeltaBytesObserved": 22117408,
+        "metrics": {
+          "hyperedges": 10000,
+          "vertices": 10001,
+          "incidences": 20000,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 26,
+          "neighborCandidateEncounters": 51,
+          "neighborMapsBuilt": 26,
+          "neighborEntriesProduced": 51,
+          "maxTransientNeighborEntries": 2,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 31.050700000000006
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "v25",
+          "targetDistance": 25,
+          "distancesSize": 27,
+          "pathLength": 26,
+          "warningCount": 0
+        }
+      },
+      "OneHugeEdge1K": {
+        "elapsedMs": 169.79820000000007,
+        "heapDeltaBytesObserved": 25107688,
+        "metrics": {
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 1000,
+          "neighborCandidateEncounters": 999000,
+          "neighborMapsBuilt": 1000,
+          "neighborEntriesProduced": 999000,
+          "maxTransientNeighborEntries": 999,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 169.75600000000003
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "v999",
+          "targetDistance": 1,
+          "distancesSize": 1000,
+          "pathLength": 2,
+          "warningCount": 0
+        }
+      },
+      "OneHugeEdge5KStress": {
+        "elapsedMs": 6.147799999999961,
+        "heapDeltaBytesObserved": -15158912,
+        "metrics": {
+          "hyperedges": 1,
+          "vertices": 5000,
+          "incidences": 5000,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 2,
+          "neighborCandidateEncounters": 9998,
+          "neighborMapsBuilt": 2,
+          "neighborEntriesProduced": 9998,
+          "maxTransientNeighborEntries": 4999,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 6.07650000000001
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "v1",
+          "targetDistance": 1,
+          "distancesSize": 5000,
+          "pathLength": 2,
+          "warningCount": 0
+        }
+      }
+    },
+    "kCore": {
+      "TinyBasic": {
+        "elapsedMs": 0.07029999999997472,
+        "result": {
+          "status": "computed",
+          "exceededResource": null,
+          "degeneracy": 2,
+          "corenessSize": 4,
+          "usage": {
+            "hyperedges": 2,
+            "vertices": 4,
+            "incidences": 5,
+            "incidenceIndexBuilds": 1,
+            "candidatePairWork": 4,
+            "uniqueProjectedEdges": 4,
+            "adjacencyReferences": 8,
+            "synchronousWork": 22,
+            "elapsedMs": 0.026700000000005275
+          },
+          "reason": null
+        }
+      },
+      "DuplicateOverlap": {
+        "elapsedMs": 34.67229999999995,
+        "result": {
+          "status": "computed",
+          "exceededResource": null,
+          "degeneracy": 45,
+          "corenessSize": 46,
+          "usage": {
+            "hyperedges": 200,
+            "vertices": 46,
+            "incidences": 9200,
+            "incidenceIndexBuilds": 1,
+            "candidatePairWork": 207000,
+            "uniqueProjectedEdges": 1035,
+            "adjacencyReferences": 2070,
+            "synchronousWork": 210151,
+            "elapsedMs": 34.44380000000001
+          },
+          "reason": null
+        }
+      },
+      "DenseProjection632": {
+        "elapsedMs": 61.32280000000003,
+        "result": {
+          "status": "computed",
+          "exceededResource": null,
+          "degeneracy": 631,
+          "corenessSize": 632,
+          "usage": {
+            "hyperedges": 1,
+            "vertices": 632,
+            "incidences": 632,
+            "incidenceIndexBuilds": 1,
+            "candidatePairWork": 199396,
+            "uniqueProjectedEdges": 199396,
+            "adjacencyReferences": 398792,
+            "synchronousWork": 798216,
+            "elapsedMs": 61.20679999999993
+          },
+          "reason": null
+        }
+      },
+      "OneHugeEdge1K": {
+        "elapsedMs": 66.22500000000002,
+        "result": {
+          "status": "over_budget",
+          "exceededResource": "uniqueProjectedEdges",
+          "degeneracy": null,
+          "corenessSize": null,
+          "usage": {
+            "hyperedges": 1,
+            "vertices": 1000,
+            "incidences": 1000,
+            "incidenceIndexBuilds": 1,
+            "candidatePairWork": 200001,
+            "uniqueProjectedEdges": 200001,
+            "adjacencyReferences": 400000,
+            "synchronousWork": 200001,
+            "elapsedMs": 61.3377999999999
+          },
+          "reason": "200,001 unique projected edges exceeds the 200,000 K-core safety limit"
+        }
+      }
+    },
+    "triads": {
+      "TinyBasic": {
+        "elapsedMs": 0.3505999999999858,
+        "result": {
+          "type": "triads",
+          "status": "computed",
+          "value": 0,
+          "estimate": {
+            "hyperedges": 2,
+            "references": 2,
+            "h2hNeighborReferences": 2,
+            "candidatePairWork": 1,
+            "wedgeWork": 0,
+            "synchronousWork": 1
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
+          },
+          "reason": null
+        }
+      },
+      "ManySingletons2001": {
+        "elapsedMs": 1.1555999999999358,
+        "result": {
+          "type": "triads",
+          "status": "computed",
+          "value": 0,
+          "estimate": {
+            "hyperedges": 2001,
+            "references": 0,
+            "h2hNeighborReferences": 0,
+            "candidatePairWork": 0,
+            "wedgeWork": 0,
+            "synchronousWork": 0
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
+          },
+          "reason": null
+        }
+      },
+      "Singletons5K": {
+        "elapsedMs": 2.0172000000000025,
+        "result": {
+          "type": "triads",
+          "status": "computed",
+          "value": 0,
+          "estimate": {
+            "hyperedges": 5000,
+            "references": 0,
+            "h2hNeighborReferences": 0,
+            "candidatePairWork": 0,
+            "wedgeWork": 0,
+            "synchronousWork": 0
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
+          },
+          "reason": null
+        }
+      },
+      "DenseH2HRefusal": {
+        "elapsedMs": 19.262399999999957,
+        "result": {
+          "type": "triads",
+          "status": "over_budget",
+          "value": null,
+          "estimate": {
+            "hyperedges": 200,
+            "references": 39800,
+            "h2hNeighborReferences": 39800,
+            "candidatePairWork": 915400,
+            "wedgeWork": 2009502,
+            "synchronousWork": 915400
+          },
+          "limits": {
+            "maxNeighborRefs": 200000,
+            "maxCandidatePairWork": 2000000,
+            "maxWedgeWork": 2000000,
+            "maxSynchronousWork": 4000000
+          },
+          "exceededResource": "wedgeWork",
+          "reason": "2,009,502 triad wedge work units exceeds the 2,000,000 triad safety limit"
+        }
+      }
+    }
+  },
+  "priorStageArtifactSummary": {
+    "v7.3.14-stage0-oracle.json": {},
+    "v7.3.14-stage1-oracle.json": {
+      "total": 6
+    },
+    "v7.3.14-stage2-oracle.json": {
+      "total": 6
+    },
+    "v7.3.14-stage3-oracle.json": {
+      "total": 8
+    },
+    "v7.3.14-stage4-oracle.json": {
+      "passed": 11,
+      "total": 11
+    },
+    "v7.3.14-stage5-oracle.json": {
+      "status": "passed",
+      "passed": 14,
+      "total": 14
+    },
+    "v7.3.14-stage5-corrective-oracle.json": {
+      "status": "PASS"
+    },
+    "v7.3.14-stage5-corrective2-oracle.json": {
+      "status": "PASS"
+    }
+  },
+  "checks": [
+    {
+      "id": "HG713-R05-SP-SEMANTICS",
+      "title": "Shortest complete public semantics match the immutable eager reference",
+      "passed": true,
+      "evidence": {
+        "seed": 6975797,
+        "graphs": 3000,
+        "runs": 12000,
+        "mismatches": 0,
+        "fixed": {
+          "unknown": {
+            "algorithm": "shortest_path",
+            "startVertex": "missing",
+            "targetVertex": "d",
+            "distances": [],
+            "previous": [],
+            "path": [],
+            "reachable": false,
+            "edgesUsed": [],
+            "steps": [],
+            "warnings": []
+          },
+          "unreachable": {
+            "algorithm": "shortest_path",
+            "startVertex": "a",
+            "targetVertex": "b",
+            "distances": [
+              [
+                "a",
+                0
+              ]
+            ],
+            "previous": [],
+            "path": [],
+            "reachable": false,
+            "edgesUsed": [],
+            "steps": [
+              {
+                "visited": [
+                  "a"
+                ],
+                "frontier": [],
+                "current": "a",
+                "newlyDiscovered": []
+              }
+            ],
+            "warnings": []
+          }
+        }
+      }
+    },
+    {
+      "id": "HG713-R05-SP-LAZY",
+      "title": "Shortest has no full weighted V2V/adjacency dependency",
+      "passed": true,
+      "evidence": {
+        "hyperedges": 1,
+        "vertices": 1000,
+        "incidences": 1000,
+        "incidenceIndexBuilds": 1,
+        "expandedVertices": 1000,
+        "neighborCandidateEncounters": 999000,
+        "neighborMapsBuilt": 1000,
+        "neighborEntriesProduced": 999000,
+        "maxTransientNeighborEntries": 999,
+        "cachedNeighborEntries": 0,
+        "storedProjectedEdges": 0,
+        "storedGlobalAdjacencyReferences": 0,
+        "elapsedMs": 169.75600000000003
+      }
+    },
+    {
+      "id": "HG713-R05-SP-ZERO",
+      "title": "Zero remains a valid projected cost",
+      "passed": true,
+      "evidence": {
+        "algorithm": "shortest_path",
+        "startVertex": "a",
+        "targetVertex": "b",
+        "distances": [
+          [
+            "a",
+            0
+          ],
+          [
+            "b",
+            0
+          ]
+        ],
+        "previous": [
+          [
+            "b",
+            "a"
+          ]
+        ],
+        "path": [
+          "a",
+          "b"
+        ],
+        "reachable": true,
+        "edgesUsed": [
+          {
+            "from": "a",
+            "to": "b"
+          }
+        ],
+        "steps": [
+          {
+            "visited": [
+              "a"
+            ],
+            "frontier": [
+              "b"
+            ],
+            "current": "a",
+            "newlyDiscovered": [
+              "b"
+            ]
+          },
+          {
+            "visited": [
+              "a",
+              "b"
+            ],
+            "frontier": [],
+            "current": "b",
+            "newlyDiscovered": []
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "id": "HG713-R05-SP-MIN",
+      "title": "Overlapping projected pair cost is the minimum valid hyperedge weight",
+      "passed": true,
+      "evidence": {
+        "algorithm": "shortest_path",
+        "startVertex": "a",
+        "targetVertex": "b",
+        "distances": [
+          [
+            "a",
+            0
+          ],
+          [
+            "b",
+            2
+          ]
+        ],
+        "previous": [
+          [
+            "b",
+            "a"
+          ]
+        ],
+        "path": [
+          "a",
+          "b"
+        ],
+        "reachable": true,
+        "edgesUsed": [
+          {
+            "from": "a",
+            "to": "b"
+          }
+        ],
+        "steps": [
+          {
+            "visited": [
+              "a"
+            ],
+            "frontier": [
+              "b"
+            ],
+            "current": "a",
+            "newlyDiscovered": [
+              "b"
+            ]
+          },
+          {
+            "visited": [
+              "a",
+              "b"
+            ],
+            "frontier": [],
+            "current": "b",
+            "newlyDiscovered": []
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "id": "HG713-R05-SP-UNKNOWN",
+      "title": "Unknown and unreachable behavior remains exact",
+      "passed": true,
+      "evidence": {
+        "unknown": {
+          "algorithm": "shortest_path",
+          "startVertex": "missing",
+          "targetVertex": "d",
+          "distances": [],
+          "previous": [],
+          "path": [],
+          "reachable": false,
+          "edgesUsed": [],
+          "steps": [],
+          "warnings": []
+        },
+        "unreachable": {
+          "algorithm": "shortest_path",
+          "startVertex": "a",
+          "targetVertex": "b",
+          "distances": [
+            [
+              "a",
+              0
+            ]
+          ],
+          "previous": [],
+          "path": [],
+          "reachable": false,
+          "edgesUsed": [],
+          "steps": [
+            {
+              "visited": [
+                "a"
+              ],
+              "frontier": [],
+              "current": "a",
+              "newlyDiscovered": []
+            }
+          ],
+          "warnings": []
+        }
+      }
+    },
+    {
+      "id": "HG713-R05-SP-HUGE",
+      "title": "OneHugeEdge1K shortest computes without clique storage",
+      "passed": true,
+      "evidence": {
+        "elapsedMs": 169.79820000000007,
+        "heapDeltaBytesObserved": 25107688,
+        "metrics": {
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "incidenceIndexBuilds": 1,
+          "expandedVertices": 1000,
+          "neighborCandidateEncounters": 999000,
+          "neighborMapsBuilt": 1000,
+          "neighborEntriesProduced": 999000,
+          "maxTransientNeighborEntries": 999,
+          "cachedNeighborEntries": 0,
+          "storedProjectedEdges": 0,
+          "storedGlobalAdjacencyReferences": 0,
+          "elapsedMs": 169.75600000000003
+        },
+        "result": {
+          "reachable": true,
+          "targetVertex": "v999",
+          "targetDistance": 1,
+          "distancesSize": 1000,
+          "pathLength": 2,
+          "warningCount": 0
+        }
+      }
+    },
+    {
+      "id": "HG713-R05-KCORE-SEMANTICS",
+      "title": "K-core matches exact deduplicated two-section semantics and order",
+      "passed": true,
+      "evidence": {
+        "seed": 113305363,
+        "graphs": 3000,
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "HG713-R05-KCORE-RESOURCES",
+      "title": "K-core resource refusal is structured and algorithm-specific",
+      "passed": true,
+      "evidence": {
+        "status": "over_budget",
+        "exceededResource": "uniqueProjectedEdges",
+        "degeneracy": null,
+        "corenessSize": null,
+        "usage": {
+          "hyperedges": 1,
+          "vertices": 1000,
+          "incidences": 1000,
+          "incidenceIndexBuilds": 1,
+          "candidatePairWork": 200001,
+          "uniqueProjectedEdges": 200001,
+          "adjacencyReferences": 400000,
+          "synchronousWork": 200001,
+          "elapsedMs": 61.3377999999999
+        },
+        "reason": "200,001 unique projected edges exceeds the 200,000 K-core safety limit"
+      }
+    },
+    {
+      "id": "HG713-R05-KCORE-DUPLICATE",
+      "title": "DuplicateOverlap computes 1,035 unique edges despite 207,000 candidates",
+      "passed": true,
+      "evidence": {
+        "status": "computed",
+        "exceededResource": null,
+        "degeneracy": 45,
+        "corenessSize": 46,
+        "usage": {
+          "hyperedges": 200,
+          "vertices": 46,
+          "incidences": 9200,
+          "incidenceIndexBuilds": 1,
+          "candidatePairWork": 207000,
+          "uniqueProjectedEdges": 1035,
+          "adjacencyReferences": 2070,
+          "synchronousWork": 210151,
+          "elapsedMs": 34.44380000000001
+        },
+        "reason": null
+      }
+    },
+    {
+      "id": "HG713-R07-INVARIANT",
+      "title": "Triad computed status contains a finite numeric value",
+      "passed": true,
+      "evidence": {
+        "type": "triads",
+        "status": "computed",
+        "value": 0,
+        "estimate": {
+          "hyperedges": 2001,
+          "references": 0,
+          "h2hNeighborReferences": 0,
+          "candidatePairWork": 0,
+          "wedgeWork": 0,
+          "synchronousWork": 0
+        },
+        "limits": {
+          "maxNeighborRefs": 200000,
+          "maxCandidatePairWork": 2000000,
+          "maxWedgeWork": 2000000,
+          "maxSynchronousWork": 4000000
+        },
+        "reason": null
+      }
+    },
+    {
+      "id": "HG713-R07-SINGLETONS",
+      "title": "ManySingletons2001 computes zero with zero H2H/wedge work",
+      "passed": true,
+      "evidence": {
+        "type": "triads",
+        "status": "computed",
+        "value": 0,
+        "estimate": {
+          "hyperedges": 2001,
+          "references": 0,
+          "h2hNeighborReferences": 0,
+          "candidatePairWork": 0,
+          "wedgeWork": 0,
+          "synchronousWork": 0
+        },
+        "limits": {
+          "maxNeighborRefs": 200000,
+          "maxCandidatePairWork": 2000000,
+          "maxWedgeWork": 2000000,
+          "maxSynchronousWork": 4000000
+        },
+        "reason": null
+      }
+    },
+    {
+      "id": "HG713-R07-WORK-BOUND",
+      "title": "Triad policy is work-based and dense H2H is refused precisely",
+      "passed": true,
+      "evidence": {
+        "type": "triads",
+        "status": "over_budget",
+        "value": null,
+        "estimate": {
+          "hyperedges": 200,
+          "references": 39800,
+          "h2hNeighborReferences": 39800,
+          "candidatePairWork": 915400,
+          "wedgeWork": 2009502,
+          "synchronousWork": 915400
+        },
+        "limits": {
+          "maxNeighborRefs": 200000,
+          "maxCandidatePairWork": 2000000,
+          "maxWedgeWork": 2000000,
+          "maxSynchronousWork": 4000000
+        },
+        "exceededResource": "wedgeWork",
+        "reason": "2,009,502 triad wedge work units exceeds the 2,000,000 triad safety limit"
+      }
+    },
+    {
+      "id": "HG713-R07-5K",
+      "title": "Five thousand singleton hyperedges remain exact zero-work",
+      "passed": true,
+      "evidence": {
+        "type": "triads",
+        "status": "computed",
+        "value": 0,
+        "estimate": {
+          "hyperedges": 5000,
+          "references": 0,
+          "h2hNeighborReferences": 0,
+          "candidatePairWork": 0,
+          "wedgeWork": 0,
+          "synchronousWork": 0
+        },
+        "limits": {
+          "maxNeighborRefs": 200000,
+          "maxCandidatePairWork": 2000000,
+          "maxWedgeWork": 2000000,
+          "maxSynchronousWork": 4000000
+        },
+        "reason": null
+      }
+    },
+    {
+      "id": "HG713-R07-RENDERER",
+      "title": "Stats renderer rejects invalid computed numerics instead of dereferencing them",
+      "passed": true,
+      "evidence": {
+        "renderer": "TriadStatistic"
+      }
+    },
+    {
+      "id": "STAGE6-PRECHANGE",
+      "title": "Required defects and already-fixed R07 history were characterized before production editing",
+      "passed": true,
+      "evidence": {
+        "shortestOneHugeEdge1KFails": true,
+        "kCoreOneHugeEdge1KFails": true,
+        "manySingletons2001Status": "over_budget",
+        "manySingletons2001Value": null,
+        "originalR07CrashCurrentlyReproducible": false,
+        "originalR07CrashAlreadyPreventedByStage1": true,
+        "remainingR07Work": "remove the mixed numeric/null producer convention and replace the hyperedge-count sentinel with bounded work-based triad semantics"
+      }
+    }
+  ]
+}

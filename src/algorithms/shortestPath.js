@@ -1,65 +1,98 @@
-import { buildWeightedAdjacency } from "./graphModel.js";
+import { buildAlgorithmIncidenceIndex } from "./algorithmIncidence.js";
+import {
+  compareVertexId,
+  normalizedHyperedgeWeight,
+  PROJECTION_WEIGHT_POLICIES,
+} from "./projection.js";
+
+const DEFAULT_WEIGHT = 1;
 
 /**
- * Dijkstra's algorithm over a hypergraph's weighted 2-section, from
- * `startVertex` to every reachable vertex (and, if given, specifically to
- * `targetVertex`).
- *
- * Implementation notes:
- *  - Uses a linear scan to pick the next-closest unvisited vertex each
- *    round (O(V^2) overall). That matches the complexity already used
- *    elsewhere in this codebase (e.g. the force-directed layout, k-core's
- *    peeling step) and is fast enough for the browser-sized graphs this
- *    app targets; a binary-heap priority queue would only matter at a
- *    scale nothing else here is built for either.
- *  - A vertex is finalized (moved out of the "unvisited" set) only once
- *    its shortest distance is certain, which is what makes the greedy
- *    choice correct — this is why Dijkstra requires non-negative edge
- *    weights, which `buildWeightedAdjacency` guarantees by construction.
- *  - `steps` follows the same {visited, frontier, current, newlyDiscovered}
- *    shape as BFS/DFS, so the existing step-by-step animation controls in
- *    the Algorithms panel work here for free.
- *
- * @param {Array} hyperedges
- * @param {{ startVertex: string|number, targetVertex?: string|number|null }} options
+ * Dijkstra over the weighted two-section without materializing its global
+ * projected edge/adjacency set. The public result remains the established
+ * Stage 0-5 shape; diagnostics are available separately for resource evidence.
  */
-export function runShortestPath(hyperedges, { startVertex, targetVertex = null } = {}) {
+export function runShortestPath(hyperedges, options = {}) {
+  return executeShortestPath(hyperedges, options).result;
+}
+
+export function runShortestPathWithDiagnostics(hyperedges, options = {}) {
+  return executeShortestPath(hyperedges, options);
+}
+
+function executeShortestPath(hyperedges, { startVertex, targetVertex = null } = {}) {
+  const startedAt = performanceNow();
   const start = String(startVertex);
   const target = targetVertex != null ? String(targetVertex) : null;
-  const { adjacency, warnings } = buildWeightedAdjacency(hyperedges);
+  const index = buildAlgorithmIncidenceIndex(hyperedges);
+  const warnings = [];
+  const warned = new Set();
+  const weights = new Map();
 
-  if (!adjacency.has(start)) {
-    return {
-      algorithm: "shortest_path", startVertex: start, targetVertex: target,
-      distances: new Map(), previous: new Map(), path: [], reachable: target != null ? false : null,
-      edgesUsed: [], steps: [], warnings,
-    };
+  // The old eager projection interpreted every hyperedge's weight before
+  // Dijkstra began, including disconnected/unexpanded hyperedges. Preserve
+  // that exact warning scope and canonical hyperedge order.
+  for (const hyperedgeId of index.hyperedges) {
+    weights.set(hyperedgeId, normalizedHyperedgeWeight(index.hyperedgesById.get(hyperedgeId), {
+      weightPolicy: PROJECTION_WEIGHT_POLICIES.MIN_HYPEREDGE_WEIGHT,
+      defaultWeight: DEFAULT_WEIGHT,
+      warnings,
+      warned,
+    }));
+  }
+
+  const metrics = {
+    hyperedges: index.counts.hyperedges,
+    vertices: index.counts.vertices,
+    incidences: index.counts.incidences,
+    incidenceIndexBuilds: 1,
+    expandedVertices: 0,
+    neighborCandidateEncounters: 0,
+    neighborMapsBuilt: 0,
+    neighborEntriesProduced: 0,
+    maxTransientNeighborEntries: 0,
+    cachedNeighborEntries: 0,
+    storedProjectedEdges: 0,
+    storedGlobalAdjacencyReferences: 0,
+    elapsedMs: 0,
+  };
+
+  const vertices = [...index.vertices].sort(compareVertexId);
+  if (!index.vertexToHyperedges.has(start)) {
+    const result = emptyResult(start, target, warnings);
+    metrics.elapsedMs = performanceNow() - startedAt;
+    return { result, metrics };
   }
 
   const distances = new Map([[start, 0]]);
   const previous = new Map();
   const visited = new Set();
-  const unvisited = new Set(adjacency.keys());
+  const unvisited = new Set(vertices);
   const steps = [];
 
   while (unvisited.size > 0) {
-    // Pick the unvisited vertex with the smallest known tentative distance.
     let current = null;
     let currentDist = Infinity;
-    for (const v of unvisited) {
-      const d = distances.has(v) ? distances.get(v) : Infinity;
-      if (d < currentDist) { currentDist = d; current = v; }
+    for (const vertex of unvisited) {
+      const distance = distances.has(vertex) ? distances.get(vertex) : Infinity;
+      if (distance < currentDist) {
+        currentDist = distance;
+        current = vertex;
+      }
     }
-    if (current == null || currentDist === Infinity) break; // everything left is unreachable
+    if (current == null || currentDist === Infinity) break;
 
     unvisited.delete(current);
     visited.add(current);
+    metrics.expandedVertices += 1;
 
     const relaxed = [];
-    for (const [neighbor, cost] of adjacency.get(current) ?? []) {
+    const neighbors = weightedNeighbors(index, weights, current, metrics);
+    for (const [neighbor, cost] of neighbors) {
       if (visited.has(neighbor)) continue;
       const candidate = currentDist + cost;
       const known = distances.has(neighbor) ? distances.get(neighbor) : Infinity;
+      // Strict inequality is part of the frozen predecessor/tie contract.
       if (candidate < known) {
         distances.set(neighbor, candidate);
         previous.set(neighbor, current);
@@ -69,25 +102,29 @@ export function runShortestPath(hyperedges, { startVertex, targetVertex = null }
 
     steps.push({
       visited: [...visited],
-      frontier: [...unvisited].filter(v => distances.has(v)),
+      frontier: [...unvisited].filter(vertex => distances.has(vertex)),
       current,
       newlyDiscovered: relaxed,
     });
 
-    if (target != null && current === target) break; // target's shortest distance is now finalized
+    // Intentionally remains after relaxation/step capture: target==start has
+    // this established behavior in the approved pre-change contract.
+    if (target != null && current === target) break;
   }
 
   let path = [];
   if (target != null && distances.has(target)) {
     path = [target];
-    let cur = target;
-    while (previous.has(cur)) { cur = previous.get(cur); path.push(cur); }
+    let current = target;
+    while (previous.has(current)) {
+      current = previous.get(current);
+      path.push(current);
+    }
     path.reverse();
   }
 
   const edgesUsed = [...previous.entries()].map(([to, from]) => ({ from, to }));
-
-  return {
+  const result = {
     algorithm: "shortest_path",
     startVertex: start,
     targetVertex: target,
@@ -99,4 +136,43 @@ export function runShortestPath(hyperedges, { startVertex, targetVertex = null }
     steps,
     warnings,
   };
+  metrics.elapsedMs = performanceNow() - startedAt;
+  return { result, metrics };
+}
+
+function weightedNeighbors(index, weights, current, metrics) {
+  const minimumByNeighbor = new Map();
+  metrics.neighborMapsBuilt += 1;
+  for (const hyperedgeId of index.vertexToHyperedges.get(current) ?? []) {
+    const cost = weights.get(hyperedgeId);
+    for (const neighbor of index.hyperedgeToVertices.get(hyperedgeId) ?? []) {
+      if (neighbor === current) continue;
+      metrics.neighborCandidateEncounters += 1;
+      const known = minimumByNeighbor.get(neighbor);
+      if (known === undefined || cost < known) minimumByNeighbor.set(neighbor, cost);
+    }
+  }
+  const entries = [...minimumByNeighbor].sort(([left], [right]) => compareVertexId(left, right));
+  metrics.neighborEntriesProduced += entries.length;
+  metrics.maxTransientNeighborEntries = Math.max(metrics.maxTransientNeighborEntries, entries.length);
+  return entries;
+}
+
+function emptyResult(start, target, warnings) {
+  return {
+    algorithm: "shortest_path",
+    startVertex: start,
+    targetVertex: target,
+    distances: new Map(),
+    previous: new Map(),
+    path: [],
+    reachable: target != null ? false : null,
+    edgesUsed: [],
+    steps: [],
+    warnings,
+  };
+}
+
+function performanceNow() {
+  return globalThis.performance?.now?.() ?? Date.now();
 }
