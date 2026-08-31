@@ -1,0 +1,1318 @@
+{
+  "stage": 6,
+  "kind": "canonical_identifier_boundary_prechange_characterization",
+  "parentCommit": "1b08b07920523aeebe25c3e4a602137bc699c7fa",
+  "productionState": "exact_stage6_parent_before_corrective_production_edits",
+  "issue": "S6-N01",
+  "graphMemberIds": {
+    "object": {
+      "input": {
+        "type": "object",
+        "representation": "{\"x\":1}"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "[object Object]"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "[object Object]",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "[object Object]",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "array": {
+      "input": {
+        "type": "array",
+        "representation": "[]"
+      },
+      "adapter": {
+        "outcome": "threw",
+        "error": {
+          "name": "Error",
+          "message": "hyperedges[0].vertices[1] must be a non-empty string or finite number identifier; received blank string"
+        }
+      },
+      "shortestPath": {
+        "outcome": "threw",
+        "error": {
+          "name": "Error",
+          "message": "hyperedges[0].vertices[1] must be a non-empty string or finite number identifier; received blank string"
+        }
+      },
+      "kCore": {
+        "outcome": "threw",
+        "error": {
+          "name": "Error",
+          "message": "hyperedges[0].vertices[1] must be a non-empty string or finite number identifier; received blank string"
+        }
+      }
+    },
+    "boolean_true": {
+      "input": {
+        "type": "boolean",
+        "representation": "true"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "true"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "true",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "true",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "boolean_false": {
+      "input": {
+        "type": "boolean",
+        "representation": "false"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "false"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "false",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "false",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "bigint": {
+      "input": {
+        "type": "bigint",
+        "representation": "1n"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "1"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "1",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "1",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "null": {
+      "input": {
+        "type": "null",
+        "representation": "null"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "null"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "null",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "null",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "undefined": {
+      "input": {
+        "type": "undefined",
+        "representation": "undefined"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "undefined"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "undefined",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "undefined",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "nan": {
+      "input": {
+        "type": "number",
+        "representation": "NaN"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "NaN"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "NaN",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "NaN",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "positive_infinity": {
+      "input": {
+        "type": "number",
+        "representation": "Infinity"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "Infinity"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "Infinity",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "Infinity",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "negative_infinity": {
+      "input": {
+        "type": "number",
+        "representation": "-Infinity"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "member-edge"
+          ],
+          "vertices": [
+            "anchor",
+            "-Infinity"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": null,
+          "reachable": null,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "-Infinity",
+              1
+            ]
+          ],
+          "path": []
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "-Infinity",
+              1
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "hyperedgeIds": {
+    "object": {
+      "input": {
+        "type": "object",
+        "representation": "{\"x\":1}"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "[object Object]"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "array": {
+      "input": {
+        "type": "array",
+        "representation": "[]"
+      },
+      "adapter": {
+        "outcome": "threw",
+        "error": {
+          "name": "Error",
+          "message": "hyperedges[0].id must be a non-empty string or finite number identifier; received blank string"
+        }
+      },
+      "shortestPath": {
+        "outcome": "threw",
+        "error": {
+          "name": "Error",
+          "message": "hyperedges[0].id must be a non-empty string or finite number identifier; received blank string"
+        }
+      },
+      "kCore": {
+        "outcome": "threw",
+        "error": {
+          "name": "Error",
+          "message": "hyperedges[0].id must be a non-empty string or finite number identifier; received blank string"
+        }
+      }
+    },
+    "boolean_true": {
+      "input": {
+        "type": "boolean",
+        "representation": "true"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "true"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "boolean_false": {
+      "input": {
+        "type": "boolean",
+        "representation": "false"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "false"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "bigint": {
+      "input": {
+        "type": "bigint",
+        "representation": "1n"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "1"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "null": {
+      "input": {
+        "type": "null",
+        "representation": "null"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "h0"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "undefined": {
+      "input": {
+        "type": "undefined",
+        "representation": "undefined"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "h0"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "nan": {
+      "input": {
+        "type": "number",
+        "representation": "NaN"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "NaN"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "positive_infinity": {
+      "input": {
+        "type": "number",
+        "representation": "Infinity"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "Infinity"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "negative_infinity": {
+      "input": {
+        "type": "number",
+        "representation": "-Infinity"
+      },
+      "adapter": {
+        "outcome": "returned",
+        "value": {
+          "hyperedges": [
+            "-Infinity"
+          ],
+          "vertices": [
+            "anchor",
+            "peer"
+          ],
+          "incidences": 2
+        }
+      },
+      "shortestPath": {
+        "outcome": "returned",
+        "value": {
+          "startVertex": "anchor",
+          "targetVertex": "peer",
+          "reachable": true,
+          "distances": [
+            [
+              "anchor",
+              0
+            ],
+            [
+              "peer",
+              1
+            ]
+          ],
+          "path": [
+            "anchor",
+            "peer"
+          ]
+        }
+      },
+      "kCore": {
+        "outcome": "returned",
+        "value": {
+          "status": "computed",
+          "degeneracy": 1,
+          "coreness": [
+            [
+              "anchor",
+              1
+            ],
+            [
+              "peer",
+              1
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "shortestQueryIds": {
+    "start_object": {
+      "input": {
+        "startVertex": {
+          "type": "object",
+          "representation": "{\"x\":1}"
+        },
+        "targetVertex": {
+          "type": "string",
+          "representation": "\"b\""
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "[object Object]",
+        "targetVertex": "b",
+        "reachable": false,
+        "distances": [],
+        "path": []
+      }
+    },
+    "start_boolean": {
+      "input": {
+        "startVertex": {
+          "type": "boolean",
+          "representation": "true"
+        },
+        "targetVertex": {
+          "type": "string",
+          "representation": "\"b\""
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "true",
+        "targetVertex": "b",
+        "reachable": false,
+        "distances": [],
+        "path": []
+      }
+    },
+    "start_null": {
+      "input": {
+        "startVertex": {
+          "type": "null",
+          "representation": "null"
+        },
+        "targetVertex": {
+          "type": "string",
+          "representation": "\"b\""
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "null",
+        "targetVertex": "b",
+        "reachable": false,
+        "distances": [],
+        "path": []
+      }
+    },
+    "start_nan": {
+      "input": {
+        "startVertex": {
+          "type": "number",
+          "representation": "NaN"
+        },
+        "targetVertex": {
+          "type": "string",
+          "representation": "\"b\""
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "NaN",
+        "targetVertex": "b",
+        "reachable": false,
+        "distances": [],
+        "path": []
+      }
+    },
+    "target_object": {
+      "input": {
+        "startVertex": {
+          "type": "string",
+          "representation": "\"a\""
+        },
+        "targetVertex": {
+          "type": "object",
+          "representation": "{\"x\":1}"
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "a",
+        "targetVertex": "[object Object]",
+        "reachable": false,
+        "distances": [
+          [
+            "a",
+            0
+          ],
+          [
+            "b",
+            1
+          ]
+        ],
+        "path": []
+      }
+    },
+    "target_boolean": {
+      "input": {
+        "startVertex": {
+          "type": "string",
+          "representation": "\"a\""
+        },
+        "targetVertex": {
+          "type": "boolean",
+          "representation": "true"
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "a",
+        "targetVertex": "true",
+        "reachable": false,
+        "distances": [
+          [
+            "a",
+            0
+          ],
+          [
+            "b",
+            1
+          ]
+        ],
+        "path": []
+      }
+    },
+    "target_nan": {
+      "input": {
+        "startVertex": {
+          "type": "string",
+          "representation": "\"a\""
+        },
+        "targetVertex": {
+          "type": "number",
+          "representation": "NaN"
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "a",
+        "targetVertex": "NaN",
+        "reachable": false,
+        "distances": [
+          [
+            "a",
+            0
+          ],
+          [
+            "b",
+            1
+          ]
+        ],
+        "path": []
+      }
+    },
+    "target_null_no_target": {
+      "input": {
+        "startVertex": {
+          "type": "string",
+          "representation": "\"a\""
+        },
+        "targetVertex": {
+          "type": "null",
+          "representation": "null"
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "a",
+        "targetVertex": null,
+        "reachable": null,
+        "distances": [
+          [
+            "a",
+            0
+          ],
+          [
+            "b",
+            1
+          ]
+        ],
+        "path": []
+      }
+    },
+    "target_undefined_no_target": {
+      "input": {
+        "startVertex": {
+          "type": "string",
+          "representation": "\"a\""
+        },
+        "targetVertex": {
+          "type": "undefined",
+          "representation": "undefined"
+        }
+      },
+      "outcome": "returned",
+      "value": {
+        "startVertex": "a",
+        "targetVertex": null,
+        "reachable": null,
+        "distances": [
+          [
+            "a",
+            0
+          ],
+          [
+            "b",
+            1
+          ]
+        ],
+        "path": []
+      }
+    }
+  },
+  "findings": {
+    "objectVertexSilentlyCoerced": true,
+    "booleanVertexSilentlyCoerced": true,
+    "nullHyperedgeIdSynthesized": true,
+    "objectHyperedgeIdSilentlyCoerced": true,
+    "invalidStartObjectSilentlyCoerced": true,
+    "invalidTargetObjectSilentlyCoerced": true,
+    "unsupportedFamiliesNotUniformlyRejectedBeforeCoercion": true
+  }
+}
