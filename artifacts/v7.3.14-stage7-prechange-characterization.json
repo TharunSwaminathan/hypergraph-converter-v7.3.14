@@ -1,0 +1,342 @@
+{
+  "stage": 7,
+  "kind": "performance_lazy_workers_trace_prechange_characterization",
+  "parentCommit": "f93bb322a7cfca06123e12148850fc5278ef3726",
+  "productionState": "exact_approved_stage6_corrective_parent_before_stage7_production_edits",
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64",
+    "os": "Windows_NT 10.0.26200",
+    "cpu": "Intel(R) Core(TM) Ultra 5 225F",
+    "logicalCpuCount": 10,
+    "totalMemoryBytes": 33847996416
+  },
+  "sourceEvidence": {
+    "eagerBuildersOnGraphChange": {
+      "buildH2V": true,
+      "buildV2H": true,
+      "buildCSR": true,
+      "computeStats": true,
+      "expH2V": true,
+      "expV2H": true,
+      "h2vRows": true,
+      "v2hRows": true
+    },
+    "requestGatedBeforeStage7": {
+      "h2h": true,
+      "v2v": true
+    },
+    "matrixInnerMembershipScan": true
+  },
+  "faithfulCurrentLoadSeam": {
+    "explanation": "Calls the exact production builders and row/text expressions currently wired unconditionally from finalHes in App.jsx.",
+    "ordinary": {
+      "graph": {
+        "hyperedges": 2,
+        "vertices": 4,
+        "incidences": 5
+      },
+      "builders": {
+        "buildH2V": {
+          "executed": true,
+          "elapsedMs": 0.0409000000000006,
+          "heapDeltaBytesObserved": 6784,
+          "retainedItems": 2
+        },
+        "buildV2H": {
+          "executed": true,
+          "elapsedMs": 0.10089999999999577,
+          "heapDeltaBytesObserved": 7432,
+          "retainedItems": 4
+        },
+        "buildCSR": {
+          "executed": true,
+          "elapsedMs": 0.09250000000000114,
+          "heapDeltaBytesObserved": 9968,
+          "vertices": 4,
+          "hyperedges": 2,
+          "offsets": 3,
+          "indices": 5
+        },
+        "computeStats": {
+          "executed": true,
+          "elapsedMs": 5.539500000000004,
+          "heapDeltaBytesObserved": 39376,
+          "vertices": 4,
+          "hyperedges": 2,
+          "cardinalityValues": 2,
+          "degreeValues": 4
+        },
+        "expH2V": {
+          "executed": true,
+          "elapsedMs": 0.027300000000003877,
+          "heapDeltaBytesObserved": 2520,
+          "characters": 20
+        },
+        "expV2H": {
+          "executed": true,
+          "elapsedMs": 0.01630000000000109,
+          "heapDeltaBytesObserved": 2360,
+          "characters": 27
+        },
+        "h2vRows": {
+          "executed": true,
+          "elapsedMs": 0.018799999999998818,
+          "heapDeltaBytesObserved": 1944,
+          "retainedItems": 2
+        },
+        "v2hRows": {
+          "executed": true,
+          "elapsedMs": 0.013800000000003365,
+          "heapDeltaBytesObserved": 1984,
+          "retainedItems": 4
+        }
+      }
+    },
+    "LargeSparse": {
+      "graph": {
+        "hyperedges": 10000,
+        "vertices": 10001,
+        "incidences": 20000
+      },
+      "builders": {
+        "buildH2V": {
+          "executed": true,
+          "elapsedMs": 0.43359999999999843,
+          "heapDeltaBytesObserved": 1312728,
+          "retainedItems": 10000
+        },
+        "buildV2H": {
+          "executed": true,
+          "elapsedMs": 5.381999999999998,
+          "heapDeltaBytesObserved": 6652568,
+          "retainedItems": 10001
+        },
+        "buildCSR": {
+          "executed": true,
+          "elapsedMs": 4.422399999999996,
+          "heapDeltaBytesObserved": -1275176,
+          "vertices": 10001,
+          "hyperedges": 10000,
+          "offsets": 10001,
+          "indices": 20000
+        },
+        "computeStats": {
+          "executed": true,
+          "elapsedMs": 16.356500000000004,
+          "heapDeltaBytesObserved": 14383280,
+          "vertices": 10001,
+          "hyperedges": 10000,
+          "cardinalityValues": 10000,
+          "degreeValues": 10001
+        },
+        "expH2V": {
+          "executed": true,
+          "elapsedMs": 0.9532000000000096,
+          "heapDeltaBytesObserved": 1626632,
+          "characters": 196673
+        },
+        "expV2H": {
+          "executed": true,
+          "elapsedMs": 0.969300000000004,
+          "heapDeltaBytesObserved": 1558256,
+          "characters": 196676
+        },
+        "h2vRows": {
+          "executed": true,
+          "elapsedMs": 1.7329000000000008,
+          "heapDeltaBytesObserved": -8763784,
+          "retainedItems": 10000
+        },
+        "v2hRows": {
+          "executed": true,
+          "elapsedMs": 0.5726999999999975,
+          "heapDeltaBytesObserved": 1465856,
+          "retainedItems": 10001
+        }
+      }
+    },
+    "invocationCounts": {
+      "buildH2V": 2,
+      "buildV2H": 2,
+      "buildCSR": 2,
+      "computeStats": 2,
+      "expH2V": 2,
+      "expV2H": 2,
+      "h2vRows": 2,
+      "v2hRows": 2,
+      "buildH2HBounded": 1,
+      "buildV2VBounded": 3,
+      "expMatrixResult": 3
+    }
+  },
+  "requestGating": {
+    "initialMappingsH2V": {
+      "h2hRequested": false,
+      "v2vRequested": false
+    },
+    "h2hSelected": {
+      "elapsedMs": 5.2361000000000075,
+      "heapDeltaBytesObserved": 424048,
+      "status": "over_budget",
+      "candidatePairWork": null,
+      "uniqueProjectedEdges": null,
+      "supportReferences": null,
+      "edgeCount": null,
+      "exceededResource": null
+    },
+    "v2vSelected": {
+      "elapsedMs": 30.811899999999994,
+      "heapDeltaBytesObserved": -1011608,
+      "status": "computed",
+      "candidatePairWork": 207000,
+      "uniqueProjectedEdges": 1035,
+      "supportReferences": 207000,
+      "edgeCount": 1035,
+      "exceededResource": null
+    }
+  },
+  "denseMatrix": {
+    "200x200": {
+      "dimension": 200,
+      "elapsedMs": 45.391099999999994,
+      "heapDeltaBytesObserved": 12812008,
+      "status": "computed",
+      "cells": 40401,
+      "characters": 81986
+    },
+    "300x300": {
+      "dimension": 300,
+      "elapsedMs": 89.92929999999998,
+      "heapDeltaBytesObserved": 5373664,
+      "status": "computed",
+      "cells": 90601,
+      "characters": 183086
+    },
+    "400x400": {
+      "dimension": 400,
+      "elapsedMs": 205.9453,
+      "heapDeltaBytesObserved": -16571600,
+      "status": "computed",
+      "cells": 160801,
+      "characters": 324186
+    }
+  },
+  "projections": {
+    "DuplicateOverlap": {
+      "elapsedMs": 22.27959999999996,
+      "heapDeltaBytesObserved": 15696224,
+      "status": "computed",
+      "candidatePairWork": 207000,
+      "uniqueProjectedEdges": 1035,
+      "supportReferences": 207000,
+      "edgeCount": 1035,
+      "exceededResource": null
+    },
+    "OneHugeEdge1K": {
+      "elapsedMs": 45.853200000000015,
+      "heapDeltaBytesObserved": 66347968,
+      "status": "over_budget",
+      "candidatePairWork": 200001,
+      "uniqueProjectedEdges": 200001,
+      "supportReferences": 200000,
+      "edgeCount": null,
+      "exceededResource": "uniqueProjectedEdges"
+    }
+  },
+  "traces": {
+    "OneHugeEdge5K": {
+      "bfs": {
+        "elapsedMs": 536.7806,
+        "heapDeltaBytesObserved": 114504464,
+        "visitOrder": 5000,
+        "edgesUsed": 4999,
+        "distances": 5000,
+        "steps": 5000,
+        "retainedReferences": {
+          "visited": 12502500,
+          "frontier": 12497500,
+          "newlyDiscovered": 4999
+        }
+      },
+      "dfs": {
+        "elapsedMs": 2055.6736,
+        "heapDeltaBytesObserved": 187041080,
+        "visitOrder": 5000,
+        "edgesUsed": 4999,
+        "distances": 5000,
+        "steps": 5000,
+        "retainedReferences": {
+          "visited": 12502500,
+          "frontier": 12497500,
+          "newlyDiscovered": 12497500
+        }
+      }
+    },
+    "OneHugeEdge1KFarTargetShortest": {
+      "elapsedMs": 193.25970000000007,
+      "heapDeltaBytesObserved": -2846592,
+      "reachable": true,
+      "distances": 1000,
+      "edgesUsed": 999,
+      "steps": 1000,
+      "retainedReferences": {
+        "visited": 500500,
+        "frontier": 499500,
+        "newlyDiscovered": 999
+      },
+      "metrics": {
+        "hyperedges": 1,
+        "vertices": 1000,
+        "incidences": 1000,
+        "incidenceIndexBuilds": 1,
+        "expandedVertices": 1000,
+        "neighborCandidateEncounters": 999000,
+        "neighborMapsBuilt": 1000,
+        "neighborEntriesProduced": 999000,
+        "maxTransientNeighborEntries": 999,
+        "cachedNeighborEntries": 0,
+        "storedProjectedEdges": 0,
+        "storedGlobalAdjacencyReferences": 0,
+        "elapsedMs": 192.8438000000001
+      }
+    },
+    "LargeSparsePathShortest": {
+      "elapsedMs": 320.7438000000002,
+      "heapDeltaBytesObserved": 42336200,
+      "reachable": true,
+      "distances": 1002,
+      "edgesUsed": 1001,
+      "steps": 1001,
+      "retainedReferences": {
+        "visited": 501501,
+        "frontier": 1001,
+        "newlyDiscovered": 1001
+      },
+      "metrics": {
+        "hyperedges": 10000,
+        "vertices": 10001,
+        "incidences": 20000,
+        "incidenceIndexBuilds": 1,
+        "expandedVertices": 1001,
+        "neighborCandidateEncounters": 2001,
+        "neighborMapsBuilt": 1001,
+        "neighborEntriesProduced": 2001,
+        "maxTransientNeighborEntries": 2,
+        "cachedNeighborEntries": 0,
+        "storedProjectedEdges": 0,
+        "storedGlobalAdjacencyReferences": 0,
+        "elapsedMs": 320.63139999999976
+      }
+    }
+  },
+  "findings": {
+    "c03EagerDerivedProductsReproduced": true,
+    "c03H2HAndV2VAlreadyRequestGated": true,
+    "c04NestedMatrixMembershipScanReproduced": true,
+    "c05DuplicateProjectionMeasurable": true,
+    "s4Obs01BfsQuadraticReferences": true,
+    "s4Obs01DfsQuadraticReferences": true,
+    "stage6ShortestTraceAmplification": true
+  }
+}
