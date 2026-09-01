@@ -28,7 +28,7 @@ function ConnectedComponentsResult({ result }) {
 }
 
 function TraversalResult({ algo, result }) {
-  const step = result.steps?.[algo.animation.stepIndex];
+  const step = algo.animation.currentStep;
   const visitedSoFar = step ? step.visited : result.visitOrder;
   return (
     <div>
@@ -62,7 +62,7 @@ function TraversalResult({ algo, result }) {
 }
 
 function ShortestPathResult({ algo, result }) {
-  const step = result.steps?.[algo.animation.stepIndex];
+  const step = algo.animation.currentStep;
   const finalizedSoFar = step ? step.visited : [...result.distances.keys()];
   return (
     <div>

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ALGORITHM_REGISTRY, getAlgorithm } from "../algorithms/registry.js";
 import { getAllVertices } from "../algorithms/graphModel.js";
 import { PALETTE } from "../theme.js";
+import { materializeTraceStep } from "../algorithms/compactTrace.js";
 
 const ANIMATION_STEP_MS = 500;
 
@@ -75,6 +76,10 @@ export function useAlgorithms(hyperedges) {
   }, [runToken, hyperedges, algorithm, startVertex, targetVertex]);
 
   const totalSteps = result?.steps?.length ?? 0;
+  const currentStep = useMemo(() => {
+    if (!result?.steps?.length) return null;
+    return materializeTraceStep(result.steps, Math.min(stepIndex, totalSteps - 1)) ?? null;
+  }, [result, stepIndex, totalSteps]);
 
   const play = useCallback(() => {
     if (!algorithm?.supportsAnimation || !result?.steps?.length) return;
@@ -104,7 +109,7 @@ export function useAlgorithms(hyperedges) {
 
   const highlight = useMemo(() => {
     if (!result || !algorithm?.supportsAnimation) return null;
-    const step = result.steps?.[Math.min(stepIndex, totalSteps - 1)];
+    const step = currentStep;
     if (!step) return null;
     return {
       visitedVertices: new Set(step.visited),
@@ -112,7 +117,7 @@ export function useAlgorithms(hyperedges) {
       currentVertex: step.current,
       edgesUsed: result.edgesUsed.filter(e => step.visited.includes(e.to)),
     };
-  }, [result, algorithm, stepIndex, totalSteps]);
+  }, [result, algorithm, currentStep]);
 
   const componentColors = useMemo(() => {
     if (!result) return null;
@@ -153,6 +158,7 @@ export function useAlgorithms(hyperedges) {
       isPlaying,
       stepIndex: Math.min(stepIndex, Math.max(totalSteps - 1, 0)),
       totalSteps,
+      currentStep,
       play,
       pause,
       stepForward,

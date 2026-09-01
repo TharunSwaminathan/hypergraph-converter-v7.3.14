@@ -395,8 +395,9 @@ export function estimateMatrixExport(hes) {
 
 function expMatrixWithinBudget(hes) {
   const allV = [...new Set(hes.flatMap(h => h.vertices.map(String)))].sort(vcmp);
+  const membershipByHyperedge = hes.map(h => new Set(h.vertices.map(String)));
   const rows = [["vertex", ...hes.map(h => h.id)]];
-  allV.forEach(v => rows.push([v, ...hes.map(h => h.vertices.map(String).includes(v) ? "1" : "0")]));
+  allV.forEach(v => rows.push([v, ...membershipByHyperedge.map(members => members.has(v) ? "1" : "0")]));
   return csvDocument(rows);
 }
 

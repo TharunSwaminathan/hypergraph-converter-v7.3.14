@@ -1,5 +1,7 @@
 export const DERIVED_STATUS = Object.freeze({
   NOT_REQUESTED: "not_requested",
+  COMPUTING: "computing",
+  CANCELLED: "cancelled",
   COMPUTED: "computed",
   OVER_BUDGET: "over_budget",
   RESOURCE_LIMITED: "over_budget",
@@ -53,6 +55,26 @@ export function notRequestedDerived(type, details = {}) {
     limits: details.limits ?? null,
     ...withoutDiscriminatorOverrides(details),
     reason: details.reason ?? "not requested",
+  };
+}
+
+export function computingDerived(type, details = {}) {
+  return {
+    type,
+    status: DERIVED_STATUS.COMPUTING,
+    value: null,
+    ...withoutDiscriminatorOverrides(details),
+    reason: details.reason ?? "computing exact result",
+  };
+}
+
+export function cancelledDerived(type, details = {}) {
+  return {
+    type,
+    status: DERIVED_STATUS.CANCELLED,
+    value: null,
+    ...withoutDiscriminatorOverrides(details),
+    reason: details.reason ?? "request cancelled",
   };
 }
 

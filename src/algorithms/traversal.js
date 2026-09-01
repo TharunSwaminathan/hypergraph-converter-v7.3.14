@@ -1,3 +1,5 @@
+import { createCompactTraceSteps } from "./compactTrace.js";
+
 // A single generic traversal used by both BFS and DFS. The only difference
 // between breadth-first and depth-first search is whether the next vertex
 // comes off the front (queue) or the back (stack) of the frontier — so that
@@ -80,7 +82,8 @@ function traverseBfs(neighborsFor, start) {
   const visitOrder = [];
   const edgesUsed = [];
   const distances = new Map([[start, 0]]);
-  const steps = [];
+  const discoveredThrough = [];
+  const newlyByStep = [];
   const visited = new Set([start]);
   const queue = [start];
 
@@ -98,9 +101,27 @@ function traverseBfs(neighborsFor, start) {
       newlyDiscovered.push(neighbor);
     }
 
-    steps.push({ visited: [...visitOrder], frontier: [...queue], current, newlyDiscovered });
+    newlyByStep.push(newlyDiscovered);
+    discoveredThrough.push(visitOrder.length + queue.length);
   }
 
+  const steps = createCompactTraceSteps({
+    length: visitOrder.length,
+    storage: {
+      mode: "bfs",
+      scalarRecords: discoveredThrough.length,
+      deltaReferences: newlyByStep.reduce((sum, values) => sum + values.length, 0),
+      retainedFullStepSnapshots: 0,
+    },
+    materialize(index) {
+      return {
+        visited: visitOrder.slice(0, index + 1),
+        frontier: visitOrder.slice(index + 1, discoveredThrough[index]),
+        current: visitOrder[index],
+        newlyDiscovered: [...newlyByStep[index]],
+      };
+    },
+  });
   return { visitOrder, edgesUsed, distances, steps };
 }
 
@@ -119,7 +140,6 @@ function traverseDfs(neighborsFor, start) {
   const visitOrder = [];
   const edgesUsed = [];
   const distances = new Map();
-  const steps = [];
   const visited = new Set();
   // Each stack entry remembers which vertex discovered it, so the eventual
   // edgesUsed/distances reflect the true DFS tree rather than the first
@@ -150,9 +170,9 @@ function traverseDfs(neighborsFor, start) {
       newlyDiscovered.unshift(neighbor);
     }
 
-    steps.push({ visited: [...visitOrder], frontier: stack.map(entry => entry.vertex), current, newlyDiscovered });
   }
 
+  const steps = createDfsTraceSteps(neighborsFor, start, visitOrder.length, false);
   return { visitOrder, edgesUsed, distances, steps };
 }
 
@@ -197,7 +217,6 @@ function traverseDfsWithUniquePending(neighborsFor, start) {
   const visitOrder = [];
   const edgesUsed = [];
   const distances = new Map();
-  const steps = [];
   const visited = new Set();
   const pending = createLinkedPendingStack();
   pending.push(start, null);
@@ -219,10 +238,100 @@ function traverseDfsWithUniquePending(neighborsFor, start) {
     for (let index = newlyDiscovered.length - 1; index >= 0; index -= 1) {
       pending.push(newlyDiscovered[index], current);
     }
-    steps.push({ visited: [...visitOrder], frontier: pending.values(), current, newlyDiscovered });
   }
 
+  const steps = createDfsTraceSteps(neighborsFor, start, visitOrder.length, true);
   return { visitOrder, edgesUsed, distances, steps };
+}
+
+function createDfsTraceSteps(neighborsFor, start, length, uniquePending) {
+  return createCompactTraceSteps({
+    length,
+    storage: {
+      mode: uniquePending ? "dfs_unique_pending" : "dfs",
+      scalarRecords: length,
+      deltaReferences: 0,
+      retainedFullStepSnapshots: 0,
+    },
+    materialize(index) {
+      return uniquePending
+        ? materializeUniquePendingDfsStep(neighborsFor, start, index)
+        : materializeLegacyDfsStep(neighborsFor, start, index);
+    },
+    iterate(visit) {
+      if (uniquePending) iterateUniquePendingDfsSteps(neighborsFor, start, visit);
+      else iterateLegacyDfsSteps(neighborsFor, start, visit);
+    },
+  });
+}
+
+function materializeLegacyDfsStep(neighborsFor, start, targetIndex) {
+  let requested;
+  iterateLegacyDfsSteps(neighborsFor, start, (step, index) => {
+    if (index === targetIndex) requested = step;
+  }, targetIndex);
+  return requested;
+}
+
+function iterateLegacyDfsSteps(neighborsFor, start, visit, stopAfter = Infinity) {
+  const visited = new Set();
+  const visitOrder = [];
+  const stack = [{ vertex: start, parent: null }];
+  while (stack.length > 0) {
+    const { vertex: current } = stack.pop();
+    if (visited.has(current)) continue;
+    visited.add(current);
+    visitOrder.push(current);
+    const newlyDiscovered = [];
+    const neighbors = neighborsFor(current);
+    for (let index = neighbors.length - 1; index >= 0; index -= 1) {
+      const neighbor = neighbors[index];
+      if (visited.has(neighbor)) continue;
+      stack.push({ vertex: neighbor, parent: current });
+      newlyDiscovered.unshift(neighbor);
+    }
+    const index = visitOrder.length - 1;
+    visit({
+      visited: [...visitOrder],
+      frontier: stack.map(entry => entry.vertex),
+      current,
+      newlyDiscovered,
+    }, index);
+    if (index >= stopAfter) return;
+  }
+}
+
+function materializeUniquePendingDfsStep(neighborsFor, start, targetIndex) {
+  let requested;
+  iterateUniquePendingDfsSteps(neighborsFor, start, (step, index) => {
+    if (index === targetIndex) requested = step;
+  }, targetIndex);
+  return requested;
+}
+
+function iterateUniquePendingDfsSteps(neighborsFor, start, visit, stopAfter = Infinity) {
+  const visited = new Set();
+  const visitOrder = [];
+  const pending = createLinkedPendingStack();
+  pending.push(start, null);
+  while (pending.size > 0) {
+    const { vertex: current } = pending.pop();
+    if (visited.has(current)) continue;
+    visited.add(current);
+    visitOrder.push(current);
+    const newlyDiscovered = neighborsFor(current).filter(neighbor => !visited.has(neighbor));
+    for (let index = newlyDiscovered.length - 1; index >= 0; index -= 1) {
+      pending.push(newlyDiscovered[index], current);
+    }
+    const index = visitOrder.length - 1;
+    visit({
+      visited: [...visitOrder],
+      frontier: pending.values(),
+      current,
+      newlyDiscovered,
+    }, index);
+    if (index >= stopAfter) return;
+  }
 }
 
 function createLinkedPendingStack() {

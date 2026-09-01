@@ -17,9 +17,9 @@ export function StatCard({ label, value, color }) {
     </div>
   );
 }
-export function MappingBox({ title, color, text, rows, cols }) {
-  const visibleRows = rows.slice(0, 500);
-  const hiddenCount = Math.max(0, rows.length - visibleRows.length);
+export function MappingBox({ title, color, text, rows, totalRows = rows.length, cols }) {
+  const visibleRows = rows;
+  const hiddenCount = Math.max(0, totalRows - visibleRows.length);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ fontSize: 15, fontWeight: 700, color, marginBottom: 8, fontFamily: "monospace" }}>{title}</div>

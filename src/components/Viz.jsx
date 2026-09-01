@@ -1,7 +1,10 @@
 ﻿import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { T, PALETTE } from "../theme.js";
 import { vcmp } from "../utils/parsers.js";
-import { buildV2VBounded, DERIVED_STATUS } from "../utils/mappings.js";
+import { DERIVED_STATUS } from "../utils/mappings.js";
+import { createDerivedProductCache } from "../derived/derivedProductCache.js";
+import { DERIVED_OPERATIONS } from "../derived/derivedOperations.js";
+import { useAsyncDerivedProduct } from "../hooks/useAsyncDerivedProduct.js";
 import {
   createGraphIdentifierMap,
   getGraphIdentifierValue,
@@ -41,6 +44,7 @@ export default function Viz({
   reheatSignal = 0,
   exportPngSignal = 0,
   onSelectionChange,
+  graphVersion = 0,
 }) {
   const canvasRef = useRef(null); const containerRef = useRef(null); const stateRef = useRef(null);
   const schedulerRef = useRef(null); const requestDrawRef = useRef(() => false);
@@ -74,7 +78,17 @@ export default function Viz({
   const topology = useMemo(() => buildPreviewTopology(he), [he]);
   const verts = topology.vertices;
   // Exact analytical projection belongs only to Line Graph mode.
-  const v2vProjection = useMemo(() => viewMode === "linegraph" ? buildV2VBounded(he) : { status: DERIVED_STATUS.NOT_REQUESTED, edges: [], reason: "Hypergraph view does not require V2V clique edges." }, [he, viewMode]);
+  const [lineGraphCache] = useState(createDerivedProductCache);
+  const lineGraphRequest = useAsyncDerivedProduct({
+    enabled: viewMode === "linegraph",
+    graphVersion,
+    graphIdentity: he,
+    operationType: DERIVED_OPERATIONS.LINE_GRAPH,
+    options: { vizLimit },
+    hyperedges: he,
+    cache: lineGraphCache,
+  });
+  const v2vProjection = lineGraphRequest.result;
   const lineGraphVisual = useMemo(() => selectLineGraphVisualEdges(
     v2vProjection.status === DERIVED_STATUS.COMPUTED ? v2vProjection.edges : [],
   ), [v2vProjection]);
@@ -383,6 +397,16 @@ export default function Viz({
           {viewMode === "linegraph" && v2vProjection.status === DERIVED_STATUS.OVER_BUDGET && (
             <div style={{ position: "absolute", left: 16, top: 16, right: 16, background: "rgba(255,255,255,0.96)", border: "1px solid " + T.amber + "66", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: T.textDim, boxShadow: "0 4px 16px rgba(0,0,0,0.08)" }}>
               <strong style={{ color: T.amber }}>Line Graph not computed.</strong> {v2vProjection.reason}
+            </div>
+          )}
+          {viewMode === "linegraph" && v2vProjection.status === DERIVED_STATUS.COMPUTING && (
+            <div role="status" style={{ position: "absolute", left: 16, top: 16, right: 16, background: "rgba(255,255,255,0.96)", border: "1px solid " + T.accent + "66", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: T.textDim, boxShadow: "0 4px 16px rgba(0,0,0,0.08)" }}>
+              <strong style={{ color: T.accent }}>Computing exact Line Graph…</strong> You can switch back to Hypergraph to cancel this request.
+            </div>
+          )}
+          {viewMode === "linegraph" && [DERIVED_STATUS.ERROR, DERIVED_STATUS.CANCELLED].includes(v2vProjection.status) && (
+            <div role="alert" style={{ position: "absolute", left: 16, top: 16, right: 16, background: "rgba(255,255,255,0.96)", border: "1px solid " + T.rose + "66", borderRadius: 10, padding: "10px 14px", fontSize: 13, color: T.textDim }}>
+              <strong style={{ color: T.rose }}>Line Graph unavailable.</strong> {v2vProjection.reason}
             </div>
           )}
           {viewMode === "linegraph" && v2vProjection.status === DERIVED_STATUS.COMPUTED && !lineGraphVisual.complete && (

@@ -5,6 +5,7 @@ import {
   normalizedHyperedgeWeight,
   PROJECTION_WEIGHT_POLICIES,
 } from "./projection.js";
+import { createCompactTraceSteps } from "./compactTrace.js";
 
 const DEFAULT_WEIGHT = 1;
 
@@ -71,7 +72,9 @@ function executeShortestPath(hyperedges, { startVertex, targetVertex = null } = 
   const previous = new Map();
   const visited = new Set();
   const unvisited = new Set(vertices);
-  const steps = [];
+  const finalizedOrder = [];
+  const relaxedByStep = [];
+  const firstDiscoveredStep = new Map([[start, -1]]);
 
   while (unvisited.size > 0) {
     let current = null;
@@ -87,6 +90,7 @@ function executeShortestPath(hyperedges, { startVertex, targetVertex = null } = 
 
     unvisited.delete(current);
     visited.add(current);
+    finalizedOrder.push(current);
     metrics.expandedVertices += 1;
 
     const relaxed = [];
@@ -97,18 +101,14 @@ function executeShortestPath(hyperedges, { startVertex, targetVertex = null } = 
       const known = distances.has(neighbor) ? distances.get(neighbor) : Infinity;
       // Strict inequality is part of the frozen predecessor/tie contract.
       if (candidate < known) {
+        if (!distances.has(neighbor)) firstDiscoveredStep.set(neighbor, finalizedOrder.length - 1);
         distances.set(neighbor, candidate);
         previous.set(neighbor, current);
         relaxed.push(neighbor);
       }
     }
 
-    steps.push({
-      visited: [...visited],
-      frontier: [...unvisited].filter(vertex => distances.has(vertex)),
-      current,
-      newlyDiscovered: relaxed,
-    });
+    relaxedByStep.push(relaxed);
 
     // Intentionally remains after relaxation/step capture: target==start has
     // this established behavior in the approved pre-change contract.
@@ -127,6 +127,25 @@ function executeShortestPath(hyperedges, { startVertex, targetVertex = null } = 
   }
 
   const edgesUsed = [...previous.entries()].map(([to, from]) => ({ from, to }));
+  const steps = createCompactTraceSteps({
+    length: finalizedOrder.length,
+    storage: {
+      mode: "shortest_path",
+      scalarRecords: finalizedOrder.length + firstDiscoveredStep.size,
+      deltaReferences: relaxedByStep.reduce((sum, values) => sum + values.length, 0),
+      retainedFullStepSnapshots: 0,
+    },
+    materialize(stepIndex) {
+      const finalized = new Set(finalizedOrder.slice(0, stepIndex + 1));
+      return {
+        visited: finalizedOrder.slice(0, stepIndex + 1),
+        frontier: vertices.filter(vertex => !finalized.has(vertex)
+          && (firstDiscoveredStep.get(vertex) ?? Infinity) <= stepIndex),
+        current: finalizedOrder[stepIndex],
+        newlyDiscovered: [...relaxedByStep[stepIndex]],
+      };
+    },
+  });
   const result = {
     algorithm: "shortest_path",
     startVertex: start,

@@ -9,11 +9,22 @@ import { normalizeParsedHyperedges, autoDetect, parseInputFormat } from "./utils
 import { arrayMax } from "./utils/numeric.js";
 import { parseBatchUpdates, applyBatchUpdates, batchUpdatesToMutationOperations } from "./utils/batchUpdates.js";
 import {
-  buildH2V, buildV2H, buildH2HBounded, buildV2VBounded, buildCSR,
-  expH2V, expV2H, expH2HResult, expH2HAvailabilityResult, expV2V, expIncidence, expBipartite, expClique, expMatrixResult, expCSRCsv, expCanonicalJSON,
+  buildH2V, buildV2H, buildCSR,
+  expH2V, expV2H, expH2HResult, expH2HAvailabilityResult, expIncidence, expBipartite, expClique, expCSRCsv, expCanonicalJSON,
   computeStats, countTriadsBounded, validateHes, notRequestedDerived, DERIVED_STATUS,
 } from "./utils/mappings.js";
-import { shouldRequestH2H, shouldRequestV2V } from "./utils/derivedRequests.js";
+import {
+  shouldRequestCSR,
+  shouldRequestH2H,
+  shouldRequestH2V,
+  shouldRequestMatrix,
+  shouldRequestV2H,
+  shouldRequestV2V,
+} from "./utils/derivedRequests.js";
+import { createDerivedProductCache } from "./derived/derivedProductCache.js";
+import { DERIVED_OPERATIONS } from "./derived/derivedOperations.js";
+import { buildMappingPresentation } from "./derived/mappingPresentation.js";
+import { useAsyncDerivedProduct } from "./hooks/useAsyncDerivedProduct.js";
 import {
   buildAiPrompt, DEFAULT_CUSTOM_PARSER, runCustomParser,
   buildBatchCustomParserTemplate, normalizeCustomParserOutput,
@@ -173,6 +184,7 @@ const EX = {
 };
 
 const EMPTY_FILES = Object.freeze([]);
+const EMPTY_DERIVED_ROWS = Object.freeze([]);
 
 // App
 function AppCore() {
@@ -3573,31 +3585,70 @@ function AppCore() {
 
   const algo = useAlgorithms(finalHes);
 
-  const h2v = useMemo(() => finalHes ? buildH2V(finalHes) : [], [finalHes]);
-  const v2h = useMemo(() => finalHes ? buildV2H(finalHes) : [], [finalHes]);
+  const [derivedCache] = useState(createDerivedProductCache);
+  derivedCache.activateGraph(graphVersion, finalHes);
+
+  const requestContext = { activeSection, selectedMappingId, expId };
+  const h2vRequested = shouldRequestH2V(requestContext);
+  const v2hRequested = shouldRequestV2H(requestContext);
   const h2hRequested = shouldRequestH2H({ activeSection, selectedMappingId, expId });
   const v2vRequested = shouldRequestV2V({ activeSection, selectedMappingId, expId });
-  const h2hResult = useMemo(() => finalHes && h2hRequested ? buildH2HBounded(finalHes) : notRequestedDerived("h2h"), [finalHes, h2hRequested]);
-  const v2vResult = useMemo(() => finalHes && v2vRequested ? buildV2VBounded(finalHes) : notRequestedDerived("v2v"), [finalHes, v2vRequested]);
+  const csrRequested = shouldRequestCSR(requestContext);
+  const matrixRequested = shouldRequestMatrix(requestContext);
+  const h2v = finalHes && h2vRequested
+    ? derivedCache.getOrCompute("h2v", {}, () => buildH2V(finalHes))
+    : EMPTY_DERIVED_ROWS;
+  const v2h = finalHes && v2hRequested
+    ? derivedCache.getOrCompute("v2h", {}, () => buildV2H(finalHes))
+    : EMPTY_DERIVED_ROWS;
+  const csr = finalHes && csrRequested
+    ? derivedCache.getOrCompute("csr", {}, () => buildCSR(finalHes))
+    : null;
+  const h2hRequest = useAsyncDerivedProduct({
+    enabled: Boolean(finalHes && h2hRequested),
+    graphVersion,
+    graphIdentity: finalHes,
+    operationType: DERIVED_OPERATIONS.H2H,
+    hyperedges: finalHes,
+    cache: derivedCache,
+  });
+  const v2vRequest = useAsyncDerivedProduct({
+    enabled: Boolean(finalHes && v2vRequested),
+    graphVersion,
+    graphIdentity: finalHes,
+    operationType: DERIVED_OPERATIONS.V2V,
+    hyperedges: finalHes,
+    cache: derivedCache,
+  });
+  const matrixRequest = useAsyncDerivedProduct({
+    enabled: Boolean(finalHes && matrixRequested),
+    graphVersion,
+    graphIdentity: finalHes,
+    operationType: DERIVED_OPERATIONS.MATRIX,
+    hyperedges: finalHes,
+    cache: derivedCache,
+  });
+  const h2hResult = finalHes ? h2hRequest.result : notRequestedDerived("h2h");
+  const v2vResult = finalHes ? v2vRequest.result : notRequestedDerived("v2v");
+  const matrixResult = finalHes ? matrixRequest.result : notRequestedDerived("matrix");
   const h2h = useMemo(() => h2hResult.status === DERIVED_STATUS.COMPUTED ? h2hResult.value : [], [h2hResult]);
   const v2v = useMemo(() => v2vResult.status === DERIVED_STATUS.COMPUTED ? v2vResult.edges : [], [v2vResult]);
-  const csr = useMemo(() => finalHes ? buildCSR(finalHes) : null, [finalHes]);
   const st = useMemo(() => finalHes ? computeStats(finalHes) : null, [finalHes]);
-  const ht = useMemo(() => expH2V(h2v), [h2v]);
-  const vt = useMemo(() => expV2H(v2h), [v2h]);
-  const h2hExportResult = useMemo(
-    () => h2hResult.status === DERIVED_STATUS.COMPUTED
-      ? { ...expH2HResult(h2h), status: h2hResult.status }
-      : expH2HAvailabilityResult(h2h, { status: h2hResult.status, reason: h2hResult.reason }),
-    [h2h, h2hResult.reason, h2hResult.status],
-  );
-  const ht2 = h2hExportResult.text;
-  const vvt = useMemo(() => v2vResult.status === DERIVED_STATUS.COMPUTED ? expV2V(v2v) : `# V2V projection not computed.\n# ${v2vResult.reason ?? "Open the Mappings tab to request it."}`, [v2v, v2vResult]);
-
-  const h2vRows = h2v.map(r => [r.hid, r.time ?? "—", r.vertices.join(", "), r.weight != null && r.weight !== 1 ? r.weight : "1", String(r.vertices.length)]);
-  const v2hRows = v2h.map(r => [String(r.vid), r.hyperedges.join(", "), String(r.hyperedges.length)]);
-  const h2hRows = h2h.map(r => [r.hid, r.neighbors.length ? r.neighbors.map((n, i) => n + "[" + r.sharedVertices[i].join(",") + "]").join("  ") : "—", String(r.neighbors.length)]);
-  const v2vRows = v2v.map(r => [String(r.src), String(r.dst), r.hyperedges.join(", "), String(r.weight)]);
+  const selectedMappingPresentation = useMemo(() => {
+    const input = {
+      h2v: { data: h2v, status: h2vRequested ? DERIVED_STATUS.COMPUTED : DERIVED_STATUS.NOT_REQUESTED, reason: "not requested" },
+      v2h: { data: v2h, status: v2hRequested ? DERIVED_STATUS.COMPUTED : DERIVED_STATUS.NOT_REQUESTED, reason: "not requested" },
+      h2h: { data: h2h, status: h2hResult.status, reason: h2hResult.reason },
+      v2v: { data: v2v, status: v2vResult.status, reason: v2vResult.reason },
+    }[selectedMappingId];
+    return buildMappingPresentation(selectedMappingId, input.data, input);
+  }, [h2h, h2hResult.reason, h2hResult.status, h2v, h2vRequested, selectedMappingId, v2h, v2hRequested, v2v, v2vResult.reason, v2vResult.status]);
+  const selectedMappingConfig = {
+    h2v: { title: "h2v", color: T.accent, cols: ["ID", "Time", "Vertices", "Weight", "Card."] },
+    v2h: { title: "v2h", color: T.teal, cols: ["Vertex", "Hyperedges", "Degree"] },
+    h2h: { title: "h2h", color: T.amber, cols: ["Hyperedge", "Neighbors [shared]", "Degree"] },
+    v2v: { title: "v2v", color: T.purple, cols: ["Vertex A", "Vertex B", "Shared", "Weight"] },
+  }[selectedMappingId];
 
   const graphResultSummary = useMemo(() => {
     if (!finalHes?.length || !st) return null;
@@ -3674,22 +3725,110 @@ function AppCore() {
     setParserProfileNotice("Parser profiles exported locally.");
   }
 
+  const h2hExportResult = activeSection === "export" && expId === "h2h_txt" && h2hResult.status === DERIVED_STATUS.COMPUTED
+    ? derivedCache.getOrCompute("export_result:h2h", {}, () => ({ ...expH2HResult(h2h), status: h2hResult.status }))
+    : expH2HAvailabilityResult(h2h, { status: h2hResult.status, reason: h2hResult.reason });
+
   const EXPORTS = useMemo(() => [
-    { id: "h2v_txt", label: "h2v text", fn: "h2v.txt", text: () => ht },
-    { id: "v2h_txt", label: "v2h text", fn: "v2h.txt", text: () => vt },
-    { id: "h2h_txt", label: "h2h text", fn: "h2h.txt", text: () => ht2, result: () => h2hExportResult },
-    { id: "canonical", label: "Canonical JSON", fn: "canonical.json", text: () => expCanonicalJSON(finalHes ?? [], { fmt }, { v2vResult }) },
-    { id: "incidence", label: "Incidence CSV", fn: "incidence.csv", text: () => expIncidence(finalHes ?? []) },
-    { id: "bipartite", label: "Bipartite CSV", fn: "bipartite.csv", text: () => expBipartite(finalHes ?? []) },
-    { id: "clique", label: "Clique CSV", fn: "clique.csv", text: () => expClique(finalHes ?? [], { v2vResult }) },
-    { id: "matrix", label: "Matrix CSV", fn: "incidence_matrix.csv", text: () => expMatrixResult(finalHes ?? []).text },
-    { id: "csr_json", label: "CSR JSON", fn: "csr.json", text: () => JSON.stringify(csr, null, 2) },
-    { id: "csr_csv", label: "CSR CSV", fn: "csr.csv", text: () => expCSRCsv(csr) },
-    { id: "full_json", label: "Full JSON", fn: "hypergraph.json", text: () => JSON.stringify({ metadata: { E: st?.E, V: st?.V, h2hStatus: h2hResult.status, h2hReason: h2hResult.reason }, hyperedges: finalHes, h2v, v2h, h2h: h2hResult.status === DERIVED_STATUS.COMPUTED ? h2h : null }, null, 2) },
-    { id: "all_txt", label: "All mappings", fn: "all_mappings.txt", text: () => [ht, vt, ht2].join("\n\n---\n\n") },
-  ], [csr, finalHes, fmt, h2h, h2hExportResult, h2hResult, h2v, ht, ht2, st, v2h, vt, v2vResult]);
+    { id: "h2v_txt", label: "h2v text", fn: "h2v.txt" },
+    { id: "v2h_txt", label: "v2h text", fn: "v2h.txt" },
+    { id: "h2h_txt", label: "h2h text", fn: "h2h.txt", result: () => h2hExportResult },
+    { id: "canonical", label: "Canonical JSON", fn: "canonical.json" },
+    { id: "incidence", label: "Incidence CSV", fn: "incidence.csv" },
+    { id: "bipartite", label: "Bipartite CSV", fn: "bipartite.csv" },
+    { id: "clique", label: "Clique CSV", fn: "clique.csv" },
+    { id: "matrix", label: "Matrix CSV", fn: "incidence_matrix.csv" },
+    { id: "csr_json", label: "CSR JSON", fn: "csr.json" },
+    { id: "csr_csv", label: "CSR CSV", fn: "csr.csv" },
+    { id: "full_json", label: "Full JSON", fn: "hypergraph.json" },
+    { id: "all_txt", label: "All mappings", fn: "all_mappings.txt" },
+  ], [h2hExportResult]);
   const curExp = EXPORTS.find(e => e.id === expId) ?? EXPORTS[0];
-  const exportContent = useMemo(() => curExp.text(), [curExp]);
+  const exportResolution = activeSection === "export"
+    ? resolveExport(curExp.id)
+    : exportPending("Open Export to materialize the selected exact output.");
+  const exportContent = exportResolution.text;
+
+  function resolveExport(exportId) {
+    const pending = result => result.status === DERIVED_STATUS.COMPUTING
+      || result.status === DERIVED_STATUS.NOT_REQUESTED;
+    const interrupted = result => result.status === DERIVED_STATUS.CANCELLED
+      || result.status === DERIVED_STATUS.ERROR;
+    const interruptedExport = (label, result) => ({
+      ok: false,
+      pending: false,
+      text: `# ${label} not generated.\n# ${result.reason}`,
+      reason: result.reason,
+    });
+    const cachedText = (id, compute, options = {}) => derivedCache.getOrCompute(`export_text:${id}`, options, compute);
+    switch (exportId) {
+      case "h2v_txt":
+        return exportReady(cachedText(exportId, () => expH2V(h2v)));
+      case "v2h_txt":
+        return exportReady(cachedText(exportId, () => expV2H(v2h)));
+      case "h2h_txt": {
+        if (pending(h2hResult)) return exportPending("Computing exact H2H projection…");
+        if (interrupted(h2hResult)) return interruptedExport("H2H export", h2hResult);
+        return { ok: h2hExportResult.ok, text: h2hExportResult.text, reason: h2hExportResult.reason };
+      }
+      case "canonical":
+        if (pending(v2vResult)) return exportPending("Computing exact V2V projection for Canonical JSON…");
+        if (interrupted(v2vResult)) return interruptedExport("Canonical JSON", v2vResult);
+        return exportReady(cachedText(exportId, () => expCanonicalJSON(finalHes ?? [], { fmt }, { v2vResult }), { fmt }));
+      case "incidence":
+        return exportReady(cachedText(exportId, () => expIncidence(finalHes ?? [])));
+      case "bipartite":
+        return exportReady(cachedText(exportId, () => expBipartite(finalHes ?? [])));
+      case "clique":
+        if (pending(v2vResult)) return exportPending("Computing exact V2V projection for Clique CSV…");
+        if (interrupted(v2vResult)) return interruptedExport("Clique CSV", v2vResult);
+        return exportReady(cachedText(exportId, () => expClique(finalHes ?? [], { v2vResult })));
+      case "matrix":
+        if (pending(matrixResult)) return exportPending("Computing exact indexed Matrix CSV…");
+        if (interrupted(matrixResult)) return interruptedExport("Matrix export", matrixResult);
+        return exportReady(matrixResult.text ?? "");
+      case "csr_json":
+        return exportReady(cachedText(exportId, () => JSON.stringify(csr, null, 2)));
+      case "csr_csv":
+        return exportReady(cachedText(exportId, () => expCSRCsv(csr)));
+      case "full_json": {
+        if (pending(h2hResult)) return exportPending("Computing exact H2H projection for Full JSON…");
+        if (interrupted(h2hResult)) return interruptedExport("Full JSON", h2hResult);
+        return exportReady(cachedText(exportId, () => JSON.stringify({
+          metadata: { E: st?.E, V: st?.V, h2hStatus: h2hResult.status, h2hReason: h2hResult.reason },
+          hyperedges: finalHes,
+          h2v,
+          v2h,
+          h2h: h2hResult.status === DERIVED_STATUS.COMPUTED ? h2h : null,
+        }, null, 2)));
+      }
+      case "all_txt": {
+        if (pending(h2hResult)) return exportPending("Computing exact H2H projection for All mappings…");
+        if (interrupted(h2hResult)) return interruptedExport("All mappings", h2hResult);
+        const h2hText = h2hResult.status === DERIVED_STATUS.COMPUTED
+          ? expH2HResult(h2h).text
+          : expH2HAvailabilityResult(h2h, { status: h2hResult.status, reason: h2hResult.reason }).text;
+        return exportReady(cachedText(exportId, () => [expH2V(h2v), expV2H(v2h), h2hText].join("\n\n---\n\n")));
+      }
+      default:
+        return { ok: false, text: "# Unknown export preview.", reason: "Unknown export preview." };
+    }
+  }
+
+  function exportReady(text) { return { ok: true, text, reason: null, pending: false }; }
+  function exportPending(message) { return { ok: false, text: `# ${message}`, reason: message, pending: true }; }
+
+  function cancelCurrentDerivedExport() {
+    if (curExp.id === "matrix") matrixRequest.cancel("user_cancelled_export");
+    else if (["h2h_txt", "full_json", "all_txt"].includes(curExp.id)) h2hRequest.cancel("user_cancelled_export");
+    else if (["canonical", "clique"].includes(curExp.id)) v2vRequest.cancel("user_cancelled_export");
+  }
+
+  function retryCurrentDerivedExport() {
+    if (curExp.id === "matrix") matrixRequest.restart();
+    else if (["h2h_txt", "full_json", "all_txt"].includes(curExp.id)) h2hRequest.restart();
+    else if (["canonical", "clique"].includes(curExp.id)) v2vRequest.restart();
+  }
 
   function selectGraphViewForAgent(viewMode) {
     if (!["hypergraph", "linegraph"].includes(viewMode)) return { ok: false, error: "Unknown graph view." };
@@ -3736,10 +3875,14 @@ function AppCore() {
     if (!finalHes?.length) return { ok: false, error: "No graph is loaded yet." };
     const selected = EXPORTS.find(item => item.id === exportId);
     if (!selected) return { ok: false, error: "Unknown export preview." };
-    const selectedText = selected.id === expId ? exportContent : selected.text();
-    const resolved = selected.result?.() ?? { ok: true, text: selectedText, reason: null };
-    if (!resolved.ok) return { ok: false, error: resolved.reason ?? "This export is unavailable.", exportId: selected.id };
-    dl(selected.fn, resolved.text ?? selectedText);
+    if (activeSection !== "export" || selected.id !== expId) {
+      setActiveSection("export");
+      setExpId(selected.id);
+      return { ok: false, pending: true, error: "Export selected. Wait for the exact preview to finish, then confirm download again.", exportId: selected.id };
+    }
+    const resolved = selected.result?.() ?? exportResolution;
+    if (!resolved.ok) return { ok: false, pending: resolved.pending, error: resolved.reason ?? "This export is unavailable.", exportId: selected.id };
+    dl(selected.fn, resolved.text);
     return { ok: true, exportId: selected.id, filename: selected.fn };
   }
 
@@ -4879,11 +5022,15 @@ function AppCore() {
                   ))}
                   <span style={{ fontSize: 11, color: T.textFaint }}>H2H/V2V are computed only when selected or exported.</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridAutoRows: "1fr", gap: 16, marginBottom: 16 }}>
-                  <MappingBox title="h2v" color={T.accent} text={ht} rows={h2vRows} cols={["ID", "Time", "Vertices", "Weight", "Card."]} />
-                  <MappingBox title="v2h" color={T.teal} text={vt} rows={v2hRows} cols={["Vertex", "Hyperedges", "Degree"]} />
-                  <MappingBox title="h2h" color={T.amber} text={ht2} rows={h2hRows} cols={["Hyperedge", "Neighbors [shared]", "Degree"]} />
-                  <MappingBox title="v2v" color={T.purple} text={vvt} rows={v2vRows} cols={["Vertex A", "Vertex B", "Shared", "Weight"]} />
+                <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 16, marginBottom: 16 }}>
+                  <MappingBox
+                    title={selectedMappingConfig.title}
+                    color={selectedMappingConfig.color}
+                    text={selectedMappingPresentation.text}
+                    rows={selectedMappingPresentation.rows}
+                    totalRows={selectedMappingPresentation.totalRows}
+                    cols={selectedMappingConfig.cols}
+                  />
                 </div>
               </div>
             )}
@@ -4940,8 +5087,10 @@ function AppCore() {
                 </div>
                 <div style={{ padding: 20 }}>
                   <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
-                    <button onClick={downloadCurrentExport} style={{ padding: "8px 20px", borderRadius: 8, background: T.accent, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>↓ Download {curExp.fn}</button>
-                    <button onClick={() => { navigator.clipboard.writeText(exportContent); showNotice("Copied " + curExp.fn); }} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.border, background: "transparent", color: T.textDim, fontSize: 13, cursor: "pointer" }}>Copy</button>
+                    <button disabled={!exportResolution.ok} onClick={downloadCurrentExport} style={{ padding: "8px 20px", borderRadius: 8, background: exportResolution.ok ? T.accent : T.textFaint, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: exportResolution.ok ? "pointer" : "not-allowed" }}>↓ Download {curExp.fn}</button>
+                    <button disabled={!exportResolution.ok} onClick={() => { navigator.clipboard.writeText(exportContent); showNotice("Copied " + curExp.fn); }} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.border, background: "transparent", color: exportResolution.ok ? T.textDim : T.textFaint, fontSize: 13, cursor: exportResolution.ok ? "pointer" : "not-allowed" }}>Copy</button>
+                    {exportResolution.pending && <button onClick={cancelCurrentDerivedExport} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.amber, background: T.amberLt, color: T.amber, fontSize: 13, cursor: "pointer" }}>Cancel computation</button>}
+                    {!exportResolution.ok && !exportResolution.pending && <button onClick={retryCurrentDerivedExport} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 13, cursor: "pointer" }}>Retry computation</button>}
                   </div>
                   <div style={{ background: T.card, borderRadius: 8, padding: 14, border: "1px solid " + T.border }}>
                     <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .7, marginBottom: 6, fontWeight: 600 }}>Preview</div>
@@ -4972,6 +5121,7 @@ function AppCore() {
               reheatSignal={graphReheatNonce}
               exportPngSignal={graphPngNonce}
               onSelectionChange={handleGraphSelectionChange}
+              graphVersion={graphVersion}
             />
           </div>
         )}
