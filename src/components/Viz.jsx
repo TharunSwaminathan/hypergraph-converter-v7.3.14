@@ -84,7 +84,6 @@ export default function Viz({
     graphVersion,
     graphIdentity: he,
     operationType: DERIVED_OPERATIONS.LINE_GRAPH,
-    options: { vizLimit },
     hyperedges: he,
     cache: lineGraphCache,
   });

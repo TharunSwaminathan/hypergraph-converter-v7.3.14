@@ -56,6 +56,7 @@ assert.equal(presentation.rows[2][3], 0);
 assert.ok(presentation.text.length <= MAPPING_DISPLAY_LIMITS.previewCharacters + largeH2V[0].vertices[0].length + 50);
 
 const appSource = readFileSync(new URL("../src/App.jsx", import.meta.url), "utf8");
+const vizSource = readFileSync(new URL("../src/components/Viz.jsx", import.meta.url), "utf8");
 assert.doesNotMatch(appSource, /const h2v = useMemo\(\(\) => finalHes \? buildH2V/);
 assert.doesNotMatch(appSource, /const v2h = useMemo\(\(\) => finalHes \? buildV2H/);
 assert.doesNotMatch(appSource, /const csr = useMemo\(\(\) => finalHes \? buildCSR/);
@@ -63,5 +64,6 @@ assert.doesNotMatch(appSource, /const h2vRows = h2v\.map/);
 assert.doesNotMatch(appSource, /const v2hRows = v2h\.map/);
 assert.match(appSource, /activeSection === "export"\s*\? resolveExport/);
 assert.equal((appSource.match(/<MappingBox/g) ?? []).length, 1);
+assert.doesNotMatch(vizSource, /operationType:\s*DERIVED_OPERATIONS\.LINE_GRAPH,[\s\S]{0,100}options:\s*\{\s*vizLimit/);
 
 console.log("Stage 7 lazy derived-product, cache invalidation, and bounded presentation gates passed.");
