@@ -1,7 +1,11 @@
 import { bindingMismatch, createStateContextBinding, staleBindingMessage } from "./contextBinding.js";
 import { finishRuntimeTrace } from "./runtimeInstrumentation.js";
 import { evaluateActionContext } from "../actionContextPolicy.js";
-import { authorizeCompiledSideEffect } from "./sideEffectPolicy.js";
+import {
+  authorizeCompiledSideEffect,
+  deriveActualSideEffect,
+  sideEffectIsStateChanging,
+} from "./sideEffectPolicy.js";
 import { analyzeRequestSemantics } from "./requestSemantics.js";
 
 export async function dispatchCompiledAction({
@@ -66,24 +70,54 @@ export async function dispatchCompiledAction({
     return result(Boolean(outcome?.handled ?? true), outcome?.outcome ?? "responded", trace, "completed");
   }
 
+  // The final dispatcher independently derives the side effect from the typed
+  // plan. Caller/model metadata is evidence to validate, never authority.
+  const declaredSideEffectClass = compilation.sideEffectClass ?? "unknown";
+  const actualSideEffect = deriveActualSideEffect(compilation);
+  const actualSideEffectClass = actualSideEffect.sideEffectClass;
+  trace.declaredSideEffectClass = declaredSideEffectClass;
+  trace.actualSideEffectClass = actualSideEffectClass;
+  trace.typedKind = actualSideEffect.typedKind ?? compilation.typedKind ?? null;
+  trace.operationTypes = actualSideEffect.operationTypes;
+
+  if (sideEffectIsStateChanging(actualSideEffectClass)
+    && declaredSideEffectClass !== actualSideEffectClass) {
+    trace.dispatchPath = "deterministic_final_side_effect_gate";
+    trace.blockedSideEffect = actualSideEffectClass;
+    trace.dispatchBlockReason = "side_effect_class_mismatch";
+    trace.authorizationDecision = "read_only_blocked";
+    const outcome = await handlers.blockedSideEffect?.(prepared, query, "side_effect_class_mismatch", {
+      declaredSideEffectClass,
+      actualSideEffectClass,
+      typedKind: actualSideEffect.typedKind,
+      operationTypes: actualSideEffect.operationTypes,
+    });
+    applyOutcomeTrace(trace, outcome);
+    return result(Boolean(outcome?.handled ?? true), outcome?.outcome ?? "responded", trace, "completed");
+  }
+
   // Prepared turns normally carry semantics from the deterministic compiler.
-  // If a legacy/model-produced prepared object omits them, reconstruct the
-  // contract from the original query before allowing any state-changing plan.
-  // The empty-query branch remains a compatibility path for internal callers
-  // that already supplied an explicitly prepared action and no user request.
+  // If an internal/model-produced prepared object omits them, reconstruct the
+  // contract from the original query. An empty query can retain compatibility
+  // only for an actually read-only plan; state-changing plans fail closed.
   const finalSemantics = compilation.requestSemantics
     ?? compilation.diagnostics?.requestSemantics
     ?? prepared?.nlu?.requestSemantics
     ?? (String(query ?? "").trim() ? analyzeRequestSemantics(query) : null);
-  const finalAuthorization = finalSemantics ? authorizeCompiledSideEffect({
+  const finalAuthorization = authorizeCompiledSideEffect({
     semantics: finalSemantics,
-    sideEffectClass: compilation.sideEffectClass ?? "unknown",
+    sideEffectClass: actualSideEffectClass,
     plan: compilation.typedValue ?? compilation.compiled ?? null,
-    context: { dispatchDomain: domain, typedKind: compilation.typedKind, intent: compilation.intent },
-  }) : { allowed: true, reason: "legacy_prepared_action_without_runtime_semantics" };
+    context: {
+      dispatchDomain: domain,
+      typedKind: actualSideEffect.typedKind,
+      intent: compilation.intent,
+      operationTypes: actualSideEffect.operationTypes,
+    },
+  });
   if (!finalAuthorization.allowed) {
     trace.dispatchPath = "deterministic_final_side_effect_gate";
-    trace.blockedSideEffect = compilation.sideEffectClass ?? "unknown";
+    trace.blockedSideEffect = actualSideEffectClass;
     trace.dispatchBlockReason = finalAuthorization.reason;
     trace.authorizationDecision = finalAuthorization.reason === "denied_by_user" ? "denied_by_user"
       : finalAuthorization.reason === "clarification_required" ? "clarification_required"

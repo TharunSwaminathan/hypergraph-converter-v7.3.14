@@ -56,8 +56,9 @@ const RUNTIME_CONTROL_INTENTS = new Set([
   "STOP_LOCAL_MODEL_TASK",
 ]);
 
-export function classifyCompiledSideEffect(compilation = {}) {
-  const typedKind = compilation.typedKind ?? null;
+export function deriveActualSideEffect(compilation = {}) {
+  const declaredTypedKind = compilation.typedKind ?? null;
+  const typedKind = declaredTypedKind ?? typedKindForDomain(compilation.domain);
   const typedValue = compilation.typedValue ?? null;
   const compiled = compilation.compiled ?? {};
   const operations = compiled.draft?.operations
@@ -66,30 +67,42 @@ export function classifyCompiledSideEffect(compilation = {}) {
     ?? typedValue?.operations
     ?? (Array.isArray(typedValue) ? typedValue : []);
 
-  if (typedKind === "GroundedQuestion") return "read_only";
-  if (typedKind === "DeterministicHelpQuery") return "read_only";
-  if (typedKind === "LegacyActionIntent") return typedValue?.sideEffect ?? compiled.action?.sideEffect ?? "read_only";
-  if (typedKind === "DatasetMappingPatch") {
-    if (!operations.length) return "read_only";
-    return operations.every(operation => GROUPING_OPERATIONS.has(operation.type))
-      ? "reversible_grouping_edit"
-      : "reversible_mapping_edit";
+  let sideEffectClass = "read_only";
+  if (typedKind === "GroundedQuestion" || typedKind === "DeterministicHelpQuery") {
+    sideEffectClass = "read_only";
+  } else if (typedKind === "LegacyActionIntent") {
+    sideEffectClass = typedValue?.sideEffect ?? compiled.action?.sideEffect ?? "read_only";
   }
-  if (typedKind === "GraphMutationPlan") return operations.length ? "graph_edit_preview" : "read_only";
+  if (typedKind === "DatasetMappingPatch") {
+    sideEffectClass = !operations.length ? "read_only"
+      : operations.every(operation => GROUPING_OPERATIONS.has(operation.type))
+        ? "reversible_grouping_edit"
+        : "reversible_mapping_edit";
+  }
+  if (typedKind === "GraphMutationPlan") sideEffectClass = operations.length ? "graph_edit_preview" : "read_only";
   if (typedKind === "ParserWorkflowOperation") {
     const types = operations.map(operation => operation.type);
-    if (types.includes("APPLY_CUSTOM_PARSER_RESULT_CONFIRMATION")) return "requires_graph_apply_confirmation";
-    if (types.includes("RUN_CUSTOM_PARSER_CONFIRMATION")) return "requires_parser_run_confirmation";
-    if (types.length && types.every(type => READ_ONLY_WORKFLOW.has(type))) return "read_only";
-    return types.length ? "workflow_preparation" : "read_only";
+    if (types.includes("APPLY_CUSTOM_PARSER_RESULT_CONFIRMATION")) sideEffectClass = "requires_graph_apply_confirmation";
+    else if (types.includes("RUN_CUSTOM_PARSER_CONFIRMATION")) sideEffectClass = "requires_parser_run_confirmation";
+    else if (types.length && types.every(type => READ_ONLY_WORKFLOW.has(type))) sideEffectClass = "read_only";
+    else sideEffectClass = types.length ? "workflow_preparation" : "read_only";
   }
   if (typedKind === "DashboardControlIntent") {
     const intent = typedValue?.canonicalIntent ?? compiled.canonicalIntent ?? compilation.intent;
-    if (RUNTIME_CONTROL_INTENTS.has(intent)) return "runtime_control";
-    if (NAVIGATION_INTENTS.has(intent) || /^NAVIGATE_|^OPEN_|^SET_/.test(String(intent ?? ""))) return "navigation";
-    return "read_only";
+    if (RUNTIME_CONTROL_INTENTS.has(intent)) sideEffectClass = "runtime_control";
+    else if (NAVIGATION_INTENTS.has(intent) || /^NAVIGATE_|^OPEN_|^SET_/.test(String(intent ?? ""))) sideEffectClass = "navigation";
+    else sideEffectClass = "read_only";
   }
-  return "read_only";
+  return Object.freeze({
+    sideEffectClass,
+    typedKind,
+    declaredTypedKind,
+    operationTypes: operations.map(operation => operation?.type).filter(Boolean),
+  });
+}
+
+export function classifyCompiledSideEffect(compilation = {}) {
+  return deriveActualSideEffect(compilation).sideEffectClass;
 }
 
 export function authorizeSpeechActSideEffect({ speechAct = "unknown", sideEffectClass = "unknown" } = {}) {
@@ -225,4 +238,15 @@ function planLooksStateChanging(plan, context = {}) {
   }
   if (typedKind === "LegacyActionIntent") return Boolean(plan?.sideEffect && plan.sideEffect !== "read_only");
   return false;
+}
+
+function typedKindForDomain(domain) {
+  if (domain === "graph_mutation") return "GraphMutationPlan";
+  if (domain === "dataset_mapping" || domain === "dataset_grouping") return "DatasetMappingPatch";
+  if (domain === "parser_workflow") return "ParserWorkflowOperation";
+  if (domain === "dashboard_control") return "DashboardControlIntent";
+  if (domain === "legacy_action") return "LegacyActionIntent";
+  if (domain === "grounded_question") return "GroundedQuestion";
+  if (domain === "help_query") return "DeterministicHelpQuery";
+  return null;
 }
