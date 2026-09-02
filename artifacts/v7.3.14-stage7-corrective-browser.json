@@ -1,0 +1,78 @@
+{
+  "stage": 7,
+  "corrective": "S7-N01",
+  "kind": "real_chromium_preservation_smoke",
+  "date": "2026-09-01",
+  "engine": "Chromium via Codex In-app Browser",
+  "url": "http://127.0.0.1:5173/",
+  "scopeNote": "This smoke validates browser preservation. The controlled React integration test, not ordinary browser timing, is authoritative for the narrow render-to-passive-effect race.",
+  "checks": [
+    {
+      "id": "ordinary_load",
+      "status": "PASS",
+      "evidence": "Example conversion produced 3 hyperedges and 5 vertices."
+    },
+    {
+      "id": "h2h",
+      "status": "PASS",
+      "evidence": "H2H computed exact rows for h0, h1, and h2."
+    },
+    {
+      "id": "v2v",
+      "status": "PASS",
+      "evidence": "V2V computed the expected exact projection rows."
+    },
+    {
+      "id": "matrix",
+      "status": "PASS",
+      "evidence": "Matrix CSV computed exact vertex-by-hyperedge text and enabled its download."
+    },
+    {
+      "id": "replacement_during_large_line_graph",
+      "status": "PASS",
+      "evidence": "A Line Graph request for A_H with 1,100 A_ONLY vertices was immediately replaced by B_H. The resulting mapping and Preview contained only B_ONLY_1/B_ONLY_2/B_ONLY_3. A full accessibility snapshot contained no A_ONLY value."
+    },
+    {
+      "id": "rapid_line_graph_switching",
+      "status": "PASS",
+      "evidence": "Hypergraph -> Line Graph -> Hypergraph ended in incidence-native Hypergraph mode without a late overlay."
+    },
+    {
+      "id": "pan",
+      "status": "PASS",
+      "evidence": "Blank-canvas drag changed 6,165 screenshot bytes."
+    },
+    {
+      "id": "zoom",
+      "status": "PASS",
+      "evidence": "Canvas wheel input changed the displayed zoom from 100% to 205%."
+    },
+    {
+      "id": "node_drag",
+      "status": "PASS",
+      "evidence": "Dragging B_ONLY_1 changed 2,644 screenshot bytes and selected vertex:B_ONLY_1."
+    },
+    {
+      "id": "ring_selection",
+      "status": "PASS",
+      "evidence": "Clicking the rendered ring selected hyperedge:B_H and displayed its three vertices."
+    },
+    {
+      "id": "algorithm_animation",
+      "status": "PASS",
+      "evidence": "BFS advanced from STEP 1 OF 3 to STEP 2 OF 3 and returned to STEP 1 OF 3."
+    },
+    {
+      "id": "console_errors",
+      "status": "PASS",
+      "evidence": "The Chromium error-level console query returned an empty array."
+    }
+  ],
+  "summary": {
+    "passed": 12,
+    "failed": 0,
+    "consoleErrors": 0,
+    "fpsClaimed": false,
+    "narrowRaceClaimedFromBrowserTiming": false
+  }
+}

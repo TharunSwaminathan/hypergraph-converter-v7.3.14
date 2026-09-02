@@ -1,0 +1,240 @@
+{
+  "stage": 7,
+  "corrective": "S7-N01",
+  "kind": "context_bound_derived_cache_postchange_oracle",
+  "authoritativeParent": "2b68cca38f4ca7b91b101b1689c4f606c615e7f2",
+  "correctiveCommitsAtMeasurement": [
+    "15c4a20 stage-7-corrective: reproduce context-bound cache race",
+    "73dd74c stage-7-corrective: bind derived cache writes to graph context"
+  ],
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64",
+    "os": "Windows_NT 10.0.26200",
+    "cpu": "Intel(R) Core(TM) Ultra 5 225F"
+  },
+  "invariant": {
+    "statement": "A successful async cache write is accepted only when both the producing graphVersion and graphIdentity are Object.is-equal to the active cache context.",
+    "versionCheckPresent": true,
+    "identityCheckPresent": true,
+    "ambientPublicSetCompleteRemoved": true,
+    "hookPassesProducingContext": true
+  },
+  "primaryRace": {
+    "coordinatorOldAOutcome": "completed",
+    "lateAWriteAccepted": false,
+    "repeatedBActivationChangedContext": false,
+    "bLookupAfterLateA": null,
+    "bWriteAccepted": true,
+    "bLookupIsExactB": true,
+    "bLookup": {
+      "status": "computed",
+      "edges": [
+        {
+          "src": "B_ONLY_1",
+          "dst": "B_ONLY_2",
+          "hyperedges": [
+            "h"
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    "contextRejectedWrites": 1,
+    "cacheSnapshot": {
+      "activeGraphVersion": 42,
+      "entryCount": 1,
+      "graphInvalidations": 2,
+      "hits": 1,
+      "misses": 0,
+      "completeWrites": 1,
+      "refusedWrites": 0,
+      "contextRejectedWrites": 1
+    }
+  },
+  "sameVersionDifferentIdentity": {
+    "accepted": false,
+    "rejected": true
+  },
+  "sameIdentityDifferentVersion": {
+    "accepted": false,
+    "rejected": true
+  },
+  "operationContract": [
+    {
+      "operationType": "h2h",
+      "accepted": false,
+      "rejected": true
+    },
+    {
+      "operationType": "v2v",
+      "accepted": false,
+      "rejected": true
+    },
+    {
+      "operationType": "matrix",
+      "accepted": false,
+      "rejected": true
+    },
+    {
+      "operationType": "line_graph",
+      "accepted": false,
+      "rejected": true
+    }
+  ],
+  "incompleteContract": {
+    "statuses": [
+      "cancelled",
+      "error",
+      "over_budget",
+      "computing",
+      "not_requested"
+    ],
+    "accepted": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "refusedWrites": 5,
+    "entryCount": 0
+  },
+  "controlledReactIntegration": {
+    "test": "tests/stage7-corrective-hook-cache-race.test.mjs",
+    "committedReplacement": "passed",
+    "sameVersionPreviewIdentityReplacement": "passed",
+    "unmistakableValues": [
+      "A_ONLY_1",
+      "A_ONLY_MATRIX",
+      "B_ONLY_1",
+      "B_ONLY_MATRIX"
+    ],
+    "assertions": [
+      "no A-only V2V entry in B cache",
+      "no A-only Matrix entry in B cache",
+      "no A-only row, projection edge, Matrix text, or export after B is authoritative",
+      "stale download remains disabled",
+      "B computes and caches normally",
+      "loading settles",
+      "no unhandled rejection"
+    ]
+  },
+  "testResults": {
+    "correctiveFocused": "2/2 files passed",
+    "originalStage7Focused": "5/5 files passed",
+    "originalStage7Oracle": "all five findings true",
+    "fullNodeSuite": "203/203 files passed in 60.1s"
+  },
+  "reviewFiles": [
+    {
+      "path": "src/App.jsx",
+      "bytes": 250607,
+      "sha256": "4aa61edb0bff537197d80a2175d43ddf814ba7628463bb42ea4fcfc62c2555bd"
+    },
+    {
+      "path": "src/derived/derivedProductCache.js",
+      "bytes": 2882,
+      "sha256": "1db1c73e509c8a02a40774191e41d91721a73c33b1cdfd9c39681e987e137a96"
+    },
+    {
+      "path": "src/derived/derivedRequestCoordinator.js",
+      "bytes": 5419,
+      "sha256": "e9c95c00a02172099557e27b3d88924c9199e77a215460285a7e22252f85020a"
+    },
+    {
+      "path": "src/derived/derivedWorkerClient.js",
+      "bytes": 3718,
+      "sha256": "007abe9158b0c515619446cc229fa187d8f9e187f8b5b0c4aaf137f044931645"
+    },
+    {
+      "path": "src/derived/derivedOperations.js",
+      "bytes": 720,
+      "sha256": "ecb4181f6945bd8f88e549f4505fb4507f1b7dad37be36929e837594d0e4633e"
+    },
+    {
+      "path": "src/hooks/useAsyncDerivedProduct.js",
+      "bytes": 3452,
+      "sha256": "1a945710d75729a15606d4cf355f5dc7b50ae74ba2c863812ec6bd3111803844"
+    },
+    {
+      "path": "src/utils/derivedRequests.js",
+      "bytes": 1639,
+      "sha256": "8bb01f4520edf81f33f29138690e72ba3adc9cc332390fb528361f134e08b0bb"
+    },
+    {
+      "path": "src/utils/derivedResults.js",
+      "bytes": 2771,
+      "sha256": "06d8f0c8b88dcdb9950890d9a3fb5c4b68c059d80e0d5c3d86207d0f04a1726e"
+    },
+    {
+      "path": "src/utils/mappings.js",
+      "bytes": 24941,
+      "sha256": "eb9758b23fce673b2a52d1fceffb24e422446ca4ccec4cb22aadc6581e5e3c02"
+    },
+    {
+      "path": "src/workers/derivedWorker.js",
+      "bytes": 600,
+      "sha256": "65e0df20e9d75b7ff99865e03418664c8a6957a0fe68100657166b92968de823"
+    },
+    {
+      "path": "src/algorithms/compactTrace.js",
+      "bytes": 3165,
+      "sha256": "8d14ada49516b1e48113a8f05f69d93f542b43ad37df28a97bca8403dce5666e"
+    },
+    {
+      "path": "src/algorithms/traversal.js",
+      "bytes": 13297,
+      "sha256": "393a535921e6ec2bbe7c9b74f2942b80d5b16647a4b06e7fefdbda7ecc79b36d"
+    },
+    {
+      "path": "src/algorithms/shortestPath.js",
+      "bytes": 6812,
+      "sha256": "c814dd825a584cf591202e68bb57f7609bad60f0e2fb53732ba341d28a7692e2"
+    },
+    {
+      "path": "tests/stage7-matrix-indexed-differential.test.mjs",
+      "bytes": 3380,
+      "sha256": "a270c5ce76dd58e0205dd5c1a7405226f28f7b8ed51bac01ddaccaca3fb070aa"
+    },
+    {
+      "path": "tests/stage7-lazy-derived-products.test.mjs",
+      "bytes": 3708,
+      "sha256": "da20a7035bc4cd05ce0d04556ee46ba15f4426d94a6d38f1de0b442e481be7b7"
+    },
+    {
+      "path": "tests/stage7-derived-request-races.test.mjs",
+      "bytes": 5843,
+      "sha256": "48d82f26dd4624819b9dc67cd15fba6e0437b39feb579d26c45d3f19cec5b069"
+    },
+    {
+      "path": "tests/stage7-compact-traces.test.mjs",
+      "bytes": 4254,
+      "sha256": "4dbe7b10911c9ea4248d91cc71721eeea98d5c96c64eb7ae3522c86b233327ce"
+    },
+    {
+      "path": "tests/stage7-worker-policy.test.mjs",
+      "bytes": 1398,
+      "sha256": "2c7e31c220dc20ea7c9ab1f7b3be42f566a33565ee17a1cea1f34750f785d2cf"
+    },
+    {
+      "path": "tests/stage7-corrective-cache-context.test.mjs",
+      "bytes": 5403,
+      "sha256": "6bf1896814531ced6f9a2b1aa46d5c6b8181dc74e2dddb79cb2d30979786e279"
+    },
+    {
+      "path": "tests/stage7-corrective-hook-cache-race.test.mjs",
+      "bytes": 6344,
+      "sha256": "39011144aee248053cb1239e286a85b894a0a90d57831d01208514c6eb72a57c"
+    }
+  ],
+  "findings": {
+    "s7N01Resolved": true,
+    "identityIndependentOfVersion": true,
+    "versionIndependentOfIdentity": true,
+    "allAsyncOperationsProtected": true,
+    "incompleteResultsStillRefused": true,
+    "coordinatorDefensePreserved": true,
+    "cacheDefenseIndependent": true
+  }
+}

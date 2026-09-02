@@ -69,7 +69,8 @@
       "hits": 1,
       "misses": 4,
       "completeWrites": 4,
-      "refusedWrites": 2
+      "refusedWrites": 2,
+      "contextRejectedWrites": 0
     },
     "afterGraphReplacement": {
       "activeGraphVersion": 42,
@@ -78,7 +79,8 @@
       "hits": 1,
       "misses": 4,
       "completeWrites": 4,
-      "refusedWrites": 2
+      "refusedWrites": 2,
+      "contextRejectedWrites": 0
     },
     "findings": {
       "unrelatedBuilderCallsOnDefaultLoad": 0,
@@ -102,8 +104,8 @@
   },
   "denseMatrix": {
     "200x200": {
-      "indexedElapsedMs": 9.2804,
-      "legacyElapsedMs": 37.5305,
+      "indexedElapsedMs": 10.0165,
+      "legacyElapsedMs": 37.179899999999996,
       "exactByteMatch": true,
       "status": "computed",
       "cells": 40401,
@@ -111,8 +113,8 @@
       "budgetUnchanged": true
     },
     "300x300": {
-      "indexedElapsedMs": 16.665599999999998,
-      "legacyElapsedMs": 95.5469,
+      "indexedElapsedMs": 17.299300000000002,
+      "legacyElapsedMs": 96.78250000000001,
       "exactByteMatch": true,
       "status": "computed",
       "cells": 90601,
@@ -120,8 +122,8 @@
       "budgetUnchanged": true
     },
     "400x400": {
-      "indexedElapsedMs": 24.476499999999987,
-      "legacyElapsedMs": 217.6399,
+      "indexedElapsedMs": 27.080799999999982,
+      "legacyElapsedMs": 219.36620000000002,
       "exactByteMatch": true,
       "status": "computed",
       "cells": 160801,
@@ -183,8 +185,8 @@
   "traceRuns": {
     "OneHugeEdge5K": {
       "bfs": {
-        "elapsedMs": 427.78490000000005,
-        "heapDeltaBytesObserved": 8232088,
+        "elapsedMs": 445.89520000000005,
+        "heapDeltaBytesObserved": 5070032,
         "visitOrder": 5000,
         "edgesUsed": 4999,
         "steps": 5000,
@@ -199,8 +201,8 @@
         }
       },
       "dfs": {
-        "elapsedMs": 1586.7416999999998,
-        "heapDeltaBytesObserved": 71998520,
+        "elapsedMs": 1587.7136,
+        "heapDeltaBytesObserved": 14733544,
         "visitOrder": 5000,
         "edgesUsed": 4999,
         "steps": 5000,
@@ -216,8 +218,8 @@
       }
     },
     "OneHugeEdge1KFarTargetShortest": {
-      "elapsedMs": 156.31500000000005,
-      "heapDeltaBytesObserved": -42923984,
+      "elapsedMs": 154.6010000000001,
+      "heapDeltaBytesObserved": 16577528,
       "reachable": true,
       "distances": 1000,
       "edgesUsed": 999,
@@ -244,12 +246,12 @@
         "cachedNeighborEntries": 0,
         "storedProjectedEdges": 0,
         "storedGlobalAdjacencyReferences": 0,
-        "elapsedMs": 155.99109999999973
+        "elapsedMs": 154.37519999999995
       }
     },
     "LargeSparsePathShortest": {
-      "elapsedMs": 163.61639999999989,
-      "heapDeltaBytesObserved": 45973744,
+      "elapsedMs": 163.0072,
+      "heapDeltaBytesObserved": 44932848,
       "reachable": true,
       "distances": 1002,
       "edgesUsed": 1001,
@@ -276,7 +278,7 @@
         "cachedNeighborEntries": 0,
         "storedProjectedEdges": 0,
         "storedGlobalAdjacencyReferences": 0,
-        "elapsedMs": 163.59789999999975
+        "elapsedMs": 162.98199999999997
       }
     }
   },

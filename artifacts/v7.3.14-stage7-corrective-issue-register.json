@@ -1,0 +1,38 @@
+{
+  "stage": 7,
+  "corrective": "S7-N01",
+  "authoritativeParent": "2b68cca38f4ca7b91b101b1689c4f606c615e7f2",
+  "issues": [
+    {
+      "id": "S7-N01",
+      "severity": "High",
+      "title": "Late old-graph async completion can poison the active new-graph derived cache",
+      "status": "RESOLVED",
+      "rootCause": "The hook wrote a completed async value through an ambient cache API whose destination key was derived from the cache's mutable activeGraphVersion. It did not validate the request-producing graph identity or version.",
+      "resolution": "The cache now exposes only setCompleteForGraph for asynchronous completion. It requires Object.is equality for both graphVersion and graphIdentity before accepting a complete value. The hook supplies the producing request context, while coordinator cancellation and stale rejection remain independent.",
+      "evidence": [
+        "artifacts/v7.3.14-stage7-corrective-prechange.json",
+        "artifacts/v7.3.14-stage7-corrective-oracle.json",
+        "tests/stage7-corrective-cache-context.test.mjs",
+        "tests/stage7-corrective-hook-cache-race.test.mjs"
+      ]
+    },
+    {
+      "id": "HG713-C05",
+      "severity": "High",
+      "title": "Asynchronous analytical work must be cancellable and stale-safe",
+      "status": "RESOLVED",
+      "resolution": "The original coordinator boundary remains intact and the corrective adds an independent cache-context boundary. A stale completion is now prevented from becoming cacheable even in an interleaving where the old coordinator still legitimately reports completion.",
+      "evidence": [
+        "tests/stage7-derived-request-races.test.mjs",
+        "tests/stage7-corrective-cache-context.test.mjs",
+        "tests/stage7-corrective-hook-cache-race.test.mjs"
+      ]
+    }
+  ],
+  "remainingCorrectiveFailures": [],
+  "externalGateObservation": {
+    "status": "OPEN_OUTSIDE_CORRECTIVE_SCOPE",
+    "detail": "npm audit reports the same high-severity browserslist advisory in the pre-existing dev dependency tree; npm audit --omit=dev reports zero vulnerabilities. No dependency or lockfile change was authorized."
+  }
+}
