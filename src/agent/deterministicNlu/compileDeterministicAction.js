@@ -9,6 +9,7 @@ import { compileLegacyActionGrammar } from "./domains/legacyActionGrammar.js";
 import { semanticConfidenceFromCompilation } from "./semanticConfidence.js";
 import { classifySpeechAct, speechActIsReadOnly } from "./speechActClassifier.js";
 import { analyzeRequestSemantics } from "./requestSemantics.js";
+import { analyzeDeterministicNlu } from "./deterministicNlu.js";
 import { authorizeCompiledSideEffect, authorizeSpeechActSideEffect, classifyCompiledSideEffect } from "./sideEffectPolicy.js";
 
 const COMPILER_BY_DOMAIN = Object.freeze({
@@ -23,38 +24,72 @@ const COMPILER_BY_DOMAIN = Object.freeze({
 });
 
 export function compileDeterministicAction(nlu, context = {}) {
-  const lexicalDomain = nlu?.primaryDomain ?? "unknown";
   const requestSemantics = analyzeRequestSemantics(nlu?.rawText ?? "");
+  const previewOnlyAuthorized = requestSemantics.authorization?.authorizedClauses?.some(clause => clause.scopes?.previewWithoutApply) === true;
+  const preserveParserStatusContext = nlu?.primaryDomain === "parser_workflow"
+    && /\b(?:status|workflow|progress|phase)\b/i.test(requestSemantics.authorizedActionText ?? "");
   const authorizedActionText = requestSemantics.executionAuthorized && requestSemantics.authorizedActionText
-    && requestSemantics.authorizedActionText !== String(nlu?.rawText ?? "").trim()
-    ? requestSemantics.authorizedActionText
+    && !preserveParserStatusContext
+    && (previewOnlyAuthorized || !equivalentActionText(requestSemantics.authorizedActionText, nlu?.rawText))
+    ? normalizeAuthorizedActionText(requestSemantics.authorizedActionText)
     : null;
   const compilationNlu = authorizedActionText
-    ? {
-        ...nlu,
-        rawText: authorizedActionText,
-        normalizedText: authorizedActionText,
-        clauses: (requestSemantics.clauses ?? [])
-          .filter(clause => clause.executable)
-          .map((clause, index) => ({
-            id: `authorized-clause-${index + 1}`,
-            text: clause.text,
-            tokenStart: clause.tokenStart ?? null,
-            tokenEnd: clause.tokenEnd ?? null,
-            connectorFromPrevious: clause.connectorFromPrevious ?? null,
-            polarity: clause.polarity ?? "positive",
-            scopeHints: clause.scopeHints ?? [],
-            inheritedSubject: clause.inheritedSubject ?? null,
-          })),
-      }
+    ? analyzeDeterministicNlu(authorizedActionText, analysisContextFromCompileContext(context))
     : nlu;
+  const lexicalDomain = compilationNlu?.primaryDomain ?? nlu?.primaryDomain ?? "unknown";
   const speech = nlu?.speechAct
     ? (authorizedActionText
-        ? classifySpeechAct(authorizedActionText, { domain: lexicalDomain, mode: "action" })
+        ? {
+            speechAct: compilationNlu?.speechAct
+              ?? classifySpeechAct(authorizedActionText, { domain: lexicalDomain, mode: "action" }).speechAct,
+            reasons: compilationNlu?.speechActReasons ?? [],
+          }
         : { speechAct: nlu.speechAct, reasons: nlu.speechActReasons ?? [] })
     : classifySpeechAct(authorizedActionText ?? nlu?.rawText ?? "", { domain: lexicalDomain, mode: authorizedActionText ? "action" : nlu?.mode });
   const compiled = compileForDomain(lexicalDomain, compilationNlu, context);
   if (!compiled || compiled.noMatch) {
+    if (authorizedActionText && requestSemantics.executionAuthorized) {
+      const intent = `clarify_${lexicalDomain}_action`;
+      const clarificationQuestion = "I found an authorized action clause, but could not resolve it into one unambiguous operation. Please restate that action with its exact target.";
+      return {
+        ok: true,
+        handled: true,
+        domain: lexicalDomain,
+        intent,
+        mode: "clarification",
+        speechAct: speech.speechAct,
+        sideEffectClass: "read_only",
+        dispatchAuthorized: true,
+        dispatchBlockReason: "authorized_clause_requires_clarification",
+        typedKind: "GroundedQuestion",
+        typedValue: { intent, topicDomain: lexicalDomain, needsResolution: true, clarificationQuestion },
+        semanticConfidence: semanticConfidenceFromCompilation(compilationNlu, { validatorStatus: "clarification_required" }),
+        ambiguities: compilationNlu?.ambiguities ?? [],
+        unresolvedReferences: compilationNlu?.unresolvedReferences ?? [],
+        compiled: {
+          ok: true,
+          domain: "grounded_question",
+          intent,
+          needsClarification: true,
+          clarificationQuestion,
+          diagnostics: {
+            plannerPath: "deterministic_nlu_authorized_clause_clarification",
+            sourceDomain: lexicalDomain,
+            speechAct: speech.speechAct,
+          },
+        },
+        requestSemantics,
+        diagnostics: {
+          ...baseDiagnostics(nlu, lexicalDomain, {
+            validatorStatus: "clarification_required",
+            speechAct: speech.speechAct,
+            sideEffectClass: "read_only",
+          }),
+          authorizedActionText,
+          requestSemantics,
+        },
+      };
+    }
     if (speech.speechAct === "cancellation") {
       const intent = "cancel_without_pending_action";
       return {
@@ -319,6 +354,49 @@ export function compileDeterministicAction(nlu, context = {}) {
       dispatchBlockReason: finalDispatchAuthorization ? null : (authorization.allowed ? semanticAuthorization.reason : authorization.reason),
       requestSemantics,
     },
+  };
+}
+
+function equivalentActionText(left = "", right = "") {
+  const normalize = value => String(value ?? "").trim().replace(/[.!?]+$/g, "").trim();
+  return normalize(left) === normalize(right);
+}
+
+function normalizeAuthorizedActionText(text = "") {
+  return String(text ?? "")
+    .replace(/^\s*(?:please\s+)?create\s+(?:a\s+)?preview\s+(?:to|for)\s+/i, "")
+    .replace(/\s*,?\s*(?:but\s+)?(?:do\s+not|don['’]?t)\s+apply\s+(?:it|this|that|the\s+(?:change|preview|edit))\s*[.!?]?\s*$/i, "")
+    .trim();
+}
+
+function analysisContextFromCompileContext(context = {}) {
+  const hyperedges = Array.isArray(context.hyperedges) ? context.hyperedges : [];
+  const files = context.datasetProfile?.files ?? context.batch?.datasetProfile?.files ?? [];
+  return {
+    ...(hyperedges.length ? {
+      graph: {
+        hyperedges: hyperedges.map(edge => String(edge.id)),
+        vertices: [...new Set(hyperedges.flatMap(edge => (edge.vertices ?? []).map(String)))],
+      },
+    } : {}),
+    ...(files.length ? {
+      datasetMapping: {
+        fileNames: files.map(file => file.fileName ?? file.name).filter(Boolean),
+        headersByFile: Object.fromEntries(files.map(file => [
+          file.fileName ?? file.name,
+          (file.columns ?? []).map(column => column.name ?? column).filter(Boolean),
+        ]).filter(([fileName]) => Boolean(fileName))),
+      },
+    } : {}),
+    ...(context.state?.activeBatch ? {
+      parserWorkflow: {
+        mappingStatus: context.state.activeBatch.mappingSpecStatus ?? "unknown",
+        planStatus: context.state.activeBatch.transformationPlan ? "generated" : "none",
+        parserStatus: context.state.activeBatch.generatedParserFromMapping ? "generated" : "none",
+        resultStatus: context.state.customResultId ? "generated" : "none",
+      },
+    } : {}),
+    ...(context.state ? { dashboard: context.state } : {}),
   };
 }
 

@@ -154,6 +154,9 @@ export function analyzePositiveAuthorization(text = "", {
 
 export function authorizationAllowsSideEffect(authorization, sideEffectClass) {
   if (sideEffectClass === "read_only") return { allowed: true, reason: "read_only_side_effect" };
+  if (authorization?.truncated) {
+    return { allowed: false, reason: "authorization_input_truncated" };
+  }
   if (!authorization || authorization.version !== AUTHORIZATION_CONTRACT_VERSION) {
     return { allowed: false, reason: "read_only_scope_missing_positive_authorization_contract" };
   }
@@ -177,6 +180,8 @@ export function authorizationAllowsSideEffect(authorization, sideEffectClass) {
 function analyzeAuthorizationClause(clause, index) {
   const masked = maskClauseProtectedText(clause.text);
   const activeText = masked.activeText.trim();
+  const directRuntimeRoleAssist = /^\s*(?:please\s+)?(?:explain|analy[sz]e)\s+file\s+roles?\s+with\s+local\s+model\s*[.!]?$/i.test(activeText);
+  const directExpectedOutputAction = /^\s*(?:(?:please|go\s+ahead\s+and|i\s+want\s+you\s+to)\s+)?(?:compare\s+(?:with\s+)?expected\s+output|use\s+mapping\s+workflow|start\s+mapping\s+workflow)\s*[.!]?$/i.test(activeText);
   const protectedAction = masked.protectedValues.some(value => ACTION_VERB_RE.test(value));
   const unprotectedAction = ACTION_VERB_RE.test(activeText);
   const exactControl = exactControlKind(activeText);
@@ -230,7 +235,7 @@ function analyzeAuthorizationClause(clause, index) {
     || (scopes.informational && !literalFileAction)
     || scopes.comparison
     || scopes.preserveState
-    || (scopes.denied && !emptyHyperedgePolicyAction && !exactControl)
+    || (scopes.denied && !emptyHyperedgePolicyAction && !(exactControl && !clause.inheritedScope))
     || quoteIsData
     || (protectedAction && QUOTE_INTRO_RE.test(activeText) && !/^(?:execute|run|apply)\b/i.test(activeText)));
   // A single polite interrogative ("Could you ...?") remains a supported
@@ -243,6 +248,10 @@ function analyzeAuthorizationClause(clause, index) {
   let authorization = AUTHORIZATION_MODE.CLARIFY;
   if (blocked || questionWithoutSecondPersonRequest) authorization = AUTHORIZATION_MODE.READ_ONLY;
   else if (directAction || safeWorkflowPreparation) authorization = AUTHORIZATION_MODE.AUTHORIZED;
+  if (!clause.inheritedScope && !scopes.denied && !scopes.preserveState && !scopes.informational
+    && (directRuntimeRoleAssist || directExpectedOutputAction)) {
+    authorization = AUTHORIZATION_MODE.AUTHORIZED;
+  }
 
   // "Create a preview, but don't apply it" still authorizes only the staging
   // side effect. The denial is not allowed to leak into graph application.
@@ -252,7 +261,11 @@ function analyzeAuthorizationClause(clause, index) {
   if (previewOnlyException) authorization = AUTHORIZATION_MODE.AUTHORIZED;
 
   const sideEffectScopes = authorization === AUTHORIZATION_MODE.AUTHORIZED
-    ? scopesForClause(activeText, exactControl, { previewOnlyException, mappingDeclarationAction, graphDeclarativeAction })
+    ? (directRuntimeRoleAssist
+        ? ["runtime_probe"]
+        : directExpectedOutputAction
+          ? ["workflow_preparation"]
+          : scopesForClause(activeText, exactControl, { previewOnlyException, mappingDeclarationAction, graphDeclarativeAction }))
     : [];
   const evidence = [
     directAction && "direct_action_clause",
@@ -271,6 +284,8 @@ function analyzeAuthorizationClause(clause, index) {
     mappingDeclarationAction && "mapping_declaration_action",
     statusReadOnlyAction && "status_read_only_action",
     workflowPreparationAction && "workflow_preparation_action",
+    directRuntimeRoleAssist && "direct_runtime_role_assist",
+    directExpectedOutputAction && "direct_expected_output_action",
   ].filter(Boolean);
   return Object.freeze({
     ...clause,
@@ -420,7 +435,12 @@ function maskClauseProtectedText(text) {
 }
 
 function exactControlKind(text) {
-  const normalized = String(text ?? "").toLowerCase().replace(/[.!?]+$/g, "").replace(/\s+/g, " ").trim();
+  const normalized = String(text ?? "")
+    .toLowerCase()
+    .replace(/[.!?]+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^(?:go ahead and|i want you to)\s+/, "");
   if (PENDING_CONFIRM_FORMS.includes(normalized) || /^(?:please\s+)?(?:confirm|approve|proceed|continue)(?:\s+(?:the\s+)?(?:pending|staged|current)\s+(?:action|confirmation|preview|request))?$/.test(normalized)) return "confirmation";
   if (PENDING_CANCEL_FORMS.includes(normalized) || /^(?:please\s+)?(?:cancel|discard)(?:\s+(?:the\s+)?(?:pending|staged|current)\s+(?:action|confirmation|preview|request))?$/.test(normalized)) return "cancellation";
   if (RUNTIME_STOP_FORMS.includes(normalized) || /^(?:please\s+)?(?:stop|abort)(?:\s+(?:the\s+)?(?:active|current)\s+(?:request|runtime|model|generation|work))?$/.test(normalized)) return "runtime_stop";

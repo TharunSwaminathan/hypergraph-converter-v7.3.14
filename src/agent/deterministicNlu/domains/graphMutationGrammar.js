@@ -315,6 +315,38 @@ function compilePendingCorrection(raw, pendingAction, common) {
   }
   const previous = pendingAction?.plan?.operations?.[0] ?? null;
   if (!previous) return NO_MATCH;
+  const fieldChange = raw.match(/\b(?:change|update|correct|fix|revise)\s+(?:the\s+)?pending\s+(vertex|hyperedge|edge)\s+from\s+(.+?)\s+to\s+(.+?)\s*[.?!]?$/i);
+  if (fieldChange) {
+    const field = fieldChange[1].toLowerCase() === "vertex" ? "vertex" : "hyperedge";
+    const from = normalizeGraphEntityReference(fieldChange[2], { kind: field });
+    const to = normalizeGraphEntityReference(fieldChange[3], { kind: field });
+    let revised = null;
+    if (field === "vertex") {
+      if (previous.type === GRAPH_MUTATION_OPS.ADD_HYPEREDGE && Array.isArray(previous.vertices) && previous.vertices.map(String).includes(from)) {
+        revised = { ...previous, vertices: previous.vertices.map(vertex => String(vertex) === from ? to : vertex) };
+      } else if (String(previous.vertexId ?? "") === from) {
+        revised = { ...previous, vertexId: to };
+      } else if (String(previous.newVertexId ?? "") === from) {
+        revised = { ...previous, newVertexId: to };
+      }
+    } else if (String(previous.hyperedgeId ?? "") === from) {
+      revised = { ...previous, hyperedgeId: to };
+    } else if (String(previous.newHyperedgeId ?? "") === from) {
+      revised = { ...previous, newHyperedgeId: to };
+    }
+    if (!from || !to || !revised) {
+      return clarification(`The pending graph edit does not contain ${field} "${from || fieldChange[2]}".`, common.nlu, "pending_graph_field_correction");
+    }
+    return planResult({
+      operations: [revised],
+      summary: `Change the pending ${field} from "${from}" to "${to}".`,
+      intent: "correction",
+      graphIdentity: common.graphIdentity,
+      metadata: common.metadata,
+      nlu: common.nlu,
+      correction: { isCorrection: true, replacePendingPlan: true },
+    });
+  }
   const onlyFrom = raw.match(/\b(?:no,?\s*)?(?:actually,?\s*)?(?:only|just)\s+(?:remove\s+)?(?:it|that|them|[A-Za-z0-9_.:-]+)?\s*(?:from|out\s+of)\s+(?:hyperedge\s+)?(.+)$/i);
   if (onlyFrom && [GRAPH_MUTATION_OPS.REMOVE_VERTEX_GLOBAL, GRAPH_MUTATION_OPS.REMOVE_INCIDENCE].includes(previous.type)) {
     const vertexRef = previous.vertexId;

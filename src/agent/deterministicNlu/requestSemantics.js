@@ -172,13 +172,18 @@ export function analyzeRequestSemantics(text = "") {
 
   const executionAuthorized = authorization.mode === AUTHORIZATION_MODE.AUTHORIZED;
   const finalExecutableClauses = executionAuthorized ? authorization.authorizedClauses : [];
-  // Read-only navigation/probe clauses are safe to execute through their
-  // domain compiler, but must not replace the original NLU text. Keeping the
-  // original text preserves speech-act metadata for compound requests such as
-  // "Do not run the parser; just show status." State-changing and control
-  // clauses remain available to the action compiler as authorized text.
+  // Independently authorized clauses are the only text an action compiler may
+  // execute from a mixed request. This includes navigation and runtime probes:
+  // retaining an earlier denied/quoted clause can otherwise select the wrong
+  // domain and silently miss the authorized clause. A parser-status clause is
+  // intentionally compiled with its original parser context because its
+  // navigation-like wording represents the read-only SHOW_WORKFLOW_STATUS
+  // operation rather than dashboard navigation.
   const stateChangingAuthorizedClauses = finalExecutableClauses.filter(clause =>
-    (clause.sideEffectScopes ?? []).some(scope => !["read_only", "navigation", "runtime_probe"].includes(scope))
+    (clause.sideEffectScopes ?? []).some(scope => scope !== "read_only")
+    && !((clause.sideEffectScopes ?? []).includes("navigation")
+      && /\b(?:status|workflow|progress|phase)\b/i.test(clause.text)
+      && /\bparser\b/i.test(raw))
   );
 
   let requestedResponse = "execute";
