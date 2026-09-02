@@ -21,9 +21,9 @@ assert.deepEqual(calls, { h2v: 1, v2h: 0, csr: 0, export: 0 });
 cache.getOrCompute("export_text:h2v", {}, () => { calls.export += 1; return "exact"; });
 assert.equal(calls.export, 1);
 
-cache.setComplete("v2v", {}, { status: "over_budget", value: null });
-cache.setComplete("matrix", {}, { status: "cancelled", value: null });
-cache.setComplete("h2h", {}, { status: "error", value: null });
+cache.setCompleteForGraph(7, graphA, "v2v", {}, { status: "over_budget", value: null });
+cache.setCompleteForGraph(7, graphA, "matrix", {}, { status: "cancelled", value: null });
+cache.setCompleteForGraph(7, graphA, "h2h", {}, { status: "error", value: null });
 assert.equal(cache.getSnapshot().refusedWrites, 3);
 assert.equal(cache.getSnapshot().entryCount, 2);
 

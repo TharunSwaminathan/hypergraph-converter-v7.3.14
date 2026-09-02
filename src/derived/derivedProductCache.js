@@ -10,6 +10,7 @@ export function createDerivedProductCache() {
     misses: 0,
     completeWrites: 0,
     refusedWrites: 0,
+    contextRejectedWrites: 0,
   };
 
   function activateGraph(graphVersion, graphIdentity) {
@@ -21,33 +22,39 @@ export function createDerivedProductCache() {
     return true;
   }
 
-  function keyFor(operationType, options) {
-    return `${String(activeGraphVersion)}|${operationType}|${stableStringify(options ?? {})}`;
+  function keyForGraph(graphVersion, operationType, options) {
+    return `${String(graphVersion)}|${operationType}|${stableStringify(options ?? {})}`;
   }
 
   function peek(operationType, options) {
-    const key = keyFor(operationType, options);
+    const key = keyForGraph(activeGraphVersion, operationType, options);
     if (!entries.has(key)) return undefined;
     counters.hits += 1;
     return entries.get(key);
   }
 
-  function setComplete(operationType, options, value) {
+  function setCompleteForGraph(graphVersion, graphIdentity, operationType, options, value) {
+    if (!Object.is(graphVersion, activeGraphVersion) || !Object.is(graphIdentity, activeGraphIdentity)) {
+      counters.contextRejectedWrites += 1;
+      return false;
+    }
     if (!isCompleteSuccessfulDerived(value)) {
       counters.refusedWrites += 1;
       return false;
     }
-    entries.set(keyFor(operationType, options), value);
+    entries.set(keyForGraph(graphVersion, operationType, options), value);
     counters.completeWrites += 1;
     return true;
   }
 
   function getOrCompute(operationType, options, compute) {
+    const expectedGraphVersion = activeGraphVersion;
+    const expectedGraphIdentity = activeGraphIdentity;
     const cached = peek(operationType, options);
     if (cached !== undefined) return cached;
     counters.misses += 1;
     const value = compute();
-    setComplete(operationType, options, value);
+    setCompleteForGraph(expectedGraphVersion, expectedGraphIdentity, operationType, options, value);
     return value;
   }
 
@@ -55,7 +62,7 @@ export function createDerivedProductCache() {
     activateGraph,
     getOrCompute,
     peek,
-    setComplete,
+    setCompleteForGraph,
     clear() { entries.clear(); },
     getSnapshot() {
       return Object.freeze({

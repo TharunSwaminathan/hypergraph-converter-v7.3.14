@@ -58,7 +58,13 @@ export function useAsyncDerivedProduct({
     handle.promise.then(outcome => {
       if (!mounted) return;
       if (outcome.status === "completed") {
-        cache?.setComplete(operationType, stableOptions, outcome.value);
+        cache?.setCompleteForGraph(
+          outcome.metadata.graphVersion,
+          graphIdentity,
+          operationType,
+          stableOptions,
+          outcome.value,
+        );
         setState({ graphVersion, graphIdentity, result: outcome.value });
       } else if (outcome.status === "failed") {
         setState({ graphVersion, graphIdentity, result: failedDerived(operationType, { reason: outcome.reason, error: outcome.error }) });

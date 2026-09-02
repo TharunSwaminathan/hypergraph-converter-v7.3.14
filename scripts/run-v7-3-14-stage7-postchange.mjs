@@ -181,8 +181,8 @@ function characterizeLazyRequests(graph) {
   cache.getOrCompute("export_text:csr_csv", {}, () => { calls.exportText += 1; return JSON.stringify(buildCSR(graph)); });
   cache.getOrCompute("export_text:csr_csv", {}, () => { calls.exportText += 1; return "not used"; });
   const afterRepeatedExactExport = { ...calls };
-  cache.setComplete("line_graph", {}, { status: "over_budget", reason: "evidence refusal" });
-  cache.setComplete("matrix", { cancelled: true }, { status: "cancelled" });
+  cache.setCompleteForGraph(41, graphIdentity, "line_graph", {}, { status: "over_budget", reason: "evidence refusal" });
+  cache.setCompleteForGraph(41, graphIdentity, "matrix", { cancelled: true }, { status: "cancelled" });
   const beforeGraphReplacement = cache.getSnapshot();
   cache.activateGraph(42, {});
   const afterGraphReplacement = cache.getSnapshot();
