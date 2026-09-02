@@ -9,6 +9,7 @@ const prepared = {
   compilation: {
     domain: "graph_mutation",
     typedKind: "GraphMutationPlan",
+    typedValue: { operations: [{ type: "ADD_INCIDENCE", hyperedgeId: "h2", vertexId: "9" }] },
     sideEffectClass: "graph_edit_preview",
     dispatchAuthorized: true,
     semanticConfidence: { level: "high", score: 1 },
@@ -17,6 +18,7 @@ const prepared = {
 };
 const dispatch = await dispatchCompiledAction({
   prepared,
+  query: "Add vertex 9 to h2.",
   handlers: {
     graphMutation: async () => ({
       handled: true,

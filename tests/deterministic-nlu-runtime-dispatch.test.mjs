@@ -8,6 +8,8 @@ const prepared = {
     domain: "dashboard_control",
     typedKind: "DashboardControlIntent",
     typedValue: { canonicalIntent: "NAVIGATE_STATS", slots: {} },
+    sideEffectClass: "navigation",
+    dispatchAuthorized: true,
     semanticConfidence: { level: "high", score: 0.97 },
   },
   runtimeTrace: { analysisCount: 1, compilationCount: 1, modelCalls: [], genericActionPlannerCallCount: 0, legacyRawParserCallCount: 0 },
@@ -15,6 +17,7 @@ const prepared = {
 let dashboardCalls = 0;
 const result = await dispatchCompiledAction({
   prepared,
+  query: "Show statistics.",
   handlers: {
     dashboardControl: async () => {
       dashboardCalls += 1;
