@@ -1,0 +1,62 @@
+{
+  "stage": 7,
+  "corrective": "S7-N01",
+  "kind": "context_bound_derived_cache_prechange_reproduction",
+  "authoritativeParent": "2b68cca38f4ca7b91b101b1689c4f606c615e7f2",
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64",
+    "os": "Windows_NT 10.0.26200",
+    "cpu": "Intel(R) Core(TM) Ultra 5 225F"
+  },
+  "sequence": [
+    "activate cache Graph A / version 41",
+    "start coordinator request A",
+    "activate shared cache Graph B / version 42 without advancing coordinator",
+    "complete request A while coordinator still treats A as current",
+    "call current ambient cache.setComplete",
+    "repeat activateGraph(42, B)",
+    "lookup V2V under B context"
+  ],
+  "observed": {
+    "coordinatorOutcome": "completed",
+    "ambientWriteAccepted": true,
+    "repeatedBActivationChangedContext": false,
+    "bLookupObservedAReference": true,
+    "bLookupValue": {
+      "status": "computed",
+      "edges": [
+        {
+          "src": "A_ONLY_1",
+          "dst": "A_ONLY_2"
+        }
+      ]
+    },
+    "cacheSnapshot": {
+      "activeGraphVersion": 42,
+      "entryCount": 1,
+      "graphInvalidations": 2,
+      "hits": 1,
+      "misses": 0,
+      "completeWrites": 1,
+      "refusedWrites": 0
+    }
+  },
+  "reproduced": true,
+  "failingTestEvidence": {
+    "directInfrastructure": {
+      "test": "tests/stage7-corrective-cache-context.test.mjs",
+      "expectedSecureWriteAccepted": false,
+      "observedWriteAccepted": true,
+      "failure": "late A completion must be rejected at the cache boundary"
+    },
+    "reactHookSharedCache": {
+      "test": "tests/stage7-corrective-hook-cache-race.test.mjs",
+      "controlledInterleaving": "B render activates shared cache and suspends in a transition while the committed A hook/coordinator remains active; then A resolves.",
+      "expectedBLookup": null,
+      "observedBLookupContains": "A_ONLY_1 -- A_ONLY_2",
+      "failure": "committed replacement: old V2V must not poison B cache"
+    }
+  },
+  "requiredInvariant": "A completion must be rejected unless both its graphVersion and graphIdentity match the active cache context."
+}
