@@ -1,0 +1,98 @@
+{
+  "stage": 7,
+  "kind": "real_chromium_browser_validation",
+  "date": "2026-09-01",
+  "engine": "Chromium via the Codex in-app Browser",
+  "engineVersion": "not surfaced by the browser controller",
+  "url": "http://127.0.0.1:5173/",
+  "fixturePolicy": "Practical browser fixtures were used for interaction and race coverage; OneHugeEdge5K structural/performance proof remains in the Node oracle.",
+  "checks": [
+    {
+      "id": "ordinary_graph_load",
+      "status": "PASS",
+      "evidence": "Load Example followed by Convert produced 3 hyperedges and 5 vertices without an error state."
+    },
+    {
+      "id": "selected_mapping_and_unselected_heavy_mapping",
+      "status": "PASS",
+      "evidence": "H2V rendered the selected mapping. V2H rendered 5 rows only after selection; H2H rendered 3 rows only after selection. Production request-counter proof for unselected builders is in the Stage 7 oracle."
+    },
+    {
+      "id": "csr_and_v2h_requests",
+      "status": "PASS",
+      "evidence": "V2H selection computed correctly. Export > CSR CSV produced an exact preview and enabled its download."
+    },
+    {
+      "id": "matrix_request",
+      "status": "PASS",
+      "evidence": "Matrix CSV produced an exact vertex-by-hyperedge preview and enabled its download."
+    },
+    {
+      "id": "line_graph_computing_and_graph_replacement_race",
+      "status": "PASS",
+      "evidence": "A large Line Graph request immediately displayed 'Computing exact Line Graph…'. Converting a replacement graph while it was pending left the replacement graph authoritative; no old projected edges appeared."
+    },
+    {
+      "id": "rapid_view_switch",
+      "status": "PASS",
+      "evidence": "Rapid Hypergraph -> Line Graph -> Hypergraph switching ended on the Hypergraph view and no late computing or LOD overlay appeared."
+    },
+    {
+      "id": "resource_limited_line_graph",
+      "status": "PASS",
+      "evidence": "OneHugeEdge2500 was truthfully refused: estimated 3,123,750 candidate-pair work units exceeded the unchanged 2,000,000 safety limit."
+    },
+    {
+      "id": "identifier_weight_and_search",
+      "status": "PASS",
+      "evidence": "A graph containing numeric 0, literal null, __proto__, Unicode-safe identifiers, and weight 0 preserved the values. Searches for 0, __proto__, and literal null each reported Found."
+    },
+    {
+      "id": "ring_selection",
+      "status": "PASS",
+      "evidence": "A real canvas click selected hyperedge 'other'."
+    },
+    {
+      "id": "zoom",
+      "status": "PASS",
+      "evidence": "Real canvas wheel input changed the displayed zoom from 100% to 138%."
+    },
+    {
+      "id": "pan",
+      "status": "PASS",
+      "evidence": "A real blank-canvas drag in Circular layout changed the rendered canvas."
+    },
+    {
+      "id": "node_drag",
+      "status": "PASS",
+      "evidence": "A real drag moved vertex A and left the selection as vertex:A."
+    },
+    {
+      "id": "resize",
+      "status": "PASS",
+      "evidence": "Changing the Chromium viewport from 900x700 to 1200x800 changed canvas CSS width from 536 to 836 pixels."
+    },
+    {
+      "id": "force_reheat",
+      "status": "PASS",
+      "evidence": "Force layout activated with an enabled Reheat control; Reheat was clicked successfully."
+    },
+    {
+      "id": "algorithm_animation_navigation",
+      "status": "PASS",
+      "evidence": "BFS animation advanced from step 1 of 4 to step 2 of 4 and returned to step 1 of 4."
+    },
+    {
+      "id": "console_errors",
+      "status": "PASS",
+      "evidence": "The Chromium error-level console log query returned an empty list after the validation sequence."
+    }
+  ],
+  "summary": {
+    "passed": 16,
+    "failed": 0,
+    "consoleErrors": 0,
+    "fpsClaimed": false,
+    "screenshotClaimed": false
+  }
+}

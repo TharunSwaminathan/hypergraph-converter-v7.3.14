@@ -1,0 +1,291 @@
+{
+  "stage": 7,
+  "kind": "performance_lazy_workers_trace_postchange_oracle",
+  "parentCommit": "f93bb322a7cfca06123e12148850fc5278ef3726",
+  "stage7CommitsAtMeasurement": [
+    "162c8c5 stage-7: record prechange performance contracts",
+    "add08af stage-7: add lazy derived workers and compact traces",
+    "4caef42 stage-7: keep line graph cache projection-scoped"
+  ],
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "win32/x64",
+    "os": "Windows_NT 10.0.26200",
+    "cpu": "Intel(R) Core(TM) Ultra 5 225F",
+    "logicalCpuCount": 10,
+    "totalMemoryBytes": 33847996416
+  },
+  "sourceEvidence": {
+    "priorEagerBuildersRemoved": {
+      "buildH2V": true,
+      "buildV2H": true,
+      "buildCSR": true,
+      "expH2V": true,
+      "expV2H": true,
+      "fullH2VRows": true,
+      "fullV2HRows": true
+    },
+    "onlyOneMappingBoxRendered": true,
+    "exactExportRequestScoped": true,
+    "statsIntentionallyContinuous": true,
+    "statsJustification": "Top-level graph cards and deterministic agent state continuously consume exact graph statistics; pre-change characterization measured this linear builder independently.",
+    "indexedMatrixMembership": true,
+    "oldMatrixInnerScanAbsent": true
+  },
+  "lazyInvocationEvidence": {
+    "seam": "Production request predicates, production builders, and production graph-version cache.",
+    "afterDefaultMapping": {
+      "h2v": 1,
+      "v2h": 0,
+      "csr": 0,
+      "matrix": 0,
+      "exportText": 0
+    },
+    "afterV2H": {
+      "h2v": 1,
+      "v2h": 1,
+      "csr": 0,
+      "matrix": 0,
+      "exportText": 0
+    },
+    "afterCSR": {
+      "h2v": 1,
+      "v2h": 1,
+      "csr": 1,
+      "matrix": 0,
+      "exportText": 0
+    },
+    "afterRepeatedExactExport": {
+      "h2v": 1,
+      "v2h": 1,
+      "csr": 1,
+      "matrix": 0,
+      "exportText": 1
+    },
+    "beforeGraphReplacement": {
+      "activeGraphVersion": 41,
+      "entryCount": 4,
+      "graphInvalidations": 1,
+      "hits": 1,
+      "misses": 4,
+      "completeWrites": 4,
+      "refusedWrites": 2
+    },
+    "afterGraphReplacement": {
+      "activeGraphVersion": 42,
+      "entryCount": 0,
+      "graphInvalidations": 2,
+      "hits": 1,
+      "misses": 4,
+      "completeWrites": 4,
+      "refusedWrites": 2
+    },
+    "findings": {
+      "unrelatedBuilderCallsOnDefaultLoad": 0,
+      "v2hRequestOnlyBuildsV2H": true,
+      "csrRequestOnlyBuildsCSR": true,
+      "repeatedExactExportCacheHit": true,
+      "refusedResultsNotCached": true,
+      "graphReplacementInvalidatedEntries": true
+    }
+  },
+  "displayMaterialization": {
+    "exactUnderlyingRows": 10000,
+    "materializedDisplayRows": 500,
+    "totalRowsReported": 10000,
+    "previewCharacters": 302,
+    "complete": false,
+    "zeroIdPreserved": true,
+    "literalNullPrototypeUnicodePreserved": true,
+    "weightZeroPreserved": true,
+    "noSilentTruncation": true
+  },
+  "denseMatrix": {
+    "200x200": {
+      "indexedElapsedMs": 9.2804,
+      "legacyElapsedMs": 37.5305,
+      "exactByteMatch": true,
+      "status": "computed",
+      "cells": 40401,
+      "characters": 81986,
+      "budgetUnchanged": true
+    },
+    "300x300": {
+      "indexedElapsedMs": 16.665599999999998,
+      "legacyElapsedMs": 95.5469,
+      "exactByteMatch": true,
+      "status": "computed",
+      "cells": 90601,
+      "characters": 183086,
+      "budgetUnchanged": true
+    },
+    "400x400": {
+      "indexedElapsedMs": 24.476499999999987,
+      "legacyElapsedMs": 217.6399,
+      "exactByteMatch": true,
+      "status": "computed",
+      "cells": 160801,
+      "characters": 324186,
+      "budgetUnchanged": true
+    }
+  },
+  "workerPolicy": {
+    "thresholds": {
+      "h2hNeighborReferences": 50000,
+      "v2vCandidatePairs": 50000,
+      "matrixCells": 50000
+    },
+    "tinyH2H": {
+      "useWorker": false,
+      "estimate": 2,
+      "dimension": "h2hNeighborReferences"
+    },
+    "tinyLineGraph": {
+      "useWorker": false,
+      "estimate": 4,
+      "dimension": "v2vCandidatePairs"
+    },
+    "tinyMatrix": {
+      "useWorker": false,
+      "estimate": 15,
+      "dimension": "matrixCells"
+    },
+    "largeLineGraph": {
+      "useWorker": true,
+      "estimate": 499500,
+      "dimension": "v2vCandidatePairs"
+    },
+    "largeMatrix": {
+      "useWorker": true,
+      "estimate": 160801,
+      "dimension": "matrixCells"
+    },
+    "policy": "Only estimates above measured thresholds use a Web Worker; smaller exact work is deferred locally."
+  },
+  "requestSafety": {
+    "metadata": [
+      "graphVersion",
+      "requestId",
+      "operationType",
+      "options"
+    ],
+    "focusedRaceScenarios": 9,
+    "staleRejectionSeparateFromCancellation": true,
+    "incompleteResultsRejectedByCache": true,
+    "evidenceTest": "tests/stage7-derived-request-races.test.mjs"
+  },
+  "traceDifferential": {
+    "randomGraphs": 2000,
+    "fullyMaterializedSteps": 86855,
+    "mismatches": 0,
+    "evidenceTest": "tests/stage7-compact-traces.test.mjs"
+  },
+  "traceRuns": {
+    "OneHugeEdge5K": {
+      "bfs": {
+        "elapsedMs": 427.78490000000005,
+        "heapDeltaBytesObserved": 8232088,
+        "visitOrder": 5000,
+        "edgesUsed": 4999,
+        "steps": 5000,
+        "storage": {
+          "compact": true,
+          "stepCount": 5000,
+          "cachedFullSteps": 0,
+          "mode": "bfs",
+          "scalarRecords": 5000,
+          "deltaReferences": 4999,
+          "retainedFullStepSnapshots": 0
+        }
+      },
+      "dfs": {
+        "elapsedMs": 1586.7416999999998,
+        "heapDeltaBytesObserved": 71998520,
+        "visitOrder": 5000,
+        "edgesUsed": 4999,
+        "steps": 5000,
+        "storage": {
+          "compact": true,
+          "stepCount": 5000,
+          "cachedFullSteps": 0,
+          "mode": "dfs_unique_pending",
+          "scalarRecords": 5000,
+          "deltaReferences": 0,
+          "retainedFullStepSnapshots": 0
+        }
+      }
+    },
+    "OneHugeEdge1KFarTargetShortest": {
+      "elapsedMs": 156.31500000000005,
+      "heapDeltaBytesObserved": -42923984,
+      "reachable": true,
+      "distances": 1000,
+      "edgesUsed": 999,
+      "steps": 1000,
+      "storage": {
+        "compact": true,
+        "stepCount": 1000,
+        "cachedFullSteps": 0,
+        "mode": "shortest_path",
+        "scalarRecords": 2000,
+        "deltaReferences": 999,
+        "retainedFullStepSnapshots": 0
+      },
+      "metrics": {
+        "hyperedges": 1,
+        "vertices": 1000,
+        "incidences": 1000,
+        "incidenceIndexBuilds": 1,
+        "expandedVertices": 1000,
+        "neighborCandidateEncounters": 999000,
+        "neighborMapsBuilt": 1000,
+        "neighborEntriesProduced": 999000,
+        "maxTransientNeighborEntries": 999,
+        "cachedNeighborEntries": 0,
+        "storedProjectedEdges": 0,
+        "storedGlobalAdjacencyReferences": 0,
+        "elapsedMs": 155.99109999999973
+      }
+    },
+    "LargeSparsePathShortest": {
+      "elapsedMs": 163.61639999999989,
+      "heapDeltaBytesObserved": 45973744,
+      "reachable": true,
+      "distances": 1002,
+      "edgesUsed": 1001,
+      "steps": 1001,
+      "storage": {
+        "compact": true,
+        "stepCount": 1001,
+        "cachedFullSteps": 0,
+        "mode": "shortest_path",
+        "scalarRecords": 2003,
+        "deltaReferences": 1001,
+        "retainedFullStepSnapshots": 0
+      },
+      "metrics": {
+        "hyperedges": 10000,
+        "vertices": 10001,
+        "incidences": 20000,
+        "incidenceIndexBuilds": 1,
+        "expandedVertices": 1001,
+        "neighborCandidateEncounters": 2001,
+        "neighborMapsBuilt": 1001,
+        "neighborEntriesProduced": 2001,
+        "maxTransientNeighborEntries": 2,
+        "cachedNeighborEntries": 0,
+        "storedProjectedEdges": 0,
+        "storedGlobalAdjacencyReferences": 0,
+        "elapsedMs": 163.59789999999975
+      }
+    }
+  },
+  "findings": {
+    "c03RequestScopedBuilders": true,
+    "c04ExactIndexedMatrix": true,
+    "c05ExpensiveDerivedWorkPolicy": true,
+    "s4Obs01CompactBfsAndDfs": true,
+    "stage6CompactShortest": true
+  },
+  "measurementCaveat": "Wall time and heap deltas are machine/runtime evidence, not universal browser guarantees. Structural limits, exact differentials, request counters, and retained-reference counts are the pass conditions."
+}

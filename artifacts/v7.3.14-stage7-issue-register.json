@@ -1,0 +1,62 @@
+{
+  "stage": 7,
+  "parentCommit": "f93bb322a7cfca06123e12148850fc5278ef3726",
+  "issues": [
+    {
+      "id": "HG713-C03",
+      "title": "Eager derived structures, strings, and rows",
+      "status": "RESOLVED",
+      "resolution": "H2V, V2H, CSR, H2H, V2V, Matrix, exact export text, and mapping presentations are graph-versioned and request-scoped. Only the selected mapping is presented, display rows are bounded to 500 with total-row disclosure, and exact export remains a separate path.",
+      "evidence": [
+        "artifacts/v7.3.14-stage7-oracle.json#lazyInvocationEvidence",
+        "tests/stage7-lazy-derived-products.test.mjs"
+      ]
+    },
+    {
+      "id": "HG713-C04",
+      "title": "Pathological dense Matrix membership scanning",
+      "status": "RESOLVED",
+      "resolution": "Each hyperedge now constructs one indexed membership Set and each output cell performs a Set lookup. The established cell and estimated-byte budgets remain unchanged.",
+      "evidence": [
+        "artifacts/v7.3.14-stage7-oracle.json#denseMatrix",
+        "tests/stage7-matrix-indexed-differential.test.mjs"
+      ]
+    },
+    {
+      "id": "HG713-C05",
+      "title": "Remaining synchronous analytical projection/main-thread pressure",
+      "status": "RESOLVED",
+      "resolution": "Measured large H2H, V2V/Line Graph, and Matrix requests use a dedicated Worker; tiny operations remain deferred-local. Requests carry graphVersion, requestId, operationType, and options, with explicit cancellation and independent stale rejection. Force simulation remains untouched. Exact continuously consumed statistics remain synchronous and linear as characterized, rather than being workerized without evidence.",
+      "evidence": [
+        "artifacts/v7.3.14-stage7-oracle.json#workerPolicy",
+        "tests/stage7-worker-policy.test.mjs",
+        "tests/stage7-derived-request-races.test.mjs"
+      ]
+    },
+    {
+      "id": "S4-OBS01",
+      "title": "BFS/DFS complete-trace retained O(V^2) amplification",
+      "status": "RESOLVED",
+      "resolution": "The public steps value remains Array-compatible, while retained state stores traversal/delta records and at most one materialized full step. OneHugeEdge5K starts with zero retained full-step snapshots and unchanged step count.",
+      "evidence": [
+        "artifacts/v7.3.14-stage7-oracle.json#traceRuns",
+        "tests/stage7-compact-traces.test.mjs"
+      ]
+    },
+    {
+      "id": "Stage6-OBS-trace-amplification",
+      "title": "Shortest-path complete-trace retained amplification on far targets",
+      "status": "RESOLVED",
+      "resolution": "Shortest-path traces retain finalized/discovery/relaxation records and materialize only requested steps. Weighted semantics, warnings, ties, predecessor maps, paths, and reachability remain byte/structurally differential-tested against Stage 6.",
+      "evidence": [
+        "artifacts/v7.3.14-stage7-oracle.json#traceRuns",
+        "tests/stage7-compact-traces.test.mjs"
+      ]
+    }
+  ],
+  "remainingStage7TargetPortions": [],
+  "externalGateObservation": {
+    "status": "OPEN_OUTSIDE_STAGE7_SCOPE",
+    "detail": "npm audit currently reports one high-severity browserslist advisory in the dev dependency tree; npm audit --omit=dev reports zero vulnerabilities. Stage 7 changed no dependency or lockfile entry, as required."
+  }
+}
