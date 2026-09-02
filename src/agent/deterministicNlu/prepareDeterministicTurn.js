@@ -25,6 +25,11 @@ export function prepareDeterministicTurn({
   trace.dispatchBlockReason = compilation?.dispatchBlockReason ?? null;
   trace.blockedSideEffect = compilation?.diagnostics?.blockedSideEffect ?? null;
   trace.semanticConfidence = compilation?.semanticConfidence ?? compilation?.diagnostics?.semanticConfidence ?? null;
+  trace.authorizationMode = compilation?.requestSemantics?.authorization?.mode ?? "unknown";
+  trace.authorizationDecision = compilation?.dispatchAuthorized === false
+    ? (compilation?.requestSemantics?.authorization?.mode === "clarify" ? "clarification_required" : "read_only_blocked")
+    : (compilation?.sideEffectClass === "read_only" ? "read_only" : "authorized");
+  trace.authorizationEvidence = compilation?.requestSemantics?.authorization?.evidence ?? [];
 
   return {
     ok: true,

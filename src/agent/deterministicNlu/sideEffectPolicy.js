@@ -1,4 +1,5 @@
 import { speechActIsReadOnly } from "./speechActClassifier.js";
+import { authorizationAllowsSideEffect } from "./positiveAuthorization.js";
 
 export const SIDE_EFFECT_CLASSES = Object.freeze([
   "read_only",
@@ -155,11 +156,22 @@ export function authorizeCompiledSideEffect({
   plan = null,
   context = {},
 } = {}) {
-  if (!sideEffectIsStateChanging(sideEffectClass)) {
+  const requiresPositiveGate = sideEffectIsStateChanging(sideEffectClass)
+    || planLooksStateChanging(plan, context);
+  if (!requiresPositiveGate) {
     return { allowed: true, reason: "read_only_or_non_mutating_side_effect" };
   }
   if (!semantics) {
     return { allowed: false, reason: "missing_request_semantics" };
+  }
+  const positiveAuthorization = authorizationAllowsSideEffect(semantics.authorization, sideEffectClass);
+  if (!positiveAuthorization.allowed) {
+    return {
+      ...positiveAuthorization,
+      blockedSideEffect: sideEffectClass,
+      plan,
+      context,
+    };
   }
   if (semantics.mode !== "execute" || semantics.executionAuthorized !== true) {
     return {
@@ -192,5 +204,25 @@ export function authorizeCompiledSideEffect({
       context,
     };
   }
-  return { allowed: true, reason: "request_semantics_authorized" };
+  return { allowed: true, reason: positiveAuthorization.reason };
+}
+
+function planLooksStateChanging(plan, context = {}) {
+  const typedKind = context?.typedKind ?? plan?.typedKind ?? null;
+  const operations = plan?.operations
+    ?? plan?.draft?.operations
+    ?? plan?.plan?.operations
+    ?? context?.operations
+    ?? [];
+  if (typedKind === "GraphMutationPlan") return operations.length > 0;
+  if (typedKind === "DatasetMappingPatch") return operations.length > 0;
+  if (typedKind === "ParserWorkflowOperation") {
+    return operations.some(operation => !READ_ONLY_WORKFLOW.has(operation?.type));
+  }
+  if (typedKind === "DashboardControlIntent") {
+    const intent = plan?.canonicalIntent ?? plan?.intent ?? context?.intent ?? "";
+    return NAVIGATION_INTENTS.has(intent) || RUNTIME_CONTROL_INTENTS.has(intent) || /^NAVIGATE_|^OPEN_|^SET_/.test(String(intent));
+  }
+  if (typedKind === "LegacyActionIntent") return Boolean(plan?.sideEffect && plan.sideEffect !== "read_only");
+  return false;
 }

@@ -2,6 +2,7 @@ import { bindingMismatch, createStateContextBinding, staleBindingMessage } from 
 import { finishRuntimeTrace } from "./runtimeInstrumentation.js";
 import { evaluateActionContext } from "../actionContextPolicy.js";
 import { authorizeCompiledSideEffect } from "./sideEffectPolicy.js";
+import { analyzeRequestSemantics } from "./requestSemantics.js";
 
 export async function dispatchCompiledAction({
   prepared,
@@ -27,6 +28,11 @@ export async function dispatchCompiledAction({
     compilation.compiled?.needsClarification
     || compilation.compiled?.draft?.classification === "clarification"
     || compilation.compiled?.classification === "clarification"
+    || ((compilation.typedValue?.needsResolution || compilation.typedValue?.classification === "clarification")
+      && compilation.requestSemantics
+      && compilation.requestSemantics.stateChangingActionAuthorized !== true
+      && (compilation.requestSemantics.authorization?.deniedClauses?.length > 0
+        || compilation.requestSemantics.mode !== "execute"))
   );
   const blockingAmbiguity = explicitClarification || (
     (compilation.ambiguities?.length ?? nlu?.ambiguities?.length ?? 0) > 0
@@ -60,21 +66,33 @@ export async function dispatchCompiledAction({
     return result(Boolean(outcome?.handled ?? true), outcome?.outcome ?? "responded", trace, "completed");
   }
 
-  const finalSemantics = compilation.requestSemantics ?? compilation.diagnostics?.requestSemantics ?? prepared?.nlu?.requestSemantics ?? null;
+  // Prepared turns normally carry semantics from the deterministic compiler.
+  // If a legacy/model-produced prepared object omits them, reconstruct the
+  // contract from the original query before allowing any state-changing plan.
+  // The empty-query branch remains a compatibility path for internal callers
+  // that already supplied an explicitly prepared action and no user request.
+  const finalSemantics = compilation.requestSemantics
+    ?? compilation.diagnostics?.requestSemantics
+    ?? prepared?.nlu?.requestSemantics
+    ?? (String(query ?? "").trim() ? analyzeRequestSemantics(query) : null);
   const finalAuthorization = finalSemantics ? authorizeCompiledSideEffect({
     semantics: finalSemantics,
     sideEffectClass: compilation.sideEffectClass ?? "unknown",
     plan: compilation.typedValue ?? compilation.compiled ?? null,
-    context: { dispatchDomain: domain },
+    context: { dispatchDomain: domain, typedKind: compilation.typedKind, intent: compilation.intent },
   }) : { allowed: true, reason: "legacy_prepared_action_without_runtime_semantics" };
   if (!finalAuthorization.allowed) {
     trace.dispatchPath = "deterministic_final_side_effect_gate";
     trace.blockedSideEffect = compilation.sideEffectClass ?? "unknown";
     trace.dispatchBlockReason = finalAuthorization.reason;
+    trace.authorizationDecision = finalAuthorization.reason === "denied_by_user" ? "denied_by_user"
+      : finalAuthorization.reason === "clarification_required" ? "clarification_required"
+        : "read_only_blocked";
     const outcome = await handlers.blockedSideEffect?.(prepared, query, finalAuthorization.reason);
     applyOutcomeTrace(trace, outcome);
     return result(Boolean(outcome?.handled ?? true), outcome?.outcome ?? "responded", trace, "completed");
   }
+  trace.authorizationDecision = "authorized";
 
   if (domain === "help_query" || compilation.typedKind === "DeterministicHelpQuery") {
     trace.dispatchPath = "typed_help_query";

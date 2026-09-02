@@ -29,6 +29,7 @@ import { dispatchCompiledAction } from "../agent/deterministicNlu/dispatchCompil
 import { runtimeDiagnosticsFromTrace } from "../agent/deterministicNlu/runtimeInstrumentation.js";
 import { createProductionDeterministicHandlers } from "../agent/deterministicNlu/runtime/createProductionDeterministicHandlers.js";
 import { analyzeRequestSemantics } from "../agent/deterministicNlu/requestSemantics.js";
+import { analyzePositiveAuthorization, authorizationAllowsSideEffect } from "../agent/deterministicNlu/positiveAuthorization.js";
 import { PENDING_ROUTE, routePendingSubmission } from "../agent/pendingSubmissionRouter.js";
 import { createSubmissionRequestCoordinator, deriveSubmissionRuntimeContext } from "../agent/submissionRequestCoordinator.js";
 import {
@@ -82,6 +83,46 @@ const WORKSPACE_TABS = Object.freeze([
   ["advanced", "Advanced"],
   ["help", "Help"],
 ]);
+
+// Model output is advisory only.  Keep a small, explicit bridge from the
+// legacy capability plan vocabulary to the positive-authorization scopes used
+// by the deterministic dispatcher.  Unknown plans fail closed rather than
+// being treated as executable.
+function sideEffectScopeForAgentPlan(plan) {
+  const kind = String(plan?.kind ?? "");
+  if (!kind || kind === "respond" || kind === "show_result_summary") return "read_only";
+  if (kind === "confirmation" || kind === "pending_confirm") return "confirmation_control";
+  if (kind === "pending_cancel") return "cancellation";
+  if (kind === "runtime_stop") return "runtime_control";
+  if (["configure_local_model", "set_local_model_name"].includes(kind)) return "runtime_control";
+  if (["test_local_model", "list_local_models", "run_runtime_diagnostics", "run_local_model_task"].includes(kind)) {
+    if (kind === "run_local_model_task") {
+      const task = String(plan?.task ?? plan?.userIntent ?? "");
+      return /(?:analy[sz]e|explain)\s+file\s+roles?|diagnostic|test\s+(?:the\s+)?(?:runtime|model|connection)|list\s+models?/i.test(task)
+        ? "runtime_probe"
+        : "workflow_preparation";
+    }
+    return "runtime_probe";
+  }
+  if (["clear_graph_confirmed", "apply_custom_parser_result_confirmed", "parse_current_input", "parse_uploaded_files", "run_custom_parser_confirmed"].includes(kind)) {
+    if (kind === "run_custom_parser_confirmed") return "parser_run_confirmation";
+    if (kind === "apply_custom_parser_result_confirmed") return "graph_apply_confirmation";
+    return "graph_edit_preview";
+  }
+  if (["clear_uploaded_files", "clear_previous_batch", "clear_all_batches", "add_to_previous_batch", "set_batch_parse_mode", "activate_batch", "activate_batch_then_generate_parser", "route_uploaded_files", "use_uploaded_files_with_custom_parser", "auto_detect_uploaded_files"].includes(kind)) {
+    return kind.startsWith("clear_") ? "destructive_batch_state" : "batch_state_edit";
+  }
+  if (["generate_deterministic_mapping", "auto_repair_mapping", "use_deterministic_draft", "use_repaired_mapping", "validate_mapping", "generate_parser_from_mapping", "focus_mapping_editor", "compare_expected_output", "export_mapping_finetune", "mapping_feedback", "prepare_custom_parser_guidance", "auto_detect_uploaded_files"].includes(kind)) {
+    return "workflow_preparation";
+  }
+  if (kind === "open_file_picker") return "file_picker";
+  if (["download_export", "export_graph_png", "copy_ai_prompt"].includes(kind)) return "download_or_copy";
+  if (["switch_route", "switch_section", "select_export_preview", "set_visual_limit", "set_graph_view", "set_graph_layout", "search_graph_vertex", "reset_graph_view", "reheat_graph", "scroll_visualization", "view_previous_batch"].includes(kind)) return "navigation";
+  if (["graph_edit_preview", "add_graph_edge", "remove_graph_edge", "rename_graph_vertex", "add_graph_vertex", "remove_graph_vertex", "clear_graph"].includes(kind)) return "graph_edit_preview";
+  // The exact capability plan is intentionally not guessed here.  A caller
+  // can only execute it after the authorization contract names this scope.
+  return "unknown";
+}
 
 function workspaceTabId(id) {
   return `agent-workspace-tab-${id}`;
@@ -1074,6 +1115,23 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       return executionOutcome({ ok: false, outcome: "clarification" });
     }
 
+    // A model ActionPlan is never an authorization source. Every non-response
+    // action must be backed by a positive executable clause in the original
+    // user request before any legacy capability handler is reached.
+    const requestAuthorization = analyzePositiveAuthorization(originalQuery);
+    const actionPlans = actions.map(action => planFromCapabilityAction(action, latestStateRef.current));
+    const unauthorizedModelAction = actionPlans.find(plan => plan?.kind && plan.kind !== "respond"
+      && !authorizationAllowsSideEffect(requestAuthorization, sideEffectScopeForAgentPlan(plan)).allowed);
+    if (unauthorizedModelAction) {
+      append("agent", "I treated the local model plan as read-only because the request did not positively authorize that state-changing action. No model-planned action was executed.", "status");
+      return executionOutcome({
+        ok: false,
+        outcome: "authorization_blocked",
+        stateMutationCommitted: false,
+        details: { authorizationDecision: requestAuthorization.mode === "clarify" ? "clarification_required" : "read_only_blocked" },
+      });
+    }
+
     const childOutcomes = [];
     let changedState = false;
     let stateMutationCommitted = false;
@@ -1316,7 +1374,13 @@ export default function AgentChatPanel({ agentState, agentActions }) {
 
   async function executeActionPath(query, controlPlan = null) {
     const current = latestStateRef.current;
+    const requestAuthorization = analyzePositiveAuthorization(query);
     if (controlPlan) {
+      if (controlPlan.kind !== "respond"
+        && !authorizationAllowsSideEffect(requestAuthorization, sideEffectScopeForAgentPlan(controlPlan)).allowed) {
+        append("agent", "I treated that request as read-only and did not execute the state-changing dashboard action. Please give one clear executable instruction if you want it performed.", "status");
+        return executionOutcome({ ok: false, outcome: "authorization_blocked", stateMutationCommitted: false });
+      }
       return await dispatchPlan(controlPlan);
     }
     const canUseOllamaOrchestrator = current.localModel?.config?.enabled !== false

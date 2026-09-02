@@ -5,6 +5,7 @@ import {
   PENDING_CONFIRM_FORMS,
   RUNTIME_STOP_FORMS,
 } from "./actionLexicon.js";
+import { AUTHORIZATION_MODE, analyzePositiveAuthorization } from "./positiveAuthorization.js";
 
 const ACTION_PREAMBLE_SOURCE = String.raw`(?:for\s+(?:the\s+)?current\s+(?:task|dataset|graph),?\s*|for\s+(?:the\s+)?pending\s+correction,?\s*|for\s+this\s+(?:mapping|dataset|graph|parser)\s+correction,?\s*|go\s+ahead\s+and\s+|i\s+want\s+you\s+to\s+|please\s+|now,?\s*|this\s+time,?\s*)?`;
 const DIRECT_ACTION_RE = new RegExp(String.raw`^\s*${ACTION_PREAMBLE_SOURCE}(?:${ACTION_VERB_SOURCE})\b`, "i");
@@ -133,6 +134,8 @@ export function analyzeRequestSemantics(text = "") {
   const raw = String(text ?? "").trim();
   if (!raw) return emptySemantics();
 
+  const authorization = analyzePositiveAuthorization(raw);
+
   const safeWorkflowPreparation = isSafeWorkflowPreparation(raw);
   const clauses = splitRequestClauses(raw);
   const actionMentioned = ACTION_VERB_RE.test(raw);
@@ -162,32 +165,21 @@ export function analyzeRequestSemantics(text = "") {
     directRuntimeExplainAction,
   }));
   const executableClauses = analyzedClauses.filter(clause => clause.executable);
-  const readOnlyActionClauses = analyzedClauses.filter(clause => clause.actionCandidate && !clause.executable);
   const negatedAction = analyzedClauses.some(clause => clause.scopes.negation);
   const explanatoryAction = rawExplanatory
     || analyzedClauses.some(clause => clause.scopes.explanatory && (clause.actionCandidate || actionMentioned));
   const ambiguousAction = actionMentioned && !executableClauses.length && !directReadOnlyOperation;
 
-  const readOnlyScope = !safeWorkflowPreparation && (
-    explicitReadOnly
-    || preserveState
-    || instructional
-    || reported
-    || hypothetical
-    || compare
-    || (negatedAction && executableClauses.length === 0)
-    || explanatoryAction
-    || bareImperativeQuestion
-    || quoted && (rawExplanatory || reported || QUESTION_START_RE.test(raw) || /\bnot\s+(?:a\s+)?request\b/i.test(raw))
-    || (readOnlyActionClauses.length > 0 && executableClauses.length === 0)
+  const executionAuthorized = authorization.mode === AUTHORIZATION_MODE.AUTHORIZED;
+  const finalExecutableClauses = executionAuthorized ? authorization.authorizedClauses : [];
+  // Read-only navigation/probe clauses are safe to execute through their
+  // domain compiler, but must not replace the original NLU text. Keeping the
+  // original text preserves speech-act metadata for compound requests such as
+  // "Do not run the parser; just show status." State-changing and control
+  // clauses remain available to the action compiler as authorized text.
+  const stateChangingAuthorizedClauses = finalExecutableClauses.filter(clause =>
+    (clause.sideEffectScopes ?? []).some(scope => !["read_only", "navigation", "runtime_probe"].includes(scope))
   );
-
-  const executionAuthorized = Boolean(
-    safeWorkflowPreparation
-    || (executableClauses.length > 0 && !readOnlyScope && !globalNoActionScope && !bareImperativeQuestion)
-    || (directReadOnlyOperation && !readOnlyScope)
-  );
-  const finalExecutableClauses = executionAuthorized ? executableClauses : [];
 
   let requestedResponse = "execute";
   if (instructional) requestedResponse = "instructions";
@@ -198,7 +190,7 @@ export function analyzeRequestSemantics(text = "") {
   else if (bareImperativeQuestion || ambiguousAction) requestedResponse = "clarify";
   else if (QUESTION_START_RE.test(raw) || /\?$/.test(raw)) requestedResponse = "answer";
 
-  const mode = executionAuthorized ? "execute" : (bareImperativeQuestion || ambiguousAction ? "clarify" : "read_only");
+  const mode = executionAuthorized ? "execute" : (authorization.mode === AUTHORIZATION_MODE.CLARIFY ? "clarify" : "read_only");
   const scopes = {
     quoted,
     codeQuoted: CODE_QUOTED_ACTION_RE.test(raw),
@@ -218,13 +210,16 @@ export function analyzeRequestSemantics(text = "") {
 
   return {
     raw,
+    authorization,
     mode,
     executionAuthorized,
-    stateChangingActionAuthorized: finalExecutableClauses.length > 0,
+    stateChangingActionAuthorized: stateChangingAuthorizedClauses.length > 0,
     authorizedActionClauses: finalExecutableClauses.map(clause => clause.id),
-    authorizedActionText: finalExecutableClauses.map(clause => clause.text).join("; "),
+    authorizedActionText: stateChangingAuthorizedClauses.map(clause => clause.text).join("; "),
     authorizedPendingCorrection: finalExecutableClauses.some(clause => clause.scopes.pendingTarget && clause.scopes.typedCorrection),
-    clauses: analyzedClauses,
+    clauses: authorization.authorizedClauses.length || authorization.deniedClauses.length || authorization.ambiguousClauses.length
+      ? [...authorization.authorizedClauses, ...authorization.deniedClauses, ...authorization.ambiguousClauses]
+      : analyzedClauses,
     actionMentioned,
     instructional,
     groundedWorkflowGuidance: /^\s*how\s+should\s+i\s+proceed\b[\s\S]{0,100}\b(?:parser|mapping|grouping)\s+workflow\b/i.test(raw),
@@ -240,7 +235,7 @@ export function analyzeRequestSemantics(text = "") {
     directReadOnlyOperation,
     directRuntimeExplainAction,
     correction,
-    readOnlyScope,
+    readOnlyScope: authorization.mode !== AUTHORIZATION_MODE.AUTHORIZED,
     requestedResponse,
     directPendingCancellation: isDirectPendingCancellation(raw),
     directPendingConfirmation: isDirectPendingConfirmation(raw),
@@ -388,6 +383,16 @@ function splitRequestClauses(raw) {
   };
   for (let i = 0; i < raw.length; i += 1) {
     if (insideSpans(i, spans)) continue;
+    const connective = raw.slice(i).match(/^(?:,\s*)?(?:and\s+)?then\b\s*[,;:]?\s*|^after\s+that\b\s*[,;:]?\s*|^afterwards?\b\s*[,;:]?\s*|^separately\b\s*[,;:]?\s*/i)?.[0];
+    const standaloneSeparately = /^separately\b/i.test(connective ?? "")
+      && !raw.slice(i + (connective?.length ?? 0)).trim();
+    if (connective && i > start && !standaloneSeparately) {
+      push(i);
+      connectorFromPrevious = /^(?:after\s+that|afterwards?)/i.test(connective) ? "after" : "then";
+      i += connective.length - 1;
+      start = i + 1;
+      continue;
+    }
     const ch = raw[i];
     if (ch === ":" && shouldSplitAtColon(raw.slice(start, i))) {
       push(i);
@@ -528,6 +533,7 @@ function normalizeControl(text) {
 function emptySemantics() {
   return {
     raw: "",
+    authorization: analyzePositiveAuthorization(""),
     mode: "clarify",
     executionAuthorized: false,
     stateChangingActionAuthorized: false,

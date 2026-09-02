@@ -909,6 +909,7 @@ export function normalizeActionPhrase(text = "") {
     .replace(/[“”]/g, "\"")
     .replace(/[‘’`]/g, "'")
     .replace(/^\s*(?:please\s+)?(?:can|could|would|will)\s+you\s+(?:please\s+)?/i, "")
+    .replace(/^\s*(?:go\s+ahead\s+and|i\s+want\s+you\s+to)\s+/i, "")
     .replace(/^\s*please\s+/i, "")
     .replace(/[.!?]+$/g, "")
     .replace(/\s+/g, " ")

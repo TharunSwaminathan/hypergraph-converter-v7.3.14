@@ -182,12 +182,13 @@ export function compileDeterministicAction(nlu, context = {}) {
     semantics: requestSemantics,
     sideEffectClass,
     plan: initial.typedValue,
-    context: { domain: lexicalDomain, speechAct: speech.speechAct },
+    context: { domain: lexicalDomain, speechAct: speech.speechAct, typedKind: initial.typedKind, intent: initial.intent },
   });
 
   const preserveReadOnlyTypedKind = initial.typedKind === "DeterministicHelpQuery"
     || (initial.typedKind === "ParserWorkflowOperation" && sideEffectClass === "read_only");
-  if ((speechActIsReadOnly(speech.speechAct) || !semanticAuthorization.allowed) && initial.typedKind !== "GroundedQuestion" && !preserveReadOnlyTypedKind) {
+  const requestReadOnlyGate = requestSemantics.readOnlyScope && requestSemantics.executionAuthorized !== true;
+  if ((speechActIsReadOnly(speech.speechAct) || !semanticAuthorization.allowed || requestReadOnlyGate) && initial.typedKind !== "GroundedQuestion" && !preserveReadOnlyTypedKind) {
     const blockedCompilation = compiled;
     const questionIntent = questionIntentFor(lexicalDomain, speech.speechAct);
     const blockReason = !semanticAuthorization.allowed ? semanticAuthorization.reason : authorization.reason;

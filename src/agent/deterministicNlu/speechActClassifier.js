@@ -2,7 +2,7 @@ import { ACTION_VERB_RE, ACTION_VERB_SOURCE } from "./actionLexicon.js";
 import { isHelpSeekingQuestionText } from "./helpSeekingGuards.js";
 import { analyzeRequestSemantics } from "./requestSemantics.js";
 
-const POLITE_REQUEST_RE = new RegExp(`^\\s*(?:please\\s+)?(?:can|could|would|will)\\s+you\\s+(?:please\\s+)?(?:${ACTION_VERB_SOURCE})\\b`, "i");
+const POLITE_REQUEST_RE = new RegExp(`^\\s*(?:(?:go\\s+ahead\\s+and)\\s+)?(?:please\\s+)?(?:can|could|would|will)\\s+you\\s+(?:please\\s+)?(?:${ACTION_VERB_SOURCE})\\b`, "i");
 const POLITE_READ_ONLY_OPERATION_RE = /^\s*(?:can|could|would|will)\s+you\s+(?:please\s+)?(?:show|list|view|inspect|report|tell)\b/i;
 const DIRECT_READ_ONLY_COMMAND_FRAME_RE = /^\s*(?:please\s+)?(?:show|list|view|inspect|report|tell(?:\s+me)?)\b[\s\S]{0,120}\b(?:status|summary|stats|commands?|help|preview|report)\b/i;
 const DIRECT_READ_ONLY_QUESTION_LIST_RE = /^\s*(?:please\s+)?(?:show|list|view)\b[\s\S]{0,60}\bread[-\s]?only\b[\s\S]{0,60}\bquestions?\b/i;
