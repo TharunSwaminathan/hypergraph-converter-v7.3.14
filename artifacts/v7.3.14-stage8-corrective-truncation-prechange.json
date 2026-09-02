@@ -1,0 +1,421 @@
+{
+  "stage": 8,
+  "corrective": true,
+  "kind": "prechange_characterization",
+  "baselineCommit": "cec0e0ce33bc1a3b6b77916969787ebcdcbc0d00",
+  "approvedStage7Ancestor": "32e4fca5ac2ca1229cceef260b2fa8827415887f",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "finding": {
+    "id": "S8-N02",
+    "severity": "High",
+    "category": "authorization-boundary safety",
+    "status": "confirmed"
+  },
+  "truncation": {
+    "probeCount": 8,
+    "vulnerableContractCount": 6,
+    "stateChangingHandlersCalled": 1,
+    "records": [
+      {
+        "id": "action-before-cutoff-denial-after",
+        "path": "authorization_contract",
+        "queryLength": 5151,
+        "expectedExecutable": false,
+        "authorizationMode": "authorized",
+        "authorizationTruncated": true,
+        "authorizationScopes": [
+          "graph_edit_preview"
+        ],
+        "decision": {
+          "allowed": true,
+          "reason": "positive_side_effect_authorization"
+        },
+        "handlerReachedIfPlanAccepted": true
+      },
+      {
+        "id": "denial-before-cutoff-action-after",
+        "path": "authorization_contract",
+        "queryLength": 5117,
+        "expectedExecutable": false,
+        "authorizationMode": "read_only",
+        "authorizationTruncated": true,
+        "authorizationScopes": [],
+        "decision": {
+          "allowed": false,
+          "reason": "denied_by_user"
+        },
+        "handlerReachedIfPlanAccepted": false
+      },
+      {
+        "id": "quoted-command-crosses-cutoff",
+        "path": "authorization_contract",
+        "queryLength": 5023,
+        "expectedExecutable": false,
+        "authorizationMode": "read_only",
+        "authorizationTruncated": true,
+        "authorizationScopes": [],
+        "decision": {
+          "allowed": false,
+          "reason": "denied_by_user"
+        },
+        "handlerReachedIfPlanAccepted": false
+      },
+      {
+        "id": "pending-correction-denial-after-cutoff",
+        "path": "pending_correction",
+        "queryLength": 5140,
+        "expectedExecutable": false,
+        "authorizationMode": "authorized",
+        "authorizationTruncated": true,
+        "authorizationScopes": [
+          "graph_edit_preview"
+        ],
+        "decision": {
+          "allowed": true,
+          "reason": "positive_side_effect_authorization"
+        },
+        "handlerReachedIfPlanAccepted": true
+      },
+      {
+        "id": "direct-control-plan-denial-after-cutoff",
+        "path": "direct_control_plan",
+        "queryLength": 5151,
+        "expectedExecutable": false,
+        "authorizationMode": "authorized",
+        "authorizationTruncated": true,
+        "authorizationScopes": [
+          "navigation"
+        ],
+        "decision": {
+          "allowed": true,
+          "reason": "positive_side_effect_authorization"
+        },
+        "handlerReachedIfPlanAccepted": true
+      },
+      {
+        "id": "model-action-plan-denial-after-cutoff",
+        "path": "model_action_plan",
+        "queryLength": 5151,
+        "expectedExecutable": false,
+        "authorizationMode": "authorized",
+        "authorizationTruncated": true,
+        "authorizationScopes": [
+          "graph_edit_preview"
+        ],
+        "decision": {
+          "allowed": true,
+          "reason": "positive_side_effect_authorization"
+        },
+        "handlerReachedIfPlanAccepted": true
+      },
+      {
+        "id": "deterministic-fallback-denial-after-cutoff",
+        "path": "deterministic_action_plan_fallback",
+        "queryLength": 5151,
+        "expectedExecutable": false,
+        "authorizationMode": "authorized",
+        "authorizationTruncated": true,
+        "authorizationScopes": [
+          "graph_edit_preview"
+        ],
+        "decision": {
+          "allowed": true,
+          "reason": "positive_side_effect_authorization"
+        },
+        "handlerReachedIfPlanAccepted": true
+      },
+      {
+        "id": "dispatch-compiled-action-denial-after-cutoff",
+        "path": "dispatch_compiled_action",
+        "queryLength": 5151,
+        "expectedExecutable": false,
+        "authorizationMode": "authorized",
+        "authorizationTruncated": true,
+        "authorizationScopes": [
+          "graph_edit_preview"
+        ],
+        "decision": {
+          "allowed": true,
+          "reason": "positive_side_effect_authorization"
+        },
+        "handlerReachedIfPlanAccepted": true
+      }
+    ],
+    "dispatchRecord": {
+      "id": "dispatch-compiled-action-denial-after-cutoff",
+      "path": "dispatch_compiled_action",
+      "queryLength": 5151,
+      "authorizationMode": "authorized",
+      "authorizationTruncated": true,
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "productionRoute": "typed_graph_mutation",
+      "runtimeAuthorizationDecision": "authorized",
+      "handlerCalls": 1,
+      "stateMutationCommitted": true
+    }
+  },
+  "mixedRepresentativePrechange": {
+    "cases": 8,
+    "missedAuthorizedClauses": 4,
+    "records": [
+      {
+        "id": "A-explain-csr-then-use-csr",
+        "query": "Explain CSR first. Then use CSR.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "use CSR",
+          "sideEffectScope": "navigation",
+          "dispatchRequired": true,
+          "noOpPermitted": false,
+          "noOpReason": null,
+          "operationTypes": [
+            "SET_INPUT_ROUTE"
+          ]
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "use CSR"
+          ],
+          "sideEffectScope": "navigation",
+          "dispatchAuthorized": true,
+          "handled": true,
+          "typedKind": "DashboardControlIntent",
+          "operationTypes": [
+            "SET_INPUT_ROUTE"
+          ],
+          "operations": [],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": false
+      },
+      {
+        "id": "B-deny-clear-then-show-statistics",
+        "query": "Do not clear the graph. Then show Statistics.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "show Statistics",
+          "sideEffectScope": "navigation",
+          "dispatchRequired": true,
+          "noOpPermitted": false,
+          "noOpReason": null,
+          "operationTypes": [
+            "NAVIGATE_STATS"
+          ]
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "show Statistics"
+          ],
+          "sideEffectScope": "read_only",
+          "dispatchAuthorized": true,
+          "handled": true,
+          "typedKind": "GraphMutationDraft",
+          "operationTypes": [],
+          "operations": [],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": true
+      },
+      {
+        "id": "C-explain-parser-then-run",
+        "query": "Explain what running the parser does. Then run the parser.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "run the parser",
+          "sideEffectScope": "requires_parser_run_confirmation",
+          "dispatchRequired": true,
+          "noOpPermitted": false,
+          "noOpReason": null,
+          "operationTypes": [
+            "RUN_CUSTOM_PARSER_CONFIRMATION"
+          ]
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "run the parser"
+          ],
+          "sideEffectScope": "requires_parser_run_confirmation",
+          "dispatchAuthorized": true,
+          "handled": true,
+          "typedKind": "ParserWorkflowOperation",
+          "operationTypes": [
+            "RUN_CUSTOM_PARSER_CONFIRMATION"
+          ],
+          "operations": [
+            {
+              "type": "RUN_CUSTOM_PARSER_CONFIRMATION"
+            }
+          ],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": false
+      },
+      {
+        "id": "D-quoted-clear-then-show-statistics",
+        "query": "Quote `clear the graph`; then show Statistics.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "show Statistics",
+          "sideEffectScope": "navigation",
+          "dispatchRequired": true,
+          "noOpPermitted": false,
+          "noOpReason": null,
+          "operationTypes": [
+            "NAVIGATE_STATS"
+          ]
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "show Statistics"
+          ],
+          "sideEffectScope": "read_only",
+          "dispatchAuthorized": true,
+          "handled": true,
+          "typedKind": "GroundedQuestion",
+          "operationTypes": [],
+          "operations": [],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": true
+      },
+      {
+        "id": "E-explain-remove-then-remove-other-vertex",
+        "query": "Tell me what removing vertex 6 would do; then actually remove vertex 7 from h2.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "actually remove vertex 7 from h2",
+          "sideEffectScope": "graph_edit_preview",
+          "dispatchRequired": true,
+          "noOpPermitted": false,
+          "noOpReason": null,
+          "operationTypes": [
+            "REMOVE_INCIDENCE"
+          ]
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "actually remove vertex 7 from h2"
+          ],
+          "sideEffectScope": "graph_edit_preview",
+          "dispatchAuthorized": true,
+          "handled": true,
+          "typedKind": "GraphMutationPlan",
+          "operationTypes": [
+            "REMOVE_INCIDENCE"
+          ],
+          "operations": [
+            {
+              "type": "REMOVE_INCIDENCE",
+              "hyperedgeId": "h2",
+              "vertexId": "7",
+              "emptyHyperedgePolicy": "remove_empty"
+            }
+          ],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": false
+      },
+      {
+        "id": "F-preview-without-apply",
+        "query": "Create a preview to add vertex 9 to h2, but do not apply it.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "Create a preview to add vertex 9 to h2",
+          "sideEffectScope": "graph_edit_preview",
+          "dispatchRequired": true,
+          "noOpPermitted": false,
+          "noOpReason": null,
+          "operationTypes": [
+            "ADD_INCIDENCE"
+          ]
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "Create a preview to add vertex 9 to h2, but do not apply it"
+          ],
+          "sideEffectScope": "read_only",
+          "dispatchAuthorized": true,
+          "handled": true,
+          "typedKind": "GraphMutationPlan",
+          "operationTypes": [],
+          "operations": [],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": true
+      },
+      {
+        "id": "G-deny-h1-create-h2",
+        "query": "Do not create h1; create h2 with vertices 8 and 9.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "create h2 with vertices 8 and 9",
+          "sideEffectScope": "graph_edit_preview",
+          "dispatchRequired": false,
+          "noOpPermitted": true,
+          "noOpReason": "The current graph grammar does not unambiguously parse the abbreviated create-hyperedge form; explicit clarification is required.",
+          "operationTypes": []
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "create h2 with vertices 8 and 9"
+          ],
+          "sideEffectScope": "read_only",
+          "dispatchAuthorized": true,
+          "handled": false,
+          "typedKind": null,
+          "operationTypes": [],
+          "operations": [],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": true
+      },
+      {
+        "id": "H-context-then-set-weight",
+        "query": "For context, no action is requested by this sentence. Separately, set h2's weight to 3.5.",
+        "independentExpectation": {
+          "authorizationMode": "authorized",
+          "executableClause": "set h2's weight to 3.5",
+          "sideEffectScope": "graph_edit_preview",
+          "dispatchRequired": true,
+          "noOpPermitted": false,
+          "noOpReason": null,
+          "operationTypes": [
+            "SET_HYPEREDGE_WEIGHT"
+          ]
+        },
+        "actual": {
+          "authorizationMode": "authorized",
+          "authorizedClauses": [
+            "set h2's weight to 3.5"
+          ],
+          "sideEffectScope": "graph_edit_preview",
+          "dispatchAuthorized": true,
+          "handled": true,
+          "typedKind": "GraphMutationPlan",
+          "operationTypes": [
+            "SET_HYPEREDGE_WEIGHT"
+          ],
+          "operations": [
+            {
+              "type": "SET_HYPEREDGE_WEIGHT",
+              "hyperedgeId": "h2",
+              "weight": 3.5
+            }
+          ],
+          "explicitClarification": false
+        },
+        "missedAuthorizedClause": false
+      }
+    ]
+  }
+}
