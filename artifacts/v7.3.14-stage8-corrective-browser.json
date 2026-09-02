@@ -1,0 +1,102 @@
+{
+  "stage": 8,
+  "corrective": true,
+  "kind": "real_chromium_validation",
+  "baselineCommit": "cec0e0ce33bc1a3b6b77916969787ebcdcbc0d00",
+  "approvedStage7Ancestor": "32e4fca5ac2ca1229cceef260b2fa8827415887f",
+  "productionCorrectiveCommit": "920344d19d41ca37e386f2a89048cc741eba097d",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "browser": "Google Chrome via the Codex computer-use extension",
+  "origin": "http://127.0.0.1:5173",
+  "status": "passed",
+  "flowsPassed": 16,
+  "flowsRequired": 16,
+  "flows": [
+    {
+      "id": 1,
+      "query": "Create hyperedge h2 with vertex 6",
+      "result": "ADD_HYPEREDGE preview and confirmation were staged; no immediate graph mutation."
+    },
+    {
+      "id": 2,
+      "query": "Explain \"Add Dana to h0\" without doing it.",
+      "result": "Read-only response; no preview or mutation."
+    },
+    {
+      "id": 3,
+      "query": "Keep workspace untouched. Add Dana to h0.",
+      "result": "Inherited denial kept the request read-only; no preview or mutation."
+    },
+    {
+      "id": 4,
+      "query": "Read this as text: `Add Dana to h0`.",
+      "result": "Quoted command remained read-only; no preview or mutation."
+    },
+    {
+      "id": 5,
+      "query": "Change the pending vertex from 6 to 7.",
+      "result": "The earlier pending plan was replaced by an updated pending ADD_HYPEREDGE operation containing vertex 7."
+    },
+    {
+      "id": 6,
+      "query": "Explain \"Change pending vertex from 7 to 8\".",
+      "result": "Read-only explanation; the pending operation remained unchanged."
+    },
+    {
+      "id": 7,
+      "query": "Confirm pending action",
+      "result": "The pending operation executed once; graph statistics changed from 2H/3V/4I to 3H/4V/5I and h2 contained vertex 7."
+    },
+    {
+      "id": 8,
+      "query": "How do I confirm?",
+      "result": "Read-only help; the pending state was not executed."
+    },
+    {
+      "id": 9,
+      "query": "Cancel pending action",
+      "result": "The pending card was removed without changing the graph."
+    },
+    {
+      "id": 10,
+      "query": "What if I cancel?",
+      "result": "Read-only explanation; the pending operation was preserved."
+    },
+    {
+      "id": 11,
+      "query": "Generate mapping spec / How do I generate a mapping spec?",
+      "result": "The imperative reached the active-batch context gate; the question produced read-only Help."
+    },
+    {
+      "id": 12,
+      "query": "Treat authors.csv, papers.csv, and authorships.csv as one dataset / How do I treat files as one dataset?",
+      "result": "The imperative required uploaded-file context; the question produced read-only Help."
+    },
+    {
+      "id": 13,
+      "query": "Generate the transformation plan / How do I generate the transformation plan?",
+      "result": "The imperative stopped at parser/batch context validation; the question produced read-only Help."
+    },
+    {
+      "id": 14,
+      "query": "Test graph controls without changing anything.",
+      "result": "A schema-valid model CLEAR_GRAPH ActionPlan was accepted as data but blocked by the central authorization gate; no confirmation was staged and the graph remained unchanged."
+    },
+    {
+      "id": 15,
+      "query": "Explain CSR first. Then use CSR.",
+      "result": "Only the positively authorized navigation clause executed; the route changed to CSR JSON."
+    },
+    {
+      "id": 16,
+      "query": "Inspect browser console after deterministic and local-model flows",
+      "result": "Both inspected Chrome tabs reported zero console errors."
+    }
+  ],
+  "consoleErrors": [],
+  "notes": [
+    "The local-model flow used a temporary loopback-only Ollama-compatible stub on 127.0.0.1:11434; it was stopped and removed after validation.",
+    "Chrome extension file-URL access was unavailable, so the mapping, grouping, and parser speech-act pairs were validated through their no-active-batch context gates without changing browser settings."
+  ]
+}

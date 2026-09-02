@@ -1,0 +1,169 @@
+{
+  "stage": 8,
+  "corrective": true,
+  "kind": "postchange_truncation_validation",
+  "baselineCommit": "cec0e0ce33bc1a3b6b77916969787ebcdcbc0d00",
+  "approvedStage7Ancestor": "32e4fca5ac2ca1229cceef260b2fa8827415887f",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "cases": 8,
+  "truncatedStateChangingAuthorized": 0,
+  "truncatedStateChangingHandlersCalled": 0,
+  "protectedStateViolations": 0,
+  "records": [
+    {
+      "id": "action-before-cutoff-denial-after",
+      "path": "authorization_contract",
+      "queryLength": 5151,
+      "expectedExecutable": false,
+      "sideEffectScope": "graph_edit_preview",
+      "authorizationMode": "authorized",
+      "authorizationTruncated": true,
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": null
+    },
+    {
+      "id": "denial-before-cutoff-action-after",
+      "path": "authorization_contract",
+      "queryLength": 5117,
+      "expectedExecutable": false,
+      "sideEffectScope": "graph_edit_preview",
+      "authorizationMode": "read_only",
+      "authorizationTruncated": true,
+      "authorizationScopes": [],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": null
+    },
+    {
+      "id": "quoted-command-crosses-cutoff",
+      "path": "authorization_contract",
+      "queryLength": 5023,
+      "expectedExecutable": false,
+      "sideEffectScope": "graph_edit_preview",
+      "authorizationMode": "read_only",
+      "authorizationTruncated": true,
+      "authorizationScopes": [],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": null
+    },
+    {
+      "id": "pending-correction-denial-after-cutoff",
+      "path": "pending_correction",
+      "queryLength": 5140,
+      "expectedExecutable": false,
+      "sideEffectScope": "graph_edit_preview",
+      "authorizationMode": "authorized",
+      "authorizationTruncated": true,
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": null
+    },
+    {
+      "id": "direct-control-plan-denial-after-cutoff",
+      "path": "direct_control_plan",
+      "queryLength": 5151,
+      "expectedExecutable": false,
+      "sideEffectScope": "navigation",
+      "authorizationMode": "authorized",
+      "authorizationTruncated": true,
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": null
+    },
+    {
+      "id": "model-action-plan-denial-after-cutoff",
+      "path": "model_action_plan",
+      "queryLength": 5151,
+      "expectedExecutable": false,
+      "sideEffectScope": "graph_edit_preview",
+      "authorizationMode": "authorized",
+      "authorizationTruncated": true,
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": null
+    },
+    {
+      "id": "deterministic-fallback-denial-after-cutoff",
+      "path": "deterministic_action_plan_fallback",
+      "queryLength": 5151,
+      "expectedExecutable": false,
+      "sideEffectScope": "graph_edit_preview",
+      "authorizationMode": "authorized",
+      "authorizationTruncated": true,
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": null
+    },
+    {
+      "id": "dispatch-compiled-action-denial-after-cutoff",
+      "path": "dispatch_compiled_action",
+      "queryLength": 5151,
+      "expectedExecutable": false,
+      "sideEffectScope": "graph_edit_preview",
+      "authorizationMode": "authorized",
+      "authorizationTruncated": true,
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "decision": {
+        "allowed": false,
+        "reason": "authorization_input_truncated"
+      },
+      "handlerCalls": 0,
+      "protectedStateChanged": false,
+      "dispatch": {
+        "productionRoute": "deterministic_final_side_effect_gate",
+        "runtimeAuthorizationDecision": "read_only_blocked",
+        "dispatchBlockReason": "authorization_input_truncated",
+        "handlerCalls": 0,
+        "protectedStateChanged": false
+      }
+    }
+  ]
+}

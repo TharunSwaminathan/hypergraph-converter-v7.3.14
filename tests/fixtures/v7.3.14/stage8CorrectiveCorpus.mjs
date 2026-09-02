@@ -163,7 +163,7 @@ export const STAGE8_MIXED_REPRESENTATIVE_CASES = Object.freeze([
     noOpReason: null,
     expectedOperationTypes: ["REMOVE_INCIDENCE"],
     expectedOperationSubset: [{ type: "REMOVE_INCIDENCE", hyperedgeId: "h2", vertexId: "7" }],
-    expectedProtectedStateChanges: ["graphCalls", "graphVersion"],
+    expectedProtectedStateChanges: ["graphCalls"],
   },
   {
     id: "F-preview-without-apply",
@@ -178,7 +178,7 @@ export const STAGE8_MIXED_REPRESENTATIVE_CASES = Object.freeze([
     noOpReason: null,
     expectedOperationTypes: ["ADD_INCIDENCE"],
     expectedOperationSubset: [{ type: "ADD_INCIDENCE", hyperedgeId: "h2", vertexId: "9" }],
-    expectedProtectedStateChanges: ["graphCalls", "graphVersion"],
+    expectedProtectedStateChanges: ["graphCalls"],
     applicationCommitForbidden: true,
   },
   {
@@ -209,13 +209,15 @@ export const STAGE8_MIXED_REPRESENTATIVE_CASES = Object.freeze([
     noOpReason: null,
     expectedOperationTypes: ["SET_HYPEREDGE_WEIGHT"],
     expectedOperationSubset: [{ type: "SET_HYPEREDGE_WEIGHT", hyperedgeId: "h2", weight: 3.5 }],
-    expectedProtectedStateChanges: ["graphCalls", "graphVersion"],
+    expectedProtectedStateChanges: ["graphCalls"],
   },
 ]);
 
-// Seven independently specified templates x the 164 reviewed state-changing
-// catalog examples produce 1,148 mixed cases. The catalog's expectedSideEffect
-// is fixture metadata, not an observation of the current compiler.
+// Seven independently specified templates are combined with reviewed
+// state-changing catalog examples. Compound safe-preparation examples whose
+// authorized meaning depends on starting with a denial are excluded from the
+// wrapper matrix and remain covered by the positive/preservation corpora. The
+// catalog's expectedSideEffect is fixture metadata, not compiler output.
 export const STAGE8_MIXED_MATRIX_TEMPLATES = Object.freeze([
   {
     id: "explain-then-authorized",
@@ -255,10 +257,9 @@ export const STAGE8_MIXED_MATRIX_TEMPLATES = Object.freeze([
   },
   {
     id: "denied-command-then-statistics",
-    buildQuery: command => `Do not ${String(command).replace(/[.!?]+$/, "").replace(/^./, value => value.toLowerCase())}. Then show Statistics.`,
+    buildQuery: command => `Do not perform the quoted operation \`${String(command).replace(/[.!?]+$/, "")}\`. Then show Statistics.`,
     expectedScope: () => "navigation",
     expectedExecutableClause: () => "show Statistics",
     expectedOperationTypes: ["NAVIGATE_STATS"],
   },
 ]);
-

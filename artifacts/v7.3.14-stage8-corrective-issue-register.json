@@ -1,0 +1,35 @@
+{
+  "stage": 8,
+  "corrective": true,
+  "baselineCommit": "cec0e0ce33bc1a3b6b77916969787ebcdcbc0d00",
+  "approvedStage7Ancestor": "32e4fca5ac2ca1229cceef260b2fa8827415887f",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "issues": [
+    {
+      "id": "S8-N01",
+      "category": "mixed-clause oracle and positive recall",
+      "prechangeStatus": "confirmed",
+      "status": "closed",
+      "evidence": "artifacts/v7.3.14-stage8-corrective-mixed.json"
+    },
+    {
+      "id": "S8-N02",
+      "severity": "High",
+      "category": "authorization-boundary safety",
+      "prechangeStatus": "confirmed",
+      "status": "closed",
+      "evidence": [
+        "artifacts/v7.3.14-stage8-corrective-truncation-prechange.json",
+        "artifacts/v7.3.14-stage8-corrective-truncation.json",
+        "artifacts/v7.3.14-stage8-corrective-model-fallback.json"
+      ]
+    },
+    {
+      "id": "S8-CHROMIUM-CLOSURE",
+      "category": "real browser validation",
+      "status": "closed",
+      "evidence": "artifacts/v7.3.14-stage8-corrective-browser.json"
+    }
+  ]
+}

@@ -3,8 +3,19 @@ import { compileDeterministicAction } from "../src/agent/deterministicNlu/compil
 import { dispatchCompiledAction } from "../src/agent/deterministicNlu/dispatchCompiledAction.js";
 import { createRuntimeTrace } from "../src/agent/deterministicNlu/runtimeInstrumentation.js";
 import { sideEffectIsStateChanging } from "../src/agent/deterministicNlu/sideEffectPolicy.js";
+import { extractOperations, extractOperationTypes } from "../tests/helpers/evaluateDeterministicNluCorpus.mjs";
 
 export function createProtectedState() {
+  const mappingSpec = { version: "2", files: [{ fileName: "papers.csv", role: "hyperedge_table" }] };
+  const transformationPlan = { steps: [{ type: "map_rows" }] };
+  const activeBatch = {
+    id: "batch-2",
+    version: 5,
+    mappingSpec,
+    mappingSpecStatus: "valid",
+    transformationPlan,
+    generatedParserFromMapping: "async function parseHypergraph(){ return []; }",
+  };
   return {
     canonicalGraph: [{ id: "h2", vertices: ["6", "8"] }],
     graphVersion: 7,
@@ -17,12 +28,33 @@ export function createProtectedState() {
       timestamp: 1_700_000_000_000,
       plan: { operations: [{ type: "ADD_INCIDENCE", hyperedgeId: "h2", vertexId: "6" }] },
     },
-    mappingSpec: { version: "2", files: [] },
+    hasGraph: true,
+    hyperedgeCount: 1,
+    vertexCount: 2,
+    mappingSpec,
     mappingRevision: 4,
     datasetGroups: [{ id: "group-main", files: ["papers.csv"] }],
     groupingRevision: 2,
     parser: { status: "ready", resultId: "parser-result-stage8", codeBinding: "code-stage8" },
-    activeBatch: { id: "batch-stage8", version: 5 },
+    activeBatch,
+    activeBatchId: activeBatch.id,
+    agentFileCount: 3,
+    agentBatches: [1, 2, 3].map(number => ({
+      id: `batch-${number}`,
+      label: `Batch ${number}`,
+      mappingSpec,
+      mappingSpecStatus: "valid",
+    })),
+    transformationPlan,
+    customCodeExists: true,
+    customCode: "async function parseHypergraph(){ return []; }",
+    customResultId: "result-stage8",
+    localModel: { request: { busy: true } },
+    localModelRequestActive: true,
+    activeCancellableWork: true,
+    activeRequestCount: 1,
+    recentInterpretation: { id: "interpretation-stage8" },
+    reversibleHistory: [{ id: "history-stage8" }],
     navigation: { section: "input", view: "H2V" },
     runtime: { provider: "ollama", enabled: true },
     selectedEntity: { kind: "hyperedge", id: "h2" },
@@ -42,6 +74,7 @@ export async function compileAndDispatch(query, contexts, {
   const state = createProtectedState();
   if (pendingAction) state.pendingAction = structuredClone(pendingAction);
   const before = stateFingerprint(state);
+  const beforeState = structuredClone(state);
   const nlu = analyzeDeterministicNlu(query, contexts.analysisContext);
   const compilation = compileDeterministicAction(nlu, contexts.compileContext);
   const prepared = {
@@ -57,10 +90,23 @@ export async function compileAndDispatch(query, contexts, {
   prepared.runtimeTrace.speechAct = compilation.speechAct;
   prepared.runtimeTrace.sideEffectClass = compilation.sideEffectClass;
   prepared.runtimeTrace.dispatchAuthorized = compilation.dispatchAuthorized !== false;
-  const touch = domain => {
+  const handlerCalls = {
+    clarification: 0,
+    blockedSideEffect: 0,
+    stale: 0,
+    contextMissing: 0,
+    groundedQuestion: 0,
+    helpQuery: 0,
+    datasetMapping: 0,
+    parserWorkflow: 0,
+    graphMutation: 0,
+    dashboardControl: 0,
+    legacyAction: 0,
+  };
+  const touch = (handler, domain) => {
+    handlerCalls[handler] += 1;
     if (mutate) {
       state[domain] = (state[domain] ?? 0) + 1;
-      state.graphVersion += domain === "graphCalls" ? 1 : 0;
     }
     return { handled: true, outcome: "synthetic_state_change", stateMutationCommitted: mutate };
   };
@@ -70,20 +116,41 @@ export async function compileAndDispatch(query, contexts, {
     state,
     pendingAction: state.pendingAction,
     handlers: {
-      clarification: async () => ({ handled: true, outcome: "clarification" }),
-      blockedSideEffect: async () => ({ handled: true, outcome: "authorization_blocked", stateMutationCommitted: false }),
-      stale: async () => ({ handled: true, outcome: "stale" }),
-      contextMissing: async () => ({ handled: true, outcome: "clarification" }),
-      groundedQuestion: async () => ({ handled: true, outcome: "responded", stateMutationCommitted: false }),
-      helpQuery: async () => ({ handled: true, outcome: "responded", stateMutationCommitted: false }),
-      datasetMapping: async () => touch("mappingCalls"),
-      parserWorkflow: async () => touch("parserCalls"),
-      graphMutation: async () => touch("graphCalls"),
-      dashboardControl: async () => touch("navigationCalls"),
-      legacyAction: async () => touch("legacyCalls"),
+      clarification: async () => {
+        handlerCalls.clarification += 1;
+        return { handled: true, outcome: "clarification" };
+      },
+      blockedSideEffect: async () => {
+        handlerCalls.blockedSideEffect += 1;
+        return { handled: true, outcome: "authorization_blocked", stateMutationCommitted: false };
+      },
+      stale: async () => {
+        handlerCalls.stale += 1;
+        return { handled: true, outcome: "stale" };
+      },
+      contextMissing: async () => {
+        handlerCalls.contextMissing += 1;
+        return { handled: true, outcome: "clarification" };
+      },
+      groundedQuestion: async () => {
+        handlerCalls.groundedQuestion += 1;
+        return { handled: true, outcome: "responded", stateMutationCommitted: false };
+      },
+      helpQuery: async () => {
+        handlerCalls.helpQuery += 1;
+        return { handled: true, outcome: "responded", stateMutationCommitted: false };
+      },
+      datasetMapping: async () => touch("datasetMapping", "mappingCalls"),
+      parserWorkflow: async () => touch("parserWorkflow", "parserCalls"),
+      graphMutation: async () => touch("graphMutation", "graphCalls"),
+      dashboardControl: async () => touch("dashboardControl", "navigationCalls"),
+      legacyAction: async () => touch("legacyAction", "legacyCalls"),
     },
   });
   const after = stateFingerprint(state);
+  const operations = extractOperations(compilation);
+  const changedProtectedKeys = [...new Set([...Object.keys(beforeState), ...Object.keys(state)])]
+    .filter(key => stateFingerprint(beforeState[key]) !== stateFingerprint(state[key]));
   return {
     query,
     productionRoute: dispatch.runtimeTrace?.dispatchPath ?? "not_dispatched",
@@ -99,8 +166,17 @@ export async function compileAndDispatch(query, contexts, {
     beforeFingerprint: before,
     afterFingerprint: after,
     stateChanged: before !== after,
+    changedProtectedKeys,
+    handlerCalls,
+    operationTypes: extractOperationTypes(compilation),
+    operations,
+    explicitClarification: Boolean(
+      compilation.compiled?.needsClarification
+      || compilation.compiled?.classification === "clarification"
+      || compilation.typedValue?.needsResolution
+      || compilation.typedValue?.classification === "clarification"
+    ),
     dispatchBlockReason: compilation.dispatchBlockReason ?? dispatch.runtimeTrace?.dispatchBlockReason ?? null,
     requestSemantics: compilation.requestSemantics ?? null,
   };
 }
-

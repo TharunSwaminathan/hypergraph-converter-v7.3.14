@@ -1,0 +1,52 @@
+{
+  "stage": 8,
+  "corrective": true,
+  "kind": "corrective_oracle",
+  "baselineCommit": "cec0e0ce33bc1a3b6b77916969787ebcdcbc0d00",
+  "approvedStage7Ancestor": "32e4fca5ac2ca1229cceef260b2fa8827415887f",
+  "productionCorrectiveCommit": "920344d19d41ca37e386f2a89048cc741eba097d",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "gates": {
+    "mixedCorpusAtLeastThousand": true,
+    "mixedUnauthorizedSideEffectsZero": true,
+    "mixedMissedAuthorizedClausesZero": true,
+    "mixedWrongSideEffectScopesZero": true,
+    "mixedStateFingerprintViolationsZero": true,
+    "truncationAllFailClosed": true,
+    "truncationNoHandlers": true,
+    "truncationProtectedStatePreserved": true,
+    "modelFallbackNoMaliciousPlansExecuted": true,
+    "modelFallbackProtectedStatePreserved": true,
+    "modelFallbackSourceAuthority": true,
+    "existingReadOnlyExactCount": true,
+    "existingReadOnlySafe": true,
+    "independentReadOnlyExactCount": true,
+    "independentReadOnlySafe": true,
+    "positiveExactCount": true,
+    "positiveWrongBlocksZero": true,
+    "pendingReadOnlyExactCount": true,
+    "pendingUnwantedReplacementsZero": true,
+    "pendingRealCorrectionsWork": true
+  },
+  "counts": {
+    "mixed": 1135,
+    "existingReadOnly": 9840,
+    "independentReadOnly": 6560,
+    "positiveAuthorization": 492,
+    "pendingReadOnly": 30,
+    "pendingCorrections": 3,
+    "modelFallback": 8,
+    "truncation": 8
+  },
+  "commandValidation": {
+    "nodeSuite": "passed: 210/210 files; one environment skip because python3 was unavailable",
+    "lint": "passed",
+    "build": "passed; existing Vite chunk-size warning only",
+    "githubBuild": "passed; existing Vite chunk-size warning only",
+    "npmAudit": "1 high-severity dev-only browserslist advisory; dependency changes prohibited by corrective scope",
+    "npmAuditOmitDev": "passed: 0 production vulnerabilities",
+    "gitDiffCheck": "passed"
+  },
+  "realChromium": "passed: 16/16 required flows; 0 console errors"
+}
