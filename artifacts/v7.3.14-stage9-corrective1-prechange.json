@@ -1,0 +1,81 @@
+{
+  "stage": 9,
+  "corrective": 1,
+  "finding": "S9-N01",
+  "severity": "Medium",
+  "authoritativeParent": "a75c024e7a40b13ccf10093aada1d9e09dd9641a",
+  "packageVersion": "7.3.14",
+  "stage10Begun": false,
+  "status": "confirmed",
+  "rootCause": "iter_source_files sorted concrete pathlib Path objects. Path ordering uses host path-flavor comparison semantics, so Windows compared names case-insensitively while POSIX compared the normalized strings case-sensitively.",
+  "sourceExpression": "sorted(root.rglob(\"*\"))",
+  "windows": {
+    "python": "3.12.13",
+    "firstSha256": "475f9eaa0549500bbc07b6aa823507899f810be0ecef70f5de834f45001da3b2",
+    "secondSha256": "475f9eaa0549500bbc07b6aa823507899f810be0ecef70f5de834f45001da3b2",
+    "bytes": 1194025,
+    "members": 655,
+    "repeatable": true,
+    "selectedTopLevelOrder": [
+      ".gitignore",
+      "check-local-model-runtime.ps1",
+      "check-local-model-runtime.sh",
+      "clean-install.bat",
+      "configure-ollama-origins.example.bat",
+      "configure-ollama-origins.example.ps1",
+      "configure-ollama-origins.example.sh",
+      "DO_NOT_REGRESS.md",
+      "MODEL_SETUP.md",
+      "README.md"
+    ]
+  },
+  "wslLinux": {
+    "environment": "WSL2 Ubuntu; Linux 6.18.33.2-microsoft-standard-WSL2 x86_64",
+    "firstSha256": "a95303f10f976bdc11c58a4e50fb498f2a53f2edbca1f216b164eedb413a3944",
+    "secondSha256": "a95303f10f976bdc11c58a4e50fb498f2a53f2edbca1f216b164eedb413a3944",
+    "bytes": 1194025,
+    "members": 655,
+    "repeatable": true,
+    "selectedTopLevelOrder": [
+      ".gitignore",
+      "DO_NOT_REGRESS.md",
+      "MODEL_SETUP.md",
+      "README.md",
+      "check-local-model-runtime.ps1",
+      "check-local-model-runtime.sh",
+      "clean-install.bat",
+      "configure-ollama-origins.example.bat",
+      "configure-ollama-origins.example.ps1",
+      "configure-ollama-origins.example.sh"
+    ]
+  },
+  "memberComparison": {
+    "memberNameSetsEqual": true,
+    "uncompressedBytesEqual": true,
+    "crcValuesEqual": true,
+    "compressedSizesEqual": true,
+    "createSystemValuesEqual": true,
+    "unixModesEqual": true,
+    "timestampsEqual": true,
+    "rawCompressedMembersEqual": true,
+    "memberOrderEqual": false,
+    "archiveBytesEqual": false
+  },
+  "testFirst": {
+    "path": "tests/portable-zip-paths.test.mjs",
+    "mixedNameCorpus": [
+      ".gitignore",
+      "DO_NOT_REGRESS.md",
+      "MODEL_SETUP.md",
+      "README.md",
+      "check-local-model-runtime.ps1",
+      "check-local-model-runtime.sh",
+      "clean-install.bat"
+    ],
+    "pureWindowsPathOrderDiffersFromCanonical": true,
+    "purePosixPathOrderMatchesCanonical": true,
+    "preFixResult": "failed as required",
+    "failure": "Missing source_sort_key and host-independent relative POSIX sort key in scripts/package-portable-source.py"
+  },
+  "dependenciesChanged": false
+}
