@@ -1,0 +1,261 @@
+{
+  "stage": 8,
+  "corrective": 3,
+  "kind": "prechange_plan_identity_and_legacy_authority_characterization",
+  "parentCommit": "6b0af8a8a33e5dccc0a9cb7f336d82e1bddaa1e7",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "findings": [
+    {
+      "id": "S8-N05",
+      "severity": "High",
+      "title": "Final gate and handler routing can disagree on domain versus typed plan identity",
+      "status": "confirmed"
+    },
+    {
+      "id": "S8-N06",
+      "severity": "High",
+      "title": "Legacy ActionIntent can self-declare a read_only side-effect class instead of using authoritative registry metadata",
+      "status": "confirmed"
+    }
+  ],
+  "records": [
+    {
+      "id": "S8-N05-A-domain-graph-kind-dashboard-payload-graph",
+      "finding": "S8-N05",
+      "query": "",
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "DashboardControlIntent",
+        "typedValue": {
+          "canonicalIntent": "NOOP",
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "read_only",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 1,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 0
+      },
+      "protectedHandlerCalls": 1,
+      "protectedStateChanged": true,
+      "actualSideEffectClass": "read_only",
+      "dispatchPath": "typed_graph_mutation",
+      "dispatchBlockReason": null,
+      "authorizationDecision": "authorized"
+    },
+    {
+      "id": "S8-N05-B-domain-graph-kind-grounded-payload-graph",
+      "finding": "S8-N05",
+      "query": "Explain graph clearing without changing anything.",
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "GroundedQuestion",
+        "typedValue": {
+          "question": "What would clearing do?",
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "read_only",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 1,
+        "helpQuery": 0,
+        "blockedSideEffect": 0
+      },
+      "protectedHandlerCalls": 1,
+      "protectedStateChanged": true,
+      "actualSideEffectClass": "read_only",
+      "dispatchPath": "typed_grounded_question",
+      "dispatchBlockReason": null,
+      "authorizationDecision": "authorized"
+    },
+    {
+      "id": "S8-N05-C-domain-dashboard-kind-graph",
+      "finding": "S8-N05",
+      "query": "Clear the graph.",
+      "prepared": {
+        "domain": "dashboard_control",
+        "typedKind": "GraphMutationPlan",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "graph_edit_preview",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 1,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 0
+      },
+      "protectedHandlerCalls": 1,
+      "protectedStateChanged": true,
+      "actualSideEffectClass": "graph_edit_preview",
+      "dispatchPath": "typed_graph_mutation",
+      "dispatchBlockReason": null,
+      "authorizationDecision": "authorized"
+    },
+    {
+      "id": "S8-N05-D-domain-mapping-kind-parser",
+      "finding": "S8-N05",
+      "query": "Generate the transformation plan.",
+      "prepared": {
+        "domain": "dataset_mapping",
+        "typedKind": "ParserWorkflowOperation",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "GENERATE_TRANSFORMATION_PLAN"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "workflow_preparation",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 1,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 0
+      },
+      "protectedHandlerCalls": 1,
+      "protectedStateChanged": true,
+      "actualSideEffectClass": "workflow_preparation",
+      "dispatchPath": "typed_dataset_mapping",
+      "dispatchBlockReason": null,
+      "authorizationDecision": "authorized"
+    },
+    {
+      "id": "S8-N05-E-domain-parser-kind-mapping",
+      "finding": "S8-N05",
+      "query": "Map papers.csv as the hyperedge table.",
+      "prepared": {
+        "domain": "parser_workflow",
+        "typedKind": "DatasetMappingPatch",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "SET_FILE_ROLE",
+              "fileName": "papers.csv",
+              "role": "hyperedge_table"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "reversible_mapping_edit",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 1,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 0
+      },
+      "protectedHandlerCalls": 1,
+      "protectedStateChanged": true,
+      "actualSideEffectClass": "reversible_mapping_edit",
+      "dispatchPath": "typed_dataset_mapping",
+      "dispatchBlockReason": null,
+      "authorizationDecision": "authorized"
+    },
+    {
+      "id": "S8-N05-F-domain-legacy-kind-dashboard",
+      "finding": "S8-N05",
+      "query": "Show statistics.",
+      "prepared": {
+        "domain": "legacy_action",
+        "typedKind": "DashboardControlIntent",
+        "typedValue": {
+          "canonicalIntent": "NAVIGATE_STATS",
+          "requiredContext": []
+        },
+        "declaredSideEffectClass": "navigation",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 1,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 0
+      },
+      "protectedHandlerCalls": 1,
+      "protectedStateChanged": true,
+      "actualSideEffectClass": "navigation",
+      "dispatchPath": "typed_dashboard_control",
+      "dispatchBlockReason": null,
+      "authorizationDecision": "authorized"
+    },
+    {
+      "id": "S8-N06-known-file-picker-self-declares-read-only",
+      "finding": "S8-N06",
+      "query": "",
+      "prepared": {
+        "domain": "legacy_action",
+        "typedKind": "LegacyActionIntent",
+        "typedValue": {
+          "kind": "open_file_picker",
+          "sideEffect": "read_only",
+          "requiredContext": []
+        },
+        "declaredSideEffectClass": "read_only",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 1,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 0
+      },
+      "protectedHandlerCalls": 1,
+      "protectedStateChanged": true,
+      "actualSideEffectClass": "read_only",
+      "dispatchPath": "typed_legacy_action",
+      "dispatchBlockReason": null,
+      "authorizationDecision": "authorized"
+    }
+  ]
+}
