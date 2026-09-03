@@ -429,10 +429,21 @@ def is_excluded(path: Path, root: Path) -> bool:
     return any(fnmatch.fnmatch(lowered_name, pattern.lower()) for pattern in EXCLUDED_PATTERNS)
 
 
+def source_sort_key(path: Path, root: Path) -> str:
+    """Return the host-independent archive ordering key for a source path.
+
+    Concrete ``Path`` comparison follows the host path flavor (notably,
+    Windows comparisons case-fold path components).  Sorting the normalized
+    relative POSIX spelling instead gives every host the same ordinal Unicode
+    string order and does not depend on filesystem enumeration order.
+    """
+    return path.relative_to(root).as_posix()
+
+
 def iter_source_files(root: Path) -> list[Path]:
     return [
         path
-        for path in sorted(root.rglob("*"))
+        for path in sorted(root.rglob("*"), key=lambda path: source_sort_key(path, root))
         if path.is_file() and not is_excluded(path, root)
     ]
 
