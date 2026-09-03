@@ -1,0 +1,50 @@
+{
+  "stage": 9,
+  "authoritativeParent": "1aec97577efbf734254ca340b6b5a07455fb3271",
+  "packageVersion": "7.3.14",
+  "stage10Begun": false,
+  "releaseBlockers": 0,
+  "issues": [
+    {
+      "id": "R08",
+      "severity": "release_blocking",
+      "title": "Portable ZIP did not prove Unix executable metadata",
+      "status": "closed_pending_independent_review",
+      "resolution": "The repository packager writes Unix create_system metadata and explicit 0755/0644 modes. The actual final ZIP passed the adversarial verifier, and all six extracted shell launchers executed directly in WSL with mode 0755 and valid LF shebangs.",
+      "evidence": [
+        "artifacts/v7.3.14-stage9-package-manifest.json",
+        "artifacts/v7.3.14-stage9-archive-verification.json",
+        "artifacts/v7.3.14-stage9-fresh-extraction.json"
+      ]
+    },
+    {
+      "id": "S9-L01",
+      "severity": "advisory",
+      "title": "Dev-only browserslist advisory remains",
+      "status": "deferred_separate_authorization",
+      "resolution": "No dependency or lockfile resolution was changed because the apparent remediation refreshes several browser-targeting datasets and could change build output. npm audit --omit=dev reports zero production vulnerabilities.",
+      "evidence": [
+        "artifacts/v7.3.14-stage9-version-report.json",
+        "artifacts/v7.3.14-stage9-regression.json"
+      ]
+    },
+    {
+      "id": "S9-L02",
+      "severity": "environment_qualification",
+      "title": "The managed Chrome surface exposed a fixed viewport during release smoke",
+      "status": "documented_non_blocking_environment_limit",
+      "resolution": "All interactive Preview flows passed and the clean-extraction ResizeObserver/canvas regressions passed. The managed Chrome environment did not expose a window-resize control, so a second real viewport dimension could not be captured without altering application DOM or source.",
+      "evidence": [
+        "artifacts/v7.3.14-stage9-browser.json",
+        "artifacts/v7.3.14-stage9-regression.json"
+      ]
+    },
+    {
+      "id": "S9-L03",
+      "severity": "environment_qualification",
+      "title": "WSL distribution lacks Node.js and Ollama runtimes",
+      "status": "expected_external_runtime_absence",
+      "resolution": "Direct-execution launcher integrity was proven. Runtime-starting scripts exited with their documented actionable errors, and no bridge process was orphaned. This does not affect the Windows/npm clean-extraction qualification."
+    }
+  ]
+}

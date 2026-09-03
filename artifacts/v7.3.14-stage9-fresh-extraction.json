@@ -1,0 +1,90 @@
+{
+  "stage": 9,
+  "archive": "hypergraph-converter-v7.3.14-portable.zip",
+  "archiveSha256": "475f9eaa0549500bbc07b6aa823507899f810be0ecef70f5de834f45001da3b2",
+  "extractionDirectory": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\stage9-clean-extraction-475f9eaa\\hypergraph-converter-v7.3.14",
+  "outsideWorkingTree": true,
+  "gitDirectoryPresent": false,
+  "preInstallTreeVerification": {
+    "archiveMembers": 655,
+    "fileMembers": 627,
+    "directoryMembers": 28,
+    "missingFiles": 0,
+    "sizeMismatches": 0,
+    "unexpectedSourceDependencies": 0,
+    "status": "passed"
+  },
+  "environment": {
+    "os": "Windows 11",
+    "shell": "PowerShell",
+    "node": "v24.19.0",
+    "npm": "11.4.2",
+    "python": "3.12.13"
+  },
+  "npmCi": {
+    "status": "passed",
+    "packagesAdded": 175,
+    "packagesAudited": 176,
+    "fundingNotices": 43,
+    "warnings": [
+      "One high-severity dev-only browserslist advisory; production audit is clean."
+    ]
+  },
+  "postQualificationGeneratedDirectories": [
+    "node_modules",
+    "dist",
+    "artifacts"
+  ],
+  "wslLauncherQualification": {
+    "environment": "WSL2 Ubuntu; Linux 6.18.33.2-microsoft-standard-WSL2 x86_64",
+    "archiveSha256Verified": true,
+    "shellLauncherCount": 6,
+    "allCreateSystemUnix": true,
+    "allModes": "0755",
+    "allShebangs": "#!/usr/bin/env bash",
+    "allUseLfWithoutCrLf": true,
+    "directExecutionUsed": true,
+    "launchers": [
+      {
+        "path": "check-local-model-runtime.sh",
+        "exitCode": 0,
+        "result": "Completed diagnostics; local bridge was not running."
+      },
+      {
+        "path": "configure-ollama-origins.example.sh",
+        "exitCode": 0,
+        "result": "Printed the safe configuration example."
+      },
+      {
+        "path": "run-local-runtime-bridge.sh",
+        "exitCode": 1,
+        "result": "Expected environment failure: Node.js is not installed in the WSL distribution."
+      },
+      {
+        "path": "run-with-ollama.sh",
+        "exitCode": 1,
+        "result": "Expected environment failure: Ollama is not installed in the WSL distribution."
+      },
+      {
+        "path": "setup-ollama-model.sh",
+        "exitCode": 1,
+        "result": "Expected environment failure: Ollama is not installed in the WSL distribution."
+      },
+      {
+        "path": "smoke-test-qwen3-8b.sh",
+        "exitCode": 1,
+        "result": "Expected environment failure: the ollama command is unavailable in WSL."
+      }
+    ],
+    "orphanBridgeProcess": false
+  },
+  "windowsLauncherTextQualification": {
+    "batchLauncherCount": 8,
+    "powershellLauncherCount": 3,
+    "batchEntryLine": "@echo off",
+    "encoding": "UTF-8 compatible text",
+    "lineEndings": "LF; accepted by cmd.exe and PowerShell without changing launcher semantics",
+    "archiveMode": "0755 for intended launcher files"
+  },
+  "status": "passed"
+}

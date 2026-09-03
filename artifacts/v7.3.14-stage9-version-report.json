@@ -1,0 +1,56 @@
+{
+  "stage": 9,
+  "scope": "packaging_versioning_clean_extraction_qualification",
+  "authoritativeParent": "1aec97577efbf734254ca340b6b5a07455fb3271",
+  "versioningCommit": "cd28437d7b9e6cbf09bfd2ecdd4e8b8486713d98",
+  "packagingFixCommit": "6cfb2fe87313ad0597ef3eb08c7ed48f90fee829",
+  "packageVersion": "7.3.14",
+  "stage10Begun": false,
+  "versionBearingChanges": [
+    {
+      "path": "package.json",
+      "reason": "Set the intended npm package version to 7.3.14."
+    },
+    {
+      "path": "package-lock.json",
+      "reason": "Keep the lockfile root and packages[\"\"] version fields synchronized at 7.3.14; no dependency resolution changed."
+    },
+    {
+      "path": "README.md",
+      "reason": "Identify v7.3.14 as the current release while retaining the v7.3.13 section as historical documentation."
+    },
+    {
+      "path": "MODEL_SETUP.md",
+      "reason": "Identify the v7.3.14 local-runtime setup as current while retaining historical v7.3.13 notes."
+    },
+    {
+      "path": "docs/RELEASE_v7.3.14.md",
+      "reason": "Add the release-specific scope, package, and qualification note for v7.3.14."
+    }
+  ],
+  "historicalVersionReferencesPreserved": true,
+  "dependencyCharacterization": {
+    "node": "v24.19.0",
+    "npm": "11.4.2",
+    "fullAudit": {
+      "status": "advisory_present",
+      "total": 1,
+      "high": 1,
+      "production": false,
+      "package": "browserslist@4.28.2",
+      "dependencyChain": "eslint-plugin-react-hooks@7.1.1 -> @babel/core@7.29.7 -> @babel/helper-compilation-targets@7.29.7 -> browserslist@4.28.2",
+      "advisories": [
+        "GHSA-c83g-rgw3-j3cx",
+        "GHSA-73wf-gq98-2v4g"
+      ]
+    },
+    "productionAudit": {
+      "status": "passed",
+      "total": 0
+    },
+    "latestBrowserslistObserved": "4.28.8",
+    "narrowLockfileRefreshAssessment": "Not narrow: resolving the advisory would also refresh caniuse-lite, node-releases, electron-to-chromium, update-browserslist-db, and baseline-browser-mapping and could change build targeting/output.",
+    "manifestOrLockfileDependencyChanges": [],
+    "decision": "Deferred for separate authorization under the Stage 9 advisory policy; production vulnerabilities remain zero."
+  }
+}

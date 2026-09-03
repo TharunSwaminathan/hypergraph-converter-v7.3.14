@@ -1,0 +1,95 @@
+{
+  "stage": 9,
+  "source": "fresh extraction of hypergraph-converter-v7.3.14-portable.zip",
+  "archiveSha256": "475f9eaa0549500bbc07b6aa823507899f810be0ecef70f5de834f45001da3b2",
+  "commands": {
+    "npm test": {
+      "status": "passed",
+      "nodeTestFilesPassed": 217,
+      "nodeTestFilesTotal": 217,
+      "durationSeconds": 87.4,
+      "zipPermissionTestSkipped": false,
+      "zipPermissionResult": "v7.3.14 ZIP permission normalization passed for 655 entries"
+    },
+    "npm run lint": {
+      "status": "passed"
+    },
+    "npm run build": {
+      "status": "passed",
+      "vite": "8.0.16",
+      "modulesTransformed": 206,
+      "javascriptChunkKb": 1418.30,
+      "javascriptChunkGzipKb": 392.12,
+      "warnings": [
+        "Existing Vite chunk-size advisory for a chunk larger than 500 kB."
+      ]
+    },
+    "npm run build:github": {
+      "status": "passed",
+      "base": "/hypergraph-converter/",
+      "javascriptChunkKb": 1418.32,
+      "javascriptChunkGzipKb": 392.13,
+      "warnings": [
+        "Existing Vite chunk-size advisory for a chunk larger than 500 kB."
+      ]
+    },
+    "npm audit": {
+      "status": "one_dev_only_high",
+      "total": 1,
+      "high": 1
+    },
+    "npm audit --omit=dev": {
+      "status": "passed",
+      "total": 0
+    },
+    "git-independent package integrity": {
+      "status": "passed",
+      "gitDirectoryPresent": false,
+      "manifestFileChecks": 627,
+      "missing": 0,
+      "sizeMismatches": 0
+    }
+  },
+  "stagePreservation": {
+    "stages0Through7": "All named oracle, parser, identifier/result, incidence-index, traversal/projection-budget, Preview, shortest-path/K-core/Statistics, lazy-derivation, worker, and race regression tests passed in the 217-file suite.",
+    "stage8": {
+      "mixedCases": 1135,
+      "mixedUnauthorizedSideEffects": 0,
+      "mixedMissedAuthorizedClauses": 0,
+      "mixedWrongSideEffectScopes": 0,
+      "mixedStateFingerprintViolations": 0,
+      "truncationBlocked": 8,
+      "truncationTotal": 8,
+      "truncationHandlerCalls": 0,
+      "readOnlyExistingSafe": 9840,
+      "readOnlyExistingTotal": 9840,
+      "readOnlyIndependentSafe": 6560,
+      "readOnlyIndependentTotal": 6560,
+      "positiveCases": 492,
+      "positiveWrongBlocks": 0,
+      "pendingReadOnlyPreserved": 30,
+      "pendingReadOnlyTotal": 30,
+      "pendingCorrectionsSucceeded": 3,
+      "pendingCorrectionsTotal": 3,
+      "modelFallbackCases": 8,
+      "modelFallbackMaliciousExecutions": 0,
+      "corrective2Cases": 125,
+      "corrective2ExpectedExecutions": 5,
+      "corrective2ActualExecutions": 5,
+      "corrective2Violations": 0,
+      "corrective3IdentityCases": 41,
+      "corrective3ProtectedHandlerCalls": 0,
+      "corrective3StateViolations": 0,
+      "legacyPublicActions": 49,
+      "legacyCases": 248,
+      "legacyExpectedExecutions": 101,
+      "legacyActualExecutions": 101,
+      "legacyMetadataBypasses": 0,
+      "legacyCorruptMetadataHandlerCalls": 0,
+      "legacyUnregisteredHandlerCalls": 0,
+      "legacyProtectedStateViolations": 0
+    }
+  },
+  "gitDiffCheck": "passed",
+  "status": "passed"
+}
