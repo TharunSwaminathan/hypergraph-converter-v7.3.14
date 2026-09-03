@@ -1,0 +1,35 @@
+{
+  "stage": 8,
+  "corrective": 3,
+  "parentCommit": "6b0af8a8a33e5dccc0a9cb7f336d82e1bddaa1e7",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "issues": [
+    {
+      "id": "S8-N05",
+      "severity": "High",
+      "title": "Final gate and handler routing can disagree on domain versus typed plan identity",
+      "prechangeStatus": "confirmed",
+      "status": "closed_pending_independent_review",
+      "resolution": "A single canonical resolver now validates registered domain/typedKind pairs, derives the actual side effect and operation types, and supplies the only domain used by handler routing. Invalid identity cannot reach a protected handler.",
+      "evidence": [
+        "artifacts/v7.3.14-stage8-corrective3-prechange.json",
+        "artifacts/v7.3.14-stage8-corrective3-plan-identity.json",
+        "artifacts/v7.3.14-stage8-corrective3-browser.json"
+      ]
+    },
+    {
+      "id": "S8-N06",
+      "severity": "High",
+      "title": "Legacy ActionIntent can self-declare a read_only side-effect class instead of using authoritative registry metadata",
+      "prechangeStatus": "confirmed",
+      "status": "closed_pending_independent_review",
+      "resolution": "Legacy identity and side-effect authority now resolve through the existing public action-intent registry. Missing/unregistered actions fail closed, conflicting identifiers fail closed, and supplied side-effect metadata must exactly match the registry.",
+      "evidence": [
+        "artifacts/v7.3.14-stage8-corrective3-prechange.json",
+        "artifacts/v7.3.14-stage8-corrective3-legacy-authority.json",
+        "artifacts/v7.3.14-stage8-corrective3-browser.json"
+      ]
+    }
+  ]
+}

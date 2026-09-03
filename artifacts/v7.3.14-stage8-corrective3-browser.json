@@ -1,0 +1,57 @@
+{
+  "stage": 8,
+  "corrective": 3,
+  "kind": "focused_real_chrome_validation",
+  "parentCommit": "6b0af8a8a33e5dccc0a9cb7f336d82e1bddaa1e7",
+  "productionCorrectiveCommit": "54af3489a1a0253502629585dffcd19635cb5c4b",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "browser": "Google Chrome",
+  "url": "http://127.0.0.1:4175/",
+  "status": "passed",
+  "flows": [
+    {
+      "id": "normal-graph-command-stages",
+      "status": "passed",
+      "query": "Create hyperedge h3 with vertices 8 and 9.",
+      "observation": "A one-operation ADD_HYPEREDGE preview was staged behind a confirmation card; the committed graph remained unchanged."
+    },
+    {
+      "id": "normal-csr-navigation",
+      "status": "passed",
+      "query": "Use CSR.",
+      "observation": "The assistant reported a switch to CSR JSON and Current assistant context showed Route = CSR JSON."
+    },
+    {
+      "id": "normal-public-legacy-action",
+      "status": "passed",
+      "query": "Show export options.",
+      "registryId": "navigation.show-exports",
+      "observation": "The public LegacyActionIntent ran and Current assistant context changed Section to export."
+    },
+    {
+      "id": "read-only-graph-explanation-inert",
+      "status": "passed",
+      "query": "Explain graph clearing without changing anything.",
+      "observation": "No confirmation card was created and the graph stayed at 3 hyperedges and 6 vertices."
+    },
+    {
+      "id": "malicious-model-plan-blocked",
+      "status": "passed",
+      "query": "Run a graph operation without changing anything.",
+      "fixture": "A controlled local Ollama test runtime returned a schema-valid CLEAR_GRAPH ActionPlan.",
+      "observation": "The UI reported that the model plan was treated as read-only because the request did not positively authorize the state-changing action. No confirmation was staged and the graph stayed at 3 hyperedges and 6 vertices."
+    },
+    {
+      "id": "pending-correction-confirm-cancel",
+      "status": "passed",
+      "observations": [
+        "Cancel removed the first pending ADD_HYPEREDGE plan and reported that no changes were made.",
+        "Change the pending vertex from 6 to 7 replaced a staged ADD_INCIDENCE plan and preserved a fresh confirmation card.",
+        "Confirm committed the corrected plan and the assistant verified 3 hyperedges, 6 vertices, and 10 incidences."
+      ]
+    }
+  ],
+  "consoleErrors": [],
+  "consoleErrorCount": 0
+}

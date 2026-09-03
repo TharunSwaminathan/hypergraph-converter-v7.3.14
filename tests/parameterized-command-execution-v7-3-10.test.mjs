@@ -13,7 +13,8 @@ for (const [query, slot] of [
   ["Use model", "modelName"],
 ]) {
   const prepared = prepareDeterministicTurn({ query, analysisContext: contexts.analysisContext, compileContext: contexts.compileContext });
-  assert.equal(prepared.compilation.domain, "legacy_action", query);
+  assert.equal(prepared.compilation.domain, "grounded_question", query);
+  assert.equal(prepared.compilation.typedKind, "GroundedQuestion", query);
   assert.equal(prepared.compilation.compiled.needsClarification, true, query);
   assert.deepEqual(prepared.compilation.typedValue.missingArguments, [slot], query);
   assert.equal(prepared.compilation.typedValue.sideEffect, "read_only", query);

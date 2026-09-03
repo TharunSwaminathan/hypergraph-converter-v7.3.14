@@ -1,0 +1,1641 @@
+{
+  "stage": 8,
+  "corrective": 3,
+  "parentCommit": "6b0af8a8a33e5dccc0a9cb7f336d82e1bddaa1e7",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "kind": "canonical_plan_identity_corruption_matrix",
+  "registeredIdentities": [
+    {
+      "domain": "graph_mutation",
+      "typedKind": "GraphMutationPlan"
+    },
+    {
+      "domain": "graph_mutation",
+      "typedKind": "GraphMutationDraft"
+    },
+    {
+      "domain": "dataset_mapping",
+      "typedKind": "DatasetMappingPatch"
+    },
+    {
+      "domain": "dataset_grouping",
+      "typedKind": "DatasetMappingPatch"
+    },
+    {
+      "domain": "parser_workflow",
+      "typedKind": "ParserWorkflowOperation"
+    },
+    {
+      "domain": "dashboard_control",
+      "typedKind": "DashboardControlIntent"
+    },
+    {
+      "domain": "legacy_action",
+      "typedKind": "LegacyActionIntent"
+    },
+    {
+      "domain": "grounded_question",
+      "typedKind": "GroundedQuestion"
+    },
+    {
+      "domain": "help_query",
+      "typedKind": "DeterministicHelpQuery"
+    }
+  ],
+  "protectedFamilies": [
+    {
+      "id": "graph",
+      "domain": "graph_mutation"
+    },
+    {
+      "id": "mapping",
+      "domain": "dataset_mapping"
+    },
+    {
+      "id": "grouping",
+      "domain": "dataset_grouping"
+    },
+    {
+      "id": "parser",
+      "domain": "parser_workflow"
+    },
+    {
+      "id": "dashboard",
+      "domain": "dashboard_control"
+    },
+    {
+      "id": "legacy",
+      "domain": "legacy_action"
+    }
+  ],
+  "typedKinds": [
+    "GraphMutationPlan",
+    "GraphMutationDraft",
+    "DatasetMappingPatch",
+    "ParserWorkflowOperation",
+    "DashboardControlIntent",
+    "LegacyActionIntent",
+    "GroundedQuestion",
+    "DeterministicHelpQuery"
+  ],
+  "identityCases": 41,
+  "identityMismatchHandlerCalls": 0,
+  "identityMismatchWrongReasons": 0,
+  "readOnlyKindPairings": 12,
+  "unexpectedPayloadCases": 4,
+  "unexpectedPayloadHandlerCalls": 0,
+  "unexpectedPayloadWrongReasons": 0,
+  "protectedStateViolations": 0,
+  "modelAdversarial": {
+    "id": "model-read-only-graph-domain-dashboard-kind-clear-payload",
+    "family": "model_adversarial",
+    "payloadFamily": "graph",
+    "domain": "graph_mutation",
+    "typedKind": "DashboardControlIntent",
+    "declaredSideEffectClass": "read_only",
+    "query": "Explain graph clearing without changing anything.",
+    "authorizationScopes": [],
+    "handlerCalls": {
+      "graphMutation": 0,
+      "dashboardControl": 0,
+      "datasetMapping": 0,
+      "parserWorkflow": 0,
+      "legacyAction": 0,
+      "groundedQuestion": 0,
+      "helpQuery": 0,
+      "blockedSideEffect": 1
+    },
+    "protectedHandlerCalls": 0,
+    "protectedStateChanged": false,
+    "confirmationStaged": false,
+    "resolvedDomain": "graph_mutation",
+    "resolvedTypedKind": "DashboardControlIntent",
+    "actualSideEffectClass": "unknown",
+    "operationTypes": [
+      "CLEAR_GRAPH"
+    ],
+    "legacyRegistryId": null,
+    "dispatchPath": "deterministic_final_plan_identity_gate",
+    "dispatchBlockReason": "plan_identity_mismatch",
+    "authorizationDecision": "read_only_blocked"
+  },
+  "identityRecords": [
+    {
+      "id": "graph:wrong-kind:DatasetMappingPatch",
+      "family": "graph",
+      "payloadFamily": "graph",
+      "domain": "graph_mutation",
+      "typedKind": "DatasetMappingPatch",
+      "declaredSideEffectClass": "graph_edit_preview",
+      "query": "Clear the graph.",
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "graph_mutation",
+      "resolvedTypedKind": "DatasetMappingPatch",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "graph:wrong-kind:ParserWorkflowOperation",
+      "family": "graph",
+      "payloadFamily": "graph",
+      "domain": "graph_mutation",
+      "typedKind": "ParserWorkflowOperation",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "graph_mutation",
+      "resolvedTypedKind": "ParserWorkflowOperation",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "graph:wrong-kind:DashboardControlIntent",
+      "family": "graph",
+      "payloadFamily": "graph",
+      "domain": "graph_mutation",
+      "typedKind": "DashboardControlIntent",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "graph_mutation",
+      "resolvedTypedKind": "DashboardControlIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "graph:wrong-kind:LegacyActionIntent",
+      "family": "graph",
+      "payloadFamily": "graph",
+      "domain": "graph_mutation",
+      "typedKind": "LegacyActionIntent",
+      "declaredSideEffectClass": "graph_edit_preview",
+      "query": "Clear the graph.",
+      "authorizationScopes": [
+        "graph_edit_preview"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "graph_mutation",
+      "resolvedTypedKind": "LegacyActionIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "graph:wrong-kind:GroundedQuestion",
+      "family": "graph",
+      "payloadFamily": "graph",
+      "domain": "graph_mutation",
+      "typedKind": "GroundedQuestion",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "graph_mutation",
+      "resolvedTypedKind": "GroundedQuestion",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "graph:wrong-kind:DeterministicHelpQuery",
+      "family": "graph",
+      "payloadFamily": "graph",
+      "domain": "graph_mutation",
+      "typedKind": "DeterministicHelpQuery",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "graph_mutation",
+      "resolvedTypedKind": "DeterministicHelpQuery",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "mapping:wrong-kind:GraphMutationPlan",
+      "family": "mapping",
+      "payloadFamily": "mapping",
+      "domain": "dataset_mapping",
+      "typedKind": "GraphMutationPlan",
+      "declaredSideEffectClass": "reversible_mapping_edit",
+      "query": "Map papers.csv as the hyperedge table.",
+      "authorizationScopes": [
+        "reversible_mapping_edit",
+        "graph_edit_preview"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_mapping",
+      "resolvedTypedKind": "GraphMutationPlan",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_FILE_ROLE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "mapping:wrong-kind:GraphMutationDraft",
+      "family": "mapping",
+      "payloadFamily": "mapping",
+      "domain": "dataset_mapping",
+      "typedKind": "GraphMutationDraft",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_mapping",
+      "resolvedTypedKind": "GraphMutationDraft",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_FILE_ROLE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "mapping:wrong-kind:ParserWorkflowOperation",
+      "family": "mapping",
+      "payloadFamily": "mapping",
+      "domain": "dataset_mapping",
+      "typedKind": "ParserWorkflowOperation",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_mapping",
+      "resolvedTypedKind": "ParserWorkflowOperation",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_FILE_ROLE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "mapping:wrong-kind:DashboardControlIntent",
+      "family": "mapping",
+      "payloadFamily": "mapping",
+      "domain": "dataset_mapping",
+      "typedKind": "DashboardControlIntent",
+      "declaredSideEffectClass": "reversible_mapping_edit",
+      "query": "Map papers.csv as the hyperedge table.",
+      "authorizationScopes": [
+        "reversible_mapping_edit",
+        "graph_edit_preview"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_mapping",
+      "resolvedTypedKind": "DashboardControlIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_FILE_ROLE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "mapping:wrong-kind:LegacyActionIntent",
+      "family": "mapping",
+      "payloadFamily": "mapping",
+      "domain": "dataset_mapping",
+      "typedKind": "LegacyActionIntent",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_mapping",
+      "resolvedTypedKind": "LegacyActionIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_FILE_ROLE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "mapping:wrong-kind:GroundedQuestion",
+      "family": "mapping",
+      "payloadFamily": "mapping",
+      "domain": "dataset_mapping",
+      "typedKind": "GroundedQuestion",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_mapping",
+      "resolvedTypedKind": "GroundedQuestion",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_FILE_ROLE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "mapping:wrong-kind:DeterministicHelpQuery",
+      "family": "mapping",
+      "payloadFamily": "mapping",
+      "domain": "dataset_mapping",
+      "typedKind": "DeterministicHelpQuery",
+      "declaredSideEffectClass": "reversible_mapping_edit",
+      "query": "Map papers.csv as the hyperedge table.",
+      "authorizationScopes": [
+        "reversible_mapping_edit",
+        "graph_edit_preview"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_mapping",
+      "resolvedTypedKind": "DeterministicHelpQuery",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_FILE_ROLE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grouping:wrong-kind:GraphMutationPlan",
+      "family": "grouping",
+      "payloadFamily": "grouping",
+      "domain": "dataset_grouping",
+      "typedKind": "GraphMutationPlan",
+      "declaredSideEffectClass": "reversible_grouping_edit",
+      "query": "Parse these files separately.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_grouping",
+      "resolvedTypedKind": "GraphMutationPlan",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_PARSE_MODE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grouping:wrong-kind:GraphMutationDraft",
+      "family": "grouping",
+      "payloadFamily": "grouping",
+      "domain": "dataset_grouping",
+      "typedKind": "GraphMutationDraft",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_grouping",
+      "resolvedTypedKind": "GraphMutationDraft",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_PARSE_MODE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grouping:wrong-kind:ParserWorkflowOperation",
+      "family": "grouping",
+      "payloadFamily": "grouping",
+      "domain": "dataset_grouping",
+      "typedKind": "ParserWorkflowOperation",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_grouping",
+      "resolvedTypedKind": "ParserWorkflowOperation",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_PARSE_MODE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grouping:wrong-kind:DashboardControlIntent",
+      "family": "grouping",
+      "payloadFamily": "grouping",
+      "domain": "dataset_grouping",
+      "typedKind": "DashboardControlIntent",
+      "declaredSideEffectClass": "reversible_grouping_edit",
+      "query": "Parse these files separately.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_grouping",
+      "resolvedTypedKind": "DashboardControlIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_PARSE_MODE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grouping:wrong-kind:LegacyActionIntent",
+      "family": "grouping",
+      "payloadFamily": "grouping",
+      "domain": "dataset_grouping",
+      "typedKind": "LegacyActionIntent",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_grouping",
+      "resolvedTypedKind": "LegacyActionIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_PARSE_MODE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grouping:wrong-kind:GroundedQuestion",
+      "family": "grouping",
+      "payloadFamily": "grouping",
+      "domain": "dataset_grouping",
+      "typedKind": "GroundedQuestion",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_grouping",
+      "resolvedTypedKind": "GroundedQuestion",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_PARSE_MODE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grouping:wrong-kind:DeterministicHelpQuery",
+      "family": "grouping",
+      "payloadFamily": "grouping",
+      "domain": "dataset_grouping",
+      "typedKind": "DeterministicHelpQuery",
+      "declaredSideEffectClass": "reversible_grouping_edit",
+      "query": "Parse these files separately.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dataset_grouping",
+      "resolvedTypedKind": "DeterministicHelpQuery",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "SET_PARSE_MODE"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "parser:wrong-kind:GraphMutationPlan",
+      "family": "parser",
+      "payloadFamily": "parser",
+      "domain": "parser_workflow",
+      "typedKind": "GraphMutationPlan",
+      "declaredSideEffectClass": "workflow_preparation",
+      "query": "Generate the transformation plan.",
+      "authorizationScopes": [
+        "workflow_preparation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "parser_workflow",
+      "resolvedTypedKind": "GraphMutationPlan",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "GENERATE_TRANSFORMATION_PLAN"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "parser:wrong-kind:GraphMutationDraft",
+      "family": "parser",
+      "payloadFamily": "parser",
+      "domain": "parser_workflow",
+      "typedKind": "GraphMutationDraft",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "parser_workflow",
+      "resolvedTypedKind": "GraphMutationDraft",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "GENERATE_TRANSFORMATION_PLAN"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "parser:wrong-kind:DatasetMappingPatch",
+      "family": "parser",
+      "payloadFamily": "parser",
+      "domain": "parser_workflow",
+      "typedKind": "DatasetMappingPatch",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "parser_workflow",
+      "resolvedTypedKind": "DatasetMappingPatch",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "GENERATE_TRANSFORMATION_PLAN"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "parser:wrong-kind:DashboardControlIntent",
+      "family": "parser",
+      "payloadFamily": "parser",
+      "domain": "parser_workflow",
+      "typedKind": "DashboardControlIntent",
+      "declaredSideEffectClass": "workflow_preparation",
+      "query": "Generate the transformation plan.",
+      "authorizationScopes": [
+        "workflow_preparation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "parser_workflow",
+      "resolvedTypedKind": "DashboardControlIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "GENERATE_TRANSFORMATION_PLAN"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "parser:wrong-kind:LegacyActionIntent",
+      "family": "parser",
+      "payloadFamily": "parser",
+      "domain": "parser_workflow",
+      "typedKind": "LegacyActionIntent",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "parser_workflow",
+      "resolvedTypedKind": "LegacyActionIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "GENERATE_TRANSFORMATION_PLAN"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "parser:wrong-kind:GroundedQuestion",
+      "family": "parser",
+      "payloadFamily": "parser",
+      "domain": "parser_workflow",
+      "typedKind": "GroundedQuestion",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "parser_workflow",
+      "resolvedTypedKind": "GroundedQuestion",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "GENERATE_TRANSFORMATION_PLAN"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "parser:wrong-kind:DeterministicHelpQuery",
+      "family": "parser",
+      "payloadFamily": "parser",
+      "domain": "parser_workflow",
+      "typedKind": "DeterministicHelpQuery",
+      "declaredSideEffectClass": "workflow_preparation",
+      "query": "Generate the transformation plan.",
+      "authorizationScopes": [
+        "workflow_preparation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "parser_workflow",
+      "resolvedTypedKind": "DeterministicHelpQuery",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "GENERATE_TRANSFORMATION_PLAN"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "dashboard:wrong-kind:GraphMutationPlan",
+      "family": "dashboard",
+      "payloadFamily": "dashboard",
+      "domain": "dashboard_control",
+      "typedKind": "GraphMutationPlan",
+      "declaredSideEffectClass": "navigation",
+      "query": "Show statistics.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "GraphMutationPlan",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "dashboard:wrong-kind:GraphMutationDraft",
+      "family": "dashboard",
+      "payloadFamily": "dashboard",
+      "domain": "dashboard_control",
+      "typedKind": "GraphMutationDraft",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "GraphMutationDraft",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "dashboard:wrong-kind:DatasetMappingPatch",
+      "family": "dashboard",
+      "payloadFamily": "dashboard",
+      "domain": "dashboard_control",
+      "typedKind": "DatasetMappingPatch",
+      "declaredSideEffectClass": "graph_edit_preview",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "DatasetMappingPatch",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "dashboard:wrong-kind:ParserWorkflowOperation",
+      "family": "dashboard",
+      "payloadFamily": "dashboard",
+      "domain": "dashboard_control",
+      "typedKind": "ParserWorkflowOperation",
+      "declaredSideEffectClass": "navigation",
+      "query": "Show statistics.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "ParserWorkflowOperation",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "dashboard:wrong-kind:LegacyActionIntent",
+      "family": "dashboard",
+      "payloadFamily": "dashboard",
+      "domain": "dashboard_control",
+      "typedKind": "LegacyActionIntent",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "LegacyActionIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "dashboard:wrong-kind:GroundedQuestion",
+      "family": "dashboard",
+      "payloadFamily": "dashboard",
+      "domain": "dashboard_control",
+      "typedKind": "GroundedQuestion",
+      "declaredSideEffectClass": "graph_edit_preview",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "GroundedQuestion",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "dashboard:wrong-kind:DeterministicHelpQuery",
+      "family": "dashboard",
+      "payloadFamily": "dashboard",
+      "domain": "dashboard_control",
+      "typedKind": "DeterministicHelpQuery",
+      "declaredSideEffectClass": "navigation",
+      "query": "Show statistics.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "DeterministicHelpQuery",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy:wrong-kind:GraphMutationPlan",
+      "family": "legacy",
+      "payloadFamily": "legacy",
+      "domain": "legacy_action",
+      "typedKind": "GraphMutationPlan",
+      "declaredSideEffectClass": "file_picker",
+      "query": "Upload files.",
+      "authorizationScopes": [
+        "file_picker"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "GraphMutationPlan",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy:wrong-kind:GraphMutationDraft",
+      "family": "legacy",
+      "payloadFamily": "legacy",
+      "domain": "legacy_action",
+      "typedKind": "GraphMutationDraft",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "GraphMutationDraft",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy:wrong-kind:DatasetMappingPatch",
+      "family": "legacy",
+      "payloadFamily": "legacy",
+      "domain": "legacy_action",
+      "typedKind": "DatasetMappingPatch",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "DatasetMappingPatch",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy:wrong-kind:ParserWorkflowOperation",
+      "family": "legacy",
+      "payloadFamily": "legacy",
+      "domain": "legacy_action",
+      "typedKind": "ParserWorkflowOperation",
+      "declaredSideEffectClass": "file_picker",
+      "query": "Upload files.",
+      "authorizationScopes": [
+        "file_picker"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "ParserWorkflowOperation",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy:wrong-kind:DashboardControlIntent",
+      "family": "legacy",
+      "payloadFamily": "legacy",
+      "domain": "legacy_action",
+      "typedKind": "DashboardControlIntent",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain what this would do without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "DashboardControlIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy:wrong-kind:GroundedQuestion",
+      "family": "legacy",
+      "payloadFamily": "legacy",
+      "domain": "legacy_action",
+      "typedKind": "GroundedQuestion",
+      "declaredSideEffectClass": "navigation",
+      "query": "Use CSR.",
+      "authorizationScopes": [
+        "navigation"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "GroundedQuestion",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy:wrong-kind:DeterministicHelpQuery",
+      "family": "legacy",
+      "payloadFamily": "legacy",
+      "domain": "legacy_action",
+      "typedKind": "DeterministicHelpQuery",
+      "declaredSideEffectClass": "file_picker",
+      "query": "Upload files.",
+      "authorizationScopes": [
+        "file_picker"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "DeterministicHelpQuery",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "plan_identity_mismatch",
+      "authorizationDecision": "read_only_blocked"
+    }
+  ],
+  "unexpectedPayloadRecords": [
+    {
+      "id": "dashboard-with-graph-operations",
+      "family": null,
+      "payloadFamily": null,
+      "domain": "dashboard_control",
+      "typedKind": "DashboardControlIntent",
+      "declaredSideEffectClass": "read_only",
+      "query": "",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "dashboard_control",
+      "resolvedTypedKind": "DashboardControlIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "unexpected_state_changing_payload",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "grounded-question-with-graph-operations",
+      "family": null,
+      "payloadFamily": null,
+      "domain": "grounded_question",
+      "typedKind": "GroundedQuestion",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain graph clearing without changing anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "grounded_question",
+      "resolvedTypedKind": "GroundedQuestion",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "unexpected_state_changing_payload",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "help-query-with-parser-operations",
+      "family": null,
+      "payloadFamily": null,
+      "domain": "help_query",
+      "typedKind": "DeterministicHelpQuery",
+      "declaredSideEffectClass": "read_only",
+      "query": "Explain parser commands without running anything.",
+      "authorizationScopes": [],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "help_query",
+      "resolvedTypedKind": "DeterministicHelpQuery",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "RUN_CUSTOM_PARSER_CONFIRMATION"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "unexpected_state_changing_payload",
+      "authorizationDecision": "read_only_blocked"
+    },
+    {
+      "id": "legacy-action-with-graph-operations",
+      "family": null,
+      "payloadFamily": null,
+      "domain": "legacy_action",
+      "typedKind": "LegacyActionIntent",
+      "declaredSideEffectClass": "file_picker",
+      "query": "Upload files.",
+      "authorizationScopes": [
+        "file_picker"
+      ],
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "groundedQuestion": 0,
+        "helpQuery": 0,
+        "blockedSideEffect": 1
+      },
+      "protectedHandlerCalls": 0,
+      "protectedStateChanged": false,
+      "confirmationStaged": false,
+      "resolvedDomain": "legacy_action",
+      "resolvedTypedKind": "LegacyActionIntent",
+      "actualSideEffectClass": "unknown",
+      "operationTypes": [
+        "CLEAR_GRAPH"
+      ],
+      "legacyRegistryId": null,
+      "dispatchPath": "deterministic_final_plan_identity_gate",
+      "dispatchBlockReason": "unexpected_state_changing_payload",
+      "authorizationDecision": "read_only_blocked"
+    }
+  ]
+}

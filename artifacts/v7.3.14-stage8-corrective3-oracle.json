@@ -1,0 +1,101 @@
+{
+  "stage": 8,
+  "corrective": 3,
+  "kind": "authoritative_plan_identity_and_legacy_side_effect_oracle",
+  "parentCommit": "6b0af8a8a33e5dccc0a9cb7f336d82e1bddaa1e7",
+  "preFixEvidenceCommit": "9737002a3dd67cf08b825ec489fc134b90d89851",
+  "productionCorrectiveCommit": "54af3489a1a0253502629585dffcd19635cb5c4b",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "invariants": {
+    "canonicalPlanIdentity": "The final authorization gate and handler router consume the same resolved domain, typed kind, side-effect class, and operation types.",
+    "domainTypedKindAgreement": "A present domain and typed kind must form a registered pair; inconsistent metadata fails closed before every protected handler.",
+    "verifiedIdentityRouting": "Protected handlers route only from a valid canonical plan identity.",
+    "payloadShapeConsistency": "Nominally operation-free typed plans reject non-empty operation arrays with unexpected_state_changing_payload.",
+    "legacySideEffectAuthority": "LegacyActionIntent privilege comes from the public action-intent registry. Supplied metadata is comparison-only and cannot grant authority.",
+    "modelAuthority": "Model and fallback results remain untrusted plan material and cannot create request authorization."
+  },
+  "findings": {
+    "S8-N05": {
+      "severity": "High",
+      "title": "Final gate and handler routing can disagree on domain versus typed plan identity",
+      "preFix": "confirmed",
+      "postFix": "closed_pending_independent_review",
+      "postFixReason": "plan_identity_mismatch",
+      "protectedHandlerCallsAcrossIdentityMismatchMatrix": 0
+    },
+    "S8-N06": {
+      "severity": "High",
+      "title": "Legacy ActionIntent can self-declare a read_only side-effect class instead of using authoritative registry metadata",
+      "preFix": "confirmed",
+      "postFix": "closed_pending_independent_review",
+      "postFixReason": "legacy_side_effect_metadata_mismatch",
+      "legacyMetadataBypassCalls": 0
+    }
+  },
+  "identityCorruptionMatrix": {
+    "cases": 41,
+    "everyProtectedFamilyPairedWithEveryWrongTypedKind": true,
+    "readOnlyTypedKindPairings": 12,
+    "identityMismatchHandlerCalls": 0,
+    "identityMismatchWrongReasons": 0,
+    "unexpectedPayloadCases": 4,
+    "unexpectedPayloadHandlerCalls": 0,
+    "protectedStateViolations": 0,
+    "modelAdversarialBlockReason": "plan_identity_mismatch"
+  },
+  "legacyCorruptionMatrix": {
+    "publicRegisteredActions": 49,
+    "cases": 248,
+    "expectedExecutions": 101,
+    "actualExecutions": 101,
+    "positiveExecutionFailures": 0,
+    "legacyMetadataBypassCalls": 0,
+    "corruptMetadataHandlerCalls": 0,
+    "kindOnlySelfDeclaredPrivilegeCalls": 0,
+    "compiledActionSelfDeclaredPrivilegeCalls": 0,
+    "unregisteredHandlerCalls": 0,
+    "protectedStateViolations": 0
+  },
+  "originalCorrective2Matrix": {
+    "cases": 125,
+    "expectedExecutions": 5,
+    "actualExecutions": 5,
+    "violations": 0
+  },
+  "preservation": {
+    "S8-N01": "1,135 mixed cases; all four counters zero",
+    "S8-N02": "8/8 truncation cases blocked; zero handler calls and protected-state violations",
+    "S8-N03": "original corrective #2 declared/actual side-effect authority matrix unchanged",
+    "S8-N04": "original corrective #2 no-semantics fail-closed behavior unchanged",
+    "existingReadOnly": "9840/9840 safe",
+    "independentReadOnly": "6560/6560 safe",
+    "positive": "492 cases; 0 wrong blocks",
+    "pending": "30/30 read-only cases preserved; 3/3 real corrections succeeded",
+    "modelFallback": "8 cases; 0 malicious executions"
+  },
+  "browser": {
+    "status": "passed",
+    "realChromeFlows": "6/6",
+    "consoleErrors": 0,
+    "evidence": "artifacts/v7.3.14-stage8-corrective3-browser.json"
+  },
+  "commandValidation": {
+    "nodeSuite": "passed: 217/217 files in 94.6 seconds; one existing environment skip because python3 was unavailable",
+    "lint": "passed",
+    "build": "passed; existing Vite chunk-size warning only",
+    "githubBuild": "passed; existing Vite chunk-size warning only",
+    "npmAudit": "1 high-severity dev-only browserslist <=4.28.6 advisory; dependency changes prohibited by corrective scope",
+    "npmAuditOmitDev": "passed: 0 production vulnerabilities",
+    "gitDiffCheck": "passed"
+  },
+  "evidence": [
+    "artifacts/v7.3.14-stage8-corrective3-prechange.json",
+    "artifacts/v7.3.14-stage8-corrective3-plan-identity.json",
+    "artifacts/v7.3.14-stage8-corrective3-legacy-authority.json",
+    "artifacts/v7.3.14-stage8-corrective3-preservation.json",
+    "artifacts/v7.3.14-stage8-corrective3-browser.json",
+    "artifacts/v7.3.14-stage8-corrective3-issue-register.json",
+    "artifacts/v7.3.14-stage8-corrective3-report.md"
+  ]
+}
