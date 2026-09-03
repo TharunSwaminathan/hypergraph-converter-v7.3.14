@@ -54,7 +54,7 @@ export function compileDeterministicAction(nlu, context = {}) {
       return {
         ok: true,
         handled: true,
-        domain: lexicalDomain,
+        domain: "grounded_question",
         intent,
         mode: "clarification",
         speechAct: speech.speechAct,
@@ -95,7 +95,7 @@ export function compileDeterministicAction(nlu, context = {}) {
       return {
         ok: true,
         handled: true,
-        domain: lexicalDomain,
+        domain: "grounded_question",
         intent,
         mode: "cancellation",
         speechAct: speech.speechAct,
@@ -119,7 +119,7 @@ export function compileDeterministicAction(nlu, context = {}) {
       return {
         ok: true,
         handled: true,
-        domain: lexicalDomain,
+        domain: "grounded_question",
         intent,
         mode: "question",
         speechAct: speech.speechAct,
@@ -211,6 +211,44 @@ export function compileDeterministicAction(nlu, context = {}) {
     compiled,
     requestSemantics,
   };
+  if (compiled.needsClarification && lexicalDomain === "legacy_action") {
+    const clarificationIntent = initial.intent;
+    const missingArguments = compiled.action?.missingArguments ?? [];
+    return {
+      ...initial,
+      domain: "grounded_question",
+      intent: clarificationIntent,
+      mode: "clarification",
+      typedKind: "GroundedQuestion",
+      typedValue: {
+        intent: clarificationIntent,
+        topicDomain: lexicalDomain,
+        needsResolution: true,
+        clarificationQuestion: compiled.clarificationQuestion ?? null,
+        missingArguments,
+        sideEffect: "read_only",
+      },
+      sideEffectClass: "read_only",
+      dispatchAuthorized: true,
+      dispatchBlockReason: "clarification_required",
+      compiled: {
+        ...compiled,
+        domain: "grounded_question",
+        blockedCompilation: compiled,
+      },
+      diagnostics: {
+        ...baseDiagnostics(nlu, lexicalDomain, {
+          validatorStatus: "clarification_required",
+          speechAct: speech.speechAct,
+          sideEffectClass: "read_only",
+        }),
+        ...(compiled.diagnostics ?? {}),
+        sourceDomain: lexicalDomain,
+        missingArguments,
+        requestSemantics,
+      },
+    };
+  }
   const sideEffectClass = classifyCompiledSideEffect(initial);
   const authorization = authorizeSpeechActSideEffect({ speechAct: speech.speechAct, sideEffectClass });
   const semanticAuthorization = authorizeCompiledSideEffect({
@@ -231,6 +269,7 @@ export function compileDeterministicAction(nlu, context = {}) {
       ...initial,
       ok: true,
       handled: true,
+      domain: "grounded_question",
       mode: speech.speechAct === "status_question" ? "status_request" : "question",
       typedKind: "GroundedQuestion",
       typedValue: {
@@ -286,6 +325,7 @@ export function compileDeterministicAction(nlu, context = {}) {
       ...initial,
       ok: true,
       handled: true,
+      domain: "grounded_question",
       mode: "question",
       typedKind: "GroundedQuestion",
       typedValue: {

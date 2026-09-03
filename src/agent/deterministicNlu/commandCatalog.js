@@ -97,10 +97,11 @@ function expectedLegacySpeechAct(text = "", intent = "") {
   return "imperative_request";
 }
 
-const readOnlyExample = (text, expectedDomain, expectedIntent, extra = {}) => ({
+const readOnlyExample = (text, sourceDomain, expectedIntent, extra = {}) => ({
   text,
   fixture: extra.fixture ?? "mapping.authorship",
-  expectedDomain,
+  expectedDomain: "grounded_question",
+  sourceDomain,
   expectedTypedKind: TYPED_KINDS.GROUNDED_QUESTION,
   expectedSpeechAct: extra.expectedSpeechAct ?? "hypothetical_question",
   expectedSideEffect: SIDE_EFFECT.READ_ONLY,
@@ -951,7 +952,7 @@ export const COMMAND_CATALOG = Object.freeze([
       {
         text: "What should I do next?",
         fixture: "parser.plan_ready",
-        expectedDomain: "parser_workflow",
+        expectedDomain: "grounded_question",
         expectedTypedKind: TYPED_KINDS.GROUNDED_QUESTION,
         expectedSpeechAct: "status_question",
         expectedSideEffect: SIDE_EFFECT.READ_ONLY,
@@ -1475,7 +1476,7 @@ export const COMMAND_CATALOG = Object.freeze([
   {
     id: "parser.reported-speech",
     category: COMMAND_CATEGORIES.CORRECTIONS_SAFETY,
-    domain: "parser_workflow",
+    domain: "grounded_question",
     intent: "explain_reported_parser_workflow",
     typedKind: TYPED_KINDS.GROUNDED_QUESTION,
     operationTypes: [],

@@ -1,5 +1,6 @@
 import { speechActIsReadOnly } from "./speechActClassifier.js";
 import { authorizationAllowsSideEffect } from "./positiveAuthorization.js";
+import { resolvePublicActionIntentReference } from "../actionIntentRegistry.js";
 
 export const SIDE_EFFECT_CLASSES = Object.freeze([
   "read_only",
@@ -56,22 +57,161 @@ const RUNTIME_CONTROL_INTENTS = new Set([
   "STOP_LOCAL_MODEL_TASK",
 ]);
 
-export function deriveActualSideEffect(compilation = {}) {
-  const declaredTypedKind = compilation.typedKind ?? null;
-  const typedKind = declaredTypedKind ?? typedKindForDomain(compilation.domain);
+const TYPED_KINDS_BY_DOMAIN = Object.freeze({
+  graph_mutation: Object.freeze(["GraphMutationPlan", "GraphMutationDraft"]),
+  dataset_mapping: Object.freeze(["DatasetMappingPatch"]),
+  dataset_grouping: Object.freeze(["DatasetMappingPatch"]),
+  parser_workflow: Object.freeze(["ParserWorkflowOperation"]),
+  dashboard_control: Object.freeze(["DashboardControlIntent"]),
+  legacy_action: Object.freeze(["LegacyActionIntent"]),
+  grounded_question: Object.freeze(["GroundedQuestion"]),
+  help_query: Object.freeze(["DeterministicHelpQuery"]),
+});
+
+const DOMAINS_BY_TYPED_KIND = Object.freeze({
+  GraphMutationPlan: Object.freeze(["graph_mutation"]),
+  GraphMutationDraft: Object.freeze(["graph_mutation"]),
+  DatasetMappingPatch: Object.freeze(["dataset_mapping", "dataset_grouping"]),
+  ParserWorkflowOperation: Object.freeze(["parser_workflow"]),
+  DashboardControlIntent: Object.freeze(["dashboard_control"]),
+  LegacyActionIntent: Object.freeze(["legacy_action"]),
+  GroundedQuestion: Object.freeze(["grounded_question"]),
+  DeterministicHelpQuery: Object.freeze(["help_query"]),
+});
+
+const OPERATION_FREE_TYPED_KINDS = new Set([
+  "DashboardControlIntent",
+  "LegacyActionIntent",
+  "GroundedQuestion",
+  "DeterministicHelpQuery",
+]);
+
+function operationsForCompilation(typedValue, compiled) {
+  const candidates = [
+    typedValue?.operations,
+    typedValue?.draft?.operations,
+    typedValue?.plan?.operations,
+    compiled?.draft?.operations,
+    compiled?.plan?.operations,
+    compiled?.operations,
+  ];
+  return candidates.find(value => Array.isArray(value) && value.length)
+    ?? candidates.find(Array.isArray)
+    ?? (Array.isArray(typedValue) ? typedValue : []);
+}
+
+function invalidIdentity({
+  domain,
+  typedKind,
+  declaredDomain,
+  declaredTypedKind,
+  operationTypes,
+  reason,
+  sideEffectClass = "unknown",
+  legacyRegistryEntry = null,
+}) {
+  return Object.freeze({
+    valid: false,
+    reason,
+    domain,
+    typedKind,
+    declaredDomain,
+    declaredTypedKind,
+    sideEffectClass,
+    operationTypes,
+    legacyRegistryId: legacyRegistryEntry?.id ?? null,
+    legacyIntent: legacyRegistryEntry?.intent ?? null,
+  });
+}
+
+function resolveLegacyAuthority(typedValue, compiled) {
+  const sources = [typedValue, compiled?.action]
+    .filter(value => value && typeof value === "object" && !Array.isArray(value));
+  const identitySources = sources.filter(source => (
+    source.registryId || source.intent || source.handlerKind || source.kind
+  ));
+  if (!identitySources.length) {
+    return { valid: false, reason: "legacy_action_unregistered", entry: null };
+  }
+  const resolutions = identitySources.map(resolvePublicActionIntentReference);
+  const invalid = resolutions.find(resolution => !resolution.valid);
+  if (invalid) return invalid;
+  const entry = resolutions[0].entry;
+  if (resolutions.some(resolution => resolution.entry.id !== entry.id)) {
+    return { valid: false, reason: "legacy_action_identity_mismatch", entry: null };
+  }
+  const suppliedSideEffects = sources
+    .map(source => source.sideEffect)
+    .filter(value => value !== undefined && value !== null);
+  if (suppliedSideEffects.some(sideEffect => sideEffect !== entry.sideEffect)) {
+    return { valid: false, reason: "legacy_side_effect_metadata_mismatch", entry };
+  }
+  return { valid: true, reason: null, entry };
+}
+
+export function resolveActualPlanIdentity(compilation = {}) {
+  const declaredDomain = compilation.domain ?? compilation.compiled?.domain ?? null;
+  const declaredTypedKind = compilation.typedKind ?? compilation.compiled?.typedKind ?? null;
+  const domain = declaredDomain ?? DOMAINS_BY_TYPED_KIND[declaredTypedKind]?.[0] ?? null;
+  const typedKind = declaredTypedKind ?? TYPED_KINDS_BY_DOMAIN[domain]?.[0] ?? null;
   const typedValue = compilation.typedValue ?? null;
   const compiled = compilation.compiled ?? {};
-  const operations = compiled.draft?.operations
-    ?? compiled.plan?.operations
-    ?? compiled.operations
-    ?? typedValue?.operations
-    ?? (Array.isArray(typedValue) ? typedValue : []);
+  const operations = operationsForCompilation(typedValue, compiled);
+  const operationTypes = operations.map(operation => operation?.type).filter(Boolean);
+
+  if (!domain || !typedKind || !DOMAINS_BY_TYPED_KIND[typedKind]) {
+    return invalidIdentity({
+      domain,
+      typedKind,
+      declaredDomain,
+      declaredTypedKind,
+      operationTypes,
+      reason: "unknown_plan_identity",
+    });
+  }
+  if (!DOMAINS_BY_TYPED_KIND[typedKind].includes(domain)
+    || !TYPED_KINDS_BY_DOMAIN[domain]?.includes(typedKind)) {
+    return invalidIdentity({
+      domain,
+      typedKind,
+      declaredDomain,
+      declaredTypedKind,
+      operationTypes,
+      reason: "plan_identity_mismatch",
+    });
+  }
+  if (OPERATION_FREE_TYPED_KINDS.has(typedKind) && operations.length) {
+    return invalidIdentity({
+      domain,
+      typedKind,
+      declaredDomain,
+      declaredTypedKind,
+      operationTypes,
+      reason: "unexpected_state_changing_payload",
+    });
+  }
 
   let sideEffectClass = "read_only";
+  let legacyRegistryEntry = null;
   if (typedKind === "GroundedQuestion" || typedKind === "DeterministicHelpQuery") {
     sideEffectClass = "read_only";
   } else if (typedKind === "LegacyActionIntent") {
-    sideEffectClass = typedValue?.sideEffect ?? compiled.action?.sideEffect ?? "read_only";
+    const legacyAuthority = resolveLegacyAuthority(typedValue, compiled);
+    const authoritativeSideEffect = legacyAuthority.entry?.sideEffect ?? "unknown";
+    if (!legacyAuthority.valid) {
+      return invalidIdentity({
+        domain,
+        typedKind,
+        declaredDomain,
+        declaredTypedKind,
+        operationTypes,
+        reason: legacyAuthority.reason,
+        sideEffectClass: authoritativeSideEffect,
+        legacyRegistryEntry: legacyAuthority.entry,
+      });
+    }
+    legacyRegistryEntry = legacyAuthority.entry;
+    sideEffectClass = authoritativeSideEffect;
   }
   if (typedKind === "DatasetMappingPatch") {
     sideEffectClass = !operations.length ? "read_only"
@@ -80,6 +220,7 @@ export function deriveActualSideEffect(compilation = {}) {
         : "reversible_mapping_edit";
   }
   if (typedKind === "GraphMutationPlan") sideEffectClass = operations.length ? "graph_edit_preview" : "read_only";
+  if (typedKind === "GraphMutationDraft") sideEffectClass = "graph_edit_preview";
   if (typedKind === "ParserWorkflowOperation") {
     const types = operations.map(operation => operation.type);
     if (types.includes("APPLY_CUSTOM_PARSER_RESULT_CONFIRMATION")) sideEffectClass = "requires_graph_apply_confirmation";
@@ -94,11 +235,21 @@ export function deriveActualSideEffect(compilation = {}) {
     else sideEffectClass = "read_only";
   }
   return Object.freeze({
+    valid: true,
+    reason: null,
+    domain,
     sideEffectClass,
     typedKind,
+    declaredDomain,
     declaredTypedKind,
-    operationTypes: operations.map(operation => operation?.type).filter(Boolean),
+    operationTypes,
+    legacyRegistryId: legacyRegistryEntry?.id ?? null,
+    legacyIntent: legacyRegistryEntry?.intent ?? null,
   });
+}
+
+export function deriveActualSideEffect(compilation = {}) {
+  return resolveActualPlanIdentity(compilation);
 }
 
 export function classifyCompiledSideEffect(compilation = {}) {
@@ -228,6 +379,7 @@ function planLooksStateChanging(plan, context = {}) {
     ?? context?.operations
     ?? [];
   if (typedKind === "GraphMutationPlan") return operations.length > 0;
+  if (typedKind === "GraphMutationDraft") return true;
   if (typedKind === "DatasetMappingPatch") return operations.length > 0;
   if (typedKind === "ParserWorkflowOperation") {
     return operations.some(operation => !READ_ONLY_WORKFLOW.has(operation?.type));
@@ -238,15 +390,4 @@ function planLooksStateChanging(plan, context = {}) {
   }
   if (typedKind === "LegacyActionIntent") return Boolean(plan?.sideEffect && plan.sideEffect !== "read_only");
   return false;
-}
-
-function typedKindForDomain(domain) {
-  if (domain === "graph_mutation") return "GraphMutationPlan";
-  if (domain === "dataset_mapping" || domain === "dataset_grouping") return "DatasetMappingPatch";
-  if (domain === "parser_workflow") return "ParserWorkflowOperation";
-  if (domain === "dashboard_control") return "DashboardControlIntent";
-  if (domain === "legacy_action") return "LegacyActionIntent";
-  if (domain === "grounded_question") return "GroundedQuestion";
-  if (domain === "help_query") return "DeterministicHelpQuery";
-  return null;
 }

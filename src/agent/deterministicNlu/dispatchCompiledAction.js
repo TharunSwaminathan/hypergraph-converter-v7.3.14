@@ -3,7 +3,7 @@ import { finishRuntimeTrace } from "./runtimeInstrumentation.js";
 import { evaluateActionContext } from "../actionContextPolicy.js";
 import {
   authorizeCompiledSideEffect,
-  deriveActualSideEffect,
+  resolveActualPlanIdentity,
   sideEffectIsStateChanging,
 } from "./sideEffectPolicy.js";
 import { analyzeRequestSemantics } from "./requestSemantics.js";
@@ -53,7 +53,29 @@ export async function dispatchCompiledAction({
     return result(true, "clarification", trace, "completed");
   }
 
-  const domain = compilation.domain ?? nlu?.primaryDomain ?? "unknown";
+  const declaredSideEffectClass = compilation.sideEffectClass ?? "unknown";
+  const actualIdentity = resolveActualPlanIdentity(compilation);
+  trace.declaredSideEffectClass = declaredSideEffectClass;
+  trace.actualSideEffectClass = actualIdentity.sideEffectClass;
+  trace.declaredDomain = actualIdentity.declaredDomain;
+  trace.actualDomain = actualIdentity.domain;
+  trace.declaredTypedKind = actualIdentity.declaredTypedKind;
+  trace.typedKind = actualIdentity.typedKind;
+  trace.operationTypes = actualIdentity.operationTypes;
+  trace.legacyRegistryId = actualIdentity.legacyRegistryId;
+  trace.legacyIntent = actualIdentity.legacyIntent;
+
+  if (!actualIdentity.valid) {
+    trace.dispatchPath = "deterministic_final_plan_identity_gate";
+    trace.blockedSideEffect = actualIdentity.sideEffectClass;
+    trace.dispatchBlockReason = actualIdentity.reason;
+    trace.authorizationDecision = "read_only_blocked";
+    const outcome = await handlers.blockedSideEffect?.(prepared, query, actualIdentity.reason, actualIdentity);
+    applyOutcomeTrace(trace, outcome);
+    return result(Boolean(outcome?.handled ?? true), outcome?.outcome ?? "responded", trace, "completed");
+  }
+
+  const domain = actualIdentity.domain;
   const stale = staleForDomain(domain, prepared.contextBinding, state, pendingAction);
   if (stale.stale) {
     await handlers.stale?.(prepared, staleBindingMessage(stale.scope), stale);
@@ -72,13 +94,7 @@ export async function dispatchCompiledAction({
 
   // The final dispatcher independently derives the side effect from the typed
   // plan. Caller/model metadata is evidence to validate, never authority.
-  const declaredSideEffectClass = compilation.sideEffectClass ?? "unknown";
-  const actualSideEffect = deriveActualSideEffect(compilation);
-  const actualSideEffectClass = actualSideEffect.sideEffectClass;
-  trace.declaredSideEffectClass = declaredSideEffectClass;
-  trace.actualSideEffectClass = actualSideEffectClass;
-  trace.typedKind = actualSideEffect.typedKind ?? compilation.typedKind ?? null;
-  trace.operationTypes = actualSideEffect.operationTypes;
+  const actualSideEffectClass = actualIdentity.sideEffectClass;
 
   if (sideEffectIsStateChanging(actualSideEffectClass)
     && declaredSideEffectClass !== actualSideEffectClass) {
@@ -89,8 +105,8 @@ export async function dispatchCompiledAction({
     const outcome = await handlers.blockedSideEffect?.(prepared, query, "side_effect_class_mismatch", {
       declaredSideEffectClass,
       actualSideEffectClass,
-      typedKind: actualSideEffect.typedKind,
-      operationTypes: actualSideEffect.operationTypes,
+      typedKind: actualIdentity.typedKind,
+      operationTypes: actualIdentity.operationTypes,
     });
     applyOutcomeTrace(trace, outcome);
     return result(Boolean(outcome?.handled ?? true), outcome?.outcome ?? "responded", trace, "completed");
@@ -110,9 +126,9 @@ export async function dispatchCompiledAction({
     plan: compilation.typedValue ?? compilation.compiled ?? null,
     context: {
       dispatchDomain: domain,
-      typedKind: actualSideEffect.typedKind,
+      typedKind: actualIdentity.typedKind,
       intent: compilation.intent,
-      operationTypes: actualSideEffect.operationTypes,
+      operationTypes: actualIdentity.operationTypes,
     },
   });
   if (!finalAuthorization.allowed) {
@@ -128,44 +144,44 @@ export async function dispatchCompiledAction({
   }
   trace.authorizationDecision = "authorized";
 
-  if (domain === "help_query" || compilation.typedKind === "DeterministicHelpQuery") {
+  if (domain === "help_query") {
     trace.dispatchPath = "typed_help_query";
     const handled = await handlers.helpQuery?.(prepared, query);
     applyOutcomeTrace(trace, handled);
     return result(Boolean(handled?.handled ?? handled), handled?.outcome ?? (handled ? "responded" : "not_handled"), trace, "completed");
   }
 
-  if (domain === "grounded_question" || compilation.typedKind === "GroundedQuestion") {
+  if (domain === "grounded_question") {
     trace.dispatchPath = "typed_grounded_question";
     const handled = await handlers.groundedQuestion?.(prepared, query);
     applyOutcomeTrace(trace, handled);
     return result(Boolean(handled?.handled ?? handled), handled?.outcome ?? (handled ? "responded" : "not_handled"), trace, "completed");
   }
-  if (domain === "dataset_mapping" || domain === "dataset_grouping" || compilation.typedKind === "DatasetMappingPatch") {
+  if (domain === "dataset_mapping" || domain === "dataset_grouping") {
     trace.dispatchPath = "typed_dataset_mapping";
     const outcome = await handlers.datasetMapping?.(prepared, query);
     applyOutcomeTrace(trace, outcome);
     return result(Boolean(outcome?.handled ?? outcome), outcome?.outcome ?? "responded", trace, "completed");
   }
-  if (domain === "parser_workflow" || compilation.typedKind === "ParserWorkflowOperation") {
+  if (domain === "parser_workflow") {
     trace.dispatchPath = "typed_parser_workflow";
     const outcome = await handlers.parserWorkflow?.(prepared, query);
     applyOutcomeTrace(trace, outcome);
     return result(Boolean(outcome?.handled ?? outcome), outcome?.outcome ?? "responded", trace, "completed");
   }
-  if (domain === "graph_mutation" || compilation.typedKind === "GraphMutationPlan") {
+  if (domain === "graph_mutation") {
     trace.dispatchPath = "typed_graph_mutation";
     const outcome = await handlers.graphMutation?.(prepared, query);
     applyOutcomeTrace(trace, outcome);
     return result(Boolean(outcome?.handled ?? outcome), outcome?.outcome ?? "staged_confirmation", trace, "completed");
   }
-  if (domain === "dashboard_control" || compilation.typedKind === "DashboardControlIntent") {
+  if (domain === "dashboard_control") {
     trace.dispatchPath = "typed_dashboard_control";
     const outcome = await handlers.dashboardControl?.(prepared, query);
     applyOutcomeTrace(trace, outcome);
     return result(Boolean(outcome?.handled ?? outcome), outcome?.outcome ?? "responded", trace, "completed");
   }
-  if (domain === "legacy_action" || compilation.typedKind === "LegacyActionIntent") {
+  if (domain === "legacy_action") {
     const action = compilation.typedValue ?? compilation.compiled?.action ?? {};
     const context = evaluateActionContext(action, state, pendingAction, action);
     if (!context.ok) {

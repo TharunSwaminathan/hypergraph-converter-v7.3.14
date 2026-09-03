@@ -899,6 +899,39 @@ export function getActionIntentById(id) {
   return ACTION_INTENT_REGISTRY.find(item => item.id === id) ?? null;
 }
 
+export function resolvePublicActionIntentReference(action = {}) {
+  if (!action || typeof action !== "object") {
+    return { valid: false, entry: null, reason: "legacy_action_unregistered" };
+  }
+  const publicEntries = ACTION_INTENT_REGISTRY.filter(
+    item => item.visibility === ACTION_INTENT_VISIBILITY.PUBLIC,
+  );
+  const references = [
+    action.registryId ? { key: "registryId", value: action.registryId } : null,
+    action.intent ? { key: "intent", value: action.intent } : null,
+    action.handlerKind ? { key: "handlerKind", value: action.handlerKind } : null,
+    action.kind ? { key: "kind", value: action.kind } : null,
+  ].filter(Boolean);
+  if (!references.length) {
+    return { valid: false, entry: null, reason: "legacy_action_unregistered" };
+  }
+  const matchesReference = (entry, reference) => {
+    if (reference.key === "registryId") return entry.id === reference.value;
+    if (reference.key === "intent") return entry.intent === reference.value;
+    if (reference.key === "handlerKind") return entry.handlerKind === reference.value;
+    return [entry.id, entry.intent, entry.handlerKind].includes(reference.value);
+  };
+  const matches = publicEntries.filter(entry => references.every(reference => matchesReference(entry, reference)));
+  if (matches.length === 1) return { valid: true, entry: matches[0], reason: null };
+
+  const recognized = references.some(reference => publicEntries.some(entry => matchesReference(entry, reference)));
+  return {
+    valid: false,
+    entry: null,
+    reason: recognized ? "legacy_action_identity_mismatch" : "legacy_action_unregistered",
+  };
+}
+
 export function isPublicActionIntent(intent) {
   return PUBLIC_ACTION_INTENT_SET.has(intent);
 }
