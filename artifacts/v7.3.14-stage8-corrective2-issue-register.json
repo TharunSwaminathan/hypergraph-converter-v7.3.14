@@ -1,0 +1,34 @@
+{
+  "stage": 8,
+  "corrective": 2,
+  "parentCommit": "ea6c442b5219f7452fd1dc32663cec580790911e",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "issues": [
+    {
+      "id": "S8-N03",
+      "severity": "High",
+      "title": "Final dispatch authorizes caller-declared side-effect class instead of actual typed-plan side effect",
+      "prechangeStatus": "confirmed",
+      "status": "closed_pending_independent_review",
+      "resolution": "The final dispatcher derives the actual side-effect class from the typed plan, rejects declared/actual mismatches, and authorizes only against the derived class.",
+      "evidence": [
+        "artifacts/v7.3.14-stage8-corrective2-prechange.json",
+        "artifacts/v7.3.14-stage8-corrective2-final-gate.json",
+        "artifacts/v7.3.14-stage8-corrective2-browser.json"
+      ]
+    },
+    {
+      "id": "S8-N04",
+      "severity": "Medium",
+      "title": "State-changing prepared actions can bypass authorization when query semantics are absent",
+      "prechangeStatus": "confirmed",
+      "status": "closed_pending_independent_review",
+      "resolution": "The former state-changing no-semantics compatibility exemption was removed; absent semantics now block before dispatch with missing_request_semantics.",
+      "evidence": [
+        "artifacts/v7.3.14-stage8-corrective2-prechange.json",
+        "artifacts/v7.3.14-stage8-corrective2-final-gate.json"
+      ]
+    }
+  ]
+}

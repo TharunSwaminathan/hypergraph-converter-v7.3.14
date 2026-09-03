@@ -1,0 +1,89 @@
+{
+  "stage": 8,
+  "corrective": 2,
+  "kind": "final_dispatch_plan_scope_oracle",
+  "parentCommit": "ea6c442b5219f7452fd1dc32663cec580790911e",
+  "preFixEvidenceCommit": "0a1d663cf274ba50d7289d9285f6ade351f41857",
+  "productionCorrectiveCommit": "c5bea11f5de917785eebbae35ad3c10a54ae2367",
+  "testMigrationAndPreservationCommit": "2219fad45cdd1e6c75002cdc67fdad6af2a5cb62",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "invariants": {
+    "actualPlanAuthority": "The final dispatcher derives the effective side effect from the actual typed plan, typed value, operation types, canonical intent, and registered legacy metadata.",
+    "declaredActualConsistency": "Every actual state-changing plan is rejected before its handler when the declared class is missing or differs from the derived actual class.",
+    "actualClassAuthorization": "Final authorization is evaluated against the derived actual class, never against an untrusted caller-declared escape class.",
+    "missingSemantics": "A state-changing plan without request semantics fails closed with missing_request_semantics.",
+    "truncation": "Every actual state-changing plan with truncated authorization fails closed regardless of its declared class.",
+    "modelAuthority": "Local-model and deterministic-fallback ActionPlans remain untrusted inputs to the same final gate."
+  },
+  "findings": {
+    "S8-N03": {
+      "severity": "High",
+      "preFix": "confirmed",
+      "postFix": "closed_pending_independent_review",
+      "postFixReason": "side_effect_class_mismatch",
+      "stateChangingHandlerCallsAcrossMismatchMatrix": 0
+    },
+    "S8-N04": {
+      "severity": "Medium",
+      "preFix": "confirmed",
+      "postFix": "closed_pending_independent_review",
+      "postFixReason": "missing_request_semantics",
+      "stateChangingHandlerCallsWithoutSemantics": 0
+    }
+  },
+  "adversarialMatrix": {
+    "typedPlanFamilies": 5,
+    "declaredClassVariantsPerFamily": 5,
+    "authorizationVariantsPerDeclaration": 5,
+    "cases": 125,
+    "expectedExecutions": 5,
+    "actualExecutions": 5,
+    "violations": 0,
+    "mismatchBlocks": 100,
+    "missingSemanticsBlocks": 5,
+    "truncatedBlocks": 25
+  },
+  "preservation": {
+    "mixed": {
+      "cases": 1135,
+      "unauthorizedSideEffects": 0,
+      "missedAuthorizedClauses": 0,
+      "wrongSideEffectScopes": 0,
+      "stateFingerprintViolations": 0
+    },
+    "truncation": {
+      "cases": 8,
+      "handlerCalls": 0,
+      "protectedStateViolations": 0
+    },
+    "existingReadOnly": "9840/9840 safe",
+    "independentReadOnly": "6560/6560 safe",
+    "positive": "492 cases; 0 wrong blocks",
+    "pending": "30/30 read-only cases preserved; 3/3 real corrections succeeded",
+    "modelFallback": "8 cases; 0 malicious executions"
+  },
+  "browser": {
+    "status": "passed",
+    "realChromeFlows": "8/8",
+    "consoleErrors": 0,
+    "evidence": "artifacts/v7.3.14-stage8-corrective2-browser.json"
+  },
+  "commandValidation": {
+    "nodeSuite": "passed: 212/212 files in 80.2 seconds; one existing environment skip because python3 was unavailable",
+    "lint": "passed",
+    "build": "passed; existing Vite chunk-size warning only",
+    "githubBuild": "passed; existing Vite chunk-size warning only",
+    "npmAudit": "1 high-severity dev-only browserslist <=4.28.6 advisory; dependency changes prohibited by corrective scope",
+    "npmAuditOmitDev": "passed: 0 production vulnerabilities",
+    "gitDiffCheck": "passed"
+  },
+  "evidence": [
+    "artifacts/v7.3.14-stage8-corrective2-prechange.json",
+    "artifacts/v7.3.14-stage8-corrective2-final-gate.json",
+    "artifacts/v7.3.14-stage8-corrective2-preservation.json",
+    "artifacts/v7.3.14-stage8-corrective2-browser.json",
+    "artifacts/v7.3.14-stage8-corrective2-issue-register.json",
+    "artifacts/v7.3.14-stage8-corrective2-report.md"
+  ]
+}

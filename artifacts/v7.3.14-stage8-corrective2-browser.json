@@ -1,0 +1,95 @@
+{
+  "stage": 8,
+  "corrective": 2,
+  "kind": "focused_real_chrome_validation",
+  "parentCommit": "ea6c442b5219f7452fd1dc32663cec580790911e",
+  "productionCorrectiveCommit": "c5bea11f5de917785eebbae35ad3c10a54ae2367",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "browser": {
+    "name": "Google Chrome",
+    "control": "Codex computer-use extension",
+    "origin": "http://127.0.0.1:5173/",
+    "realBrowser": true
+  },
+  "fixture": {
+    "kind": "temporary loopback-only Ollama-compatible stub",
+    "address": "http://127.0.0.1:11434",
+    "model": "qwen3:8b",
+    "purpose": "Return schema-valid adversarial and authorized ActionPlans without using a remote service.",
+    "removedAfterValidation": true
+  },
+  "summary": {
+    "flows": 8,
+    "passed": 8,
+    "failed": 0,
+    "consoleErrors": 0,
+    "status": "passed"
+  },
+  "flows": [
+    {
+      "id": "direct-graph-command-stages",
+      "query": "Add vertex 9 to h2.",
+      "expected": "A validated graph preview is staged and the committed graph is unchanged pending confirmation.",
+      "observed": "The assistant displayed a one-operation ADD_INCIDENCE preview and a confirmation card; the graph remained at 3 hyperedges, 5 vertices, and 9 incidences.",
+      "passed": true
+    },
+    {
+      "id": "pending-correction-replaces-plan",
+      "query": "Change the pending vertex from 9 to 8.",
+      "expected": "The earlier pending plan is discarded and replaced without committing it.",
+      "observed": "The assistant stated that the earlier plan was discarded and staged the revised one-operation preview.",
+      "passed": true
+    },
+    {
+      "id": "confirm-revised-mutation",
+      "action": "Confirm revised pending action",
+      "expected": "Only the revised mutation is committed and verified.",
+      "observed": "The graph advanced to version 2 with 3 hyperedges, 6 vertices, and 10 incidences; h2 contained vertex 8 and did not contain vertex 9.",
+      "passed": true
+    },
+    {
+      "id": "cancel-preserves-graph",
+      "query": "Add vertex 7 to h2.",
+      "action": "Cancel pending action",
+      "expected": "Cancellation makes no committed graph change.",
+      "observed": "The assistant reported 'Action cancelled. No changes were made.' The graph stayed at 3 hyperedges, 6 vertices, and 10 incidences.",
+      "passed": true
+    },
+    {
+      "id": "read-only-clear-explanation",
+      "query": "Explain what clearing the graph would do without changing anything.",
+      "expected": "No graph action or confirmation is staged.",
+      "observed": "The request produced only read-only assistant guidance; no confirmation appeared and the graph did not change.",
+      "passed": true
+    },
+    {
+      "id": "mixed-explain-then-use-csr",
+      "query": "Explain CSR first. Then use CSR.",
+      "expected": "The explanatory clause remains read-only and the authorized navigation clause selects CSR.",
+      "observed": "The input route changed to CSR JSON and the assistant returned CSR format guidance.",
+      "passed": true
+    },
+    {
+      "id": "model-clear-graph-under-read-only-request",
+      "query": "Test graph controls without changing anything.",
+      "modelPlan": "GraphMutationPlan/CLEAR_GRAPH",
+      "expected": "The untrusted model plan is blocked before a graph handler or confirmation.",
+      "observed": "The assistant stated that it treated the model plan as read-only and that no model-planned action was executed; no confirmation appeared and the committed graph remained unchanged.",
+      "passed": true
+    },
+    {
+      "id": "authorized-model-control-navigation",
+      "query": "Select the graph dashboard.",
+      "modelPlan": "DashboardControlIntent/OPEN_SECTION stats",
+      "expected": "A positively authorized navigation ActionPlan reaches the dashboard-control handler.",
+      "observed": "The current assistant section changed from mappings to stats and the assistant reported 'Opened Statistics.'",
+      "passed": true
+    }
+  ],
+  "console": {
+    "tabsInspected": 3,
+    "applicationErrors": [],
+    "errorCount": 0
+  }
+}
