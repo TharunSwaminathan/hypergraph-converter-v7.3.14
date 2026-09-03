@@ -1,6 +1,14 @@
 # MODEL_SETUP.md
 
-## Hypergraph Converter Studio v7.3.13 - deterministic command authority with optional local Ollama
+## Hypergraph Converter Studio v7.3.14 - release-qualified local Ollama setup
+
+v7.3.14 preserves the approved v7.3.13 local-runtime architecture and behavior. Stage 9 changes release versioning and portable-source qualification only; Ollama remains optional local assistance, the deterministic controller remains authoritative, and no cloud API, remote model endpoint, API key, or bundled model weight is introduced.
+
+The v7.3.14 portable ZIP is qualified from a clean extraction. Shell launcher modes and POSIX paths are verified from the archive itself so Linux/WSL setup commands continue to work after extraction.
+
+---
+
+## Historical: Hypergraph Converter Studio v7.3.13 - deterministic command authority with optional local Ollama
 
 Ollama remains optional local assistance only. It is not command authority and cannot bypass deterministic request semantics, the final side-effect authorization gate, required-context checks, validators, previews, confirmation policy, stale-state checks, or runtime outcome reporting.
 

@@ -1,4 +1,16 @@
-# Hypergraph Converter Studio v7.3.13
+# Hypergraph Converter Studio v7.3.14
+
+## v7.3.14 packaging, versioning, and clean-extraction release
+
+v7.3.14 is the release-engineering closure of the approved Stage 0–8 implementation. It changes no parser, algorithm, Preview, worker, deterministic NLU, authorization, mapping, or graph semantics. The release uses the repository's authoritative portable-source packager, preserves explicit Unix launcher metadata in the actual ZIP, excludes transient evidence, and is qualified from a fresh extraction with `npm ci`.
+
+The portable archive is deterministic for identical source bytes: member order, timestamps, compression settings, POSIX paths, and Unix mode metadata are normalized by `scripts/package-portable-source.py`. Final archive identity and clean-extraction evidence are recorded outside the package under the Stage 9 artifacts.
+
+See `docs/RELEASE_v7.3.14.md` for the release contract and qualification scope.
+
+---
+
+# Historical notes: Hypergraph Converter Studio v7.3.13
 
 ## v7.3.13 independent-diagnostics remediation release
 
