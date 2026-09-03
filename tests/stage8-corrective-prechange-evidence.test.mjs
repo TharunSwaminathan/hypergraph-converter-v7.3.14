@@ -8,7 +8,7 @@ import {
 } from "./fixtures/v7.3.14/stage8CorrectiveCorpus.mjs";
 
 const artifact = JSON.parse(await readFile(
-  new URL("../artifacts/v7.3.14-stage8-corrective-truncation-prechange.json", import.meta.url),
+  new URL("./fixtures/v7.3.14/evidence/v7.3.14-stage8-corrective-truncation-prechange.json", import.meta.url),
   "utf8",
 ));
 

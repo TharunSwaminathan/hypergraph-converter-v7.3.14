@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const artifact = JSON.parse(await readFile(
-  new URL("../artifacts/v7.3.14-stage8-corrective3-prechange.json", import.meta.url),
+  new URL("./fixtures/v7.3.14/evidence/v7.3.14-stage8-corrective3-prechange.json", import.meta.url),
   "utf8",
 ));
 const records = Object.fromEntries(artifact.records.map(record => [record.id, record]));

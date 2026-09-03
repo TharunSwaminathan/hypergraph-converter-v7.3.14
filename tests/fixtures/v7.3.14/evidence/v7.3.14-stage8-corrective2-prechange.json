@@ -1,0 +1,599 @@
+{
+  "stage": 8,
+  "corrective": 2,
+  "kind": "prechange_final_dispatch_characterization",
+  "parentCommit": "ea6c442b5219f7452fd1dc32663cec580790911e",
+  "packageVersion": "7.3.13",
+  "noStage9Work": true,
+  "findings": [
+    {
+      "id": "S8-N03",
+      "severity": "High",
+      "title": "Final dispatch authorizes caller-declared side-effect class instead of actual typed-plan side effect",
+      "status": "confirmed"
+    },
+    {
+      "id": "S8-N04",
+      "severity": "Medium",
+      "title": "State-changing prepared actions can bypass authorization when query semantics are absent",
+      "status": "confirmed"
+    }
+  ],
+  "records": [
+    {
+      "id": "S8-N03-A-navigation-auth-graph-plan-declared-read-only",
+      "queryLength": 8,
+      "queryAuthorization": {
+        "version": 1,
+        "mode": "authorized",
+        "authorizedClauses": [
+          {
+            "text": "Use CSR",
+            "charStart": 0,
+            "charEnd": 7,
+            "inheritedScope": null,
+            "connectorBefore": null,
+            "id": "authorization-clause-1",
+            "role": "executable",
+            "actionCandidate": true,
+            "executable": true,
+            "executionAuthorized": true,
+            "requestedAction": "use",
+            "authorization": "authorized",
+            "sideEffectScopes": [
+              "navigation"
+            ],
+            "scopes": {
+              "quotedOrCode": false,
+              "reported": false,
+              "hypothetical": false,
+              "explanatory": false,
+              "instructional": false,
+              "denied": false,
+              "preserveState": false,
+              "informational": false,
+              "comparison": false,
+              "question": false,
+              "pendingTarget": false,
+              "typedCorrection": false,
+              "previewWithoutApply": false,
+              "safeWorkflowPreparation": false
+            },
+            "evidence": [
+              "direct_action_clause"
+            ]
+          }
+        ],
+        "deniedClauses": [],
+        "ambiguousClauses": [],
+        "sideEffectScopes": [
+          "navigation"
+        ],
+        "evidence": [
+          "authorization-clause-1:direct_action_clause"
+        ],
+        "statePreservationConflict": false,
+        "pendingAuthorizationConflict": false,
+        "wholeSafePreparation": false,
+        "truncated": false,
+        "token": {
+          "version": 1,
+          "requestHash": "e4259023"
+        }
+      },
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "GraphMutationPlan",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "read_only",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 1,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "blockedSideEffect": 0
+      },
+      "stateChanged": true,
+      "dispatchPath": "typed_graph_mutation",
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null
+    },
+    {
+      "id": "S8-N03-B-navigation-auth-graph-plan-declared-navigation",
+      "queryLength": 8,
+      "queryAuthorization": {
+        "version": 1,
+        "mode": "authorized",
+        "authorizedClauses": [
+          {
+            "text": "Use CSR",
+            "charStart": 0,
+            "charEnd": 7,
+            "inheritedScope": null,
+            "connectorBefore": null,
+            "id": "authorization-clause-1",
+            "role": "executable",
+            "actionCandidate": true,
+            "executable": true,
+            "executionAuthorized": true,
+            "requestedAction": "use",
+            "authorization": "authorized",
+            "sideEffectScopes": [
+              "navigation"
+            ],
+            "scopes": {
+              "quotedOrCode": false,
+              "reported": false,
+              "hypothetical": false,
+              "explanatory": false,
+              "instructional": false,
+              "denied": false,
+              "preserveState": false,
+              "informational": false,
+              "comparison": false,
+              "question": false,
+              "pendingTarget": false,
+              "typedCorrection": false,
+              "previewWithoutApply": false,
+              "safeWorkflowPreparation": false
+            },
+            "evidence": [
+              "direct_action_clause"
+            ]
+          }
+        ],
+        "deniedClauses": [],
+        "ambiguousClauses": [],
+        "sideEffectScopes": [
+          "navigation"
+        ],
+        "evidence": [
+          "authorization-clause-1:direct_action_clause"
+        ],
+        "statePreservationConflict": false,
+        "pendingAuthorizationConflict": false,
+        "wholeSafePreparation": false,
+        "truncated": false,
+        "token": {
+          "version": 1,
+          "requestHash": "e4259023"
+        }
+      },
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "GraphMutationPlan",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "navigation",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 1,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "blockedSideEffect": 0
+      },
+      "stateChanged": true,
+      "dispatchPath": "typed_graph_mutation",
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null
+    },
+    {
+      "id": "S8-N03-C-graph-auth-dashboard-plan-declared-graph",
+      "queryLength": 16,
+      "queryAuthorization": {
+        "version": 1,
+        "mode": "authorized",
+        "authorizedClauses": [
+          {
+            "text": "Clear the graph",
+            "charStart": 0,
+            "charEnd": 15,
+            "inheritedScope": null,
+            "connectorBefore": null,
+            "id": "authorization-clause-1",
+            "role": "executable",
+            "actionCandidate": true,
+            "executable": true,
+            "executionAuthorized": true,
+            "requestedAction": "clear",
+            "authorization": "authorized",
+            "sideEffectScopes": [
+              "graph_edit_preview"
+            ],
+            "scopes": {
+              "quotedOrCode": false,
+              "reported": false,
+              "hypothetical": false,
+              "explanatory": false,
+              "instructional": false,
+              "denied": false,
+              "preserveState": false,
+              "informational": false,
+              "comparison": false,
+              "question": false,
+              "pendingTarget": false,
+              "typedCorrection": false,
+              "previewWithoutApply": false,
+              "safeWorkflowPreparation": false
+            },
+            "evidence": [
+              "direct_action_clause"
+            ]
+          }
+        ],
+        "deniedClauses": [],
+        "ambiguousClauses": [],
+        "sideEffectScopes": [
+          "graph_edit_preview"
+        ],
+        "evidence": [
+          "authorization-clause-1:direct_action_clause"
+        ],
+        "statePreservationConflict": false,
+        "pendingAuthorizationConflict": false,
+        "wholeSafePreparation": false,
+        "truncated": false,
+        "token": {
+          "version": 1,
+          "requestHash": "6cd3477b"
+        }
+      },
+      "prepared": {
+        "domain": "dashboard_control",
+        "typedKind": "DashboardControlIntent",
+        "typedValue": {
+          "canonicalIntent": "NAVIGATE_STATS"
+        },
+        "declaredSideEffectClass": "graph_edit_preview",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 1,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "blockedSideEffect": 0
+      },
+      "stateChanged": true,
+      "dispatchPath": "typed_dashboard_control",
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null
+    },
+    {
+      "id": "S8-N03-D-mapping-auth-graph-plan-declared-mapping",
+      "queryLength": 30,
+      "queryAuthorization": {
+        "version": 1,
+        "mode": "authorized",
+        "authorizedClauses": [
+          {
+            "text": "Map papers.csv to authors.csv",
+            "charStart": 0,
+            "charEnd": 29,
+            "inheritedScope": null,
+            "connectorBefore": null,
+            "id": "authorization-clause-1",
+            "role": "executable",
+            "actionCandidate": true,
+            "executable": true,
+            "executionAuthorized": true,
+            "requestedAction": "map",
+            "authorization": "authorized",
+            "sideEffectScopes": [
+              "reversible_mapping_edit"
+            ],
+            "scopes": {
+              "quotedOrCode": false,
+              "reported": false,
+              "hypothetical": false,
+              "explanatory": false,
+              "instructional": false,
+              "denied": false,
+              "preserveState": false,
+              "informational": false,
+              "comparison": false,
+              "question": false,
+              "pendingTarget": false,
+              "typedCorrection": false,
+              "previewWithoutApply": false,
+              "safeWorkflowPreparation": false
+            },
+            "evidence": [
+              "direct_action_clause"
+            ]
+          }
+        ],
+        "deniedClauses": [],
+        "ambiguousClauses": [],
+        "sideEffectScopes": [
+          "reversible_mapping_edit"
+        ],
+        "evidence": [
+          "authorization-clause-1:direct_action_clause"
+        ],
+        "statePreservationConflict": false,
+        "pendingAuthorizationConflict": false,
+        "wholeSafePreparation": false,
+        "truncated": false,
+        "token": {
+          "version": 1,
+          "requestHash": "a7d65044"
+        }
+      },
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "GraphMutationPlan",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "reversible_mapping_edit",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 1,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "blockedSideEffect": 0
+      },
+      "stateChanged": true,
+      "dispatchPath": "typed_graph_mutation",
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null
+    },
+    {
+      "id": "S8-N03-E-truncated-graph-plan-declared-read-only",
+      "queryLength": 5080,
+      "queryAuthorization": {
+        "version": 1,
+        "mode": "authorized",
+        "authorizedClauses": [
+          {
+            "text": "Clear the graph",
+            "charStart": 0,
+            "charEnd": 15,
+            "inheritedScope": null,
+            "connectorBefore": null,
+            "id": "authorization-clause-1",
+            "role": "executable",
+            "actionCandidate": true,
+            "executable": true,
+            "executionAuthorized": true,
+            "requestedAction": "clear",
+            "authorization": "authorized",
+            "sideEffectScopes": [
+              "graph_edit_preview"
+            ],
+            "scopes": {
+              "quotedOrCode": false,
+              "reported": false,
+              "hypothetical": false,
+              "explanatory": false,
+              "instructional": false,
+              "denied": false,
+              "preserveState": false,
+              "informational": false,
+              "comparison": false,
+              "question": false,
+              "pendingTarget": false,
+              "typedCorrection": false,
+              "previewWithoutApply": false,
+              "safeWorkflowPreparation": false
+            },
+            "evidence": [
+              "direct_action_clause"
+            ]
+          }
+        ],
+        "deniedClauses": [],
+        "ambiguousClauses": [
+          {
+            "text": "context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context context",
+            "charStart": 16,
+            "charEnd": 5000,
+            "inheritedScope": null,
+            "id": "authorization-clause-2",
+            "role": "ambiguous",
+            "actionCandidate": false,
+            "executable": false,
+            "executionAuthorized": false,
+            "requestedAction": null,
+            "authorization": "clarify",
+            "sideEffectScopes": [],
+            "scopes": {
+              "quotedOrCode": false,
+              "reported": false,
+              "hypothetical": false,
+              "explanatory": false,
+              "instructional": false,
+              "denied": false,
+              "preserveState": false,
+              "informational": false,
+              "comparison": false,
+              "question": false,
+              "pendingTarget": false,
+              "typedCorrection": false,
+              "previewWithoutApply": false,
+              "safeWorkflowPreparation": false
+            },
+            "evidence": []
+          }
+        ],
+        "sideEffectScopes": [
+          "graph_edit_preview"
+        ],
+        "evidence": [
+          "authorization-clause-1:direct_action_clause"
+        ],
+        "statePreservationConflict": false,
+        "pendingAuthorizationConflict": false,
+        "wholeSafePreparation": false,
+        "truncated": true,
+        "token": {
+          "version": 1,
+          "requestHash": "f0690390"
+        }
+      },
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "GraphMutationPlan",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "read_only",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 1,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "blockedSideEffect": 0
+      },
+      "stateChanged": true,
+      "dispatchPath": "typed_graph_mutation",
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null
+    },
+    {
+      "id": "S8-N03-F-read-only-auth-graph-plan-declared-read-only",
+      "queryLength": 41,
+      "queryAuthorization": {
+        "version": 1,
+        "mode": "read_only",
+        "authorizedClauses": [],
+        "deniedClauses": [
+          {
+            "text": "Explain what clearing the graph would do",
+            "charStart": 0,
+            "charEnd": 40,
+            "inheritedScope": null,
+            "connectorBefore": null,
+            "id": "authorization-clause-1",
+            "role": "read_only",
+            "actionCandidate": true,
+            "executable": false,
+            "executionAuthorized": false,
+            "requestedAction": null,
+            "authorization": "read_only",
+            "sideEffectScopes": [],
+            "scopes": {
+              "quotedOrCode": false,
+              "reported": false,
+              "hypothetical": false,
+              "explanatory": true,
+              "instructional": false,
+              "denied": false,
+              "preserveState": false,
+              "informational": false,
+              "comparison": false,
+              "question": false,
+              "pendingTarget": false,
+              "typedCorrection": false,
+              "previewWithoutApply": false,
+              "safeWorkflowPreparation": false
+            },
+            "evidence": [
+              "direct_action_clause",
+              "explanatory_scope"
+            ]
+          }
+        ],
+        "ambiguousClauses": [],
+        "sideEffectScopes": [],
+        "evidence": [
+          "authorization-clause-1:direct_action_clause",
+          "authorization-clause-1:explanatory_scope"
+        ],
+        "statePreservationConflict": false,
+        "pendingAuthorizationConflict": false,
+        "wholeSafePreparation": false,
+        "truncated": false,
+        "token": null
+      },
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "GraphMutationPlan",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "read_only",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 0,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "blockedSideEffect": 1
+      },
+      "stateChanged": false,
+      "dispatchPath": "deterministic_final_side_effect_gate",
+      "authorizationDecision": "read_only_blocked",
+      "dispatchBlockReason": "request_semantics_do_not_authorize_execution"
+    },
+    {
+      "id": "S8-N04-empty-query-no-semantics-state-changing-plan",
+      "queryLength": 0,
+      "queryAuthorization": null,
+      "prepared": {
+        "domain": "graph_mutation",
+        "typedKind": "GraphMutationPlan",
+        "typedValue": {
+          "operations": [
+            {
+              "type": "CLEAR_GRAPH"
+            }
+          ]
+        },
+        "declaredSideEffectClass": "graph_edit_preview",
+        "requestSemanticsPresent": false
+      },
+      "handlerCalls": {
+        "graphMutation": 1,
+        "dashboardControl": 0,
+        "datasetMapping": 0,
+        "parserWorkflow": 0,
+        "legacyAction": 0,
+        "blockedSideEffect": 0
+      },
+      "stateChanged": true,
+      "dispatchPath": "typed_graph_mutation",
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null
+    }
+  ]
+}

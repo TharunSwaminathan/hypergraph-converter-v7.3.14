@@ -6,7 +6,7 @@ import { applyDatasetMappingPatch } from "../src/agent/datasetMappingPatchApplie
 
 const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
 assert.equal(packageJson.name, "hypergraph-converter-studio");
-assert.equal(packageJson.version, "7.3.13");
+assert.equal(packageJson.version, "7.3.14");
 
 const { files, batch, mappingSpec } = authorshipFixture();
 const request = `Authors are the nodes, papers are the groups, and authorships links them.

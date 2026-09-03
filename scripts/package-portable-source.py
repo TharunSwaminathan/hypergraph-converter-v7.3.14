@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+import stat
 import sys
 import zipfile
 from pathlib import Path
@@ -27,6 +28,8 @@ EXCLUDED_DIRS = {
     "tmp",
     "temp",
     "artifacts",
+    "upload",
+    "uploads",
     "__pycache__",
 }
 
@@ -41,12 +44,19 @@ EXCLUDED_PATTERNS = [
     "*.temp",
     "core",
     "core.*",
-]
-
-INCLUDED_ARTIFACT_PATTERNS = [
-    "artifacts/v7.3.12-*.json",
-    "artifacts/v7.3.12-*.md",
-    "artifacts/v7.3.12-*.txt",
+    "*-independent-review-handoff.txt",
+    "stage*-review.txt",
+    ".env",
+    ".env.*",
+    "*.pem",
+    "*.key",
+    "id_rsa*",
+    "*.gguf",
+    "*.safetensors",
+    "*.onnx",
+    "*.pt",
+    "*.pth",
+    "*.ckpt",
 ]
 
 # V7310-D19: explicit, normalized permission policy for every ZIP entry —
@@ -328,6 +338,11 @@ REQUIRED_FILES = [
     "tests/fixtures/contexts/graph-with-history.json",
     "tests/fixtures/contexts/grouping-extended.json",
     "tests/fixtures/contexts/parser-result-ready.json",
+    "tests/fixtures/v7.3.14/evidence/v7.3.14-stage8-corrective-truncation-prechange.json",
+    "tests/fixtures/v7.3.14/evidence/v7.3.14-stage8-corrective2-prechange.json",
+    "tests/fixtures/v7.3.14/evidence/v7.3.14-stage8-corrective2-preservation.json",
+    "tests/fixtures/v7.3.14/evidence/v7.3.14-stage8-corrective3-prechange.json",
+    "tests/fixtures/v7.3.14/evidence/v7.3.14-stage8-corrective3-preservation.json",
     "docs/V7_2_BASELINE_AUDIT.md",
     "docs/GRAPH_MUTATION_ARCHITECTURE.md",
     "docs/GRAPH_MUTATION_SCHEMA.md",
@@ -390,21 +405,12 @@ REQUIRED_FILES = [
     "docs/V7_3_10_TEST_REPORT.md",
     "scripts/deterministicSafetyMatrix.mjs",
     "scripts/generate-deterministic-command-reference.mjs",
+    "scripts/verify-portable-archive.py",
     "scripts/verify-compositional-help-safety.mjs",
     "scripts/verify-explicit-no-action-safety.mjs",
     "smoke-test-qwen3-8b.sh",
     "smoke-test-qwen3-8b.ps1",
     "scripts/smoke-test-graph-mutation-planner.mjs",
-    "artifacts/v7.3.12-issue-resolution-register.json",
-    "artifacts/v7.3.12-test-summary.md",
-    "artifacts/v7.3.12-safety-results.json",
-    "artifacts/v7.3.12-pending-results.json",
-    "artifacts/v7.3.12-parser-results.json",
-    "artifacts/v7.3.12-performance-results.json",
-    "artifacts/v7.3.12-bridge-results.json",
-    "artifacts/v7.3.12-browser-smoke.md",
-    "artifacts/v7.3.12-package-verification.json",
-    "artifacts/v7.3.12-changed-files.txt",
 ]
 
 
@@ -414,15 +420,13 @@ def project_root_from_script() -> Path:
 
 def is_excluded(path: Path, root: Path) -> bool:
     rel = path.relative_to(root)
-    rel_posix = rel.as_posix()
-    if rel.parts and rel.parts[0] == "artifacts":
-        return not any(fnmatch.fnmatch(rel_posix, pattern) for pattern in INCLUDED_ARTIFACT_PATTERNS)
     parts = set(rel.parts)
     if parts & EXCLUDED_DIRS:
         return True
     if path.name in EXCLUDED_FILES:
         return True
-    return any(fnmatch.fnmatch(path.name, pattern) for pattern in EXCLUDED_PATTERNS)
+    lowered_name = path.name.lower()
+    return any(fnmatch.fnmatch(lowered_name, pattern.lower()) for pattern in EXCLUDED_PATTERNS)
 
 
 def iter_source_files(root: Path) -> list[Path]:
@@ -444,7 +448,20 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
     # and sidesteps zipfile's requirement that DOS timestamps be >= 1980.
     fixed_date_time = (2024, 1, 1, 0, 0, 0)
 
+    directory_names = {f"{root.name}/"}
+    for path in files:
+        parts = (Path(root.name) / path.relative_to(root)).parts[:-1]
+        for index in range(1, len(parts) + 1):
+            directory_names.add("/".join(parts[:index]) + "/")
+
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+        for arcname in sorted(directory_names):
+            info = zipfile.ZipInfo(arcname, date_time=fixed_date_time)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = ((stat.S_IFDIR | DIRECTORY_MODE) << 16) | 0x10
+            info.create_system = 3
+            zf.writestr(info, b"")
+
         for path in files:
             rel = path.relative_to(root)
             arcname = (Path(root.name) / rel).as_posix()
@@ -458,7 +475,7 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
             # external_attr packs (unix mode << 16) | (MS-DOS attribute byte).
             # This is the only place a mode bit is ever written for an entry —
             # explicitly chosen per entry_mode(), never read from path.stat().
-            info.external_attr = (entry_mode(path) & 0o7777) << 16
+            info.external_attr = (stat.S_IFREG | entry_mode(path)) << 16
             info.create_system = 3  # unix, so external_attr's mode bits are honored on extraction
             data = path.read_bytes()
             zf.writestr(info, data)
@@ -513,7 +530,11 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
                 or name.endswith((".tmp", ".temp"))
                 for name in names
             ),
-            "executable_entries": sum(((zi.external_attr >> 16) & 0o7777) == EXECUTABLE_FILE_MODE for zi in zf.infolist()),
+            "directory_entries": sum(zi.is_dir() for zi in zf.infolist()),
+            "executable_entries": sum(
+                not zi.is_dir() and ((zi.external_attr >> 16) & 0o7777) == EXECUTABLE_FILE_MODE
+                for zi in zf.infolist()
+            ),
         }
     return counts
 

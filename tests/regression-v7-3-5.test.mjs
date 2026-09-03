@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 
 const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
 assert.equal(pkg.name, "hypergraph-converter-studio");
-assert.equal(pkg.version, "7.3.13");
+assert.equal(pkg.version, "7.3.14");
 
 const panel = readFileSync(new URL("../src/components/AgentChatPanel.jsx", import.meta.url), "utf8");
 assert.match(panel, /precompiledPlan:\s*options\.precompiledPlan/);

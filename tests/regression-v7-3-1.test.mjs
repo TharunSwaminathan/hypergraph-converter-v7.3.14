@@ -12,7 +12,7 @@ import { buildRegressionFixture, regressionRequest } from "./deterministic-datas
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
 assert.equal(packageJson.name, "hypergraph-converter-studio");
-assert.equal(packageJson.version, "7.3.13");
+assert.equal(packageJson.version, "7.3.14");
 
 for (const file of [
   "src/agent/datasetMappingIntent.js",

@@ -10,7 +10,7 @@ import {
 const pkg = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"));
 
 assert.equal(pkg.name, "hypergraph-converter-studio");
-assert.equal(pkg.version, "7.3.13");
+assert.equal(pkg.version, "7.3.14");
 assert.equal(CATALOG_CURRENT_VERSION, "7.3.13");
 assert.equal(ACTION_INTENT_REGISTRY_VERSION, "7.3.13");
 assert.ok(COMMAND_CATALOG.length >= 115, "v7.3.10 should preserve and extend the complete command inventory");

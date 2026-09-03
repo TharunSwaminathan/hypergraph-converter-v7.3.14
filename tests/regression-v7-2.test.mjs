@@ -9,7 +9,7 @@ const read = path => readFile(join(root, path), "utf8");
 
 const packageJson = JSON.parse(await read("package.json"));
 assert.equal(packageJson.name, "hypergraph-converter-studio");
-assert.equal(packageJson.version, "7.3.13");
+assert.equal(packageJson.version, "7.3.14");
 
 const app = await read("src/App.jsx");
 assert.doesNotMatch(app, /setGraphVersion/);

@@ -5,7 +5,7 @@ import { ACTION_INTENT_REGISTRY_VERSION, PUBLIC_ACTION_INTENTS } from "../src/ag
 
 const pkg = JSON.parse((await readFile(new URL("../package.json", import.meta.url), "utf8")).replace(/^\uFEFF/, ""));
 assert.equal(pkg.name, "hypergraph-converter-studio");
-assert.equal(pkg.version, "7.3.13");
+assert.equal(pkg.version, "7.3.14");
 assert.equal(CATALOG_CURRENT_VERSION, "7.3.13");
 assert.equal(ACTION_INTENT_REGISTRY_VERSION, "7.3.13");
 assert.ok(COMMAND_CATALOG.length >= 90);

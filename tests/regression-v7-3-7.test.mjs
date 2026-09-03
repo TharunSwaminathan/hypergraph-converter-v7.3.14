@@ -8,7 +8,7 @@ import { buildCompilerContexts, extractOperationTypes } from "./helpers/evaluate
 
 const pkg = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
 assert.equal(pkg.name, "hypergraph-converter-studio");
-assert.equal(pkg.version, "7.3.13");
+assert.equal(pkg.version, "7.3.14");
 
 const graphCtx = await buildCompilerContexts("graph-basic");
 const includeNlu = analyzeDeterministicNlu("Include vertices 6 and 7 in h2", graphCtx.analysisContext);
