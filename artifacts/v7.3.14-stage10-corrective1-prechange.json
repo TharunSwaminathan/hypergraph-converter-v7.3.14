@@ -1,0 +1,50 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "kind": "prechange_reproduction",
+  "parentCommit": "39037cb7b4fdce1f027c8cdd961a48a8ca173288",
+  "query": "I did not ask you to delete anything; tell me whether h1 exists.",
+  "requestSemantics": {
+    "mode": "execute",
+    "executionAuthorized": true,
+    "stateChangingActionAuthorized": true,
+    "explicitReadOnly": false,
+    "authorizedActionText": "I did not ask you to delete anything",
+    "authorization": {
+      "mode": "authorized",
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedClauses": [
+        {
+          "text": "I did not ask you to delete anything",
+          "requestedAction": "delete",
+          "authorization": "authorized",
+          "sideEffectScopes": ["graph_edit_preview"],
+          "evidence": ["direct_action_clause"]
+        },
+        {
+          "text": "tell me whether h1 exists",
+          "requestedAction": "tell",
+          "authorization": "authorized",
+          "sideEffectScopes": [],
+          "evidence": ["direct_action_clause"]
+        }
+      ],
+      "deniedClauses": []
+    }
+  },
+  "preparedDomain": "graph_mutation",
+  "typedKind": "GraphMutationPlan",
+  "actualSideEffectClass": "graph_edit_preview",
+  "authorizationDecision": "authorized",
+  "dispatchPath": "typed_graph_mutation",
+  "dispatchBlockReason": null,
+  "graphMutationHandlerCalls": 1,
+  "blockedHandlerCalls": 0,
+  "confirmationStages": 1,
+  "graphFingerprintBefore": "gfp-862249b0-145",
+  "graphFingerprintAfter": "gfp-862249b0-145",
+  "graphVersionBefore": 7,
+  "graphVersionAfter": 7,
+  "stateChanged": false,
+  "defectReproduced": true
+}
