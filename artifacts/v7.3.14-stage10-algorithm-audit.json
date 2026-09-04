@@ -1,0 +1,17 @@
+{
+  "stage": 10,
+  "status": "passed_before_release_stop",
+  "independentChecks": 7,
+  "algorithms": ["Connected Components", "BFS", "DFS", "Shortest Path", "K-core", "Statistics"],
+  "fixtures": ["OneHugeEdge1K", "OneHugeEdge5K", "ManySingletons2001", "LargeSparse", "DenseProjection"],
+  "identifierChallenges": ["numeric 0 boundary", "string 0", "literal null", "__proto__", "constructor", "toString", "Unicode", "01", "1"],
+  "weightChallenges": ["zero", "negative", "missing", "non-numeric"],
+  "results": {
+    "OneHugeEdge1K": {"ccCount": 1, "bfsReached": 1000, "dfsReached": 1000, "shortestReachable": true, "shortestStoredProjectedEdges": 0, "kCore": "bounded refusal on uniqueProjectedEdges"},
+    "OneHugeEdge5K": {"ccCount": 1, "bfsReached": 5000, "dfsReached": 5000, "projectionDensity": null, "forceMode": "approximate"},
+    "ManySingletons2001": {"ccCount": 2001, "vertices": 2001, "projectionDensity": 0},
+    "LargeSparse": {"hyperedges": 10000, "vertices": 10001, "bfsReached": 10001}
+  },
+  "fullV2VFallbackObserved": false,
+  "notes": "A raw numeric algorithm identifier is rejected at the canonical boundary; canonical string 0 is handled exactly."
+}

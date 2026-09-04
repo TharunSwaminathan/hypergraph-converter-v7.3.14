@@ -1,0 +1,39 @@
+{
+  "stage": 10,
+  "status": "passed",
+  "independentChecks": 17,
+  "passed": 17,
+  "covered": [
+    "WhitespaceRows",
+    "CSVQuoted",
+    "ZeroID",
+    "PrototypeIDs",
+    "LiteralNullID",
+    "WeightZero",
+    "DuplicateHyperedgeID",
+    "DuplicateOverlap",
+    "IncidenceConflict",
+    "CSRInvalidIds",
+    "MalformedH2H",
+    "MalformedAdjacency",
+    "quoted commas",
+    "escaped quotes",
+    "embedded CRLF",
+    "leading hash payload",
+    "blank rows",
+    "mixed identifiers",
+    "nonfinite identifiers/pointers",
+    "object/array/null identifiers",
+    "reserved property names"
+  ],
+  "freshMalformedCases": [
+    "unterminated escaped-quote CSV",
+    "H2H valid clauses followed by trailing text",
+    "adjacency with a second structural colon",
+    "nonfinite sparse pointer",
+    "conflicting incidence time and zero-to-three weight"
+  ],
+  "committedGraphFingerprint": "gfp-f45024bf-95",
+  "failurePreservedCommittedGraph": true,
+  "notes": "All cases were executed from the exact clean extraction with a separate Stage 10 harness outside the release tree."
+}

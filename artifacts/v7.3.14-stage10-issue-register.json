@@ -1,0 +1,47 @@
+{
+  "stage": 10,
+  "releaseVerdict": "BLOCKED",
+  "findings": [
+    {
+      "id": "S10-N01",
+      "severity": "High",
+      "classification": "new_issue_family",
+      "status": "reproduced",
+      "area": "assistant authorization",
+      "summary": "First-person no-consent wording grants graph-edit scope and reaches the protected graph-mutation handler for a valid prepared plan.",
+      "releaseBlocking": true,
+      "repairAttempted": false,
+      "evidence": "artifacts/v7.3.14-stage10-authorization-audit.json"
+    },
+    {
+      "id": "S10-E01",
+      "severity": "Environment limitation",
+      "status": "recorded",
+      "area": "dependency audit",
+      "summary": "The npm advisory endpoint timed out after a bounded escalated retry. Stage 9 evidence records one existing dev-only browserslist High advisory and zero production vulnerabilities, but Stage 10 could not refresh either registry result.",
+      "releaseBlocking": false
+    },
+    {
+      "id": "S10-E02",
+      "severity": "Environment limitation",
+      "status": "not_reached",
+      "area": "browser",
+      "summary": "Real Chrome validation was not started because the mandatory stop followed S10-N01.",
+      "releaseBlocking": false
+    },
+    {
+      "id": "S10-A01",
+      "severity": "Advisory",
+      "status": "unchanged",
+      "area": "build",
+      "summary": "Vite reports the existing JavaScript chunk above 500 kB after minification.",
+      "releaseBlocking": false
+    }
+  ],
+  "critical": 0,
+  "high": 1,
+  "medium": 0,
+  "low": 0,
+  "advisory": 1,
+  "environmentLimitations": 2
+}

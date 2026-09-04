@@ -1,0 +1,15 @@
+{
+  "stage": 10,
+  "status": "passed_before_release_stop",
+  "independentChecks": 6,
+  "cases": [
+    "graph A delayed completion cannot poison graph B cache",
+    "same graph version with different identity rejects stale write",
+    "rapid superseding requests accept only the newest completion",
+    "worker result after graph replacement remains cancelled",
+    "cache hit is invalidated by graph replacement",
+    "tiny work remains deferred-local and measured heavy work selects worker"
+  ],
+  "cacheBoundToVersionAndIdentity": true,
+  "staleOverwriteObserved": false
+}
