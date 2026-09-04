@@ -112,7 +112,8 @@ export function compileDeterministicAction(nlu, context = {}) {
         diagnostics: { ...baseDiagnostics(nlu, lexicalDomain, { validatorStatus: "cancellation_noop", speechAct: speech.speechAct, sideEffectClass: "read_only" }), requestSemantics },
       };
     }
-    const readOnlyQuestion = ["informational_question", "help_seeking_question", "hypothetical_question", "status_question", "explanation_question", "reported_command", "quoted_command"].includes(speech.speechAct)
+    const readOnlyQuestion = (requestSemantics.readOnlyScope
+      || ["informational_question", "help_seeking_question", "hypothetical_question", "status_question", "explanation_question", "reported_command", "quoted_command"].includes(speech.speechAct))
       && lexicalDomain !== "unknown";
     if (readOnlyQuestion) {
       const intent = questionIntentFor(lexicalDomain, speech.speechAct);

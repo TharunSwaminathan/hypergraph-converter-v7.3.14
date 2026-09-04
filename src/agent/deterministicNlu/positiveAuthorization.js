@@ -29,12 +29,17 @@ const GO_AHEAD_POLITE_ACTION_RE = new RegExp(
   "i",
 );
 const QUESTION_START_RE = /^\s*(?:what|why|how|which|where|when|who|is|are|am|does|do|did|can|could|would|will|should|may|might)\b/i;
+const READ_ONLY_QUERY_START_RE = /^\s*(?:please\s+)?tell\s+me\s+(?:whether|if|what|which|why|how|where|when|who)\b/i;
 const EXPLANATION_START_RE = /^\s*(?:please\s+)?(?:explain|describe|define|clarify|interpret|paraphrase|summari[sz]e|review|audit|evaluate|compare|teach|discuss|decode|read\b|tell\s+me\s+(?:about|what|how|the\s+consequences)|show\s+me\s+(?:the\s+)?(?:syntax|steps?|procedure)|walk\s+me\s+through|could\s+you\s+explain|can\s+you\s+explain|i\s+(?:just\s+)?need\s+(?:an?\s+)?explanation|i['’]?m\s+curious\s+what|before\s+doing\s+anything|before\s+i\s+(?:decide|authori[sz]e)|hold\s+off\s+on|pause\s+before|i\s+want\s+an?\s+explanation|i['’]?d\s+like\s+to\s+understand|i\s+want\s+to\s+understand|tell\s+me\s+what\s+[\s\S]{0,80}\s+would\s+do|tell\s+me\s+what\s+[\s\S]{0,80}\s+would\s+happen|tell\s+me\s+the\s+consequences)\b/i;
 const PROCEDURE_RE = /\b(?:how\s+(?:to|do\s+i|can\s+i|would\s+i|should\s+i)|steps?|procedure|syntax|notation|workflow|instructions?|what\s+to\s+type|which\s+procedure|teach\s+(?:me|a\s+novice))\b/i;
 const DENIAL_RE = /\b(?:do\s+not|don['’]?t|never|do\s+not\s+act|don['’]?t\s+act|do\s+not\s+alter|don['’]?t\s+alter|no\s+(?:action|execution|consent|permission|authorization|changes?|mutation)|(?:have|has)\s+not\s+authori[sz](?:e|ed|ing)|haven['’]?t\s+authori[sz](?:e|ed|ing)|not\s+(?:authori[sz](?:e|ed|ing)|approv(?:e|ed|ing)|consent(?:ing|ed)?|requesting|asking\s+you\s+to|an?\s+(?:instruction|order|request)|execution)|permission\s+(?:is\s+)?(?:withheld|denied)|without\s+(?:granting\s+)?(?:permission|consent|authorization)|decline\s+to\s+approve|outside\s+the\s+scope|discussion,?\s+not\s+execution|explanation,?\s+not\s+action)\b/i;
 const EXPRESS_DENIAL_RE = /\bpermission\s+is\s+expressly\s+(?:withheld|denied)\b/i;
 const CONTEXTUAL_NON_AUTH_RE = /\b(?:audit\s+transcript|not\s+consent|execution\s+is\s+outside\s+the\s+scope|not\s+an?\s+instruction\s+for\s+you)\b/i;
 const FIRST_PERSON_NO_CONSENT_RE = /\bi\s+(?:(?:do\s+not|don['’]?t)\s+(?:want|authorize|approve|consent|ask)|am\s+not\s+(?:asking|authorizing|approving)|only\s+want\s+to\s+(?:understand|learn))\b/i;
+const NEGATED_REQUEST_BASE_RE = /\b(?:i|we)\s+(?:(?:did|do)\s+not|(?:didn|don)['’]?t|never)\s+(?:ask|tell|request|instruct|direct|authorize|authorise|approve|consent)\b/i;
+const NEGATED_REQUEST_PAST_RE = /\b(?:i|we)\s+(?:(?:have|had)\s+not|(?:haven|hadn)['’]?t|never)\s+(?:asked|told|requested|instructed|directed|authorized|authorised|approved|consented)\b/i;
+const NEGATED_REQUEST_PROGRESSIVE_RE = /\b(?:(?:i\s+am|i['’]?m|we\s+are|we['’]?re)\s+not)\s+(?:asking|telling|requesting|instructing|directing|authorizing|authorising|approving|consenting)\b/i;
+const NO_CONSENT_PROPOSITION_RE = /\b(?:(?:this|that|it|these\s+words?|that\s+statement)\s+(?:is|was|are|were)\s+not\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive)|(?:do\s+not|don['’]?t|never)\s+(?:take|interpret|read|treat|understand)\s+(?:this|that|it|these\s+words?|that\s+statement)\s+as\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive))\b/i;
 const PRESERVE_RE = /\b(?:(?:keep|leave|retain|preserve)\s+(?:every\s+)?(?:the\s+)?(?:current\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session|product[-\s]?state|pending\s+action)(?:(?:\s+fields?)?\s+(?:exactly\s+)?(?:untouched|unchanged|unmodified|intact|as[-\s]?is|as\s+it\s+is))?|(?:leave|keep)\s+everything\s+(?:exactly\s+)?(?:unchanged|untouched|unmodified)|(?:workspace|state|graph|mapping|parser|dashboard|session)\s+must\s+remain\s+(?:untouched|unchanged|unmodified|intact)|do\s+not\s+(?:write\s+to|touch|modify|change|alter)\s+(?:the\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session))\b/i;
 const BROAD_PRESERVE_RE = /\b(?:retain|keep|leave|preserve)\s+(?:(?:all|every|the)\s+)?(?:(?:current|existing|this|the)\s+)?(?:application\s+)?(?:state|workspace|graph|mapping|parser|dashboard|session)\b/i;
 const INFORMATIONAL_RE = /\b(?:(?:for\s+)?(?:reference|information|informational|discussion|review|audit)\s+only|read[-\s]?only|learning,?\s+not\s+action|literal\s+(?:data|text)|treat\s+(?:these\s+words|this)\s+literally|not\s+operationally|analy[sz]e\s+only)\b/i;
@@ -177,6 +182,21 @@ export function authorizationAllowsSideEffect(authorization, sideEffectClass) {
   return { allowed: true, reason: "positive_side_effect_authorization" };
 }
 
+/**
+ * Clause-local semantic guard for a negated request/consent speech act.
+ * The mutation verb may appear later in the clause, but that mention cannot
+ * become execution authority when the governing ask/tell/permission act is
+ * explicitly denied. Callers must evaluate each clause independently so a
+ * later affirmative clause can still authorize its own operation.
+ */
+export function hasNegatedAuthorizationSpeechAct(text = "") {
+  const value = String(text ?? "");
+  return NEGATED_REQUEST_BASE_RE.test(value)
+    || NEGATED_REQUEST_PAST_RE.test(value)
+    || NEGATED_REQUEST_PROGRESSIVE_RE.test(value)
+    || NO_CONSENT_PROPOSITION_RE.test(value);
+}
+
 function analyzeAuthorizationClause(clause, index) {
   const masked = maskClauseProtectedText(clause.text);
   const activeText = masked.activeText.trim();
@@ -208,11 +228,11 @@ function analyzeAuthorizationClause(clause, index) {
     hypothetical: HYPOTHETICAL_RE.test(activeText),
     explanatory: clause.inheritedScope === "explanatory" || EXPLANATION_START_RE.test(activeText),
     instructional: PROCEDURE_RE.test(activeText),
-    denied: clause.inheritedScope === "denied" || DENIAL_RE.test(activeText) || EXPRESS_DENIAL_RE.test(activeText) || CONTEXTUAL_NON_AUTH_RE.test(activeText) || FIRST_PERSON_NO_CONSENT_RE.test(activeText),
+    denied: clause.inheritedScope === "denied" || DENIAL_RE.test(activeText) || EXPRESS_DENIAL_RE.test(activeText) || CONTEXTUAL_NON_AUTH_RE.test(activeText) || FIRST_PERSON_NO_CONSENT_RE.test(activeText) || hasNegatedAuthorizationSpeechAct(activeText),
     preserveState: PRESERVE_RE.test(activeText) || BROAD_PRESERVE_RE.test(activeText),
     informational: INFORMATIONAL_RE.test(activeText),
     comparison: COMPARISON_RE.test(activeText),
-    question: QUESTION_START_RE.test(activeText) || /\?\s*$/.test(activeText),
+    question: QUESTION_START_RE.test(activeText) || READ_ONLY_QUERY_START_RE.test(activeText) || /\?\s*$/.test(activeText),
     pendingTarget: PENDING_TARGET_RE.test(activeText),
     typedCorrection: TYPED_CORRECTION_RE.test(activeText),
     previewWithoutApply: /\b(?:do\s+not|don['’]?t)\s+apply\s+(?:it|this|that|the\s+(?:change|preview|edit))\b/i.test(activeText),
@@ -272,6 +292,7 @@ function analyzeAuthorizationClause(clause, index) {
     politeAction && "second_person_request",
     exactControl && `exact_control:${exactControl}`,
     scopes.denied && "explicit_denial",
+    hasNegatedAuthorizationSpeechAct(activeText) && "negated_authorization_speech_act",
     scopes.preserveState && "state_preservation",
     scopes.reported && "reported_scope",
     scopes.hypothetical && "hypothetical_scope",
@@ -389,7 +410,7 @@ function splitAuthorizationClauses(text, maxClauses) {
 }
 
 function inheritedScopeForPrefix(prefix) {
-  if (DENIAL_RE.test(prefix) || EXPRESS_DENIAL_RE.test(prefix) || PRESERVE_RE.test(prefix) || BROAD_PRESERVE_RE.test(prefix) || INFORMATIONAL_RE.test(prefix)) return "denied";
+  if (DENIAL_RE.test(prefix) || EXPRESS_DENIAL_RE.test(prefix) || hasNegatedAuthorizationSpeechAct(prefix) || PRESERVE_RE.test(prefix) || BROAD_PRESERVE_RE.test(prefix) || INFORMATIONAL_RE.test(prefix)) return "denied";
   if (REPORTED_RE.test(prefix) || /\b(?:read\s+this\s+as\s+text|literal\s+data|command|example|sample)\b/i.test(prefix)) return "reported";
   if (EXPLANATION_START_RE.test(prefix) || PROCEDURE_RE.test(prefix) || /\b(?:meaning|background|glossary\s+question)\b/i.test(prefix)) return "explanatory";
   return null;

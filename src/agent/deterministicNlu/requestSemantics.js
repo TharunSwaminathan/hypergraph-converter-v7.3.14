@@ -141,7 +141,12 @@ export function analyzeRequestSemantics(text = "") {
   const actionMentioned = ACTION_VERB_RE.test(raw);
   const directRuntimeExplainAction = /^\s*(?:please\s+)?(?:explain|analy[sz]e)\s+file\s+roles?\s+with\s+local\s+model\s*[.!]?$/i.test(raw);
   const directReadOnlyOperation = isDirectReadOnlyOperation(raw);
-  const explicitReadOnly = !safeWorkflowPreparation && hasAny(raw, EXPLICIT_NO_EXECUTION_PATTERNS);
+  const clauseLocalNoConsent = authorization.deniedClauses.some(clause => clause.evidence?.includes("negated_authorization_speech_act"));
+  const positivelyAuthorizedStateChange = authorization.authorizedClauses.some(clause => (clause.sideEffectScopes ?? []).some(scope => scope !== "read_only"));
+  const explicitReadOnly = !safeWorkflowPreparation && (
+    hasAny(raw, EXPLICIT_NO_EXECUTION_PATTERNS)
+    || (clauseLocalNoConsent && !positivelyAuthorizedStateChange)
+  );
   const preserveState = !safeWorkflowPreparation && hasAny(raw, PRESERVE_STATE_PATTERNS);
   const instructional = !safeWorkflowPreparation && hasAny(raw, INSTRUCTIONAL_PATTERNS) && !directReadOnlyOperation;
   const reported = !safeWorkflowPreparation && hasAny(raw, REPORTED_OR_EXAMPLE_PATTERNS);
@@ -229,6 +234,7 @@ export function analyzeRequestSemantics(text = "") {
     instructional,
     groundedWorkflowGuidance: /^\s*how\s+should\s+i\s+proceed\b[\s\S]{0,100}\b(?:parser|mapping|grouping)\s+workflow\b/i.test(raw),
     explicitReadOnly,
+    clauseLocalNoConsent,
     reported,
     hypothetical,
     quoted,
