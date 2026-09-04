@@ -1,0 +1,52 @@
+{
+  "stage": 9,
+  "corrective": 1,
+  "archive": "hypergraph-converter-v7.3.14-portable.zip",
+  "archiveSha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+  "extractionDirectory": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\stage9-corrective1-clean-extraction-e40ae728\\hypergraph-converter-v7.3.14",
+  "outsideWorkingTree": true,
+  "preInstallManifestComparison": {
+    "archiveMembers": 655,
+    "fileMembers": 627,
+    "directoryMembers": 28,
+    "missingFiles": 0,
+    "sizeMismatches": 0,
+    "gitPresent": false,
+    "nodeModulesPresent": false,
+    "distPresent": false,
+    "artifactsPresent": false,
+    "status": "passed"
+  },
+  "environment": {
+    "os": "Windows 11",
+    "node": "v24.19.0",
+    "npm": "11.4.2",
+    "python": "3.12.13"
+  },
+  "npmCi": {
+    "status": "passed",
+    "packagesAdded": 175,
+    "lockfileUsed": true
+  },
+  "wslR08Qualification": {
+    "environment": "WSL2 Ubuntu; Linux 6.18.33.2-microsoft-standard-WSL2 x86_64",
+    "archiveSha256Verified": true,
+    "shellLauncherCount": 6,
+    "allModes": "0755",
+    "allShebangs": "#!/usr/bin/env bash",
+    "allUseLfWithoutCrLf": true,
+    "directExecutionUsed": true,
+    "successfulEnvironmentIndependentLaunchers": [
+      "check-local-model-runtime.sh",
+      "configure-ollama-origins.example.sh"
+    ],
+    "expectedEnvironmentFailures": {
+      "run-local-runtime-bridge.sh": "Node.js is absent in WSL",
+      "run-with-ollama.sh": "Ollama is absent in WSL",
+      "setup-ollama-model.sh": "Ollama is absent in WSL",
+      "smoke-test-qwen3-8b.sh": "Ollama is absent in WSL"
+    },
+    "orphanBridgeProcess": false
+  },
+  "status": "passed"
+}

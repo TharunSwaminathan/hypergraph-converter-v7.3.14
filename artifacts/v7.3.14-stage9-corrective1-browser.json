@@ -1,0 +1,27 @@
+{
+  "stage": 9,
+  "corrective": 1,
+  "archiveSha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+  "releaseBuildPrepared": true,
+  "previewTarget": "http://127.0.0.1:4174/",
+  "attemptedBrowser": "Google Chrome",
+  "chromeWindowObserved": "Google - Google Chrome",
+  "status": "blocked_by_computer_use_url_safety",
+  "reason": "The Windows Computer Use safety layer could not determine the current Chrome URL with enough confidence to enforce policy and stopped app input before navigation.",
+  "safetyResponse": "No attempt was made to bypass the browser safety barrier, inject a URL through another Windows surface, or fabricate browser evidence.",
+  "correctiveProductionSemanticsChanged": false,
+  "changedRuntimeFiles": [
+    "scripts/package-portable-source.py",
+    "tests/portable-zip-paths.test.mjs"
+  ],
+  "preservedEvidence": {
+    "priorStage9ChromeSmokeCommit": "a75c024e7a40b13ccf10093aada1d9e09dd9641a",
+    "priorStage9ChromeSmokeStatus": "passed_with_fixed_viewport_qualification",
+    "cleanExtractionDomAndPreviewRegressions": "passed in the 217-file suite",
+    "note": "Prior evidence and unchanged application bytes reduce regression risk but do not substitute for the specifically requested corrective rerun."
+  },
+  "requestedFlowsRerun": false,
+  "applicationConsoleErrors": null,
+  "consoleMeasurement": "not captured because automation stopped before release-page navigation",
+  "fixedViewportLimitation": "The earlier Stage 9 managed Chrome surface also exposed a fixed viewport; no new viewport observation was possible in this stopped run."
+}

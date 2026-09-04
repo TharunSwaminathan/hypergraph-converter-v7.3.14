@@ -1,0 +1,40 @@
+{
+  "stage": 9,
+  "corrective": 1,
+  "authoritativeParent": "a75c024e7a40b13ccf10093aada1d9e09dd9641a",
+  "packageVersion": "7.3.14",
+  "stage10Begun": false,
+  "issues": [
+    {
+      "id": "S9-N01",
+      "severity": "Medium",
+      "title": "Concrete pathlib Path sorting made archive member order host dependent",
+      "prechangeStatus": "confirmed",
+      "status": "closed_pending_independent_review",
+      "resolution": "The authoritative packager now sorts included files by their normalized relative POSIX strings. Two Windows runs and two WSL/Linux runs produced the identical 1,195,294-byte archive and SHA-256 e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e.",
+      "evidence": [
+        "artifacts/v7.3.14-stage9-corrective1-prechange.json",
+        "artifacts/v7.3.14-stage9-corrective1-reproducibility.json",
+        "artifacts/v7.3.14-stage9-corrective1-archive-verification.json",
+        "artifacts/v7.3.14-stage9-corrective1-package-manifest.json"
+      ]
+    },
+    {
+      "id": "S9-C1-L01",
+      "severity": "environment_qualification",
+      "title": "Corrective release Chrome rerun stopped before navigation",
+      "status": "open_environment_blocker",
+      "resolution": "The release build and preview were prepared, but the Windows automation safety layer stopped input because it could not establish the browser URL confidently. Application production bytes are unchanged and the full browser/DOM regression suite passed, but the requested corrective Chrome rerun remains uncollected.",
+      "evidence": [
+        "artifacts/v7.3.14-stage9-corrective1-browser.json"
+      ]
+    },
+    {
+      "id": "S9-L01",
+      "severity": "advisory",
+      "title": "Dev-only browserslist advisory remains",
+      "status": "deferred_separate_authorization",
+      "resolution": "No dependency change was authorized. npm audit --omit=dev remains clean."
+    }
+  ]
+}

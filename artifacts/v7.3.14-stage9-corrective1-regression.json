@@ -1,0 +1,93 @@
+{
+  "stage": 9,
+  "corrective": 1,
+  "source": "fresh extraction of corrected final ZIP",
+  "archiveSha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+  "focusedRegression": {
+    "path": "tests/portable-zip-paths.test.mjs",
+    "preFix": "failed",
+    "postFix": "passed",
+    "assertsPurePathFlavorDifference": true,
+    "assertsNormalizedWindowsAndPosixRepresentationEquality": true,
+    "assertsProductionPosixSortKey": true
+  },
+  "commands": {
+    "npm test": {
+      "status": "passed",
+      "filesPassed": 217,
+      "filesTotal": 217,
+      "durationSeconds": 93.4,
+      "zipPermissionTestSkipped": false,
+      "zipPermissionEntries": 655
+    },
+    "npm run lint": {
+      "status": "passed"
+    },
+    "npm run build": {
+      "status": "passed",
+      "vite": "8.0.16",
+      "modulesTransformed": 206,
+      "javascriptChunkKb": 1418.30,
+      "javascriptChunkGzipKb": 392.12,
+      "warning": "Existing chunk-size advisory above 500 kB"
+    },
+    "npm run build:github": {
+      "status": "passed",
+      "base": "/hypergraph-converter/",
+      "javascriptChunkKb": 1418.32,
+      "javascriptChunkGzipKb": 392.13,
+      "warning": "Existing chunk-size advisory above 500 kB"
+    },
+    "npm audit": {
+      "status": "one_dev_only_high",
+      "package": "browserslist@4.28.2",
+      "affectedRange": "<=4.28.6",
+      "advisories": [
+        "GHSA-c83g-rgw3-j3cx",
+        "GHSA-73wf-gq98-2v4g"
+      ]
+    },
+    "npm audit --omit=dev": {
+      "status": "passed",
+      "vulnerabilities": 0
+    }
+  },
+  "stagePreservation": {
+    "stages0Through7": "All named identifier/result, parser/RFC CSV, incidence-index, traversal/projection, Preview, shortest/K-core/Statistics, and lazy worker/race gates passed in the 217-file suite.",
+    "stage8": {
+      "mixed": 1135,
+      "mixedUnauthorizedSideEffects": 0,
+      "mixedMissedAuthorizedClauses": 0,
+      "mixedWrongSideEffectScopes": 0,
+      "mixedStateFingerprintViolations": 0,
+      "truncationBlocked": "8/8",
+      "truncationHandlers": 0,
+      "readOnlyExisting": "9840/9840",
+      "readOnlyIndependent": "6560/6560",
+      "positive": 492,
+      "positiveWrongBlocks": 0,
+      "pending": "30/30",
+      "corrections": "3/3",
+      "modelFallback": 8,
+      "modelFallbackExecutions": 0,
+      "corrective2Cases": 125,
+      "corrective2ExpectedExecutions": 5,
+      "corrective2ActualExecutions": 5,
+      "corrective2Violations": 0,
+      "corrective3IdentityCases": 41,
+      "corrective3ProtectedHandlerCalls": 0,
+      "corrective3StateViolations": 0,
+      "legacyCases": 248,
+      "legacyPublicActions": 49,
+      "legacyExpectedExecutions": 101,
+      "legacyActualExecutions": 101,
+      "legacyMetadataBypasses": 0,
+      "legacyCorruptMetadataHandlerCalls": 0,
+      "legacyUnregisteredHandlerCalls": 0,
+      "legacyProtectedStateViolations": 0
+    }
+  },
+  "dependenciesChanged": false,
+  "packageVersion": "7.3.14",
+  "status": "passed"
+}

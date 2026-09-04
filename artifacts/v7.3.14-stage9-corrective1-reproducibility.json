@@ -1,0 +1,64 @@
+{
+  "stage": 9,
+  "corrective": 1,
+  "finding": "S9-N01",
+  "packageVersion": "7.3.14",
+  "authoritativePackager": "scripts/package-portable-source.py",
+  "sourceCommit": "14655e326be1261629bca5f102644112d0a84e69",
+  "canonicalOrdering": {
+    "fileKey": "path.relative_to(root).as_posix()",
+    "comparison": "Python ordinal Unicode string order",
+    "localeUsed": false,
+    "filesystemEnumerationOrderUsed": false,
+    "concretePathComparisonUsed": false,
+    "directoryOrder": "Normalized POSIX archive directory names sorted as strings before file entries.",
+    "fileOrder": "Included source files sorted by normalized relative POSIX strings before archive-name construction."
+  },
+  "runs": [
+    {
+      "host": "Windows",
+      "run": 1,
+      "python": "3.12.13",
+      "sha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+      "bytes": 1195294,
+      "members": 655
+    },
+    {
+      "host": "Windows",
+      "run": 2,
+      "python": "3.12.13",
+      "sha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+      "bytes": 1195294,
+      "members": 655
+    },
+    {
+      "host": "WSL2 Ubuntu",
+      "run": 1,
+      "sha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+      "bytes": 1195294,
+      "members": 655
+    },
+    {
+      "host": "WSL2 Ubuntu",
+      "run": 2,
+      "sha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+      "bytes": 1195294,
+      "members": 655
+    }
+  ],
+  "repeatEquality": {
+    "windows": true,
+    "wslLinux": true
+  },
+  "crossPlatform": {
+    "sha256Equal": true,
+    "byteLengthEqual": true,
+    "byteIdentity": true
+  },
+  "oldCandidate": {
+    "windowsSha256": "475f9eaa0549500bbc07b6aa823507899f810be0ecef70f5de834f45001da3b2",
+    "wslLinuxSha256": "a95303f10f976bdc11c58a4e50fb498f2a53f2edbca1f216b164eedb413a3944",
+    "superseded": true
+  },
+  "status": "passed"
+}
