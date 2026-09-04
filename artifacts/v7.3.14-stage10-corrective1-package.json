@@ -1,0 +1,58 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "packager": "scripts/package-portable-source.py",
+  "archive": "hypergraph-converter-v7.3.14-stage10-corrective1-portable.zip",
+  "bytes": 1199546,
+  "sha256": "7b09e923d240d006dd290083bfc9647de5b36a0120c88a606aa851cec979985f",
+  "memberCount": 657,
+  "memberCountChangeFromFailedCandidate": 2,
+  "memberCountChangeReason": "One permanent S10-N01 corpus harness and one permanent regression test were added.",
+  "root": "hypergraph-converter-v7.3.14",
+  "directoryMembers": 28,
+  "fileMembers": 629,
+  "modeCounts": { "0644": 612, "0755": 45 },
+  "unixCreateSystemForEveryEntry": true,
+  "testzip": "ok",
+  "issueCount": 0,
+  "issues": {
+    "absolutePaths": 0,
+    "traversalPaths": 0,
+    "backslashes": 0,
+    "duplicates": 0,
+    "caseCollisions": 0,
+    "symlinks": 0,
+    "specialFiles": 0,
+    "forbiddenContent": 0,
+    "unexpectedExecutables": 0,
+    "groupOrWorldWritable": 0,
+    "crcFailures": 0
+  },
+  "R08": {
+    "status": "passed",
+    "environment": "WSL2 Ubuntu; Linux 6.18.33.2-microsoft-standard-WSL2 x86_64",
+    "archiveSha256Verified": true,
+    "shellLauncherCount": 6,
+    "allModes": "0755",
+    "allShebangs": "#!/usr/bin/env bash",
+    "allUseLfWithoutCrLf": true,
+    "directExecutionUsed": true,
+    "successfulEnvironmentIndependentLaunchers": [
+      "check-local-model-runtime.sh",
+      "configure-ollama-origins.example.sh"
+    ],
+    "expectedEnvironmentFailures": {
+      "run-local-runtime-bridge.sh": "Node.js is absent in WSL",
+      "run-with-ollama.sh": "Ollama is absent in WSL",
+      "setup-ollama-model.sh": "Ollama is absent in WSL",
+      "smoke-test-qwen3-8b.sh": "Ollama is absent in WSL"
+    },
+    "orphanBridgeProcess": false
+  },
+  "failedCandidatePreserved": {
+    "archive": "hypergraph-converter-v7.3.14-portable.zip",
+    "bytes": 1195294,
+    "sha256": "e40ae7280476dc6cf59f767e23567db616157c4897095f3ec511f28adfa2747e",
+    "unchanged": true
+  }
+}
