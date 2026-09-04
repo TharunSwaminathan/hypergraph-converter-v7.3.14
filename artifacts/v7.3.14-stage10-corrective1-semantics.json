@@ -1,0 +1,51 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "issue": "S10-N01",
+  "parentCommit": "39037cb7b4fdce1f027c8cdd961a48a8ca173288",
+  "preFixEvidenceCommit": "993a59ce6e68e4fbf28fdf19b855f0ab714e5567",
+  "productionCommit": "93773bc581e8e1883da47e121ed5848734ad3978",
+  "rootCause": {
+    "clauseSegmentation": "The semicolon correctly produced two clauses.",
+    "speechAct": "The first clause was not recognized as a negated request speech act, so its embedded mutation verb was treated as an unprotected action candidate.",
+    "authorization": "The generic action fallback granted graph_edit_preview because the clause contained delete but matched none of the prior denial forms.",
+    "readOnlyFollowUp": "The imperative information frame 'tell me whether' was not classified as a read-only question start.",
+    "dispatch": "The resulting graph-edit scope allowed the compiled mutation plan to reach the protected graph-mutation handler and stage confirmation."
+  },
+  "correction": {
+    "kind": "clause-local compositional semantic guard",
+    "negatedSpeechActs": [
+      "negated ask/tell/request/instruct/direct/authorize/approve/consent",
+      "perfect and past variants of the same speech acts",
+      "progressive first-person and plural variants",
+      "not-permission/not-consent/not-request propositions",
+      "do-not-interpret-as-permission propositions"
+    ],
+    "readOnlyQueryFrame": "tell me whether/if/what/which/why/how/where/when/who",
+    "clauseLocality": "Only the governed clause is denied. A later affirmative directive remains independently eligible for the protected preview/confirmation flow.",
+    "compilerFallback": "A non-compiling state-change mention whose request semantics are read-only is represented as a GroundedQuestion rather than left unhandled.",
+    "globalNegationRuleAdded": false,
+    "exactPhrasePatch": false
+  },
+  "exactPostFix": {
+    "query": "I did not ask you to delete anything; tell me whether h1 exists.",
+    "requestMode": "read_only",
+    "authorizationScopes": [],
+    "preparedDomain": "grounded_question",
+    "typedKind": "GroundedQuestion",
+    "graphMutationHandlerCalls": 0,
+    "confirmationStaged": false,
+    "stateChanged": false
+  },
+  "antiPatternReview": {
+    "exactPhraseDenyRegex": false,
+    "globalNegationDisablesAllMutation": false,
+    "mutationVerbPresenceEqualsConsent": false,
+    "untrustedPlanMetadataAuthorizes": false,
+    "parsedCommandExistenceAloneAuthorizes": false,
+    "domainOrTypedKindSplitRouting": false,
+    "legacySelfDeclaredSideEffectAuthority": false,
+    "truncationAuthorization": false,
+    "missingSemanticsCompatibilityAllow": false
+  }
+}

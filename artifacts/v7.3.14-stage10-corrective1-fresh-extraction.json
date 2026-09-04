@@ -1,0 +1,51 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "issue": "S10-N01",
+  "archive": "hypergraph-converter-v7.3.14-stage10-corrective1-portable.zip",
+  "archiveSha256": "7b09e923d240d006dd290083bfc9647de5b36a0120c88a606aa851cec979985f",
+  "extractionDirectory": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\stage10-corrective1-clean-extraction-7b09e923\\hypergraph-converter-v7.3.14",
+  "newExtraction": true,
+  "preInstallTree": {
+    "archiveFiles": 629,
+    "archiveDirectories": 28,
+    "missingMembers": 0,
+    "sizeMismatches": 0,
+    "gitDirectoryPresent": false,
+    "nodeModulesPresent": false,
+    "distPresent": false,
+    "artifactsPresent": false
+  },
+  "npmCi": {
+    "status": "pass",
+    "packagesAdded": 144,
+    "packagesAudited": 145
+  },
+  "nodeSuite": {
+    "status": "pass",
+    "files": "218/218",
+    "durationSeconds": 91.0,
+    "s10N01PermanentRegressionExecuted": true,
+    "zipPermissionTest": "PASS with Python available; not skipped"
+  },
+  "lint": "PASS",
+  "build": {
+    "status": "PASS",
+    "advisory": "Known Vite chunk-size warning only"
+  },
+  "githubBuild": {
+    "status": "PASS",
+    "advisory": "Known Vite chunk-size warning only"
+  },
+  "audit": {
+    "status": "completed",
+    "high": 1,
+    "scope": "dev dependency only",
+    "package": "browserslist <=4.28.6",
+    "advisories": ["GHSA-c83g-rgw3-j3cx", "GHSA-73wf-gq98-2v4g"]
+  },
+  "productionAudit": {
+    "status": "PASS",
+    "vulnerabilities": 0
+  }
+}

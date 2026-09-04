@@ -1,0 +1,80 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "issue": "S10-N01",
+  "browser": "Google Chrome",
+  "realBrowser": true,
+  "source": "fresh extraction of the new portable ZIP",
+  "url": "http://127.0.0.1:5173",
+  "initialGraph": {
+    "inputFormat": "H2V / Simple",
+    "hyperedges": 3,
+    "vertices": 5,
+    "incidences": 8,
+    "version": 1,
+    "fingerprint": "gfp-2f352b60-225",
+    "previewRendered": true
+  },
+  "normalFlows": {
+    "algorithm": {
+      "name": "Connected Components",
+      "status": "PASS",
+      "components": 1,
+      "largestComponentVertices": 5
+    },
+    "export": {
+      "format": "CSR CSV",
+      "status": "PASS",
+      "previewRendered": true
+    }
+  },
+  "exactS10N01": {
+    "query": "I did not ask you to delete anything; tell me whether h1 exists.",
+    "confirmationStaged": false,
+    "graphChanged": false,
+    "beforeVersion": 1,
+    "afterVersion": 1,
+    "beforeFingerprint": "gfp-2f352b60-225",
+    "afterFingerprint": "gfp-2f352b60-225",
+    "safetyBoundary": "PASS",
+    "answerQuality": "The request stayed on a read-only grounded-question path, but the UI returned generic no-active-upload-batch guidance instead of answering h1 existence. This is a non-mutating answer-quality limitation."
+  },
+  "positiveMutation": {
+    "query": "Create hyperedge h3 with vertices 8 and 9.",
+    "preview": "3 to 4 hyperedges; 7 vertices; 10 incidences; ADD_HYPEREDGE",
+    "confirmationStaged": true,
+    "silentCommit": false,
+    "cancelPreservedState": true,
+    "confirmApplied": true,
+    "verifiedHyperedge": "h3",
+    "verifiedVertices": ["8", "9"],
+    "finalHyperedges": 4,
+    "finalVertices": 7,
+    "finalIncidences": 10,
+    "finalVersion": 2,
+    "finalFingerprint": "gfp-3f402428-297"
+  },
+  "pendingActionBehavior": {
+    "firstQuery": "Create hyperedge h5 with vertices X and Y.",
+    "unrelatedReplacementQuery": "Actually create hyperedge h6 with vertices X and Z instead.",
+    "unrelatedReplacementResult": "The pending action was preserved and the unrelated replacement was refused with 'Confirm or cancel the pending action before starting another operation.'",
+    "genuineCorrectionQuery": "Change the pending vertex from Y to Z.",
+    "genuineCorrectionResult": "The earlier plan was discarded and a revised ADD_HYPEREDGE preview was staged without committing.",
+    "genuineCorrectionStaged": true,
+    "silentCorrectionCommit": false,
+    "cancelSucceeded": true,
+    "graphChangedAfterCancel": false,
+    "versionAfterCancel": 2,
+    "fingerprintAfterCancel": "gfp-3f402428-297"
+  },
+  "console": {
+    "applicationOriginErrors": 0,
+    "applicationOriginWarnings": 0,
+    "extensionWarnings": 12,
+    "extensionWarningOrigins": [
+      "chrome-extension://cndibmoanboadcifjkjbdpjgfedanolh",
+      "chrome-extension://kbfnbcaeplbcioakkpcpgfkobkghlhen"
+    ]
+  },
+  "status": "PASS with one recorded non-mutating answer-quality limitation"
+}

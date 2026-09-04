@@ -1,0 +1,36 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "issue": "S10-N01",
+  "runner": "scripts/stage10Corrective1Harness.mjs",
+  "permanentTest": "tests/stage10-corrective1-negated-consent.test.mjs",
+  "totalCases": 651,
+  "readOnlyNoConsentCases": 640,
+  "wrongPositiveAuthorizations": 0,
+  "protectedHandlerCalls": 0,
+  "confirmationStages": 0,
+  "stateChanges": 0,
+  "truePositiveControls": 11,
+  "wrongBlocksOfTruePositiveControls": 0,
+  "coverage": {
+    "mutationFamilies": 7,
+    "noConsentFrames": 15,
+    "punctuationVariants": 6,
+    "readOnlyFollowUps": 6,
+    "punctuation": ["semicolon", "comma", "period", "colon", "dash", "newline"],
+    "compositionalCategories": [
+      "read_only_then_negated_reference",
+      "negated_reference_then_read_only",
+      "positive_question_with_mutation_term",
+      "quoted_mutation_command",
+      "reported_mutation_command",
+      "hypothetical_mutation",
+      "conditional_mutation",
+      "past_tense_mutation_statement",
+      "explicit_prohibition",
+      "first_person_denial",
+      "negated_reference_then_positive_directive"
+    ]
+  },
+  "failures": []
+}

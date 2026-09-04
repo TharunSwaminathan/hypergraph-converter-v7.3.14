@@ -1,0 +1,60 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "finalStage10RerunBegun": false,
+  "issues": [
+    {
+      "id": "S10-N01",
+      "severity": "High",
+      "area": "assistant authorization",
+      "status": "closed_pending_independent_review",
+      "releaseBlockingAtDiscovery": true,
+      "summary": "Negated/no-consent mutation mentions no longer grant graph-edit authority or reach the protected graph-mutation handler.",
+      "closureEvidence": {
+        "exactRepro": {
+          "authorizationScopes": [],
+          "graphMutationHandlerCalls": 0,
+          "confirmationStaged": false,
+          "stateChanged": false
+        },
+        "freshCorpus": {
+          "cases": 651,
+          "readOnlyNoConsentCases": 640,
+          "truePositiveControls": 11,
+          "wrongPositiveAuthorizations": 0,
+          "protectedHandlerCalls": 0,
+          "confirmationStages": 0,
+          "stateChanges": 0,
+          "wrongBlocksOfTruePositiveControls": 0
+        },
+        "cleanExtractionNodeSuite": "218/218 PASS",
+        "realChromeSafetyBoundary": "PASS"
+      },
+      "independentReviewRequired": true
+    },
+    {
+      "id": "S10-C1-L01",
+      "severity": "Low",
+      "area": "assistant read-only response quality",
+      "status": "recorded_limitation",
+      "releaseBlocking": false,
+      "summary": "The exact read-only browser request is kept out of mutation dispatch, but its UI response is generic upload-batch guidance instead of an h1 existence answer."
+    },
+    {
+      "id": "S10-A01",
+      "severity": "Advisory",
+      "area": "build",
+      "status": "unchanged",
+      "releaseBlocking": false,
+      "summary": "Vite reports the existing JavaScript chunk above 500 kB after minification."
+    },
+    {
+      "id": "S10-A02",
+      "severity": "Advisory",
+      "area": "development dependency audit",
+      "status": "unchanged",
+      "releaseBlocking": false,
+      "summary": "The full audit reports one High development-only Browserslist finding; the production audit reports zero vulnerabilities."
+    }
+  ]
+}

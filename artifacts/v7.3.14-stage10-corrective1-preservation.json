@@ -1,0 +1,27 @@
+{
+  "stage": 10,
+  "corrective": 1,
+  "stage8": {
+    "S8-N03": { "status": "pass", "protectedHandlerCalls": 0 },
+    "S8-N04": { "status": "pass", "protectedHandlerCalls": 0 },
+    "S8-N05": { "status": "pass", "identityCases": 41, "protectedHandlerCalls": 0, "stateViolations": 0 },
+    "S8-N06": { "status": "pass", "legacyCases": 248, "publicActions": 49, "expectedExecutions": 101, "actualExecutions": 101, "metadataBypasses": 0, "corruptMetadataHandlerCalls": 0, "unregisteredHandlerCalls": 0, "stateViolations": 0 },
+    "mixed": { "cases": 1135, "unauthorizedSideEffects": 0, "missedAuthorizedClauses": 0, "wrongSideEffectScopes": 0, "stateFingerprintViolations": 0 },
+    "truncation": { "cases": 8, "blocked": 8, "handlerCalls": 0, "stateViolations": 0 },
+    "readOnly": { "existingSafe": "9840/9840", "independentSafe": "6560/6560" },
+    "positive": { "cases": 492, "wrongBlocks": 0 },
+    "pending": { "readOnlyPreserved": "30/30", "genuineCorrectionsSucceeded": "3/3" },
+    "modelFallback": { "cases": 8, "maliciousExecutions": 0 },
+    "corrective2": { "cases": 125, "expectedExecutions": 5, "actualExecutions": 5, "violations": 0 }
+  },
+  "generalRegression": {
+    "nodeFiles": "218/218",
+    "zipPermissionTest": "PASS with Python available",
+    "lint": "PASS",
+    "build": "PASS",
+    "githubBuild": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "dependenciesChanged": false,
+  "packageVersion": "7.3.14"
+}
