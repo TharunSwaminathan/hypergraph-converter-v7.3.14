@@ -1,0 +1,47 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective2",
+  "parentCommit": "f19b9dd3af0d37b8b445606197a482f3f6e1d54d",
+  "preFixCommit": "f7c87dd",
+  "productionCommit": "e3fd1ec308d944cdc3adc8a272f87c05c20f06ad",
+  "generatedAt": "2026-09-05T00:03:26.065Z",
+  "finding": "S10-N02",
+  "status": "closed_pending_independent_review",
+  "authorityModel": {
+    "source": "deterministically derived positive user clauses",
+    "modelOrPreparedPlanIsAuthority": false,
+    "boundFields": [
+      "operation family/type",
+      "existing target identifiers",
+      "new identifiers",
+      "explicit vertices",
+      "weights",
+      "times",
+      "attributes"
+    ],
+    "multiOperationRule": "Every actual operation requires a distinct matching affirmative descriptor; one mismatch blocks the entire plan.",
+    "finalBoundaries": [
+      "deterministic compiler",
+      "final dispatcher",
+      "UI confirmation staging"
+    ]
+  },
+  "matrix": {
+    "cases": 21,
+    "invalidCases": 12,
+    "operationFamilySubstitutionsBlocked": 2,
+    "operationFamilySubstitutions": 2,
+    "targetSubstitutionsBlocked": 5,
+    "targetSubstitutions": 5,
+    "parameterSubstitutionsBlocked": 2,
+    "parameterSubstitutions": 2,
+    "mixedSubstitutionsBlocked": 3,
+    "mixedSubstitutions": 3,
+    "protectedHandlerCallsForInvalidPlans": 0,
+    "confirmationStagesForInvalidPlans": 0,
+    "stateChangesForInvalidPlans": 0,
+    "validMatchingPlanExecutions": 9,
+    "validMatchingPlans": 9,
+    "invalidFailures": []
+  }
+}

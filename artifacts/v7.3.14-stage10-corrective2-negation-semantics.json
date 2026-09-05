@@ -1,0 +1,55 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective2",
+  "parentCommit": "f19b9dd3af0d37b8b445606197a482f3f6e1d54d",
+  "preFixCommit": "f7c87dd",
+  "productionCommit": "e3fd1ec308d944cdc3adc8a272f87c05c20f06ad",
+  "generatedAt": "2026-09-05T00:03:26.065Z",
+  "finding": "S10-N01",
+  "status": "closed_pending_independent_review",
+  "semanticModel": {
+    "unit": "clause-local compositional polarity",
+    "authorizingInvariant": "A mutation predicate must occur in an affirmative present execution directive.",
+    "nonAuthorizingConstructions": [
+      "past progressive negation",
+      "negative action complement",
+      "permission denial",
+      "permission withdrawal/revocation/refusal",
+      "epistemic or decision framing",
+      "reported, future, and past-discussion intent"
+    ],
+    "contractionNormalization": [
+      "wasn't",
+      "weren't",
+      "isn't",
+      "aren't",
+      "hasn't",
+      "haven't",
+      "hadn't",
+      "didn't",
+      "don't"
+    ],
+    "clauseLocalPositiveControl": true,
+    "globalNegationRuleUsed": false
+  },
+  "originalExact": {
+    "protectedHandlerCalls": 0,
+    "confirmationStages": 0,
+    "stateChanged": false,
+    "authorizationMode": "read_only"
+  },
+  "heldOutSummary": {
+    "cases": 389,
+    "wrongPositiveAuthorizations": 0,
+    "protectedHandlerCalls": 0,
+    "confirmationStages": 0,
+    "stateChanges": 0,
+    "truePositives": 9,
+    "wrongTruePositiveBlocks": 0,
+    "constructionCount": 16,
+    "mutationFamilies": 6,
+    "followUpCount": 4,
+    "failures": [],
+    "positiveFailures": []
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective2",
+  "parentCommit": "f19b9dd3af0d37b8b445606197a482f3f6e1d54d",
+  "preFixCommit": "f7c87dd",
+  "productionCommit": "e3fd1ec308d944cdc3adc8a272f87c05c20f06ad",
+  "generatedAt": "2026-09-05T00:03:26.065Z",
+  "corpusDesign": {
+    "source": "scripts/stage10Corrective2Harness.mjs",
+    "independentlyCuratedFromProductionTables": true,
+    "exactIndependentFailures": 5,
+    "constructionFamilies": 16,
+    "mutationFamilies": 6,
+    "readOnlyFollowUps": 4
+  },
+  "results": {
+    "cases": 389,
+    "wrongPositiveAuthorizations": 0,
+    "protectedHandlerCalls": 0,
+    "confirmationStages": 0,
+    "stateChanges": 0,
+    "truePositives": 9,
+    "wrongTruePositiveBlocks": 0,
+    "constructionCount": 16,
+    "mutationFamilies": 6,
+    "followUpCount": 4,
+    "failures": [],
+    "positiveFailures": []
+  },
+  "gates": {
+    "wrongPositiveAuthorizationsZero": true,
+    "protectedHandlerCallsZero": true,
+    "confirmationStagesZero": true,
+    "stateChangesZero": true,
+    "truePositiveBlocksZero": true
+  }
+}
