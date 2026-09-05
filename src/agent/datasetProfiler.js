@@ -31,7 +31,7 @@ function inferFormat(fileName, text) {
   const extension = extensionOf(fileName);
   if (extension === "json") return "json";
   if (extension === "mtx" || /^%%MatrixMarket/i.test(String(text).trimStart())) return "matrix_market";
-  if (["csv", "tsv", "txt", "dat", "edges"].includes(extension)) return "delimited";
+  if (["csv", "tsv", "txt", "dat", "edge", "edges"].includes(extension)) return "delimited";
   if (String(text).includes(",") || String(text).includes("\t") || String(text).includes("|")) return "delimited";
   return "line_based";
 }

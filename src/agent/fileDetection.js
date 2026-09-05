@@ -180,6 +180,8 @@ function isCornellSet(files) {
 
 function formatFromName(name, extension) {
   const value = name.toLowerCase();
+  const normalizedExtension = String(extension ?? "").toLowerCase().replace(/^\./, "");
+  if (normalizedExtension === "edge" || normalizedExtension === "edges") return "edgelist";
   if (value.includes("incidence")) return "incidence";
   if (value.includes("h2v")) return "simple";
   if (value.includes("v2h")) return "v2h";
@@ -207,7 +209,7 @@ export function detectUploadedFiles(files, detectTextFormat) {
 
   const file = files[0];
   const text = String(file.text ?? "").trim();
-  const extension = String(file.extension ?? "").toLowerCase();
+  const extension = String(file.extension ?? "").toLowerCase().replace(/^\./, "");
   if (!text) {
     return { formatId: null, routeId: null, label: "Unknown format", confidence: "none", reason: "The uploaded file is empty or could not be read as text." };
   }

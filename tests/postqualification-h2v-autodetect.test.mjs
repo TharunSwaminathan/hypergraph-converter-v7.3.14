@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { detectUploadedFiles } from "../src/agent/fileDetection.js";
 import {
   autoDetect,
   normalizeParsedHyperedges,
@@ -36,5 +37,16 @@ assert.deepEqual(
   { hyperedges: 3, vertices: 5, incidences: 9 },
 );
 assert.deepEqual(detectedRoute, expectedH2V);
+
+for (const name of ["graph.edge", "graph.EDGE", "graph.EdGe", "graph.edges"]) {
+  const extension = name.split(".").pop();
+  const detection = detectUploadedFiles([{
+    name,
+    extension,
+    text: "A B\nB C",
+    size: 7,
+  }], autoDetect);
+  assert.equal(detection.formatId, "edgelist", `${name} must hint Graph Edge List`);
+}
 
 console.log("v7.3.14 post-qualification Corrective A H2V Auto Detect regression passed.");

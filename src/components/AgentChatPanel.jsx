@@ -39,6 +39,7 @@ import {
 } from "../agent/deterministicNlu/responseComposer.js";
 import { buildGraphResultSummaryMessage, planFromResultSummaryAction } from "../agent/resultSummary.js";
 import { getConfirmationCopy } from "../agent/safetyGuards.js";
+import { UPLOAD_ACCEPT_ATTRIBUTE } from "../agent/uploadPolicy.js";
 import { resolveConversationIntent } from "../agent/conversationIntentResolver.js";
 import { isPlausibleGraphMutationText } from "../agent/graphMutationModelPlanner.js";
 import {
@@ -2593,7 +2594,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
               ref={fileInputRef}
               type="file"
               multiple
-              accept=".txt,.csv,.tsv,.json,.dat,.edges,.mtx,text/*,application/json"
+              accept={UPLOAD_ACCEPT_ATTRIBUTE}
               onChange={handleFileInput}
               onClick={event => { event.currentTarget.value = ""; }}
               className="agent-upload__input"

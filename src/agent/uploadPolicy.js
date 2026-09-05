@@ -6,6 +6,32 @@ export const UPLOAD_POLICY = Object.freeze({
   detectionSampleBytes: 128 * 1024,
 });
 
+export const UPLOAD_FILE_EXTENSIONS = Object.freeze([
+  ".txt",
+  ".csv",
+  ".tsv",
+  ".json",
+  ".dat",
+  ".edge",
+  ".edges",
+  ".mtx",
+]);
+
+export const UPLOAD_ACCEPT_ATTRIBUTE = UPLOAD_FILE_EXTENSIONS.join(",");
+
+export function uploadFileExtension(name = "") {
+  const value = String(name);
+  const dot = value.lastIndexOf(".");
+  return dot >= 0 ? value.slice(dot).toLowerCase() : "";
+}
+
+export function isAcceptedUploadFileName(name = "") {
+  const extension = uploadFileExtension(name);
+  // Extensionless Cornell/SNAP filenames remain valid. Named files with an
+  // extension must use the shared, explicit text-dataset allowlist.
+  return !extension || UPLOAD_FILE_EXTENSIONS.includes(extension);
+}
+
 export function validateSelectedFiles(files, policy = UPLOAD_POLICY) {
   const list = [...(files ?? [])];
   if (list.length > policy.maxFiles) {
@@ -13,6 +39,9 @@ export function validateSelectedFiles(files, policy = UPLOAD_POLICY) {
   }
   let aggregate = 0;
   for (const file of list) {
+    if (file?.name && !isAcceptedUploadFileName(file.name)) {
+      throw new Error(`Unsupported upload extension for ${file.name}. Accepted extensions: ${UPLOAD_FILE_EXTENSIONS.join(", ")}.`);
+    }
     const size = Number(file?.size ?? 0);
     if (size > policy.maxSingleFileBytes) {
       throw new Error(`Upload limit exceeded: ${file?.name ?? "file"} is ${size.toLocaleString()} bytes; max single-file size is ${policy.maxSingleFileBytes.toLocaleString()} bytes.`);

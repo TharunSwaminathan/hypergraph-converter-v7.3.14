@@ -1,5 +1,12 @@
 import assert from "node:assert/strict";
-import { mapWithConcurrency, readFileText, UPLOAD_POLICY, validateSelectedFiles } from "../src/agent/uploadPolicy.js";
+import {
+  isAcceptedUploadFileName,
+  mapWithConcurrency,
+  readFileText,
+  UPLOAD_ACCEPT_ATTRIBUTE,
+  UPLOAD_POLICY,
+  validateSelectedFiles,
+} from "../src/agent/uploadPolicy.js";
 
 function file(name, size, text = "x") {
   return { name, size, text: async () => text, type: "text/plain", lastModified: 1 };
@@ -16,6 +23,22 @@ assert.throws(() => validateSelectedFiles([
   file("b.txt", 1),
 ]), /max aggregate size/);
 assert.equal(validateSelectedFiles([file("ok.txt", 10)]).length, 1);
+for (const name of ["graph.edge", "graph.EDGE", "graph.EdGe", "graph.edges"]) {
+  assert.equal(isAcceptedUploadFileName(name), true, `${name} must be accepted by the shared extension policy`);
+  assert.equal(validateSelectedFiles([file(name, 10)]).length, 1);
+}
+assert.equal(isAcceptedUploadFileName("graph.edg"), false);
+assert.throws(() => validateSelectedFiles([file("graph.edg", 10)]), /Unsupported upload extension/);
+assert.match(UPLOAD_ACCEPT_ATTRIBUTE, /\.edge(?:,|$)/);
+assert.match(UPLOAD_ACCEPT_ATTRIBUTE, /\.edges(?:,|$)/);
+assert.deepEqual(
+  {
+    maxFiles: UPLOAD_POLICY.maxFiles,
+    maxSingleFileBytes: UPLOAD_POLICY.maxSingleFileBytes,
+    maxAggregateBytes: UPLOAD_POLICY.maxAggregateBytes,
+  },
+  { maxFiles: 50, maxSingleFileBytes: 10 * 1024 * 1024, maxAggregateBytes: 50 * 1024 * 1024 },
+);
 assert.equal(await readFileText(file("ok.txt", 1, "hello")), "hello");
 
 let active = 0;
