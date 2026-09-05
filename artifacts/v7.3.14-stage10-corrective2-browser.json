@@ -3,7 +3,7 @@
   "stage": "10-corrective2",
   "browser": "Google Chrome",
   "url": "http://127.0.0.1:5173/",
-  "source": "fresh extraction",
+  "source": "new Corrective #2 clean extraction",
   "normalGraphLoad": {
     "status": "passed",
     "input": "h1: A, B\\nh2: B, C",
@@ -29,30 +29,64 @@
   },
   "exactOriginal": {
     "query": "I did not ask you to delete anything; tell me whether h1 exists.",
-    "confirmationStaged": false,
+    "confirmationCount": 0,
+    "graphVersionBefore": 1,
+    "graphVersionAfter": 1,
     "graphChanged": false
   },
   "heldOutNoConsent": [
     {
       "query": "I wasn't asking you to delete h1; tell me whether h1 exists.",
-      "confirmationStaged": false,
+      "confirmationCount": 0,
+      "graphVersionBefore": 1,
+      "graphVersionAfter": 1,
       "graphChanged": false
     },
     {
       "query": "I am asking you not to delete h1; tell me whether h1 exists.",
-      "confirmationStaged": false,
+      "confirmationCount": 0,
+      "graphVersionBefore": 1,
+      "graphVersionAfter": 1,
+      "graphChanged": false
+    },
+    {
+      "query": "I am not giving you permission to delete h1; tell me whether it exists.",
+      "confirmationCount": 0,
+      "graphVersionBefore": 1,
+      "graphVersionAfter": 1,
       "graphChanged": false
     }
   ],
   "positiveMutation": {
     "query": "Create hyperedge h3 with vertices 8 and 9.",
     "previewStaged": true,
-    "confirmationRequired": true,
+    "confirmationCount": 1,
     "silentCommit": false,
-    "cancelled": true,
-    "graphChanged": false,
-    "hyperedgesAfterCancel": 2
+    "cancel": {
+      "status": "passed",
+      "graphVersionBefore": 1,
+      "graphVersionAfter": 1,
+      "hyperedgesAfter": 2,
+      "graphChanged": false
+    },
+    "confirm": {
+      "status": "passed",
+      "graphVersionBefore": 1,
+      "graphVersionAfter": 2,
+      "hyperedgesAfter": 3,
+      "verticesAfter": 5,
+      "incidencesAfter": 6,
+      "h3Committed": true
+    }
   },
-  "applicationOriginConsoleErrors": 0,
+  "console": {
+    "applicationOriginErrors": 0,
+    "applicationOriginWarnings": 0,
+    "extensionWarningsExcluded": 16,
+    "extensionSources": [
+      "chrome-extension://cndibmoanboadcifjkjbdpjgfedanolh/",
+      "chrome-extension://kbfnbcaeplbcioakkpcpgfkobkghlhen/"
+    ]
+  },
   "status": "passed"
 }
