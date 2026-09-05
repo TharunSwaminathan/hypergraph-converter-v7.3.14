@@ -5,7 +5,7 @@ import BarChart from "./components/BarChart.jsx";
 import Viz from "./components/Viz.jsx";
 import { Pill, StatCard, MappingBox } from "./components/ui.jsx";
 import { useUpload, useMultiUpload } from "./hooks/useFileUpload.js";
-import { normalizeParsedHyperedges, autoDetect, parseInputFormat } from "./utils/parsers.js";
+import { normalizeParsedHyperedges, autoDetectDetails, parseInputFormat } from "./utils/parsers.js";
 import { arrayMax } from "./utils/numeric.js";
 import { parseBatchUpdates, applyBatchUpdates, batchUpdatesToMutationOperations } from "./utils/batchUpdates.js";
 import {
@@ -385,7 +385,13 @@ function AppCore() {
   function autoDetectFmt() {
     const t = fmt === "cornell" ? sv : txt;
     if (!t.trim()) { setErr("No text to auto-detect."); return; }
-    const detected = autoDetect(t.trim());
+    const detection = autoDetectDetails(t.trim());
+    const detected = detection.formatId;
+    if (!detected) {
+      setErr(detection.reason);
+      showNotice("Auto-detect needs an explicit format choice.");
+      return;
+    }
     sw(detected); setTexts(p => ({ ...p, [detected]: t }));
     showNotice("Auto-detected format: " + detected);
   }
@@ -460,7 +466,7 @@ function AppCore() {
   }
 
   function buildAgentBatch(files, id, label, existingMode = null) {
-    const analysis = analyzeUploadBatch(files, autoDetect);
+    const analysis = analyzeUploadBatch(files, autoDetectDetails);
     const initialParseMode = analysis.detectedFormat.formatId === "cornell"
       ? "together"
       : existingMode ?? (files.length === 1 ? "together" : "unknown");
@@ -1808,7 +1814,7 @@ function AppCore() {
 
   function autoDetectAgentFiles() {
     if (!agentFiles.length) return { ok: false, error: "Upload at least one file first." };
-    const analysis = analyzeUploadBatch(agentFiles, autoDetect);
+    const analysis = analyzeUploadBatch(agentFiles, autoDetectDetails);
     const detection = analysis.detectedFormat;
     const targetBatchId = activeBatchId;
     setAgentFileBatches(current => current.map(batch => batch.id === targetBatchId
@@ -1911,7 +1917,7 @@ function AppCore() {
     if (activeAgentBatch.parseMode === "separate") {
       return { ok: false, error: "The dashboard displays one active graph at a time. Choose one file or parse the batch together as a temporal dataset." };
     }
-    const detection = agentDetection ?? detectUploadedFiles(agentFiles, autoDetect);
+    const detection = agentDetection ?? detectUploadedFiles(agentFiles, autoDetectDetails);
     const formatToUse = targetFormat || detection.formatId;
     if (!formatToUse) return { ok: false, error: detection.reason };
     if (formatToUse === "custom") return { ok: false, error: "Use Custom Parser, then run its code with confirmation." };

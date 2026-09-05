@@ -23,11 +23,11 @@ function summarize(format) {
   };
 }
 
-// Pre-change characterization at b9159e2: this assertion deliberately records
-// the defective parent behavior. The production corrective will change the
-// expected route to "simple" while retaining this end-to-end count oracle.
+// The pre-change commit recorded the defective "adjlist" result. This
+// permanent regression now enforces the corrected Auto Detect route and the
+// same end-to-end count oracle.
 const detectedFormat = autoDetect(BUILT_IN_H2V);
-assert.equal(detectedFormat, "adjlist");
+assert.equal(detectedFormat, "simple");
 
 const expectedH2V = summarize("simple");
 const detectedRoute = summarize(detectedFormat);
@@ -35,12 +35,6 @@ assert.deepEqual(
   { hyperedges: expectedH2V.hyperedges, vertices: expectedH2V.vertices, incidences: expectedH2V.incidences },
   { hyperedges: 3, vertices: 5, incidences: 9 },
 );
-assert.deepEqual(
-  { hyperedges: detectedRoute.hyperedges, vertices: detectedRoute.vertices, incidences: detectedRoute.incidences },
-  { hyperedges: 10, vertices: 9, incidences: 20 },
-);
-assert.notDeepEqual(detectedRoute, expectedH2V);
-assert.ok(detectedRoute.vertexIds.includes("h0 [t=10]"));
-assert.ok(detectedRoute.vertexIds.includes("@weight=2"));
+assert.deepEqual(detectedRoute, expectedH2V);
 
-console.log("v7.3.14 post-qualification Corrective A pre-change characterization passed.");
+console.log("v7.3.14 post-qualification Corrective A H2V Auto Detect regression passed.");

@@ -238,7 +238,10 @@ export function detectUploadedFiles(files, detectTextFormat) {
     return result("csr_csv", "high", "The labeled rows match the CSR / CSC CSV structure.");
   }
 
-  const detected = detectTextFormat(text);
+  const detection = detectTextFormat(text);
+  const detected = typeof detection === "string" || detection == null
+    ? detection
+    : detection.formatId;
   if (detected === "simple" && firstLine.includes(":")) {
     return result("simple", "medium", "Colon-delimited rows look like hyperedge-to-vertex membership lists.");
   }
@@ -250,6 +253,16 @@ export function detectUploadedFiles(files, detectTextFormat) {
   }
   if (detected === "csv" && text.split(/\r?\n/).filter(Boolean).length > 1) {
     return result("csv", "low", "The file contains repeated delimited rows that can be tried with the CSV route.");
+  }
+  if (!detected && detection?.confidence === "ambiguous") {
+    return {
+      formatId: null,
+      routeId: null,
+      label: "Ambiguous format",
+      confidence: "ambiguous",
+      reason: detection.reason,
+      candidates: detection.candidates ?? [],
+    };
   }
 
   return {

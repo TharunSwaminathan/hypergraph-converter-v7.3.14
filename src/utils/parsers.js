@@ -783,8 +783,11 @@ export function parseInputFormat(format, { text = "", nverts = "", simplices = "
   throw new Error(`The ${format} route cannot be parsed directly.`);
 }
 
-// Auto-detect
-export function autoDetect(text) {
+const AMBIGUOUS_COLON_FORMAT = Symbol("ambiguous-colon-format");
+
+// Internal structural detector. Ambiguous colon documents deliberately return
+// a sentinel so Auto Detect callers can preserve the user's explicit route.
+function detectFormatId(text) {
   const t = text.trim();
   if (t.startsWith("{") || t.startsWith("[")) {
     try {
@@ -823,18 +826,46 @@ export function autoDetect(text) {
   const invalidRfcQuoteH2HSignature = !syntax.rfcQuoteSyntaxValid && hasStructuralH2HSignature(syntax.rfcText);
   if (maskedH2HSignature || invalidRfcQuoteH2HSignature) return "h2h";
 
-  const colonPositions = lines.map(findStructuralColon);
+  const extractedLines = lines.map(line => extractMeta(line));
+  const structuralLines = extractedLines.map(record => record.line);
+  const colonPositions = structuralLines.map(findStructuralColon);
   if (colonPositions.every(position => position >= 0)) {
-    const records = lines.map((line, index) => ({
+    const records = structuralLines.map((line, index) => ({
       lhs: cleanToken(line.slice(0, colonPositions[index])),
       rhs: splitMembership(line.slice(colonPositions[index] + 1)),
     }));
+    const hasSupportedH2VMetadata = extractedLines.some(record => Object.keys(record.meta).length > 0);
     const allLeftHyperedges = records.every(record => looksHyperedgeId(record.lhs));
     const allRightHyperedges = records.every(record => record.rhs.length > 0 && record.rhs.every(looksHyperedgeId));
+    const allRecordsHaveMemberships = records.every(record => record.lhs && record.rhs.length > 0);
+    if (hasSupportedH2VMetadata && allRecordsHaveMemberships) return "simple";
     if (allLeftHyperedges) return "simple";
     if (allRightHyperedges && records.every(record => !looksHyperedgeId(record.lhs))) return "v2h";
-    const allColonsUseAdjacencySpacing = lines.every((line, index) => /\s/.test(line[colonPositions[index] + 1] ?? ""));
-    if (!syntax.hasDataComma || allColonsUseAdjacencySpacing) return "adjlist";
+
+    // Preserve common URI-valued CSV rows. Their colon is payload, not a
+    // structural H2V/adjacency separator.
+    const allKnownUriPayloads = records.every(record => /^(?:urn|https?|ftp|mailto|doi)$/i.test(record.lhs));
+    if (syntax.hasDataComma && allKnownUriPayloads) return "csv";
+
+    // Adjacency needs conservative whole-document evidence. This does not
+    // require symmetric edges: it only requires multiple source keys and a
+    // strong proportion of RHS references back into that key set.
+    const leftIds = new Set(records.map(record => record.lhs));
+    const rhsIds = records.flatMap(record => record.rhs);
+    const referencedLeftIds = new Set(rhsIds.filter(value => leftIds.has(value)));
+    const referenceRatio = rhsIds.length
+      ? rhsIds.filter(value => leftIds.has(value)).length / rhsIds.length
+      : 0;
+    const strongAdjacencyEvidence = records.length >= 2
+      && leftIds.size >= 2
+      && referencedLeftIds.size >= Math.min(2, leftIds.size)
+      && referenceRatio >= 0.6;
+    if (strongAdjacencyEvidence) return "adjlist";
+
+    // A colon is structural here, so generic comma-based CSV detection must
+    // not steal the input. Without stronger evidence, choosing Simple or
+    // Adjacency would silently change graph semantics.
+    return AMBIGUOUS_COLON_FORMAT;
   }
 
   if (syntax.hasDataComma || syntax.hasDataQuote) {
@@ -865,5 +896,27 @@ export function autoDetect(text) {
   const rowWidths = lines.map(line => line.split(/\s+/).filter(Boolean).length);
   if (rowWidths.every(width => width === 2)) return "edgelist";
   return "csv";
+}
+
+export function autoDetectDetails(text) {
+  const detected = detectFormatId(text);
+  if (detected === AMBIGUOUS_COLON_FORMAT) {
+    return {
+      formatId: null,
+      confidence: "ambiguous",
+      candidates: ["simple", "adjlist"],
+      reason: "Colon-delimited input could be H2V / Simple or Adjacency. Choose the intended route explicitly before converting.",
+    };
+  }
+  return {
+    formatId: detected,
+    confidence: "detected",
+    candidates: [detected],
+    reason: `The input structure matches the ${detected} route.`,
+  };
+}
+
+export function autoDetect(text) {
+  return autoDetectDetails(text).formatId;
 }
 
