@@ -38,7 +38,7 @@ const DENIAL_RE = /\b(?:do\s+not|don['’]?t|never|do\s+not\s+act|don['’]?t\s+
 const EXPRESS_DENIAL_RE = /\bpermission\s+is\s+expressly\s+(?:withheld|denied)\b/i;
 const CONTEXTUAL_NON_AUTH_RE = /\b(?:audit\s+transcript|not\s+consent|execution\s+is\s+outside\s+the\s+scope|not\s+an?\s+instruction\s+for\s+you)\b/i;
 const FIRST_PERSON_NO_CONSENT_RE = /\bi\s+(?:(?:do\s+not|don['’]?t)\s+(?:want|authorize|approve|consent|ask)|am\s+not\s+(?:asking|authorizing|approving)|only\s+want\s+to\s+(?:understand|learn))\b/i;
-const NEGATED_REQUEST_BASE_RE = /\b(?:i|we)\s+(?:(?:did|do)\s+not|(?:didn|don)['’]?t|never)\s+(?:ask|tell|request|instruct|direct|authorize|authorise|approve|consent)\b/i;
+const NEGATED_REQUEST_BASE_RE = /\b(?:i|we)\s+(?:(?:did|do|does|will|can)\s+not|cannot|(?:didn|don|doesn|won|can)['’]?t|never)\s+(?:ask|tell|request|instruct|direct|authorize|authorise|approve|consent)\b/i;
 const NEGATED_REQUEST_PAST_RE = /\b(?:i|we)\s+(?:(?:have|had)\s+not|(?:haven|hadn)['’]?t|never)\s+(?:asked|told|requested|instructed|directed|authorized|authorised|approved|consented)\b/i;
 const NEGATED_REQUEST_PROGRESSIVE_RE = /\b(?:i|we)\s+(?:am|are|was|were)\s+not\s+(?:asking|telling|requesting|instructing|directing|authorizing|authorising|approving|consenting)\b/i;
 const NEGATIVE_ACTION_COMPLEMENT_RE = /\b(?:i|we)\s+(?:(?:am|are|was|were|have\s+been|had\s+been)\s+)?(?:ask(?:ed|ing)?|tell(?:ing)?|told|request(?:ed|ing)?|instruct(?:ed|ing)?|direct(?:ed|ing)?|authoriz(?:ed|ing)|authoris(?:ed|ing)|approv(?:ed|ing))\s+(?:(?:that\s+)?you\s+)?not\s+to\b/i;
@@ -49,11 +49,11 @@ const PERMISSION_DENIAL_RE = new RegExp(String.raw`\b(?:
 )\b`.replace(/\s+/g, ""), "i");
 const EPISTEMIC_DECISION_RE = /\b(?:(?:i|we)\s+(?:need|want|would\s+like|have)\s+to\s+(?:know|learn|understand|determine|find\s+out|check)\s+(?:whether|if)|before\s+(?:i|we)\s+(?:decide|choose|determine|consider|evaluate)\s+(?:whether\s+)?to|(?:i|we)\s+(?:am|are)\s+(?:deciding|considering|evaluating)\s+(?:whether\s+)?to)\b/i;
 const NON_EXECUTION_INTENT_RE = /\b(?:(?:i|we|they|the\s+(?:team|reviewer|operator))\s+(?:(?:plan|intend|expect|hope|decided)\s+(?:whether\s+)?to|(?:might|may|could|will)\s+(?!you\b)|(?:am|are|was|were)\s+going\s+to|(?:consider|considered|discuss|discussed|debate|debated)\s+(?:whether\s+to|[a-z]+ing\b)|(?:talked|thought)\s+about\s+(?:whether\s+to|[a-z]+ing\b))|(?:future|later|eventual|possible|past)\s+(?:plan|intent|discussion|decision))\b/i;
-const NO_CONSENT_PROPOSITION_RE = /\b(?:(?:this|that|it|these\s+words?|that\s+statement)\s+(?:is|was|are|were)\s+not\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive)|(?:do\s+not|don['’]?t|never)\s+(?:take|interpret|read|treat|understand)\s+(?:this|that|it|these\s+words?|that\s+statement)\s+as\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive))\b/i;
+const NO_CONSENT_PROPOSITION_RE = /\b(?:(?:this|that|it|these\s+words?|that\s+statement)\s+(?:is|was|are|were)\s+not\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive)|(?:this|that|it|(?:this|that|the)\s+(?:request|statement|message))\s+does\s+not\s+(?:authorize|authorise|permit|approve|grant\s+(?:permission|consent))|(?:do\s+not|don['’]?t|never)\s+(?:take|interpret|read|treat|understand)\s+(?:this|that|it|these\s+words?|that\s+statement)\s+as\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive))\b/i;
 const PRESERVE_RE = /\b(?:(?:keep|leave|retain|preserve)\s+(?:every\s+)?(?:the\s+)?(?:current\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session|product[-\s]?state|pending\s+action)(?:(?:\s+fields?)?\s+(?:exactly\s+)?(?:untouched|unchanged|unmodified|intact|as[-\s]?is|as\s+it\s+is))?|(?:leave|keep)\s+everything\s+(?:exactly\s+)?(?:unchanged|untouched|unmodified)|(?:workspace|state|graph|mapping|parser|dashboard|session)\s+must\s+remain\s+(?:untouched|unchanged|unmodified|intact)|do\s+not\s+(?:write\s+to|touch|modify|change|alter)\s+(?:the\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session))\b/i;
 const BROAD_PRESERVE_RE = /\b(?:retain|keep|leave|preserve)\s+(?:(?:all|every|the)\s+)?(?:(?:current|existing|this|the)\s+)?(?:application\s+)?(?:state|workspace|graph|mapping|parser|dashboard|session)\b/i;
 const INFORMATIONAL_RE = /\b(?:(?:for\s+)?(?:reference|information|informational|discussion|review|audit)\s+only|read[-\s]?only|learning,?\s+not\s+action|literal\s+(?:data|text)|treat\s+(?:these\s+words|this)\s+literally|not\s+operationally|analy[sz]e\s+only)\b/i;
-const REPORTED_RE = /\b(?:(?:manual|handbook|documentation|docs?|guide|file|data|fixture|excerpt|transcript|log|note|text|model\s+output|reviewer|teammate|observer|someone(?:\s+else)?)\s+(?:says?|said|reads?|prints?|contains?|includes?|shows?|mentions?|mentioned|suggested|recorded|typed|asked)|i\s+am\s+(?:only\s+)?(?:reporting|relaying|quoting)|incident\s+log|archive\s+note|example\s+(?:input|block|command)|sample\s+command)\b/i;
+const REPORTED_RE = /\b(?:(?:manual|handbook|documentation|docs?|guide|file|data|fixture|excerpt|transcript|log|note|text|model\s+output|reviewer|teammate|observer|someone(?:\s+else)?)\s+(?:says?|said|reads?|prints?|contains?|includes?|shows?|mentions?|mentioned|suggested|recorded|typed|asked|requested|instructed|directed)|i\s+am\s+(?:only\s+)?(?:reporting|relaying|quoting)|incident\s+log|archive\s+note|example\s+(?:input|block|command)|sample\s+command)\b/i;
 const HYPOTHETICAL_RE = /\b(?:hypothetical(?:ly)?|imagine|suppose|counterfactual|if\b|what\s+(?:would|could|will)\s+happen\s+if|were\s+(?:somebody|someone|i|we)\s+to|had\s+(?:i|we)\b|might\b|perhaps\b|maybe\b|plan\s+to\b|intend\s+to\b|eventually\b|another\s+day\b|next\s+week\b|later\b|i\s+am\s+considering\b)\b/i;
 const COMPARISON_RE = /\bcompare\b|\bagainst\s+(?:doing\s+nothing|preserving|retaining)\b/i;
 const QUOTE_INTRO_RE = /\b(?:read|interpret|decode|explain|review|audit|evaluate|the\s+(?:phrase|text|words?|command|instruction|excerpt|handbook|manual|documentation|docs?|file|data|fixture|log|note)\b)/i;
@@ -570,6 +570,9 @@ function normalizeAuthorizationContractions(text = "") {
     .replace(/\bhadn['’]?t\b/gi, "had not")
     .replace(/\bdidn['’]?t\b/gi, "did not")
     .replace(/\bdon['’]?t\b/gi, "do not")
+    .replace(/\bdoesn['’]?t\b/gi, "does not")
+    .replace(/\bcan['’]?t\b/gi, "cannot")
+    .replace(/\bwon['’]?t\b/gi, "will not")
     .replace(/\bi['’]?m\b/gi, "i am")
     .replace(/\bwe['’]?re\b/gi, "we are");
 }

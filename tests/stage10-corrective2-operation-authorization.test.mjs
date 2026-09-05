@@ -14,16 +14,25 @@ assert.equal(result.heldOut.confirmationStages, 0);
 assert.equal(result.heldOut.stateChanges, 0);
 assert.ok(result.heldOut.truePositives >= 9);
 assert.equal(result.heldOut.wrongTruePositiveBlocks, 0);
+assert.equal(result.heldOut.independentRepros.length, 5);
+assert.ok(result.heldOut.independentRepros.every(record => record.mutationAuthorizationAbsent
+  && record.protectedHandlerCalls === 0
+  && record.confirmationStages === 0
+  && record.stateChanged === false));
 
 assert.ok(result.operationBinding.invalidCases >= 12);
 assert.equal(result.operationBinding.operationFamilySubstitutionsBlocked, result.operationBinding.operationFamilySubstitutions);
 assert.equal(result.operationBinding.targetSubstitutionsBlocked, result.operationBinding.targetSubstitutions);
 assert.equal(result.operationBinding.parameterSubstitutionsBlocked, result.operationBinding.parameterSubstitutions);
 assert.equal(result.operationBinding.mixedSubstitutionsBlocked, result.operationBinding.mixedSubstitutions);
+assert.equal(result.operationBinding.extraOperationPlansBlocked, result.operationBinding.extraOperationPlans);
 assert.equal(result.operationBinding.protectedHandlerCallsForInvalidPlans, 0);
 assert.equal(result.operationBinding.confirmationStagesForInvalidPlans, 0);
 assert.equal(result.operationBinding.stateChangesForInvalidPlans, 0);
 assert.equal(result.operationBinding.validMatchingPlanExecutions, result.operationBinding.validMatchingPlans);
+assert.equal(result.operationBinding.wrongValidPlanBlocks, 0);
+assert.equal(result.operationBinding.s10N02Proofs.length, 4);
+assert.ok(result.operationBinding.s10N02Proofs.every(proof => proof.blocked));
 
 assert.equal(result.corrective1.totalCases, 651);
 assert.equal(result.corrective1.readOnlyNoConsentCases, 640);
