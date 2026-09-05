@@ -256,7 +256,14 @@ export function compileDeterministicAction(nlu, context = {}) {
     semantics: requestSemantics,
     sideEffectClass,
     plan: initial.typedValue,
-    context: { domain: lexicalDomain, speechAct: speech.speechAct, typedKind: initial.typedKind, intent: initial.intent },
+    context: {
+      domain: lexicalDomain,
+      speechAct: speech.speechAct,
+      typedKind: initial.typedKind,
+      intent: initial.intent,
+      pendingOperations: context.pendingAction?.plan?.operations ?? [],
+      selectedEntity: context.selectedEntity ?? null,
+    },
   });
 
   const preserveReadOnlyTypedKind = initial.typedKind === "DeterministicHelpQuery"

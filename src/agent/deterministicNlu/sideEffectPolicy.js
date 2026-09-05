@@ -1,6 +1,7 @@
 import { speechActIsReadOnly } from "./speechActClassifier.js";
 import { authorizationAllowsSideEffect } from "./positiveAuthorization.js";
 import { resolvePublicActionIntentReference } from "../actionIntentRegistry.js";
+import { authorizeGraphMutationOperations } from "./graphOperationAuthorization.js";
 
 export const SIDE_EFFECT_CLASSES = Object.freeze([
   "read_only",
@@ -354,6 +355,22 @@ export function authorizeCompiledSideEffect({
       plan,
       context,
     };
+  }
+  if (sideEffectClass === "graph_edit_preview") {
+    const operationAuthorization = authorizeGraphMutationOperations({
+      authorization: semantics.authorization,
+      actualOperations: plan?.operations ?? plan?.plan?.operations ?? plan?.draft?.operations ?? context?.operations ?? [],
+      pendingOperations: context?.pendingOperations ?? [],
+      selectedEntity: context?.selectedEntity ?? null,
+    });
+    if (!operationAuthorization.allowed) {
+      return {
+        ...operationAuthorization,
+        blockedSideEffect: sideEffectClass,
+        plan,
+        context,
+      };
+    }
   }
   if (["declarative_mapping_statement", "declarative_graph_statement"].includes(context?.speechAct)) {
     return { allowed: true, reason: "declarative_speech_act_authorized" };

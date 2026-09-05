@@ -116,10 +116,14 @@ export async function dispatchCompiledAction({
   // If an internal/model-produced prepared object omits them, reconstruct the
   // contract from the original query. An empty query can retain compatibility
   // only for an actually read-only plan; state-changing plans fail closed.
-  const finalSemantics = compilation.requestSemantics
-    ?? compilation.diagnostics?.requestSemantics
-    ?? prepared?.nlu?.requestSemantics
-    ?? (String(query ?? "").trim() ? analyzeRequestSemantics(query) : null);
+  // Reconstruct state-changing authority from the original user request at
+  // the final boundary. Prepared/model-shaped semantics are evidence only and
+  // cannot widen the operations authorized by the user's clauses.
+  const finalSemantics = String(query ?? "").trim()
+    ? analyzeRequestSemantics(query)
+    : (actualSideEffectClass === "read_only"
+        ? (compilation.requestSemantics ?? compilation.diagnostics?.requestSemantics ?? prepared?.nlu?.requestSemantics ?? null)
+        : null);
   const finalAuthorization = authorizeCompiledSideEffect({
     semantics: finalSemantics,
     sideEffectClass: actualSideEffectClass,
@@ -129,8 +133,18 @@ export async function dispatchCompiledAction({
       typedKind: actualIdentity.typedKind,
       intent: compilation.intent,
       operationTypes: actualIdentity.operationTypes,
+      operations: compilation.typedValue?.operations
+        ?? compilation.typedValue?.plan?.operations
+        ?? compilation.typedValue?.draft?.operations
+        ?? compilation.compiled?.plan?.operations
+        ?? compilation.compiled?.draft?.operations
+        ?? [],
+      pendingOperations: pendingAction?.plan?.operations ?? [],
+      selectedEntity: state.selectedGraphEntity ?? prepared.contextBinding?.selectedEntity ?? null,
     },
   });
+  trace.authorizedGraphOperations = finalAuthorization.authorizedOperations ?? finalSemantics?.authorization?.authorizedGraphOperations ?? [];
+  trace.unmatchedGraphOperations = finalAuthorization.unmatchedOperations ?? [];
   if (!finalAuthorization.allowed) {
     trace.dispatchPath = "deterministic_final_side_effect_gate";
     trace.blockedSideEffect = actualSideEffectClass;

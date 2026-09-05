@@ -155,6 +155,10 @@ try {
           },
           compileContext: {
             pendingAction: options.pendingAction ?? null,
+            hyperedges: [
+              { id: "h1", vertices: ["1", "2"] },
+              { id: "h2", vertices: ["3", "4"] },
+            ],
           },
           contextBinding: null,
           analyze: analyzeDeterministicNlu,
@@ -270,7 +274,7 @@ try {
     });
   }
 
-  await submit("Create hyperedge h2 with vertex 6");
+  await submit("Add vertex 6 to hyperedge h2");
   await waitFor(() => document.querySelector(".agent-confirmation"), "graph mutation should stage a confirmation card");
   assert.equal(probe.commitCalls.length, 0, "staging must not commit the graph");
 
@@ -297,7 +301,7 @@ try {
   await waitFor(() => /Pending action cancelled|Action cancelled/i.test(text()) && !document.querySelector(".agent-confirmation"), "exact text cancel should clear pending action");
   assert.equal(probe.commitCalls.length, 0, "cancelling must not commit");
 
-  await submit("Create hyperedge h2 with vertex 6");
+  await submit("Add vertex 6 to hyperedge h2");
   await waitFor(() => document.querySelector(".agent-confirmation"), "second graph mutation should stage");
   await submit("Confirm pending action");
   await waitFor(() => /graph mutation applied and verified/i.test(text()) && !document.querySelector(".agent-confirmation"), "exact text confirm should commit and clear pending action");

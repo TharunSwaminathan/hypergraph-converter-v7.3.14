@@ -5,6 +5,7 @@ import {
   PENDING_CONFIRM_FORMS,
   RUNTIME_STOP_FORMS,
 } from "./actionLexicon.js";
+import { deriveAuthorizedGraphOperations } from "./graphOperationAuthorization.js";
 
 export const AUTHORIZATION_MODE = Object.freeze({
   AUTHORIZED: "authorized",
@@ -30,6 +31,7 @@ const GO_AHEAD_POLITE_ACTION_RE = new RegExp(
 );
 const QUESTION_START_RE = /^\s*(?:what|why|how|which|where|when|who|is|are|am|does|do|did|can|could|would|will|should|may|might)\b/i;
 const READ_ONLY_QUERY_START_RE = /^\s*(?:please\s+)?tell\s+me\s+(?:whether|if|what|which|why|how|where|when|who)\b/i;
+const READ_ONLY_GRAPH_FACT_RE = /^\s*(?:please\s+)?(?:tell|report|list|show|display|check|state|give)\b[\s\S]{0,120}\b(?:count|whether|which|exists?|contains?|belongs?|membership|cardinality|degree|incidences?)\b/i;
 const EXPLANATION_START_RE = /^\s*(?:please\s+)?(?:explain|describe|define|clarify|interpret|paraphrase|summari[sz]e|review|audit|evaluate|compare|teach|discuss|decode|read\b|tell\s+me\s+(?:about|what|how|the\s+consequences)|show\s+me\s+(?:the\s+)?(?:syntax|steps?|procedure)|walk\s+me\s+through|could\s+you\s+explain|can\s+you\s+explain|i\s+(?:just\s+)?need\s+(?:an?\s+)?explanation|i['’]?m\s+curious\s+what|before\s+doing\s+anything|before\s+i\s+(?:decide|authori[sz]e)|hold\s+off\s+on|pause\s+before|i\s+want\s+an?\s+explanation|i['’]?d\s+like\s+to\s+understand|i\s+want\s+to\s+understand|tell\s+me\s+what\s+[\s\S]{0,80}\s+would\s+do|tell\s+me\s+what\s+[\s\S]{0,80}\s+would\s+happen|tell\s+me\s+the\s+consequences)\b/i;
 const PROCEDURE_RE = /\b(?:how\s+(?:to|do\s+i|can\s+i|would\s+i|should\s+i)|steps?|procedure|syntax|notation|workflow|instructions?|what\s+to\s+type|which\s+procedure|teach\s+(?:me|a\s+novice))\b/i;
 const DENIAL_RE = /\b(?:do\s+not|don['’]?t|never|do\s+not\s+act|don['’]?t\s+act|do\s+not\s+alter|don['’]?t\s+alter|no\s+(?:action|execution|consent|permission|authorization|changes?|mutation)|(?:have|has)\s+not\s+authori[sz](?:e|ed|ing)|haven['’]?t\s+authori[sz](?:e|ed|ing)|not\s+(?:authori[sz](?:e|ed|ing)|approv(?:e|ed|ing)|consent(?:ing|ed)?|requesting|asking\s+you\s+to|an?\s+(?:instruction|order|request)|execution)|permission\s+(?:is\s+)?(?:withheld|denied)|without\s+(?:granting\s+)?(?:permission|consent|authorization)|decline\s+to\s+approve|outside\s+the\s+scope|discussion,?\s+not\s+execution|explanation,?\s+not\s+action)\b/i;
@@ -38,7 +40,15 @@ const CONTEXTUAL_NON_AUTH_RE = /\b(?:audit\s+transcript|not\s+consent|execution\
 const FIRST_PERSON_NO_CONSENT_RE = /\bi\s+(?:(?:do\s+not|don['’]?t)\s+(?:want|authorize|approve|consent|ask)|am\s+not\s+(?:asking|authorizing|approving)|only\s+want\s+to\s+(?:understand|learn))\b/i;
 const NEGATED_REQUEST_BASE_RE = /\b(?:i|we)\s+(?:(?:did|do)\s+not|(?:didn|don)['’]?t|never)\s+(?:ask|tell|request|instruct|direct|authorize|authorise|approve|consent)\b/i;
 const NEGATED_REQUEST_PAST_RE = /\b(?:i|we)\s+(?:(?:have|had)\s+not|(?:haven|hadn)['’]?t|never)\s+(?:asked|told|requested|instructed|directed|authorized|authorised|approved|consented)\b/i;
-const NEGATED_REQUEST_PROGRESSIVE_RE = /\b(?:(?:i\s+am|i['’]?m|we\s+are|we['’]?re)\s+not)\s+(?:asking|telling|requesting|instructing|directing|authorizing|authorising|approving|consenting)\b/i;
+const NEGATED_REQUEST_PROGRESSIVE_RE = /\b(?:i|we)\s+(?:am|are|was|were)\s+not\s+(?:asking|telling|requesting|instructing|directing|authorizing|authorising|approving|consenting)\b/i;
+const NEGATIVE_ACTION_COMPLEMENT_RE = /\b(?:i|we)\s+(?:(?:am|are|was|were|have\s+been|had\s+been)\s+)?(?:ask(?:ed|ing)?|tell(?:ing)?|told|request(?:ed|ing)?|instruct(?:ed|ing)?|direct(?:ed|ing)?|authoriz(?:ed|ing)|authoris(?:ed|ing)|approv(?:ed|ing))\s+(?:(?:that\s+)?you\s+)?not\s+to\b/i;
+const PERMISSION_DENIAL_RE = new RegExp(String.raw`\b(?:
+  (?:i|we)\s+(?:am|are|was|were)\s+not\s+(?:giving|granting|extending|providing)\s+(?:you\s+)?(?:any\s+|my\s+|our\s+|the\s+)?(?:permission|consent|authorization|authorisation)
+  |(?:i|we)\s+(?:withdraw|withhold|revoke|rescind|retract|cancel|refuse|deny|decline)\s+(?:(?:to\s+)?(?:give|grant|provide|extend)\s+)?(?:any\s+|my\s+|our\s+|the\s+)?(?:permission|consent|authorization|authorisation)
+  |no\s+(?:permission|consent|authorization|authorisation)\s+(?:is|was|has\s+been|will\s+be)\s+(?:being\s+)?(?:given|granted|provided|extended)
+)\b`.replace(/\s+/g, ""), "i");
+const EPISTEMIC_DECISION_RE = /\b(?:(?:i|we)\s+(?:need|want|would\s+like|have)\s+to\s+(?:know|learn|understand|determine|find\s+out|check)\s+(?:whether|if)|before\s+(?:i|we)\s+(?:decide|choose|determine|consider|evaluate)\s+(?:whether\s+)?to|(?:i|we)\s+(?:am|are)\s+(?:deciding|considering|evaluating)\s+(?:whether\s+)?to)\b/i;
+const NON_EXECUTION_INTENT_RE = /\b(?:(?:i|we|they|the\s+(?:team|reviewer|operator))\s+(?:(?:plan|intend|expect|hope|decided)\s+(?:whether\s+)?to|(?:might|may|could|will)\s+(?!you\b)|(?:am|are|was|were)\s+going\s+to|(?:consider|considered|discuss|discussed|debate|debated)\s+(?:whether\s+to|[a-z]+ing\b)|(?:talked|thought)\s+about\s+(?:whether\s+to|[a-z]+ing\b))|(?:future|later|eventual|possible|past)\s+(?:plan|intent|discussion|decision))\b/i;
 const NO_CONSENT_PROPOSITION_RE = /\b(?:(?:this|that|it|these\s+words?|that\s+statement)\s+(?:is|was|are|were)\s+not\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive)|(?:do\s+not|don['’]?t|never)\s+(?:take|interpret|read|treat|understand)\s+(?:this|that|it|these\s+words?|that\s+statement)\s+as\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive))\b/i;
 const PRESERVE_RE = /\b(?:(?:keep|leave|retain|preserve)\s+(?:every\s+)?(?:the\s+)?(?:current\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session|product[-\s]?state|pending\s+action)(?:(?:\s+fields?)?\s+(?:exactly\s+)?(?:untouched|unchanged|unmodified|intact|as[-\s]?is|as\s+it\s+is))?|(?:leave|keep)\s+everything\s+(?:exactly\s+)?(?:unchanged|untouched|unmodified)|(?:workspace|state|graph|mapping|parser|dashboard|session)\s+must\s+remain\s+(?:untouched|unchanged|unmodified|intact)|do\s+not\s+(?:write\s+to|touch|modify|change|alter)\s+(?:the\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session))\b/i;
 const BROAD_PRESERVE_RE = /\b(?:retain|keep|leave|preserve)\s+(?:(?:all|every|the)\s+)?(?:(?:current|existing|this|the)\s+)?(?:application\s+)?(?:state|workspace|graph|mapping|parser|dashboard|session)\b/i;
@@ -138,6 +148,8 @@ export function analyzePositiveAuthorization(text = "", {
     ...(wholeSafePreparation ? ["request:safe_workflow_preparation"] : []),
   ];
   const sideEffectScopes = [...new Set(finalAuthorized.flatMap(clause => clause.sideEffectScopes))];
+  const authorizedGraphOperations = deriveAuthorizedGraphOperations(finalAuthorized);
+  const deniedGraphOperations = deriveAuthorizedGraphOperations(deniedClauses);
   const contract = {
     version: AUTHORIZATION_CONTRACT_VERSION,
     mode,
@@ -145,6 +157,8 @@ export function analyzePositiveAuthorization(text = "", {
     deniedClauses,
     ambiguousClauses,
     sideEffectScopes,
+    authorizedGraphOperations,
+    deniedGraphOperations,
     evidence,
     statePreservationConflict,
     pendingAuthorizationConflict,
@@ -190,16 +204,33 @@ export function authorizationAllowsSideEffect(authorization, sideEffectClass) {
  * later affirmative clause can still authorize its own operation.
  */
 export function hasNegatedAuthorizationSpeechAct(text = "") {
-  const value = String(text ?? "");
+  const value = normalizeAuthorizationContractions(text);
   return NEGATED_REQUEST_BASE_RE.test(value)
     || NEGATED_REQUEST_PAST_RE.test(value)
     || NEGATED_REQUEST_PROGRESSIVE_RE.test(value)
+    || NEGATIVE_ACTION_COMPLEMENT_RE.test(value)
+    || PERMISSION_DENIAL_RE.test(value)
     || NO_CONSENT_PROPOSITION_RE.test(value);
+}
+
+export function analyzeClauseExecutionPolarity(text = "") {
+  const value = normalizeAuthorizationContractions(text);
+  const evidence = [
+    hasNegatedAuthorizationSpeechAct(value) && "negated_or_denied_consent",
+    EPISTEMIC_DECISION_RE.test(value) && "epistemic_decision_frame",
+    NON_EXECUTION_INTENT_RE.test(value) && "non_execution_intent_frame",
+  ].filter(Boolean);
+  return Object.freeze({
+    polarity: evidence.length ? "non_authorizing" : "unspecified",
+    evidence,
+    normalizedText: value,
+  });
 }
 
 function analyzeAuthorizationClause(clause, index) {
   const masked = maskClauseProtectedText(clause.text);
   const activeText = masked.activeText.trim();
+  const clausePolarity = analyzeClauseExecutionPolarity(activeText);
   const directRuntimeRoleAssist = /^\s*(?:please\s+)?(?:explain|analy[sz]e)\s+file\s+roles?\s+with\s+local\s+model\s*[.!]?$/i.test(activeText);
   const directExpectedOutputAction = /^\s*(?:(?:please|go\s+ahead\s+and|i\s+want\s+you\s+to)\s+)?(?:compare\s+(?:with\s+)?expected\s+output|use\s+mapping\s+workflow|start\s+mapping\s+workflow)\s*[.!]?$/i.test(activeText);
   const protectedAction = masked.protectedValues.some(value => ACTION_VERB_RE.test(value));
@@ -213,6 +244,7 @@ function analyzeAuthorizationClause(clause, index) {
   const emptyHyperedgePolicyAction = /\b(?:preserve|keep|retain)\b[\s\S]{0,120}\b(?:do\s+not\s+have|without)\b[\s\S]{0,70}\b(?:author|member|vertex|incidence)s?\b[\s\S]{0,60}\bempty\s+hyperedges?\b/i.test(activeText);
   const graphDeclarativeAction = /\b(?:should|must)\s+(?:no\s+longer\s+)?(?:belong|be\s+in|be\s+included|be\s+removed)\b/i.test(activeText);
   const statusReadOnlyAction = /^(?:(?:please|go\s+ahead\s+and|i\s+want\s+you\s+to)\s+|for\s+(?:the\s+)?(?:current|pending)\s+(?:task|dataset|graph|mapping|parser|action|correction)\s*[,;:]?\s*)?(?:show|report|view|list|check|inspect)\b[\s\S]{0,100}\b(?:status|workflow|progress|phase)\b/i.test(activeText);
+  const graphFactReadOnlyAction = READ_ONLY_GRAPH_FACT_RE.test(activeText);
   const workflowPreparationAction = /\b(?:continue|generate|create|build|prepare|repair|fix|validate|auto[-\s]?detect|detect|compare|start)\b[\s\S]{0,120}\b(?:next(?:\s+[A-Za-z0-9_-]+){0,4}\s+parser\s+step|transformation\s+plan|mapping\s+workflow|parser\s+workflow)\b/i.test(activeText);
   const correctionAction = TYPED_CORRECTION_RE.test(activeText) || /^\s*(?:actually|instead|rather|no)\b/i.test(activeText);
   const literalFileAction = /\b(?:exclude|ignore|skip|mark)\b[\s\S]{0,100}\b(?:file\s+)?[A-Za-z0-9_.-]+\.(?:csv|tsv|json|txt)\b/i.test(activeText);
@@ -228,7 +260,7 @@ function analyzeAuthorizationClause(clause, index) {
     hypothetical: HYPOTHETICAL_RE.test(activeText),
     explanatory: clause.inheritedScope === "explanatory" || EXPLANATION_START_RE.test(activeText),
     instructional: PROCEDURE_RE.test(activeText),
-    denied: clause.inheritedScope === "denied" || DENIAL_RE.test(activeText) || EXPRESS_DENIAL_RE.test(activeText) || CONTEXTUAL_NON_AUTH_RE.test(activeText) || FIRST_PERSON_NO_CONSENT_RE.test(activeText) || hasNegatedAuthorizationSpeechAct(activeText),
+    denied: clause.inheritedScope === "denied" || DENIAL_RE.test(activeText) || EXPRESS_DENIAL_RE.test(activeText) || CONTEXTUAL_NON_AUTH_RE.test(activeText) || FIRST_PERSON_NO_CONSENT_RE.test(activeText) || clausePolarity.polarity === "non_authorizing",
     preserveState: PRESERVE_RE.test(activeText) || BROAD_PRESERVE_RE.test(activeText),
     informational: INFORMATIONAL_RE.test(activeText),
     comparison: COMPARISON_RE.test(activeText),
@@ -255,6 +287,7 @@ function analyzeAuthorizationClause(clause, index) {
     || (scopes.informational && !literalFileAction)
     || scopes.comparison
     || scopes.preserveState
+    || graphFactReadOnlyAction
     || (scopes.denied && !emptyHyperedgePolicyAction && !(exactControl && !clause.inheritedScope))
     || quoteIsData
     || (protectedAction && QUOTE_INTRO_RE.test(activeText) && !/^(?:execute|run|apply)\b/i.test(activeText)));
@@ -293,6 +326,7 @@ function analyzeAuthorizationClause(clause, index) {
     exactControl && `exact_control:${exactControl}`,
     scopes.denied && "explicit_denial",
     hasNegatedAuthorizationSpeechAct(activeText) && "negated_authorization_speech_act",
+    ...clausePolarity.evidence,
     scopes.preserveState && "state_preservation",
     scopes.reported && "reported_scope",
     scopes.hypothetical && "hypothetical_scope",
@@ -304,6 +338,7 @@ function analyzeAuthorizationClause(clause, index) {
     previewOnlyException && "preview_authorized_apply_denied",
     mappingDeclarationAction && "mapping_declaration_action",
     statusReadOnlyAction && "status_read_only_action",
+    graphFactReadOnlyAction && "graph_fact_read_only_action",
     workflowPreparationAction && "workflow_preparation_action",
     directRuntimeRoleAssist && "direct_runtime_role_assist",
     directExpectedOutputAction && "direct_expected_output_action",
@@ -319,6 +354,9 @@ function analyzeAuthorizationClause(clause, index) {
     requestedAction: authorization === AUTHORIZATION_MODE.AUTHORIZED ? activeText.match(ACTION_VERB_RE)?.[0]?.toLowerCase() ?? null : null,
     authorization,
     sideEffectScopes,
+    authorizedGraphOperations: authorization === AUTHORIZATION_MODE.AUTHORIZED
+      ? deriveAuthorizedGraphOperations([{ id: `authorization-clause-${index + 1}`, text: activeText }])
+      : [],
     scopes,
     evidence,
   });
@@ -483,6 +521,7 @@ function createAuthorizationToken(input, contract) {
     `v${AUTHORIZATION_CONTRACT_VERSION}`,
     input,
     ...contract.authorizedClauses.map(clause => `${clause.id}:${clause.text}:${clause.sideEffectScopes.join(",")}`),
+    ...contract.authorizedGraphOperations.map(operation => JSON.stringify(operation)),
   ].join("\u241f");
   let hash = 2166136261;
   for (let index = 0; index < material.length; index += 1) {
@@ -509,6 +548,8 @@ function emptyAuthorization() {
     deniedClauses: [],
     ambiguousClauses: [],
     sideEffectScopes: [],
+    authorizedGraphOperations: [],
+    deniedGraphOperations: [],
     evidence: ["request:empty"],
     statePreservationConflict: false,
     pendingAuthorizationConflict: false,
@@ -516,4 +557,19 @@ function emptyAuthorization() {
     truncated: false,
     token: null,
   });
+}
+
+function normalizeAuthorizationContractions(text = "") {
+  return String(text ?? "")
+    .replace(/\bwasn['’]?t\b/gi, "was not")
+    .replace(/\bweren['’]?t\b/gi, "were not")
+    .replace(/\bisn['’]?t\b/gi, "is not")
+    .replace(/\baren['’]?t\b/gi, "are not")
+    .replace(/\bhasn['’]?t\b/gi, "has not")
+    .replace(/\bhaven['’]?t\b/gi, "have not")
+    .replace(/\bhadn['’]?t\b/gi, "had not")
+    .replace(/\bdidn['’]?t\b/gi, "did not")
+    .replace(/\bdon['’]?t\b/gi, "do not")
+    .replace(/\bi['’]?m\b/gi, "i am")
+    .replace(/\bwe['’]?re\b/gi, "we are");
 }

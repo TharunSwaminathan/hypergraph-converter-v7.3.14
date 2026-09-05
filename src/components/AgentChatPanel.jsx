@@ -30,6 +30,7 @@ import { runtimeDiagnosticsFromTrace } from "../agent/deterministicNlu/runtimeIn
 import { createProductionDeterministicHandlers } from "../agent/deterministicNlu/runtime/createProductionDeterministicHandlers.js";
 import { analyzeRequestSemantics } from "../agent/deterministicNlu/requestSemantics.js";
 import { analyzePositiveAuthorization, authorizationAllowsSideEffect } from "../agent/deterministicNlu/positiveAuthorization.js";
+import { authorizeCompiledSideEffect } from "../agent/deterministicNlu/sideEffectPolicy.js";
 import { PENDING_ROUTE, routePendingSubmission } from "../agent/pendingSubmissionRouter.js";
 import { createSubmissionRequestCoordinator, deriveSubmissionRuntimeContext } from "../agent/submissionRequestCoordinator.js";
 import {
@@ -2070,6 +2071,30 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       if (pending && result.pendingPlanReplaced) setPendingAction(null);
       append("agent", describeMutationPreview(result), "status");
       return { handled: true, outcome: "responded", result, tracePatch };
+    }
+    // Prepared/model-assisted plans are proposals, never authorization. Bind
+    // the exact staged operations back to the user's original positive clause
+    // at the last UI boundary before a confirmation can be created.
+    const preparedAuthorization = authorizeCompiledSideEffect({
+      semantics: analyzeRequestSemantics(query),
+      sideEffectClass: "graph_edit_preview",
+      plan: result.plan,
+      context: {
+        domain: "graph_mutation",
+        typedKind: "GraphMutationPlan",
+        pendingOperations: pending?.plan?.operations ?? [],
+        selectedEntity: latestStateRef.current.selectedGraphEntity ?? null,
+      },
+    });
+    if (!preparedAuthorization.allowed) {
+      append("agent", "I treated that request as read-only because the prepared graph operations were not authorized by the exact positive instruction. No graph change was staged.", "status");
+      return {
+        handled: true,
+        outcome: "authorization_blocked",
+        result,
+        tracePatch,
+        stateMutationCommitted: false,
+      };
     }
     const copy = getConfirmationCopy(result.plan?.operations?.[0]?.type === "UNDO_LAST_MUTATION" ? "undo_graph_mutation" : "apply_graph_mutation");
     setPendingAction({

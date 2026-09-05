@@ -153,7 +153,10 @@ export async function runStage10Corrective1Corpus() {
     readOnlyRecords.push(await dispatchCase(query, undefined, category));
   }
   const positiveRecords = [];
-  for (const query of TRUE_POSITIVE_CONTROLS) positiveRecords.push(await dispatchCase(query));
+  for (const query of TRUE_POSITIVE_CONTROLS) {
+    const matchingOperation = analyzePositiveAuthorization(query).authorizedGraphOperations[0];
+    positiveRecords.push(await dispatchCase(query, matchingOperation));
+  }
   const exact = await dispatchCase(EXACT_S10_N01);
   const exactState = graphState();
   const exactPrepared = prepareDeterministicTurn({
