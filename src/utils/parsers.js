@@ -806,7 +806,10 @@ function detectFormatId(text) {
   const syntax = scanFormatSyntax(t);
   const lines = syntax.rfcText.split(/\r\n|\n|\r/).map(line => line.trim()).filter(Boolean);
   if (!lines.length) return "simple";
-  const looksHyperedgeId = value => /^(?:h|he|e|edge|hyperedge)[\w.-]*\d*$/i.test(cleanToken(value));
+  // A naming hint is strong only when the conventional prefix is paired with
+  // a numeric edge designator. Ordinary identifiers such as
+  // "hasOwnProperty" must not be captured merely because they begin with h.
+  const looksHyperedgeId = value => /^(?:h|he|e|edge|hyperedge)[\w.-]*\d[\w.-]*$/i.test(cleanToken(value));
   const splitMembership = line => line.split(/[,\s]+/).map(cleanToken).filter(Boolean);
   const findStructuralColon = line => {
     let quoted = false;
