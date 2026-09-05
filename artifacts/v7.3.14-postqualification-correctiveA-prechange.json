@@ -1,0 +1,27 @@
+{
+  "version": "7.3.14",
+  "corrective": "postqualification-correctiveA",
+  "parentCommit": "b9159e2bae3d1548f2b0a47d86cbe4e75cdc55e0",
+  "issue": "POST-S10-H2V-01",
+  "input": "h0 [t=10]: 1, 2, 3\nh1 [t=15]: 2, 4 @weight=2\nh2 [t=21]: 1, 3, 4, 5",
+  "detectedFormat": "adjlist",
+  "expectedFormat": "simple",
+  "h2vParse": {
+    "hyperedges": 3,
+    "vertices": 5,
+    "incidences": 9,
+    "hyperedgeIds": ["h0", "h1", "h2"],
+    "vertexIds": ["1", "2", "3", "4", "5"]
+  },
+  "autoDetectedRouteParse": {
+    "hyperedges": 10,
+    "vertices": 9,
+    "incidences": 20,
+    "hyperedgeIds": ["h0", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9"],
+    "vertexIds": ["h0 [t=10]", "1", "2", "3", "h1 [t=15]", "4", "@weight=2", "h2 [t=21]", "5"]
+  },
+  "graphsDiffer": true,
+  "bogusIdentifiers": ["h0 [t=10]", "h1 [t=15]", "@weight=2", "h2 [t=21]"],
+  "rootCauseObservation": "autoDetect tests the raw left side against a name-shape heuristic without applying the H2V parser's supported metadata extraction; because the colon is followed by whitespace, the fallback classifies the document as adjacency.",
+  "generatedAgainstUnfixedParent": true
+}
