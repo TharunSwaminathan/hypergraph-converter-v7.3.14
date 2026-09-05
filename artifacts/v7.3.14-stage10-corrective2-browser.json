@@ -1,0 +1,58 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective2",
+  "browser": "Google Chrome",
+  "url": "http://127.0.0.1:5173/",
+  "source": "fresh extraction",
+  "normalGraphLoad": {
+    "status": "passed",
+    "input": "h1: A, B\\nh2: B, C",
+    "hyperedges": 2,
+    "vertices": 3,
+    "graphVersion": 1
+  },
+  "preview": {
+    "status": "passed",
+    "hypergraphPreviewVisible": true
+  },
+  "algorithm": {
+    "status": "passed",
+    "name": "Connected Components",
+    "components": 1,
+    "largest": 3,
+    "vertices": ["A", "B", "C"]
+  },
+  "export": {
+    "status": "passed",
+    "name": "CSR CSV",
+    "previewContained": "rowOffsets,0,2,4"
+  },
+  "exactOriginal": {
+    "query": "I did not ask you to delete anything; tell me whether h1 exists.",
+    "confirmationStaged": false,
+    "graphChanged": false
+  },
+  "heldOutNoConsent": [
+    {
+      "query": "I wasn't asking you to delete h1; tell me whether h1 exists.",
+      "confirmationStaged": false,
+      "graphChanged": false
+    },
+    {
+      "query": "I am asking you not to delete h1; tell me whether h1 exists.",
+      "confirmationStaged": false,
+      "graphChanged": false
+    }
+  ],
+  "positiveMutation": {
+    "query": "Create hyperedge h3 with vertices 8 and 9.",
+    "previewStaged": true,
+    "confirmationRequired": true,
+    "silentCommit": false,
+    "cancelled": true,
+    "graphChanged": false,
+    "hyperedgesAfterCancel": 2
+  },
+  "applicationOriginConsoleErrors": 0,
+  "status": "passed"
+}

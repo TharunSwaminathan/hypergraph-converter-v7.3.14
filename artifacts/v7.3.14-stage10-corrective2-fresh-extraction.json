@@ -1,0 +1,49 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective2",
+  "archive": "hypergraph-converter-v7.3.14-stage10-corrective2-portable.zip",
+  "archiveSha256": "d653efe384696775ca1f98c081c9cf5a0f2cf748bdc782087f4d18b4829c1a23",
+  "extractionDirectory": "C:/Users/tharu/OneDrive/Documents/Candi/stage10-c2-clean-extraction-20260904",
+  "archiveRoot": "hypergraph-converter-v7.3.14",
+  "topLevelEntries": 1,
+  "nodeModulesPresentBeforeInstall": false,
+  "distPresentBeforeInstall": false,
+  "packageLockPresent": true,
+  "npmCi": {
+    "status": "passed",
+    "packagesAdded": 144
+  },
+  "nodeSuite": {
+    "status": "passed",
+    "filesPassed": 219,
+    "filesTotal": 219,
+    "corrective2TestsExecuted": true,
+    "durationSeconds": 120.3,
+    "environmentNote": "The first invocation stopped at 132/219 because Python was absent from PATH; rerunning with the bundled Python runtime on PATH passed 219/219."
+  },
+  "lint": "passed",
+  "build": {
+    "status": "passed",
+    "modulesTransformed": 207,
+    "advisory": "Vite chunk-size warning for the 1,435.32 kB application bundle."
+  },
+  "githubBuild": {
+    "status": "passed",
+    "base": "/hypergraph-converter/",
+    "modulesTransformed": 207,
+    "advisory": "Vite chunk-size warning for the 1,435.34 kB application bundle."
+  },
+  "fullAudit": {
+    "status": "advisory",
+    "total": 1,
+    "high": 1,
+    "package": "browserslist",
+    "direct": false,
+    "fixAvailable": true,
+    "advisories": ["GHSA-c83g-rgw3-j3cx", "GHSA-73wf-gq98-2v4g"]
+  },
+  "productionAudit": {
+    "status": "passed",
+    "total": 0
+  }
+}

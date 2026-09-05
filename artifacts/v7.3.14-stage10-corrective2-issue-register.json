@@ -1,0 +1,42 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective2",
+  "issues": [
+    {
+      "id": "S10-N01",
+      "severity": "high",
+      "title": "Negated-consent and non-executive mutation predicates granted graph authority",
+      "status": "closed_pending_independent_review",
+      "evidence": {
+        "originalProtectedHandlerCalls": 0,
+        "heldOutCases": 389,
+        "wrongPositiveAuthorizations": 0,
+        "protectedHandlerCalls": 0,
+        "confirmationStages": 0,
+        "stateChanges": 0,
+        "truePositiveControls": 9,
+        "wrongTruePositiveBlocks": 0
+      }
+    },
+    {
+      "id": "S10-N02",
+      "severity": "high",
+      "title": "Broad side-effect capability was not bound to the authorized operation and target",
+      "status": "closed_pending_independent_review",
+      "evidence": {
+        "cases": 21,
+        "invalidPlans": 12,
+        "validMatchingPlans": 9,
+        "operationFamilySubstitutionsBlocked": 2,
+        "targetSubstitutionsBlocked": 5,
+        "parameterSubstitutionsBlocked": 2,
+        "mixedAuthorizedDeniedSubstitutionsBlocked": 3,
+        "invalidProtectedHandlerCalls": 0,
+        "invalidConfirmationStages": 0,
+        "invalidStateChanges": 0,
+        "validMatchingPlanExecutions": 9
+      }
+    }
+  ],
+  "finalStage10RerunBegun": false
+}
