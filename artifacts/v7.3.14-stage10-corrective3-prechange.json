@@ -1,0 +1,148 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective3",
+  "kind": "prechange_reproduction",
+  "parentCommit": "9d68f618bf21a125a8a4932f414976ef506a813d",
+  "blockedCorrective2Candidate": {
+    "archive": "hypergraph-converter-v7.3.14-stage10-corrective2-portable.zip",
+    "sha256": "f960f581eeb246157b872a5b32c144eacb717a695540a5361d99b44b90645bb5",
+    "preservedImmutable": true
+  },
+  "graphIds": {
+    "hyperedges": ["h1", "H1"],
+    "vertices": ["a", "A"]
+  },
+  "s10N01": [
+    {
+      "query": "You lack my permission to delete h1; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["You lack my permission to delete h1"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null,
+      "protectedHandlerCalls": 1,
+      "confirmationStages": 1,
+      "stateChanges": 0
+    },
+    {
+      "query": "I have revoked permission to delete h1; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["I have revoked permission to delete h1"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null,
+      "protectedHandlerCalls": 1,
+      "confirmationStages": 1,
+      "stateChanges": 0
+    },
+    {
+      "query": "My permission to delete h1 is revoked; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["My permission to delete h1 is revoked"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "read_only_blocked",
+      "dispatchBlockReason": "graph_operation_binding_missing_authorized_operation",
+      "protectedHandlerCalls": 0,
+      "confirmationStages": 0,
+      "stateChanges": 0
+    },
+    {
+      "query": "I want to decide whether to delete h1; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["I want to decide whether to delete h1"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null,
+      "protectedHandlerCalls": 1,
+      "confirmationStages": 1,
+      "stateChanges": 0
+    },
+    {
+      "query": "I need to decide whether to delete h1; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["I need to decide whether to delete h1"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null,
+      "protectedHandlerCalls": 1,
+      "confirmationStages": 1,
+      "stateChanges": 0
+    },
+    {
+      "query": "I'm trying to decide whether to delete h1; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["I'm trying to decide whether to delete h1"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null,
+      "protectedHandlerCalls": 1,
+      "confirmationStages": 1,
+      "stateChanges": 0
+    },
+    {
+      "query": "I wonder whether I should delete h1; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["I wonder whether I should delete h1"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null,
+      "protectedHandlerCalls": 1,
+      "confirmationStages": 1,
+      "stateChanges": 0
+    },
+    {
+      "query": "I'm weighing whether to delete h1; tell me whether h1 exists.",
+      "requestSemanticMode": "execute",
+      "authorizedClauses": ["I'm weighing whether to delete h1"],
+      "deniedClauses": ["tell me whether h1 exists"],
+      "sideEffectScopes": ["graph_edit_preview"],
+      "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+      "authorizationDecision": "authorized",
+      "dispatchBlockReason": null,
+      "protectedHandlerCalls": 1,
+      "confirmationStages": 1,
+      "stateChanges": 0
+    }
+  ],
+  "s10N02": {
+    "query": "Delete hyperedge h1.",
+    "requestSemanticMode": "execute",
+    "authorizedClauses": ["Delete hyperedge h1"],
+    "deniedClauses": [],
+    "sideEffectScopes": ["graph_edit_preview"],
+    "authorizedGraphOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "h1" }],
+    "actualPreparedOperations": [{ "type": "REMOVE_HYPEREDGE", "hyperedgeId": "H1" }],
+    "authorizationDecision": "authorized",
+    "dispatchBlockReason": null,
+    "unmatchedOperations": [],
+    "protectedHandlerCalls": 1,
+    "confirmationStages": 1,
+    "stateChanges": 0
+  },
+  "findings": {
+    "s10N01Confirmed": true,
+    "s10N02CaseCollisionConfirmed": true
+  }
+}
