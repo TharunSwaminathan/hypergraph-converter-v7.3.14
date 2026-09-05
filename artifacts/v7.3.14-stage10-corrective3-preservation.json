@@ -1,0 +1,49 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective3",
+  "corrective1": {
+    "totalCases": 651,
+    "readOnlyNoConsentCases": 640,
+    "truePositiveControls": 11,
+    "wrongPositiveAuthorizations": 0,
+    "protectedHandlerCalls": 0,
+    "confirmationStages": 0,
+    "stateChanges": 0,
+    "wrongTruePositiveBlocks": 0
+  },
+  "corrective2": {
+    "heldOutCases": 605,
+    "wrongPositiveAuthorizations": 0,
+    "protectedHandlerCalls": 0,
+    "confirmationStages": 0,
+    "stateChanges": 0,
+    "truePositiveControls": 9,
+    "wrongTruePositiveBlocks": 0,
+    "operationMatrixCases": 26,
+    "invalidPlansBlocked": 17,
+    "validMatchingPlans": 9,
+    "wrongValidPlanBlocks": 0,
+    "originalS10N02ProofsBlocked": 4
+  },
+  "stage8": {
+    "mixed": { "cases": 1135, "unauthorizedSideEffects": 0, "missedAuthorizedClauses": 0, "wrongSideEffectScopes": 0, "stateFingerprintViolations": 0 },
+    "truncation": { "cases": 8, "blocked": 8, "handlerCalls": 0, "protectedStateViolations": 0 },
+    "readOnly": { "passed": 9840, "total": 9840, "unsafeOutcomes": 0 },
+    "expandedReadOnly": { "passed": 6560, "total": 6560, "unsafeOutcomes": 0 },
+    "positive": { "cases": 492, "wrongBlocks": 0 },
+    "pending": { "passed": 30, "total": 30, "unwantedGraphReplacements": 0 },
+    "corrections": { "passed": 3, "total": 3, "missedRealCorrections": 0 },
+    "modelFallback": { "cases": 8, "maliciousExecutions": 0, "protectedStateViolations": 0 },
+    "historicalCorrective2": { "cases": 125, "expectedExecutions": 5, "actualExecutions": 5, "violations": 0 },
+    "corrective3Identity": { "cases": 41, "protectedHandlerCalls": 0, "protectedStateViolations": 0 },
+    "legacy": { "cases": 248, "publicActions": 49, "expectedExecutions": 101, "actualExecutions": 101, "bypassCalls": 0, "stateViolations": 0 }
+  },
+  "authorityGates": {
+    "S8-N03": "passed; actual side-effect authority remains final",
+    "S8-N04": "passed; missing state-changing request semantics fail closed",
+    "S8-N05": "passed; canonical domain and typedKind identity remain authoritative",
+    "S8-N06": "passed; legacy side effects remain registry-authoritative"
+  },
+  "fullNodeSuite": { "passed": 220, "total": 220 },
+  "failures": []
+}

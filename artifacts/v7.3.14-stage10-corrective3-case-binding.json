@@ -1,0 +1,29 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective3",
+  "model": "Resolve request-derived references through the canonical graph entity resolver, then compare the actual operation target to the resolved canonical ID with exact string equality.",
+  "graphIds": {
+    "hyperedges": ["h1", "H1"],
+    "vertices": ["a", "A"]
+  },
+  "cases": 11,
+  "allowed": 4,
+  "invalidBlocked": 7,
+  "protectedHandlerCallsForInvalid": 0,
+  "confirmationStagesForInvalid": 0,
+  "stateChanges": 0,
+  "records": [
+    { "id": "exact-h1-to-h1", "expectedAllowed": true, "allowed": true, "authorizationDecision": "authorized", "protectedHandlerCalls": 1, "confirmationStages": 1 },
+    { "id": "exact-h1-to-H1", "expectedAllowed": false, "allowed": false, "authorizationDecision": "read_only_blocked", "dispatchBlockReason": "graph_operation_not_authorized", "protectedHandlerCalls": 0, "confirmationStages": 0 },
+    { "id": "exact-H1-to-H1", "expectedAllowed": true, "allowed": true, "authorizationDecision": "authorized", "protectedHandlerCalls": 1, "confirmationStages": 1 },
+    { "id": "exact-H1-to-h1", "expectedAllowed": false, "allowed": false, "authorizationDecision": "read_only_blocked", "dispatchBlockReason": "graph_operation_not_authorized", "protectedHandlerCalls": 0, "confirmationStages": 0 },
+    { "id": "vertex-a-to-A", "expectedAllowed": false, "allowed": false, "authorizationDecision": "read_only_blocked", "dispatchBlockReason": "graph_operation_not_authorized", "protectedHandlerCalls": 0, "confirmationStages": 0 },
+    { "id": "vertex-a-hyperedge-substitution", "expectedAllowed": false, "allowed": false, "authorizationDecision": "read_only_blocked", "dispatchBlockReason": "graph_operation_not_authorized", "protectedHandlerCalls": 0, "confirmationStages": 0 },
+    { "id": "unique-case-insensitive-hyperedge", "expectedAllowed": true, "allowed": true, "authorizationDecision": "authorized", "protectedHandlerCalls": 1, "confirmationStages": 1 },
+    { "id": "unique-case-insensitive-wrong-raw", "expectedAllowed": false, "allowed": false, "authorizationDecision": "read_only_blocked", "dispatchBlockReason": "graph_operation_not_authorized", "protectedHandlerCalls": 0, "confirmationStages": 0 },
+    { "id": "unique-case-insensitive-vertex", "expectedAllowed": true, "allowed": true, "authorizationDecision": "authorized", "protectedHandlerCalls": 1, "confirmationStages": 1 },
+    { "id": "ambiguous-case-insensitive-to-h1", "expectedAllowed": false, "allowed": false, "authorizationDecision": "read_only_blocked", "dispatchBlockReason": "graph_operation_not_authorized", "protectedHandlerCalls": 0, "confirmationStages": 0 },
+    { "id": "ambiguous-case-insensitive-to-H1", "expectedAllowed": false, "allowed": false, "authorizationDecision": "read_only_blocked", "dispatchBlockReason": "graph_operation_not_authorized", "protectedHandlerCalls": 0, "confirmationStages": 0 }
+  ],
+  "failures": []
+}

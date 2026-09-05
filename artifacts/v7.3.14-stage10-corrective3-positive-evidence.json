@@ -1,0 +1,39 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective3",
+  "parentCommit": "9d68f618bf21a125a8a4932f414976ef506a813d",
+  "preFixEvidenceCommit": "0e16f5c1b6f42ead68521b25b84a3b3aa93a9e92",
+  "productionCommit": "f30c773",
+  "model": "recognized affirmative execution frame plus exact operation binding",
+  "invariants": {
+    "negativeEvidenceAbsenceIsAuthority": false,
+    "graphMutationVerbAloneIsAuthority": false,
+    "clauseLocalAuthorization": true,
+    "modelOrFallbackCanCreateAuthority": false,
+    "silentGraphCommit": false
+  },
+  "recognizedAffirmativeFrames": [
+    "direct imperative",
+    "polite second-person request",
+    "explicit first-person directive to the assistant",
+    "explicit supported continuation or correction",
+    "explicit supported graph-declarative mutation grammar"
+  ],
+  "freshExact": [
+    { "query": "You lack my permission to delete h1; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false },
+    { "query": "I have revoked permission to delete h1; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false },
+    { "query": "My permission to delete h1 is revoked; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false },
+    { "query": "I want to decide whether to delete h1; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false },
+    { "query": "I need to decide whether to delete h1; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false },
+    { "query": "I'm trying to decide whether to delete h1; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false },
+    { "query": "I wonder whether I should delete h1; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false },
+    { "query": "I'm weighing whether to delete h1; tell me whether h1 exists.", "authorizationMode": "read_only", "sideEffectScopes": [], "protectedHandlerCalls": 0, "confirmationStages": 0, "stateChanged": false }
+  ],
+  "truePositiveControls": {
+    "cases": 8,
+    "wrongBlocks": 0,
+    "protectedHandlerCalls": 8,
+    "confirmationStages": 8,
+    "stateChanges": 0
+  }
+}

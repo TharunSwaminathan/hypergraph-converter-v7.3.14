@@ -1,0 +1,49 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective3",
+  "harness": "scripts/stage10Corrective3Harness.mjs",
+  "construction": {
+    "freshExactCases": 8,
+    "independentSemanticFrames": 16,
+    "mutationFamilies": 6,
+    "followUpAndPunctuationVariants": 3,
+    "totalCases": 296,
+    "derivedFromProductionRegexConstants": false
+  },
+  "semanticClasses": [
+    "permission absence",
+    "permission revocation",
+    "passive permission revocation",
+    "deliberation",
+    "trying to decide",
+    "wanting to decide",
+    "needing to decide",
+    "wondering",
+    "weighing",
+    "debating",
+    "evaluating",
+    "future consideration",
+    "reported consideration",
+    "quoted consideration",
+    "conditional consideration",
+    "past discussion"
+  ],
+  "mutationFamilies": [
+    "delete hyperedge",
+    "clear graph",
+    "create hyperedge",
+    "remove incidence",
+    "rename hyperedge",
+    "change hyperedge weight"
+  ],
+  "result": {
+    "cases": 296,
+    "wrongPositiveAuthorizations": 0,
+    "protectedHandlerCalls": 0,
+    "confirmationStages": 0,
+    "stateChanges": 0,
+    "truePositives": 8,
+    "wrongTruePositiveBlocks": 0,
+    "failures": []
+  }
+}
