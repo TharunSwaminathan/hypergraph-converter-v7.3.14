@@ -1,0 +1,52 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective3",
+  "browser": "Google Chrome",
+  "url": "http://127.0.0.1:5173/",
+  "source": "new Corrective #3 clean extraction",
+  "normalGraphLoad": {
+    "status": "passed",
+    "input": "h1: A, B\nh2: B, C",
+    "hyperedges": 2,
+    "vertices": 3,
+    "incidences": 4,
+    "graphVersion": 1
+  },
+  "preview": { "status": "passed", "hypergraphPreviewVisible": true },
+  "algorithm": {
+    "status": "passed",
+    "name": "Connected Components",
+    "components": 1,
+    "largest": 3,
+    "vertices": ["A", "B", "C"]
+  },
+  "export": {
+    "status": "passed",
+    "name": "CSR CSV",
+    "previewContained": "rowOffsets,0,2,4"
+  },
+  "noConsentRequests": [
+    { "query": "You lack my permission to delete h1; tell me whether h1 exists.", "confirmationCount": 0, "graphVersionBefore": 1, "graphVersionAfter": 1, "graphChanged": false },
+    { "query": "I have revoked permission to delete h1; tell me whether h1 exists.", "confirmationCount": 0, "graphVersionBefore": 1, "graphVersionAfter": 1, "graphChanged": false },
+    { "query": "I want to decide whether to delete h1; tell me whether h1 exists.", "confirmationCount": 0, "graphVersionBefore": 1, "graphVersionAfter": 1, "graphChanged": false },
+    { "query": "I wonder whether I should delete h1; tell me whether h1 exists.", "confirmationCount": 0, "graphVersionBefore": 1, "graphVersionAfter": 1, "graphChanged": false }
+  ],
+  "positiveMutation": {
+    "query": "Create hyperedge h3 with vertices 8 and 9.",
+    "previewStaged": true,
+    "confirmationCount": 1,
+    "silentCommit": false,
+    "cancel": { "status": "passed", "graphVersionBefore": 1, "graphVersionAfter": 1, "hyperedgesAfter": 2, "graphChanged": false },
+    "confirm": { "status": "passed", "graphVersionBefore": 1, "graphVersionAfter": 2, "hyperedgesAfter": 3, "verticesAfter": 5, "incidencesAfter": 6, "h3Committed": true }
+  },
+  "console": {
+    "applicationOriginErrors": 0,
+    "applicationOriginWarnings": 0,
+    "extensionWarningsExcluded": 16,
+    "extensionSources": [
+      "chrome-extension://cndibmoanboadcifjkjbdpjgfedanolh/",
+      "chrome-extension://kbfnbcaeplbcioakkpcpgfkobkghlhen/"
+    ]
+  },
+  "status": "passed"
+}

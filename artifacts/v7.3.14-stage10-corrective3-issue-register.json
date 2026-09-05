@@ -1,0 +1,43 @@
+{
+  "version": "7.3.14",
+  "stage": "10-corrective3",
+  "issues": [
+    {
+      "id": "S10-N01",
+      "severity": "high",
+      "title": "Non-authorizing permission and deliberation statements granted graph-edit authority",
+      "status": "closed_pending_independent_review",
+      "evidence": {
+        "freshExactCases": 8,
+        "heldOutCases": 296,
+        "wrongPositiveAuthorizations": 0,
+        "protectedHandlerCalls": 0,
+        "confirmationStages": 0,
+        "stateChanges": 0,
+        "truePositiveControls": 8,
+        "wrongTruePositiveBlocks": 0
+      }
+    },
+    {
+      "id": "S10-N02",
+      "severity": "high",
+      "title": "Case-insensitive target matching crossed the canonical exact-string identifier boundary",
+      "status": "closed_pending_independent_review",
+      "evidence": {
+        "caseResolutionCases": 11,
+        "validCasesAllowed": 4,
+        "invalidSubstitutionsBlocked": 7,
+        "invalidProtectedHandlerCalls": 0,
+        "invalidConfirmationStages": 0,
+        "invalidStateChanges": 0,
+        "corrective2OperationMatrixCases": 26,
+        "corrective2InvalidPlansBlocked": 17,
+        "corrective2ValidMatchingPlans": 9,
+        "corrective2WrongValidPlanBlocks": 0,
+        "originalProofsBlocked": 4
+      }
+    }
+  ],
+  "independentReviewRequired": true,
+  "finalStage10RerunBegun": false
+}
