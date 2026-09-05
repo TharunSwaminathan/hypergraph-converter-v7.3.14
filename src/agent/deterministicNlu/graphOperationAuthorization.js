@@ -3,6 +3,10 @@ import {
   normalizeGraphEntityReference,
   splitGraphEntityList,
 } from "./domains/graphIdentifierNormalizer.js";
+import {
+  resolveHyperedgeReference,
+  resolveVertexReference,
+} from "../../graph/entityResolver.js";
 
 const TYPE_ALIASES = Object.freeze({
   CREATE_HYPEREDGE: GRAPH_MUTATION_OPS.ADD_HYPEREDGE,
@@ -36,6 +40,7 @@ export function authorizeGraphMutationOperations({
   actualOperations = [],
   pendingOperations = [],
   selectedEntity = null,
+  graphHyperedges = [],
 } = {}) {
   const actual = Array.isArray(actualOperations) ? actualOperations : [];
   if (!actual.length) {
@@ -63,7 +68,13 @@ export function authorizeGraphMutationOperations({
   const matches = [];
   for (const operation of actual) {
     const canonical = canonicalizeActualOperation(operation);
-    const matchIndex = unused.findIndex(item => operationMatchesDescriptor(canonical, item.descriptor, pendingOperations, selectedEntity));
+    const matchIndex = unused.findIndex(item => operationMatchesDescriptor(
+      canonical,
+      item.descriptor,
+      pendingOperations,
+      selectedEntity,
+      graphHyperedges,
+    ));
     if (matchIndex < 0) {
       unmatchedOperations.push(canonical);
       continue;
@@ -248,16 +259,16 @@ function parseOperation(text, sourceClauseId) {
   return [];
 }
 
-function operationMatchesDescriptor(actual, descriptor, pendingOperations = [], selectedEntity = null) {
+function operationMatchesDescriptor(actual, descriptor, pendingOperations = [], selectedEntity = null, graphHyperedges = []) {
   if (descriptor?.type === "PENDING_GRAPH_FIELD_CORRECTION") {
     return pendingCorrectionMatches(actual, descriptor, pendingOperations);
   }
   if (descriptor?.type === "RENAME_ENTITY") {
     return (actual?.type === GRAPH_MUTATION_OPS.RENAME_HYPEREDGE
-      && targetMatches(actual.hyperedgeId, descriptor.entityId, selectedEntity, "hyperedge")
+      && targetMatches(actual.hyperedgeId, descriptor.entityId, selectedEntity, "hyperedge", graphHyperedges)
       && actual.newHyperedgeId === descriptor.newEntityId)
       || (actual?.type === GRAPH_MUTATION_OPS.RENAME_VERTEX
-        && targetMatches(actual.vertexId, descriptor.entityId, selectedEntity, "vertex")
+        && targetMatches(actual.vertexId, descriptor.entityId, selectedEntity, "vertex", graphHyperedges)
         && actual.newVertexId === descriptor.newEntityId);
   }
   if (!actual || !descriptor || actual.type !== descriptor.type) return false;
@@ -266,10 +277,17 @@ function operationMatchesDescriptor(actual, descriptor, pendingOperations = [], 
     const received = actual[key];
     if (expected === "$selected") {
       const kind = /vertex/i.test(key) ? "vertex" : "hyperedge";
-      return targetMatches(received, expected, selectedEntity, kind);
+      return targetMatches(received, expected, selectedEntity, kind, graphHyperedges);
     }
     if (Array.isArray(expected)) return arraysEqual(canonicalList(received ?? []), canonicalList(expected));
-    if (["hyperedgeId", "vertexId", "entityId"].includes(key)) return identifierMatches(received, expected);
+    if (["hyperedgeId", "vertexId", "entityId"].includes(key)) {
+      const kind = key === "vertexId" ? "vertex" : key === "hyperedgeId" ? "hyperedge" : null;
+      return identifierMatches(received, expected, {
+        kind,
+        graphHyperedges,
+        resolveExisting: identifierTargetsExistingEntity(actual.type, key),
+      });
+    }
     return Object.is(received, expected);
   });
 }
@@ -347,18 +365,44 @@ function targetEntity(value, kind) {
   return entity(raw, kind);
 }
 
-function targetMatches(received, expected, selectedEntity, kind) {
-  if (expected !== "$selected") return identifierMatches(received, expected);
+function targetMatches(received, expected, selectedEntity, kind, graphHyperedges = []) {
+  if (expected !== "$selected") return identifierMatches(received, expected, {
+    kind,
+    graphHyperedges,
+    resolveExisting: true,
+  });
   const selectedType = String(selectedEntity?.type ?? "").toLowerCase();
   if (selectedType && kind === "hyperedge" && !/(?:hyperedge|edge)/.test(selectedType)) return false;
   if (selectedType && kind === "vertex" && !/(?:vertex|node)/.test(selectedType)) return false;
   return Boolean(selectedEntity?.id) && String(received) === String(selectedEntity.id);
 }
 
-function identifierMatches(received, expected) {
-  if (Object.is(received, expected)) return true;
+function identifierMatches(received, expected, {
+  kind = null,
+  graphHyperedges = [],
+  resolveExisting = false,
+} = {}) {
   if (received === null || received === undefined || expected === null || expected === undefined) return false;
-  return String(received).toLocaleLowerCase() === String(expected).toLocaleLowerCase();
+  if (resolveExisting && kind && graphHyperedges?.length > 0) {
+    const resolution = kind === "vertex"
+      ? resolveVertexReference(expected, graphHyperedges)
+      : resolveHyperedgeReference(expected, graphHyperedges);
+    if (resolution.ok) return String(received) === resolution.id;
+    // Exact literals that do not resolve can still describe a matching
+    // proposed target; ambiguity must never fall back this way.
+    return resolution.reason === "no_match" && Object.is(received, expected);
+  }
+  return Object.is(received, expected);
+}
+
+function identifierTargetsExistingEntity(operationType, key) {
+  if (key === "hyperedgeId") return operationType !== GRAPH_MUTATION_OPS.ADD_HYPEREDGE;
+  if (key !== "vertexId") return false;
+  return [
+    GRAPH_MUTATION_OPS.REMOVE_INCIDENCE,
+    GRAPH_MUTATION_OPS.REMOVE_VERTEX_GLOBAL,
+    GRAPH_MUTATION_OPS.RENAME_VERTEX,
+  ].includes(operationType);
 }
 
 function canonicalList(values) {

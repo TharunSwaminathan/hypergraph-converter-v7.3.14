@@ -141,6 +141,11 @@ export async function dispatchCompiledAction({
         ?? [],
       pendingOperations: pendingAction?.plan?.operations ?? [],
       selectedEntity: state.selectedGraphEntity ?? prepared.contextBinding?.selectedEntity ?? null,
+      graphHyperedges: state.graphHyperedges
+        ?? state.canonicalGraph
+        ?? state.hyperedges
+        ?? state.graph
+        ?? [],
     },
   });
   trace.authorizedGraphOperations = finalAuthorization.authorizedOperations ?? finalSemantics?.authorization?.authorizedGraphOperations ?? [];

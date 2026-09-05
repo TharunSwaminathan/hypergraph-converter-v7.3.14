@@ -263,6 +263,7 @@ export function compileDeterministicAction(nlu, context = {}) {
       intent: initial.intent,
       pendingOperations: context.pendingAction?.plan?.operations ?? [],
       selectedEntity: context.selectedEntity ?? null,
+      graphHyperedges: context.graphHyperedges ?? context.hyperedges ?? context.graph ?? [],
     },
   });
 

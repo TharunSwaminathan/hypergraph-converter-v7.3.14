@@ -5,7 +5,10 @@ import {
   PENDING_CONFIRM_FORMS,
   RUNTIME_STOP_FORMS,
 } from "./actionLexicon.js";
-import { deriveAuthorizedGraphOperations } from "./graphOperationAuthorization.js";
+import {
+  deriveAuthorizedGraphOperations,
+  deriveClauseGraphOperations,
+} from "./graphOperationAuthorization.js";
 
 export const AUTHORIZATION_MODE = Object.freeze({
   AUTHORIZED: "authorized",
@@ -29,6 +32,10 @@ const GO_AHEAD_POLITE_ACTION_RE = new RegExp(
   String.raw`^\s*go\s+ahead\s+and\s+(?:please\s+)?(?:can|could|would|will)\s+you\s+(?:please\s+)?(?:${ACTION_VERB_SOURCE})\b`,
   "i",
 );
+const LEADING_CORRECTION_ACTION_RE = new RegExp(
+  String.raw`^\s*(?:(?:please|now|then|separately|after\s+that)\s*[,;:]?\s*|go\s+ahead\s+and\s+|i\s+want\s+you\s+to\s+|for\s+(?:the\s+)?(?:current|pending)\s+(?:task|dataset|graph|mapping|parser|action|correction)\s*[,;:]?\s*)?(?:actually|instead|rather|no|i\s+meant)\s*[,;:]?\s*(?:add|create|remove|delete|rename|clear|empty|reset|undo|revert|set|change|replace|merge|split|put|take)\b`,
+  "i",
+);
 const QUESTION_START_RE = /^\s*(?:what|why|how|which|where|when|who|is|are|am|does|do|did|can|could|would|will|should|may|might)\b/i;
 const READ_ONLY_QUERY_START_RE = /^\s*(?:please\s+)?tell\s+me\s+(?:whether|if|what|which|why|how|where|when|who)\b/i;
 const READ_ONLY_GRAPH_FACT_RE = /^\s*(?:please\s+)?(?:tell|report|list|show|display|check|state|give)\b[\s\S]{0,120}\b(?:count|whether|which|exists?|contains?|belongs?|membership|cardinality|degree|incidences?)\b/i;
@@ -47,7 +54,18 @@ const PERMISSION_DENIAL_RE = new RegExp(String.raw`\b(?:
   |(?:i|we)\s+(?:withdraw|withhold|revoke|rescind|retract|cancel|refuse|deny|decline)\s+(?:(?:to\s+)?(?:give|grant|provide|extend)\s+)?(?:any\s+|my\s+|our\s+|the\s+)?(?:permission|consent|authorization|authorisation)
   |no\s+(?:permission|consent|authorization|authorisation)\s+(?:is|was|has\s+been|will\s+be)\s+(?:being\s+)?(?:given|granted|provided|extended)
 )\b`.replace(/\s+/g, ""), "i");
-const EPISTEMIC_DECISION_RE = /\b(?:(?:i|we)\s+(?:need|want|would\s+like|have)\s+to\s+(?:know|learn|understand|determine|find\s+out|check)\s+(?:whether|if)|before\s+(?:i|we)\s+(?:decide|choose|determine|consider|evaluate)\s+(?:whether\s+)?to|(?:i|we)\s+(?:am|are)\s+(?:deciding|considering|evaluating)\s+(?:whether\s+)?to)\b/i;
+const PERMISSION_STATE_NON_AUTH_RE = new RegExp(String.raw`\b(?:
+  (?:you|they|the\s+(?:assistant|system|agent|operator))\s+(?:lack|do\s+not\s+have|have\s+no)\s+(?:my\s+|our\s+|the\s+|any\s+)?(?:permission|consent|authorization|authorisation)
+  |(?:i|we)\s+(?:have|has|had)\s+(?:revoked|withdrawn|withheld|rescinded|retracted|cancelled|canceled|refused|denied)\s+(?:my\s+|our\s+|the\s+|any\s+)?(?:permission|consent|authorization|authorisation)
+  |(?:my|our|the|any)\s+(?:permission|consent|authorization|authorisation)(?:\s+to\b[\s\S]{0,100})?\s+(?:is|was|has\s+been|had\s+been)\s+(?:revoked|withdrawn|withheld|rescinded|retracted|cancelled|canceled|refused|denied|absent|missing)
+)\b`.replace(/\s+/g, ""), "i");
+const EPISTEMIC_DECISION_RE = new RegExp(String.raw`\b(?:
+  (?:i|we)\s+(?:need|want|would\s+like|have)\s+to\s+(?:know|learn|understand|determine|find\s+out|check)\s+(?:whether|if)
+  |before\s+(?:i|we)\s+(?:decide|choose|determine|consider|evaluate|weigh|debate)\s+(?:whether\s+)?to
+  |(?:i|we)\s+(?:want|need|have|would\s+like)\s+to\s+(?:decide|choose|determine|consider|evaluate|weigh|debate)\s+(?:whether|if)
+  |(?:i|we)\s+(?:am|are|was|were)\s+(?:(?:trying|attempting)\s+to\s+)?(?:deciding|considering|evaluating|weighing|debating|deliberating|decide|choose|determine|consider|evaluate|weigh|debate)\s+(?:whether|if)
+  |(?:i|we)\s+(?:(?:am|are|was|were)\s+)?wonder(?:ing)?\s+(?:whether|if)
+)\b`.replace(/\s+/g, ""), "i");
 const NON_EXECUTION_INTENT_RE = /\b(?:(?:i|we|they|the\s+(?:team|reviewer|operator))\s+(?:(?:plan|intend|expect|hope|decided)\s+(?:whether\s+)?to|(?:might|may|could|will)\s+(?!you\b)|(?:am|are|was|were)\s+going\s+to|(?:consider|considered|discuss|discussed|debate|debated)\s+(?:whether\s+to|[a-z]+ing\b)|(?:talked|thought)\s+about\s+(?:whether\s+to|[a-z]+ing\b))|(?:future|later|eventual|possible|past)\s+(?:plan|intent|discussion|decision))\b/i;
 const NO_CONSENT_PROPOSITION_RE = /\b(?:(?:this|that|it|these\s+words?|that\s+statement)\s+(?:is|was|are|were)\s+not\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive)|(?:this|that|it|(?:this|that|the)\s+(?:request|statement|message))\s+does\s+not\s+(?:authorize|authorise|permit|approve|grant\s+(?:permission|consent))|(?:do\s+not|don['’]?t|never)\s+(?:take|interpret|read|treat|understand)\s+(?:this|that|it|these\s+words?|that\s+statement)\s+as\s+(?:an?\s+)?(?:permission|consent|authorization|authorisation|request|instruction|directive))\b/i;
 const PRESERVE_RE = /\b(?:(?:keep|leave|retain|preserve)\s+(?:every\s+)?(?:the\s+)?(?:current\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session|product[-\s]?state|pending\s+action)(?:(?:\s+fields?)?\s+(?:exactly\s+)?(?:untouched|unchanged|unmodified|intact|as[-\s]?is|as\s+it\s+is))?|(?:leave|keep)\s+everything\s+(?:exactly\s+)?(?:unchanged|untouched|unmodified)|(?:workspace|state|graph|mapping|parser|dashboard|session)\s+must\s+remain\s+(?:untouched|unchanged|unmodified|intact)|do\s+not\s+(?:write\s+to|touch|modify|change|alter)\s+(?:the\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session))\b/i;
@@ -217,6 +235,7 @@ export function analyzeClauseExecutionPolarity(text = "") {
   const value = normalizeAuthorizationContractions(text);
   const evidence = [
     hasNegatedAuthorizationSpeechAct(value) && "negated_or_denied_consent",
+    PERMISSION_STATE_NON_AUTH_RE.test(value) && "non_authorizing_permission_state",
     EPISTEMIC_DECISION_RE.test(value) && "epistemic_decision_frame",
     NON_EXECUTION_INTENT_RE.test(value) && "non_execution_intent_frame",
   ].filter(Boolean);
@@ -242,7 +261,7 @@ function analyzeAuthorizationClause(clause, index) {
     || /\b(?:link|linking|membership)\s+table\b/i.test(activeText)
     || /\b(?:preserve|keep|retain)\b[\s\S]{0,80}\b(?:unmatched|empty)\b[\s\S]{0,40}\b(?:row|rows|hyperedge|hyperedges)\b/i.test(activeText);
   const emptyHyperedgePolicyAction = /\b(?:preserve|keep|retain)\b[\s\S]{0,120}\b(?:do\s+not\s+have|without)\b[\s\S]{0,70}\b(?:author|member|vertex|incidence)s?\b[\s\S]{0,60}\bempty\s+hyperedges?\b/i.test(activeText);
-  const graphDeclarativeAction = /\b(?:should|must)\s+(?:no\s+longer\s+)?(?:belong|be\s+in|be\s+included|be\s+removed)\b/i.test(activeText);
+  const graphDeclarativeAction = /\b(?:(?:hyperedge\s+)?[A-Za-z0-9_.:-]+\s+needs?\s+(?:vertex|node)\b|(?:vertex|node)\s+[A-Za-z0-9_.:-]+\s+belongs?\s+to\b|(?:should|must)\s+(?:no\s+longer\s+)?(?:belong|be\s+in|be\s+included|be\s+removed)\b)/i.test(activeText);
   const statusReadOnlyAction = /^(?:(?:please|go\s+ahead\s+and|i\s+want\s+you\s+to)\s+|for\s+(?:the\s+)?(?:current|pending)\s+(?:task|dataset|graph|mapping|parser|action|correction)\s*[,;:]?\s*)?(?:show|report|view|list|check|inspect)\b[\s\S]{0,100}\b(?:status|workflow|progress|phase)\b/i.test(activeText);
   const graphFactReadOnlyAction = READ_ONLY_GRAPH_FACT_RE.test(activeText);
   const workflowPreparationAction = /\b(?:continue|generate|create|build|prepare|repair|fix|validate|auto[-\s]?detect|detect|compare|start)\b[\s\S]{0,120}\b(?:next(?:\s+[A-Za-z0-9_-]+){0,4}\s+parser\s+step|transformation\s+plan|mapping\s+workflow|parser\s+workflow)\b/i.test(activeText);
@@ -271,8 +290,27 @@ function analyzeAuthorizationClause(clause, index) {
     safeWorkflowPreparation,
   };
   const politeAction = POLITE_ACTION_RE.test(activeText) || GO_AHEAD_POLITE_ACTION_RE.test(activeText);
-  const directAction = Boolean(exactControl || DIRECT_ACTION_RE.test(activeText) || politeAction || relationAction || mappingDeclarationAction || graphDeclarativeAction || (correctionAction && scopes.typedCorrection) || (
+  const positivelyRecognizedExecutionFrame = Boolean(
+    exactControl
+    || DIRECT_ACTION_RE.test(activeText)
+    || politeAction
+    || relationAction
+    || mappingDeclarationAction
+    || graphDeclarativeAction
+    || LEADING_CORRECTION_ACTION_RE.test(activeText)
+    || (correctionAction && scopes.typedCorrection)
+  );
+  const graphOperationCandidates = deriveClauseGraphOperations(activeText, `authorization-clause-${index + 1}`);
+  const graphMutationSurface = graphOperationCandidates.length > 0 || (
+    /\b(?:add|create|make|include|put|insert|remove|delete|take|detach|rename|change|set|clear|empty|reset|undo|revert)\b/i.test(activeText)
+    && /\b(?:graph|hypergraph|hyperedge|edge|vertex|node|incidence|h[A-Za-z0-9_.:-]*)\b/i.test(activeText)
+  );
+  // State-changing graph authority is close-by-construction: an affirmative
+  // execution frame must be positively recognized. Merely finding a mutation
+  // verb after failing to recognize a denial/deliberation form is insufficient.
+  const directAction = Boolean(positivelyRecognizedExecutionFrame || (
     unprotectedAction
+    && !graphMutationSurface
     && !scopes.question
     && !scopes.explanatory
     && !scopes.instructional
@@ -322,6 +360,8 @@ function analyzeAuthorizationClause(clause, index) {
     : [];
   const evidence = [
     directAction && "direct_action_clause",
+    positivelyRecognizedExecutionFrame && graphMutationSurface && "positive_graph_execution_frame",
+    graphMutationSurface && !positivelyRecognizedExecutionFrame && "graph_mutation_without_positive_execution_frame",
     politeAction && "second_person_request",
     exactControl && `exact_control:${exactControl}`,
     scopes.denied && "explicit_denial",

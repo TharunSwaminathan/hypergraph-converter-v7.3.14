@@ -2084,6 +2084,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
         typedKind: "GraphMutationPlan",
         pendingOperations: pending?.plan?.operations ?? [],
         selectedEntity: latestStateRef.current.selectedGraphEntity ?? null,
+        graphHyperedges: latestStateRef.current.graphHyperedges ?? [],
       },
     });
     if (!preparedAuthorization.allowed) {

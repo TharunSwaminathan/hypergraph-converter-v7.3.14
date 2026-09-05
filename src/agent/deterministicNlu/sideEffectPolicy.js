@@ -362,6 +362,7 @@ export function authorizeCompiledSideEffect({
       actualOperations: plan?.operations ?? plan?.plan?.operations ?? plan?.draft?.operations ?? context?.operations ?? [],
       pendingOperations: context?.pendingOperations ?? [],
       selectedEntity: context?.selectedEntity ?? null,
+      graphHyperedges: context?.graphHyperedges ?? [],
     });
     if (!operationAuthorization.allowed) {
       return {

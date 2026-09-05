@@ -3982,6 +3982,7 @@ function AppCore() {
     hyperedgeCount: finalHes?.length ?? 0,
     vertexCount: st?.V ?? 0,
     incidenceCount: finalHes?.reduce((sum, hyperedge) => sum + hyperedge.vertices.length, 0) ?? 0,
+    graphHyperedges: finalHes ?? [],
     graphId: graphIdentity.graphId,
     graphVersion,
     graphFingerprint: graphIdentity.graphFingerprint,
