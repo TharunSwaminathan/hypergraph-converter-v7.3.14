@@ -4,28 +4,36 @@
   "parentCommit": "f19b9dd3af0d37b8b445606197a482f3f6e1d54d",
   "preFixCommit": "f7c87dd",
   "productionCommit": "e3fd1ec308d944cdc3adc8a272f87c05c20f06ad",
-  "generatedAt": "2026-09-05T00:03:26.065Z",
+  "expandedCoverageCommit": "280368308a83a56ed805b94941d13d81225c0934",
+  "generatedAt": "2026-09-05T15:30:00.000Z",
   "corpusDesign": {
     "source": "scripts/stage10Corrective2Harness.mjs",
     "independentlyCuratedFromProductionTables": true,
     "exactIndependentFailures": 5,
-    "constructionFamilies": 16,
+    "constructionFamilies": 25,
     "mutationFamilies": 6,
     "readOnlyFollowUps": 4
   },
   "results": {
-    "cases": 389,
+    "cases": 605,
     "wrongPositiveAuthorizations": 0,
     "protectedHandlerCalls": 0,
     "confirmationStages": 0,
     "stateChanges": 0,
     "truePositives": 9,
     "wrongTruePositiveBlocks": 0,
-    "constructionCount": 16,
+    "constructionCount": 25,
     "mutationFamilies": 6,
     "followUpCount": 4,
     "failures": [],
-    "positiveFailures": []
+    "positiveFailures": [],
+    "independentRepros": {
+      "cases": 5,
+      "mutationAuthorizationAbsent": 5,
+      "protectedHandlerCalls": 0,
+      "confirmationStages": 0,
+      "stateChanges": 0
+    }
   },
   "gates": {
     "wrongPositiveAuthorizationsZero": true,
