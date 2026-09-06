@@ -238,7 +238,7 @@ function AppCore() {
   const customResultCounterRef = useRef(0);
   const modelRunCounterRef = useRef(0);
   const starterCounterRef = useRef(0);
-  // Batch update state (Advanced Options panel, lives under the visualization —
+  // Batch update state (Batch Updates panel, lives under the visualization —
   // it edits the currently-loaded graph, so it's independent of `fmt`/`texts`).
   const [batchText, setBatchTextRaw] = useState(EX.batch);
   const [applyBatch, setApplyBatch] = useState(false);
@@ -3922,7 +3922,7 @@ function AppCore() {
 
   // Tools tabs — shown after the graph preview, mirrors the Mappings/Statistics/Export tab bar above it.
   const TOOLS_SECTIONS = [
-    { id: "advanced", label: "Advanced Options", color: T.amber },
+    { id: "advanced", label: "Batch Updates", color: T.amber },
     { id: "algorithms", label: "Algorithms", color: T.teal },
     { id: "assistant", label: "Hypergraph Assistant", color: T.purple },
   ];
@@ -4685,6 +4685,10 @@ function AppCore() {
 
   const agentActions = {
     uploadAgentFiles,
+    openBatchUpdates: () => {
+      setActiveToolsSection("advanced");
+      return { ok: true, sectionId: "advanced" };
+    },
     clearAgentFiles,
     clearAllAgentBatches,
     clearPreviousAgentBatch,
@@ -5133,7 +5137,7 @@ function AppCore() {
           </div>
         )}
 
-        {/* Tools — Advanced Options / Algorithms / Hypergraph Assistant, tabbed like Mappings/Statistics/Export.
+        {/* Tools — Batch Updates / Algorithms / Hypergraph Assistant, tabbed like Mappings/Statistics/Export.
             All three stay mounted (hidden via display:none) so in-progress input — batch text, chat drafts —
             isn't lost when switching tabs. */}
         <div style={{ marginTop: 40 }}>
@@ -5145,7 +5149,7 @@ function AppCore() {
             ))}
           </div>
 
-          {/* Advanced Options — batch updates to the graph already on screen.
+          {/* Batch Updates — shared file batches plus explicit graph-command previews.
               Preview is a temporary overlay, while commit writes changes back to the committed graph. */}
           <div id="tools-panel-advanced" role="tabpanel" aria-labelledby="tools-tab-advanced" hidden={activeToolsSection !== "advanced"} style={{ display: activeToolsSection === "advanced" ? "block" : "none" }}>
             <AdvancedOptionsPanel
@@ -5160,6 +5164,12 @@ function AppCore() {
               batchWarnings={batchWarnings}
               hasGraph={Boolean(hes?.length)}
               exampleText={EX.batch}
+              onUploadFiles={uploadAgentFiles}
+              activeUploadBatch={activeAgentBatch ? {
+                label: activeAgentBatch.label,
+                fileCount: activeAgentBatch.files.length,
+                detectedLabel: activeAgentBatch.detectedFormat?.label ?? "Unknown",
+              } : null}
             />
           </div>
 

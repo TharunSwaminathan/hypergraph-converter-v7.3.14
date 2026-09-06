@@ -39,7 +39,6 @@ import {
 } from "../agent/deterministicNlu/responseComposer.js";
 import { buildGraphResultSummaryMessage, planFromResultSummaryAction } from "../agent/resultSummary.js";
 import { getConfirmationCopy } from "../agent/safetyGuards.js";
-import { UPLOAD_ACCEPT_ATTRIBUTE } from "../agent/uploadPolicy.js";
 import { resolveConversationIntent } from "../agent/conversationIntentResolver.js";
 import { isPlausibleGraphMutationText } from "../agent/graphMutationModelPlanner.js";
 import {
@@ -234,7 +233,6 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   const [transientStatus, setTransientStatus] = useState("");
   const [showJumpToLatest, setShowJumpToLatest] = useState(false);
   const historyRef = useRef(null);
-  const fileInputRef = useRef(null);
   const mappingEditorRef = useRef(null);
   const abortControllerRef = useRef(null);
   const submissionCoordinatorRef = useRef(null);
@@ -414,31 +412,6 @@ export default function AgentChatPanel({ agentState, agentActions }) {
     if (check.type === "agent_file_count") return current.agentFileCount === check.expected;
     if (check.type === "no_graph") return !current.hasGraph;
     return false;
-  }
-
-  async function handleFileInput(event) {
-    const files = [...(event.target.files ?? [])];
-    event.target.value = "";
-    if (!files.length || busy) return;
-    const previousVersion = latestStateRef.current.batchVersion;
-    setBusy(true);
-    try {
-      const result = await agentActions.uploadAgentFiles(files);
-      if (!result.ok) {
-        append("agent", `Upload failed: ${result.error}`, "error");
-        return;
-      }
-      const verified = await verify({ type: "batch_active", expected: result.batchId, previous: previousVersion });
-      append("agent", verified ? result.message : "Files were read, but I could not verify the new active batch.", verified ? "status" : "error");
-      if (verified && result.hadPreviousBatch) {
-        append("agent", "The new files were not merged automatically. Choose “Use as new dataset,” “Add to previous batch,” or “View previous batch.”", "warning");
-      }
-      if (result.detection?.formatId === "custom") append("agent", result.detection.reason);
-    } catch (error) {
-      append("agent", `Upload failed: ${error instanceof Error ? error.message : String(error)}`, "error");
-    } finally {
-      setBusy(false);
-    }
   }
 
   async function executeUploadedParse(formatId, requestedExportId = null) {
@@ -839,8 +812,11 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       return executionOutcome({ ok: Boolean(result.ok), outcome: result.ok ? "mapping_feedback_recorded" : "failed", stateMutationCommitted: Boolean(result.ok), details: result });
     }
     if (plan.kind === "open_file_picker") {
-      fileInputRef.current?.click();
-      return executionOutcome({ outcome: "file_picker_opened", filePickerOpened: true });
+      const result = agentActions.openBatchUpdates?.();
+      append("agent", result?.ok
+        ? "Batch Updates is open. Choose files or drop them onto its upload target."
+        : "Open Batch Updates to choose or drop local files.", result?.ok ? "status" : "warning");
+      return executionOutcome({ ok: Boolean(result?.ok), outcome: result?.ok ? "navigation_updated" : "failed", navigationChanged: Boolean(result?.ok) });
     }
     if (plan.kind === "clear_uploaded_files" || plan.kind === "clear_all_batches" || plan.kind === "clear_previous_batch") {
       const previousVersion = latestStateRef.current.batchVersion;
@@ -2590,16 +2566,6 @@ export default function AgentChatPanel({ agentState, agentActions }) {
               <span>Mapping <strong>{agentState.activeBatch?.mappingSpecStatus ?? "none"}</strong></span>
             </div>
             {agentState.selectionNotice && <div className="agent-selection-notice">{agentState.selectionNotice}</div>}
-            <input
-              ref={fileInputRef}
-              type="file"
-              multiple
-              accept={UPLOAD_ACCEPT_ATTRIBUTE}
-              onChange={handleFileInput}
-              onClick={event => { event.currentTarget.value = ""; }}
-              className="agent-upload__input"
-              aria-label="Upload a new file batch to Hypergraph Assistant"
-            />
             <AgentComposer
               value={input}
               onChange={setInput}

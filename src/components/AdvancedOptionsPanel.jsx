@@ -1,4 +1,7 @@
+import { useRef, useState } from "react";
+import { UPLOAD_ACCEPT_ATTRIBUTE } from "../agent/uploadPolicy.js";
 import { T, inputSt } from "../theme.js";
+import "./AdvancedOptionsPanel.css";
 
 // Batch updates are edits to the graph that's already on screen, not a new
 // input format. They are previewed first, then explicitly committed or
@@ -15,17 +18,112 @@ export default function AdvancedOptionsPanel({
   batchWarnings,
   hasGraph,
   exampleText,
+  onUploadFiles,
+  activeUploadBatch,
 }) {
   const disabled = !hasGraph || batchParsedCount === 0;
+  const fileInputRef = useRef(null);
+  const [dragActive, setDragActive] = useState(false);
+  const [uploadBusy, setUploadBusy] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState(null);
+
+  function containsFiles(dataTransfer) {
+    return Array.from(dataTransfer?.types ?? []).includes("Files");
+  }
+
+  async function uploadFiles(fileList) {
+    const files = Array.from(fileList ?? []);
+    if (!files.length || uploadBusy || typeof onUploadFiles !== "function") return;
+    setUploadBusy(true);
+    setUploadStatus({ tone: "status", message: `Reading ${files.length} file${files.length === 1 ? "" : "s"}…` });
+    try {
+      const result = await onUploadFiles(files);
+      if (!result?.ok) {
+        setUploadStatus({ tone: "error", message: result?.error ?? "Upload failed." });
+        return;
+      }
+      const route = result.detection?.label ? ` Likely route: ${result.detection.label}.` : "";
+      setUploadStatus({
+        tone: "success",
+        message: `${result.count} file${result.count === 1 ? "" : "s"} accepted as ${result.batch?.label ?? "a new batch"}.${route} The graph was not changed.`,
+      });
+    } catch (error) {
+      setUploadStatus({ tone: "error", message: error instanceof Error ? error.message : String(error) });
+    } finally {
+      setUploadBusy(false);
+    }
+  }
+
+  function handleDragOver(event) {
+    if (!containsFiles(event.dataTransfer)) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+    setDragActive(true);
+  }
+
+  function handleDragLeave(event) {
+    if (event.currentTarget.contains(event.relatedTarget)) return;
+    setDragActive(false);
+  }
+
+  function handleDrop(event) {
+    if (!containsFiles(event.dataTransfer)) return;
+    event.preventDefault();
+    setDragActive(false);
+    uploadFiles(event.dataTransfer.files);
+  }
+
   return (
     <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 14, padding: 28, boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
         <div style={{ width: 4, height: 22, background: T.amber, borderRadius: 2 }} />
-        <span style={{ fontSize: 17, fontWeight: 700, color: T.text }}>Advanced Options</span>
-        <span style={{ fontSize: 12, color: T.textFaint, fontFamily: "monospace" }}>batch updates</span>
+        <span style={{ fontSize: 17, fontWeight: 700, color: T.text }}>Batch Updates</span>
       </div>
       <div style={{ fontSize: 13, color: T.textDim, marginBottom: 16, lineHeight: 1.6 }}>
-        Edit the graph that's already loaded above. Preview shows a temporary overlay; Commit writes it to the graph, and Discard returns to the committed graph.
+        Add local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.
+      </div>
+
+      <input
+        ref={fileInputRef}
+        className="batch-updates__file-input"
+        type="file"
+        multiple
+        accept={UPLOAD_ACCEPT_ATTRIBUTE}
+        aria-label="Choose files for Batch Updates"
+        tabIndex={-1}
+        onChange={event => {
+          const files = event.currentTarget.files;
+          uploadFiles(files);
+          event.currentTarget.value = "";
+        }}
+        onClick={event => { event.currentTarget.value = ""; }}
+      />
+      <button
+        type="button"
+        className={`batch-updates__drop-target${dragActive ? " batch-updates__drop-target--active" : ""}`}
+        data-upload-target="batch-updates"
+        onClick={() => fileInputRef.current?.click()}
+        onDragEnter={handleDragOver}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        disabled={uploadBusy}
+        aria-describedby="batch-updates-upload-help"
+      >
+        <strong>{dragActive ? "Release to add files" : uploadBusy ? "Reading files…" : "Drop files here or choose files"}</strong>
+        <span id="batch-updates-upload-help">Local text datasets only · up to 50 files · 10 MiB each · 50 MiB total</span>
+      </button>
+      <div className="batch-updates__upload-state" aria-live="polite">
+        {uploadStatus && (
+          <span className={`batch-updates__upload-message batch-updates__upload-message--${uploadStatus.tone}`} role={uploadStatus.tone === "error" ? "alert" : "status"}>
+            {uploadStatus.message}
+          </span>
+        )}
+        {activeUploadBatch && (
+          <span className="batch-updates__active-batch">
+            Active workspace batch: <strong>{activeUploadBatch.label}</strong> · {activeUploadBatch.fileCount} file{activeUploadBatch.fileCount === 1 ? "" : "s"} · {activeUploadBatch.detectedLabel}
+          </span>
+        )}
       </div>
 
       <div style={{ fontSize: 13, color: T.textDim, marginBottom: 10, padding: "10px 14px", background: T.card, borderRadius: 8, border: "1px solid " + T.border, lineHeight: 1.8 }}>
