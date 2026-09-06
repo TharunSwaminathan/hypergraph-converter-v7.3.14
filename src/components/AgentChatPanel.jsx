@@ -77,6 +77,13 @@ const FILE_SUGGESTIONS = [
   "Infer mapping without model",
 ];
 
+const QUICK_LINKS = Object.freeze([
+  { label: "Explain H2V", command: "Explain H2V" },
+  { label: "Graph stats", command: "Show graph stats" },
+  { label: "Diagnostics", command: "Diagnose current issue" },
+  { label: "Assistant help", command: "What can you do?" },
+]);
+
 const WORKSPACE_TABS = Object.freeze([
   ["workspace", "Workspace"],
   ["mapping", "Mapping"],
@@ -2585,6 +2592,21 @@ export default function AgentChatPanel({ agentState, agentActions }) {
                 ))}
               </div>
             )}
+            <nav className="agent-quick-links" aria-label="Quick Links">
+              <span className="agent-quick-links__label">Quick Links</span>
+              <div className="agent-quick-links__items">
+                {QUICK_LINKS.map(link => (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={() => submit(link.command)}
+                    disabled={busy || Boolean(pendingAction)}
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+            </nav>
           </div>
 
           <aside className="agent-workspace-panel" aria-label="Assistant workspace and advanced tools">

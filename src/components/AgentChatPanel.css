@@ -1706,6 +1706,54 @@
   text-transform: uppercase;
 }
 
+.agent-quick-links {
+  margin-top: 10px;
+  padding-top: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 10px;
+  border-top: 1px solid #e3e4f2;
+}
+
+.agent-quick-links__label {
+  color: #5f6578;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.agent-quick-links__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.agent-quick-links button {
+  padding: 5px 9px;
+  border: 1px solid #bad6df;
+  border-radius: 999px;
+  color: #17657f;
+  background: #edf7f9;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.agent-quick-links button:hover:not(:disabled),
+.agent-quick-links button:focus-visible {
+  border-color: #1683a6;
+  outline: 2px solid rgba(22, 131, 166, 0.2);
+  outline-offset: 1px;
+}
+
+.agent-quick-links button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .agent-composer textarea {
   flex: 1 1 auto;
   min-width: 0;
