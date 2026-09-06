@@ -1,0 +1,40 @@
+{
+  "version": "7.3.14",
+  "corrective": "postqualification-correctiveA",
+  "reviewState": "awaiting_independent_review",
+  "issues": [
+    {
+      "id": "POST-S10-H2V-01",
+      "title": "Metadata-bearing H2V input was auto-detected as adjacency",
+      "status": "closed_pending_independent_review",
+      "severity": "high",
+      "parentCommit": "b9159e2bae3d1548f2b0a47d86cbe4e75cdc55e0",
+      "preChangeEvidenceCommit": "a182d509eccdaab1b060600ce5481808191dd18e",
+      "correctiveCommit": "4cc87282cba7fa23fea7b85e312cca842ea85468",
+      "hardeningCommit": "6279cf41b5a50f9c0cec1aba36fac78ad73d64f7",
+      "verification": {
+        "builtInBrowserSmoke": "passed",
+        "differentialCorpus": "131 cases; 0 wrong strong-evidence routes; 0 semantic changes",
+        "nodeSuite": "221/221 passed",
+        "independentlyVerified": false
+      }
+    },
+    {
+      "id": "POST-S10-EDGE-01",
+      "title": "Singular .edge uploads were not consistently accepted and routed as Edge List",
+      "status": "closed_pending_independent_review",
+      "severity": "medium",
+      "parentCommit": "b9159e2bae3d1548f2b0a47d86cbe4e75cdc55e0",
+      "correctiveCommit": "5b5661e12b54cc21238ebc3435ca162cbdb2d6bb",
+      "verification": {
+        "lowercaseBrowserUpload": "passed",
+        "uppercaseBrowserUpload": "passed",
+        "mixedCaseAutomatedControl": "passed",
+        "pluralEdgesPreservation": "passed",
+        "rejectedEdgControl": "passed",
+        "independentlyVerified": false
+      }
+    }
+  ],
+  "overallStatus": "closed_pending_independent_review"
+}

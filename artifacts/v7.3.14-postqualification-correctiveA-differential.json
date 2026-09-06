@@ -1,0 +1,38 @@
+{
+  "version": "7.3.14",
+  "corrective": "postqualification-correctiveA",
+  "executedOn": "2026-09-06",
+  "method": "Each strong-evidence case was classified with autoDetectDetails, parsed through the selected route, normalized, and compared with the normalized intended-parser result. Ambiguous one-line colon cases were required to return no automatic route with simple and adjlist candidates.",
+  "corpus": {
+    "totalCases": 131,
+    "strongEvidenceCases": 115,
+    "ambiguousCases": 16,
+    "families": [
+      { "name": "h2v_metadata", "cases": 40, "expectedFormat": "simple" },
+      { "name": "h2v_named", "cases": 15, "expectedFormat": "simple" },
+      { "name": "adjacency", "cases": 20, "expectedFormat": "adjlist" },
+      { "name": "csv", "cases": 20, "expectedFormat": "csv" },
+      { "name": "h2h", "cases": 10, "expectedFormat": "h2h" },
+      { "name": "whitespace", "cases": 10, "expectedFormat": "csv" },
+      { "name": "ambiguous_colon", "cases": 8, "expectedFormat": null },
+      { "name": "ambiguous_colon_comma", "cases": 8, "expectedFormat": null }
+    ],
+    "identifierClasses": ["ordinary", "hyphenated", "reserved-object-key", "numeric-zero", "numeric-nonzero"],
+    "whitespaceVariants": ["single-space", "double-space", "tab"],
+    "metadataVariants": ["t", "time", "weight", "label", "trailing-at-weight"]
+  },
+  "results": {
+    "wrongStrongEvidenceRoutes": 0,
+    "silentSemanticChanges": 0,
+    "ambiguousCasesHandledSafely": 16,
+    "ambiguousCasesExpected": 16,
+    "strongEvidencePassRate": "115/115",
+    "ambiguityPassRate": "16/16"
+  },
+  "extensionDifferential": {
+    "acceptedAndRoutedAsEdgeList": [".edge", ".EDGE", ".EdGe", ".edges"],
+    "rejectedControl": ".edg",
+    "wrongRoutes": 0
+  },
+  "overallStatus": "passed"
+}

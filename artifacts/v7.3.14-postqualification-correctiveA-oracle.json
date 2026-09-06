@@ -1,0 +1,87 @@
+{
+  "version": "7.3.14",
+  "corrective": "postqualification-correctiveA",
+  "executedOn": "2026-09-06",
+  "execution": {
+    "command": "node scripts/run-postqualification-correctiveA-oracle.mjs",
+    "status": "passed",
+    "reviewBoundary": "executed by the corrective author; independent review remains pending"
+  },
+  "builtInH2V": {
+    "input": "h0 [t=10]: 1, 2, 3\nh1 [t=15]: 2, 4 @weight=2\nh2 [t=21]: 1, 3, 4, 5",
+    "detectedFormat": "simple",
+    "expectedFormat": "simple",
+    "canonical": {
+      "hyperedges": 3,
+      "vertices": 5,
+      "incidences": 9,
+      "hyperedgeIds": ["h0", "h1", "h2"],
+      "vertexIds": ["1", "2", "3", "4", "5"]
+    },
+    "bogusIdentifiers": [],
+    "semanticMatch": true
+  },
+  "preservationControls": {
+    "adjacency": {
+      "input": "A: B C\nB: A C\nC: A B",
+      "detectedFormat": "adjlist",
+      "expectedFormat": "adjlist",
+      "semanticMatch": true
+    },
+    "quoteAwareCsv": {
+      "input": "\"paper:A\",\"Alice, Bob\"\n\"paper:B\",Carol",
+      "detectedFormat": "csv",
+      "expectedFormat": "csv",
+      "canonicalCounts": { "hyperedges": 2, "vertices": 4, "incidences": 4 },
+      "semanticMatch": true
+    },
+    "h2h": {
+      "input": "h1: h2[shared: a,b]\nh2: (none)",
+      "detectedFormat": "h2h",
+      "expectedFormat": "h2h",
+      "semanticMatch": true
+    },
+    "plainWhitespaceRows": {
+      "input": "alpha beta gamma\nbeta gamma",
+      "detectedFormat": "csv",
+      "expectedFormat": "csv",
+      "semanticMatch": true
+    }
+  },
+  "ambiguousControls": {
+    "inputs": ["A: B C", "paperA:Alice,Bob", "__proto__: a b", "0: 1 2"],
+    "result": {
+      "formatId": null,
+      "confidence": "ambiguous",
+      "candidates": ["simple", "adjlist"]
+    },
+    "explicitParserChoiceRemainsAvailable": true
+  },
+  "identifierControls": {
+    "arbitraryMetadataNames": ["paperA", "cohort.beta"],
+    "reservedNames": ["__proto__", "constructor", "toString", "hasOwnProperty"],
+    "zeroIdentifiers": ["0", "1"],
+    "allPreserved": true
+  },
+  "uploadExtensions": [
+    { "name": "graph.edge", "accepted": true, "route": "edgelist" },
+    { "name": "graph.EDGE", "accepted": true, "route": "edgelist" },
+    { "name": "graph.EdGe", "accepted": true, "route": "edgelist" },
+    { "name": "graph.edges", "accepted": true, "route": "edgelist" },
+    { "name": "graph.edg", "accepted": false, "route": null }
+  ],
+  "uploadLimits": {
+    "maxFiles": 50,
+    "maxSingleFileBytes": 10485760,
+    "maxAggregateBytes": 52428800
+  },
+  "differentialSummary": {
+    "cases": 131,
+    "strongEvidenceCases": 115,
+    "ambiguousCases": 16,
+    "wrongStrongEvidenceRoutes": 0,
+    "silentSemanticChanges": 0,
+    "ambiguousCasesHandledSafely": 16
+  },
+  "overallStatus": "passed"
+}

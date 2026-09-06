@@ -1,0 +1,105 @@
+{
+  "version": "7.3.14",
+  "corrective": "postqualification-correctiveA",
+  "executedOn": "2026-09-05",
+  "browser": "Google Chrome",
+  "server": {
+    "command": "node .\\node_modules\\vite\\bin\\vite.js preview --host 127.0.0.1 --port 4173 --strictPort",
+    "host": "127.0.0.1",
+    "port": 4173,
+    "url": "http://127.0.0.1:4173/",
+    "startup": "Vite preview reported Local: http://127.0.0.1:4173/."
+  },
+  "targetVerification": {
+    "status": "passed",
+    "scheme": "http",
+    "host": "127.0.0.1",
+    "port": 4173,
+    "pageIdentity": "Hypergraph Converter Studio",
+    "note": "A new Chrome tab was explicitly navigated to the controlled preview URL; no arbitrary pre-existing page was used."
+  },
+  "evidenceBoundary": {
+    "automatedTestEvidence": "The 131-case oracle/differential run and 221-file Node suite were executed separately against the repository code.",
+    "browserObservedEvidence": "The cases in browserChecks were entered or loaded and observed in the controlled Chrome tab.",
+    "independentReviewStatus": "pending; this artifact is corrective-author evidence, not independent verification"
+  },
+  "browserChecks": [
+    {
+      "id": "built-in-h2v",
+      "status": "passed",
+      "input": "h0 [t=10]: 1, 2, 3\nh1 [t=15]: 2, 4 @weight=2\nh2 [t=21]: 1, 3, 4, 5",
+      "detectedFormat": "simple",
+      "uiRoute": "H2V / Simple",
+      "counts": { "hyperedges": 3, "vertices": 5, "incidences": 9 },
+      "mapping": [
+        { "id": "h0", "time": "10", "vertices": ["1", "2", "3"], "weight": 1 },
+        { "id": "h1", "time": "15", "vertices": ["2", "4"], "weight": 2 },
+        { "id": "h2", "time": "21", "vertices": ["1", "3", "4", "5"], "weight": 1 }
+      ],
+      "bogusMetadataIdentifiersObserved": [],
+      "previewMatchedMapping": true
+    },
+    {
+      "id": "adjacency-preservation",
+      "status": "passed",
+      "fixture": "built-in Adjacency List example",
+      "detectedFormat": "adjlist",
+      "counts": { "hyperedges": 4, "vertices": 4, "incidences": 8 },
+      "mapping": [["1", "2"], ["1", "3"], ["2", "4"], ["3", "4"]],
+      "previewMatchedMapping": true
+    },
+    {
+      "id": "csv-preservation",
+      "status": "passed",
+      "fixture": "\"paper:A\",\"Alice, Bob\"\n\"paper:B\",Carol",
+      "detectedFormat": "csv",
+      "counts": { "hyperedges": 2, "vertices": 4, "incidences": 4 },
+      "rowCardinalities": [2, 2],
+      "quotedCommaPreservedAsOneField": true
+    },
+    {
+      "id": "lowercase-edge-upload",
+      "status": "passed",
+      "fileName": "corrective-a.edge",
+      "uploadedThroughNativeFilePicker": true,
+      "accepted": true,
+      "detectedFormat": "edgelist",
+      "uiRoute": "Edge List",
+      "counts": { "hyperedges": 2, "vertices": 3, "incidences": 4 }
+    },
+    {
+      "id": "uppercase-edge-upload",
+      "status": "passed",
+      "fileName": "corrective-a.EDGE",
+      "uploadedThroughNativeFilePicker": true,
+      "accepted": true,
+      "detectedFormat": "edgelist",
+      "uiRoute": "Edge List"
+    },
+    {
+      "id": "plural-edges-preservation",
+      "status": "passed_by_automated_regression",
+      "browserRepeated": false,
+      "evidence": "The shared upload-policy and detector tests retain graph.edges acceptance and Edge List routing."
+    }
+  ],
+  "console": {
+    "applicationOriginUncaughtErrors": 0,
+    "applicationOriginWarnings": 0,
+    "extensionWarningsObserved": 4,
+    "extensionErrorsObserved": 1,
+    "extensionMessages": [
+      "AssignmentCache: no LMS adapter active - skipping fetch",
+      "Grammarly: Using DEFAULT root logger",
+      "Grammarly telemetry experiment warnings",
+      "Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist."
+    ],
+    "classificationBasis": "The page accessibility tree exposed Grammarly/SciSpace extension roots, and the messages referenced extension scripts or chrome.runtime rather than application source."
+  },
+  "environmentLimitations": [
+    "A prior attempt before this resume stopped because the computer-use environment could not establish the current Chrome URL safely; it was not a product failure.",
+    "The resumed run used a newly opened tab and verified the exact loopback URL before interaction.",
+    "Installed Chrome extensions injected console messages; these were recorded separately from application-origin errors."
+  ],
+  "overallStatus": "passed"
+}
