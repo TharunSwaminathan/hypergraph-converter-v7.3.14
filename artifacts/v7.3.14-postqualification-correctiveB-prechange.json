@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "corrective": "v7.3.14-postqualification-correctiveB",
+  "capturedAgainstCommit": "cfbe3e1da1b7050a2cc72cd00d08a49128a1562b",
+  "capturedAt": "2026-09-06",
+  "packageVersion": "7.3.14",
+  "workingTreeAtCapture": "clean",
+  "sourceCharacterization": {
+    "B01": {
+      "status": "open",
+      "observations": [
+        "src/App.jsx FMTS exposes Freeform / NLP and AI Prompt as group=advanced entries.",
+        "src/App.jsx renders every group=advanced FMTS entry in the normal format selector under the Advanced group.",
+        "The internal freeform and ai_prompt panels and routing code are also present and may have compatibility callers."
+      ]
+    },
+    "B02": {
+      "status": "open",
+      "observations": [
+        "No production onDrop or onDragOver file-upload target exists.",
+        "src/hooks/useFileUpload.js provides picker-only useUpload/useMultiUpload hooks.",
+        "src/App.jsx uploadAgentFiles already delegates validation and reading to the authoritative readUploadedTextFiles pipeline."
+      ]
+    },
+    "B03": {
+      "status": "open",
+      "observations": [
+        "src/components/AgentChatPanel.jsx renders transient SUGGESTIONS only while messages.length <= 1.",
+        "No persistent Quick Links footer is rendered."
+      ]
+    },
+    "B04": {
+      "status": "open",
+      "observations": [
+        "src/components/agent/AgentComposer.jsx renders an Attach / new batch button.",
+        "src/components/AgentChatPanel.jsx renders a + New batch button and a hidden Assistant file input."
+      ]
+    },
+    "B05": {
+      "status": "open",
+      "observations": [
+        "src/App.jsx labels the primary tools tab Advanced Options.",
+        "src/components/AdvancedOptionsPanel.jsx uses Advanced Options as the primary heading and batch updates as a small subtitle.",
+        "The panel contains batch-command preview/commit/discard controls but no file picker or drop target."
+      ]
+    }
+  },
+  "authoritativeUploadPolicy": {
+    "maxSingleFileBytes": 10485760,
+    "maxAggregateBytes": 52428800,
+    "maxFiles": 50,
+    "source": "src/agent/uploadPolicy.js"
+  },
+  "scopeNotes": [
+    "No production code was changed while this artifact was captured.",
+    "The underlying freeform and ai_prompt capabilities are characterized separately from their user-visible selector entries.",
+    "The existing Assistant batch infrastructure is the candidate shared ownership path for Batch Updates upload integration."
+  ]
+}
