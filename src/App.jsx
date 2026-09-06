@@ -4806,8 +4806,8 @@ function AppCore() {
           <div style={{ width: 1, height: 20, background: T.border }} />
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
             <span style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>Advanced</span>
-            {FMTS.filter(f => f.group === "advanced").map(f => {
-              const colorMap = { freeform: T.purple, ai_prompt: T.purple, custom: T.teal, batch: T.amber };
+            {FMTS.filter(f => f.group === "advanced" && !["freeform", "ai_prompt"].includes(f.id)).map(f => {
+              const colorMap = { custom: T.teal, batch: T.amber };
               return <Pill key={f.id} label={f.label} sub={f.sub} active={fmt === f.id} onClick={() => sw(f.id)} color={colorMap[f.id]} />;
             })}
           </div>

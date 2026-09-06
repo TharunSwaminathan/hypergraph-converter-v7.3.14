@@ -5,7 +5,6 @@ export default function AgentComposer({
   onChange,
   onSubmit,
   onStop,
-  onAttach,
   busy = false,
   streaming = false,
   disabled = false,
@@ -30,9 +29,6 @@ export default function AgentComposer({
   return (
     <form className="agent-composer" onSubmit={event => { event.preventDefault(); onSubmit(); }}>
       <div className="agent-composer__context">
-        <button type="button" className="agent-composer__attach" onClick={onAttach} disabled={busy || disabled}>
-          Attach / new batch
-        </button>
         <span className="agent-composer__batch">
           {activeBatch ? `${activeBatch.label} · ${fileCount} file${fileCount === 1 ? "" : "s"}` : "No active batch"}
         </span>

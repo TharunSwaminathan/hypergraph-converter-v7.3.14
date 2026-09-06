@@ -2605,7 +2605,6 @@ export default function AgentChatPanel({ agentState, agentActions }) {
               onChange={setInput}
               onSubmit={() => submit()}
               onStop={stopStreaming}
-              onAttach={() => fileInputRef.current?.click()}
               busy={busy}
               streaming={streaming || localModelRequestActive}
               activeBatch={agentState.activeBatch}
@@ -2656,9 +2655,6 @@ export default function AgentChatPanel({ agentState, agentActions }) {
               <span className="agent-upload__count">{agentState.agentFileCount || "none"}</span>
             </div>
             <div className="agent-upload__buttons">
-              <button type="button" className="agent-upload__button" onClick={() => fileInputRef.current?.click()} disabled={busy || Boolean(pendingAction)}>
-                + New batch
-              </button>
               {agentState.activeBatch && (
                 <button type="button" className="agent-upload__clear" onClick={() => submit("Clear active batch")} disabled={busy || Boolean(pendingAction)}>
                   Clear active
@@ -2723,7 +2719,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
           )}
 
           {agentState.agentFileCount === 0 ? (
-            <div className="agent-upload__empty">Attach local data files. Each upload event creates a new active batch, and nothing leaves your browser.</div>
+            <div className="agent-upload__empty">Use Batch Updates to choose or drop local data files. Each accepted upload creates a new active batch, and nothing leaves your browser.</div>
           ) : (
             <>
               <div className="agent-batch-summary">
