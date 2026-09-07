@@ -58,6 +58,9 @@ import DeterministicCommandHelp from "./DeterministicCommandHelp.jsx";
 import AgentComposer from "./agent/AgentComposer.jsx";
 import AgentMessage from "./agent/AgentMessage.jsx";
 import "./AgentChatPanel.css";
+import { usePersistentThread } from "../persistence/usePersistentThread.js";
+import { isExplicitParserRequest, specialistConfirmationRequest } from "../agent/customParserTriggerPolicy.js";
+import CustomParserSpecialistPanel from "./CustomParserSpecialistPanel.jsx";
 
 const SUGGESTIONS = [
   "Explain H2V",
@@ -234,6 +237,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   const [renameValue, setRenameValue] = useState("");
   const [mappingNotes, setMappingNotes] = useState("");
   const [conversationMemory, setConversationMemory] = useState(EMPTY_CONVERSATION_MEMORY);
+  const persistence = usePersistentThread({ messages, setMessages, memory: conversationMemory, setMemory: setConversationMemory, agentState });
   const [workspacePanel, setWorkspacePanel] = useState("workspace");
   const [lastNluDiagnostic, setLastNluDiagnostic] = useState(null);
   const [streaming, setStreamingState] = useState(false);
@@ -254,6 +258,12 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   const expectedContinuationTransitionRef = useRef(null);
   const resumingContinuationRef = useRef(false);
   const activeBatchSignature = activeBatchFileSignature(agentState);
+  const hasSpecialist = Boolean(agentState.specialist);
+  // The model coordinator may settle before its React props reach submit's
+  // finally block. Reconcile from committed state so reviewed drafts unlock.
+  useEffect(() => {
+    if (hasSpecialist && !agentState.specialist?.working && !agentState.localModel?.request?.busy && !streaming && !submissionCoordinatorRef.current.isBusy()) setBusyState(false);
+  }, [hasSpecialist, agentState.specialist?.working, agentState.localModel?.request?.busy, streaming]);
 
   function setStreaming(value) {
     streamingRef.current = Boolean(value);
@@ -402,7 +412,13 @@ export default function AgentChatPanel({ agentState, agentActions }) {
 
   async function verify(check) {
     await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    const current = latestStateRef.current;
+    let current = latestStateRef.current;
+    if (check.type === "custom_result_id") {
+      for (let attempt = 0; attempt < 8 && (current.customRunning || current.customResultId !== check.expected); attempt += 1) {
+        await new Promise(resolve => setTimeout(resolve, 25));
+        current = latestStateRef.current;
+      }
+    }
     if (check.type === "fmt") return current.fmt === check.expected;
     if (check.type === "section") return current.activeSection === check.expected;
     if (check.type === "visual_limit") return current.vizLimit === check.expected;
@@ -2115,6 +2131,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   }
 
   async function submit(text = input) {
+    if (persistence.status === "loading") return;
     const query = text.trim();
     if (!query) return;
     const semantics = analyzeRequestSemantics(query);
@@ -2185,6 +2202,19 @@ export default function AgentChatPanel({ agentState, agentActions }) {
         return;
       }
       append("agent", "Confirm or cancel the pending action before starting another operation.", "warning");
+      return;
+    }
+
+    if (isExplicitParserRequest(query) && agentActions.requestParserSpecialist) {
+      const result = await agentActions.requestParserSpecialist(query);
+      append("agent", result.message ?? result.error, result.ok ? "status" : "warning");
+      return;
+    }
+
+    const specialistRequest = specialistConfirmationRequest(query, current);
+    if (specialistRequest) {
+      if (!specialistRequest.ready) append("agent", "Review a current parser draft or validated result before requesting this action.", "warning");
+      else await dispatchPlan({ ...getConfirmationCopy(specialistRequest.actionType), kind: "confirmation", actionType: specialistRequest.actionType });
       return;
     }
 
@@ -2573,7 +2603,24 @@ export default function AgentChatPanel({ agentState, agentActions }) {
               <span>Mapping <strong>{agentState.activeBatch?.mappingSpecStatus ?? "none"}</strong></span>
             </div>
             {agentState.selectionNotice && <div className="agent-selection-notice">{agentState.selectionNotice}</div>}
+            <div role="status" className="agent-status">
+              {persistence.error || (persistence.status === "loading" ? "Restoring saved thread…" : "Chat saved on this browser. Workspace references never grant execution permission.")}
+            </div>
+            {persistence.restoredWorkspace?.requiresReupload && !agentState.agentFileCount && <details className="agent-upload">
+              <summary>Saved workspace requires re-upload</summary>
+              <p>Re-upload {persistence.restoredWorkspace.files.map(file => file.name).join(", ")}. Saved parser and graph references are historical; no files or approvals were restored.</p>
+              <p>Previous grouping: {persistence.restoredWorkspace.parseMode}</p>
+              <button type="button" onClick={persistence.forgetWorkspace}>Forget saved workspace references</button>
+              {persistence.restoredWorkspace.parser?.code && <pre style={{ maxHeight: 200, overflow: "auto" }}>{persistence.restoredWorkspace.parser.code}</pre>}
+              {persistence.restoredWorkspace.workflow?.drafts?.map(draft => <details key={draft.id}><summary>Saved draft: {draft.fileNames.join(", ")}</summary><pre style={{ maxHeight: 200, overflow: "auto" }}>{draft.code}</pre></details>)}
+            </details>}
+            <CustomParserSpecialistPanel specialist={agentState.specialist} actions={agentActions} submit={submit} blocked={busy || Boolean(pendingAction) || persistence.status === "loading"} />
+            {agentState.specialistReviewRequired && <div className="agent-file-actions">
+              <button type="button" disabled={busy || Boolean(pendingAction)} onClick={() => submit("Run custom parser")}>Request parser run</button>
+              <button type="button" disabled={busy || Boolean(pendingAction) || !agentState.customResultId} onClick={() => submit("Apply parser result")}>Request apply result</button>
+            </div>}
             <AgentComposer
+              disabled={persistence.status === "loading"}
               value={input}
               onChange={setInput}
               onSubmit={() => submit()}

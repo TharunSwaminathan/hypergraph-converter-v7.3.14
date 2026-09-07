@@ -581,12 +581,6 @@ export function runCustomParser(code, files, options = {}) {
   } catch (error) {
     return Promise.reject(error);
   }
-  /* eslint-disable no-useless-escape -- this template literal is the Worker's
-     own source code as text; it gets re-parsed as independent JS by the
-     spawned Worker, where \" is required to produce a literal double-quote
-     inside its own double-quoted string. ESLint only sees the outer file's
-     template-literal syntax and doesn't know the text is re-parsed
-     downstream, so it (incorrectly) flags the escape as unnecessary. */
   const workerSrc = `
     const splitLines=(text,opts={})=>{const{trim=true,skipEmpty=true,comments=false}=opts;return String(text??"").split(/\\r?\\n/).map(l=>{const u=comments?l.replace(/#.*$/,""):l;return trim?u.trim():u;}).filter(l=>!skipEmpty||l.length>0);};
     const unique=arr=>[...new Set((arr??[]).map(s=>String(s).trim()).filter(Boolean))];
@@ -643,16 +637,16 @@ export function runCustomParser(code, files, options = {}) {
       try{
         const helpers=deepFreeze({splitLines,unique,parseDelimited:parseDelimitedHelper,parseCSV:parseCSVHelper,groupBy,indexBy,splitList,toCanonical,buildFromIncidence});
         deepFreeze(files);
-        const fn=new IntrinsicFunction("files","helpers","fetch","XMLHttpRequest","WebSocket","EventSource","BroadcastChannel","WebTransport","Worker","SharedWorker","ServiceWorker","importScripts","globalThis","self","window","document","navigator","location","process","require","module","exports","Function","eval","Reflect","Proxy","Object","WebAssembly","Blob","FileReader","FileReaderSync","crypto","postMessage","setTimeout","setInterval","queueMicrotask","WeakRef","FinalizationRegistry","\"use strict\";\n"+code+"\nreturn parseHypergraph(files,helpers);");
+        // Serialize the nested function body; eval cannot be a strict-mode formal parameter.
+        const fn=new IntrinsicFunction("files","helpers","fetch","XMLHttpRequest","WebSocket","EventSource","BroadcastChannel","WebTransport","Worker","SharedWorker","ServiceWorker","importScripts","globalThis","self","window","document","navigator","location","process","require","module","exports","Function","Reflect","Proxy","Object","WebAssembly","Blob","FileReader","FileReaderSync","crypto","postMessage","setTimeout","setInterval","queueMicrotask","WeakRef","FinalizationRegistry",${JSON.stringify('"use strict";\n')}+code+${JSON.stringify('\nreturn parseHypergraph(files,helpers);')});
         hardenIntrinsicConstructors();
-        const result=await fn(files,helpers,blocked,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,blocked,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,safeObject,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined);
+        const result=await fn(files,helpers,blocked,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,blocked,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,safeObject,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined);
         const bounded=boundedClone(result,limits);
         enforceShapeLimits(bounded,limits);
         self.postMessage({ok:true,result:bounded,logs});
       }catch(err){self.postMessage({ok:false,error:err?.message||String(err),logs});}
       finally{console.log=origLog;console.warn=origWarn;}
     };`;
-  /* eslint-enable no-useless-escape */
   return new Promise((resolve, reject) => {
     const blob = new Blob([workerSrc], { type: "text/javascript" });
     const url = URL.createObjectURL(blob);

@@ -1,0 +1,131 @@
+[
+  {
+    "text": "source,target,weight,timestamp,relation\nN01,N02,0.92,2026-01-04,packet-flow\nN02,N03,0.71,2026-01-04,query-route\nN03,N05,0.66,2026-01-05,backup-sync\nN04,N01,0.81,2026-01-06,user-access\nN06,N03,0.74,2026-01-06,read-event\nN05,N02,0.44,2026-01-07,recovery-link\n",
+    "path": "01-weighted-temporal-pairs/edges.csv"
+  },
+  {
+    "text": "{\n  \"metadata\": {\n    \"source\": \"01-weighted-temporal-pairs\",\n    \"interpretation\": \"each edge row becomes a size-2 hyperedge\"\n  },\n  \"canonicalHyperedges\": [\n    {\n      \"id\": \"e0\",\n      \"vertices\": [\n        \"Server Alpha\",\n        \"Router East\"\n      ],\n      \"time\": \"2026-01-04\",\n      \"weight\": 0.92,\n      \"attributes\": {\n        \"relation\": \"packet-flow\"\n      }\n    }\n  ]\n}",
+    "path": "01-weighted-temporal-pairs/expected-shape.json"
+  },
+  {
+    "text": "node_id,label,type\nN01,Server Alpha,server\nN02,Router East,network\nN03,Database Blue,database\nN04,User Gateway,gateway\nN05,Backup Vault,storage\nN06,Analytics Box,service\n",
+    "path": "01-weighted-temporal-pairs/nodes.csv"
+  },
+  {
+    "text": "# 01 Weighted temporal pairs\n\nUpload both `nodes.csv` and `edges.csv`.\n\nParsing rule:\n- Use `nodes.csv` to map `node_id` to human-readable `label`.\n- Each row in `edges.csv` becomes one hyperedge of size 2.\n- Hyperedge ID can be `edge_0`, `edge_1`, etc.\n- Preserve `timestamp`, `weight`, and `relation`.\n",
+    "path": "01-weighted-temporal-pairs/README.md"
+  },
+  {
+    "text": "event_id,event_name,year,zone,severity\nEV100,Lab Evacuation Drill,2026,Building-A,medium\nEV101,Power Failure Response,2026,Building-B,high\nEV102,Chemical Safety Review,2027,Lab-C,critical\nEV103,Network Outage Triage,2027,Data-Center,high\n",
+    "path": "02-event-participant-split/events.csv"
+  },
+  {
+    "text": "{\n  \"metadata\": {\n    \"source\": \"02-event-participant-split\"\n  },\n  \"canonicalHyperedges\": [\n    {\n      \"id\": \"EV100\",\n      \"vertices\": [\n        \"P01\",\n        \"P02\",\n        \"P03\"\n      ],\n      \"time\": \"2026\",\n      \"weight\": 1,\n      \"attributes\": {\n        \"eventName\": \"Lab Evacuation Drill\",\n        \"zone\": \"Building-A\",\n        \"severity\": \"medium\"\n      }\n    },\n    {\n      \"id\": \"EV101\",\n      \"vertices\": [\n        \"P02\",\n        \"P04\",\n        \"P05\"\n      ],\n      \"time\": \"2026\",\n      \"weight\": 2,\n      \"attributes\": {\n        \"eventName\": \"Power Failure Response\",\n        \"zone\": \"Building-B\",\n        \"severity\": \"high\"\n      }\n    },\n    {\n      \"id\": \"EV102\",\n      \"vertices\": [\n        \"P03\",\n        \"P06\",\n        \"P07\",\n        \"P08\"\n      ],\n      \"time\": \"2027\",\n      \"weight\": 3,\n      \"attributes\": {\n        \"eventName\": \"Chemical Safety Review\",\n        \"zone\": \"Lab-C\",\n        \"severity\": \"critical\"\n      }\n    },\n    {\n      \"id\": \"EV103\",\n      \"vertices\": [\n        \"P04\",\n        \"P09\",\n        \"P10\"\n      ],\n      \"time\": \"2027\",\n      \"weight\": 2,\n      \"attributes\": {\n        \"eventName\": \"Network Outage Triage\",\n        \"zone\": \"Data-Center\",\n        \"severity\": \"high\"\n      }\n    }\n  ]\n}",
+    "path": "02-event-participant-split/expected-output.json"
+  },
+  {
+    "text": "event_id,participant_id,role\nEV100,P01,student\nEV100,P02,faculty\nEV100,P03,safety-officer\nEV101,P02,faculty\nEV101,P04,technician\nEV101,P05,admin\nEV102,P03,safety-officer\nEV102,P06,researcher\nEV102,P07,lab-manager\nEV102,P08,graduate-assistant\nEV103,P04,technician\nEV103,P09,network-admin\nEV103,P10,security\n",
+    "path": "02-event-participant-split/participants.csv"
+  },
+  {
+    "text": "# 02 Event participant split\n\nUpload both `events.csv` and `participants.csv`.\n\nParsing rule:\n- Group rows in `participants.csv` by `event_id`.\n- Each event becomes a hyperedge.\n- Vertices are participant IDs.\n- Use metadata from `events.csv` as hyperedge attributes.\n- Use `year` as time.\n- Use severity to assign optional weight: medium=1, high=2, critical=3.\n",
+    "path": "02-event-participant-split/README.md"
+  },
+  {
+    "text": "# Custom adjacency format\nA01 => A02 | A03 | A07 ; relation=workflow ; year=2026\nA02 => A03 | A06 ; relation=record-check ; year=2026\nA03 => A04 | A05 | A07 ; relation=portal-action ; year=2027\nA06 => A01 | A02 ; relation=advising-loop ; year=2027\n",
+    "path": "03-adjacency-blocks/adjacency.blocks"
+  },
+  {
+    "text": "# 03 Adjacency blocks\n\nUpload `vertices.txt` and `adjacency.blocks`.\n\nParsing rule:\n- `vertices.txt` uses pipe separators.\n- `adjacency.blocks` uses custom syntax: `source => target1 | target2 ; relation=x ; year=y`.\n- Convert each line into one hyperedge containing the source plus all targets.\n- Use labels from `vertices.txt` as vertex names.\n- Store `relation` in attributes and `year` as time.\n",
+    "path": "03-adjacency-blocks/README.md"
+  },
+  {
+    "text": "# vertex_id | label | category\nA01 | Admission Office | admin\nA02 | Registrar Desk | admin\nA03 | Student Portal | software\nA04 | Payment Gateway | software\nA05 | Scholarship System | software\nA06 | Advisor Queue | service\nA07 | Document Upload | service\n",
+    "path": "03-adjacency-blocks/vertices.txt"
+  },
+  {
+    "text": "from,to,channel\nDispatch,Depot,radio\nDispatch,Hospital,secure-chat\nDispatch,Shelter,sms\nHospital,Clinic,phone\n",
+    "path": "04-layered-graph/communication_edges.csv"
+  },
+  {
+    "text": "{\n  \"layers\": {\n    \"transport\": {\n      \"description\": \"physical movement links\",\n      \"weightMultiplier\": 1.0\n    },\n    \"communication\": {\n      \"description\": \"message and alert links\",\n      \"weightMultiplier\": 0.8\n    },\n    \"supply\": {\n      \"description\": \"resource delivery links\",\n      \"weightMultiplier\": 1.3\n    }\n  }\n}\n",
+    "path": "04-layered-graph/layers.json"
+  },
+  {
+    "text": "# 04 Layered graph\n\nUpload all four files.\n\nParsing rule:\n- Each `*_edges.csv` file represents a layer.\n- Each row becomes a size-2 hyperedge.\n- Hyperedge ID should include the layer name, for example `transport_0`.\n- Preserve distance/channel/item/quantity in attributes.\n- Use layer metadata from `layers.json`.\n",
+    "path": "04-layered-graph/README.md"
+  },
+  {
+    "text": "from,to,item,quantity\nWarehouse,Depot,water,120\nWarehouse,Shelter,blankets,80\nDepot,Clinic,medicine,40\nDepot,Hospital,batteries,25\n",
+    "path": "04-layered-graph/supply_edges.csv"
+  },
+  {
+    "text": "from,to,distance\nDepot,Clinic,4.2\nDepot,Shelter,8.1\nClinic,Hospital,2.4\nShelter,Hospital,5.6\n",
+    "path": "04-layered-graph/transport_edges.csv"
+  },
+  {
+    "text": "edge_id,source,target,kind\nE1,S1,S2,baseline\nE2,S2,S3,baseline\nE3,S3,S4,baseline\nE4,S4,S5,baseline\n",
+    "path": "05-update-log/initial_edges.csv"
+  },
+  {
+    "text": "# 05 Update log\n\nUpload both `initial_edges.csv` and `updates.log`.\n\nParsing rule:\n- Start from `initial_edges.csv`.\n- Apply `updates.log` in order.\n- `ADD` inserts/overwrites an edge.\n- `DELETE` removes an edge by ID.\n- Final graph should contain E1, E3, E4, E5, E6, E7. E2 should be absent.\n- Each final edge is a size-2 hyperedge.\n",
+    "path": "05-update-log/README.md"
+  },
+  {
+    "text": "# operation|edge_id|source|target|kind|time\nADD|E5|S5|S6|new-link|2026-03-01\nADD|E6|S2|S6|shortcut|2026-03-02\nDELETE|E2||||2026-03-03\nADD|E7|S1|S6|emergency-route|2026-03-04\n",
+    "path": "05-update-log/updates.log"
+  },
+  {
+    "text": "0,C_Controller\n1,C_Panel\n2,C_Logger\n3,C_Backup\n",
+    "path": "06-matrix-coordinate-list/col_nodes.txt"
+  },
+  {
+    "text": "%%MatrixMarket matrix coordinate real general\n% row col weight\n5 4 8\n1 1 0.5\n1 3 0.7\n2 1 0.9\n2 4 0.4\n3 2 0.8\n4 2 0.6\n5 3 0.3\n5 4 0.2\n",
+    "path": "06-matrix-coordinate-list/edges.mtx"
+  },
+  {
+    "text": "# 06 Matrix coordinate list\n\nUpload all three files.\n\nParsing rule:\n- `edges.mtx` is 1-based MatrixMarket style.\n- `row_nodes.txt` and `col_nodes.txt` are 0-based mapping files.\n- Each nonzero matrix entry becomes one size-2 hyperedge between row node and column node.\n- Use matrix value as weight.\n",
+    "path": "06-matrix-coordinate-list/README.md"
+  },
+  {
+    "text": "0,R_Antenna\n1,R_Server\n2,R_Pump\n3,R_Valve\n4,R_Sensor\n",
+    "path": "06-matrix-coordinate-list/row_nodes.txt"
+  },
+  {
+    "text": "hyperedge_id,title,time\nH_A,Joint Research Sprint,2026\nH_B,Prototype Review,2026\nH_C,Field Deployment,2027\nH_D,Failure Analysis,2027\n",
+    "path": "07-hyperedge-metadata-separated/hyperedges.csv"
+  },
+  {
+    "text": "{\n  \"H_A\": {\n    \"domain\": \"AI\",\n    \"priority\": \"medium\"\n  },\n  \"H_B\": {\n    \"domain\": \"XR\",\n    \"priority\": \"high\"\n  },\n  \"H_C\": {\n    \"domain\": \"Robotics\",\n    \"priority\": \"critical\"\n  },\n  \"H_D\": {\n    \"domain\": \"Security\",\n    \"priority\": \"high\"\n  }\n}\n",
+    "path": "07-hyperedge-metadata-separated/hyperedge_attributes.json"
+  },
+  {
+    "text": "hyperedge_id,vertex_id\nH_A,Alice\nH_A,Bob\nH_A,Chandra\nH_B,Bob\nH_B,Dev\nH_C,Alice\nH_C,Elena\nH_C,Farid\nH_C,Gita\nH_D,Chandra\nH_D,Dev\nH_D,Farid\n",
+    "path": "07-hyperedge-metadata-separated/members.csv"
+  },
+  {
+    "text": "# 07 Hyperedge metadata separated\n\nUpload all three files.\n\nParsing rule:\n- `members.csv` gives hyperedge memberships.\n- `hyperedges.csv` gives title/time.\n- `hyperedge_attributes.json` gives extra attributes keyed by hyperedge ID.\n- Each hyperedge ID becomes one true hyperedge.\n- Preserve title/domain/priority/time.\n",
+    "path": "07-hyperedge-metadata-separated/README.md"
+  },
+  {
+    "text": "# Format: EDGE_ID :: vertexA ~~ vertexB ~~ vertexC [[time=year]] [[weight=value]]\nW-001 :: red-team ~~ firewall ~~ identity-server [[time=2026]] [[weight=2.5]]\nW-002 :: blue-team ~~ firewall ~~ monitoring-agent [[time=2026]] [[weight=1.8]]\nW-003 :: malware-sample ~~ sandbox ~~ analyst-a ~~ analyst-b [[time=2027]] [[weight=3.2]]\nW-004 :: patch-system ~~ endpoint-17 ~~ endpoint-22 ~~ endpoint-31 [[time=2027]] [[weight=1.2]]\n",
+    "path": "08-weird-delimiters/edge_list.weird"
+  },
+  {
+    "text": "{\n  \"metadata\": {\n    \"source\": \"08-weird-delimiters\"\n  },\n  \"canonicalHyperedges\": [\n    {\n      \"id\": \"W-001\",\n      \"vertices\": [\n        \"red-team\",\n        \"firewall\",\n        \"identity-server\"\n      ],\n      \"time\": \"2026\",\n      \"weight\": 2.5\n    },\n    {\n      \"id\": \"W-002\",\n      \"vertices\": [\n        \"blue-team\",\n        \"firewall\",\n        \"monitoring-agent\"\n      ],\n      \"time\": \"2026\",\n      \"weight\": 1.8\n    },\n    {\n      \"id\": \"W-003\",\n      \"vertices\": [\n        \"malware-sample\",\n        \"sandbox\",\n        \"analyst-a\",\n        \"analyst-b\"\n      ],\n      \"time\": \"2027\",\n      \"weight\": 3.2\n    },\n    {\n      \"id\": \"W-004\",\n      \"vertices\": [\n        \"patch-system\",\n        \"endpoint-17\",\n        \"endpoint-22\",\n        \"endpoint-31\"\n      ],\n      \"time\": \"2027\",\n      \"weight\": 1.2\n    }\n  ]\n}",
+    "path": "08-weird-delimiters/expected-output.json"
+  },
+  {
+    "text": "# 08 Weird delimiters\n\nUpload `edge_list.weird`.\n\nParsing rule:\n- Ignore comment lines beginning with `#`.\n- Split edge ID from vertices using `::`.\n- Split vertices using `~~`.\n- Extract time from `[[time=...]]`.\n- Extract weight from `[[weight=...]]`.\n- Each line becomes one hyperedge.\n",
+    "path": "08-weird-delimiters/README.md"
+  },
+  {
+    "text": "# Parser snippets for Custom Parser Studio\n\nPaste one of these into the Custom Parser Studio code editor after uploading the matching folder's files.\n\n## Universal helper utilities\n\nMost snippets use small local helper functions because the browser worker receives plain file text. These functions are repeated where needed so each snippet can be pasted independently.\n\n---\n\n## 01 Weighted temporal pairs parser\n\n```js\nasync function parseHypergraph(files, helpers) {\n  const byName = Object.fromEntries(files.map(f => [f.name, f.text]));\n  const nodesText = byName[\"nodes.csv\"];\n  const edgesText = byName[\"edges.csv\"];\n  if (!nodesText || !edgesText) throw new Error(\"Upload nodes.csv and edges.csv together.\");\n\n  const csv = (text) => text.trim().split(/\\r?\\n/).filter(Boolean).map(line => line.split(',').map(x => x.trim()));\n  const nodeRows = csv(nodesText);\n  const nodeHeader = nodeRows.shift();\n  const idIdx = nodeHeader.indexOf('node_id');\n  const labelIdx = nodeHeader.indexOf('label');\n  const typeIdx = nodeHeader.indexOf('type');\n  const nodeMap = new Map(nodeRows.map(r => [r[idIdx], { label: r[labelIdx], type: r[typeIdx] }]));\n\n  const edgeRows = csv(edgesText);\n  const header = edgeRows.shift();\n  const idx = Object.fromEntries(header.map((h, i) => [h, i]));\n  const canonicalHyperedges = edgeRows.map((r, i) => {\n    const s = nodeMap.get(r[idx.source]) || { label: r[idx.source] };\n    const t = nodeMap.get(r[idx.target]) || { label: r[idx.target] };\n    return {\n      id: `weighted_pair_${i + 1}`,\n      vertices: [s.label, t.label],\n      time: r[idx.timestamp],\n      weight: Number(r[idx.weight]),\n      attributes: { relation: r[idx.relation], sourceType: s.type, targetType: t.type }\n    };\n  });\n  return { metadata: { source: \"01-weighted-temporal-pairs\" }, canonicalHyperedges };\n}\n```\n\n---\n\n## 02 Event participant split parser\n\n```js\nasync function parseHypergraph(files, helpers) {\n  const byName = Object.fromEntries(files.map(f => [f.name, f.text]));\n  const eventsText = byName[\"events.csv\"];\n  const participantsText = byName[\"participants.csv\"];\n  if (!eventsText || !participantsText) throw new Error(\"Upload events.csv and participants.csv together.\");\n\n  const csvObjects = (text) => {\n    const lines = text.trim().split(/\\r?\\n/).filter(Boolean);\n    const header = lines.shift().split(',').map(x => x.trim());\n    return lines.map(line => Object.fromEntries(line.split(',').map((v, i) => [header[i], v.trim()])));\n  };\n  const severityWeight = { low: 0.5, medium: 1, high: 2, critical: 3 };\n  const events = Object.fromEntries(csvObjects(eventsText).map(e => [e.event_id, e]));\n  const groups = new Map();\n  for (const p of csvObjects(participantsText)) {\n    if (!groups.has(p.event_id)) groups.set(p.event_id, []);\n    groups.get(p.event_id).push(p.participant_id);\n  }\n  const canonicalHyperedges = [...groups.entries()].map(([eventId, vertices]) => {\n    const e = events[eventId] || {};\n    return {\n      id: eventId,\n      vertices,\n      time: e.year,\n      weight: severityWeight[e.severity] || 1,\n      attributes: { eventName: e.event_name, zone: e.zone, severity: e.severity }\n    };\n  });\n  return { metadata: { source: \"02-event-participant-split\" }, canonicalHyperedges };\n}\n```\n\n---\n\n## 03 Adjacency blocks parser\n\n```js\nasync function parseHypergraph(files, helpers) {\n  const byName = Object.fromEntries(files.map(f => [f.name, f.text]));\n  const verticesText = byName[\"vertices.txt\"];\n  const adjacencyText = byName[\"adjacency.blocks\"];\n  if (!verticesText || !adjacencyText) throw new Error(\"Upload vertices.txt and adjacency.blocks together.\");\n\n  const vertexMap = new Map();\n  for (const line of verticesText.split(/\\r?\\n/)) {\n    const clean = line.trim();\n    if (!clean || clean.startsWith('#')) continue;\n    const [id, label, category] = clean.split('|').map(x => x.trim());\n    vertexMap.set(id, { label, category });\n  }\n\n  const canonicalHyperedges = [];\n  for (const line of adjacencyText.split(/\\r?\\n/)) {\n    const clean = line.trim();\n    if (!clean || clean.startsWith('#')) continue;\n    const [lhs, rhsAll] = clean.split('=>').map(x => x.trim());\n    const [targetsPart, ...metaParts] = rhsAll.split(';').map(x => x.trim());\n    const targetIds = targetsPart.split('|').map(x => x.trim()).filter(Boolean);\n    const meta = Object.fromEntries(metaParts.map(part => part.split('=').map(x => x.trim())));\n    const ids = [lhs, ...targetIds];\n    canonicalHyperedges.push({\n      id: `adj_${canonicalHyperedges.length + 1}`,\n      vertices: ids.map(id => vertexMap.get(id)?.label || id),\n      time: meta.year,\n      weight: 1,\n      attributes: { relation: meta.relation, originalIds: ids }\n    });\n  }\n  return { metadata: { source: \"03-adjacency-blocks\" }, canonicalHyperedges };\n}\n```\n\n---\n\n## 04 Layered graph parser\n\n```js\nasync function parseHypergraph(files, helpers) {\n  const byName = Object.fromEntries(files.map(f => [f.name, f.text]));\n  const layers = JSON.parse(byName[\"layers.json\"] || \"{}\").layers || {};\n  const csvObjects = (text) => {\n    const lines = text.trim().split(/\\r?\\n/).filter(Boolean);\n    const header = lines.shift().split(',').map(x => x.trim());\n    return lines.map(line => Object.fromEntries(line.split(',').map((v, i) => [header[i], v.trim()])));\n  };\n  const canonicalHyperedges = [];\n  for (const file of files) {\n    const match = file.name.match(/^(.*)_edges\\.csv$/);\n    if (!match) continue;\n    const layer = match[1];\n    const layerInfo = layers[layer] || {};\n    for (const row of csvObjects(file.text)) {\n      canonicalHyperedges.push({\n        id: `${layer}_${canonicalHyperedges.length + 1}`,\n        vertices: [row.from, row.to],\n        weight: Number(row.distance || row.quantity || 1) * Number(layerInfo.weightMultiplier || 1),\n        attributes: { layer, layerDescription: layerInfo.description, ...row }\n      });\n    }\n  }\n  return { metadata: { source: \"04-layered-graph\" }, canonicalHyperedges };\n}\n```\n\n---\n\n## 05 Update log parser\n\n```js\nasync function parseHypergraph(files, helpers) {\n  const byName = Object.fromEntries(files.map(f => [f.name, f.text]));\n  if (!byName[\"initial_edges.csv\"] || !byName[\"updates.log\"]) throw new Error(\"Upload initial_edges.csv and updates.log.\");\n  const edgeMap = new Map();\n  const initialLines = byName[\"initial_edges.csv\"].trim().split(/\\r?\\n/).filter(Boolean);\n  initialLines.shift();\n  for (const line of initialLines) {\n    const [edge_id, source, target, kind] = line.split(',').map(x => x.trim());\n    edgeMap.set(edge_id, { edge_id, source, target, kind, time: null });\n  }\n  for (const line of byName[\"updates.log\"].split(/\\r?\\n/)) {\n    const clean = line.trim();\n    if (!clean || clean.startsWith('#')) continue;\n    const [op, edge_id, source, target, kind, time] = clean.split('|').map(x => x.trim());\n    if (op === 'DELETE') edgeMap.delete(edge_id);\n    if (op === 'ADD') edgeMap.set(edge_id, { edge_id, source, target, kind, time });\n  }\n  const canonicalHyperedges = [...edgeMap.values()].map(e => ({\n    id: e.edge_id,\n    vertices: [e.source, e.target],\n    time: e.time,\n    weight: 1,\n    attributes: { kind: e.kind }\n  }));\n  return { metadata: { source: \"05-update-log\", updateApplied: true }, canonicalHyperedges };\n}\n```\n\n---\n\n## 06 Matrix coordinate list parser\n\n```js\nasync function parseHypergraph(files, helpers) {\n  const byName = Object.fromEntries(files.map(f => [f.name, f.text]));\n  const readMap = (text) => new Map(text.trim().split(/\\r?\\n/).filter(Boolean).map(line => {\n    const [idx, label] = line.split(',').map(x => x.trim());\n    return [Number(idx), label];\n  }));\n  const rowMap = readMap(byName[\"row_nodes.txt\"]);\n  const colMap = readMap(byName[\"col_nodes.txt\"]);\n  const canonicalHyperedges = [];\n  for (const line of byName[\"edges.mtx\"].split(/\\r?\\n/)) {\n    const clean = line.trim();\n    if (!clean || clean.startsWith('%')) continue;\n    const parts = clean.split(/\\s+/);\n    if (parts.length === 3 && canonicalHyperedges.length === 0 && Number(parts[2]) > 1) continue; // matrix dimensions line\n    const [r, c, w] = parts.map(Number);\n    if (!Number.isFinite(r) || !Number.isFinite(c)) continue;\n    canonicalHyperedges.push({\n      id: `mtx_${canonicalHyperedges.length + 1}`,\n      vertices: [rowMap.get(r - 1) || `row_${r}`, colMap.get(c - 1) || `col_${c}`],\n      weight: Number(w || 1),\n      attributes: { matrixRow: r, matrixColumn: c }\n    });\n  }\n  return { metadata: { source: \"06-matrix-coordinate-list\" }, canonicalHyperedges };\n}\n```\n\n---\n\n## 08 Weird delimiters parser\n\n```js\nasync function parseHypergraph(files, helpers) {\n  const file = files.find(f => f.name === \"edge_list.weird\") || files[0];\n  const canonicalHyperedges = [];\n  for (const line of file.text.split(/\\r?\\n/)) {\n    const clean = line.trim();\n    if (!clean || clean.startsWith('#')) continue;\n    const [idPart, rest] = clean.split('::').map(x => x.trim());\n    const time = (rest.match(/\\[\\[time=([^\\]]+)\\]\\]/) || [])[1];\n    const weight = Number((rest.match(/\\[\\[weight=([^\\]]+)\\]\\]/) || [])[1] || 1);\n    const verticesPart = rest.replace(/\\[\\[[^\\]]+\\]\\]/g, '').trim();\n    const vertices = verticesPart.split('~~').map(x => x.trim()).filter(Boolean);\n    canonicalHyperedges.push({ id: idPart, vertices, time, weight, attributes: { raw: clean } });\n  }\n  return { metadata: { source: \"08-weird-delimiters\" }, canonicalHyperedges };\n}\n```\n",
+    "path": "PARSER_SNIPPETS.md"
+  },
+  {
+    "text": "# Custom Parser Edge-List Test Pack\n\nThis pack is designed specifically for testing the **Custom Parser Studio** in Hypergraph Converter Studio.\n\nThe files are intentionally **not** in the same simple format as the built-in app samples. Each folder uses a different multi-file or custom edge-list format. The goal is to edit the custom parser code, upload one folder's files together, run the parser, and verify that the graph changes correctly.\n\nRecommended workflow:\n\n1. Open the app.\n2. Go to **Input normalization → Custom parser**.\n3. Upload all files from one dataset folder.\n4. Paste or adapt the parser snippet from `PARSER_SNIPPETS.md`.\n5. Run parser.\n6. Check JSON preview, logs, warnings, and stats.\n7. Apply output to graph.\n8. Repeat with a different folder to confirm upload refresh and graph replacement.\n\nExpected canonical format returned by parser:\n\n```js\n{\n  metadata: { source: \"custom parser test\" },\n  canonicalHyperedges: [\n    { id: \"h1\", vertices: [\"A\", \"B\"], time: 2026, weight: 1, attributes: {} }\n  ]\n}\n```\n\nDatasets included:\n\n| Folder | Format type | Why it is useful |\n|---|---|---|\n| `01-weighted-temporal-pairs` | Pairwise edge list + node labels | Tests source-target parsing, weights, timestamps, attributes |\n| `02-event-participant-split` | Events file + participants file | Tests multi-file joining into true hyperedges |\n| `03-adjacency-blocks` | Custom adjacency blocks | Tests non-CSV parsing and source-neighbor lists |\n| `04-layered-graph` | Multiple edge files + layer metadata | Tests multi-file format with layers/categories |\n| `05-update-log` | Initial graph + update log | Tests custom rules and applying add/delete updates |\n| `06-matrix-coordinate-list` | Coordinate sparse matrix style | Tests matrix-style graph interpretation |\n| `07-hyperedge-metadata-separated` | Hyperedges, members, metadata split across files | Tests joining IDs across multiple tables |\n| `08-weird-delimiters` | Mixed delimiters and comments | Tests robust line parsing and data cleaning |\n\nAll datasets are synthetic and intentionally small enough to inspect by hand.\n",
+    "path": "README.md"
+  }
+]
+

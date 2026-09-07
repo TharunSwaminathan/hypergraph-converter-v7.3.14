@@ -15,6 +15,9 @@ export const UPLOAD_FILE_EXTENSIONS = Object.freeze([
   ".edge",
   ".edges",
   ".mtx",
+  ".blocks",
+  ".log",
+  ".weird",
 ]);
 
 export const UPLOAD_ACCEPT_ATTRIBUTE = UPLOAD_FILE_EXTENSIONS.join(",");

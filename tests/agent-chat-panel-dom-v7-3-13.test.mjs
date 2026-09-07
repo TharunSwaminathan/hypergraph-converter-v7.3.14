@@ -274,6 +274,24 @@ try {
     });
   }
 
+  const quickLinks = document.querySelector("nav[aria-label='Quick Links']");
+  assert.ok(quickLinks, "persistent Quick Links must render in the Assistant");
+  assert.deepEqual(
+    [...quickLinks.querySelectorAll("button")].map(button => button.textContent.trim()),
+    ["Explain H2V", "Graph stats", "Diagnostics", "Assistant help"],
+  );
+  assert.equal(document.querySelector(".agent-composer__attach"), null, "Assistant composer must not expose Attach");
+  assert.equal([...document.querySelectorAll("button")].some(button => /new batch/i.test(button.textContent)), false, "Assistant must not expose New batch");
+  assert.equal(document.querySelector("input[aria-label='Upload a new file batch to Hypergraph Assistant']"), null, "removed Assistant upload control must not remain invisibly focusable");
+
+  const initialMessageCount = document.querySelectorAll(".agent-message").length;
+  await act(async () => {
+    quickLinks.querySelector("button").click();
+  });
+  await waitFor(() => document.querySelectorAll(".agent-message").length > initialMessageCount, "read-only Quick Link should use the normal Assistant submission path");
+  assert.ok(document.querySelector("nav[aria-label='Quick Links']"), "Quick Links must persist after a read-only response");
+  assert.equal(probe.commitCalls.length, 0, "read-only Quick Link must not mutate the graph");
+
   await submit("Add vertex 6 to hyperedge h2");
   await waitFor(() => document.querySelector(".agent-confirmation"), "graph mutation should stage a confirmation card");
   assert.equal(probe.commitCalls.length, 0, "staging must not commit the graph");
@@ -281,6 +299,7 @@ try {
   await submit("Explain \"Change the pending vertex from 6 to 7\".");
   await waitFor(() => /Explain "Change the pending vertex from 6 to 7"/.test(text()) && document.querySelector(".agent-confirmation"), "read-only pending correction should preserve the staged action");
   assert.ok(document.querySelector(".agent-confirmation"), "read-only pending text must preserve the confirmation card");
+  assert.ok(document.querySelector("nav[aria-label='Quick Links']"), "Quick Links must remain rendered while confirmation is pending");
   assert.equal(probe.commitCalls.length, 0, "read-only pending text must not commit");
 
   await submit("What can you do?");
@@ -307,6 +326,7 @@ try {
   await waitFor(() => /graph mutation applied and verified/i.test(text()) && !document.querySelector(".agent-confirmation"), "exact text confirm should commit and clear pending action");
   assert.equal(probe.commitCalls.length, 1, "confirm should commit exactly once");
   assert.equal(probe.latestState.vertexCount, 5, "committed graph state must be observed through React props");
+  assert.ok(document.querySelector("nav[aria-label='Quick Links']"), "Quick Links must persist after a graph change");
 
   const noOpTraceCount = probe.traces.length;
   await submit("Enable local assistant");

@@ -1,0 +1,51 @@
+import assert from "node:assert/strict";
+import { Window } from "happy-dom";
+import { createServer } from "vite";
+import { CUSTOM_PARSER_TEMPLATE } from "../src/agent/prompts/customParserTemplate.js";
+const window = new Window();
+globalThis.window = window; globalThis.document = window.document;
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+const vite = await createServer({ server: { middlewareMode: true }, appType: "custom", logLevel: "error" });
+const React = await import("react");
+const { act } = React;
+const { createRoot } = await import("react-dom/client");
+const { useCustomParserSpecialist } = await vite.ssrLoadModule("/src/hooks/useCustomParserSpecialist.js");
+const files = ["a.weird", "b.weird"].map((name, i) => ({ id: `f${i}`, name, size: 10, text: "h1: A,B" }));
+let props = { batch: { id: "parent", version: 1, files, parseMode: "separate", detectedFormat: { formatId: "custom" } }, parserCode: "" };
+let api, installCount = 0, modelCalls = 0, modelFailure = false;
+const response = request => JSON.stringify({ task: request.task, summary: "Draft", ...(request.task === "generate_custom_parser" ? { parseMode: JSON.parse(request.messages[1].content).parseMode, fileRoles: [], expectedOutput: "canonicalHyperedges", assumptions: [], testPlan: [] } : { fixes: [] }), parserCode: CUSTOM_PARSER_TEMPLATE, warnings: [], requiresClarification: false, questionsForUser: [] });
+function Harness() {
+  api = useCustomParserSpecialist({ ...props, requestModel: async request => { modelCalls++; if (modelFailure) throw new Error("Unavailable"); return response(request); }, installDraft: (job, selected) => { installCount++; return { ok: true, batch: { ...props.batch, id: "child", files: selected, parseMode: "together" } }; } });
+  return null;
+}
+const root = createRoot(document.createElement("div"));
+const render = async () => act(async () => root.render(React.createElement(Harness)));
+try {
+  await render();
+  await act(async () => { assert.equal((await api.generate()).ok, true); });
+  assert.equal(api.jobs.length, 2); assert.equal(modelCalls, 2); assert.equal(installCount, 0);
+  const id = api.jobs[0].id;
+  let adopted;
+  await act(async () => { adopted = api.adopt(id); });
+  assert.equal(installCount, 1);
+  props = { ...props, batch: adopted.batch, parserBinding: { modelRunId: id }, parserCode: CUSTOM_PARSER_TEMPLATE };
+  await render();
+  assert.equal(api.jobs[0].id, id, "child adopts the same bounded lineage");
+  assert.equal(api.jobs[0].status, "awaiting_run_confirmation");
+  assert.equal((await api.generate("Generate custom parser", id)).ok, false, "no unrelated/missing error may repair");
+  props = { ...props, runtimeError: "Malformed row" }; await render();
+  assert.equal(api.jobs[0].status, "repair_needed");
+  await act(async () => { assert.equal((await api.generate("Generate custom parser", id)).ok, true); });
+  assert.equal(api.jobs[0].attempts, 2);
+  props = { ...props, runtimeError: "", running: true }; await render();
+  assert.equal(api.jobs[0].status, "running_and_validating");
+  props = { ...props, running: false, resultId: "result-1" }; await render();
+  assert.equal(api.jobs[0].status, "awaiting_apply_confirmation");
+  props = { ...props, batch: { ...props.batch, parserStatus: "applied" } }; await render();
+  assert.equal(api.jobs[0].status, "completed");
+  props = { ...props, batch: { ...props.batch, version: 2 } }; await render();
+  assert.equal(api.adopt(id).ok, false, "stale batch cannot adopt a reviewed draft");
+  modelFailure = true;
+  await act(async () => { assert.equal((await api.generate()).ok, false, "failed model is not reported as success"); });
+} finally { await act(async () => root.unmount()); await vite.close(); window.close(); }
+console.log("Scope 1 independent child lineage, error ownership, bounded repair, review/run/apply lifecycle and truthful failure tests passed.");

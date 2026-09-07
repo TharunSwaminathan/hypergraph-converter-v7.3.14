@@ -34,6 +34,7 @@ import TriadStatistic from "./components/TriadStatistic.jsx";
 import AdvancedOptionsPanel from "./components/AdvancedOptionsPanel.jsx";
 import { useAlgorithms } from "./hooks/useAlgorithms.js";
 import AgentChatPanel from "./components/AgentChatPanel.jsx";
+import { useCustomParserSpecialist } from "./hooks/useCustomParserSpecialist.js";
 import {
   analyzeUploadBatch,
   detectUploadedFiles,
@@ -200,6 +201,7 @@ function AppCore() {
   const [customResult, setCustomResult] = useState(null);
   const [customErr, setCustomErr] = useState("");
   const [customRunning, setCustomRunning] = useState(false);
+  const [specialistReviewRequired, setSpecialistReviewRequired] = useState(false);
   const [customLogs, setCustomLogs] = useState([]);
   const [customResultId, setCustomResultId] = useState(null);
   const [parserProfiles, setParserProfiles] = useState(() => loadParserProfiles());
@@ -274,6 +276,10 @@ function AppCore() {
   const agentFiles = activeAgentBatch?.files ?? EMPTY_FILES;
   const agentDetection = activeAgentBatch?.detectedFormat ?? null;
   const activeBatchRef = useRef({ id: activeBatchId, version: activeAgentBatch?.version ?? 0 });
+  const specialistExecutionRef = useRef(null);
+  useEffect(() => {
+    specialistExecutionRef.current = { customCodeVersion, customFiles, batchId: activeBatchId, version: activeAgentBatch?.version, mappingRevision: activeAgentBatch?.mappingRevision, parseMode: activeAgentBatch?.parseMode };
+  }, [customCodeVersion, customFiles, activeBatchId, activeAgentBatch?.version, activeAgentBatch?.mappingRevision, activeAgentBatch?.parseMode]);
 
   useEffect(() => {
     activeBatchRef.current = { id: activeBatchId, version: activeAgentBatch?.version ?? 0 };
@@ -351,6 +357,11 @@ function AppCore() {
   }, []);
 
   function updateCustomCode(code, source = "user", binding = undefined) {
+    if (specialistReviewRequired || binding?.modelRunId?.startsWith("specialist-")) {
+      setCustomResult(null); setCustomResultId(null); setCustomErr("");
+    }
+    if (source === "default" || source === "example") setSpecialistReviewRequired(false);
+    else if (binding?.modelRunId?.startsWith("specialist-")) setSpecialistReviewRequired(true);
     setCustomCode(code);
     setCustomCodeSource(source);
     if (binding !== undefined) setCustomCodeBinding(binding);
@@ -2906,6 +2917,11 @@ function AppCore() {
   }
 
   async function runCustom() {
+    const specialistSnapshot = specialistReviewRequired ? specialistExecutionRef.current : null;
+    const staleSpecialistRun = () => specialistSnapshot && specialistSnapshot !== specialistExecutionRef.current;
+    if (specialistReviewRequired && !customCodeBinding?.modelRunId?.startsWith("specialist-")) {
+      return { ok: false, error: "This reviewed specialist draft is no longer bound to the active dataset. Generate and review a current draft before running it." };
+    }
     const bindingCheck = validateParserBatchBinding(customCodeBinding, activeAgentBatch, agentFileBatches);
     if (!bindingCheck.ok) return bindingCheck;
     const activeIds = new Set(agentFiles.map(file => file.id));
@@ -2916,6 +2932,7 @@ function AppCore() {
     setCustomErr(""); setCustomResult(null); setCustomResultId(null); setCustomLogs([]); setCustomRunning(true);
     try {
       const raw = await runCustomParser(customCode, customFiles);
+      if (staleSpecialistRun()) return { ok: false, error: "Parser source or dataset changed during execution. The stale result was discarded." };
       setCustomLogs(raw.logs ?? []);
       const normalized = normalizeCustomParserOutput(raw.result);
       setCustomResult(normalized);
@@ -2924,6 +2941,7 @@ function AppCore() {
       setCustomLogs(prev => [...prev, `✓ ${normalized.hyperedges.length} hyperedges parsed from ${normalized.source}.`]);
       if (normalized.warnings?.length) setCustomLogs(prev => [...prev, ...normalized.warnings.map(w => "⚠ " + w)]);
       if (normalized.hyperedges.length === 0) {
+        if (specialistSnapshot) { setCustomErr("Custom parser returned no hyperedges."); setCustomResult(null); setCustomResultId(null); }
         updateBatchParserStatus(customCodeBinding?.batchId, "failed");
         return { ok: false, error: "Custom parser returned no hyperedges." };
       }
@@ -2989,6 +3007,7 @@ function AppCore() {
       }
       return { ok: true, hyperedgeCount: normalized.hyperedges.length, resultId: nextResultId, suspiciousWarnings, expectedOutputComparison, parserReconciliation };
     } catch (e) {
+      if (staleSpecialistRun()) return { ok: false, error: "Parser source or dataset changed during execution. The stale error was discarded." };
       const message = e instanceof Error ? e.message : String(e);
       setCustomErr(message); setCustomResultId(null); setCustomLogs(e.logs ?? []);
       if (["model", "deterministic", "mapping"].includes(customCodeSource)) {
@@ -3972,7 +3991,45 @@ function AppCore() {
     [activeAgentBatch?.datasetProfile, agentFiles, customFiles, parserProfiles],
   );
 
+  const specialist = useCustomParserSpecialist({
+    batch: activeAgentBatch,
+    runtimeError: customErr,
+    parserBinding: customCodeBinding, parserCode: customCode, running: customRunning, resultId: customResultId,
+    requestModel: async request => {
+      if (localModelConfig.enabled === false || localModelStatus !== "connected") throw new Error("Connect the local Ollama model before generating a parser draft.");
+      const result = await runExclusiveLocalModelTask({
+        task: "custom_parser_specialist", message: "Generating a reviewed parser draft…", timeoutMs: localModelConfig.timeoutMs,
+        run: async callbacks => ({ ok: true, raw: await generateWithLocalModel(effectiveLocalModelConfig(), request, callbacks), request }),
+      });
+      if (!result.ok) throw new Error(result.error ?? "Local model request failed.");
+      return result.raw;
+    },
+    installDraft: (job, files) => {
+      let target = activeAgentBatch;
+      if (target.parseMode === "separate" && target.files.length > files.length) {
+        const number = ++batchCounterRef.current;
+        target = buildAgentBatch(files, `batch-${number}`, `${target.label} — ${files[0].name}`, "together");
+        setAgentFileBatches(current => [...current.map(batch => ({ ...batch, status: "inactive" })), target]);
+        setActiveBatchId(target.id); setLastTouchedBatchId(target.id); setBatchVersion(value => value + 1);
+      }
+      setCustomFiles(files);
+      updateCustomCode(job.code, "model", { batchId: target.id, batchVersion: target.version ?? 1, parseMode: target.parseMode, mappingRevision: target.mappingRevision ?? 0, modelRunId: job.id });
+      setCustomResult(null); setCustomResultId(null); setCustomErr(""); setCustomLogs([]);
+      setFmt("custom"); setErr("");
+      return { ok: true, batch: target };
+    },
+  });
+
+  const specialistBindingCurrent = specialistReviewRequired
+    && customCodeBinding?.modelRunId?.startsWith("specialist-")
+    && validateParserBatchBinding(customCodeBinding, activeAgentBatch, agentFileBatches).ok
+    && customFiles.length > 0;
   const agentState = {
+    specialistReviewRequired,
+    specialistRunReady: Boolean(specialistBindingCurrent && customCode.trim()),
+    specialistApplyReady: Boolean(specialistBindingCurrent && customResultId),
+    specialist: { policy: specialist.policy, jobs: specialist.jobs, working: specialist.working },
+    customCode,
     fmt,
     formatLabel: FMTS.find(f => f.id === fmt)?.label ?? fmt,
     activeSection,
@@ -4684,6 +4741,9 @@ function AppCore() {
   }
 
   const agentActions = {
+    requestParserSpecialist: specialist.generate,
+    adoptSpecialistDraft: specialist.adopt,
+    repairSpecialistDraft: id => customErr ? specialist.generate("Generate custom parser", id) : Promise.resolve({ ok: false, error: "No runtime error is available. Run the reviewed draft through the existing confirmation workflow first." }),
     uploadAgentFiles,
     openBatchUpdates: () => {
       setActiveToolsSection("advanced");
@@ -4907,11 +4967,11 @@ function AppCore() {
               </div>
               <textarea rows={14} value={customCode} onChange={e => updateCustomCode(e.target.value, "user")} style={{ ...inputSt, fontFamily: "monospace", fontSize: 12 }} />
               <div style={{ display: "flex", gap: 10, marginTop: 12, alignItems: "center", flexWrap: "wrap" }}>
-                <button onClick={runCustom} disabled={customRunning} style={{ padding: "9px 24px", borderRadius: 8, background: customRunning ? T.textFaint : T.teal, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: customRunning ? "not-allowed" : "pointer" }}>
+                <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Run custom parser in Assistant to review its confirmation.")) : runCustom()} disabled={customRunning} style={{ padding: "9px 24px", borderRadius: 8, background: customRunning ? T.textFaint : T.teal, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: customRunning ? "not-allowed" : "pointer" }}>
                   {customRunning ? "Running…" : "▶ Run Parser"}
                 </button>
                 {customResult && (
-                  <button onClick={applyCustomResult} style={{ padding: "9px 20px", borderRadius: 8, background: T.green, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>
+                  <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Apply parser result in Assistant to review its confirmation.")) : applyCustomResult()} style={{ padding: "9px 20px", borderRadius: 8, background: T.green, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>
                     Apply to graph →
                   </button>
                 )}

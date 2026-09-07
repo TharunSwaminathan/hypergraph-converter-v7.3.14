@@ -1,0 +1,46 @@
+{
+  "version": "7.3.14",
+  "scope": "To-Be Chatbot Scope 1, Stages 1-3",
+  "auditDate": "2026-09-07",
+  "baselineCommit": "3ae0054d2bf9069e0f1804906cc37f3af415d2d1",
+  "result": "pass",
+  "openScope1Critical": 0,
+  "openScope1High": 0,
+  "openScope1Medium": 0,
+  "findings": [
+    { "id": "S1-H01", "severity": "High", "status": "fixed", "title": "Emitted Worker source was syntactically invalid in browsers", "correction": "Serialize the nested function body and remove strict-mode eval formal parameter.", "evidence": ["tests/scope1-worker-emission.test.mjs", "tests/scope1-browser.html"] },
+    { "id": "S1-H02", "severity": "High", "status": "fixed", "title": "Specialist run confirmation transition was unreachable", "correction": "Add an exact positive specialist-only adapter that stages the existing confirmation dispatcher.", "evidence": ["tests/scope1-persistence-trigger-specialist.test.mjs", "production browser confirmation sequence"] },
+    { "id": "S1-H03", "severity": "High", "status": "fixed", "title": "Worker result could publish after source or dataset change", "correction": "Snapshot source version/files/batch/mapping/mode and discard stale result or error.", "evidence": ["src/App.jsx", "tests/scope1-specialist-lifecycle.test.mjs"] },
+    { "id": "S1-H04", "severity": "High", "status": "fixed", "title": "Separate child adoption lost parser lineage", "correction": "Transfer the same bounded job ID and binding to the created child batch.", "evidence": ["tests/scope1-specialist-lifecycle.test.mjs"] },
+    { "id": "S1-H05", "severity": "High", "status": "fixed", "title": "Failed generation could report success", "correction": "Short-circuit on the first failed group and return its failure.", "evidence": ["tests/scope1-specialist-lifecycle.test.mjs"] },
+    { "id": "S1-H06", "severity": "High", "status": "fixed", "title": "Composer could remain busy after generation settled", "correction": "Reconcile busy state from committed specialist and model-coordinator props.", "evidence": ["production browser generation sequence"] },
+    { "id": "S1-H07", "severity": "High", "status": "fixed", "title": "Repair could consume unrelated source or runtime error", "correction": "Require exact installed lineage source/binding and its own current runtime error.", "evidence": ["tests/scope1-specialist-lifecycle.test.mjs"] },
+    { "id": "S1-H08", "severity": "High", "status": "fixed", "title": "Concurrent message append could lose a turn", "correction": "Perform load-normalize-append-put in one IndexedDB readwrite transaction.", "evidence": ["tests/scope1-browser.html"] },
+    { "id": "S1-H09", "severity": "High", "status": "fixed", "title": "Old generated draft could become unbound after a later upload", "correction": "Require a current specialist modelRunId/batch binding both when enabling confirmation and inside the existing runner.", "evidence": ["tests/scope1-persistence-trigger-specialist.test.mjs", "src/App.jsx"] },
+    { "id": "S1-M01", "severity": "Medium", "status": "fixed", "title": "Custom-result verification could race React state", "correction": "Poll the bounded result ID until the existing run settles.", "evidence": ["production browser run sequence"] },
+    { "id": "S1-M02", "severity": "Medium", "status": "fixed", "title": "Zero-hyperedge run retained misleading result state", "correction": "Clear generated result/result ID and report failure.", "evidence": ["src/App.jsx"] },
+    { "id": "S1-M03", "severity": "Medium", "status": "fixed", "title": "Recovery references could outlive a real upload", "correction": "Permanently yield restored references after observing current workspace files.", "evidence": ["src/persistence/usePersistentThread.js", "production browser reload sequence"] },
+    { "id": "S1-M04", "severity": "Medium", "status": "fixed", "title": "Relationship prompt evidence omitted exact columns", "correction": "Include bounded participating left/right columns and exactness evidence.", "evidence": ["tests/scope1-persistence-trigger-specialist.test.mjs"] },
+    { "id": "S1-M05", "severity": "Medium", "status": "fixed", "title": "Specialist UI did not expose actual run/apply lifecycle", "correction": "Derive installed job states from existing runner/result/apply state.", "evidence": ["tests/scope1-specialist-lifecycle.test.mjs", "production browser sequence"] },
+    { "id": "S1-L01", "severity": "Low", "status": "open", "title": "Whole-state saves are last-writer-wins across simultaneous tabs", "mitigation": "Per-instance saves are serialized and the store exposes atomic saveMessage; cross-tab merge is deferred." },
+    { "id": "S1-L02", "severity": "Low", "status": "open", "title": "Manual edits detach a draft from automatic repair lineage", "mitigation": "Edited source still requires run/apply confirmations; reopen or regenerate a tracked draft for automatic repair." }
+  ],
+  "environmentNotes": [
+    { "id": "ENV-01", "status": "not_executed", "title": "Live Ollama held-out dataset 07", "reason": "ollama command absent and 127.0.0.1:11434 connection refused", "notEquivalentEvidence": "Controlled-response 07 validates workflow/Worker only." },
+    { "id": "ENV-02", "status": "external_preexisting", "title": "Development npm audit advisory", "detail": "browserslist <=4.28.6 has one High development-only advisory; npm audit --omit=dev reports zero vulnerabilities; dependency changes were not authorized." },
+    { "id": "ENV-03", "status": "resolved_for_gate", "title": "Python absent from shell PATH", "detail": "First suite run stopped at portable ZIP test; rerun with bundled Python/Node passed 225/225." }
+  ],
+  "qualification": {
+    "npmTest": "pass: 225/225 files, 95.0s final post-corrective rerun",
+    "npmLint": "pass",
+    "npmBuild": "pass: 219 modules",
+    "npmBuildGithub": "pass: 219 modules, pre-existing chunk warning",
+    "npmAudit": "one pre-existing High development-only browserslist advisory",
+    "npmAuditOmitDev": "pass: 0 vulnerabilities",
+    "gitDiffCheck": "pass",
+    "nativeBrowser": "pass; no console warnings/errors",
+    "productionBrowser": "pass; no console warnings/errors",
+    "liveOllama": "not executed: unavailable"
+  },
+  "scope2Started": false
+}
