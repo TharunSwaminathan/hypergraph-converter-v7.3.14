@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "candy.audit-issue-register/1",
+  "phase": "A",
+  "baseline": "7b8fd71e2951482b3c30a6be9ec8886e86d2c1be",
+  "result": "PASS",
+  "openCritical": 0,
+  "openHigh": 0,
+  "issues": [
+    {
+      "id": "CANDY-A-001",
+      "severity": "High",
+      "status": "closed",
+      "title": "Incremental references lacked structural and version binding",
+      "closure": "Exact property/update reference validation and stale-state tests added."
+    },
+    {
+      "id": "CANDY-A-002",
+      "severity": "Medium",
+      "status": "closed",
+      "title": "Hypergraph integration test stopped at contradictory metadata",
+      "closure": "Valid Hypergraph request fixture now asserts INVALID_GRAPH_TYPE."
+    },
+    {
+      "id": "CANDY-A-003",
+      "severity": "Medium",
+      "status": "closed",
+      "title": "Vertex mapping used locale collation",
+      "closure": "Replaced with exact type-tagged code-unit lexical ordering."
+    },
+    {
+      "id": "CANDY-A-004",
+      "severity": "Medium",
+      "status": "closed",
+      "title": "Result observation bounds and COMPARE validation were incomplete",
+      "closure": "Added execution/validation separation, strict COMPARE success, and observation bounds."
+    },
+    {
+      "id": "CANDY-A-005",
+      "severity": "Medium",
+      "status": "closed",
+      "title": "Zero algorithm-state version was accepted",
+      "closure": "Property state versions must be positive; zero fails STALE_PROPERTY_STATE."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "candy.audit-issue-register/1",
+  "phase": "B",
+  "baseline": "7b8fd71e2951482b3c30a6be9ec8886e86d2c1be",
+  "result": "PASS",
+  "openCritical": 0,
+  "openHigh": 0,
+  "issues": [
+    { "id": "CANDY-B-001", "severity": "High", "status": "closed", "title": "Native request lacked an explicit graph type", "closure": "Mandatory native graph_type with fail-closed INVALID_GRAPH_TYPE." },
+    { "id": "CANDY-B-002", "severity": "High", "status": "closed", "title": "Equal-distance parent rewrites could create zero-weight cycles", "closure": "Strict-improvement parents, source-rooted cycle validation, and regression fixture." },
+    { "id": "CANDY-B-003", "severity": "Medium", "status": "closed", "title": "Request and inline result bounds were not aligned", "closure": "64 MiB request and 10,000-vertex bounded POC limits plus update-size checks." },
+    { "id": "CANDY-B-004", "severity": "Medium", "status": "closed", "title": "Stale graph and stale property classifications were conflated", "closure": "Distinct deterministic codes and qualification cases." },
+    { "id": "CANDY-B-005", "severity": "Medium", "status": "closed", "title": "Projected graph provenance was not asserted natively", "closure": "Projected requests require a SHA-256 provenance artifact ID." },
+    { "id": "CANDY-B-006", "severity": "Low", "status": "open", "title": "ThreadSanitizer not qualified", "disposition": "Non-blocking POC limitation; no TSan claim made." },
+    { "id": "CANDY-B-007", "severity": "Low", "status": "accepted", "title": "Prior-state authentication uses static Dijkstra", "disposition": "Correctness-first POC behavior recorded as preparation cost." }
+  ]
+}
