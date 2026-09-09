@@ -26,7 +26,9 @@ function observationFactory(stateRef, options = {}) {
 // Strict schema: malformed, extra fields, invented actions and bad arguments fail closed.
 assert.equal(validateOrchestratorStep("not json", []).ok, false);
 assert.equal(validateOrchestratorStep(JSON.stringify({ outcome: "FINAL_RESPONSE", action: null, arguments: {}, requiresUserInput: false, userMessage: "Done", finish: true, thought: "hidden" }), []).ok, false);
+assert.equal(validateOrchestratorStep(JSON.stringify({ outcome: "PROPOSE_ACTION", action: "OPEN_GRAPH_PREVIEW", arguments: {}, requiresUserInput: false, userMessage: "", finish: false }), ["OPEN_GRAPH_PREVIEW"]).ok, false);
 assert.equal(validateOrchestratorStep(action("INVENTED_TOOL"), ["SHOW_RESULT_SUMMARY"]).ok, false);
+assert.equal(validateOrchestratorStep(action("OPEN_GRAPH_PREVIEW", { graphId: "invented-graph" }), ["OPEN_GRAPH_PREVIEW"]).ok, false);
 assert.equal(validateOrchestratorStep(action("SET_VIZ_LIMIT", { limit: 0 }), ["SET_VIZ_LIMIT"]).ok, false);
 assert.equal(validateOrchestratorStep(action("SET_VIZ_LIMIT", { limit: 100, code: "alert(1)" }), ["SET_VIZ_LIMIT"]).ok, false);
 assert.equal(validateOrchestratorStep(final("Done"), []).ok, true);
@@ -52,7 +54,12 @@ const request = buildReactOrchestratorRequest({ userQuery: "Convert this", obser
 assert.equal(request.messages.length, 2);
 assert.match(request.messages[0].content, /not the authority/i);
 assert.match(request.messages[0].content, /exactly ONE safe next step/i);
+assert.match(request.messages[0].content, /userMessage must be the JSON literal null \(never an empty string\)/i);
+assert.match(request.messages[0].content, /empty key list requires arguments to be exactly \{\}/i);
 assert.equal(request.messages[1].content.includes("context_only"), true);
+const requestPayload = JSON.parse(request.messages[1].content);
+assert.deepEqual(requestPayload.allowedActionArgumentKeys.START_CUSTOM_PARSER_WORKFLOW, []);
+assert.deepEqual(requestPayload.allowedActionArgumentKeys.SET_GRAPH_LAYOUT, ["layout"]);
 assert.ok(request.promptChars <= 30000);
 
 // Unresolved unsupported multi-file grouping asks the exact question and makes no model/tool call.

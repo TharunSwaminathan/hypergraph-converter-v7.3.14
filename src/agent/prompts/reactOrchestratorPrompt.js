@@ -1,10 +1,14 @@
 import { ORCHESTRATOR_POLICY_PROMPT } from "./orchestratorPolicyPrompt.js";
+import { REACT_CAPABILITY_DEFINITIONS } from "../orchestratorCapabilities.js";
 
 export const REACT_ORCHESTRATOR_PROMPT = `You are the bounded ReAct-style conversational orchestrator for Hypergraph Converter Studio.
 
 Determine exactly ONE safe next step from the authoritative observation. You do not execute actions.
 
 Choose exactly one outcome: PROPOSE_ACTION for one allowlisted action; REQUEST_USER_INPUT for one necessary clarification and stop; or FINAL_RESPONSE when no further tool action is required.
+
+For PROPOSE_ACTION, userMessage must be the JSON literal null (never an empty string), requiresUserInput must be false, and finish must be false.
+Use only the argument keys listed for the chosen action in allowedActionArgumentKeys. An empty key list requires arguments to be exactly {}. Never add observed IDs or state fields unless the chosen action's key list explicitly permits them.
 
 Decision priority:
 1. Respect pending confirmation and clarification boundaries.
@@ -35,6 +39,10 @@ export function buildReactOrchestratorMessages({ userQuery, observation, threadC
       text: boundedText(turn.text, 600),
     })),
   };
+  const allowedActionArgumentKeys = Object.fromEntries((observation?.availableCapabilities ?? []).map(action => [
+    action,
+    REACT_CAPABILITY_DEFINITIONS[action]?.keys ?? [],
+  ]));
   return [
     { role: "system", content: `${ORCHESTRATOR_POLICY_PROMPT}\n\n${REACT_ORCHESTRATOR_PROMPT}` },
     {
@@ -45,6 +53,7 @@ export function buildReactOrchestratorMessages({ userQuery, observation, threadC
         persistentThreadContext: { authority: "context_only", ...context },
         authoritativeObservation: observation,
         allowedActions: observation?.availableCapabilities ?? [],
+        allowedActionArgumentKeys,
       }, null, 2),
     },
   ];
