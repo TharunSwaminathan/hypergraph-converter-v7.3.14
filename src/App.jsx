@@ -123,6 +123,8 @@ import { autoRepairMappingSpec } from "./agent/mappingSpecAutoRepair.js";
 import { validateMappingWithSeverity } from "./agent/mappingSpecValidationSeverity.js";
 import { buildOllamaOrchestratorRequest } from "./agent/ollamaOrchestrator.js";
 import { validateOrRepairActionPlan } from "./agent/orchestrationPlanner.js";
+import { buildReactOrchestratorRequest } from "./agent/reactOrchestrator.js";
+import { reactOrchestratorEnabled } from "./agent/reactOrchestratorConfig.js";
 import { getAiPromptTarget, isAiPromptTargetId } from "./agent/prompts/externalAiPromptPrompt.js";
 import { analyzeDeterministicNlu } from "./agent/deterministicNlu/deterministicNlu.js";
 import { compileDeterministicAction } from "./agent/deterministicNlu/compileDeterministicAction.js";
@@ -4025,6 +4027,7 @@ function AppCore() {
     && validateParserBatchBinding(customCodeBinding, activeAgentBatch, agentFileBatches).ok
     && customFiles.length > 0;
   const agentState = {
+    reactOrchestratorEnabled: reactOrchestratorEnabled(),
     specialistReviewRequired,
     specialistRunReady: Boolean(specialistBindingCurrent && customCode.trim()),
     specialistApplyReady: Boolean(specialistBindingCurrent && customResultId),
@@ -4740,6 +4743,44 @@ function AppCore() {
     });
   }
 
+  async function runReactOrchestratorStep({ userQuery, observation, threadContext = {} } = {}) {
+    const effective = effectiveLocalModelConfig();
+    if (!reactOrchestratorEnabled()) return { ok: false, fallbackAllowed: true, classification: "feature_disabled", error: "The ReAct orchestrator feature is disabled." };
+    if (effective.runtime !== "ollama" || !effective.model.trim() || localModelStatus !== "connected") {
+      return { ok: false, fallbackAllowed: true, classification: "model_unavailable", error: "The connected local Ollama model is unavailable for ReAct orchestration." };
+    }
+    return runExclusiveLocalModelTask({
+      task: "react_orchestrator_step",
+      message: "Asking local Ollama for one bounded dashboard action…",
+      timeoutMs: LOCAL_MODEL_TASK_TIMEOUTS.action_planner,
+      run: async ({ signal, timeoutMs, onMetrics }) => {
+        try {
+          const request = buildReactOrchestratorRequest({ userQuery, observation, threadContext });
+          const raw = await generateWithLocalModel(effective, request, { signal, timeoutMs, onMetrics });
+          setModelDebug({
+            batchId: activeAgentBatch?.id ?? null,
+            batchVersion: activeAgentBatch?.version ?? null,
+            task: "react_orchestrator_step",
+            modelRunId: `react-${++modelRunCounterRef.current}`,
+            modelRuntime: "ollama",
+            modelName: effective.model,
+            promptSummary: { promptChars: request.promptChars, observationChars: JSON.stringify(observation).length, capabilitiesOnly: true },
+            lastRawResponse: rawResponsePreview(raw),
+            repairAttempts: 0,
+            attempts: [{ task: "react_orchestrator_step", attempt: 0, status: "returned_for_deterministic_validation" }],
+          });
+          setLocalModelStatus("connected");
+          setLocalModelMessage("Ollama returned one ReAct proposal. Deterministic validation remains authoritative.");
+          return { ok: true, raw, promptChars: request.promptChars };
+        } catch (error) {
+          const classified = formatActionableRuntimeError(error, effective);
+          setLocalModelMessage(error instanceof Error ? error.message : String(error));
+          return { ok: false, fallbackAllowed: true, error: error instanceof Error ? error.message : String(error), classification: classified.classification };
+        }
+      },
+    });
+  }
+
   const agentActions = {
     requestParserSpecialist: specialist.generate,
     adoptSpecialistDraft: specialist.adopt,
@@ -4786,6 +4827,7 @@ function AppCore() {
     runLocalConversation,
     summarizeLocalConversation,
     runOllamaOrchestrator,
+    runReactOrchestratorStep,
     stopLocalModelRequest,
     updateLocalModelSettings,
     testConfiguredLocalModel,

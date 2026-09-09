@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-08",
+  "baseline": "3464a12ab6d420cbaca12e5bf387172f2ac8e379",
+  "tag": "to-be-chatbot-scope1-qualified",
+  "branch": "scope2-react",
+  "result": "PASS_WITH_LOW_LIMITATIONS",
+  "counts": { "critical": 0, "high": 5, "medium": 2, "low": 2, "openCritical": 0, "openHigh": 0, "openMedium": 0, "openLow": 2 },
+  "findings": [
+    { "id": "S2-H01", "severity": "High", "status": "closed", "title": "Stale continuation could target a changed dataset", "resolution": "Continuation now validates active dataset identity and the exact pre-clarification state-version token before grouping or resumption." },
+    { "id": "S2-H02", "severity": "High", "status": "closed", "title": "Model final response could claim unobserved success", "resolution": "Success claims require an observed successful tool result; otherwise the response fails closed to deterministic fallback." },
+    { "id": "S2-H03", "severity": "High", "status": "closed", "title": "Documentation/descriptive requests could reach mutation confirmation", "resolution": "A shared clause-aware read-only guard runs before ReAct/model/tool mutation routing, with held-out documentation/manual/reference/role-play coverage and a positive mixed-clause contrast." },
+    { "id": "S2-H04", "severity": "High", "status": "closed", "title": "Thrown authorization, confirmation, or tool failures escaped structured loop handling", "resolution": "Authorization and confirmation exceptions stop fail-closed; tool exceptions become bounded actual-result observations." },
+    { "id": "S2-H05", "severity": "High", "status": "closed", "title": "Custom Parser workflow proposal could borrow authority from an unrelated positive clause", "resolution": "START_CUSTOM_PARSER_WORKFLOW now requires an explicit non-denied workflow clause; legitimate unsupported-file conversion remains reachable." },
+    { "id": "S2-M01", "severity": "Medium", "status": "closed", "title": "Observation version omitted route and visualization state", "resolution": "Input route, section, export preview, visual limit, graph view/layout/search are now observed and version-bound." },
+    { "id": "S2-M02", "severity": "Medium", "status": "closed", "title": "Next ReAct observation could race a typed React state update", "resolution": "Typed dispatch now yields two animation frames before the next authoritative observation; confirmation actions still stop immediately." },
+    { "id": "S2-L01", "severity": "Low", "status": "open_environment", "title": "Live Ollama model quality not qualified", "resolution": "Ollama was not on PATH and localhost:11434 refused connection. Controlled responses validate workflow, not live-model quality." },
+    { "id": "S2-L02", "severity": "Low", "status": "accepted_preexisting", "title": "Development-only Browserslist advisory and large bundle advisory remain", "resolution": "npm audit reports one High advisory in a dev-only transitive package; npm audit --omit=dev reports zero. Dependency modernization and unrelated chunk splitting were explicitly out of scope." }
+  ]
+}

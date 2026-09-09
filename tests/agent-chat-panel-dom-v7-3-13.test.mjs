@@ -35,6 +35,7 @@ try {
     traces: [],
     prepareCalls: [],
     commitCalls: [],
+    reactCalls: 0,
     settingUpdates: [],
     latestState: null,
   };
@@ -211,6 +212,10 @@ try {
       runLocalConversation() {
         return { ok: false, error: "Local conversation disabled in DOM probe." };
       },
+      runReactOrchestratorStep() {
+        probe.reactCalls += 1;
+        return { ok: false, error: "ReAct must not be called by deterministic DOM commands." };
+      },
       getGitHubPagesRuntimeHelp() {
         return { ok: true, message: "GitHub Pages setup help is available in README.md." };
       },
@@ -291,10 +296,12 @@ try {
   await waitFor(() => document.querySelectorAll(".agent-message").length > initialMessageCount, "read-only Quick Link should use the normal Assistant submission path");
   assert.ok(document.querySelector("nav[aria-label='Quick Links']"), "Quick Links must persist after a read-only response");
   assert.equal(probe.commitCalls.length, 0, "read-only Quick Link must not mutate the graph");
+  assert.equal(probe.reactCalls, 0, "deterministic Quick Link must make zero ReAct calls");
 
   await submit("Add vertex 6 to hyperedge h2");
   await waitFor(() => document.querySelector(".agent-confirmation"), "graph mutation should stage a confirmation card");
   assert.equal(probe.commitCalls.length, 0, "staging must not commit the graph");
+  assert.equal(probe.reactCalls, 0, "exact deterministic graph mutation must make zero ReAct calls");
 
   await submit("Explain \"Change the pending vertex from 6 to 7\".");
   await waitFor(() => /Explain "Change the pending vertex from 6 to 7"/.test(text()) && document.querySelector(".agent-confirmation"), "read-only pending correction should preserve the staged action");

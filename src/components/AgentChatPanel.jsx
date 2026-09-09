@@ -61,6 +61,10 @@ import "./AgentChatPanel.css";
 import { usePersistentThread } from "../persistence/usePersistentThread.js";
 import { isExplicitParserRequest, specialistConfirmationRequest } from "../agent/customParserTriggerPolicy.js";
 import CustomParserSpecialistPanel from "./CustomParserSpecialistPanel.jsx";
+import { buildAuthoritativeOrchestratorObservation } from "../agent/orchestratorObservation.js";
+import { requestMustRemainReadOnly, runBoundedOrchestrator } from "../agent/orchestratorLoop.js";
+import { START_CUSTOM_PARSER_WORKFLOW } from "../agent/orchestratorCapabilities.js";
+import { reactOrchestratorEnabled } from "../agent/reactOrchestratorConfig.js";
 
 const SUGGESTIONS = [
   "Explain H2V",
@@ -231,6 +235,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   const [input, setInput] = useState("");
   const [pendingAction, setPendingAction] = useState(null);
   const [pendingContinuation, setPendingContinuation] = useState(null);
+  const [reactContinuation, setReactContinuationState] = useState(null);
   const [busy, setBusyState] = useState(false);
   const [includeFullTrainingFiles, setIncludeFullTrainingFiles] = useState(false);
   const [renamingBatchId, setRenamingBatchId] = useState(null);
@@ -257,6 +262,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   const pendingContinuationRef = useRef(null);
   const expectedContinuationTransitionRef = useRef(null);
   const resumingContinuationRef = useRef(false);
+  const reactContinuationRef = useRef(null);
   const activeBatchSignature = activeBatchFileSignature(agentState);
   const hasSpecialist = Boolean(agentState.specialist);
   // The model coordinator may settle before its React props reach submit's
@@ -354,6 +360,10 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   useEffect(() => {
     pendingContinuationRef.current = pendingContinuation;
   }, [pendingContinuation]);
+
+  useEffect(() => {
+    reactContinuationRef.current = reactContinuation;
+  }, [reactContinuation]);
 
   useEffect(() => {
     const currentState = latestStateRef.current;
@@ -1373,6 +1383,139 @@ export default function AgentChatPanel({ agentState, agentActions }) {
     }
   }
 
+  function currentReactObservation(lastToolResult = null) {
+    return buildAuthoritativeOrchestratorObservation({
+      state: latestStateRef.current,
+      threadId: "main",
+      threadSummary: conversationMemory.summary,
+      pendingConfirmation: pendingAction,
+      lastToolResult,
+      restoredWorkspace: persistence.restoredWorkspace,
+    });
+  }
+
+  function capabilityActionPlan(action, argumentsValue, query) {
+    return {
+      actions: [{
+        type: action,
+        ...argumentsValue,
+        requiresConfirmation: capabilityRequiresConfirmation(action, latestStateRef.current),
+        reason: "One validated ReAct proposal delegated to the existing typed dispatcher.",
+        userIntent: query,
+      }],
+      needsClarification: false,
+      clarifyingQuestion: null,
+    };
+  }
+
+  function authorizeReactAction({ action, arguments: argumentsValue, userQuery }) {
+    const semantics = analyzeRequestSemantics(userQuery);
+    if (requestMustRemainReadOnly(userQuery, semantics)) {
+      return { allowed: false, reason: "The request is read-only, quoted, hypothetical, or negated." };
+    }
+    if (action === START_CUSTOM_PARSER_WORKFLOW) {
+      const isWorkflowClause = text => /\b(convert|parse|process|generate|create|write|build)\b/i.test(text)
+        && /\b(file|files|upload|dataset|data|parser|graph|these|this)\b/i.test(text);
+      const deniedWorkflowClause = semantics.authorization?.deniedClauses?.some(clause => clause.scopes?.denied && isWorkflowClause(clause.text));
+      const explicitWorkflowRequest = isWorkflowClause(userQuery) && !deniedWorkflowClause;
+      return semantics.safeWorkflowPreparation || explicitWorkflowRequest
+        ? { allowed: true }
+        : { allowed: false, reason: "The request did not positively authorize parser workflow preparation." };
+    }
+    const plan = planFromCapabilityAction({ type: action, ...argumentsValue }, latestStateRef.current);
+    const decision = authorizationAllowsSideEffect(analyzePositiveAuthorization(userQuery), sideEffectScopeForAgentPlan(plan));
+    return decision.allowed ? { allowed: true } : { allowed: false, reason: "The exact positive request did not authorize the proposed capability." };
+  }
+
+  async function executeReactCapability({ action, arguments: argumentsValue }, query) {
+    if (action === START_CUSTOM_PARSER_WORKFLOW) {
+      const result = await agentActions.requestParserSpecialist("Generate custom parser");
+      append("agent", result.message ?? result.error ?? "The Custom Parser Specialist stopped without a result.", result.ok ? "status" : "error");
+      return executionOutcome({
+        ok: Boolean(result.ok),
+        outcome: result.ok ? "custom_parser_ready_for_review" : "custom_parser_generation_failed",
+        changedState: Boolean(result.ok),
+        mutationKind: result.ok ? "parser_draft" : null,
+        error: result.ok ? null : result.error,
+        details: result,
+        stop: true,
+      });
+    }
+    const result = await dispatchOllamaActionPlan(capabilityActionPlan(action, argumentsValue, query), query);
+    // Typed dispatch may commit through App state before the new props reach
+    // latestStateRef. Let that authoritative render settle before ReAct observes
+    // the next step; confirmation actions stop at this boundary regardless.
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    return result;
+  }
+
+  async function runReactActionPath(query) {
+    const result = await runBoundedOrchestrator({
+      userQuery: query,
+      getObservation: lastToolResult => currentReactObservation(lastToolResult),
+      callModel: request => agentActions.runReactOrchestratorStep({
+        ...request,
+        threadContext: {
+          summary: conversationMemory.summary,
+          recentTurns: messages.slice(-8),
+        },
+      }),
+      authorizeAction: authorizeReactAction,
+      executeAction: step => executeReactCapability(step, query),
+      stageConfirmation: step => executeReactCapability(step, query),
+      fallback: async ({ reason }) => {
+        append("agent", `The bounded ReAct proposal was unavailable or invalid, so I used the existing deterministic planner. No unvalidated model action was executed. ${reason}`, "warning");
+        return dispatchOllamaActionPlan(buildDeterministicActionPlan(query, latestStateRef.current), query);
+      },
+    });
+    if (result.continuation) {
+      reactContinuationRef.current = result.continuation;
+      setReactContinuationState(result.continuation);
+    }
+    if (result.outcome === "request_user_input" && result.userMessage) append("agent", result.userMessage, "warning");
+    else if (result.outcome === "final_response" && result.userMessage) append("agent", result.userMessage);
+    else if (["max_steps_reached", "repeated_action_blocked", "authorization_blocked", "invalid_step", "model_unavailable"].includes(result.outcome)) {
+      append("agent", result.error ?? "The bounded assistant stopped safely without performing another action.", result.outcome === "authorization_blocked" ? "status" : "warning");
+    }
+    return result;
+  }
+
+  async function resumeReactContinuationIfReady() {
+    const continuation = reactContinuationRef.current;
+    if (!continuation) return false;
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const current = latestStateRef.current;
+    if (continuation.datasetId !== current.activeBatchId) {
+      reactContinuationRef.current = null;
+      setReactContinuationState(null);
+      append("agent", "I discarded the prior ReAct continuation because the active dataset changed.", "warning");
+      return false;
+    }
+    if (!["together", "separate"].includes(current.activeBatch?.parseMode)) return false;
+    reactContinuationRef.current = null;
+    setReactContinuationState(null);
+    return Boolean(await runReactActionPath(continuation.originalQuery));
+  }
+
+  function shouldEnterReactBeforeBroadRouting(query, state = latestStateRef.current) {
+    if (!(state.reactOrchestratorEnabled ?? reactOrchestratorEnabled())) return false;
+    if (typeof agentActions.runReactOrchestratorStep !== "function") return false;
+    if (!state.agentFileCount || state.agentDetection?.formatId !== "custom") return false;
+    const semantics = analyzeRequestSemantics(query);
+    if (requestMustRemainReadOnly(query, semantics)) return false;
+    return /\b(convert|parse|process|analy[sz]e)\b/i.test(query)
+      && /\b(this|these|file|files|upload|uploads|dataset|data|graph)\b/i.test(query);
+  }
+
+  function reactGroupingDecision(query) {
+    const value = String(query ?? "").trim();
+    if (/^(?:yes[, ]+)?(?:they (?:are|belong)|these files (?:are|belong))?\s*(?:all\s+)?(?:one|the same)\s+(?:graph|dataset)[.!]?$/i.test(value)
+      || /^(?:parse|treat|use|keep) (?:them|these files|all files) together(?: as (?:one|a single) (?:graph|dataset))?[.!]?$/i.test(value)) return "together";
+    if (/^(?:no[, ]+)?(?:they (?:are|belong))?\s*(?:separate|different)\s+(?:graphs|datasets)[.!]?$/i.test(value)
+      || /^(?:parse|treat|use|keep) (?:them|these files|each file) separately?[.!]?$/i.test(value)) return "separate";
+    return null;
+  }
+
   async function executeActionPath(query, controlPlan = null) {
     const current = latestStateRef.current;
     const requestAuthorization = analyzePositiveAuthorization(query);
@@ -1390,6 +1533,12 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       && Boolean(current.localModel?.config?.activeBaseUrl)
       && Boolean(current.localModel?.config?.model?.trim())
       && typeof agentActions.runOllamaOrchestrator === "function";
+    const useReact = (current.reactOrchestratorEnabled ?? reactOrchestratorEnabled())
+      && typeof agentActions.runReactOrchestratorStep === "function";
+    if (useReact && canUseOllamaOrchestrator) return runReactActionPath(query);
+    if (useReact && !canUseOllamaOrchestrator) {
+      return dispatchOllamaActionPlan(buildDeterministicActionPlan(query, latestStateRef.current), query);
+    }
     if (canUseOllamaOrchestrator) {
       setBusy(true);
       try {
@@ -2205,6 +2354,32 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       return;
     }
 
+    const continuation = reactContinuationRef.current;
+    if (continuation && continuation.datasetId !== current.activeBatchId) {
+      reactContinuationRef.current = null;
+      setReactContinuationState(null);
+      append("agent", "I discarded the prior ReAct continuation because the active dataset changed. No grouping or parser action was applied to the new dataset.", "warning");
+      return;
+    }
+    const continuationGrouping = continuation ? reactGroupingDecision(query) : null;
+    if (continuationGrouping) {
+      if (currentReactObservation().stateVersionToken !== continuation.stateVersionToken) {
+        reactContinuationRef.current = null;
+        setReactContinuationState(null);
+        append("agent", "I discarded the prior ReAct continuation because the dataset changed while grouping was unresolved. No grouping or parser action was applied.", "warning");
+        return;
+      }
+      const result = await dispatchPlan({
+        kind: "set_batch_parse_mode",
+        mode: continuationGrouping,
+        message: continuationGrouping === "together"
+          ? "The active files are grouped as one graph dataset."
+          : "The active files will use independent parser workflows as separate graph datasets.",
+      });
+      if (result.ok) await resumeReactContinuationIfReady();
+      return;
+    }
+
     if (isExplicitParserRequest(query) && agentActions.requestParserSpecialist) {
       const result = await agentActions.requestParserSpecialist(query);
       append("agent", result.message ?? result.error, result.ok ? "status" : "warning");
@@ -2218,7 +2393,13 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       return;
     }
 
+    if (shouldEnterReactBeforeBroadRouting(query, current)) {
+      await runReactActionPath(query);
+      return;
+    }
+
     if (await maybeHandleDeterministicNlu(query)) {
+      await resumeReactContinuationIfReady();
       return;
     }
 

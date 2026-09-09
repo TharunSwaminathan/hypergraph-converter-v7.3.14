@@ -11,6 +11,7 @@ import { ACTION_PLAN_RESPONSE_CONTRACT } from "../ollamaActionPlanSchema.js";
 import { CUSTOM_PARSER_ORCHESTRATION_NOTES } from "./customParserPrompt.js";
 import { EXTERNAL_AI_PROMPT_ROUTE_NOTES } from "./externalAiPromptPrompt.js";
 import { formatFewShotsForPrompt, selectFormatFewShots } from "./formatFewShots.js";
+import { ORCHESTRATOR_POLICY_PROMPT } from "./orchestratorPolicyPrompt.js";
 
 export const OLLAMA_ORCHESTRATOR_BASE_SYSTEM_PROMPT = `You are the local Ollama natural-language orchestrator for Hypergraph Converter Studio.
 
@@ -69,7 +70,9 @@ export function buildOllamaOrchestratorSystemPrompt({
   appContext = null,
 } = {}) {
   const selectedFewShots = selectFormatFewShots({ userQuery, appContext, maxExamples: 3 });
-  return `${OLLAMA_ORCHESTRATOR_BASE_SYSTEM_PROMPT}
+  return `${ORCHESTRATOR_POLICY_PROMPT}
+
+${OLLAMA_ORCHESTRATOR_BASE_SYSTEM_PROMPT}
 
 Format few-shots selected for this request:
 ${formatFewShotsForPrompt(selectedFewShots)}
