@@ -1,0 +1,49 @@
+{
+  "result": "PASS",
+  "date": "2026-09-10",
+  "browser": "Codex in-app Chromium",
+  "modeA": {
+    "companionAbsent": "PASS",
+    "studioUsable": true,
+    "boundedUnavailableNotice": true
+  },
+  "modeB": {
+    "authenticatedDiscovery": "PASS",
+    "runtimeVersionDisplayed": "candy-runtime-companion/1",
+    "activeGraphType": "Hypergraph",
+    "capabilityStatus": "unavailable_for_active_graph_as_required",
+    "pairingCredentialDisplayedOrPersistedInChat": false
+  },
+  "hookOrder": {
+    "noneToLoadedGraphTransition": "PASS",
+    "reload": "PASS",
+    "reactHookErrors": 0
+  },
+  "hypergraphSssp": {
+    "classification": "INVALID_GRAPH_TYPE",
+    "implicitProjectionPerformed": false,
+    "nativeJobsCreated": 0,
+    "nativeProcessesCreated": 0
+  },
+  "readOnlyExplanation": {
+    "deterministicAfterCorrective": true,
+    "ordinaryGraphRequirementStated": true,
+    "activeHypergraphStated": true,
+    "noImplicitProjectionStated": true,
+    "jobSubmitted": false,
+    "confirmationCreated": false
+  },
+  "ordinaryGraphUi": {
+    "browserActionClaimed": false,
+    "reason": "The current Studio intentionally exposes a canonical Hypergraph only; an ordinary-graph import/projection UI is outside Phase C.",
+    "qualifiedBy": ["frontend capability-intersection test", "live qwen typed-action harness", "authenticated companion/native STATIC and INCREMENTAL harness"]
+  },
+  "pageRefresh": {
+    "fabricatedCompletion": false,
+    "liveAuthorityRestoredWithoutDiscovery": false
+  },
+  "consoleErrorsAfterColdReload": 0,
+  "consoleWarningsAfterColdReload": 0,
+  "browserPairingCredentialCleared": true,
+  "qualificationTabClosed": true
+}

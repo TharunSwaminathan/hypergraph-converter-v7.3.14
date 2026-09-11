@@ -1,0 +1,51 @@
+{
+  "result": "PASS",
+  "date": "2026-09-10",
+  "runtime": "ollama",
+  "model": "qwen3:8b",
+  "modelCalls": 3,
+  "deterministicBypassCount": 2,
+  "acceptedActions": [
+    "SUBMIT_CANDY_JOB",
+    "GET_CANDY_JOB_STATUS",
+    "CANCEL_CANDY_JOB"
+  ],
+  "rejectedActions": [
+    {
+      "request": "Hypergraph SSSP execution",
+      "classification": "INVALID_GRAPH_TYPE",
+      "artifactCreated": false,
+      "nativeJobCreated": false,
+      "nativeProcessCreated": false,
+      "implicitProjectionPerformed": false
+    }
+  ],
+  "schemaFailuresAfterCorrective": 0,
+  "fallbackCountAfterCorrective": 0,
+  "readOnlyHypergraphExplanation": {
+    "deterministic": true,
+    "modelBypassed": true,
+    "jobCreated": false,
+    "confirmationCreated": false,
+    "implicitProjectionPerformed": false
+  },
+  "ordinaryGraphSubmission": {
+    "proposedAction": "SUBMIT_CANDY_JOB",
+    "validated": true,
+    "stopAfterOneTypedAction": true,
+    "shellPathProcessFields": false
+  },
+  "status": {
+    "proposedAction": "GET_CANDY_JOB_STATUS",
+    "validated": true,
+    "completionClaimed": false
+  },
+  "cancellation": {
+    "proposedAction": "CANCEL_CANDY_JOB",
+    "validated": true
+  },
+  "correctiveHistory": {
+    "initialSubmissionSchemaFailure": "The model selected SUBMIT_CANDY_JOB but omitted threads and timeoutMs; strict validation rejected it and nothing executed.",
+    "closure": "The compiled prompt now supplies bounded argument constraints and defaults for SUBMIT_CANDY_JOB. The same live case passed strict validation."
+  }
+}

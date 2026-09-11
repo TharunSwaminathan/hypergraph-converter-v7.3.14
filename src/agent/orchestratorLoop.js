@@ -139,7 +139,7 @@ export async function runBoundedOrchestrator({
       return { ok: false, outcome: "authorization_blocked", stopReason: "authorization", error: error instanceof Error ? error.message : "Authorization validation failed closed.", metrics };
     }
     if (!authorization?.allowed) return { ok: false, outcome: "authorization_blocked", stopReason: "authorization", error: authorization?.reason ?? "The user request did not authorize that action.", metrics };
-    if (reactActionRequiresConfirmation(step.action, observation)) {
+    if (reactActionRequiresConfirmation(step.action, observation, step.arguments)) {
       let staged;
       try {
         staged = await stageConfirmation({ action: step.action, arguments: step.arguments, observation });

@@ -1,0 +1,29 @@
+{
+  "scope": "CANDY Scope 2 Phase C2",
+  "auditStatus": "PASS",
+  "criticalOpen": 0,
+  "highOpen": 0,
+  "findings": [
+    {
+      "id": "C2-H01",
+      "severity": "High",
+      "status": "closed",
+      "title": "Existing artifact collision target could have been a symlink",
+      "resolution": "Artifact insertion now lstat-checks an existing collision target and rejects anything except a regular, non-symlink file before reading it."
+    },
+    {
+      "id": "C2-H02",
+      "severity": "High",
+      "status": "closed",
+      "title": "Cancellation escalation used child.killed instead of observed exit",
+      "resolution": "The runner now tracks the close event and force-terminates after the bounded grace period only while the owned child has not exited."
+    },
+    {
+      "id": "C2-M01",
+      "severity": "Medium",
+      "status": "closed",
+      "title": "Non-zero native exits lost typed native errors",
+      "resolution": "Bounded stdout is parsed first so qualified native classifications survive; a non-zero exit paired with success content maps to PROCESS_CRASH."
+    }
+  ]
+}

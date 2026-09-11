@@ -1,5 +1,19 @@
 # Hypergraph Converter Studio v7.3.14
 
+## CANDY Scope 2 — authenticated local runtime companion
+
+This source tree includes an optional, user-started CANDY Runtime Companion for the qualified OpenMP SSSP proof of concept. The normal application remains browser-only when the companion is disabled or unavailable. Enable the frontend integration at build time with `VITE_CANDY_RUNTIME_ENABLED=true`; the default remains disabled.
+
+Start the companion with `npm run candy:runtime`, `run-candy-runtime.bat`, or `./run-candy-runtime.sh`. It binds only to `127.0.0.1:8791`, creates a random session pairing credential, and writes that credential to a mode-restricted file in the current user's temporary directory. Paste it into Advanced diagnostics → CANDY Runtime Companion. The credential is kept only in browser `sessionStorage`; it is not included in chat, ReAct observations, URLs, artifacts, logs, or evidence.
+
+The versioned API exposes only health, qualified capability discovery, immutable content-addressed artifacts, asynchronous jobs, cancellation, and validated results. All protected operations require the pairing credential. Browser origins use an exact allowlist; CORS is not authentication. Native launch uses a fixed companion-owned executable location and `spawn` with `shell:false`; HTTP/model input cannot choose a command, path, environment, flags, or working directory.
+
+On Windows, the companion launches the qualified Linux OpenMP binary through the existing WSL2 boundary. It does not install or configure WSL. Build and qualify that binary with the existing `candy-runtime/test/run-native-qualification.mjs` harness before expecting SSSP to appear in capability discovery.
+
+The Studio's current committed object is a `Hypergraph`. Therefore native SSSP is intentionally not exposed for it: `Hypergraph + SSSP` fails closed as `INVALID_GRAPH_TYPE`, no job/process starts, and no implicit projection occurs. An already materialized `OrdinaryGraph`, `DynamicOrdinaryGraph`, or contract-valid `ProjectedOrdinaryGraph` is required. This phase does not add a projection workflow and SSSP results never mutate the active graph.
+
+The companion is local execution infrastructure, not a cloud service or general proxy. It adds no cloud API, API key, public listener, database, model weights, CUDA, ESCHER, MOSP product integration, HPC, Slurm, MCP, or arbitrary execution endpoint.
+
 ## v7.3.14 packaging, versioning, and clean-extraction release
 
 v7.3.14 is the release-engineering closure of the approved Stage 0–8 implementation. It changes no parser, algorithm, Preview, worker, deterministic NLU, authorization, mapping, or graph semantics. The release uses the repository's authoritative portable-source packager, preserves explicit Unix launcher metadata in the actual ZIP, excludes transient evidence, and is qualified from a fresh extraction with `npm ci`.

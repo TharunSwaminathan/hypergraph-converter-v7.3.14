@@ -54,6 +54,7 @@ import {
 } from "../agent/localModelSettings.js";
 import AgentActionCard from "./AgentActionCard.jsx";
 import LocalRuntimeDiagnosticsPanel from "./LocalRuntimeDiagnosticsPanel.jsx";
+import CandyRuntimePanel from "./CandyRuntimePanel.jsx";
 import DeterministicCommandHelp from "./DeterministicCommandHelp.jsx";
 import AgentComposer from "./agent/AgentComposer.jsx";
 import AgentMessage from "./agent/AgentMessage.jsx";
@@ -65,6 +66,9 @@ import { buildAuthoritativeOrchestratorObservation } from "../agent/orchestrator
 import { requestMustRemainReadOnly, runBoundedOrchestrator } from "../agent/orchestratorLoop.js";
 import { START_CUSTOM_PARSER_WORKFLOW } from "../agent/orchestratorCapabilities.js";
 import { reactOrchestratorEnabled } from "../agent/reactOrchestratorConfig.js";
+import { candyRequestConfirmationBinding, candyRequestNeedsConfirmation } from "../candy/requestPolicy.js";
+import { routeDeterministicCandyRequest } from "../candy/deterministicRouting.js";
+import { authorizeCandyReactAction } from "../agent/candyActionAuthorization.js";
 
 const SUGGESTIONS = [
   "Explain H2V",
@@ -1422,6 +1426,9 @@ export default function AgentChatPanel({ agentState, agentActions }) {
         ? { allowed: true }
         : { allowed: false, reason: "The request did not positively authorize parser workflow preparation." };
     }
+    if (["DISCOVER_CANDY_CAPABILITIES", "SUBMIT_CANDY_JOB", "GET_CANDY_JOB_STATUS", "CANCEL_CANDY_JOB", "OPEN_CANDY_RESULT"].includes(action)) {
+      return authorizeCandyReactAction(action, userQuery);
+    }
     const plan = planFromCapabilityAction({ type: action, ...argumentsValue }, latestStateRef.current);
     const decision = authorizationAllowsSideEffect(analyzePositiveAuthorization(userQuery), sideEffectScopeForAgentPlan(plan));
     return decision.allowed ? { allowed: true } : { allowed: false, reason: "The exact positive request did not authorize the proposed capability." };
@@ -1440,6 +1447,39 @@ export default function AgentChatPanel({ agentState, agentActions }) {
         details: result,
         stop: true,
       });
+    }
+    if (action === "DISCOVER_CANDY_CAPABILITIES") {
+      const result = await agentActions.discoverCandyRuntime();
+      append("agent", result.ok ? `CANDY discovery completed: ${result.intersection.status}.` : `CANDY discovery did not succeed: ${result.error}`, result.ok ? "status" : "warning");
+      return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_discovery_completed" : "candy_unavailable", error: result.error, stop: true });
+    }
+    if (action === "SUBMIT_CANDY_JOB") {
+      const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0 };
+      if (candyRequestNeedsConfirmation(argumentsValue, graph)) {
+        const binding = candyRequestConfirmationBinding({ argumentsValue, graph });
+        const copy = getConfirmationCopy("run_candy_expensive_compute");
+        setPendingAction({ actionType: "run_candy_expensive_compute", ...copy, candyArguments: argumentsValue, candyBinding: binding, confirmationToken: createConfirmationSnapshot("run_candy_expensive_compute", latestStateRef.current) });
+        append("agent", "I staged the exact high-cost CANDY request for confirmation. No job has been created.", "warning");
+        return executionOutcome({ ok: true, outcome: "confirmation_required", changedState: false, stop: true });
+      }
+      const result = await agentActions.submitCandyJob(argumentsValue);
+      append("agent", result.ok ? `CANDY job submitted as ${result.job?.jobId}. I stopped the planning loop; ask for status later.` : `CANDY job was not submitted: ${result.classification ?? "ERROR"} — ${result.error}`, result.ok ? "status" : "warning");
+      return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_job_submitted" : "candy_job_rejected", error: result.error, details: result, stop: true });
+    }
+    if (action === "GET_CANDY_JOB_STATUS") {
+      const result = await agentActions.getCandyJobStatus(argumentsValue.jobId);
+      append("agent", result.ok ? `CANDY job ${result.job.jobId} is ${result.job.status}.` : `CANDY job status is unavailable: ${result.error}`, result.ok ? "status" : "warning");
+      return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_status_observed" : "candy_status_failed", details: result, stop: true });
+    }
+    if (action === "CANCEL_CANDY_JOB") {
+      const result = await agentActions.cancelCandyJob(argumentsValue.jobId);
+      append("agent", result.ok ? `CANDY job ${result.job.jobId} cancellation state: ${result.job.status}.` : `CANDY cancellation failed: ${result.error}`, result.ok ? "status" : "warning");
+      return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_cancel_observed" : "candy_cancel_failed", details: result, stop: true });
+    }
+    if (action === "OPEN_CANDY_RESULT") {
+      const result = await agentActions.openCandyResult(argumentsValue.jobId);
+      append("agent", result.ok ? `Opened the validated CANDY result for ${argumentsValue.jobId}. Reachable: ${result.observation.reachableCount}; unreachable: ${result.observation.unreachableCount}.` : `CANDY result is unavailable: ${result.error}`, result.ok ? "status" : "warning");
+      return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_result_opened" : "candy_result_failed", details: result.observation, stop: true });
     }
     const result = await dispatchOllamaActionPlan(capabilityActionPlan(action, argumentsValue, query), query);
     // Typed dispatch may commit through App state before the new props reach
@@ -2393,6 +2433,12 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       return;
     }
 
+    const candyRoute = routeDeterministicCandyRequest(query, current);
+    if (candyRoute && candyRoute.kind !== "delegate") {
+      append("agent", candyRoute.classification ? `${candyRoute.classification}: ${candyRoute.message}` : candyRoute.message, candyRoute.kind === "blocked" ? "warning" : "status");
+      return;
+    }
+
     if (shouldEnterReactBeforeBroadRouting(query, current)) {
       await runReactActionPath(query);
       return;
@@ -2572,6 +2618,18 @@ export default function AgentChatPanel({ agentState, agentActions }) {
         append("agent", result.ok
           ? `Exported a mapping fine-tuning example with full text from ${result.fileCount} active-batch file${result.fileCount === 1 ? "" : "s"}.`
           : `Mapping fine-tuning export failed: ${result.error}`, result.ok ? "status" : "error");
+      } else if (action.actionType === "run_candy_expensive_compute") {
+        const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0 };
+        const currentBinding = candyRequestConfirmationBinding({ argumentsValue: action.candyArguments, graph });
+        if (currentBinding.requestHash !== action.candyBinding?.requestHash) {
+          append("agent", "The staged CANDY request no longer matches the active graph or resource envelope. Request it again.", "warning");
+          confirmationOutcome = "stale_confirmation";
+        } else {
+          const result = await agentActions.submitCandyJob(action.candyArguments);
+          confirmed = Boolean(result.ok);
+          confirmationOutcome = result.ok ? "candy_job_submitted" : "candy_job_rejected";
+          append("agent", result.ok ? `CANDY job submitted as ${result.job?.jobId}. Ask for status later; this loop will not poll it.` : `CANDY job was not submitted: ${result.classification ?? "ERROR"} — ${result.error}`, result.ok ? "status" : "warning");
+        }
       }
     } catch (error) {
       confirmationOutcome = "failed";
@@ -3300,6 +3358,12 @@ export default function AgentChatPanel({ agentState, agentActions }) {
             agentActions={agentActions}
             busy={busy}
             pendingAction={pendingAction}
+            onNotice={(text, tone) => append("agent", text, tone)}
+          />
+          <CandyRuntimePanel
+            candy={agentState.candy}
+            actions={agentActions}
+            busy={busy || Boolean(pendingAction)}
             onNotice={(text, tone) => append("agent", text, tone)}
           />
           {lastNluDiagnostic && (

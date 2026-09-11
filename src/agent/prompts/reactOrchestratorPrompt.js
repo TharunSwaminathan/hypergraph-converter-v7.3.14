@@ -43,6 +43,9 @@ export function buildReactOrchestratorMessages({ userQuery, observation, threadC
     action,
     REACT_CAPABILITY_DEFINITIONS[action]?.keys ?? [],
   ]));
+  const allowedActionArgumentContracts = Object.fromEntries((observation?.availableCapabilities ?? [])
+    .filter(action => REACT_CAPABILITY_DEFINITIONS[action]?.modelArgumentContract)
+    .map(action => [action, REACT_CAPABILITY_DEFINITIONS[action].modelArgumentContract]));
   return [
     { role: "system", content: `${ORCHESTRATOR_POLICY_PROMPT}\n\n${REACT_ORCHESTRATOR_PROMPT}` },
     {
@@ -54,6 +57,7 @@ export function buildReactOrchestratorMessages({ userQuery, observation, threadC
         authoritativeObservation: observation,
         allowedActions: observation?.availableCapabilities ?? [],
         allowedActionArgumentKeys,
+        allowedActionArgumentContracts,
       }, null, 2),
     },
   ];

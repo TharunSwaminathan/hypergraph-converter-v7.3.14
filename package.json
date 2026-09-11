@@ -9,7 +9,8 @@
     "build:github": "vite build --base=/hypergraph-converter/",
     "lint": "eslint .",
     "test": "node scripts/run-node-tests.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "candy:runtime": "node candy-runtime/src/cli.js"
   },
   "dependencies": {
     "acorn": "^8.18.0",

@@ -6,6 +6,7 @@ import {
   SECTION_ID_SET,
   isSafeVisualLimit,
 } from "./capabilityRegistry.js";
+import { isOrdinaryGraphType } from "../candy/contracts/graphTypes.js";
 
 export const START_CUSTOM_PARSER_WORKFLOW = "START_CUSTOM_PARSER_WORKFLOW";
 
@@ -14,6 +15,18 @@ const requiredEnum = (argumentsValue, key, values) => values.has(argumentsValue[
 const optionalExport = argumentsValue => argumentsValue.exportId == null || EXPORT_ID_SET.has(argumentsValue.exportId)
   ? []
   : ["arguments.exportId is unsupported."];
+const validJobId = value => typeof value.jobId === "string" && /^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(value.jobId)
+  ? [] : ["arguments.jobId must be a runtime-issued UUID."];
+const validCandySubmission = value => {
+  const errors = [];
+  if (value.algorithm !== "SSSP") errors.push("arguments.algorithm must be SSSP.");
+  if (value.backend !== "LOCAL_OPENMP") errors.push("arguments.backend must be LOCAL_OPENMP.");
+  if (!["STATIC", "INCREMENTAL", "COMPARE"].includes(value.mode)) errors.push("arguments.mode is unsupported.");
+  if (!((typeof value.sourceVertexId === "string" && value.sourceVertexId.length > 0 && value.sourceVertexId.length <= 240) || (typeof value.sourceVertexId === "number" && Number.isSafeInteger(value.sourceVertexId)))) errors.push("arguments.sourceVertexId must be a bounded canonical vertex ID.");
+  if (!Number.isInteger(value.threads) || value.threads < 1 || value.threads > 256) errors.push("arguments.threads must be an integer from 1 through 256.");
+  if (!Number.isInteger(value.timeoutMs) || value.timeoutMs < 1 || value.timeoutMs > 86_400_000) errors.push("arguments.timeoutMs is outside the qualified bound.");
+  return errors;
+};
 
 export const REACT_CAPABILITY_DEFINITIONS = Object.freeze({
   [START_CUSTOM_PARSER_WORKFLOW]: { keys: [], validate: noArguments, stopAfterResult: true },
@@ -44,6 +57,23 @@ export const REACT_CAPABILITY_DEFINITIONS = Object.freeze({
   RUN_CUSTOM_PARSER: { keys: [], validate: noArguments, confirmation: true },
   APPLY_CUSTOM_RESULT: { keys: [], validate: noArguments, confirmation: true },
   CLEAR_GRAPH: { keys: [], validate: noArguments, confirmation: true },
+  DISCOVER_CANDY_CAPABILITIES: { keys: [], validate: noArguments, stopAfterResult: true },
+  SUBMIT_CANDY_JOB: {
+    keys: ["algorithm", "backend", "mode", "sourceVertexId", "threads", "timeoutMs"],
+    validate: validCandySubmission,
+    stopAfterResult: true,
+    modelArgumentContract: Object.freeze({
+      algorithm: "literal SSSP",
+      backend: "literal LOCAL_OPENMP",
+      mode: "STATIC, INCREMENTAL, or COMPARE; use STATIC when the user did not request an incremental/comparison run",
+      sourceVertexId: "the bounded canonical source ID named by the user",
+      threads: "integer 1..256; use 2 when the user did not specify a value",
+      timeoutMs: "integer 1..86400000; use 5000 when the user did not specify a value",
+    }),
+  },
+  GET_CANDY_JOB_STATUS: { keys: ["jobId"], validate: validJobId, stopAfterResult: true },
+  CANCEL_CANDY_JOB: { keys: ["jobId"], validate: validJobId, stopAfterResult: true },
+  OPEN_CANDY_RESULT: { keys: ["jobId"], validate: validJobId, stopAfterResult: true },
 });
 
 export const REACT_ACTION_TYPES = Object.freeze(Object.keys(REACT_CAPABILITY_DEFINITIONS));
@@ -59,8 +89,15 @@ export function validateReactActionArguments(action, argumentsValue) {
   ];
 }
 
-export function reactActionRequiresConfirmation(action, state = {}) {
+export function reactActionRequiresConfirmation(action, state = {}, argumentsValue = {}) {
   if (["RUN_CUSTOM_PARSER", "APPLY_CUSTOM_RESULT", "CLEAR_GRAPH", "DOWNLOAD_EXPORT", "EXPORT_GRAPH_PNG"].includes(action)) return true;
+  if (action === "SUBMIT_CANDY_JOB") {
+    return argumentsValue.mode === "COMPARE"
+      || Number(argumentsValue.threads) > 8
+      || Number(argumentsValue.timeoutMs) > 30_000
+      || Number(state.graph?.vertexCount) > 100_000
+      || Number(state.graph?.edgeCount) > 500_000;
+  }
   return action === "PARSE_ACTIVE_BATCH" && Boolean(state.graph?.available);
 }
 
@@ -82,5 +119,15 @@ export function availableReactActions(state = {}) {
   if (!state.customParser?.runReady) actions.delete("RUN_CUSTOM_PARSER");
   if (!state.customParser?.applyReady) actions.delete("APPLY_CUSTOM_RESULT");
   if (!state.dataset?.available) ["VALIDATE_MAPPING_SPEC", "REPAIR_MAPPING_SPEC", "GENERATE_PARSER_FROM_MAPPING"].forEach(action => actions.delete(action));
+  if (!state.candy?.featureEnabled) {
+    ["DISCOVER_CANDY_CAPABILITIES", "SUBMIT_CANDY_JOB", "GET_CANDY_JOB_STATUS", "CANCEL_CANDY_JOB", "OPEN_CANDY_RESULT"].forEach(action => actions.delete(action));
+  } else {
+    if (state.candy.status === "disabled") actions.delete("DISCOVER_CANDY_CAPABILITIES");
+    if (state.candy.capabilityStatus !== "ready" || !state.graph?.available || !isOrdinaryGraphType(state.graph?.graphType)) actions.delete("SUBMIT_CANDY_JOB");
+    const jobs = state.candy.jobs ?? [];
+    if (!jobs.length) ["GET_CANDY_JOB_STATUS", "CANCEL_CANDY_JOB", "OPEN_CANDY_RESULT"].forEach(action => actions.delete(action));
+    if (!jobs.some(job => ["queued", "preparing", "running", "validating", "cancelling"].includes(job.status))) actions.delete("CANCEL_CANDY_JOB");
+    if (!jobs.some(job => job.status === "completed")) actions.delete("OPEN_CANDY_RESULT");
+  }
   return [...actions];
 }

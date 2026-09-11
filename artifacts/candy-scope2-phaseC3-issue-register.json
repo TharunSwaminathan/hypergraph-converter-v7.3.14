@@ -1,0 +1,43 @@
+{
+  "scope": "CANDY Scope 2 Phase C3",
+  "auditStatus": "PASS",
+  "criticalOpen": 0,
+  "highOpen": 0,
+  "findings": [
+    {
+      "id": "C3-C01",
+      "severity": "Critical",
+      "status": "closed",
+      "title": "CANDY hook was initially placed behind an existing AppCore conditional return",
+      "resolution": "useCandyRuntime now runs unconditionally in AppCore's stable hook sequence. Feature-disabled behavior is internal to the hook. A focused source-order regression and real browser none-to-loaded/reload checks pass with zero React console warnings or errors."
+    },
+    {
+      "id": "C3-H01",
+      "severity": "High",
+      "status": "closed",
+      "title": "Free-form local model could misdescribe SSSP as a hypergraph algorithm",
+      "resolution": "A narrow deterministic CANDY router now answers read-only SSSP explanations and rejects Hypergraph execution before broad conversational/model routing. Live browser retest returned the contract-correct explanation and INVALID_GRAPH_TYPE with zero jobs/processes."
+    },
+    {
+      "id": "C3-H02",
+      "severity": "High",
+      "status": "closed",
+      "title": "CANDY submit and cancel initially shared an over-broad positive-verb authorization gate",
+      "resolution": "The last action boundary now requires CANDY/job context, a positively authorized clause, and the exact submit or cancel verb family. Negated, unrelated, and cross-family requests fail closed."
+    },
+    {
+      "id": "C3-M01",
+      "severity": "Medium",
+      "status": "closed",
+      "title": "Discovered capability intersection could become stale after graph-type change",
+      "resolution": "The hook retains the typed declaration only in memory and recomputes the frontend/runtime/authorization/active-graph intersection whenever graph type changes."
+    },
+    {
+      "id": "C3-H03",
+      "severity": "High",
+      "status": "closed",
+      "title": "The live model lacked bounded defaults for required CANDY resource arguments",
+      "resolution": "The prompt now exposes a compiled argument contract for SUBMIT_CANDY_JOB. Strict validation still decides acceptance. The repeated qwen3:8b run proposed valid submit, status, and cancellation actions with no shell/path/process fields."
+    }
+  ]
+}

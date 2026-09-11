@@ -71,6 +71,11 @@ export const CONFIRMATION_POLICY = Object.freeze({
     title: "Include full files in mapping example?",
     message: "This mapping fine-tuning export will include the complete text of every file in the active batch. Confirm only if you intend to save that data locally.",
   }),
+  run_candy_expensive_compute: Object.freeze({
+    required: true,
+    title: "Run potentially expensive local SSSP?",
+    message: "This exact CANDY request exceeds the low-cost envelope or uses COMPARE. Confirm the bound graph version, source, backend, mode, threads, and timeout.",
+  }),
 });
 
 export const CAPABILITY_CONFIRMATION_ALIASES = Object.freeze({
@@ -81,6 +86,7 @@ export const CAPABILITY_CONFIRMATION_ALIASES = Object.freeze({
   DOWNLOAD_EXPORT: "download_file",
   EXPORT_GRAPH_PNG: "download_file",
   PARSE_ACTIVE_BATCH: "parse_uploaded_files",
+  SUBMIT_CANDY_JOB: "run_candy_expensive_compute",
 });
 
 export const CONFIRMATION_REQUIRED_ACTIONS = new Set(

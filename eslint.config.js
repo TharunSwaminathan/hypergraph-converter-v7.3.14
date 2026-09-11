@@ -22,7 +22,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['local-runtime-bridge.js', 'vite.config.js', '*.config.js'],
+    files: ['local-runtime-bridge.js', 'vite.config.js', '*.config.js', 'candy-runtime/**/*.js'],
     languageOptions: {
       globals: globals.node,
     },

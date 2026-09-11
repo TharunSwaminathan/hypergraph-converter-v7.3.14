@@ -21,6 +21,8 @@ export function orchestratorStateVersion(state = {}, pendingConfirmation = null)
     customResultId: text(state.customResultId),
     graphId: text(state.graphId),
     graphVersion: Number(state.graphVersion) || 0,
+    candyRuntimeVersion: text(state.candy?.runtimeVersion),
+    candyJobVersion: text(state.candy?.selectedJob?.jobId) + ":" + text(state.candy?.selectedJob?.status),
     pendingConfirmationType: text(pendingConfirmation?.actionType),
   });
 }
@@ -98,7 +100,16 @@ export function buildAuthoritativeOrchestratorObservation({
       graphLayout: text(state.graphLayout) || null,
       graphSearch: text(state.graphSearch) || null,
     },
-    graph: { available: Boolean(state.hasGraph), id: text(state.graphId) || null, version: Number(state.graphVersion) || 0 },
+    graph: { available: Boolean(state.hasGraph), id: text(state.graphId) || null, version: Number(state.graphVersion) || 0, graphType: text(state.candy?.graphType) || "Hypergraph", vertexCount: Number(state.vertexCount) || 0, edgeCount: Number(state.candy?.edgeCount) || 0 },
+    candy: {
+      featureEnabled: Boolean(state.candy?.featureEnabled),
+      status: text(state.candy?.status) || "disabled",
+      authorized: Boolean(state.candy?.authorized),
+      runtimeVersion: text(state.candy?.runtimeVersion) || null,
+      capabilityStatus: text(state.candy?.capabilityStatus) || "unavailable",
+      capabilities: (state.candy?.capabilities ?? []).slice(0, 4).map(item => ({ capability: text(item.capability), algorithm: text(item.algorithm), backend: text(item.backend), modes: (item.modes ?? []).slice(0, 3).map(mode => text(mode)) })),
+      jobs: (state.candy?.jobs ?? []).slice(-8).map(job => ({ jobId: text(job.jobId), status: text(job.status), algorithm: text(job.algorithm), backend: text(job.backend), mode: text(job.mode), resultRef: text(job.resultRef) || null, errorClassification: text(job.errorClassification) || null })),
+    },
     pendingConfirmation: pendingConfirmation ? { actionType: text(pendingConfirmation.actionType), status: "awaiting_user" } : null,
     lastToolResult: safeToolResult(lastToolResult),
   };

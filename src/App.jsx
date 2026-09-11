@@ -34,6 +34,7 @@ import TriadStatistic from "./components/TriadStatistic.jsx";
 import AdvancedOptionsPanel from "./components/AdvancedOptionsPanel.jsx";
 import { useAlgorithms } from "./hooks/useAlgorithms.js";
 import AgentChatPanel from "./components/AgentChatPanel.jsx";
+import { useCandyRuntime } from "./candy/useCandyRuntime.js";
 import { useCustomParserSpecialist } from "./hooks/useCustomParserSpecialist.js";
 import {
   analyzeUploadBatch,
@@ -3661,6 +3662,15 @@ function AppCore() {
   const h2h = useMemo(() => h2hResult.status === DERIVED_STATUS.COMPUTED ? h2hResult.value : [], [h2hResult]);
   const v2v = useMemo(() => v2vResult.status === DERIVED_STATUS.COMPUTED ? v2vResult.edges : [], [v2vResult]);
   const st = useMemo(() => finalHes ? computeStats(finalHes) : null, [finalHes]);
+  // The Studio's committed canonical object is a hypergraph. CANDY must not
+  // reinterpret pair-sized hyperedges as an ordinary graph or project them.
+  const candyRuntime = useCandyRuntime({
+    graphType: finalHes?.length ? "Hypergraph" : null,
+    graphId: graphIdentity.graphId,
+    graphVersion,
+    vertexCount: st?.V ?? 0,
+    edgeCount: 0,
+  });
   const selectedMappingPresentation = useMemo(() => {
     const input = {
       h2v: { data: h2v, status: h2vRequested ? DERIVED_STATUS.COMPUTED : DERIVED_STATUS.NOT_REQUESTED, reason: "not requested" },
@@ -4027,6 +4037,7 @@ function AppCore() {
     && validateParserBatchBinding(customCodeBinding, activeAgentBatch, agentFileBatches).ok
     && customFiles.length > 0;
   const agentState = {
+    candy: candyRuntime.state,
     reactOrchestratorEnabled: reactOrchestratorEnabled(),
     specialistReviewRequired,
     specialistRunReady: Boolean(specialistBindingCurrent && customCode.trim()),
@@ -4782,6 +4793,12 @@ function AppCore() {
   }
 
   const agentActions = {
+    pairCandyRuntime: candyRuntime.actions.pair,
+    discoverCandyRuntime: candyRuntime.actions.discover,
+    submitCandyJob: candyRuntime.actions.submitFromAssistant,
+    getCandyJobStatus: candyRuntime.actions.getJobStatus,
+    cancelCandyJob: candyRuntime.actions.cancelJob,
+    openCandyResult: candyRuntime.actions.openResult,
     requestParserSpecialist: specialist.generate,
     adoptSpecialistDraft: specialist.adopt,
     repairSpecialistDraft: id => customErr ? specialist.generate("Generate custom parser", id) : Promise.resolve({ ok: false, error: "No runtime error is available. Run the reviewed draft through the existing confirmation workflow first." }),
