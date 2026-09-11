@@ -1,0 +1,17 @@
+{
+  "scope": "CANDY Scope 3 Phase S3B",
+  "baseline": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
+  "result": "CUDA_SOURCE_PREPARATION_COMPLETE_RUNTIME_QUALIFICATION_BLOCKED",
+  "openCritical": 0,
+  "openHigh": 0,
+  "issues": [
+    {
+      "id": "S3B-B01",
+      "severity": "EnvironmentBlocker",
+      "status": "open",
+      "title": "CUDA compiler and runtime qualification tools are unavailable",
+      "evidence": "The GPU is visible, but nvcc, a CUDA toolkit installation, and Compute Sanitizer are absent in Windows and WSL2.",
+      "impact": "The candidate cannot be compiled, executed, stress-tested, sanitizer-tested, or compared against OpenMP on CUDA. Phase S3B cannot receive PASS."
+    }
+  ]
+}

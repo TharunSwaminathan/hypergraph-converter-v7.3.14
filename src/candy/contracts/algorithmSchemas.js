@@ -164,8 +164,17 @@ export function validateAlgorithmRequest(value, graphSnapshot) {
   if (value.algorithm !== SSSP_ALGORITHM) failCandy(CANDY_ERROR_CODES.ALGORITHM_FAILURE, "Only SSSP is implemented in Scope 1.");
   requireNonEmptyString(value.algorithmVersion, "algorithmVersion");
   if (!SSSP_MODES.includes(value.mode)) failCandy(CANDY_ERROR_CODES.ALGORITHM_FAILURE, "Unsupported SSSP mode.", { mode: value.mode });
-  if (!CANDY_BACKENDS.includes(value.backend)) failCandy(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE, "Unsupported Scope 1 backend.", { backend: value.backend });
   const graphRef = validateGraphRef(value.graphRef);
+  let snapshot = null;
+  if (graphSnapshot) {
+    snapshot = validateGraphSnapshot(graphSnapshot);
+    if (snapshot.graphId !== graphRef.graphId || snapshot.graphVersion !== graphRef.graphVersion) failCandy(CANDY_ERROR_CODES.STALE_GRAPH_VERSION, "AlgorithmRequest graph reference is stale.");
+    // Graph-domain compatibility is permanent and backend-independent. Check
+    // it before backend availability so an unavailable CUDA request can never
+    // obscure or bypass Hypergraph -> INVALID_GRAPH_TYPE.
+    validateAlgorithmGraphCompatibility(value.algorithm, snapshot.graphType, value.mode);
+  }
+  if (!CANDY_BACKENDS.includes(value.backend)) failCandy(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE, "The requested backend is not qualified or available.", { backend: value.backend });
   requirePlainObject(value.parameters, "parameters");
   requireExactKeys(value.parameters, ["sourceVertexId", "objective"], [], "parameters");
   if (!((typeof value.parameters.sourceVertexId === "string" && value.parameters.sourceVertexId.length > 0) || (typeof value.parameters.sourceVertexId === "number" && Number.isSafeInteger(value.parameters.sourceVertexId)))) {
@@ -176,10 +185,7 @@ export function validateAlgorithmRequest(value, graphSnapshot) {
   requireExactKeys(value.resourceHints, ["threads", "timeoutMs"], [], "resourceHints");
   if (!Number.isInteger(value.resourceHints.threads) || value.resourceHints.threads < 1 || value.resourceHints.threads > 256) failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "threads must be an integer from 1 to 256.");
   if (!Number.isInteger(value.resourceHints.timeoutMs) || value.resourceHints.timeoutMs < 1 || value.resourceHints.timeoutMs > 86_400_000) failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "timeoutMs is outside the Scope 1 limit.");
-  if (graphSnapshot) {
-    const snapshot = validateGraphSnapshot(graphSnapshot);
-    if (snapshot.graphId !== graphRef.graphId || snapshot.graphVersion !== graphRef.graphVersion) failCandy(CANDY_ERROR_CODES.STALE_GRAPH_VERSION, "AlgorithmRequest graph reference is stale.");
-    validateAlgorithmGraphCompatibility(value.algorithm, snapshot.graphType, value.mode);
+  if (snapshot) {
     if (snapshot.weightModel.objectives[0] !== value.parameters.objective) failCandy(CANDY_ERROR_CODES.UNSUPPORTED_WEIGHT_MODEL, "Requested objective does not match the graph weight model.");
   }
   const needsState = value.mode !== "STATIC";

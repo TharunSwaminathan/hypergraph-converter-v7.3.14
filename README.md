@@ -1,5 +1,11 @@
 # Hypergraph Converter Studio v7.3.14
 
+## CANDY Scope 3 — CUDA candidate (not runtime-qualified)
+
+Scope 3 adds an isolated, clean-room CUDA incremental-SSSP candidate and fail-closed request routing. CUDA is **not** advertised by capability discovery and cannot be selected through the production runtime in this tree: the qualification host has an NVIDIA GPU and WSL GPU visibility, but no CUDA toolkit, `nvcc`, or Compute Sanitizer. The candidate therefore remains `IMPLEMENTED / CUDA RUNTIME QUALIFICATION BLOCKED`; it must not be described as qualified or production-ready.
+
+Explicit CUDA requests do not fall back to OpenMP. Hypergraph requests fail first with `INVALID_GRAPH_TYPE`, with no implicit projection and no native process. The candidate supports only `INCREMENTAL` and `COMPARE`; its independent CPU Dijkstra pass is a validation oracle and is not a CUDA `STATIC` implementation. See `candy-runtime/native/sssp-cuda/README.md` and the Scope 3 artifacts for the build gate, provenance, audit, and unexecuted runtime matrix.
+
 ## CANDY Scope 2 — authenticated local runtime companion
 
 This source tree includes an optional, user-started CANDY Runtime Companion for the qualified OpenMP SSSP proof of concept. The normal application remains browser-only when the companion is disabled or unavailable. Enable the frontend integration at build time with `VITE_CANDY_RUNTIME_ENABLED=true`; the default remains disabled.

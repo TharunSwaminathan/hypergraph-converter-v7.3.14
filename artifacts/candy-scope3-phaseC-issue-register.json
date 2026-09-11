@@ -1,0 +1,16 @@
+{
+  "scope": "CANDY Scope 3 Phase S3C",
+  "baseline": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
+  "result": "NOT_STARTED_PREREQUISITE_BLOCKED",
+  "openCritical": 0,
+  "openHigh": 0,
+  "issues": [
+    {
+      "id": "S3C-B01",
+      "severity": "EnvironmentBlocker",
+      "status": "open",
+      "title": "Phase S3C activation is gated on successful S3B CUDA qualification",
+      "evidence": "S3B cannot be runtime-qualified without nvcc/toolkit/Compute Sanitizer, so LOCAL_CUDA was not added to runtime or frontend capability discovery."
+    }
+  ]
+}

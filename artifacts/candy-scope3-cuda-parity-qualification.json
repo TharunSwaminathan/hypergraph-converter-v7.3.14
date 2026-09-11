@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "candy.cuda-parity-qualification/1",
+  "scope": "CANDY Scope 3",
+  "result": "CUDA_IMPLEMENTATION_COMPLETE_RUNTIME_QUALIFICATION_BLOCKED_BY_ENVIRONMENT",
+  "isPass": false,
+  "protectedBaseline": {
+    "commit": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
+    "tag": "candy-integration-scope2-qualified",
+    "branch": "candy-integration-scope3-cuda"
+  },
+  "environment": {
+    "gpu": "NVIDIA GeForce RTX 5060",
+    "driver": "616.92",
+    "visibleMemoryMiB": 8151,
+    "computeCapability": "12.0",
+    "windowsGpuVisible": true,
+    "wslGpuVisible": true,
+    "wslKernel": "6.18.33.2-microsoft-standard-WSL2",
+    "nvcc": null,
+    "cudaToolkit": null,
+    "computeSanitizer": null,
+    "qualifiedBuildArchitecture": null,
+    "systemChangesAttempted": false
+  },
+  "source": {
+    "referenceArchiveSha256": "290c2670b5c037bbcf595e5058250a6097d99dbcc8df714e9ce932e62c26edcf",
+    "referenceArchiveBytes": 44440,
+    "referenceLicenseFound": false,
+    "implementation": "independently-authored-clean-room-candidate",
+    "candidateSourceSha256": "18c71bb883c58e7771ed2ee467aaa9419c3b6c75dbd01a59d56c19a1d4cf6630",
+    "makefileSha256": "0f3358490e59685b8e2bcf17951a8a3a3b82914d01ee87603dfcec8d6a59185a"
+  },
+  "candidateContract": {
+    "algorithm": "SSSP",
+    "backend": "LOCAL_CUDA",
+    "supportedModes": ["INCREMENTAL", "COMPARE"],
+    "staticCudaImplemented": false,
+    "acceptedGraphTypes": ["OrdinaryGraph", "DynamicOrdinaryGraph", "ProjectedOrdinaryGraph"],
+    "rejectedGraphTypes": ["Hypergraph", "DynamicHypergraph"],
+    "projection": "never implicit",
+    "buildArchitecture": "required explicit trusted CUDA_ARCH; not qualified"
+  },
+  "staticReview": {
+    "strictRequestPathOnly": "PASS",
+    "checkedAllocationArithmetic": "PASS",
+    "memoryPreflight": "PASS",
+    "cudaApiChecksPresent": "PASS",
+    "kernelBoundsAndAtomicDistanceProtocol": "PASS_STATIC_REVIEW_ONLY",
+    "boundedConvergence": "PASS_STATIC_REVIEW_ONLY",
+    "independentReferenceComparison": "PASS_STATIC_REVIEW_ONLY",
+    "parentTreeValidation": "PASS_STATIC_REVIEW_ONLY",
+    "compileTimeFaultHooks": "PASS_STATIC_REVIEW_ONLY",
+    "arbitraryExecutionSurfaceAbsent": "PASS",
+    "scopeCreepAbsent": "PASS"
+  },
+  "cudaRuntimeQualification": {
+    "build": "NOT_RUN_NO_NVCC",
+    "deterministicFixtures": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "fixedSeedStress": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "zeroWeightEqualCost": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "openmpCudaDistanceEquality": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "referenceCudaDistanceEquality": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "parentTreeRuntimeValidation": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "invalidDevice": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "memoryRefusal": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "cudaApiFailurePropagation": "NOT_RUN_NO_CUDA_TOOLKIT",
+    "cancellationTimeout": "NOT_RUN_S3C_NOT_STARTED",
+    "computeSanitizer": "NOT_RUN_TOOL_UNAVAILABLE",
+    "fixtures": []
+  },
+  "openmpRegression": {
+    "result": "PASS",
+    "deterministicFixtures": 12,
+    "fixedSeedStressCases": 40,
+    "fixedSeed": "0x5eed1234",
+    "malformedInput": "PASS",
+    "staleState": "PASS",
+    "forcedMismatch": "PASS",
+    "nativeHypergraphRejection": "PASS"
+  },
+  "companionIntegration": {
+    "result": "NOT_STARTED_PREREQUISITE_BLOCKED",
+    "localCudaAdvertised": false,
+    "newActionAdded": false,
+    "explicitCudaFallbackToOpenmp": false,
+    "invalidDevice": "NOT_RUN",
+    "confirmation": "NOT_IMPLEMENTED_FOR_UNQUALIFIED_BACKEND"
+  },
+  "semanticSafety": {
+    "ordinaryExplicitCuda": "BACKEND_UNAVAILABLE",
+    "hypergraphExplicitCuda": "INVALID_GRAPH_TYPE",
+    "implicitProjection": false,
+    "zeroNativeWorkForHypergraph": true
+  },
+  "liveQwen": "NOT_RUN_S3C_NOT_STARTED",
+  "browser": "NOT_RUN_FOR_CUDA_S3C_NOT_STARTED",
+  "fullRegression": {
+    "tests": "PASS_238_OF_238_FILES",
+    "scope3Focused": "PASS_2_OF_2_FILES",
+    "scope2Focused": "PASS_5_OF_5_FILES",
+    "scope1PhaseA": "PASS_2_OF_2_FILES",
+    "lint": "PASS",
+    "build": "PASS_240_MODULES_EXISTING_CHUNK_WARNING",
+    "buildGithub": "PASS_240_MODULES_EXISTING_CHUNK_WARNING",
+    "productionAudit": "PASS_0_VULNERABILITIES",
+    "diffCheck": "PASS"
+  },
+  "knownLimitations": [
+    "CUDA source has not been compiled or executed.",
+    "No CUDA runtime parity, sanitizer, cancellation, live-model, or browser claim is made.",
+    "LOCAL_CUDA remains absent from production capability discovery and request schemas.",
+    "The candidate emits full vectors at its isolated native boundary; bounded artifact/observation integration is deferred until qualification."
+  ]
+}

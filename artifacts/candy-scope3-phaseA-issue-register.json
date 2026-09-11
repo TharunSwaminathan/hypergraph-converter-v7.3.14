@@ -1,0 +1,30 @@
+{
+  "scope": "CANDY Scope 3 Phase S3A",
+  "baseline": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
+  "result": "PASS_FOR_UNQUALIFIED_PREPARATION",
+  "openCritical": 0,
+  "openHigh": 0,
+  "issues": [
+    {
+      "id": "S3A-H01",
+      "severity": "High",
+      "status": "closed",
+      "title": "Unavailable backend validation obscured permanent graph-type rejection",
+      "resolution": "Algorithm request validation now validates graph identity and graph-type compatibility before backend availability. Hypergraph plus LOCAL_CUDA returns INVALID_GRAPH_TYPE."
+    },
+    {
+      "id": "S3A-H02",
+      "severity": "High",
+      "status": "closed",
+      "title": "Explicit CUDA language could enter the OpenMP-only delegated planner",
+      "resolution": "Deterministic routing now rejects explicit CUDA/GPU execution with BACKEND_UNAVAILABLE and states that no OpenMP substitution, job, or GPU process occurred."
+    },
+    {
+      "id": "S3A-M01",
+      "severity": "Medium",
+      "status": "closed",
+      "title": "Shortest-path matcher missed general and hyphenated use-GPU wording",
+      "resolution": "The deterministic topic matcher now recognizes general/hyphenated shortest-path phrasing and the explicit use verb while preserving read-only and execution gates."
+    }
+  ]
+}

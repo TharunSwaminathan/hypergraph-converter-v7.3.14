@@ -2,6 +2,8 @@
 
 This dependency-free Node package exposes the qualified Scope 1 OpenMP SSSP binary through an authenticated loopback-only REST API.
 
+Scope 3 also contains an isolated CUDA incremental-SSSP candidate under `native/sssp-cuda`. It is deliberately absent from this companion's backend enum and capability response because the current qualification environment has no CUDA toolkit, `nvcc`, or Compute Sanitizer. There is no automatic OpenMP fallback for an explicit CUDA request. Runtime integration is permitted only after the candidate passes the documented CUDA build, device, parity, failure, cancellation, stress, and sanitizer gates on compatible hardware.
+
 ## Trust boundary
 
 - Default and only permitted bind host: `127.0.0.1`; default port: `8791`.
