@@ -1,5 +1,7 @@
 # CANDY Scope 3 Phase S3A audit
 
+> Final reconciliation: this report preserves the original environment-gated S3A audit point. The blocker was later resolved without changing S3A's graph-type or no-fallback conclusions; the protected blocked checkpoint remains at `81491e4a04b4d33adb3ebd0679cbe196ce109288`, and final Scope 3 qualification is recorded in the implementation and S3B/S3C reports.
+
 ## Result
 
 **PASS_FOR_UNQUALIFIED_PREPARATION.** The permanent graph-type boundary and explicit-backend no-fallback rule are enforced while `LOCAL_CUDA` remains absent from production request and capability registries. Open Critical: 0. Open High: 0.

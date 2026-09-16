@@ -1,36 +1,37 @@
 {
   "schemaVersion": "candy.cuda-parity-qualification/1",
   "scope": "CANDY Scope 3",
-  "result": "CUDA_IMPLEMENTATION_COMPLETE_RUNTIME_QUALIFICATION_BLOCKED_BY_ENVIRONMENT",
-  "isPass": false,
+  "result": "PASS",
+  "isPass": true,
   "protectedBaseline": {
-    "commit": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
-    "tag": "candy-integration-scope2-qualified",
+    "scope2Commit": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
+    "scope2Tag": "candy-integration-scope2-qualified",
+    "environmentBlockedCommit": "81491e4a04b4d33adb3ebd0679cbe196ce109288",
+    "environmentBlockedTag": "candy-integration-scope3-cuda-env-blocked",
     "branch": "candy-integration-scope3-cuda"
   },
   "environment": {
+    "os": "Ubuntu 26.04 LTS / WSL2",
     "gpu": "NVIDIA GeForce RTX 5060",
     "driver": "616.92",
     "visibleMemoryMiB": 8151,
     "computeCapability": "12.0",
-    "windowsGpuVisible": true,
-    "wslGpuVisible": true,
-    "wslKernel": "6.18.33.2-microsoft-standard-WSL2",
-    "nvcc": null,
-    "cudaToolkit": null,
-    "computeSanitizer": null,
-    "qualifiedBuildArchitecture": null,
-    "systemChangesAttempted": false
+    "cudaToolkit": "13.4",
+    "nvcc": "13.4.59",
+    "computeSanitizer": "2026.3.0.0",
+    "gxx": "15.2.0",
+    "make": "4.4.1",
+    "qualifiedArchitecture": "sm_120"
   },
   "source": {
     "referenceArchiveSha256": "290c2670b5c037bbcf595e5058250a6097d99dbcc8df714e9ce932e62c26edcf",
-    "referenceArchiveBytes": 44440,
-    "referenceLicenseFound": false,
     "implementation": "independently-authored-clean-room-candidate",
-    "candidateSourceSha256": "18c71bb883c58e7771ed2ee467aaa9419c3b6c75dbd01a59d56c19a1d4cf6630",
-    "makefileSha256": "0f3358490e59685b8e2bcf17951a8a3a3b82914d01ee87603dfcec8d6a59185a"
+    "candidateSourceSha256": "e854c2643a27292267ae84a19ebf325ccd7cca47d2d2ef319c8cd32d4a042086",
+    "makefileSha256": "3eadaff386e8c579f53ea7bf0f0a394135c2b455de771cb221594dfe32e29f62",
+    "qualifiedLocalElfSha256": "7670cf1fadfe5c44aa7abeeb0121fdba0fb5cde7357c07e9ae85b6adb02a07bf",
+    "elfReproducibleAcrossCleanLinks": false
   },
-  "candidateContract": {
+  "contract": {
     "algorithm": "SSSP",
     "backend": "LOCAL_CUDA",
     "supportedModes": ["INCREMENTAL", "COMPARE"],
@@ -38,77 +39,68 @@
     "acceptedGraphTypes": ["OrdinaryGraph", "DynamicOrdinaryGraph", "ProjectedOrdinaryGraph"],
     "rejectedGraphTypes": ["Hypergraph", "DynamicHypergraph"],
     "projection": "never implicit",
-    "buildArchitecture": "required explicit trusted CUDA_ARCH; not qualified"
+    "fallback": "never"
   },
-  "staticReview": {
-    "strictRequestPathOnly": "PASS",
-    "checkedAllocationArithmetic": "PASS",
-    "memoryPreflight": "PASS",
-    "cudaApiChecksPresent": "PASS",
-    "kernelBoundsAndAtomicDistanceProtocol": "PASS_STATIC_REVIEW_ONLY",
-    "boundedConvergence": "PASS_STATIC_REVIEW_ONLY",
-    "independentReferenceComparison": "PASS_STATIC_REVIEW_ONLY",
-    "parentTreeValidation": "PASS_STATIC_REVIEW_ONLY",
-    "compileTimeFaultHooks": "PASS_STATIC_REVIEW_ONLY",
-    "arbitraryExecutionSurfaceAbsent": "PASS",
-    "scopeCreepAbsent": "PASS"
-  },
-  "cudaRuntimeQualification": {
-    "build": "NOT_RUN_NO_NVCC",
-    "deterministicFixtures": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "fixedSeedStress": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "zeroWeightEqualCost": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "openmpCudaDistanceEquality": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "referenceCudaDistanceEquality": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "parentTreeRuntimeValidation": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "invalidDevice": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "memoryRefusal": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "cudaApiFailurePropagation": "NOT_RUN_NO_CUDA_TOOLKIT",
-    "cancellationTimeout": "NOT_RUN_S3C_NOT_STARTED",
-    "computeSanitizer": "NOT_RUN_TOOL_UNAVAILABLE",
-    "fixtures": []
-  },
-  "openmpRegression": {
-    "result": "PASS",
-    "deterministicFixtures": 12,
-    "fixedSeedStressCases": 40,
+  "nativeQualification": {
+    "build": "PASS_SM_120",
+    "deterministicFixtures": "PASS_12_OF_12",
+    "fixedSeedStress": "PASS_40_OF_40",
     "fixedSeed": "0x5eed1234",
-    "malformedInput": "PASS",
-    "staleState": "PASS",
-    "forcedMismatch": "PASS",
-    "nativeHypergraphRejection": "PASS"
+    "cudaOpenmpReferenceDistanceEquality": "PASS",
+    "parentTreeValidation": "PASS",
+    "zeroWeightEqualCost": "PASS",
+    "failureMatrix": "PASS_18_OF_18",
+    "memoryPreflight": "PASS",
+    "cudaApiFailurePropagation": "PASS",
+    "memcheck": "PASS_ZERO_REAL_ERRORS",
+    "racecheck": "PASS_ZERO_APPLICABLE_HAZARDS",
+    "initcheck": "PASS_WHERE_APPLICABLE",
+    "synccheck": "PASS_WHERE_APPLICABLE"
   },
-  "companionIntegration": {
-    "result": "NOT_STARTED_PREREQUISITE_BLOCKED",
-    "localCudaAdvertised": false,
-    "newActionAdded": false,
-    "explicitCudaFallbackToOpenmp": false,
-    "invalidDevice": "NOT_RUN",
-    "confirmation": "NOT_IMPLEMENTED_FOR_UNQUALIFIED_BACKEND"
+  "qualificationAuthority": {
+    "portableManifest": false,
+    "machineLocalIgnoredAttestation": "candy-runtime/.local/cuda-qualified-build.json",
+    "binaryPresenceActivatesCuda": false,
+    "bindings": ["executableSha256", "sourceSha256", "makefileSha256", "architecture", "nvccVersion", "deviceIdentity", "computeCapability", "qualificationSummary"]
   },
-  "semanticSafety": {
-    "ordinaryExplicitCuda": "BACKEND_UNAVAILABLE",
-    "hypergraphExplicitCuda": "INVALID_GRAPH_TYPE",
-    "implicitProjection": false,
-    "zeroNativeWorkForHypergraph": true
+  "companion": {
+    "result": "PASS",
+    "transport": "authenticated_loopback_http",
+    "lifecycle": ["queued", "preparing", "running", "validating", "completed"],
+    "timeout": "PROCESS_TIMEOUT",
+    "cancelBeforeLaunch": "PASS_IDEMPOTENT",
+    "cancelAfterCompletion": "COMPLETED_PRESERVED",
+    "hypergraph": "INVALID_GRAPH_TYPE_BEFORE_NATIVE_WORK",
+    "orphanProcess": false,
+    "gpuPhaseCancellation": "NOT_FORCED_JOB_FINISHED_TOO_QUICKLY"
   },
-  "liveQwen": "NOT_RUN_S3C_NOT_STARTED",
-  "browser": "NOT_RUN_FOR_CUDA_S3C_NOT_STARTED",
+  "liveQwen": {
+    "model": "qwen3:8b",
+    "initialThreadsDeviceDrift": "SAFE_VALIDATION_REJECTION_NO_ACTION",
+    "laterDeviceTimeoutDrift": "SAFE_VALIDATION_REJECTION_NO_ACTION",
+    "finalResult": "PASS",
+    "modelCalls": 4,
+    "typedCudaSubmissions": 2,
+    "deterministicBypasses": 3,
+    "schemaFailuresFinal": 0,
+    "fallbacks": 0
+  },
+  "browser": {
+    "modeA": "PASS",
+    "modeBNoGraph": "PASS_RUNTIME_VISIBLE_EXECUTABLE_EMPTY",
+    "modeBHypergraph": "PASS_RUNTIME_VISIBLE_EXECUTABLE_EMPTY",
+    "reload": "PASS_NO_FABRICATED_AUTHORITY",
+    "consoleWarningsOrErrors": 0,
+    "ordinaryGraphExecutionClaimed": false
+  },
   "fullRegression": {
-    "tests": "PASS_238_OF_238_FILES",
-    "scope3Focused": "PASS_2_OF_2_FILES",
-    "scope2Focused": "PASS_5_OF_5_FILES",
-    "scope1PhaseA": "PASS_2_OF_2_FILES",
+    "tests": "PASS_240_OF_240_FILES",
     "lint": "PASS",
-    "build": "PASS_240_MODULES_EXISTING_CHUNK_WARNING",
-    "buildGithub": "PASS_240_MODULES_EXISTING_CHUNK_WARNING",
+    "build": "PASS_241_MODULES_EXISTING_CHUNK_WARNING",
+    "buildGithub": "PASS_241_MODULES_EXISTING_CHUNK_WARNING",
     "productionAudit": "PASS_0_VULNERABILITIES",
     "diffCheck": "PASS"
   },
-  "knownLimitations": [
-    "CUDA source has not been compiled or executed.",
-    "No CUDA runtime parity, sanitizer, cancellation, live-model, or browser claim is made.",
-    "LOCAL_CUDA remains absent from production capability discovery and request schemas.",
-    "The candidate emits full vectors at its isolated native boundary; bounded artifact/observation integration is deferred until qualification."
-  ]
+  "openCritical": 0,
+  "openHigh": 0
 }

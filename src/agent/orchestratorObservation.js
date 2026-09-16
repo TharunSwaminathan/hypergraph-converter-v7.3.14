@@ -107,7 +107,7 @@ export function buildAuthoritativeOrchestratorObservation({
       authorized: Boolean(state.candy?.authorized),
       runtimeVersion: text(state.candy?.runtimeVersion) || null,
       capabilityStatus: text(state.candy?.capabilityStatus) || "unavailable",
-      capabilities: (state.candy?.capabilities ?? []).slice(0, 4).map(item => ({ capability: text(item.capability), algorithm: text(item.algorithm), backend: text(item.backend), modes: (item.modes ?? []).slice(0, 3).map(mode => text(mode)) })),
+      capabilities: (state.candy?.capabilities ?? []).slice(0, 4).map(item => ({ capability: text(item.capability), algorithm: text(item.algorithm), backend: text(item.backend), modes: (item.modes ?? []).slice(0, 3).map(mode => text(mode)), devices: (item.devices ?? []).slice(0, 4).map(device => ({ id: Number(device.id), name: text(device.name), computeCapability: text(device.computeCapability), qualifiedArchitecture: text(device.qualifiedArchitecture) })) })),
       jobs: (state.candy?.jobs ?? []).slice(-8).map(job => ({ jobId: text(job.jobId), status: text(job.status), algorithm: text(job.algorithm), backend: text(job.backend), mode: text(job.mode), resultRef: text(job.resultRef) || null, errorClassification: text(job.errorClassification) || null })),
     },
     pendingConfirmation: pendingConfirmation ? { actionType: text(pendingConfirmation.actionType), status: "awaiting_user" } : null,

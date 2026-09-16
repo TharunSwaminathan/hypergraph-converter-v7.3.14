@@ -74,7 +74,7 @@ const staticRequest = {
   requestId: "r-1",
   capability: "RUN_SSSP",
   algorithm: "SSSP",
-  algorithmVersion: "poc-1",
+  algorithmVersion: "scope1-openmp-sssp/1",
   mode: "STATIC",
   backend: "LOCAL_OPENMP",
   graphRef: { graphId: "g-test", graphVersion: 1 },

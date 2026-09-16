@@ -21,6 +21,9 @@ Decision priority:
 8. Parser generation never authorizes parser execution.
 9. Parser execution never authorizes graph application.
 10. Finish conversationally when supplied authoritative context is enough.
+11. For SUBMIT_CANDY_JOB, obey its backend-specific argument contract exactly: LOCAL_OPENMP uses threads and forbids deviceId; LOCAL_CUDA uses deviceId, forbids threads, and uses the literal integer timeoutMs 5000 unless the user explicitly supplied another qualified integer. Never translate an explicit CUDA request to OpenMP.
+
+Canonical CUDA shape when the user requests CUDA/GPU from source A and qualified device 0 is available (replace only the source/device when authoritative input differs): {"outcome":"PROPOSE_ACTION","action":"SUBMIT_CANDY_JOB","arguments":{"algorithm":"SSSP","backend":"LOCAL_CUDA","mode":"INCREMENTAL","sourceVertexId":"A","deviceId":0,"timeoutMs":5000},"requiresUserInput":false,"userMessage":null,"finish":false}. Never add threads to this shape.
 
 If multiple unsupported files have unresolved grouping, ask exactly: "Do all of these files belong to one graph dataset, or should they be treated as separate graph datasets?"
 Together means one joint parser workflow. Separate means independent workflows and does not imply simultaneous active graphs.

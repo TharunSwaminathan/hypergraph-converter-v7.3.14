@@ -13,7 +13,11 @@ import {
 
 export const SSSP_ALGORITHM = "SSSP";
 export const SSSP_MODES = Object.freeze(["STATIC", "INCREMENTAL", "COMPARE"]);
-export const CANDY_BACKENDS = Object.freeze(["LOCAL_OPENMP"]);
+export const CANDY_BACKENDS = Object.freeze(["LOCAL_OPENMP", "LOCAL_CUDA"]);
+export const CANDY_ALGORITHM_VERSIONS = Object.freeze({
+  LOCAL_OPENMP: "scope1-openmp-sssp/1",
+  LOCAL_CUDA: "scope3-cuda-sssp/1",
+});
 export const MAX_NATIVE_WEIGHT = 2_147_483_647;
 export const MAX_NATIVE_VERTICES = 2_147_483_647;
 export const MAX_NATIVE_EDGES = 2_147_483_647;
@@ -175,6 +179,8 @@ export function validateAlgorithmRequest(value, graphSnapshot) {
     validateAlgorithmGraphCompatibility(value.algorithm, snapshot.graphType, value.mode);
   }
   if (!CANDY_BACKENDS.includes(value.backend)) failCandy(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE, "The requested backend is not qualified or available.", { backend: value.backend });
+  if (value.algorithmVersion !== CANDY_ALGORITHM_VERSIONS[value.backend]) failCandy(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE, "The requested algorithm/backend version is not qualified.", { backend: value.backend, algorithmVersion: value.algorithmVersion });
+  if (value.backend === "LOCAL_CUDA" && value.mode === "STATIC") failCandy(CANDY_ERROR_CODES.ALGORITHM_FAILURE, "LOCAL_CUDA does not implement STATIC SSSP; use INCREMENTAL or COMPARE.");
   requirePlainObject(value.parameters, "parameters");
   requireExactKeys(value.parameters, ["sourceVertexId", "objective"], [], "parameters");
   if (!((typeof value.parameters.sourceVertexId === "string" && value.parameters.sourceVertexId.length > 0) || (typeof value.parameters.sourceVertexId === "number" && Number.isSafeInteger(value.parameters.sourceVertexId)))) {
@@ -182,8 +188,13 @@ export function validateAlgorithmRequest(value, graphSnapshot) {
   }
   requireNonEmptyString(value.parameters.objective, "parameters.objective", CANDY_ERROR_CODES.UNSUPPORTED_WEIGHT_MODEL);
   requirePlainObject(value.resourceHints, "resourceHints");
-  requireExactKeys(value.resourceHints, ["threads", "timeoutMs"], [], "resourceHints");
-  if (!Number.isInteger(value.resourceHints.threads) || value.resourceHints.threads < 1 || value.resourceHints.threads > 256) failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "threads must be an integer from 1 to 256.");
+  if (value.backend === "LOCAL_OPENMP") {
+    requireExactKeys(value.resourceHints, ["threads", "timeoutMs"], [], "resourceHints");
+    if (!Number.isInteger(value.resourceHints.threads) || value.resourceHints.threads < 1 || value.resourceHints.threads > 256) failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "threads must be an integer from 1 to 256.");
+  } else {
+    requireExactKeys(value.resourceHints, ["deviceId", "timeoutMs"], [], "resourceHints");
+    if (!Number.isInteger(value.resourceHints.deviceId) || value.resourceHints.deviceId < 0 || value.resourceHints.deviceId > 255) failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "deviceId must be a discovered non-negative integer.");
+  }
   if (!Number.isInteger(value.resourceHints.timeoutMs) || value.resourceHints.timeoutMs < 1 || value.resourceHints.timeoutMs > 86_400_000) failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "timeoutMs is outside the Scope 1 limit.");
   if (snapshot) {
     if (snapshot.weightModel.objectives[0] !== value.parameters.objective) failCandy(CANDY_ERROR_CODES.UNSUPPORTED_WEIGHT_MODEL, "Requested objective does not match the graph weight model.");
@@ -199,11 +210,12 @@ export function validateAlgorithmRequest(value, graphSnapshot) {
 
 export function validateAlgorithmResult(value) {
   requirePlainObject(value, "AlgorithmResult", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);
-  requireExactKeys(value, ["schemaVersion", "jobId", "requestId", "algorithm", "mode", "inputGraphRef", "resultType", "execution", "modelSummary", "resultArtifactRef", "mappingArtifactRef", "metrics", "validation", "warnings"], [], "AlgorithmResult", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);
+  requireExactKeys(value, ["schemaVersion", "jobId", "requestId", "algorithm", "backend", "mode", "inputGraphRef", "resultType", "execution", "modelSummary", "resultArtifactRef", "mappingArtifactRef", "metrics", "validation", "warnings"], [], "AlgorithmResult", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);
   requireSchema(value.schemaVersion, CANDY_SCHEMA_VERSIONS.ALGORITHM_RESULT, "AlgorithmResult", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);
   requireNonEmptyString(value.jobId, "jobId", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);
   requireNonEmptyString(value.requestId, "requestId", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);
-  if (value.algorithm !== SSSP_ALGORITHM || !SSSP_MODES.includes(value.mode)) failCandy(CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE, "Unexpected algorithm result identity.");
+  if (value.algorithm !== SSSP_ALGORITHM || !CANDY_BACKENDS.includes(value.backend) || !SSSP_MODES.includes(value.mode)) failCandy(CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE, "Unexpected algorithm result identity.");
+  if (value.backend === "LOCAL_CUDA" && value.mode === "STATIC") failCandy(CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE, "A CUDA result cannot claim unimplemented STATIC mode.");
   validateGraphRef(value.inputGraphRef, "inputGraphRef", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);
   if (value.resultType !== "ShortestPathTree") failCandy(CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE, "Unexpected result type.");
   requirePlainObject(value.execution, "execution", CANDY_ERROR_CODES.OUTPUT_PARSE_FAILURE);

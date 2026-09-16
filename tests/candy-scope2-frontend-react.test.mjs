@@ -20,7 +20,7 @@ await assert.rejects(modeA.health(), error => error.classification === "BACKEND_
 const runtimeDeclaration = {
   schemaVersion: "candy.capabilities/1",
   capabilities: [
-    { capability: "RUN_SSSP", algorithm: "SSSP", algorithmVersion: "scope1-openmp-sssp/1", backend: "LOCAL_OPENMP", graphTypes: ["OrdinaryGraph", "Hypergraph"], modes: ["STATIC", "COMPARE"], limits: {} },
+    { capability: "RUN_SSSP", algorithm: "SSSP", algorithmVersion: "scope1-openmp-sssp/1", backend: "LOCAL_OPENMP", adapterVersion: "candy.csr-adapter/1", graphTypes: ["OrdinaryGraph", "Hypergraph"], modes: ["STATIC", "COMPARE"], limits: {} },
     { capability: "SHELL", algorithm: "REMOTE_EXEC", backend: "ANY", graphTypes: ["Hypergraph"], modes: ["RUN"] },
   ],
 };
@@ -72,7 +72,7 @@ const ordinaryObservation = buildAuthoritativeOrchestratorObservation({ state: {
 const promptMessages = buildReactOrchestratorMessages({ userQuery: "Run shortest paths from A.", observation: ordinaryObservation });
 const promptPayload = JSON.parse(promptMessages[1].content);
 assert.equal(promptPayload.allowedActionArgumentContracts.SUBMIT_CANDY_JOB.threads.includes("use 2"), true);
-assert.equal(promptPayload.allowedActionArgumentContracts.SUBMIT_CANDY_JOB.timeoutMs.includes("use 5000"), true);
+assert.equal(promptPayload.allowedActionArgumentContracts.SUBMIT_CANDY_JOB.timeoutMs.includes("literal integer 5000"), true);
 
 const explanation = routeDeterministicCandyRequest("Explain what CANDY SSSP would do, but do not run it.", { hasGraph: true, candy: { graphType: "Hypergraph" } });
 assert.equal(explanation.kind, "explain");

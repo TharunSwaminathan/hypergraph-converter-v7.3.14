@@ -1,31 +1,25 @@
-# CANDY Scope 3 Phase S3B audit
+# CANDY Scope 3 Phase S3B final audit
 
 ## Result
 
-**CUDA SOURCE PREPARATION COMPLETE / RUNTIME QUALIFICATION BLOCKED BY ENVIRONMENT.** This is not a Phase S3B PASS. Open code Critical: 0. Open code High: 0. One environment blocker remains.
+**PASS.** The original environment blocker is preserved in commit/tag `81491e4` / `candy-integration-scope3-cuda-env-blocked` and is now closed for this qualification host. Open Critical: 0. Open High: 0.
 
-## Provenance and clean-room boundary
+## Native evidence
 
-The supplied `MOSP-CUDA-main.zip` has SHA-256 `290c2670b5c037bbcf595e5058250a6097d99dbcc8df714e9ce932e62c26edcf` and contains no LICENSE, COPYING, NOTICE, or equivalent file. It was inspected as research/reference input only. No upstream source was copied wholesale. The independently authored candidate and inspected-file/conceptual correspondence are recorded in `candy-runtime/native/upstream/MOSP-CUDA-PROVENANCE.md`.
+The independently authored CUDA candidate built for `sm_120` on CUDA 13.4 / nvcc 13.4.59 and an RTX 5060 (compute capability 12.0). The first candidate compile required no implementation correction. Final native execution passed 12 fixture families, 40 fixed-seed stress cases (`0x5eed1234`), exact CUDA/OpenMP/reference distance parity, parent-tree validation, zero-weight/equal-cost cases, and an 18-case adversarial failure matrix.
 
-## Static source review
+Memory preflight, bounded output, invalid-device handling, checked allocation, kernel launch, synchronization, nonconvergence, comparison mismatch, stale state, malformed input, weight-model, resource-limit, and graph-type failures were truthful. Memcheck reported zero real production errors; racecheck reported zero applicable hazards; initcheck and synccheck passed where applicable. The qualification-only invalid-launch misuse is intentionally excluded from production-candidate sanitizer failure accounting.
 
-- Strict invocation: exactly `--request <server-owned-request-path>`; no caller output path, environment, compiler flags, shell, or generic executable.
-- Strict contract: `CANDY_SSSP_CUDA_REQUEST_V1`, `LOCAL_CUDA`, and `INCREMENTAL`/`COMPARE` only. `STATIC` is explicitly rejected.
-- Type safety: only ordinary graph families are accepted; projected input requires a deterministic SHA-256 provenance ID; Hypergraph is rejected without projection.
-- Semantics: deterministic CSR, non-negative INT32 weights, exact graph/state versions, prior distance/parent validation, delete-then-insert ordering, and reject-on-duplicate/conflict behavior.
-- Memory: bounded vertices/edges/request bytes, checked multiplication and addition, device-memory query, conservative 75% free-memory ceiling, and cleanup ownership.
-- CUDA calls: device discovery/selection/properties, memory discovery/allocation/transfers/reset, launch error, synchronization, result transfer, and success-path frees are checked. Failures return structured non-zero results.
-- Kernel: edge index is bounds-checked; distances use atomic load/min and a bounded convergence loop. There is no caller frontier or counter capacity. Parent trees are reconstructed deterministically on the host from tight edges and validated as source-rooted.
-- Correctness oracle: every candidate success requires exact distance equality with an independent host Dijkstra pass. That host pass is not called CUDA STATIC.
-- Fault gates: compile-time-only memory-refusal and launch-failure paths exist; runtime callers cannot enable them.
-- Build: `CUDA_ARCH` is mandatory trusted configuration; no `sm_70` or other architecture default exists.
-- Scope: no MOSP product, Pareto logic, combined graph, generators, ESCHER, projection workflow, or other algorithm was added.
+## Findings and correctives
 
-The candidate source SHA-256 is `18c71bb883c58e7771ed2ee467aaa9419c3b6c75dbd01a59d56c19a1d4cf6630`; Makefile SHA-256 is `0f3358490e59685b8e2bcf17951a8a3a3b82914d01ee87603dfcec8d6a59185a`.
+- S3B-B01 preserved the original missing-toolkit environment blocker and was closed only after CUDA 13.4, nvcc, and Compute Sanitizer became available and native qualification completed.
+- S3B-H01 corrected the qualification oracle's zero-weight parent-cycle construction; candidate correctness remained independently checked.
+- S3B-H02 corrected stale graph-version error taxonomy in the candidate.
+- S3B-M01 made sanitizer qualification parse JSON from the tool-compatible output stream without trusting arbitrary text.
+- S3B-M02 recognized the racecheck-specific clean footer while continuing to fail on hazards/errors.
 
-## Unexecuted qualification matrix
+## Build identity
 
-CUDA build, deterministic fixtures, fixed-seed stress, zero-weight/equal-cost execution, OpenMP/CUDA/reference equality, parent-tree runtime validation, forced CUDA failures, invalid device execution, memory refusal, cancellation/timeout, and Compute Sanitizer are all **NOT RUN** because `nvcc` and the toolkit are unavailable. No result hashes or runtime claims were fabricated.
+Candidate source SHA-256: `e854c2643a27292267ae84a19ebf325ccd7cca47d2d2ef319c8cd32d4a042086`. Makefile SHA-256: `3eadaff386e8c579f53ea7bf0f0a394135c2b455de771cb221594dfe32e29f62`. The qualified local ELF observed for the final run was `7670cf1fadfe5c44aa7abeeb0121fdba0fb5cde7357c07e9ae85b6adb02a07bf`. Clean links were not byte-reproducible, so the ELF fingerprint is machine-local qualification state rather than portable repository authority.
 
-The existing OpenMP qualification was independently rerun and passed 12 fixtures, 40 fixed-seed stress cases, stale-state rejection, forced comparison mismatch, malformed input, and native Hypergraph rejection.
+No MOSP product, Pareto logic, general GPU execution, CUDA STATIC claim, projection workflow, or later phase was added.

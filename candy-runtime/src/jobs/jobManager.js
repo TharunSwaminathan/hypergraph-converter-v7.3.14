@@ -66,6 +66,7 @@ function publicJob(job) {
     updatedAt: job.updatedAt,
     resultRef: job.resultRef ?? null,
     error: job.error ?? null,
+    lifecycle: Object.freeze([...(job.lifecycle ?? [job.status])].slice(-12)),
   };
 }
 
@@ -74,7 +75,7 @@ export class JobManager {
     this.artifactStore = artifactStore;
     this.config = config;
     this.jobs = new Map();
-    this.runner = config.nativeRunner ?? new NativeProcessRunner({ runtimeRoot: config.runtimeRoot, stdoutBytes: config.limits.stdoutBytes, stderrBytes: config.limits.stderrBytes });
+    this.runner = config.nativeRunner ?? new NativeProcessRunner({ runtimeRoot: config.runtimeRoot, stdoutBytes: config.limits.stdoutBytes, stderrBytes: config.limits.stderrBytes, cudaBackendDiscovery: config.cudaBackendDiscovery });
   }
 
   async submit(payload) {
@@ -88,7 +89,7 @@ export class JobManager {
     const duplicate = [...this.jobs.values()].find(job => job.requestHash === requestHash && !["failed", "cancelled"].includes(job.status));
     if (duplicate) return publicJob(duplicate);
     const now = new Date().toISOString();
-    const job = { jobId: randomUUID(), requestHash, request, snapshot, payload, status: "queued", createdAt: now, updatedAt: now, controller: new AbortController(), resultRef: null, error: null };
+    const job = { jobId: randomUUID(), requestHash, request, snapshot, payload, status: "queued", lifecycle: ["queued"], createdAt: now, updatedAt: now, controller: new AbortController(), resultRef: null, error: null };
     this.jobs.set(job.jobId, job);
     queueMicrotask(() => this.execute(job).catch(() => {}));
     return publicJob(job);
@@ -120,6 +121,7 @@ export class JobManager {
 
   transition(job, status) {
     job.status = status;
+    if (job.lifecycle.at(-1) !== status) job.lifecycle.push(status);
     job.updatedAt = new Date().toISOString();
   }
 
@@ -131,6 +133,7 @@ export class JobManager {
       const graph = parseJson(await this.artifactStore.read(job.payload.graphArtifactId));
       if (graph.graphType !== job.snapshot.graphType) throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_TYPE, "Canonical graph artifact type does not match its snapshot.");
       const csr = canonicalOrdinaryGraphToCsr(graph, { limits: { maxVertices: this.config.limits.maxVertices, maxEdges: this.config.limits.maxEdges } });
+      if (job.request.backend === "LOCAL_CUDA" && csr.vertexCount > this.config.limits.maxCudaVertices) throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT, "Graph exceeds the qualified CUDA vertex limit.");
       if (csr.vertexCount !== job.snapshot.vertexCount || csr.edgeCount !== job.snapshot.edgeCount) throw new CandyContractError(CANDY_ERROR_CODES.STALE_GRAPH_VERSION, "Canonical graph cardinality changed after job authorization.");
       let priorState = null;
       let updates = null;
@@ -150,23 +153,24 @@ export class JobManager {
       await writeFile(requestPath, serializeNativeSsspRequest({ request: job.request, graphSnapshot: job.snapshot, csr, priorState, updates }), { encoding: "utf8", mode: 0o600 });
       if (job.controller.signal.aborted) throw new CandyContractError(CANDY_ERROR_CODES.JOB_CANCELLED, "CANDY job was cancelled before native execution.");
       this.transition(job, "running");
-      const processResult = await this.runner.run({ requestPath, timeoutMs: job.request.resourceHints.timeoutMs, signal: job.controller.signal });
+      const processResult = await this.runner.run({ backend: job.request.backend, requestPath, timeoutMs: job.request.resourceHints.timeoutMs, signal: job.controller.signal });
       if (job.controller.signal.aborted) throw new CandyContractError(CANDY_ERROR_CODES.JOB_CANCELLED, "CANDY job was cancelled before result acceptance.");
       this.transition(job, "validating");
       const native = parseNativeResult(processResult.stdout);
       if (processResult.exitCode !== 0) throw new CandyContractError(CANDY_ERROR_CODES.PROCESS_CRASH, "Native SSSP returned success content with a non-zero exit status.", { exitCode: processResult.exitCode });
-      if (native.graphId !== job.request.graphRef.graphId || native.graphVersion !== job.request.graphRef.graphVersion || native.mode !== job.request.mode || native.source !== csr.mapping.toNative(job.request.parameters.sourceVertexId)) throw new CandyContractError(CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE, "Native result identity does not match the authorized job.");
+      if (native.backend !== job.request.backend || native.graphId !== job.request.graphRef.graphId || native.graphVersion !== job.request.graphRef.graphVersion || native.mode !== job.request.mode || native.source !== csr.mapping.toNative(job.request.parameters.sourceVertexId)) throw new CandyContractError(CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE, "Native result identity does not match the authorized job.");
       const fullArtifact = await this.artifactStore.put(Buffer.from(JSON.stringify({ ...native, vertexMapping: csr.mapping.entries })), "application/vnd.candy.result+json");
       const result = {
         schemaVersion: CANDY_SCHEMA_VERSIONS.ALGORITHM_RESULT,
         jobId: job.jobId,
         requestId: job.request.requestId,
         algorithm: "SSSP",
+        backend: job.request.backend,
         mode: job.request.mode,
         inputGraphRef: job.request.graphRef,
         resultType: "ShortestPathTree",
         execution: { status: "completed", exitCode: 0 },
-        modelSummary: { sourceVertexId: job.request.parameters.sourceVertexId, reachableCount: native.reachableCount, unreachableCount: native.unreachableCount, affectedCount: native.affectedVertices, runtimeMs: Number(native.metrics?.computeMs ?? 0), validationStatus: native.validation?.status ?? "not_requested" },
+        modelSummary: { sourceVertexId: job.request.parameters.sourceVertexId, reachableCount: native.reachableCount, unreachableCount: native.unreachableCount, affectedCount: native.affectedVertices, runtimeMs: Number(native.metrics?.computeMs ?? native.metrics?.kernelMs ?? 0), validationStatus: native.validation?.status ?? "not_requested" },
         resultArtifactRef: fullArtifact,
         mappingArtifactRef: mappingArtifact,
         metrics: native.metrics ?? {},

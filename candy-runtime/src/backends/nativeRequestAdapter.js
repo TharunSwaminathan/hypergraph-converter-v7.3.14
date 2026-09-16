@@ -11,8 +11,7 @@ export function serializeNativeSsspRequest({ request, graphSnapshot, csr, priorS
   const source = csr.mapping.toNative(request.parameters.sourceVertexId);
   const deletions = updates?.deletions ?? [];
   const insertions = updates?.insertions ?? [];
-  const lines = [
-    "CANDY_SSSP_REQUEST_V1",
+  const common = [
     `mode ${request.mode}`,
     `graph_type ${graphSnapshot.graphType}`,
     `projection_provenance_id ${graphSnapshot.graphType === "ProjectedOrdinaryGraph" ? graphSnapshot.provenance.projection.mappingArtifactRef.id : "-"}`,
@@ -22,6 +21,27 @@ export function serializeNativeSsspRequest({ request, graphSnapshot, csr, priorS
     `state_graph_version ${stateRequired ? priorState.graphVersion : 0}`,
     `state_version ${stateRequired ? priorState.algorithmStateVersion : 0}`,
     `source ${source}`,
+  ];
+  const lines = request.backend === "LOCAL_CUDA" ? [
+    "CANDY_SSSP_CUDA_REQUEST_V1",
+    `backend ${request.backend}`,
+    ...common,
+    `cuda_device ${request.resourceHints.deviceId}`,
+    `vertex_count ${csr.vertexCount}`,
+    `edge_count ${csr.edgeCount}`,
+    vector("row_offsets", csr.rowOffsets),
+    vector("column_indices", csr.columnIndices),
+    vector("weights", csr.weights),
+    vector("prior_distances", priorState.distances, value => value == null ? "INF" : String(value)),
+    vector("prior_parents", priorState.parents),
+    `deletion_count ${deletions.length}`,
+    ...deletions.map(edge => `d ${csr.mapping.toNative(edge.source)} ${csr.mapping.toNative(edge.target)}`),
+    `insertion_count ${insertions.length}`,
+    ...insertions.map(edge => `i ${csr.mapping.toNative(edge.source)} ${csr.mapping.toNative(edge.target)} ${edge.weight}`),
+    "END",
+  ] : [
+    "CANDY_SSSP_REQUEST_V1",
+    ...common,
     `threads ${request.resourceHints.threads}`,
     `vertex_count ${csr.vertexCount}`,
     `edge_count ${csr.edgeCount}`,

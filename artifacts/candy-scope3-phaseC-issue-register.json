@@ -1,16 +1,13 @@
 {
   "scope": "CANDY Scope 3 Phase S3C",
   "baseline": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
-  "result": "NOT_STARTED_PREREQUISITE_BLOCKED",
+  "result": "PASS",
   "openCritical": 0,
   "openHigh": 0,
   "issues": [
-    {
-      "id": "S3C-B01",
-      "severity": "EnvironmentBlocker",
-      "status": "open",
-      "title": "Phase S3C activation is gated on successful S3B CUDA qualification",
-      "evidence": "S3B cannot be runtime-qualified without nvcc/toolkit/Compute Sanitizer, so LOCAL_CUDA was not added to runtime or frontend capability discovery."
-    }
+    { "id": "S3C-H01", "severity": "High", "status": "closed", "title": "Exact non-reproducible ELF fingerprint was stored as portable source authority", "resolution": "Attestation moved to ignored machine-local state and now binds executable, source, Makefile, architecture, exact nvcc version, device identity, and qualification summary." },
+    { "id": "S3C-M01", "severity": "Medium", "status": "closed", "title": "Runtime-qualified backends were hidden when the active graph was incompatible", "resolution": "Discovery state now preserves runtimeCapabilities separately from active capabilities; panel and A-E regressions verify truthful display without model/action exposure." },
+    { "id": "S3C-M02", "severity": "Medium", "status": "closed", "title": "First qwen CUDA proposal reused OpenMP threads and omitted deviceId", "resolution": "Strict schema rejected it with no action; backend-specific contract and canonical CUDA shape were hardened." },
+    { "id": "S3C-M03", "severity": "Medium", "status": "closed", "title": "Fresh qwen requalification produced invalid device/timeout fields", "resolution": "Strict validation again rejected it with no action; bounded orchestrator temperature was set to zero and literal typed defaults were clarified; final live gate passed." }
   ]
 }

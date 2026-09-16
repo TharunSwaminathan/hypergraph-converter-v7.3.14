@@ -20,6 +20,7 @@ export function useCandyRuntime({ graphType = null, graphId = null, graphVersion
     runtimeVersion: null,
     capabilityStatus: "unavailable",
     capabilities: [],
+    runtimeCapabilities: [],
     lastError: null,
     jobs: [],
     selectedJob: null,
@@ -31,7 +32,7 @@ export function useCandyRuntime({ graphType = null, graphId = null, graphVersion
     const token = String(value ?? "").trim();
     tokenRef.current = token;
     if (token) safeSession()?.setItem(TOKEN_KEY, token); else safeSession()?.removeItem(TOKEN_KEY);
-    setState(current => ({ ...current, authorized: false, status: token ? "not_discovered" : "unauthorized", capabilities: [], capabilityStatus: "unavailable", lastError: null }));
+    setState(current => ({ ...current, authorized: false, status: token ? "not_discovered" : "unauthorized", capabilities: [], runtimeCapabilities: [], capabilityStatus: "unavailable", lastError: null }));
     return { ok: Boolean(token) };
   }, []);
 
@@ -44,13 +45,14 @@ export function useCandyRuntime({ graphType = null, graphId = null, graphVersion
       if (health.schemaVersion !== "candy.runtime-api/1") throw Object.assign(new Error("The companion API schema is incompatible."), { classification: "incompatible" });
       const declaration = await runtimeClient.capabilities();
       declarationRef.current = declaration;
+      const discovered = intersectCandyCapabilities(declaration, { authorized: true });
       const intersection = intersectCandyCapabilities(declaration, { authorized: true, graphType: graphType ?? "__NO_ACTIVE_GRAPH__" });
-      setState(current => ({ ...current, status: "ready", authorized: true, runtimeVersion: health.serviceVersion, capabilityStatus: intersection.status, capabilities: intersection.capabilities, lastError: null }));
-      return { ok: true, health, intersection };
+      setState(current => ({ ...current, status: "ready", authorized: true, runtimeVersion: health.serviceVersion, capabilityStatus: intersection.status, capabilities: intersection.capabilities, runtimeCapabilities: discovered.capabilities, lastError: null }));
+      return { ok: true, health, intersection, discovered };
     } catch (error) {
       const classification = error.classification ?? "BACKEND_UNAVAILABLE";
       const status = classification === "UNAUTHORIZED" ? "unauthorized" : classification === "incompatible" ? "incompatible" : "unavailable";
-      setState(current => ({ ...current, status, authorized: false, capabilities: [], capabilityStatus: "unavailable", lastError: { classification, message: error.message } }));
+      setState(current => ({ ...current, status, authorized: false, capabilities: [], runtimeCapabilities: [], capabilityStatus: "unavailable", lastError: { classification, message: error.message } }));
       return { ok: false, classification, error: error.message };
     }
   }, [client, enabled, graphType]);
@@ -90,8 +92,10 @@ export function useCandyRuntime({ graphType = null, graphId = null, graphVersion
   const submitFromAssistant = useCallback(async argumentsValue => {
     const safety = validateCandySubmissionIntent(argumentsValue, graph);
     if (!safety.ok) return { ok: false, classification: safety.classification, error: safety.message, nativeJobCreated: false, implicitProjectionPerformed: false };
+    const advertised = state.capabilities.some(capability => capability.backend === argumentsValue.backend && capability.modes.includes(argumentsValue.mode));
+    if (!advertised) return { ok: false, classification: "BACKEND_UNAVAILABLE", error: `${argumentsValue.backend} is not currently advertised for ${argumentsValue.mode}. No fallback backend was selected.`, nativeJobCreated: false, implicitProjectionPerformed: false };
     return { ok: false, classification: "INVALID_GRAPH_SCHEMA", error: "This Hypergraph Studio does not currently expose an authoritative ordinary-graph artifact to CANDY. Importing or projecting one requires a separately authorized workflow.", nativeJobCreated: false };
-  }, [graph]);
+  }, [graph, state.capabilities]);
 
   return {
     state: Object.freeze({ ...state, graphType }),

@@ -7,7 +7,7 @@ const runner = {
     const requestText = await readFile(requestPath, "utf8");
     const mode = /^mode (\w+)$/m.exec(requestText)?.[1];
     const validation = mode === "COMPARE" ? "passed" : "not_requested";
-    return { stdout: JSON.stringify({ schemaVersion: "candy.native-sssp-result/1", ok: true, algorithm: "SSSP", mode, graphId: "dynamic-1", graphVersion: 2, source: 0, vertexCount: 3, reachableCount: 3, unreachableCount: 0, affectedVertices: 1, execution: { status: "completed", exitCode: 0 }, validation: { status: validation }, metrics: { preparationMs: 0, computeMs: 1, validationMs: mode === "COMPARE" ? 1 : 0 }, distances: [0, 1, 1], parents: [-1, 0, 0] }), stderr: "", exitCode: 0 };
+    return { stdout: JSON.stringify({ schemaVersion: "candy.native-sssp-result/1", ok: true, algorithm: "SSSP", backend: "LOCAL_OPENMP", mode, graphId: "dynamic-1", graphVersion: 2, source: 0, vertexCount: 3, reachableCount: 3, unreachableCount: 0, affectedVertices: 1, execution: { status: "completed", exitCode: 0 }, validation: { status: validation }, metrics: { preparationMs: 0, computeMs: 1, validationMs: mode === "COMPARE" ? 1 : 0 }, distances: [0, 1, 1], parents: [-1, 0, 0] }), stderr: "", exitCode: 0 };
   },
 };
 const runtime = await startCandyRuntime({ port: 0, backendAvailable: true, nativeRunner: runner, pairingToken: "scope2-incremental-token-abcdefghijklmnopqrstuvwxyz" });

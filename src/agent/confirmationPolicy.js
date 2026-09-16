@@ -74,7 +74,7 @@ export const CONFIRMATION_POLICY = Object.freeze({
   run_candy_expensive_compute: Object.freeze({
     required: true,
     title: "Run potentially expensive local SSSP?",
-    message: "This exact CANDY request exceeds the low-cost envelope or uses COMPARE. Confirm the bound graph version, source, backend, mode, threads, and timeout.",
+    message: "This exact CANDY request uses CUDA, COMPARE, or exceeds the low-cost envelope. Confirm the bound graph version, source, backend, mode, backend-specific threads/device, updates, and timeout.",
   }),
 });
 

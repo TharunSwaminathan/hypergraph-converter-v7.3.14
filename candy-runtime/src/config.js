@@ -23,6 +23,7 @@ export const DEFAULT_LIMITS = Object.freeze({
   maxEdges: 10_000_000,
   maxUpdates: 1_000_000,
   maxJobs: 256,
+  maxCudaVertices: 10_000,
 });
 
 const runtimeRoot = resolve(fileURLToPath(new URL("../", import.meta.url)));
@@ -38,6 +39,7 @@ export function createRuntimeConfig(overrides = {}) {
     artifactRoot: overrides.artifactRoot,
     runtimeRoot,
     backendAvailable: overrides.backendAvailable,
+    cudaBackendDiscovery: overrides.cudaBackendDiscovery,
     nativeRunner: overrides.nativeRunner,
   });
 }

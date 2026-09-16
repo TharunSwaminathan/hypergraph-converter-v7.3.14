@@ -7,7 +7,7 @@ export function boundedCandyJobObservation(value) {
     jobId: text(value.jobId),
     status: text(value.status ?? value.execution?.status),
     algorithm: text(value.algorithm),
-    backend: text(value.backend ?? "LOCAL_OPENMP"),
+    backend: text(value.backend),
     mode: text(value.mode),
     graphRef: value.graphRef ?? value.inputGraphRef ?? null,
     sourceVertexId: typeof value.sourceVertexId === "number" ? value.sourceVertexId : text(value.sourceVertexId ?? summary.sourceVertexId),
@@ -19,5 +19,6 @@ export function boundedCandyJobObservation(value) {
     resultRef: text(value.resultRef ?? value.resultArtifactRef?.id) || null,
     errorClassification: text(value.error?.classification) || null,
     warnings: Array.isArray(value.warnings) ? value.warnings.slice(0, 8).map(item => text(item, 160)) : [],
+    lifecycle: Array.isArray(value.lifecycle) ? value.lifecycle.slice(-12).map(item => text(item, 32)) : [],
   });
 }

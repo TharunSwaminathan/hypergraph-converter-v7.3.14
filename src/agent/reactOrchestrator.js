@@ -3,7 +3,7 @@ import { ORCHESTRATOR_STEP_RESPONSE_SCHEMA } from "./orchestratorStepSchema.js";
 import { buildReactOrchestratorMessages } from "./prompts/reactOrchestratorPrompt.js";
 
 export const REACT_ORCHESTRATOR_TASK = "react_orchestrator_step";
-export const REACT_ORCHESTRATOR_TEMPERATURE = 0.1;
+export const REACT_ORCHESTRATOR_TEMPERATURE = 0;
 export const MAX_REACT_PROMPT_CHARS = 30000;
 
 export function buildReactOrchestratorRequest({ userQuery, observation, threadContext } = {}) {

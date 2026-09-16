@@ -1,17 +1,15 @@
 {
   "scope": "CANDY Scope 3 Phase S3B",
   "baseline": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3",
-  "result": "CUDA_SOURCE_PREPARATION_COMPLETE_RUNTIME_QUALIFICATION_BLOCKED",
+  "blockedCheckpoint": "81491e4a04b4d33adb3ebd0679cbe196ce109288",
+  "result": "PASS",
   "openCritical": 0,
   "openHigh": 0,
   "issues": [
-    {
-      "id": "S3B-B01",
-      "severity": "EnvironmentBlocker",
-      "status": "open",
-      "title": "CUDA compiler and runtime qualification tools are unavailable",
-      "evidence": "The GPU is visible, but nvcc, a CUDA toolkit installation, and Compute Sanitizer are absent in Windows and WSL2.",
-      "impact": "The candidate cannot be compiled, executed, stress-tested, sanitizer-tested, or compared against OpenMP on CUDA. Phase S3B cannot receive PASS."
-    }
+    { "id": "S3B-B01", "severity": "EnvironmentBlocker", "status": "closed", "title": "CUDA compiler/runtime qualification tools were initially unavailable", "resolution": "Blocked checkpoint preserved; CUDA 13.4, nvcc 13.4.59, and Compute Sanitizer 2026.3 later became available and the full native gate passed." },
+    { "id": "S3B-H01", "severity": "High", "status": "closed", "title": "Qualification oracle could construct a parent cycle on zero-weight tight edges", "resolution": "Harness parent construction was replaced with deterministic source-rooted reachability and the zero-weight fixture was rerun." },
+    { "id": "S3B-H02", "severity": "High", "status": "closed", "title": "Candidate stale graph-version failure used the wrong taxonomy", "resolution": "Candidate now emits STALE_GRAPH_VERSION and the failure matrix verifies it." },
+    { "id": "S3B-M01", "severity": "Medium", "status": "closed", "title": "Sanitizer wrapper and native JSON used different output streams", "resolution": "Qualification tooling safely locates the bounded JSON line while independently inspecting sanitizer diagnostics." },
+    { "id": "S3B-M02", "severity": "Medium", "status": "closed", "title": "Racecheck clean footer differed from generic sanitizer footer", "resolution": "Tool-specific zero-hazard success parsing was added without accepting warnings or errors." }
   ]
 }

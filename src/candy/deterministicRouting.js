@@ -14,11 +14,17 @@ function graphTypeFromState(state) {
   return state.candy?.graphType ?? state.graph?.graphType ?? (state.hasGraph ? GRAPH_TYPES.HYPERGRAPH : null);
 }
 
-function readOnlyExplanation(graphType, cudaRequested = false) {
+function cudaCapability(state) {
+  return state.candy?.capabilities?.find(item => item.backend === "LOCAL_CUDA") ?? null;
+}
+
+function readOnlyExplanation(graphType, cudaRequested = false, cuda = null) {
   const accepted = SSSP_ACCEPTED_GRAPH_TYPES.join(", ");
   const noAction = "This was a read-only explanation; no artifact, job, process, confirmation, or graph change was created.";
   const cudaStatus = cudaRequested
-    ? " LOCAL_CUDA is not qualified or advertised in this build. The reviewed CUDA candidate is incremental-only; a CPU static reference must not be described as CUDA STATIC SSSP."
+    ? (cuda
+      ? " A qualified LOCAL_CUDA capability is advertised for INCREMENTAL and COMPARE only; CUDA STATIC is not implemented."
+      : " LOCAL_CUDA is not currently qualified or advertised. The reviewed CUDA implementation is incremental-only; a CPU static reference must not be described as CUDA STATIC SSSP.")
     : "";
   if (isHypergraphType(graphType)) {
     return `CANDY SSSP means single-source shortest paths and requires an ordinary graph (${accepted}). The active dataset is ${graphType}, which is a hypergraph. No implicit projection will be performed.${cudaStatus} ${noAction}`;
@@ -37,10 +43,11 @@ export function routeDeterministicCandyRequest(query, state = {}) {
   if (!CANDY_TOPIC.test(value)) return null;
   const graphType = graphTypeFromState(state);
   const cudaRequested = CUDA_PREFERENCE.test(value);
+  const cuda = cudaCapability(state);
   if (READ_ONLY.test(value) || !EXECUTION_VERB.test(value)) {
     return Object.freeze({
       kind: "explain",
-      message: readOnlyExplanation(graphType, cudaRequested),
+      message: readOnlyExplanation(graphType, cudaRequested, cuda),
     });
   }
   if (!state.hasGraph) return Object.freeze({ kind: "blocked", classification: "INVALID_GRAPH_SCHEMA", message: "No authoritative graph is loaded. No CANDY job was created." });
@@ -48,7 +55,7 @@ export function routeDeterministicCandyRequest(query, state = {}) {
     return Object.freeze({ kind: "blocked", classification: "INVALID_GRAPH_TYPE", message: `CANDY SSSP accepts ordinary graphs. The active dataset is ${graphType}, a hypergraph. No implicit projection was performed, and zero artifacts, native jobs, or processes were created.` });
   }
   if (!isOrdinaryGraphType(graphType)) return Object.freeze({ kind: "blocked", classification: "INVALID_GRAPH_SCHEMA", message: "The active graph type is unknown or unsupported. No CANDY job was created." });
-  if (cudaRequested) return Object.freeze({ kind: "blocked", classification: "BACKEND_UNAVAILABLE", message: "LOCAL_CUDA is not qualified or advertised in this build. The request was not substituted with LOCAL_OPENMP, and no job or GPU process was created." });
+  if (cudaRequested && !cuda) return Object.freeze({ kind: "blocked", classification: "BACKEND_UNAVAILABLE", message: "LOCAL_CUDA is not currently qualified or advertised. The request was not substituted with LOCAL_OPENMP, and no job or GPU process was created." });
   if (!state.candy?.featureEnabled || state.candy?.capabilityStatus !== "ready") return Object.freeze({ kind: "blocked", classification: "BACKEND_UNAVAILABLE", message: "The qualified local CANDY SSSP capability is unavailable. Browser-only mode remains active; no job was created." });
   return Object.freeze({ kind: "delegate" });
 }

@@ -11,7 +11,7 @@ const fakeRunner = {
       signal.addEventListener("abort", () => { clearTimeout(timer); reject(Object.assign(new Error("cancelled"), { code: "JOB_CANCELLED" })); }, { once: true });
     });
     return {
-      stdout: JSON.stringify({ schemaVersion: "candy.native-sssp-result/1", ok: true, algorithm: "SSSP", mode: "STATIC", graphId: "ordinary-1", graphVersion: 1, source: 0, vertexCount: 3, reachableCount: 3, unreachableCount: 0, affectedVertices: 0, execution: { status: "completed", exitCode: 0 }, validation: { status: "not_requested" }, metrics: { preparationMs: 0.1, computeMs: 0.2, validationMs: 0.1 }, distances: [0, 1, 3], parents: [-1, 0, 1] }),
+      stdout: JSON.stringify({ schemaVersion: "candy.native-sssp-result/1", ok: true, algorithm: "SSSP", backend: "LOCAL_OPENMP", mode: "STATIC", graphId: "ordinary-1", graphVersion: 1, source: 0, vertexCount: 3, reachableCount: 3, unreachableCount: 0, affectedVertices: 0, execution: { status: "completed", exitCode: 0 }, validation: { status: "not_requested" }, metrics: { preparationMs: 0.1, computeMs: 0.2, validationMs: 0.1 }, distances: [0, 1, 3], parents: [-1, 0, 1] }),
       stderr: "",
       exitCode: 0,
       fingerprint: "sha256:test",

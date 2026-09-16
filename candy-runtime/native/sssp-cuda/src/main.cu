@@ -127,7 +127,8 @@ Request parse_request(const std::string &path) {
   expect(in, "state_graph_id"); request.state_graph_id = scalar<std::string>(in, "state_graph_id");
   expect(in, "state_graph_version"); request.state_graph_version = scalar<std::uint64_t>(in, "state_graph_version");
   expect(in, "state_version"); request.state_version = scalar<std::uint64_t>(in, "state_version");
-  if (request.state_graph_id != request.graph_id || request.state_graph_version != request.graph_version || request.state_version == 0) fail("STALE_PROPERTY_STATE", "Prior state does not match the graph identity/version.");
+  if (request.state_graph_id != request.graph_id || request.state_graph_version != request.graph_version) fail("STALE_GRAPH_VERSION", "Prior property graph identity/version is stale.");
+  if (request.state_version == 0) fail("STALE_PROPERTY_STATE", "Prior property state version is missing.");
   expect(in, "source"); request.source = scalar<int>(in, "source");
   expect(in, "cuda_device"); request.cuda_device = scalar<int>(in, "cuda_device");
   if (request.cuda_device < 0) fail("BACKEND_UNAVAILABLE", "cuda_device must be a discovered non-negative device ID.");
@@ -319,6 +320,9 @@ std::size_t checked_add(std::size_t left, std::size_t right) {
 class DeviceAllocations {
  public:
   template <typename T> void allocate(T **target, std::size_t count_value) {
+#ifdef CANDY_TEST_FORCE_ALLOCATION_FAILURE
+    fail("RESOURCE_LIMIT", "Qualification-only forced CUDA allocation failure.");
+#endif
     const auto error = cudaMalloc(reinterpret_cast<void **>(target), checked_bytes<T>(std::max<std::size_t>(count_value, 1)));
     if (error != cudaSuccess) fail("RESOURCE_LIMIT", "CUDA allocation failed after preflight.");
     values_.push_back(*target);
@@ -416,11 +420,17 @@ GpuResult run_gpu(const Graph &graph, std::vector<Distance> initial, int device)
     relax_edges<<<blocks, BLOCK_SIZE>>>(d_sources, d_targets, d_weights, sources.size(), d_distances, d_changed);
 #endif
     cuda_check(cudaGetLastError(), "CUDA relaxation kernel launch");
+#ifdef CANDY_TEST_FORCE_SYNC_FAILURE
+    fail("ALGORITHM_FAILURE", "Qualification-only forced CUDA synchronization failure.");
+#endif
     cuda_check(cudaDeviceSynchronize(), "CUDA relaxation synchronization");
     int changed = 0;
     cuda_check(cudaMemcpy(&changed, d_changed, sizeof(int), cudaMemcpyDeviceToHost), "CUDA convergence transfer");
     if (!changed) { converged = true; break; }
   }
+#ifdef CANDY_TEST_FORCE_NONCONVERGENCE
+  converged = false;
+#endif
   if (!converged) fail("RESULT_VALIDATION_FAILURE", "CUDA relaxation did not converge within the vertex bound.");
   const auto kernel_end = Clock::now();
   const auto d2h_start = Clock::now();
@@ -461,6 +471,9 @@ int main(int argc, char **argv) {
     initial[request.source] = 0;
     const auto preparation_end = Clock::now();
     GpuResult gpu = run_gpu(graph, std::move(initial), request.cuda_device);
+#ifdef CANDY_TEST_FORCE_COMPARE_MISMATCH
+    gpu.distances[request.source] = 1;
+#endif
     const auto reference_start = Clock::now();
     const auto reference = static_reference(graph, request.source);
     if (gpu.distances != reference) fail("RESULT_VALIDATION_FAILURE", "CUDA distances differ from the independent static reference.");

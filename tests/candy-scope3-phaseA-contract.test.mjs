@@ -10,12 +10,12 @@ const request = {
   requestId: "scope3-gate",
   capability: "RUN_SSSP",
   algorithm: "SSSP",
-  algorithmVersion: "scope1-openmp-sssp/1",
+  algorithmVersion: "scope3-cuda-sssp/1",
   mode: "INCREMENTAL",
   backend: "LOCAL_CUDA",
   graphRef: { graphId: "g", graphVersion: 1 },
   parameters: { sourceVertexId: "A", objective: "cost" },
-  resourceHints: { threads: 1, timeoutMs: 5000 },
+  resourceHints: { deviceId: 0, timeoutMs: 5000 },
   propertyStateRef: { sessionId: "s", graphId: "g", graphVersion: 1, algorithmStateVersion: 1 },
   updateBatchRef: { updateBatchId: "u", baseGraphId: "g", baseGraphVersion: 1 },
 };
@@ -30,11 +30,9 @@ const common = {
   provenance: {},
 };
 
-assert.deepEqual(CANDY_BACKENDS, ["LOCAL_OPENMP"], "unqualified CUDA must not enter the production backend enum");
-assert.throws(
-  () => validateAlgorithmRequest(request, { ...common, graphType: "OrdinaryGraph", edgeCount: 1 }),
-  error => error.code === "BACKEND_UNAVAILABLE",
-);
+assert.deepEqual(CANDY_BACKENDS, ["LOCAL_OPENMP", "LOCAL_CUDA"]);
+assert.equal(validateAlgorithmRequest(request, { ...common, graphType: "OrdinaryGraph", edgeCount: 1 }).backend, "LOCAL_CUDA");
+assert.throws(() => validateAlgorithmRequest({ ...request, mode: "STATIC", propertyStateRef: undefined, updateBatchRef: undefined }, { ...common, graphType: "OrdinaryGraph", edgeCount: 1 }), error => error.code === "ALGORITHM_FAILURE");
 for (const graphType of ["Hypergraph", "DynamicHypergraph"]) {
   assert.throws(
     () => validateAlgorithmRequest(request, { ...common, graphType, hyperedgeCount: 1 }),
@@ -63,11 +61,14 @@ assert.match(hypergraph.message, /zero artifacts, native jobs, or processes/);
 
 const explanation = routeDeterministicCandyRequest("Explain CUDA SSSP but do not run it.", ordinaryState);
 assert.equal(explanation.kind, "explain");
-assert.match(explanation.message, /not qualified or advertised/);
+assert.match(explanation.message, /not currently qualified or advertised/);
 assert.match(explanation.message, /CPU static reference must not be described as CUDA STATIC/);
 assert.match(explanation.message, /no artifact, job, process, confirmation, or graph change/);
 
 const defaultRoute = routeDeterministicCandyRequest("Run shortest paths from A.", ordinaryState);
 assert.equal(defaultRoute.kind, "delegate", "no-preference behavior must preserve the qualified default policy");
+
+const qualifiedCudaState = { ...ordinaryState, candy: { ...ordinaryState.candy, capabilities: [{ backend: "LOCAL_CUDA", modes: ["INCREMENTAL", "COMPARE"] }] } };
+assert.equal(routeDeterministicCandyRequest("Use the GPU for this shortest-path update.", qualifiedCudaState).kind, "delegate");
 
 console.log("CANDY Scope 3 S3A backend gate, graph-type precedence, and no-fallback tests passed.");

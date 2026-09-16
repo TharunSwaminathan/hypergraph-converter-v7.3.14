@@ -20,10 +20,17 @@ const validJobId = value => typeof value.jobId === "string" && /^[0-9a-f]{8}-[0-
 const validCandySubmission = value => {
   const errors = [];
   if (value.algorithm !== "SSSP") errors.push("arguments.algorithm must be SSSP.");
-  if (value.backend !== "LOCAL_OPENMP") errors.push("arguments.backend must be LOCAL_OPENMP.");
-  if (!["STATIC", "INCREMENTAL", "COMPARE"].includes(value.mode)) errors.push("arguments.mode is unsupported.");
+  if (!["LOCAL_OPENMP", "LOCAL_CUDA"].includes(value.backend)) errors.push("arguments.backend must be LOCAL_OPENMP or LOCAL_CUDA.");
+  const allowedModes = value.backend === "LOCAL_CUDA" ? ["INCREMENTAL", "COMPARE"] : ["STATIC", "INCREMENTAL", "COMPARE"];
+  if (!allowedModes.includes(value.mode)) errors.push(value.backend === "LOCAL_CUDA" ? "LOCAL_CUDA supports INCREMENTAL or COMPARE only; CUDA STATIC is not implemented." : "arguments.mode is unsupported.");
   if (!((typeof value.sourceVertexId === "string" && value.sourceVertexId.length > 0 && value.sourceVertexId.length <= 240) || (typeof value.sourceVertexId === "number" && Number.isSafeInteger(value.sourceVertexId)))) errors.push("arguments.sourceVertexId must be a bounded canonical vertex ID.");
-  if (!Number.isInteger(value.threads) || value.threads < 1 || value.threads > 256) errors.push("arguments.threads must be an integer from 1 through 256.");
+  if (value.backend === "LOCAL_CUDA") {
+    if (!Number.isInteger(value.deviceId) || value.deviceId < 0 || value.deviceId > 255) errors.push("arguments.deviceId must be a discovered non-negative integer.");
+    if (Object.hasOwn(value, "threads")) errors.push("arguments.threads is not valid for LOCAL_CUDA.");
+  } else {
+    if (!Number.isInteger(value.threads) || value.threads < 1 || value.threads > 256) errors.push("arguments.threads must be an integer from 1 through 256.");
+    if (Object.hasOwn(value, "deviceId")) errors.push("arguments.deviceId is not valid for LOCAL_OPENMP.");
+  }
   if (!Number.isInteger(value.timeoutMs) || value.timeoutMs < 1 || value.timeoutMs > 86_400_000) errors.push("arguments.timeoutMs is outside the qualified bound.");
   return errors;
 };
@@ -59,16 +66,17 @@ export const REACT_CAPABILITY_DEFINITIONS = Object.freeze({
   CLEAR_GRAPH: { keys: [], validate: noArguments, confirmation: true },
   DISCOVER_CANDY_CAPABILITIES: { keys: [], validate: noArguments, stopAfterResult: true },
   SUBMIT_CANDY_JOB: {
-    keys: ["algorithm", "backend", "mode", "sourceVertexId", "threads", "timeoutMs"],
+    keys: ["algorithm", "backend", "mode", "sourceVertexId", "threads", "deviceId", "timeoutMs"],
     validate: validCandySubmission,
     stopAfterResult: true,
     modelArgumentContract: Object.freeze({
       algorithm: "literal SSSP",
-      backend: "literal LOCAL_OPENMP",
-      mode: "STATIC, INCREMENTAL, or COMPARE; use STATIC when the user did not request an incremental/comparison run",
+      backend: "Use LOCAL_CUDA when the user says CUDA or GPU and authoritativeObservation.candy.capabilities advertises LOCAL_CUDA; otherwise use an advertised backend. Preserve explicit backend and never fall back.",
+      mode: "LOCAL_CUDA requires INCREMENTAL or COMPARE and must never use STATIC; use INCREMENTAL for a CUDA/GPU update or ordinary CUDA run unless the user explicitly asks to compare. LOCAL_OPENMP also allows STATIC.",
       sourceVertexId: "the bounded canonical source ID named by the user",
-      threads: "integer 1..256; use 2 when the user did not specify a value",
-      timeoutMs: "integer 1..86400000; use 5000 when the user did not specify a value",
+      threads: "LOCAL_OPENMP ONLY: integer 1..256; use 2 when unspecified. Omit this key entirely when backend is LOCAL_CUDA.",
+      deviceId: "LOCAL_CUDA ONLY: required integer device ID from authoritativeObservation.candy.capabilities, normally 0. Omit this key for LOCAL_OPENMP; never invent launch geometry.",
+        timeoutMs: "required integer 1..86400000; use the literal integer 5000 when the user did not explicitly specify another value (never a string, null, expression, or unit-suffixed value)",
     }),
   },
   GET_CANDY_JOB_STATUS: { keys: ["jobId"], validate: validJobId, stopAfterResult: true },
@@ -92,7 +100,8 @@ export function validateReactActionArguments(action, argumentsValue) {
 export function reactActionRequiresConfirmation(action, state = {}, argumentsValue = {}) {
   if (["RUN_CUSTOM_PARSER", "APPLY_CUSTOM_RESULT", "CLEAR_GRAPH", "DOWNLOAD_EXPORT", "EXPORT_GRAPH_PNG"].includes(action)) return true;
   if (action === "SUBMIT_CANDY_JOB") {
-    return argumentsValue.mode === "COMPARE"
+    return argumentsValue.backend === "LOCAL_CUDA"
+      || argumentsValue.mode === "COMPARE"
       || Number(argumentsValue.threads) > 8
       || Number(argumentsValue.timeoutMs) > 30_000
       || Number(state.graph?.vertexCount) > 100_000
