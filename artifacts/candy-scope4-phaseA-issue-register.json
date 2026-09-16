@@ -1,0 +1,179 @@
+{
+  "schemaVersion": "candy.scope4a-issue-register/1",
+  "overallStatus": "NON-PASS / FINAL_SECURITY_REVIEW_TOOLING_BLOCKED",
+  "date": "2026-09-16",
+  "counts": {
+    "total": 13,
+    "historicalReference": 3,
+    "productAuditClosed": 8,
+    "toolingAttempts": 2,
+    "newSourceDefectsThisRecovery": 0,
+    "knownOpenCritical": 0,
+    "knownOpenHigh": 0,
+    "knownOpenMedium": 1,
+    "knownOpenLow": 0
+  },
+  "countCaveat": "Zero known/reported Critical/High findings is not proof of complete security coverage. Fresh sealed coverage is partial, so PASS is blocked.",
+  "issues": [
+    {
+      "id": "S4A-R01",
+      "severity": "High",
+      "area": "supplied reference",
+      "status": "MITIGATED_BY_INDEPENDENT_PRODUCT_NOT_UPSTREAM_FIXED",
+      "title": "Static source enumerator reaches only 24 of 30 classes",
+      "disposition": "Historical initial NON-PASS preserved; authorized full connected-triple semantics count six open-wedge classes as well. No upstream execution/copy.",
+      "evidence": [
+        "artifacts/candy-scope4-phaseA-source-audit.md",
+        "tests/candy-scope4a-taxonomy.test.mjs",
+        "tests/candy-scope4a-oracle-delta.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-R02",
+      "severity": "High",
+      "area": "supplied reference",
+      "status": "MITIGATED_BY_INDEPENDENT_PRODUCT_NOT_UPSTREAM_FIXED",
+      "title": "Anchor-wide incremental subtraction removes unaffected motifs",
+      "disposition": "Exact CPU old/new recomputation replaces reference authority; permanent two-triangle anchor counterexample.",
+      "evidence": [
+        "tests/fixtures/candy-scope4-motifs.mjs",
+        "tests/candy-scope4a-oracle-delta.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-R03",
+      "severity": "Medium",
+      "area": "supplied reference",
+      "status": "EXCLUDED_FROM_PRODUCT_LICENSE_NOT_GRANTED",
+      "title": "No source license grant",
+      "disposition": "Archive hash and missing license names rechecked; reference source/kernels/data structures excluded, no redistribution permission inferred.",
+      "evidence": [
+        "candy-runtime/native/upstream/ESCHER-GPU-PROVENANCE.md"
+      ]
+    },
+    {
+      "id": "S4A-N01",
+      "severity": "High",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Mapping-shaped objects could bypass canonical validation",
+      "disposition": "Adapter-private WeakSet branding; forged marker objects rejected.",
+      "evidence": [
+        "src/candy/adapters/hypergraphIncidenceAdapter.js",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-N02",
+      "severity": "High",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Caller limit overrides could raise hard ceilings",
+      "disposition": "Known safe integer limits can only tighten ceilings; Infinity, unknown and raised values rejected.",
+      "evidence": [
+        "src/candy/contracts/hypergraphMotifLimits.js",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-N03",
+      "severity": "Medium",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Independent dimensions did not bound combinatorial CPU work",
+      "disposition": "Five-million aggregate membership-visit preflight before enumeration.",
+      "evidence": [
+        "src/candy/hypergraphMotifs/referenceOracle.js",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-N04",
+      "severity": "Medium",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Nested updated incidence and provenance aliases could mutate snapshots",
+      "disposition": "Immutable semantic arrays/memberships, private branded canonical snapshot, recursively cloned/frozen provenance; tamper and alias tests.",
+      "evidence": [
+        "src/candy/adapters/hypergraphUpdateAdapter.js",
+        "src/candy/contracts/hypergraphMotifMetadata.js",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-N05",
+      "severity": "Medium",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Identifier/provenance metadata lacked explicit output-size bounds",
+      "disposition": "512-character IDs, bounded acyclic provenance depth/nodes/aggregate text, bounded warning strings.",
+      "evidence": [
+        "src/candy/adapters/identifierMapping.js",
+        "src/candy/contracts/hypergraphMotifMetadata.js",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-N06",
+      "severity": "Medium",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Incremental state version lacked separately supplied current-state authority",
+      "disposition": "Incremental runner requires current-state reference; mismatched state identity/version, graph/taxonomy and missing authority fail closed. No property store implemented.",
+      "evidence": [
+        "src/candy/contracts/hypergraphMotifSchemas.js",
+        "src/candy/hypergraphMotifs/referenceOracle.js",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-N07",
+      "severity": "Medium",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Result arithmetic/next-version/delta metadata required stricter validation",
+      "disposition": "Safe count sums, exact output graph next-version identity, feasible previous per-bin counts, static/incremental validation separation, frozen validation. Standalone validator remains structural, not an oracle.",
+      "evidence": [
+        "src/candy/contracts/hypergraphMotifSchemas.js",
+        "tests/candy-scope4a-contracts-adapter.test.mjs",
+        "tests/candy-scope4a-oracle-delta.test.mjs",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-N08",
+      "severity": "Low",
+      "area": "product audit",
+      "status": "CLOSED",
+      "title": "Adapter cardinality copying and isolated-vertex scan allocated or traversed excessively",
+      "disposition": "Incidence/cardinality preflight before map copies, used-vertex Set avoids quadratic isolation scanning and extra flatMap array.",
+      "evidence": [
+        "src/candy/adapters/hypergraphIncidenceAdapter.js",
+        "tests/candy-scope4a-adversarial.test.mjs"
+      ]
+    },
+    {
+      "id": "S4A-T01",
+      "severity": "Medium",
+      "area": "security tooling",
+      "status": "HISTORICAL_INTERRUPTED_ATTEMPT_PRESERVED",
+      "title": "Rejected security drafts left previous temporary manifest absent",
+      "disposition": "Previous scan not reused or repaired; fresh authorized scan generated its own manifest. This does not imply the new coverage gate passed.",
+      "evidence": [
+        "artifacts/candy-scope4-phaseA-audit-report.md"
+      ]
+    },
+    {
+      "id": "S4A-T02",
+      "severity": "Medium",
+      "area": "security tooling",
+      "status": "OPEN_QUALIFICATION_BLOCKER",
+      "title": "Fresh sealed coverage retained a stale pending checkpoint",
+      "disposition": "Tool accepted final complete coverage and sealed successfully, but canonical readback retains partial coverage and final-review-pending. No manual manifest/coverage repair, no third scan or repeated completion. Overall NON-PASS.",
+      "evidence": [
+        "artifacts/candy-scope4-security-review-tool-report.md"
+      ],
+      "scanId": "84d931f2-979f-49bf-828a-9a2c27d04693"
+    }
+  ]
+}

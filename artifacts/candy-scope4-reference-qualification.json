@@ -1,0 +1,373 @@
+{
+  "schemaVersion": "candy.scope4a-reference-qualification/1",
+  "date": "2026-09-16",
+  "overallStatus": "NON-PASS / FINAL_SECURITY_REVIEW_TOOLING_BLOCKED",
+  "protectedBaseline": {
+    "branch": "candy-integration-scope4-escher",
+    "head": "48b78c106615add75128832236ccc07e0bcff6cc",
+    "protectedTag": "candy-integration-scope3-cuda-qualified",
+    "peeledTagCommit": "48b78c106615add75128832236ccc07e0bcff6cc",
+    "changesUncommitted": true
+  },
+  "archive": {
+    "name": "ESCHER-GPU-main.zip",
+    "sha256": "CE2D5C1A1A486ECED59FA70122FA271EF9E528D36188E97AD326ECDF3ECAA302",
+    "byteLength": 2155972,
+    "licenseGranted": false,
+    "sourceRedistributed": false
+  },
+  "product": {
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+    "backend": "CPU_REFERENCE_ORACLE",
+    "regionOrder": [
+      "A_ONLY",
+      "B_ONLY",
+      "C_ONLY",
+      "AB_ONLY",
+      "BC_ONLY",
+      "CA_ONLY",
+      "ABC"
+    ],
+    "labeledConnectedSignatures": 96,
+    "orbits": 30,
+    "closedClasses": 24,
+    "openWedgeClasses": 6,
+    "allBooleanSignaturesChecked": 128,
+    "allThirtyWitnessesPass": true,
+    "static": "Every unordered distinct-hyperedge triple whose intersection graph is connected contributes to exactly one Venn-signature S3 orbit.",
+    "incremental": "Exact full CPU_STATIC(old) and CPU_STATIC(new); each delta = new-old.",
+    "acceptedStaticTypes": [
+      "Hypergraph",
+      "DynamicHypergraph"
+    ],
+    "acceptedIncrementalTypes": [
+      "DynamicHypergraph"
+    ],
+    "rejectedTypes": [
+      "OrdinaryGraph",
+      "DynamicOrdinaryGraph",
+      "ProjectedOrdinaryGraph"
+    ],
+    "implicitProjection": false
+  },
+  "anchorCounterexample": {
+    "oldClosedTriangles": 2,
+    "newClosedTriangles": 1,
+    "exactClosedDelta": -1,
+    "referenceAnchorSubtraction": -2,
+    "oldConnectedTriples": 6,
+    "newConnectedTriples": 3,
+    "exactConnectedDelta": -3,
+    "allThirtyPerClassDeltaInvariantsPass": true
+  },
+  "matrix": {
+    "transitionCases": 10,
+    "updateOrderRepeat": true,
+    "allSixHyperedgePermutations": true,
+    "vertexMembershipOrdering": true,
+    "vertexAndHyperedgeRenaming": true,
+    "sparseNumericDenseRenumbering": true,
+    "duplicateMembershipAndIdsRejected": true,
+    "emptyHyperedgeRejected": true,
+    "singletonAndIsolatedVerticesAllowed": true,
+    "identicalIncidenceDistinctHyperedgesAllowed": true,
+    "forgedCanonicalMarkersRejected": true,
+    "staleGraphPropertyUpdateRefsRejected": true,
+    "incrementalCurrentStateAuthorityRequired": true,
+    "unsafeCountsAndResourceOverridesRejected": true,
+    "arbitraryExecutionOrRuntimeDispatchAdded": false,
+    "ssspTypeBoundaryUnchanged": true
+  },
+  "limits": {
+    "general": {
+      "vertices": 1000000,
+      "hyperedges": 1000000,
+      "membershipPerHyperedge": 1000000,
+      "totalIncidences": 10000000
+    },
+    "oracle": {
+      "hyperedges": 256,
+      "incidences": 100000,
+      "aggregateRegionMembershipVisits": 5000000
+    },
+    "metadata": {
+      "idCharacters": 512,
+      "provenanceDepth": 8,
+      "provenanceNodes": 1024,
+      "provenanceAggregateCharacters": 16384,
+      "warningCount": 20,
+      "warningCharacters": 512
+    }
+  },
+  "gates": {
+    "focused": {
+      "command": "npm run test -- --match=candy-scope4a",
+      "status": "PASS",
+      "passedFiles": 4,
+      "totalFiles": 4,
+      "run": "Fresh recovery run"
+    },
+    "fullTests": {
+      "command": "npm run test",
+      "status": "PASS",
+      "passedFiles": 244,
+      "totalFiles": 244,
+      "seconds": 98.9,
+      "run": "Retained prior qualification; no semantic source/test changes during recovery"
+    },
+    "lint": {
+      "command": "npm run lint",
+      "status": "PASS",
+      "run": "Retained prior qualification"
+    },
+    "build": {
+      "command": "npm run build",
+      "status": "PASS",
+      "run": "Retained prior qualification",
+      "warning": "Existing bundle chunk exceeds 500 kB; no new motif modules are integrated into UI"
+    },
+    "githubBuild": {
+      "command": "npm run build:github",
+      "status": "PASS",
+      "run": "Retained prior qualification",
+      "base": "/hypergraph-converter/"
+    },
+    "npmAudit": {
+      "command": "npm audit --omit=dev",
+      "status": "PASS",
+      "vulnerabilities": 0,
+      "run": "Retained prior successful registry-access retry; no install/dependency changes"
+    },
+    "diffCheck": {
+      "command": "git diff --check",
+      "status": "PASS",
+      "run": "Fresh recovery check"
+    }
+  },
+  "securityReview": {
+    "previous": {
+      "scanId": "5e7079fb-9220-4077-97c8-8aa72c3fbd03",
+      "temporaryRoot": "codex-security-scans-DIUo4a",
+      "outcome": "Interrupted tool finalization: rejected drafts, missing scan-manifest.json",
+      "manifestManuallyRepaired": false
+    },
+    "fresh": {
+      "scanId": "84d931f2-979f-49bf-828a-9a2c27d04693",
+      "temporaryRoot": "codex-security-scans-pEPl6l",
+      "snapshotDigest": "codex-security-snapshot/v1:sha256:fa1c2514da945e5833fabe9f58f7a64c52ab1eb8bc893ee86f4215df5f8de17d",
+      "toolOutcome": "completed",
+      "coverage": "partial",
+      "manifestGeneratedByTool": true,
+      "sealedAt": "2026-09-16T16:01:16.671186Z",
+      "reportableFindings": 0,
+      "surfacesReviewed": 10,
+      "deferred": [
+        {
+          "id": "final-review-pending",
+          "reason": "Source inspection is complete; permanent qualification/provenance cross-check and final source inventory reconciliation are pending."
+        }
+      ],
+      "toolGeneratedReport": "artifacts/candy-scope4-security-review-tool-report.md",
+      "reportSha256": "50d131beff0989f7a1ee89044690694e593c53e2a136210bb6240a28b603e40c",
+      "independentPersonnel": false,
+      "mode": "Fresh prompt-driven scan, sequential parent fallback",
+      "usage": "Unavailable: tool reports scan_thread_unavailable",
+      "daybreak": "not_granted; advisory only"
+    },
+    "passGateSatisfied": false,
+    "blocker": "Fresh tool accepted complete coverage but sealed retained partial/deferred checkpoint; no manual assertion substitutes."
+  },
+  "fingerprints": [
+    {
+      "path": "src/candy/adapters/hypergraphIncidenceAdapter.js",
+      "sha256": "aac1d79fd96c7d0edc57fc987e92abed7688c29e705dc00175b3aae935c56273"
+    },
+    {
+      "path": "src/candy/adapters/hypergraphUpdateAdapter.js",
+      "sha256": "0dd4204d6ee7a2973a107d8b53cdb881284e7cb0bd0a1ee29abfee536d144ff4"
+    },
+    {
+      "path": "src/candy/adapters/identifierMapping.js",
+      "sha256": "594fbe88d60efb7c3fada5da927b7ad2db2dd7a59a6609a7d0d691b2f267996c"
+    },
+    {
+      "path": "src/candy/contracts/graphTypes.js",
+      "sha256": "9e114b8f438c888647f1768b2a23c2e48fbb45f6e64bd08cd02d7ed84a98e605"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifLimits.js",
+      "sha256": "279b7cd588d8add5ee53192fe3ea158e76ebe3ef4d6bb32fa6c1dd534b75124a"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifMetadata.js",
+      "sha256": "db466d55a80e7a8b354e49d24a825a1dd959388d8872165c62b85f7cfe3f9a7e"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifSchemas.js",
+      "sha256": "7fbd46704b1afe28098750fcdb9beb002005a010b92a9cc1d994b458524a59d7"
+    },
+    {
+      "path": "src/candy/contracts/schemaVersions.js",
+      "sha256": "196e7c7aa1968b4d7a19250783a232d0fa579311851ea13335887614584a677f"
+    },
+    {
+      "path": "src/candy/hypergraphMotifs/referenceOracle.js",
+      "sha256": "18af43fe7ead46e1c11323c11e72035434827404497cd7b15753cddf99daa780"
+    },
+    {
+      "path": "src/candy/hypergraphMotifs/taxonomy.js",
+      "sha256": "8d1342f9b4e57b9e6fc32a5c851db0b9b54fb76d00b5f5cde33fa76e37dd490c"
+    },
+    {
+      "path": "tests/candy-scope4a-adversarial.test.mjs",
+      "sha256": "323cd9a7509f870b362c6bce794e1e2de05f669a6945e7b7ae106936a34b9443"
+    },
+    {
+      "path": "tests/candy-scope4a-contracts-adapter.test.mjs",
+      "sha256": "0de0069c623f3b17f85f2e474417e6b58551f87d58c7c063fa770750fbcb75f8"
+    },
+    {
+      "path": "tests/candy-scope4a-oracle-delta.test.mjs",
+      "sha256": "48bbea1e6df3442705d8a50efe136a69cd6718cffd66e15a9c33a4efb757f4d7"
+    },
+    {
+      "path": "tests/candy-scope4a-taxonomy.test.mjs",
+      "sha256": "99a14d7ff54a5c5ef8eb1847c7d2e565c4c4c0aa6d54f49362630b83b864e394"
+    },
+    {
+      "path": "tests/fixtures/candy-scope4-motifs.mjs",
+      "sha256": "acb7ebf1a94ea8fbb1c3c6c878031f2130357491616c1788ceb07e357d16c90a"
+    },
+    {
+      "path": "package.json",
+      "sha256": "47f391fa2be89e8cf208cd506b626363c723f8a7beca57935d22bb8ce8cf6028"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "53fb9226f7b511cb55db2455e331a03bc6e57161375ef3cdca2d4038fbddd22b"
+    }
+  ],
+  "fileManifest": [
+    {
+      "path": "src/candy/adapters/hypergraphIncidenceAdapter.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/adapters/hypergraphUpdateAdapter.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/adapters/identifierMapping.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/contracts/graphTypes.js",
+      "status": "modified",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifLimits.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifMetadata.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifSchemas.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/contracts/schemaVersions.js",
+      "status": "modified",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/hypergraphMotifs/referenceOracle.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "src/candy/hypergraphMotifs/taxonomy.js",
+      "status": "new",
+      "classification": "production semantic contract/oracle code"
+    },
+    {
+      "path": "tests/candy-scope4a-adversarial.test.mjs",
+      "status": "new",
+      "classification": "permanent qualification test"
+    },
+    {
+      "path": "tests/candy-scope4a-contracts-adapter.test.mjs",
+      "status": "new",
+      "classification": "permanent qualification test"
+    },
+    {
+      "path": "tests/candy-scope4a-oracle-delta.test.mjs",
+      "status": "new",
+      "classification": "permanent qualification test"
+    },
+    {
+      "path": "tests/candy-scope4a-taxonomy.test.mjs",
+      "status": "new",
+      "classification": "permanent qualification test"
+    },
+    {
+      "path": "tests/fixtures/candy-scope4-motifs.mjs",
+      "status": "new",
+      "classification": "permanent qualification test"
+    },
+    {
+      "path": "artifacts/candy-scope4-contract-decision.md",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    },
+    {
+      "path": "artifacts/candy-scope4-phaseA-source-audit.md",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    },
+    {
+      "path": "artifacts/candy-scope4-phaseA-taxonomy.md",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    },
+    {
+      "path": "artifacts/candy-scope4-reference-qualification.json",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    },
+    {
+      "path": "artifacts/candy-scope4-phaseA-audit-report.md",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    },
+    {
+      "path": "artifacts/candy-scope4-phaseA-issue-register.json",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    },
+    {
+      "path": "artifacts/candy-scope4-security-review-tool-report.md",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    },
+    {
+      "path": "candy-runtime/native/upstream/ESCHER-GPU-PROVENANCE.md",
+      "status": "new",
+      "classification": "permanent evidence/provenance"
+    }
+  ],
+  "dependenciesChanged": false,
+  "transientThreatModelInProduct": false,
+  "scope4B1Started": false,
+  "scope4B2Started": false,
+  "scope4CStarted": false
+}

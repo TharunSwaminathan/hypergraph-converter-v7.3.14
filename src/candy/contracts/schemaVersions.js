@@ -7,6 +7,12 @@ export const CANDY_SCHEMA_VERSIONS = Object.freeze({
   VERTEX_MAPPING: "candy.vertex-mapping/1",
   NATIVE_REQUEST: "candy.native-sssp-request/1",
   NATIVE_RESULT: "candy.native-sssp-result/1",
+  HYPERGRAPH_INCIDENCE: "candy.hypergraph-incidence/1",
+  HYPEREDGE_MAPPING: "candy.hyperedge-mapping/1",
+  HYPERGRAPH_MOTIF_REQUEST: "candy.hypergraph-3edge-motif-request/1",
+  HYPERGRAPH_MOTIF_UPDATE: "candy.hypergraph-3edge-motif-update/1",
+  HYPERGRAPH_MOTIF_STATE: "candy.hypergraph-3edge-motif-state/1",
+  HYPERGRAPH_MOTIF_RESULT: "candy.hypergraph-3edge-motif-result/1",
 });
 
 export function isKnownSchemaVersion(value) {

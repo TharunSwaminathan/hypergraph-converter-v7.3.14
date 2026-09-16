@@ -20,6 +20,7 @@ const HYPERGRAPH_TYPES = new Set([
 ]);
 
 export const SSSP_ACCEPTED_GRAPH_TYPES = Object.freeze([...ORDINARY_TYPES]);
+export const HYPERGRAPH_MOTIF_ACCEPTED_GRAPH_TYPES = Object.freeze([...HYPERGRAPH_TYPES]);
 
 export function isGraphType(value) {
   return GRAPH_TYPE_SET.has(value);
@@ -56,4 +57,30 @@ export function validateAlgorithmGraphCompatibility(algorithm, graphType, mode =
     );
   }
   return Object.freeze({ algorithm, mode, graphType, compatible: true });
+}
+
+export function validateHypergraphMotifCompatibility(graphType, mode = "STATIC") {
+  if (!isGraphType(graphType)) {
+    failCandy(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA, "Unknown graph type.", { graphType });
+  }
+  if (!HYPERGRAPH_TYPES.has(graphType)) {
+    failCandy(
+      CANDY_ERROR_CODES.INVALID_GRAPH_TYPE,
+      "HYPERGRAPH_3EDGE_MOTIF_COUNT accepts Hypergraph-family inputs only. No graph-to-hypergraph conversion or projection was performed.",
+      {
+        algorithm: "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        mode,
+        actualGraphType: graphType,
+        acceptedGraphTypes: HYPERGRAPH_MOTIF_ACCEPTED_GRAPH_TYPES,
+        implicitConversionPerformed: false,
+        implicitProjectionPerformed: false,
+      },
+    );
+  }
+  return Object.freeze({
+    algorithm: "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    mode,
+    graphType,
+    compatible: true,
+  });
 }
