@@ -1,7 +1,7 @@
 {
   "schemaVersion": "candy.scope4a-issue-register/1",
-  "overallStatus": "NON-PASS / FINAL_SECURITY_REVIEW_TOOLING_BLOCKED",
-  "date": "2026-09-16",
+  "overallStatus": "PASS",
+  "date": "2026-09-17",
   "counts": {
     "total": 13,
     "historicalReference": 3,
@@ -10,10 +10,11 @@
     "newSourceDefectsThisRecovery": 0,
     "knownOpenCritical": 0,
     "knownOpenHigh": 0,
-    "knownOpenMedium": 1,
-    "knownOpenLow": 0
+    "knownOpenMedium": 0,
+    "knownOpenLow": 0,
+    "finalCommittedRangeScans": 1
   },
-  "countCaveat": "Zero known/reported Critical/High findings is not proof of complete security coverage. Fresh sealed coverage is partial, so PASS is blocked.",
+  "countCaveat": "Current completed sealed committed-range scan has complete 23-file coverage, no deferred units and no reportable findings. All fresh application gates pass. Historical upstream/license issues remain mitigated/excluded; tooling events are preserved and T02 is closed only by the new resolution record.",
   "issues": [
     {
       "id": "S4A-R01",
@@ -175,5 +176,29 @@
       ],
       "scanId": "84d931f2-979f-49bf-828a-9a2c27d04693"
     }
-  ]
+  ],
+  "historicalCountCaveat": "Zero known/reported Critical/High findings is not proof of complete security coverage. Fresh sealed coverage is partial, so PASS is blocked.",
+  "resolutionRecords": [
+    {
+      "issueId": "S4A-T02",
+      "date": "2026-09-17",
+      "resolutionStatus": "CLOSED_BY_LATER_COMMITTED_RANGE_SCAN",
+      "historicalEventPreserved": true,
+      "historicalScanId": "84d931f2-979f-49bf-828a-9a2c27d04693",
+      "historicalOutcome": "completed with partial coverage and final-review-pending",
+      "resolution": "Later scan 43c2fc2f-a183-4eda-9376-a57cc9790380 reviewed the immutable committed 23-file delta, completed once, and sealed readback verified complete coverage with zero deferred units and no final-review-pending. This resolution does not change the earlier scan outcome.",
+      "newScanId": "43c2fc2f-a183-4eda-9376-a57cc9790380",
+      "revisionRange": {
+        "base": "48b78c106615add75128832236ccc07e0bcff6cc",
+        "target": "9b70bd2f2ede2130857822d0603b1c394bb6c557"
+      },
+      "snapshotDigest": "codex-security-snapshot/v1:sha256:6fb38e44aa0ed1a2a61c2195131b60f5c29aa40d284a01e59dee04ef22528340",
+      "sealedAt": "2026-09-17T14:55:41.505517Z",
+      "deferredUnits": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0
+    }
+  ],
+  "issueStatusPolicy": "Original issues retain their historical event/status text unchanged; subsequent resolutionRecords determine current effective disposition and counts."
 }

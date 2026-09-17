@@ -1,3 +1,62 @@
+# CANDY Scope 4A-R final security qualification
+
+Date: 2026-09-17
+Overall disposition: **PASS**
+Security gate: **PASS — completed, sealed coverage complete**
+
+The existing fresh scan `43c2fc2f-a183-4eda-9376-a57cc9790380` was resumed after interruption and completed once. Authoritative tool readback reports `completed`, `complete`, 23 reviewed files, zero deferred units, no `final-review-pending`, and Critical/High/Medium findings 0/0/0. Permanent qualification/provenance cross-check and final source inventory reconciliation are complete. No new product defect or semantic source/test change was identified.
+
+Branch: `candy-integration-scope4a-security-finalization`. HEAD and protected historical blocked tag remain `9b70bd2f2ede2130857822d0603b1c394bb6c557`. Scope 3 baseline/tag remain `48b78c106615add75128832236ccc07e0bcff6cc`.
+
+Scanned range: `48b78c106615add75128832236ccc07e0bcff6cc..9b70bd2f2ede2130857822d0603b1c394bb6c557`.
+Snapshot digest: `codex-security-snapshot/v1:sha256:6fb38e44aa0ed1a2a61c2195131b60f5c29aa40d284a01e59dee04ef22528340`.
+Sealed timestamp: `2026-09-17T14:55:41.505517Z`.
+Producer: `codex-security-plugin 0.1.24`.
+
+Canonical manifest/findings/coverage were generated and sealed by the security tool. None was manually created, edited, repaired or synthesized. Canonical SHA256: manifest `66b4a75191f912f92201889d358facbca1ad8a0487d166a3edd0c392640257c3`, findings `a654a78c01fb08ae6a654e9e0dd0d06c0d53949cb99ac7860f29dbb86ea6235d`, coverage `a4a9e1cfdd419b70633c158dc3216794c52156e6a95c783ae16892ddfbf37548`. Tool-generated current report body SHA256 `0139fed5da8cf8d82d4adb77ffbf44c5aff6f029e8b4beec2eb432650f31e71c`; historical report body SHA256 `50d131beff0989f7a1ee89044690694e593c53e2a136210bb6240a28b603e40c`. Both report bodies are preserved unchanged in the tool-report evidence file.
+
+## Inventory, semantics and history
+
+All 23 committed paths reconcile exactly: 10 semantic sources, 5 permanent qualification/fixture files, 8 permanent evidence/provenance files. All 15 source/test fingerprints and both package fingerprints match their original records. No dependency upgrade or installation occurred.
+
+Taxonomy remains 96 connected labeled signatures, 30 S3 orbits, 24 CLOSED_TRIANGLE and 6 OPEN_WEDGE. STATIC enumerates each distinct unordered connected triple once; disconnected triples contribute zero. INCREMENTAL recomputes exact CPU static old/new graphs and sets delta=new-old; all per-bin/total invariants remain covered. Anchor regression preserves closed 2->1, exact delta -1 versus faulty reference -2; connected total 6->3, delta -3. Permanent adversarial coverage includes 10 transitions, 128 signatures, all six permutations and all-30 sparse numeric renaming. No projection/H2H/V2H authority or SSSP type regression is added.
+
+S4A-R01/R02/R03 and S4A-T01/T02 remain historical evidence. A NEW resolution record closes T02 based only on this later sealed complete committed-range scan; the earlier scan remains partial. The complete earlier audit report is retained as an unchanged historical appendix below. Its old branch, working-tree target, NON-PASS disposition and retained gate results describe the blocked checkpoint, not the present finalization.
+
+The archive SHA256/size and missing license-entry names were verified locally. No license grant is inferred. Independent taxonomy/set enumeration includes no upstream lookup array, kernel, CBST source, native executable or source redistribution.
+
+## Final application gates
+
+All gates ran fresh after sealed readback and evidence reconciliation; results are observations from this final source/test/dependency state. Recording their results changes evidence only.
+
+| Gate | Final result |
+|---|---|
+| npm run test -- --match=candy-scope4a | PASS 4/4 files, 0.3s |
+| npm run test | PASS 244/244 files, 109.6s |
+| npm run lint | PASS, exit 0 |
+| npm run build | PASS, exit 0; existing >500 kB chunk warning |
+| npm run build:github | PASS, exit 0; /hypergraph-converter/ base; same warning |
+| npm audit --omit=dev | PASS, 0 vulnerabilities |
+| git diff --check | PASS; repeated after recording final results |
+
+The restricted audit attempt could not access the registry endpoint; its authorized read-only retry with a temporary cache passed. No packages were installed or upgraded. Installed direct dependency versions match package-lock.json; both package fingerprints are unchanged. Node v24.19.0, Python 3.12.14 and the existing npm 11.4.2 CLI were used. npm is absent from PATH, so bundled Node invoked that existing CLI for each required npm gate. Gate logs and SHA256 values are recorded in the qualification JSON, under `C:\Users\tharu\AppData\Local\Temp\candy-scope4ar-final-43c2fc2f`.
+
+Final Git review accounts for exactly the four evidence files listed below. No source/test/runtime/dependency path changed. The current PASS does not rewrite the earlier blocked checkpoint or historical report outcomes.
+
+## Changes, limitations and Git safety
+
+Only four evidence files were finalized: security-review-tool-report.md, phaseA-audit-report.md, phaseA-issue-register.json and reference-qualification.json under artifacts/. Semantic sources, permanent tests and dependency files remain unchanged. All four files are modified and uncommitted; no changes are staged and no unexpected untracked file exists.
+
+Limitations: bounded CPU oracle; incremental full recomputation; independently supplied caller state authority without a state store; inert JSON-like inputs rather than executable getter/proxy sandboxing; finite general preprocessing without maximum-size host-memory guarantee; structural standalone result validation; no source-license grant. No new CUDA motif implementation, Runtime Companion motif dispatch, ReAct/model capability, browser motif action, adaptive selector, projection workflow or Type1/Type2/Type3/coarse product exposure exists.
+
+Measured completion usage reported by the tool: totalTokens 5061034, inputTokens 5040623, cachedInputTokens 4668416; measurement coverage complete. Daybreak not_granted was advisory.
+
+No commit/tag/push/merge/reset/history rewrite or protected tag movement occurred. Finalization changes remain uncommitted. Scope 4B1/4B2/4C were not started. Hard stop after the final Scope 4A-R decision.
+
+---
+
+## Historical blocked audit (original body preserved)
+
 # CANDY Scope 4A-R final audit and recovery report
 
 Date: 2026-09-16

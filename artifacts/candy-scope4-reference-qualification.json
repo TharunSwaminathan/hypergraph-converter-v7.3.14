@@ -1,13 +1,16 @@
 {
   "schemaVersion": "candy.scope4a-reference-qualification/1",
-  "date": "2026-09-16",
-  "overallStatus": "NON-PASS / FINAL_SECURITY_REVIEW_TOOLING_BLOCKED",
+  "date": "2026-09-17",
+  "overallStatus": "PASS",
   "protectedBaseline": {
-    "branch": "candy-integration-scope4-escher",
-    "head": "48b78c106615add75128832236ccc07e0bcff6cc",
+    "branch": "candy-integration-scope4a-security-finalization",
+    "head": "9b70bd2f2ede2130857822d0603b1c394bb6c557",
     "protectedTag": "candy-integration-scope3-cuda-qualified",
     "peeledTagCommit": "48b78c106615add75128832236ccc07e0bcff6cc",
-    "changesUncommitted": true
+    "blockedTag": "candy-integration-scope4a-security-blocked",
+    "blockedTagCommit": "9b70bd2f2ede2130857822d0603b1c394bb6c557",
+    "changesUncommitted": true,
+    "changesEvidenceOnly": true
   },
   "archive": {
     "name": "ESCHER-GPU-main.zip",
@@ -104,45 +107,76 @@
     "focused": {
       "command": "npm run test -- --match=candy-scope4a",
       "status": "PASS",
+      "run": "Fresh final qualification after sealed complete security coverage and evidence reconciliation",
+      "exitCode": 0,
+      "date": "2026-09-17",
+      "logPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope4ar-final-43c2fc2f\\focused.log",
+      "logSha256": "c4b23950698850910c167521af1826184f0e22b7715c9e4b27199eeffc64228d",
       "passedFiles": 4,
       "totalFiles": 4,
-      "run": "Fresh recovery run"
+      "seconds": 0.3
     },
     "fullTests": {
       "command": "npm run test",
       "status": "PASS",
+      "run": "Fresh final qualification after sealed complete security coverage and evidence reconciliation",
+      "exitCode": 0,
+      "date": "2026-09-17",
+      "logPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope4ar-final-43c2fc2f\\full-tests.log",
+      "logSha256": "b1475726909af2a4933a55b78e487aae8ac5edb603fe2506b51d3cbedabe29d4",
       "passedFiles": 244,
       "totalFiles": 244,
-      "seconds": 98.9,
-      "run": "Retained prior qualification; no semantic source/test changes during recovery"
+      "seconds": 109.6
     },
     "lint": {
       "command": "npm run lint",
       "status": "PASS",
-      "run": "Retained prior qualification"
+      "run": "Fresh final qualification after sealed complete security coverage and evidence reconciliation",
+      "exitCode": 0,
+      "date": "2026-09-17",
+      "logPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope4ar-final-43c2fc2f\\lint.log",
+      "logSha256": "778e34cba07294f43d3366d62f1a77062edd92272593d9c6d022be6b08fc9cec"
     },
     "build": {
       "command": "npm run build",
       "status": "PASS",
-      "run": "Retained prior qualification",
-      "warning": "Existing bundle chunk exceeds 500 kB; no new motif modules are integrated into UI"
+      "run": "Fresh final qualification after sealed complete security coverage and evidence reconciliation",
+      "exitCode": 0,
+      "date": "2026-09-17",
+      "logPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope4ar-final-43c2fc2f\\build.log",
+      "logSha256": "17b874a7a6ed2388043136c056074194f749b96c0eed6a6785664bb20c6f7037",
+      "warning": "Existing >500 kB minified chunk warning; no motif UI integration."
     },
     "githubBuild": {
       "command": "npm run build:github",
       "status": "PASS",
-      "run": "Retained prior qualification",
-      "base": "/hypergraph-converter/"
+      "run": "Fresh final qualification after sealed complete security coverage and evidence reconciliation",
+      "exitCode": 0,
+      "date": "2026-09-17",
+      "logPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope4ar-final-43c2fc2f\\build-github.log",
+      "logSha256": "ebab6457e13f82c40973a6757e52f130ecc3d20f5b3623f87ebc5d78a45b2d53",
+      "base": "/hypergraph-converter/",
+      "warning": "Existing >500 kB minified chunk warning; no motif UI integration."
     },
     "npmAudit": {
       "command": "npm audit --omit=dev",
       "status": "PASS",
+      "run": "Fresh final qualification after sealed complete security coverage and evidence reconciliation",
+      "exitCode": 0,
+      "date": "2026-09-17",
+      "logPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope4ar-final-43c2fc2f\\audit.json",
+      "logSha256": "8971ef5d8cd1a5806c1669a49253812c260ef074945491008b3ebe8c176cd815",
       "vulnerabilities": 0,
-      "run": "Retained prior successful registry-access retry; no install/dependency changes"
+      "prodDependencyCount": 5,
+      "registryAccessRetry": true,
+      "initialRestrictedAttempt": "Audit endpoint inaccessible; read-only authorized retry succeeded with temporary cache; no dependency installation or upgrade."
     },
     "diffCheck": {
       "command": "git diff --check",
       "status": "PASS",
-      "run": "Fresh recovery check"
+      "run": "Final evidence diff checked; repeated after final result recording.",
+      "exitCode": 0,
+      "date": "2026-09-17"
     }
   },
   "securityReview": {
@@ -175,8 +209,67 @@
       "usage": "Unavailable: tool reports scan_thread_unavailable",
       "daybreak": "not_granted; advisory only"
     },
-    "passGateSatisfied": false,
-    "blocker": "Fresh tool accepted complete coverage but sealed retained partial/deferred checkpoint; no manual assertion substitutes."
+    "passGateSatisfied": true,
+    "blocker": null,
+    "finalCommittedRange": {
+      "scanId": "43c2fc2f-a183-4eda-9376-a57cc9790380",
+      "revisionRange": {
+        "base": "48b78c106615add75128832236ccc07e0bcff6cc",
+        "target": "9b70bd2f2ede2130857822d0603b1c394bb6c557"
+      },
+      "targetId": "target_sha256_0695e49c93cbcbc64eccfa8a3e8fe683150f04c8dc923fb43aa532473cbee141",
+      "snapshotDigest": "codex-security-snapshot/v1:sha256:6fb38e44aa0ed1a2a61c2195131b60f5c29aa40d284a01e59dee04ef22528340",
+      "manifestGeneratedByTool": true,
+      "producer": {
+        "name": "codex-security-plugin",
+        "version": "0.1.24"
+      },
+      "canonicalArtifactsManuallyChanged": false,
+      "scanDirectory": "C:\\Users\\tharu\\AppData\\Local\\Temp\\codex-security-scans-rqFyOX\\hypergraph-converter-v7.3.14\\9b70bd2f2ede2130857822d0603b1c394bb6c557_20260916T162003Z_2i128jtf",
+      "canonicalArtifactsSha256": {
+        "scan-manifest.json": "66b4a75191f912f92201889d358facbca1ad8a0487d166a3edd0c392640257c3",
+        "findings.json": "a654a78c01fb08ae6a654e9e0dd0d06c0d53949cb99ac7860f29dbb86ea6235d",
+        "coverage.json": "a4a9e1cfdd419b70633c158dc3216794c52156e6a95c783ae16892ddfbf37548",
+        "report.md": "0139fed5da8cf8d82d4adb77ffbf44c5aff6f029e8b4beec2eb432650f31e71c"
+      },
+      "toolOutcome": "completed",
+      "sealedAt": "2026-09-17T14:55:41.505517Z",
+      "sealedReadbackVerified": true,
+      "coverage": "complete",
+      "deferred": [],
+      "deferredUnitCount": 0,
+      "finalReviewPending": false,
+      "openCritical": 0,
+      "openHigh": 0,
+      "openMedium": 0,
+      "reportableFindings": 0,
+      "inventoryCount": 23,
+      "inventoryCategories": {
+        "semanticSources": 10,
+        "testsAndFixtures": 5,
+        "evidenceAndProvenance": 8
+      },
+      "inventoryReconciled": true,
+      "permanentQualificationProvenanceCrossCheck": "complete",
+      "finalSourceInventoryReconciliation": "complete",
+      "completionCalls": 1,
+      "sameScanResumedAfterInterruption": true,
+      "historicalBlockedScansPreserved": true,
+      "toolGeneratedReportBodySha256": "0139fed5da8cf8d82d4adb77ffbf44c5aff6f029e8b4beec2eb432650f31e71c",
+      "historicalToolGeneratedReportBodySha256": "50d131beff0989f7a1ee89044690694e593c53e2a136210bb6240a28b603e40c",
+      "reportEvidenceLayout": "Latest unchanged tool-generated body followed by historical unchanged partial report body; original canonical bundle remains in tool directory.",
+      "usage": {
+        "coverage": "complete",
+        "totalTokens": 5061034,
+        "inputTokens": 5040623,
+        "cachedInputTokens": 4668416,
+        "outputTokens": 20411,
+        "source": "codex_rollout",
+        "threadCount": 3
+      },
+      "daybreak": "not_granted; advisory checked before source review",
+      "compiledReportEvidenceSha256": "d42f5738609e64470772c5cb1a71d3d7ecbf31f8b39d2e4b8bf44559bac22147"
+    }
   },
   "fingerprints": [
     {
@@ -369,5 +462,171 @@
   "transientThreatModelInProduct": false,
   "scope4B1Started": false,
   "scope4B2Started": false,
-  "scope4CStarted": false
+  "scope4CStarted": false,
+  "historicalCheckpointEvidence": {
+    "date": "2026-09-16",
+    "overallStatus": "NON-PASS / FINAL_SECURITY_REVIEW_TOOLING_BLOCKED",
+    "protectedBaseline": {
+      "branch": "candy-integration-scope4-escher",
+      "head": "48b78c106615add75128832236ccc07e0bcff6cc",
+      "protectedTag": "candy-integration-scope3-cuda-qualified",
+      "peeledTagCommit": "48b78c106615add75128832236ccc07e0bcff6cc",
+      "changesUncommitted": true
+    },
+    "gates": {
+      "focused": {
+        "command": "npm run test -- --match=candy-scope4a",
+        "status": "PASS",
+        "passedFiles": 4,
+        "totalFiles": 4,
+        "run": "Fresh recovery run"
+      },
+      "fullTests": {
+        "command": "npm run test",
+        "status": "PASS",
+        "passedFiles": 244,
+        "totalFiles": 244,
+        "seconds": 98.9,
+        "run": "Retained prior qualification; no semantic source/test changes during recovery"
+      },
+      "lint": {
+        "command": "npm run lint",
+        "status": "PASS",
+        "run": "Retained prior qualification"
+      },
+      "build": {
+        "command": "npm run build",
+        "status": "PASS",
+        "run": "Retained prior qualification",
+        "warning": "Existing bundle chunk exceeds 500 kB; no new motif modules are integrated into UI"
+      },
+      "githubBuild": {
+        "command": "npm run build:github",
+        "status": "PASS",
+        "run": "Retained prior qualification",
+        "base": "/hypergraph-converter/"
+      },
+      "npmAudit": {
+        "command": "npm audit --omit=dev",
+        "status": "PASS",
+        "vulnerabilities": 0,
+        "run": "Retained prior successful registry-access retry; no install/dependency changes"
+      },
+      "diffCheck": {
+        "command": "git diff --check",
+        "status": "PASS",
+        "run": "Fresh recovery check"
+      }
+    },
+    "securityPassGateSatisfied": false,
+    "blocker": "Fresh tool accepted complete coverage but sealed retained partial/deferred checkpoint; no manual assertion substitutes."
+  },
+  "finalization": {
+    "semanticSourceChanged": false,
+    "testsChanged": false,
+    "dependencyChanges": [],
+    "finalChangedFileManifest": [
+      "artifacts/candy-scope4-security-review-tool-report.md",
+      "artifacts/candy-scope4-phaseA-audit-report.md",
+      "artifacts/candy-scope4-phaseA-issue-register.json",
+      "artifacts/candy-scope4-reference-qualification.json"
+    ],
+    "gitActionsPerformed": [],
+    "scope4B1Started": false,
+    "scope4B2Started": false,
+    "scope4CStarted": false,
+    "limitations": [
+      "Bounded CPU reference; incremental full recomputation.",
+      "Current motif state must be supplied independently by caller; no state store.",
+      "Inert JSON-like input contract does not sandbox executable JavaScript getters/proxies.",
+      "General bounded preprocessing is not a maximum-dataset host-memory guarantee.",
+      "Standalone result validation is structural/arithmetic.",
+      "Supplied archive remains without a license grant; no source redistributed.",
+      "Both builds passed with the existing >500 kB chunk-size warning."
+    ],
+    "finalGateResultsRecorded": true,
+    "gitStatus": "Four evidence files modified, all uncommitted; no staged/untracked additions."
+  },
+  "dependencyState": {
+    "changes": [],
+    "installsOrUpgradesPerformed": false,
+    "packageAndLockFingerprintsUnchanged": true,
+    "allInstalledDirectVersionsMatchLock": true,
+    "directVersions": {
+      "acorn": {
+        "installedVersion": "8.18.0",
+        "lockVersion": "8.18.0",
+        "declaredRange": "^8.18.0"
+      },
+      "react": {
+        "installedVersion": "19.2.7",
+        "lockVersion": "19.2.7",
+        "declaredRange": "^19.2.6"
+      },
+      "react-dom": {
+        "installedVersion": "19.2.7",
+        "lockVersion": "19.2.7",
+        "declaredRange": "^19.2.6"
+      },
+      "@eslint/js": {
+        "installedVersion": "10.0.1",
+        "lockVersion": "10.0.1",
+        "declaredRange": "^10.0.1"
+      },
+      "@types/react": {
+        "installedVersion": "19.2.17",
+        "lockVersion": "19.2.17",
+        "declaredRange": "^19.2.14"
+      },
+      "@types/react-dom": {
+        "installedVersion": "19.2.3",
+        "lockVersion": "19.2.3",
+        "declaredRange": "^19.2.3"
+      },
+      "@vitejs/plugin-react": {
+        "installedVersion": "6.0.2",
+        "lockVersion": "6.0.2",
+        "declaredRange": "^6.0.1"
+      },
+      "eslint": {
+        "installedVersion": "10.4.1",
+        "lockVersion": "10.4.1",
+        "declaredRange": "^10.3.0"
+      },
+      "eslint-plugin-react-hooks": {
+        "installedVersion": "7.1.1",
+        "lockVersion": "7.1.1",
+        "declaredRange": "^7.1.1"
+      },
+      "eslint-plugin-react-refresh": {
+        "installedVersion": "0.5.2",
+        "lockVersion": "0.5.2",
+        "declaredRange": "^0.5.2"
+      },
+      "globals": {
+        "installedVersion": "17.6.0",
+        "lockVersion": "17.6.0",
+        "declaredRange": "^17.6.0"
+      },
+      "happy-dom": {
+        "installedVersion": "20.11.2",
+        "lockVersion": "20.11.2",
+        "declaredRange": "^20.11.2"
+      },
+      "vite": {
+        "installedVersion": "8.0.16",
+        "lockVersion": "8.0.16",
+        "declaredRange": "^8.0.12"
+      }
+    }
+  },
+  "qualificationRuntime": {
+    "node": "v24.19.0",
+    "python": "3.12.14",
+    "npm": "11.4.2",
+    "npmCliPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\hypergraph-codex-runtime\\node_modules\\.pnpm\\npm@11.4.2\\node_modules\\npm\\bin\\npm-cli.js",
+    "pythonEnvironment": "C:\\Users\\tharu\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "commandNote": "npm is absent from PATH; every required npm gate was executed with bundled Node invoking the existing npm CLI directly. No npm installation/update occurred.",
+    "logDirectory": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope4ar-final-43c2fc2f"
+  }
 }
