@@ -1,0 +1,422 @@
+{
+  "schemaVersion": "candy.scope4b1-final-qualification/1",
+  "status": "PASS",
+  "branch": "candy-integration-scope4b1-cuda-static",
+  "qualifiedBaseline": "7b4206ba66f38df18b0a0fe33d55800f79ef0000",
+  "protectedTags": {
+    "candy-integration-scope4a-qualified": "7b4206ba66f38df18b0a0fe33d55800f79ef0000",
+    "candy-integration-scope4a-security-blocked": "9b70bd2f2ede2130857822d0603b1c394bb6c557",
+    "candy-integration-scope3-cuda-qualified": "48b78c106615add75128832236ccc07e0bcff6cc",
+    "candy-integration-scope3-cuda-env-blocked": "81491e4a04b4d33adb3ebd0679cbe196ce109288"
+  },
+  "product": {
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "taxonomy": "candy.hypergraph-3edge-motif-taxonomy/1",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC"
+  },
+  "changedFileManifest": [
+    ".gitignore",
+    "artifacts/candy-scope4b1-cuda-static-architecture.md",
+    "artifacts/candy-scope4b1-cuda-static-audit-report.md",
+    "artifacts/candy-scope4b1-cuda-static-environment.txt",
+    "artifacts/candy-scope4b1-cuda-static-initcheck-qualification.json",
+    "artifacts/candy-scope4b1-cuda-static-issue-register.json",
+    "artifacts/candy-scope4b1-cuda-static-memcheck-qualification.json",
+    "artifacts/candy-scope4b1-cuda-static-native-qualification.json",
+    "artifacts/candy-scope4b1-cuda-static-qualification.json",
+    "artifacts/candy-scope4b1-cuda-static-racecheck-qualification.json",
+    "artifacts/candy-scope4b1-cuda-static-synccheck-qualification.json",
+    "artifacts/candy-scope4b1-security/coverage.json",
+    "artifacts/candy-scope4b1-security/findings.json",
+    "artifacts/candy-scope4b1-security/report.md",
+    "artifacts/candy-scope4b1-security/scan-manifest.json",
+    "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda/README.md",
+    "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+    "candy-runtime/test/hypergraph-motif-cuda-contract.mjs",
+    "candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs",
+    "tests/candy-scope4b1-static-contract.test.mjs"
+  ],
+  "sourceSha256": {
+    "candy-runtime/native/hypergraph-motif-cuda/src/main.cu": "00558907950ce0f1fc507a80e20ea4e8bd0958586c5f154baec0a98c611789fe",
+    "candy-runtime/native/hypergraph-motif-cuda/Makefile": "1fc3276f6254c55f48d541d57e671dc8f5a0e9a9928f2dec1b270592bbe63ed6",
+    "candy-runtime/test/hypergraph-motif-cuda-contract.mjs": "de47a685cf9028a37b17dc089412449bb8a4571541305482e4ab382cf7a0eb3f",
+    "candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs": "fbfeb6d6ebccb0074c97479b3584bde2b14ae7eec6348b17ebeb488939afa4f1",
+    "tests/candy-scope4b1-static-contract.test.mjs": "743752fbaaa2ffcf8f5c39dbc041380a22adc2855d86751c999fb31475d7b500"
+  },
+  "build": {
+    "command": "make -C candy-runtime/native/hypergraph-motif-cuda NVCC=/usr/local/cuda-13.4/bin/nvcc CUDA_ARCH=sm_120 all qualification-faults",
+    "compiler": "nvcc 13.4.59",
+    "architecture": "sm_120",
+    "binarySha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+    "linkedBinaryHashClaim": "this qualification build only"
+  },
+  "environmentEvidence": "artifacts/candy-scope4b1-cuda-static-environment.txt",
+  "deviceExecutionProof": {
+    "deviceIndex": 0,
+    "deviceName": "NVIDIA GeForce RTX 5060",
+    "computeMajor": 12,
+    "computeMinor": 0,
+    "compiledArchitecture": "sm_120",
+    "compilerVersion": "13.4.59",
+    "runtimeVersion": 13040,
+    "driverVersion": 13040,
+    "kernelLaunchSucceeded": true,
+    "synchronizationSucceeded": true,
+    "kernelMilliseconds": 0.914688
+  },
+  "nativeQualification": {
+    "command": "wsl -d Ubuntu --cd /mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14 --exec /home/tharu/.nvm/versions/node/v22.23.1/bin/node candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs",
+    "parityGraphs": 487,
+    "failed": 0,
+    "failureChecks": 69,
+    "nativeTypedFailures": 56,
+    "witnessClasses": {
+      "all": 30,
+      "openWedge": 6,
+      "closedTriangle": 24
+    },
+    "signatures": {
+      "total": 128,
+      "connected": 96,
+      "disconnectedRealizable": 13,
+      "invalidEmptyEdge": 19
+    },
+    "stress": {
+      "seed": "0x4b1c0de",
+      "cases": 96,
+      "maxVertices": 32,
+      "maxHyperedges": 18,
+      "passed": 96,
+      "failed": 0
+    },
+    "S3PermutationGraphs": 180,
+    "orderGraphs": 30,
+    "sparseRenamedIsolatedGraphs": 30,
+    "all30BinsAndTotalExactlyEqual": true,
+    "noCpuFallback": true
+  },
+  "sanitizers": {
+    "memcheck": {
+      "command": "wsl -d Ubuntu --cd /mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14 --exec /home/tharu/.nvm/versions/node/v22.23.1/bin/node candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs --sanitizer=memcheck",
+      "workloads": 3,
+      "result": "PASS",
+      "errors": 0,
+      "warningsOrHazards": 0
+    },
+    "racecheck": {
+      "command": "wsl -d Ubuntu --cd /mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14 --exec /home/tharu/.nvm/versions/node/v22.23.1/bin/node candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs --sanitizer=racecheck",
+      "workloads": 3,
+      "result": "PASS",
+      "errors": 0,
+      "warningsOrHazards": 0
+    },
+    "initcheck": {
+      "command": "wsl -d Ubuntu --cd /mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14 --exec /home/tharu/.nvm/versions/node/v22.23.1/bin/node candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs --sanitizer=initcheck",
+      "workloads": 3,
+      "result": "PASS",
+      "errors": 0,
+      "warningsOrHazards": 0
+    },
+    "synccheck": {
+      "command": "wsl -d Ubuntu --cd /mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14 --exec /home/tharu/.nvm/versions/node/v22.23.1/bin/node candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs --sanitizer=synccheck",
+      "workloads": 3,
+      "result": "PASS",
+      "errors": 0,
+      "warningsOrHazards": 0
+    }
+  },
+  "regressions": {
+    "scope4a": "PASS: 4/4 focused files, authority unchanged",
+    "scope3Focused": "PASS: 4/4 files",
+    "scope3Native": {
+      "result": "PASS",
+      "sanitizer": "none",
+      "fixturePasses": 12,
+      "stressPasses": 40,
+      "fixedSeed": "0x5eed1234",
+      "parity": [
+        {
+          "fixture": "simple-chain",
+          "graphHash": "0c6c83448e9c8828117af53073fed4dd987a37ad20d671fad091f08cc49e2bc1",
+          "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+          "source": "A",
+          "cudaDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+          "openmpDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+          "referenceDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 6.2476,
+            "hostToDeviceMs": 0.39465,
+            "kernelMs": 0.85163,
+            "deviceToHostMs": 0.057107,
+            "referenceMs": 0.001237,
+            "totalMs": 220.88
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "diamond-equal-cost",
+          "graphHash": "f334c16be0ad2dc90f3e4291762f092bf7c9535f6c61ec67d062f97f40608c12",
+          "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+          "source": "A",
+          "cudaDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+          "openmpDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+          "referenceDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 4.81262,
+            "hostToDeviceMs": 0.476836,
+            "kernelMs": 0.891804,
+            "deviceToHostMs": 0.052186,
+            "referenceMs": 0.001581,
+            "totalMs": 183.854
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "disconnected",
+          "graphHash": "2b84605cfcf6c206c49f4df62afbcae19b3c7feab6608ce7eeda2bc58f2d931d",
+          "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+          "source": "A",
+          "cudaDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+          "openmpDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+          "referenceDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 5.22084,
+            "hostToDeviceMs": 0.474901,
+            "kernelMs": 1.38611,
+            "deviceToHostMs": 0.08804,
+            "referenceMs": 0.001559,
+            "totalMs": 196.615
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "insertion-decreases-distance",
+          "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+          "updateHash": "7693ef3e20741acc01ac852e368a0aad259472eb985b844d0ac4cd9cbf154887",
+          "source": "A",
+          "cudaDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+          "openmpDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+          "referenceDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 5.80194,
+            "hostToDeviceMs": 0.37021,
+            "kernelMs": 0.887165,
+            "deviceToHostMs": 0.046279,
+            "referenceMs": 0.001277,
+            "totalMs": 150.676
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "insertion-no-effect",
+          "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+          "updateHash": "b641e8097980807805396e9ac4090a70b9c8ce784992d6e06785287df7051f00",
+          "source": "A",
+          "cudaDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+          "openmpDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+          "referenceDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 4.18459,
+            "hostToDeviceMs": 0.320861,
+            "kernelMs": 0.839102,
+            "deviceToHostMs": 0.065182,
+            "referenceMs": 0.001293,
+            "totalMs": 136.677
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "deletion-invalidates-parent",
+          "graphHash": "beb341938881db65b6e6141c3744b51984d665275163d201cd0f1b76e79885c7",
+          "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+          "source": "A",
+          "cudaDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+          "openmpDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+          "referenceDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 5.92862,
+            "hostToDeviceMs": 0.357146,
+            "kernelMs": 0.90289,
+            "deviceToHostMs": 0.043861,
+            "referenceMs": 0.001346,
+            "totalMs": 194.79
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "deletion-creates-unreachable",
+          "graphHash": "999bd230f749bf2e144132b1ac50248dff36e9f63b355b58773a1a001e1b9207",
+          "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+          "source": "A",
+          "cudaDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+          "openmpDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+          "referenceDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 4.55498,
+            "hostToDeviceMs": 0.351864,
+            "kernelMs": 1.20527,
+            "deviceToHostMs": 0.053639,
+            "referenceMs": 0.001174,
+            "totalMs": 150.282
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "mixed-batch",
+          "graphHash": "70828217f5ed088e571a18264cf6616b38c5c3e094bb7bd8325df74d06ffd20c",
+          "updateHash": "7fa1a9af677a29678dc8cfc0d0d338d81e6ee9892a220ea0bd3b95a859d131b9",
+          "source": "A",
+          "cudaDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+          "openmpDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+          "referenceDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 4.15232,
+            "hostToDeviceMs": 0.402639,
+            "kernelMs": 0.903817,
+            "deviceToHostMs": 0.046837,
+            "referenceMs": 0.001708,
+            "totalMs": 142.896
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "isolated-vertices",
+          "graphHash": "7109003a88b5d7ab416ffab8a5a09e00baca220900e3c7a56be5422edfc2f605",
+          "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+          "source": "source",
+          "cudaDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+          "openmpDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+          "referenceDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 3.88575,
+            "hostToDeviceMs": 0.362037,
+            "kernelMs": 0.000136,
+            "deviceToHostMs": 0.812171,
+            "referenceMs": 0.000824,
+            "totalMs": 145.795
+          },
+          "result": "PASS"
+        },
+        {
+          "fixture": "zero-weight-cycle",
+          "graphHash": "9f88ae8d2f57d93dcd8aa4d7920b2750f27aec2da09606b7070495e0eb20bc78",
+          "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+          "source": "Z",
+          "cudaDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+          "openmpDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+          "referenceDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+          "cudaParentValid": true,
+          "openmpParentValid": true,
+          "cudaMetrics": {
+            "preparationMs": 5.58873,
+            "hostToDeviceMs": 0.314292,
+            "kernelMs": 0.845782,
+            "deviceToHostMs": 0.050753,
+            "referenceMs": 0.001291,
+            "totalMs": 152.803
+          },
+          "result": "PASS"
+        }
+      ]
+    }
+  },
+  "applicationGates": {
+    "npm run test": "PASS 245/245 files, 99.9s",
+    "npm run lint": "PASS",
+    "npm run build": "PASS",
+    "npm run build:github": "PASS",
+    "npm audit --omit=dev": "PASS: 0 vulnerabilities",
+    "git diff --check": "PASS",
+    "npmInvocationWindows": "node '\\\\wsl.localhost\\Ubuntu\\home\\tharu\\.nvm\\versions\\node\\v22.23.1\\lib\\node_modules\\npm\\bin\\npm-cli.js'",
+    "runtime": "Windows Node24.19.0/npm10.9.8; process-local bundled PYTHON for full tests",
+    "buildWarning": "Existing >500kB chunk warning; not a build failure"
+  },
+  "securityReview": {
+    "scanId": "8e9e0d07-c48f-4535-a9f2-938409894751",
+    "canonicalStatus": "completed",
+    "sealedAt": "2026-09-17T15:38:42.213786Z",
+    "coverage": "complete",
+    "deferredUnits": 0,
+    "Critical": 0,
+    "High": 0,
+    "findings": 0,
+    "reviewedOriginalFiles": 14,
+    "readbackCopies": "artifacts/candy-scope4b1-security",
+    "daybreak": "not_granted; programs=none; advisory only",
+    "toolReportedUsage": {
+      "source": "codex_rollout",
+      "totalTokens": 5560995,
+      "inputTokens": 5522259,
+      "cachedInputTokens": 5286912,
+      "outputTokens": 38736,
+      "reasoningOutputTokens": 8534,
+      "threadCount": 3,
+      "coverage": "complete",
+      "scopeNote": "Owning task and workers rollout usage, including implementation and repeated cached contexts; not a separately metered review-only budget."
+    }
+  },
+  "provenance": "Independent new source derived from project-owned Scope4A-R taxonomy/oracle. No upstream archive/kernel/lookup/CBST/parser/update/layout code read or copied; no inferred license grant or redistribution claim.",
+  "boundaries": {
+    "noProjection": true,
+    "noRuntimeUiReactModelIntegration": true,
+    "noAdaptiveSelection": true,
+    "dependenciesChanged": false,
+    "cpuOracleChanged": false,
+    "ssspSourcesChanged": false,
+    "scope4b2Started": false,
+    "scope4cStarted": false
+  },
+  "gitSafety": {
+    "uncommitted": true,
+    "commit": false,
+    "tag": false,
+    "push": false,
+    "merge": false,
+    "reset": false,
+    "historyRewritten": false
+  },
+  "cleanup": "Qualification temp directories/FIFO/symlink removed; temporary gate logs and serializer removed after evidence readback; regression-only SSSP build directories restored to initial absence. Five motif qualification binaries retained only in ignored build/ for local review; no generated binary tracked.",
+  "limitations": [
+    "STATIC only. CUDA incremental and Runtime Companion/browser/UI/model/adaptive integration remain unstarted.",
+    "Single-machine correctness qualification on WSL2 Ubuntu / RTX 5060 / sm_120; no portable fixed ELF hash or speedup claim.",
+    "Limits remain <=256 hyperedges, <=100000 incidences, <=5000000 aggregate membership visits; nonempty-edge/work constraints imply <=216 realizable accepted edges. Vertex metadata <=1000000 and request bytes <=2MiB.",
+    "CUDA allocation/launch/sync fault errors are safe compile-time injections; actual no-visible-device failure is also tested. No deliberate production binary corruption or uncontrolled OOM experiment.",
+    "CLI path grants explicit local regular-file read authority; parent symlinks use OS resolution. No remote file service or sandbox/cryptographic executable attestation is implemented.",
+    "Initial harness workspace creation/binary hashing precede its main try/finally. A missing binary at initialization may leave an ignored empty workspace; actual qualification scratch directories were removed.",
+    "Security snapshot covers all 14 original changed files after manual reconciliation of the tool's five-JSON inventory. Final aggregate/audit/issue documents and four unchanged canonical readback copies are reporting-only additions after sealing; no source/build/test/transport code changed after the reviewed snapshot."
+  ],
+  "finalGitStatus": " M .gitignore\n?? artifacts/candy-scope4b1-cuda-static-architecture.md\n?? artifacts/candy-scope4b1-cuda-static-audit-report.md\n?? artifacts/candy-scope4b1-cuda-static-environment.txt\n?? artifacts/candy-scope4b1-cuda-static-initcheck-qualification.json\n?? artifacts/candy-scope4b1-cuda-static-issue-register.json\n?? artifacts/candy-scope4b1-cuda-static-memcheck-qualification.json\n?? artifacts/candy-scope4b1-cuda-static-native-qualification.json\n?? artifacts/candy-scope4b1-cuda-static-qualification.json\n?? artifacts/candy-scope4b1-cuda-static-racecheck-qualification.json\n?? artifacts/candy-scope4b1-cuda-static-synccheck-qualification.json\n?? artifacts/candy-scope4b1-security/coverage.json\n?? artifacts/candy-scope4b1-security/findings.json\n?? artifacts/candy-scope4b1-security/report.md\n?? artifacts/candy-scope4b1-security/scan-manifest.json\n?? candy-runtime/native/hypergraph-motif-cuda/Makefile\n?? candy-runtime/native/hypergraph-motif-cuda/README.md\n?? candy-runtime/native/hypergraph-motif-cuda/src/main.cu\n?? candy-runtime/test/hypergraph-motif-cuda-contract.mjs\n?? candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs\n?? tests/candy-scope4b1-static-contract.test.mjs",
+  "finalVerification": {
+    "exactManifestMatchesGit": true,
+    "sealedArtifactHashesVerified": true,
+    "sourceHashesUnchangedSinceQualification": true,
+    "sourceWhitespaceChecked": true,
+    "protectedTagsAndHeadVerified": true,
+    "qualificationScratchAbsent": true,
+    "temporarySsspBuildsRemoved": true,
+    "gitDiffCheck": "PASS",
+    "cuobjdumpArchitecture": "sm_120",
+    "cuobjdumpCommand": "wsl -d Ubuntu --exec /usr/local/cuda-13.4/bin/cuobjdump --list-elf <qualification-binary>",
+    "cuobjdumpOutput": "ELF file    1: main.sm_120.cubin\nELF file    2: main.sm_120.cubin\n"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "documentType": "codex-security.scan-manifest",
+  "scan": {
+    "artifacts": [
+      {
+        "mediaType": "application/json",
+        "path": "findings.json",
+        "sha256": "08d97d1c6495e019ff413e9aca61901c14ddf5ab5304b1b5d5d33b1dbf9c6929"
+      },
+      {
+        "mediaType": "application/json",
+        "path": "coverage.json",
+        "sha256": "ce5ba4a2f54036a0f0228ac21dec7ca71b67ba27f7bd39f857f7d9152d9bd513"
+      }
+    ],
+    "completedAt": "2026-09-17T15:38:42.213786Z",
+    "coverageRef": "coverage.json",
+    "findingsRef": "findings.json",
+    "id": "8e9e0d07-c48f-4535-a9f2-938409894751",
+    "preservedSources": {
+      "checkpoints/6d7b60ae9babdbb2067134c3fa89aec352306846992d1dae864797fb5d2699a8.json": "95100f9416832a569bc903ab3dca00c57381b59386f26a3227e8f3c912cde9fe",
+      "checkpoints/6e584d1e412d5c69c4d64b11b429b511c635bd5620ed133a6937f0b7034c4131.json": "453f491865ea27f0f9ec8b83a4af937f9ff5a2c3647e45d27cf044fdcbec9e8e",
+      "checkpoints/f3ca855ea916b158bf2e6fdaaf16bf15b33937553a412481df1e6098304bbe3d.json": "f3ca855ea916b158bf2e6fdaaf16bf15b33937553a412481df1e6098304bbe3d"
+    },
+    "producer": {
+      "name": "codex-security-plugin",
+      "version": "0.1.24"
+    },
+    "scope": {
+      "artifactsReviewed": [
+        ".gitignore",
+        "artifacts/candy-scope4b1-cuda-static-architecture.md",
+        "artifacts/candy-scope4b1-cuda-static-environment.txt",
+        "artifacts/candy-scope4b1-cuda-static-initcheck-qualification.json",
+        "artifacts/candy-scope4b1-cuda-static-memcheck-qualification.json",
+        "artifacts/candy-scope4b1-cuda-static-native-qualification.json",
+        "artifacts/candy-scope4b1-cuda-static-racecheck-qualification.json",
+        "artifacts/candy-scope4b1-cuda-static-synccheck-qualification.json",
+        "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+        "candy-runtime/native/hypergraph-motif-cuda/README.md",
+        "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+        "candy-runtime/test/hypergraph-motif-cuda-contract.mjs",
+        "candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs",
+        "tests/candy-scope4b1-static-contract.test.mjs"
+      ],
+      "context": "No candidates. Tool five-JSON inventory reconciled manually to all14Git changes. No source/build/transport/harness/test change after reviewed snapshot; only unchanged canonical readback copies and final reporting metadata will follow sealing.",
+      "excludePaths": [],
+      "includePaths": [
+        "."
+      ],
+      "limitations": [
+        "The applicable SECURITY.md chain is empty, confirmed by explicit ancestor existence checks and the parent agent's successful helper resolution. My initial helper invocation failed because python was absent from PATH; no repository policy content was substituted.",
+        "Native source uses POSIX file APIs and its documented Windows path is Windows Node -> WSL2 Ubuntu -> Linux native executable; native Windows compilation is not established. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:8; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:34; candy-runtime/native/hypergraph-motif-cuda/README.md:7.",
+        "The inherited environment, wsl.exe resolution, Ubuntu installation, CUDA driver/toolkit and repository build binaries are operator-controlled prerequisites; fixed argv alone is not an executable-authenticity or sandbox guarantee. Evidence: candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:30.",
+        "Graph identity/version and CUDA flags are local execution evidence, not cryptographic attestation; binarySha256 is recorded for the initial binary read but does not enforce immutability or bind every later invocation cryptographically. Evidence: candy-runtime/native/hypergraph-motif-cuda/README.md:49; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:27; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:53.",
+        "Documentation says temporary directories are removed in finally; the actual finally covers the main qualification loop, while workspace creation and initial binary hashing occur before the try. Thus cleanup evidence is limited to failures/success after entry into that try, with initialization failure cleanup not established by this source. Evidence: candy-runtime/native/hypergraph-motif-cuda/README.md:18; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:19; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:27; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:120; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:248.",
+        "The independent native source claims no upstream code/lookup use, and the inspected classifier derives its table in source. This review did not inspect upstream archives or executables and does not establish provenance beyond inspected implementation. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:1; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:155.",
+        "This is a read-only architecture mapping. No application execution, PoC, tests or security-audit coverage claim was performed."
+      ],
+      "runtimeStatus": "Final productionELF fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688:487exact GPU graphs/69failure checks/all4sanitizers3/3clean. Fullapp245/245/lint/build/GitHub/audit0/diffcheck andCPU/SSSP regressions pass.",
+      "summary": "Fresh complete Scope4B1 STATIC14-file working-tree review with full omitted-untracked-source reconciliation.",
+      "validationMode": "Full source/transport/test/evidence parent inspection; independent fresh-context architecture and native/Makefile discovery review; exhaustive realGPU taxonomy/parity/adversarial/sanitizers; regression and permanent evidence reconciliation."
+    },
+    "sealedAt": "2026-09-17T15:38:42.213786Z",
+    "startedAt": "2026-09-17T15:29:28.086993Z",
+    "status": "completed",
+    "target": {
+      "baseRevision": "7b4206ba66f38df18b0a0fe33d55800f79ef0000",
+      "displayName": "hypergraph-converter-v7.3.14",
+      "headRevision": "7b4206ba66f38df18b0a0fe33d55800f79ef0000",
+      "kind": "git_diff",
+      "snapshotDigest": "codex-security-snapshot/v1:sha256:d89b540c0b7c4f33d6e2d18b13b5b8f40877b6b644737c09845172c9cc8f6816",
+      "targetId": "target_sha256_0695e49c93cbcbc64eccfa8a3e8fe683150f04c8dc923fb43aa532473cbee141"
+    },
+    "threatModel": {
+      "assets": [
+        "Native host/GPU memory safety and bounded GPU work: request bytes are capped at 2 MiB, vertices at 1,000,000, edges at 256, incidences at 100,000, and aggregate membership visits at 5,000,000; offsets and memberships are checked before CUDA consumers. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:25; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:58; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:109; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:117.",
+        "Exact 30-bin count integrity, graph identity/version binding, requested-device binding, and truthful STATIC CUDA execution metadata. Evidence: candy-runtime/test/hypergraph-motif-cuda-contract.mjs:47; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:243; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:258.",
+        "Typed semantic identifier integrity, distinct hyperedge identity even for identical incidence, deterministic dense mappings, and preserved isolated vertices. Evidence: src/candy/adapters/identifierMapping.js:3; src/candy/adapters/identifierMapping.js:18; src/candy/adapters/hypergraphIncidenceAdapter.js:120; src/candy/adapters/hypergraphIncidenceAdapter.js:139.",
+        "Operator-controlled build/executable authority and qualification evidence integrity. Binary and compiler locations are determined by local source/build configuration, while output reports are fixed derived repository artifact paths. Evidence: candy-runtime/native/hypergraph-motif-cuda/Makefile:1; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:12; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:250."
+      ],
+      "assumptions": [
+        "The applicable SECURITY.md chain is empty, confirmed by explicit ancestor existence checks and the parent agent's successful helper resolution. My initial helper invocation failed because python was absent from PATH; no repository policy content was substituted.",
+        "Native source uses POSIX file APIs and its documented Windows path is Windows Node -> WSL2 Ubuntu -> Linux native executable; native Windows compilation is not established. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:8; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:34; candy-runtime/native/hypergraph-motif-cuda/README.md:7.",
+        "The inherited environment, wsl.exe resolution, Ubuntu installation, CUDA driver/toolkit and repository build binaries are operator-controlled prerequisites; fixed argv alone is not an executable-authenticity or sandbox guarantee. Evidence: candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:30.",
+        "Graph identity/version and CUDA flags are local execution evidence, not cryptographic attestation; binarySha256 is recorded for the initial binary read but does not enforce immutability or bind every later invocation cryptographically. Evidence: candy-runtime/native/hypergraph-motif-cuda/README.md:49; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:27; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:53.",
+        "Documentation says temporary directories are removed in finally; the actual finally covers the main qualification loop, while workspace creation and initial binary hashing occur before the try. Thus cleanup evidence is limited to failures/success after entry into that try, with initialization failure cleanup not established by this source. Evidence: candy-runtime/native/hypergraph-motif-cuda/README.md:18; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:19; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:27; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:120; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:248.",
+        "The independent native source claims no upstream code/lookup use, and the inspected classifier derives its table in source. This review did not inspect upstream archives or executables and does not establish provenance beyond inspected implementation. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:1; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:155.",
+        "This is a read-only architecture mapping. No application execution, PoC, tests or security-audit coverage claim was performed."
+      ],
+      "attackerCapabilities": [
+        "A realistic input provider may control incidence values or the contents of a local request file passed by an authorized operator, including malformed tokens, indices, sizes, identity strings and a declared device index. These are parser/compute inputs, not subprocess argv authority. Evidence: candy-runtime/test/hypergraph-motif-cuda-contract.mjs:22; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:96.",
+        "The CLI caller already possesses authority to choose the local read path; reading an explicitly selected bounded regular file is the requested capability, not a new authority gain. Supplied user context; implementation and documentation: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:269; candy-runtime/native/hypergraph-motif-cuda/README.md:22.",
+        "No remote client, tenant, HTTP motif route, or model-action exposure is established for this addition. Source-backed existing capability declarations are SSSP-only. A deployment exposing this standalone CLI to lower-trust actors would be a separate prerequisite. Evidence: candy-runtime/src/capabilities/capabilityRegistry.js:48.",
+        "Local compiler selection, Make variables, inherited environment, PATH resolution of wsl.exe, Ubuntu distribution identity, repository binaries and writable build directories belong to the invoking operator/developer trust domain. No isolation from actors already sharing that authority is established. Evidence: candy-runtime/native/hypergraph-motif-cuda/Makefile:1; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:33.",
+        "A failure at the native input boundary could matter if it granted host/GPU memory access or resource use beyond declared limits; a failure at result validation could matter if invalid or stale output acquired qualification authority. These are architectural security objectives, not discovered findings."
+      ],
+      "securityObjectives": [
+        "User-context requirement: STATIC only, no graph projection, no CPU execution/fallback. Native parser enforces STATIC and Hypergraph-family input; every successful native path launches and synchronizes CUDA, including zero/one/two-edge cases. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:101; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:104; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:234; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:240.",
+        "Bound request reads to a regular file and 2 MiB without final-symlink/FIFO acceptance, preserving explicitly authorized ordinary parent-directory path resolution. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:53.",
+        "Validate complete incidence dimensions, arithmetic, offsets, memberships and device/grid constraints before native GPU consumers. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:109; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:117; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:215.",
+        "Preserve typed identifiers, deterministic dense mapping, independent identical edges and isolated vertices. Evidence: src/candy/adapters/identifierMapping.js:3; src/candy/adapters/hypergraphIncidenceAdapter.js:120; tests/candy-scope4b1-static-contract.test.mjs:7.",
+        "Accept qualification results only after binding and structural/integer checks plus exact CPU-oracle parity, and emit no partial counts on native failure. Evidence: candy-runtime/test/hypergraph-motif-cuda-contract.mjs:47; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:49; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:272.",
+        "Keep fault execution as compile-time qualification binaries and keep qualification reports separate from runtime capability registration. Evidence: candy-runtime/native/hypergraph-motif-cuda/Makefile:18; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:63; candy-runtime/src/capabilities/capabilityRegistry.js:48."
+      ],
+      "summary": "Scope 4B1 adds a standalone, local, bounded STATIC CUDA incidence-motif executable and developer qualification transport/harness. The transport canonicalizes a Hypergraph-family incidence object, packs dense H2V rows and identity/version/device metadata, and the executable accepts only --request <local-file>. Native code reads and parses that bounded regular file, derives the classification table on the host, counts triples exclusively in a CUDA kernel, and returns JSON; the harness checks binding and structure and compares counts to an external CPU oracle. Production capability declarations remain SSSP-only. Evidence: candy-runtime/test/hypergraph-motif-cuda-contract.mjs:8; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:53; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:155; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:186; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:49; candy-runtime/src/capabilities/capabilityRegistry.js:48.",
+      "trustBoundaries": [
+        "External incidence data -> qualified JS adapter: exact object keys exclude H2H/V2H/projection additions, semantic IDs are type tagged and deduplicated, memberships must reference declared vertices and be unique, and rows are deterministically sorted. The transport supplies stricter edge/incidence overrides and a work limit. Evidence: src/candy/adapters/hypergraphIncidenceAdapter.js:34; src/candy/adapters/hypergraphIncidenceAdapter.js:75; src/candy/adapters/hypergraphIncidenceAdapter.js:120; src/candy/adapters/identifierMapping.js:3; candy-runtime/test/hypergraph-motif-cuda-contract.mjs:12.",
+        "Local CLI caller -> native file reader: exactly argc=3 with argv[1]=--request is accepted. The chosen argv[2] is an authorized local read path, using ordinary OS resolution for relative paths and parent-directory symlinks. O_NOFOLLOW rejects the final symlink, O_NONBLOCK prevents FIFO blocking, fstat requires a regular file, and the same descriptor carries both initial size checking and bounded reading. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:53; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:267; candy-runtime/native/hypergraph-motif-cuda/README.md:22. Local-path authorization and parent-symlink semantics are also supplied user context.",
+        "Request text -> native arrays/CUDA inputs: strict token ordering, unsigned decimal parsing with field-specific bounds, STATIC and Hypergraph-family restrictions, lowercase UTF-16 identity encoding, strict offsets, sorted unique memberships, vertex-range checks, and final END/no trailing content establish the dense incidence contract. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:70; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:96.",
+        "Native host -> CUDA device: device existence, requested device selection, grid/block limits, checked allocation arithmetic, bounded validated incidence buffers and host-derived lookup precede launch. Counting occurs in count_triples with i<j<k, merging three sorted rows and unsigned 64-bit atomic increments; host work derives classification and validates returned count bounds rather than enumerating counts. Evidence: candy-runtime/native/hypergraph-motif-cuda/src/main.cu:155; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:168; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:186; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:205.",
+        "Qualification harness -> local child process: Linux directly invokes the repository-derived binary with argv [--request, derived-request-path]; Windows invokes wsl.exe with [-d, Ubuntu, --exec, command, ...args] and drive paths mapped to /mnt/<drive>/. Sanitizer selection is allowlisted and uses /usr/local/cuda-13.4/bin/compute-sanitizer. Commands are invoked without shell mode, with 60-second timeout and 8 MiB output buffer; the environment is inherited except the dedicated no-visible-device test. Request contents cannot select an executable or output path. Evidence: candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:12; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:30.",
+        "Native JSON -> qualification result consumer: exact keys, schema, algorithm, taxonomy, backend, STATIC mode, graph identity/version, device index, 30 safe nonnegative counts, count sum/combinatorial bound, execution flags and metadata formats are checked before every bin and total are compared to the CPU oracle. Evidence: candy-runtime/test/hypergraph-motif-cuda-contract.mjs:42; candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:49.",
+        "Developer build -> standalone binaries: CUDA_ARCH is mandatory; NVCC/NVFLAGS are trusted local build configuration, and fault macros produce separate suffix-named binaries rather than runtime request switches. Success checks explicit cleanup before result emission; failure destructors perform best-effort cleanup. Evidence: candy-runtime/native/hypergraph-motif-cuda/Makefile:1; candy-runtime/native/hypergraph-motif-cuda/Makefile:18; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:175; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:206; candy-runtime/native/hypergraph-motif-cuda/src/main.cu:252.",
+        "Qualification evidence -> runtime capability authority: the harness writes fixed JSON artifact names; build and temporary request directories are ignored. Existing capability declaration code only registers qualified OpenMP and CUDA SSSP capabilities, with no motif registration. Evidence: candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs:250; .gitignore:16; candy-runtime/src/capabilities/capabilityRegistry.js:8; candy-runtime/src/capabilities/capabilityRegistry.js:48."
+      ]
+    }
+  },
+  "schemaVersion": "1.0"
+}

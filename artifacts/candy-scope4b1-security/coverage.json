@@ -1,0 +1,145 @@
+{
+  "completeness": "complete",
+  "deferred": [],
+  "documentType": "codex-security.coverage",
+  "excludePaths": [],
+  "explicitExclusions": [],
+  "includePaths": [
+    "."
+  ],
+  "inventoryStrategy": "diff",
+  "mode": "working_tree",
+  "openQuestions": [],
+  "scanId": "8e9e0d07-c48f-4535-a9f2-938409894751",
+  "schemaVersion": "1.0",
+  "surfaces": [
+    {
+      "disposition": "no_issue_found",
+      "id": "file-1",
+      "label": ".gitignore",
+      "notes": "Additive ignored motif build directory only. No old ignore rule removed or generated binary tracked.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-2",
+      "label": "artifacts/candy-scope4b1-cuda-static-architecture.md",
+      "notes": "Full architecture/environment/README checked against actual source and real WSL2 CUDA13.4.59/RTX5060CC12.0/sm_120 output. Independent S3 derivation, standalone static contract and no application integration/provenance exposure. Init-cleanup caveat retained in model; no security impact established.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-3",
+      "label": "artifacts/candy-scope4b1-cuda-static-environment.txt",
+      "notes": "Full architecture/environment/README checked against actual source and real WSL2 CUDA13.4.59/RTX5060CC12.0/sm_120 output. Independent S3 derivation, standalone static contract and no application integration/provenance exposure. Init-cleanup caveat retained in model; no security impact established.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-4",
+      "label": "artifacts/candy-scope4b1-cuda-static-initcheck-qualification.json",
+      "notes": "Read back permanent JSON success/mode/device/statistics and same final ELF SHA fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688. Native487 exact graphs/69 rejection checks/signature partition96connected+13disconnected+19invalid; all4 production sanitizers3workloads/0errors, racecheck0hazards/warnings. No substituted counts or partial CUDA success.",
+      "receiptRefs": [],
+      "riskArea": "qualification-evidence"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-5",
+      "label": "artifacts/candy-scope4b1-cuda-static-memcheck-qualification.json",
+      "notes": "Read back permanent JSON success/mode/device/statistics and same final ELF SHA fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688. Native487 exact graphs/69 rejection checks/signature partition96connected+13disconnected+19invalid; all4 production sanitizers3workloads/0errors, racecheck0hazards/warnings. No substituted counts or partial CUDA success.",
+      "receiptRefs": [],
+      "riskArea": "qualification-evidence"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-6",
+      "label": "artifacts/candy-scope4b1-cuda-static-native-qualification.json",
+      "notes": "Read back permanent JSON success/mode/device/statistics and same final ELF SHA fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688. Native487 exact graphs/69 rejection checks/signature partition96connected+13disconnected+19invalid; all4 production sanitizers3workloads/0errors, racecheck0hazards/warnings. No substituted counts or partial CUDA success.",
+      "receiptRefs": [],
+      "riskArea": "qualification-evidence"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-7",
+      "label": "artifacts/candy-scope4b1-cuda-static-racecheck-qualification.json",
+      "notes": "Read back permanent JSON success/mode/device/statistics and same final ELF SHA fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688. Native487 exact graphs/69 rejection checks/signature partition96connected+13disconnected+19invalid; all4 production sanitizers3workloads/0errors, racecheck0hazards/warnings. No substituted counts or partial CUDA success.",
+      "receiptRefs": [],
+      "riskArea": "qualification-evidence"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-8",
+      "label": "artifacts/candy-scope4b1-cuda-static-synccheck-qualification.json",
+      "notes": "Read back permanent JSON success/mode/device/statistics and same final ELF SHA fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688. Native487 exact graphs/69 rejection checks/signature partition96connected+13disconnected+19invalid; all4 production sanitizers3workloads/0errors, racecheck0hazards/warnings. No substituted counts or partial CUDA success.",
+      "receiptRefs": [],
+      "riskArea": "qualification-evidence"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-9",
+      "label": "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+      "notes": "Full Makefile1-22: required explicit trusted developer architecture/compiler, separate compile-time fault targets, no runtime fault option. Local developer Make variables cannot be chosen by graph/request data.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-10",
+      "label": "candy-runtime/native/hypergraph-motif-cuda/README.md",
+      "notes": "Full architecture/environment/README checked against actual source and real WSL2 CUDA13.4.59/RTX5060CC12.0/sm_120 output. Independent S3 derivation, standalone static contract and no application integration/provenance exposure. Init-cleanup caveat retained in model; no security impact established.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-11",
+      "label": "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+      "notes": "Independent native reviewer and parent inspected full untracked source. Lines53-88 same-fd O_NOFOLLOW/O_NONBLOCK regular2MiB read and strict decimal parser;96-129 mode/type/dimension/work/offset/sorted incidence validation;135-165 host S3 classifier without motif counting;186-204 bounded n^3 i<j<k, sorted-row merge, mask0..127/class0..29/uint64 atomics;205-253 device/grid/checked allocation/copy/init/launch/sync/result and normal cleanup;267-279 fixed CLI and typed failure without counts. Every kernel read bounded, counts zeroed, no CPU fallback or copied upstream source established.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-12",
+      "label": "candy-runtime/test/hypergraph-motif-cuda-contract.mjs",
+      "notes": "Full transport8-39: qualified adapter tightened edge/incidence/work bounds, typed deterministic mapping, UTF16 identity code-unit encoding, sorted H2V. Result42-76: exact keys/schema/algorithm/taxonomy/static CUDA backend, bound graph/version/device, 30 safe counts/sum/combinatorial bound, metadata/flags/time. No subprocess/output path authority. Assertions reject corruption. Local metadata is not cryptographic attestation.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-13",
+      "label": "candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs",
+      "notes": "Full harness: fixed repository-derived executable/request paths and direct WSL/Linux argv/no shell; closed fault/sanitizer allowlists,60s/8MiB child bounds12-75. Controlled fixture commands and validated /tmp cleanup76-101. Witness/mask/S3/order/rename/stress comparisons and typed failures/corrupt-result checks120-241, external CPU authority never substituted for CUDA. Fixed reports in finally248-254. Initialization binary hashing precedes try; missing binary may leave ignored empty workspace, documented low-impact limitation with no new attacker authority; actual scratch cleaned.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "file-14",
+      "label": "tests/candy-scope4b1-static-contract.test.mjs",
+      "notes": "All three tests fully reviewed: typed IDs/distinct identical edges/isolate/string identity and deterministic reorder transport; incompatible graph/device/work/H2H/duplicate semantic IDs rejected; stale/fallback/corrupt count/flags rejected. CPU authority not weakened.",
+      "receiptRefs": [],
+      "riskArea": "native-contract-build-provenance"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "inventory-reconciliation",
+      "label": "All14 original changed files reconciled to Git inventory",
+      "notes": "Tool prepare/list returned only5JSONs. Producer reconciled git diff --name-only plus git ls-files --others --exclude-standard to14paths, independently reviewed full native/Makefile and parent-reviewed all transport/harness/tests/docs/evidence. Everypath has a surface and scope.artifactsReviewed entry, none deferred. Final reporting-only readback/aggregate/audit/issue files are added after sealing without source/build/test/transport changes.",
+      "receiptRefs": [],
+      "riskArea": "coverage-integrity"
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "production-negative-controls",
+      "label": "Qualified CPU/SSSP and absent integration boundaries",
+      "notes": "Empty git diff --exit-code over src,candy-runtime/src,SSSP native dirs,package.json/package-lock.json. capabilityDiscovery/registry remain SSSP-only; no new motif references in production. Scope4A-R4/4,Scope3focused4/4 andrealnative12fixtures/40stress pass. Fullnpm245/245/lint/bothbuilds/audit0/diffcheck pass. No projection/adaptive/incremental CUDA/runtime/UI/ReAct/Ollama/model integration/dependency change. Source derives solely from CANDY math; upstream executable/archive/lookup/CBST/parser/update/layout code never read or copied.",
+      "receiptRefs": [],
+      "riskArea": "authority-and-regression"
+    }
+  ]
+}

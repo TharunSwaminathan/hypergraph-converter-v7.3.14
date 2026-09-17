@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "candy.scope4b1-issue-register/1",
+  "status": "PASS",
+  "openCritical": 0,
+  "openHigh": 0,
+  "securityFindings": [],
+  "resolved": [
+    {
+      "id": "ENV-PATH",
+      "resolution": "Queried explicit CUDA13.4 compiler/sanitizer paths; real GPU verified."
+    },
+    {
+      "id": "FIXTURE-BUDGET",
+      "resolution": "256 minimal nonempty edges exceed qualified aggregate budget; success fixture216, limits unchanged; 4,999,800-visit fixture passes."
+    },
+    {
+      "id": "APP-PLATFORM",
+      "resolution": "Linux npm lacked Windows-installed rolldown binding; matching Windows Node/existing npm CLI passes with no dependency changes."
+    },
+    {
+      "id": "APP-PYTHON",
+      "resolution": "Full suite needs Python; set bundled PYTHON for process only, final245/245 pass."
+    },
+    {
+      "id": "SEC-INVENTORY",
+      "resolution": "Tool inventoried five JSONs only; manually reconciled all14 changed paths, full source review and independent native review; canonical coverage complete."
+    }
+  ],
+  "documentedLimitations": [
+    "STATIC only. CUDA incremental and Runtime Companion/browser/UI/model/adaptive integration remain unstarted.",
+    "Single-machine correctness qualification on WSL2 Ubuntu / RTX 5060 / sm_120; no portable fixed ELF hash or speedup claim.",
+    "Limits remain <=256 hyperedges, <=100000 incidences, <=5000000 aggregate membership visits; nonempty-edge/work constraints imply <=216 realizable accepted edges. Vertex metadata <=1000000 and request bytes <=2MiB.",
+    "CUDA allocation/launch/sync fault errors are safe compile-time injections; actual no-visible-device failure is also tested. No deliberate production binary corruption or uncontrolled OOM experiment.",
+    "CLI path grants explicit local regular-file read authority; parent symlinks use OS resolution. No remote file service or sandbox/cryptographic executable attestation is implemented.",
+    "Initial harness workspace creation/binary hashing precede its main try/finally. A missing binary at initialization may leave an ignored empty workspace; actual qualification scratch directories were removed.",
+    "Security snapshot covers all 14 original changed files after manual reconciliation of the tool's five-JSON inventory. Final aggregate/audit/issue documents and four unchanged canonical readback copies are reporting-only additions after sealing; no source/build/test/transport code changed after the reviewed snapshot."
+  ]
+}

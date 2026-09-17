@@ -1,0 +1,15 @@
+# Scope 4B1 architecture (before implementation)
+
+Authority: Scope 4A-R, commit `7b4206ba66f38df18b0a0fe33d55800f79ef0000`, taxonomy `candy.hypergraph-3edge-motif-taxonomy/1`. Branch and historical tags verified before edits; initial tree clean.
+
+Add `candy-runtime/native/hypergraph-motif-cuda`, an independent C++17 CUDA static executable. Reuse the project-owned Scope 3 token-contract/build/error-envelope conventions, without editing SSSP or sharing algorithm code. Do not read or translate ESCHER executable sources or lookup arrays.
+
+A standalone qualification module calls the qualified incidence adapter, preserving typed external IDs, separate identical hyperedges, isolated declared vertices, deterministic mappings and graph identity. Its transport contains only derived sorted H2V offsets/memberships and vertex count. Encode graph ID as UTF-16 hexadecimal to preserve every JS string code unit without token injection. A strict native parser accepts only a fixed versioned token sequence, rejects trailing fields, validates decimal numbers before conversion and bounds the complete read from one regular-file descriptor (no final symlink).
+
+The fixed native invocation is `candy-hypergraph-motif-cuda --request <path>`; callers do not choose executables or shell commands. JSON results bind graph ID/version and provide 30 integer bins, connected total, CUDA device/compiler/architecture metadata and launch/synchronization evidence. Failure returns a typed envelope without counts.
+
+One-dimensional CUDA threads decode a bounded dense triple index and process only `i < j < k`. Three sorted membership lists are merged on device; their membership bitsets map to the seven qualified region bits. Host code derives the 128-entry classifier from all six S3 permutations and ascending canonical masks, checks 96 labeled connected signatures / 30 classes / 24 closed / 6 open, and copies the derived classifier to device memory. Host code never computes motif counts. Unsigned 64-bit atomic bin additions are exact and bounded by C(256,3).
+
+Hard limits remain 256 hyperedges, 100,000 incidences and 5,000,000 aggregate membership visits; vertex count stays within the qualified adapter's 1,000,000 limit. Validate offsets, sorted unique memberships, dimensions, checked arithmetic and byte sizes before allocation/launch. Use RAII buffers and check every CUDA operation. Even zero-triple inputs require real CUDA execution. There is no CPU fallback.
+
+Compile explicitly for verified `sm_120`, using `/usr/local/cuda-13.4/bin/nvcc` (13.4.59). Isolated compile-time fault binaries exercise unavailable/allocation/launch/sync failures; production runtime has no fault switches. Ignore all generated build outputs. Qualify all masks/witnesses/permutations, invariance, deterministic random stress, malformed requests/results, real GPU execution and four Compute Sanitizer modes. Run existing CPU/SSSP and application gates, followed by a complete security review of the stabilized diff. Leave all changes uncommitted. Stop before 4B2/4C.
