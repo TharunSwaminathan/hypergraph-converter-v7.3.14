@@ -1,0 +1,36 @@
+Scope 4B2 fresh environment queries, UTC 2026-09-17T16:15:17.3271752Z
+COMMAND: wsl -d Ubuntu --exec /usr/lib/wsl/lib/nvidia-smi
+Thu Sep 17 11:15:17 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 615.71.08              KMD Version: 616.92        CUDA UMD Version: 13.4     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5060        On  |   00000000:02:00.0  On |                  N/A |
+|  0%   61C    P0             30W /  145W |    1696MiB /   8151MiB |      5%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A              25      G   /Xwayland                             N/A      |
++-----------------------------------------------------------------------------------------+
+COMMAND: wsl -d Ubuntu --exec /usr/lib/wsl/lib/nvidia-smi --query-gpu=index,name,compute_cap --format=csv,noheader
+0, NVIDIA GeForce RTX 5060, 12.0
+COMMAND: wsl -d Ubuntu --exec /usr/local/cuda-13.4/bin/nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2026 NVIDIA Corporation
+Built on Mon_Aug_03_13:24:11_PDT_2026
+Cuda compilation tools, release 13.4, V13.4.59
+Build cuda_13.4.r13.4/compiler.38657139_0
+COMMAND: wsl -d Ubuntu --exec /usr/local/cuda-13.4/bin/compute-sanitizer --version
+NVIDIA (R) Compute Sanitizer
+Copyright (c) 2020-2026 NVIDIA Corporation
+Version 2026.3.0.0 (build 38637409) (public-release)
+COMMAND: wsl -d Ubuntu --exec /usr/bin/uname -a
+Linux TSRKs-Paradise 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 GNU/Linux

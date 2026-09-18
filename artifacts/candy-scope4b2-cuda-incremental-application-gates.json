@@ -1,0 +1,49 @@
+{
+  "fullTest": {
+    "status": "PASS",
+    "files": 246,
+    "command": "npm run test",
+    "runtime": "Windows Node24.19.0; existing npm10.9.8 UNC CLI; bundled process-local PYTHON",
+    "summary": "Node test suite passed: 246/246 files in 110.1s."
+  },
+  "lint": {
+    "status": "PASS",
+    "command": "npm run lint"
+  },
+  "build": {
+    "status": "PASS",
+    "command": "npm run build",
+    "modules": 241,
+    "existingChunkSizeWarning": true
+  },
+  "githubBuild": {
+    "status": "PASS",
+    "command": "npm run build:github",
+    "modules": 241,
+    "existingChunkSizeWarning": true
+  },
+  "audit": {
+    "status": "PASS",
+    "command": "npm audit --omit=dev",
+    "vulnerabilities": 0
+  },
+  "diffCheck": {
+    "status": "PASS",
+    "command": "git diff --check"
+  },
+  "scope4a": {
+    "status": "PASS",
+    "files": 4,
+    "command": "node scripts/run-node-tests.mjs --match=candy-scope4a"
+  },
+  "scope3": {
+    "status": "PASS",
+    "files": 4,
+    "command": "node scripts/run-node-tests.mjs --match=candy-scope3"
+  },
+  "newContract": {
+    "status": "PASS",
+    "tests": 3,
+    "command": "node --test tests/candy-scope4b2-incremental-contract.test.mjs"
+  }
+}

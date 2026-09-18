@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "candy.scope4b2-issue-register/1",
+  "status": "PASS",
+  "openCritical": 0,
+  "openHigh": 0,
+  "openMedium": 0,
+  "resolved": [
+    {
+      "id": "FIXTURE-ISOLATE",
+      "resolution": "Corrected expected isolate count from2 to1: numeric vertex0 remains used by C; qualified adapter behavior unchanged."
+    },
+    {
+      "id": "NPM-UNC-SANDBOX",
+      "resolution": "Existing WSL npm UNC is inaccessible in restricted process; authorized execution with matching Windows Node succeeds without dependency changes."
+    },
+    {
+      "id": "REQUEST-CONTEXT",
+      "resolution": "Freeze nested STATIC request contexts to preserve device/graph binding; final focused and full tests pass."
+    }
+  ],
+  "knownLimitations": [
+    "Bounded correctness envelope: <=256 declared edges, <=100000 incidences, <=5000000 full-snapshot membership visits per snapshot, <=1000000 vertices, <=2MiB packed request. Nonempty edges imply <=216 realizable accepted edges.",
+    "Host generates index candidates; GPU alone classifies/counts them. No benchmark or speedup claim.",
+    "Single-machine WSL2 Ubuntu/RTX5060/sm_120 qualification. ELF hash binds this build only, without portable reproducibility or cryptographic executable attestation.",
+    "Standalone stateless delta-only CLI, no prior full-count state, property store, persistent replay ledger or application capability exposure. Different-request replay fails binding; identical retries are deterministic.",
+    "Local operator/JS adapter/toolchain are trusted; SHA256 payload binding is integrity, not authentication. Native independently verifies unchanged incidence but cannot authenticate original external semantic IDs.",
+    "Allocation/launch/synchronization failures are trusted compile-time injections, not uncontrolled production OOM experiments. Actual unavailable-device tests also pass.",
+    "Insertion alone cannot change the classification of an existing triple; another class is added alongside an existing wedge. Replacements cover actual connected/class conversions.",
+    "Qualified STATIC sources/validator are unchanged. Historical Scope4B1 evidence was restored byte-for-byte after fresh regression, which is retained separately.",
+    "Final sealed-security readback copies and status/scan/hash updates are reporting-only post-seal material; production/build/transport/harness/tests remain unchanged after review."
+  ],
+  "security": {
+    "status": "PASS",
+    "scanId": "b5744ec4-ddba-4a37-9675-c3a51dc958f4",
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:00dd2a9567a50716984bde46276d15dc147a5d56bf68a37b355c060cdb8a35c0",
+    "sealedStatus": "completed",
+    "sealedAt": "2026-09-18T01:08:39.734592Z",
+    "coverage": "complete",
+    "deferred": 0,
+    "openQuestions": 0,
+    "findings": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0
+    },
+    "finalReviewPending": false,
+    "originalGitInventoryFiles": 20,
+    "toolInventoryFiles": 10,
+    "allOriginalPathsCovered": true,
+    "canonicalCopiesSha256": {
+      "artifacts/candy-scope4b2-security/scan-manifest.json": "81b02e18d58ea7f57791601159d595b8e93821cb1249ede301a2725913d89bb3",
+      "artifacts/candy-scope4b2-security/findings.json": "697acf6f36a3926ef3f64864a305d8bd55d0a85fa0f15e31ded798255601931b",
+      "artifacts/candy-scope4b2-security/coverage.json": "c95575dd381f8c6bc90f8f6a519d880a50c0d1eb79a8d17638f28a90c7f605f3",
+      "artifacts/candy-scope4b2-security/report.md": "271bad1238c8639a12dbf73ad74d2a7b157c98294a2aa22bf31b892536137aae"
+    },
+    "canonicalCopyMethod": "Byte-for-byte copies of current scan sealed files after get_codex_security_completed_scan readback; seal artifact hashes independently verified.",
+    "measuredToolUsage": {
+      "cacheWriteInputTokens": 0,
+      "cachedInputTokens": 11769600,
+      "coverage": "complete",
+      "inputTokens": 12491629,
+      "outputTokens": 60899,
+      "reasoningOutputTokens": 7652,
+      "source": "codex_rollout",
+      "threadCount": 3,
+      "totalTokens": 12552528
+    }
+  },
+  "openLow": 0,
+  "changedFileManifest": [
+    ".gitignore",
+    "artifacts/candy-scope4b2-cuda-incremental-application-gates.json",
+    "artifacts/candy-scope4b2-cuda-incremental-architecture.md",
+    "artifacts/candy-scope4b2-cuda-incremental-audit-report.md",
+    "artifacts/candy-scope4b2-cuda-incremental-environment.txt",
+    "artifacts/candy-scope4b2-cuda-incremental-initcheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-issue-register.json",
+    "artifacts/candy-scope4b2-cuda-incremental-memcheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-native-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-racecheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-synccheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-static-regression.json",
+    "artifacts/candy-scope4b2-security/coverage.json",
+    "artifacts/candy-scope4b2-security/findings.json",
+    "artifacts/candy-scope4b2-security/report.md",
+    "artifacts/candy-scope4b2-security/scan-manifest.json",
+    "artifacts/candy-scope4b2-sssp-regression.json",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/README.md",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+    "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs",
+    "candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs",
+    "tests/candy-scope4b2-incremental-contract.test.mjs"
+  ]
+}

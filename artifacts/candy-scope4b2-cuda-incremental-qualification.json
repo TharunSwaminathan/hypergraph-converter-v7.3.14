@@ -1,0 +1,391 @@
+{
+  "schemaVersion": "candy.scope4b2-qualification/1",
+  "status": "PASS",
+  "baseline": "592c91f938675d6c76d3179b080c95ed6e1b9398",
+  "branch": "candy-integration-scope4b2-cuda-incremental",
+  "staticQualifiedTag": "a27eb1246e342097de448408ffa0a4775545c4ae",
+  "protectedTags": {
+    "candy-integration-scope4b1-cuda-static-qualified": "a27eb1246e342097de448408ffa0a4775545c4ae",
+    "candy-integration-scope4a-qualified": "7b4206ba66f38df18b0a0fe33d55800f79ef0000",
+    "candy-integration-scope4a-security-blocked": "9b70bd2f2ede2130857822d0603b1c394bb6c557",
+    "candy-integration-scope3-cuda-qualified": "48b78c106615add75128832236ccc07e0bcff6cc",
+    "candy-integration-scope3-cuda-env-blocked": "81491e4a04b4d33adb3ebd0679cbe196ce109288"
+  },
+  "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+  "taxonomy": "candy.hypergraph-3edge-motif-taxonomy/1",
+  "backend": "CUDA_INCREMENTAL",
+  "mode": "INCREMENTAL",
+  "sourceSha256": {
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile": "8ff4f5400378974f4b394a9cae59fa47e703a84dbf6d9f98e9ccd5ef9f90f88d",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef",
+    "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs": "3edbfb6243de00b379618e4ffbeaa486ca15ec7d7d030b5e57fd325a96553bf4",
+    "candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs": "f6a28b4990b67d6cdde00568ffbdfec80ed2b877b9177b27e84bbed0a38f1ac9",
+    "tests/candy-scope4b2-incremental-contract.test.mjs": "3084f214ca4acb44b71a413ad4a220a477a10d0775a8e90a54765b2f76311e7a"
+  },
+  "build": {
+    "command": "make -C candy-runtime/native/hypergraph-motif-cuda-incremental NVCC=/usr/local/cuda-13.4/bin/nvcc CUDA_ARCH=sm_120 all qualification-faults",
+    "architecture": "sm_120",
+    "binarySha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+    "cuobjdumpCommand": "wsl -d Ubuntu --exec /usr/local/cuda-13.4/bin/cuobjdump --list-elf <incremental-qualification-binary>",
+    "cuobjdumpOutput": "ELF file    1: main.sm_120.cubin\nELF file    2: main.sm_120.cubin\n"
+  },
+  "qualificationCommand": "wsl -d Ubuntu --cd /mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14 --exec /home/tharu/.nvm/versions/node/v22.23.1/bin/node candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs",
+  "sanitizerCommands": {
+    "memcheck": "append --sanitizer=memcheck to qualificationCommand",
+    "racecheck": "append --sanitizer=racecheck to qualificationCommand",
+    "initcheck": "append --sanitizer=initcheck to qualificationCommand",
+    "synccheck": "append --sanitizer=synccheck to qualificationCommand"
+  },
+  "environment": {
+    "deviceIndex": 0,
+    "deviceName": "NVIDIA GeForce RTX 5060",
+    "computeMajor": 12,
+    "computeMinor": 0,
+    "compiledArchitecture": "sm_120",
+    "compilerVersion": "13.4.59",
+    "runtimeVersion": 13040,
+    "driverVersion": 13040,
+    "kernelLaunchSucceeded": true,
+    "synchronizationSucceeded": true,
+    "kernelMilliseconds": 0.851776
+  },
+  "nativeQualification": {
+    "passed": 405,
+    "failed": 0,
+    "failures": 104,
+    "nativeTypedFailures": 63,
+    "classCoverage": {
+      "all": 30,
+      "creation": 30,
+      "destruction": 30,
+      "openWedge": 6,
+      "closedTriangle": 24,
+      "s3": 180
+    },
+    "anchorRegression": {
+      "oldClosed": 2,
+      "newClosed": 1,
+      "cudaClosedDelta": -1,
+      "faultyAnchorReference": -2,
+      "all30BinsExact": true
+    },
+    "stress": {
+      "seed": "0x4b2c0de",
+      "plannedCases": 128,
+      "passed": 128,
+      "failed": 0
+    },
+    "chainSteps": 12,
+    "everyBinAndTotalExact": true,
+    "oldPlusDeltaEqualsNew": true,
+    "independentStaticExecutions": 810,
+    "independentCpuSnapshots": 810,
+    "candidateDeduplicationIndependentAnchorSetCheck": true
+  },
+  "sanitizers": {
+    "memcheck": {
+      "status": "PASS",
+      "workloads": 6,
+      "binarySha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+      "errors": 0,
+      "hazards": 0
+    },
+    "racecheck": {
+      "status": "PASS",
+      "workloads": 6,
+      "binarySha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+      "errors": 0,
+      "hazards": 0
+    },
+    "initcheck": {
+      "status": "PASS",
+      "workloads": 6,
+      "binarySha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+      "errors": 0,
+      "hazards": 0
+    },
+    "synccheck": {
+      "status": "PASS",
+      "workloads": 6,
+      "binarySha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+      "errors": 0,
+      "hazards": 0
+    }
+  },
+  "regressions": {
+    "static": {
+      "status": "PASS",
+      "graphs": 487,
+      "failures": 69,
+      "classes": 30,
+      "openWedges": 6,
+      "stressCases": 96,
+      "seed": "0x4b1c0de",
+      "sourceUntouched": true
+    },
+    "sssp": {
+      "status": "PASS",
+      "fixtures": 12,
+      "stressCases": 40,
+      "seed": "0x5eed1234"
+    }
+  },
+  "applicationGates": {
+    "fullTest": {
+      "status": "PASS",
+      "files": 246,
+      "command": "npm run test",
+      "runtime": "Windows Node24.19.0; existing npm10.9.8 UNC CLI; bundled process-local PYTHON",
+      "summary": "Node test suite passed: 246/246 files in 110.1s."
+    },
+    "lint": {
+      "status": "PASS",
+      "command": "npm run lint"
+    },
+    "build": {
+      "status": "PASS",
+      "command": "npm run build",
+      "modules": 241,
+      "existingChunkSizeWarning": true
+    },
+    "githubBuild": {
+      "status": "PASS",
+      "command": "npm run build:github",
+      "modules": 241,
+      "existingChunkSizeWarning": true
+    },
+    "audit": {
+      "status": "PASS",
+      "command": "npm audit --omit=dev",
+      "vulnerabilities": 0
+    },
+    "diffCheck": {
+      "status": "PASS",
+      "command": "git diff --check"
+    },
+    "scope4a": {
+      "status": "PASS",
+      "files": 4,
+      "command": "node scripts/run-node-tests.mjs --match=candy-scope4a"
+    },
+    "scope3": {
+      "status": "PASS",
+      "files": 4,
+      "command": "node scripts/run-node-tests.mjs --match=candy-scope3"
+    },
+    "newContract": {
+      "status": "PASS",
+      "tests": 3,
+      "command": "node --test tests/candy-scope4b2-incremental-contract.test.mjs"
+    }
+  },
+  "architecture": {
+    "affectedDerivation": "qualified adapter deletion IDs OLD; insertion IDs NEW, including replacement",
+    "candidates": "single sorted i<j<k enumeration, affected OR predicate; cardinality C(n,3)-C(n-a,3)",
+    "deduplication": "each sorted tuple visited once; independent qualification builds set from duplicate-producing per-affected-edge enumeration",
+    "gpuClassificationOnly": true,
+    "twoFullStaticProductionImplementation": false,
+    "priorState": "DELTA_ONLY_NO_PRIOR_COUNTS",
+    "requestDigest": "native-verified SHA256 over entire payload",
+    "signedArithmetic": "uint64 affected counters bounded before int64 conversion/subtraction; signed30-bin and total",
+    "unaffectedValidation": "identical common semantic edge tags and sorted incidence across OLD/NEW"
+  },
+  "noFallback": true,
+  "noProjection": true,
+  "noH2HV2HAuthority": true,
+  "noRuntimeBrowserUiReactOllamaAdaptiveIntegration": true,
+  "cleanRoom": "Only project-owned CANDY Scope4B1 generic helpers/classifier/merge logic reused; no ESCHER archive source, lookup, CBST, update, min-ID anchor, parser/generator or source layout read/copied.",
+  "dependenciesChanged": false,
+  "limitations": [
+    "Bounded correctness envelope: <=256 declared edges, <=100000 incidences, <=5000000 full-snapshot membership visits per snapshot, <=1000000 vertices, <=2MiB packed request. Nonempty edges imply <=216 realizable accepted edges.",
+    "Host generates index candidates; GPU alone classifies/counts them. No benchmark or speedup claim.",
+    "Single-machine WSL2 Ubuntu/RTX5060/sm_120 qualification. ELF hash binds this build only, without portable reproducibility or cryptographic executable attestation.",
+    "Standalone stateless delta-only CLI, no prior full-count state, property store, persistent replay ledger or application capability exposure. Different-request replay fails binding; identical retries are deterministic.",
+    "Local operator/JS adapter/toolchain are trusted; SHA256 payload binding is integrity, not authentication. Native independently verifies unchanged incidence but cannot authenticate original external semantic IDs.",
+    "Allocation/launch/synchronization failures are trusted compile-time injections, not uncontrolled production OOM experiments. Actual unavailable-device tests also pass.",
+    "Insertion alone cannot change the classification of an existing triple; another class is added alongside an existing wedge. Replacements cover actual connected/class conversions.",
+    "Qualified STATIC sources/validator are unchanged. Historical Scope4B1 evidence was restored byte-for-byte after fresh regression, which is retained separately.",
+    "Final sealed-security readback copies and status/scan/hash updates are reporting-only post-seal material; production/build/transport/harness/tests remain unchanged after review."
+  ],
+  "gitSafety": {
+    "uncommitted": true,
+    "stagedFiles": 0,
+    "commit": false,
+    "tag": false,
+    "push": false,
+    "merge": false,
+    "reset": false,
+    "historyRewrite": false,
+    "historicalTagsMoved": false
+  },
+  "scope4CStarted": false,
+  "hardStop": true,
+  "securityReviewInventory": [
+    ".gitignore",
+    "artifacts/candy-scope4b2-cuda-incremental-application-gates.json",
+    "artifacts/candy-scope4b2-cuda-incremental-architecture.md",
+    "artifacts/candy-scope4b2-cuda-incremental-audit-report.md",
+    "artifacts/candy-scope4b2-cuda-incremental-environment.txt",
+    "artifacts/candy-scope4b2-cuda-incremental-initcheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-issue-register.json",
+    "artifacts/candy-scope4b2-cuda-incremental-memcheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-native-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-racecheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-synccheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-static-regression.json",
+    "artifacts/candy-scope4b2-sssp-regression.json",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/README.md",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+    "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs",
+    "candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs",
+    "tests/candy-scope4b2-incremental-contract.test.mjs"
+  ],
+  "changedFileManifest": [
+    ".gitignore",
+    "artifacts/candy-scope4b2-cuda-incremental-application-gates.json",
+    "artifacts/candy-scope4b2-cuda-incremental-architecture.md",
+    "artifacts/candy-scope4b2-cuda-incremental-audit-report.md",
+    "artifacts/candy-scope4b2-cuda-incremental-environment.txt",
+    "artifacts/candy-scope4b2-cuda-incremental-initcheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-issue-register.json",
+    "artifacts/candy-scope4b2-cuda-incremental-memcheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-native-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-racecheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-incremental-synccheck-qualification.json",
+    "artifacts/candy-scope4b2-cuda-static-regression.json",
+    "artifacts/candy-scope4b2-security/coverage.json",
+    "artifacts/candy-scope4b2-security/findings.json",
+    "artifacts/candy-scope4b2-security/report.md",
+    "artifacts/candy-scope4b2-security/scan-manifest.json",
+    "artifacts/candy-scope4b2-sssp-regression.json",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/README.md",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+    "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs",
+    "candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs",
+    "tests/candy-scope4b2-incremental-contract.test.mjs"
+  ],
+  "security": {
+    "status": "PASS",
+    "scanId": "b5744ec4-ddba-4a37-9675-c3a51dc958f4",
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:00dd2a9567a50716984bde46276d15dc147a5d56bf68a37b355c060cdb8a35c0",
+    "sealedStatus": "completed",
+    "sealedAt": "2026-09-18T01:08:39.734592Z",
+    "coverage": "complete",
+    "deferred": 0,
+    "openQuestions": 0,
+    "findings": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0
+    },
+    "finalReviewPending": false,
+    "originalGitInventoryFiles": 20,
+    "toolInventoryFiles": 10,
+    "allOriginalPathsCovered": true,
+    "canonicalCopiesSha256": {
+      "artifacts/candy-scope4b2-security/scan-manifest.json": "81b02e18d58ea7f57791601159d595b8e93821cb1249ede301a2725913d89bb3",
+      "artifacts/candy-scope4b2-security/findings.json": "697acf6f36a3926ef3f64864a305d8bd55d0a85fa0f15e31ded798255601931b",
+      "artifacts/candy-scope4b2-security/coverage.json": "c95575dd381f8c6bc90f8f6a519d880a50c0d1eb79a8d17638f28a90c7f605f3",
+      "artifacts/candy-scope4b2-security/report.md": "271bad1238c8639a12dbf73ad74d2a7b157c98294a2aa22bf31b892536137aae"
+    },
+    "canonicalCopyMethod": "Byte-for-byte copies of current scan sealed files after get_codex_security_completed_scan readback; seal artifact hashes independently verified.",
+    "measuredToolUsage": {
+      "cacheWriteInputTokens": 0,
+      "cachedInputTokens": 11769600,
+      "coverage": "complete",
+      "inputTokens": 12491629,
+      "outputTokens": 60899,
+      "reasoningOutputTokens": 7652,
+      "source": "codex_rollout",
+      "threadCount": 3,
+      "totalTokens": 12552528
+    }
+  },
+  "reviewedSnapshotFileSha256": {
+    ".gitignore": "a1f379e3ec93fcdedc34fa877ddb4769e422b6f13a129d6370a1f0e80d4407de",
+    "artifacts/candy-scope4b2-cuda-incremental-application-gates.json": "35e4faee7f4f777e19943ebcd96596723839ab9b57eccd4a841d6e919c0e3a17",
+    "artifacts/candy-scope4b2-cuda-incremental-architecture.md": "b8413fdc7e31f3502e1cab0f821d29af2ef8b67576196033faa75da2bad29be9",
+    "artifacts/candy-scope4b2-cuda-incremental-audit-report.md": "84adfce15c35c384d9f12fdb65afd11e4caa729c71694b69e33a44c4440c47b0",
+    "artifacts/candy-scope4b2-cuda-incremental-environment.txt": "dc87eb16598f25ce990eca908b5cfb9a2cda90cb3d00ba332d988845c7e7255d",
+    "artifacts/candy-scope4b2-cuda-incremental-initcheck-qualification.json": "5bac0e37d1d582a9949b3f23c99825c360517d0987ae15bbaad70ff7d2f8e6a1",
+    "artifacts/candy-scope4b2-cuda-incremental-issue-register.json": "a71cbd4a9f4b60862c4c7528bc8defece08e28e81baa4d8fdcc4d4ac205f214f",
+    "artifacts/candy-scope4b2-cuda-incremental-memcheck-qualification.json": "6d4a19da53a69f841cd80ef7ddc653b6706391b6b3de089b78a156f0c50ad0cd",
+    "artifacts/candy-scope4b2-cuda-incremental-native-qualification.json": "3393a6d6d85181f41be97eec499070db4439a7b2208db5933ef013d31bc1df73",
+    "artifacts/candy-scope4b2-cuda-incremental-qualification.json": "6afa585f0822d0dcac807bde80f6619c8714f7b18771b5aa55385b8aeb90c948",
+    "artifacts/candy-scope4b2-cuda-incremental-racecheck-qualification.json": "34fefef75adb5b1853dbe96df266f18bf22a34ab96709f0f9884f80734b006a7",
+    "artifacts/candy-scope4b2-cuda-incremental-synccheck-qualification.json": "e808a9e3d44595fcd4b09a92a9c6e2b9274509488b7581db8a41bdbec52765cc",
+    "artifacts/candy-scope4b2-cuda-static-regression.json": "0c7427f4ef724e7d1afa6d810cfd989c3e267308447cf67f21de11b32af41080",
+    "artifacts/candy-scope4b2-sssp-regression.json": "324df60a2624c673f56e503b158d19e65c3e582b54e9f3bcd8c291db00f58b88",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile": "8ff4f5400378974f4b394a9cae59fa47e703a84dbf6d9f98e9ccd5ef9f90f88d",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/README.md": "f7de1030c27c32620e9c1c931c35a6dce0d7d997778efac67ac5e8d371ad8f18",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef",
+    "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs": "3edbfb6243de00b379618e4ffbeaa486ca15ec7d7d030b5e57fd325a96553bf4",
+    "candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs": "f6a28b4990b67d6cdde00568ffbdfec80ed2b877b9177b27e84bbed0a38f1ac9",
+    "tests/candy-scope4b2-incremental-contract.test.mjs": "3084f214ca4acb44b71a413ad4a220a477a10d0775a8e90a54765b2f76311e7a"
+  },
+  "postSealReportingOnly": {
+    "modifiedExistingPaths": [
+      "artifacts/candy-scope4b2-cuda-incremental-qualification.json",
+      "artifacts/candy-scope4b2-cuda-incremental-issue-register.json",
+      "artifacts/candy-scope4b2-cuda-incremental-audit-report.md"
+    ],
+    "addedPaths": [
+      "artifacts/candy-scope4b2-security/coverage.json",
+      "artifacts/candy-scope4b2-security/findings.json",
+      "artifacts/candy-scope4b2-security/report.md",
+      "artifacts/candy-scope4b2-security/scan-manifest.json"
+    ],
+    "unchangedReviewedPaths": [
+      ".gitignore",
+      "artifacts/candy-scope4b2-cuda-incremental-application-gates.json",
+      "artifacts/candy-scope4b2-cuda-incremental-architecture.md",
+      "artifacts/candy-scope4b2-cuda-incremental-environment.txt",
+      "artifacts/candy-scope4b2-cuda-incremental-initcheck-qualification.json",
+      "artifacts/candy-scope4b2-cuda-incremental-memcheck-qualification.json",
+      "artifacts/candy-scope4b2-cuda-incremental-native-qualification.json",
+      "artifacts/candy-scope4b2-cuda-incremental-racecheck-qualification.json",
+      "artifacts/candy-scope4b2-cuda-incremental-synccheck-qualification.json",
+      "artifacts/candy-scope4b2-cuda-static-regression.json",
+      "artifacts/candy-scope4b2-sssp-regression.json",
+      "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+      "candy-runtime/native/hypergraph-motif-cuda-incremental/README.md",
+      "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+      "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs",
+      "candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs",
+      "tests/candy-scope4b2-incremental-contract.test.mjs"
+    ],
+    "proof": "All20 files matched pre-seal hashes immediately before reporting finalization. Only3 non-executable report texts updated and4 unchanged canonical copies added. All17 other original files rehashed unchanged, including source/build/transport/harness/tests/docs/environment/raw qualification evidence."
+  },
+  "finalGitStatus": {
+    "modified": 1,
+    "untracked": 23,
+    "staged": 0,
+    "head": "592c91f938675d6c76d3179b080c95ed6e1b9398",
+    "branch": "candy-integration-scope4b2-cuda-incremental"
+  },
+  "debris": {
+    "trackedBuildPaths": [],
+    "ignoredLocalIncrementalBinaries": 5,
+    "transientQualificationDirectories": 0,
+    "disposableBuildScriptsRemovedAfterReporting": [
+      "generate.py",
+      "write-evidence.py",
+      "finalize-evidence.py",
+      "architecture-review.json",
+      "threat_model.json",
+      "preseal-review-hashes.json",
+      "threat_model.md",
+      "final-coverage.json"
+    ],
+    "transientLogsRemovedAfterReporting": [
+      "app-test.log",
+      "app-test-final.log",
+      "sssp-regression-output.json"
+    ]
+  }
+}
