@@ -22,6 +22,8 @@ export function orchestratorStateVersion(state = {}, pendingConfirmation = null)
     graphId: text(state.graphId),
     graphVersion: Number(state.graphVersion) || 0,
     candyRuntimeVersion: text(state.candy?.runtimeVersion),
+    candyRuntimeSession: text(state.candy?.runtimeSessionId),
+    candyMotifContextVersion: text(state.candy?.motifContextVersion),
     candyJobVersion: text(state.candy?.selectedJob?.jobId) + ":" + text(state.candy?.selectedJob?.status),
     pendingConfirmationType: text(pendingConfirmation?.actionType),
   });
@@ -106,6 +108,8 @@ export function buildAuthoritativeOrchestratorObservation({
       status: text(state.candy?.status) || "disabled",
       authorized: Boolean(state.candy?.authorized),
       runtimeVersion: text(state.candy?.runtimeVersion) || null,
+      runtimeSessionId: text(state.candy?.runtimeSessionId) || null,
+      pendingUpdateContext: state.candy?.pendingUpdateContext ? {updateId:text(state.candy.pendingUpdateContext.updateId,512),baseGraphRef:{graphId:text(state.candy.pendingUpdateContext.baseGraphRef?.graphId),graphVersion:Number(state.candy.pendingUpdateContext.baseGraphRef?.graphVersion)},nextGraphVersion:Number(state.candy.pendingUpdateContext.nextGraphVersion)} : null,
       capabilityStatus: text(state.candy?.capabilityStatus) || "unavailable",
       capabilities: (state.candy?.capabilities ?? []).slice(0, 4).map(item => ({ capability: text(item.capability), algorithm: text(item.algorithm), backend: text(item.backend), modes: (item.modes ?? []).slice(0, 3).map(mode => text(mode)), devices: (item.devices ?? []).slice(0, 4).map(device => ({ id: Number(device.id), name: text(device.name), computeCapability: text(device.computeCapability), qualifiedArchitecture: text(device.qualifiedArchitecture) })) })),
       jobs: (state.candy?.jobs ?? []).slice(-8).map(job => ({ jobId: text(job.jobId), status: text(job.status), algorithm: text(job.algorithm), backend: text(job.backend), mode: text(job.mode), resultRef: text(job.resultRef) || null, errorClassification: text(job.errorClassification) || null })),

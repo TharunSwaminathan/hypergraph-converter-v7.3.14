@@ -3664,12 +3664,19 @@ function AppCore() {
   const st = useMemo(() => finalHes ? computeStats(finalHes) : null, [finalHes]);
   // The Studio's committed canonical object is a hypergraph. CANDY must not
   // reinterpret pair-sized hyperedges as an ordinary graph or project them.
+  const candyGraphValue = useMemo(() => hes?.length ? {
+    schemaVersion: "candy.hypergraph-incidence/1", graphId: graphIdentity.graphId,
+    graphVersion, graphType: "Hypergraph",
+    vertices: [...new Set(hes.flatMap(edge => edge.vertices))],
+    hyperedges: hes.map(edge => ({ id: edge.id, vertices: [...edge.vertices] })),
+  } : null, [hes, graphIdentity.graphId, graphVersion]);
   const candyRuntime = useCandyRuntime({
-    graphType: finalHes?.length ? "Hypergraph" : null,
+    graphType: candyGraphValue ? "Hypergraph" : null,
     graphId: graphIdentity.graphId,
     graphVersion,
-    vertexCount: st?.V ?? 0,
-    edgeCount: 0,
+    vertexCount: candyGraphValue?.vertices.length ?? 0,
+    edgeCount: candyGraphValue?.hyperedges.length ?? 0,
+    graphValue: candyGraphValue,
   });
   const selectedMappingPresentation = useMemo(() => {
     const input = {

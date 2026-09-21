@@ -35,7 +35,15 @@ assert.deepEqual(ordinary.capabilities.map(item => item.backend), ["LOCAL_OPENMP
 // Case D: an absent companion cannot fabricate runtime or executable authority.
 assert.deepEqual(presentCandyCapabilities({ runtimeCapabilities: [], capabilities: [] }), { qualifiedBackends: [], executableBackends: [], cudaDevices: [] });
 
-// Case E: a browser declaration cannot self-assert CUDA qualification.
+// Case E: one physical CUDA device qualified for several backends is presented once.
+const staticMotif = { ...cuda, capability: "RUN_HYPERGRAPH_3EDGE_MOTIFS", algorithm: "HYPERGRAPH_3EDGE_MOTIF_COUNT", algorithmVersion: "scope4c-qualified-motif/1", taxonomyVersion: "candy.hypergraph-3edge-motif-taxonomy/1", backend: "CUDA_STATIC", adapterVersion: "candy.qualified-motif-transport/1", graphTypes: ["Hypergraph", "DynamicHypergraph"], modes: ["STATIC"], qualification: { schemaVersion: "candy.motif-qualified-build/1", status: "exact_local_operator_record" } };
+const incrementalMotif = { ...staticMotif, backend: "CUDA_INCREMENTAL", graphTypes: ["DynamicHypergraph"], modes: ["INCREMENTAL"] };
+const allQualified = intersectCandyCapabilities({ schemaVersion: "candy.capabilities/1", capabilities: [openmp, cuda, staticMotif, incrementalMotif] }, { authorized: true });
+const allPresented = presentCandyCapabilities({ runtimeCapabilities: allQualified.capabilities, capabilities: [] });
+assert.deepEqual(allPresented.qualifiedBackends, ["LOCAL_OPENMP", "LOCAL_CUDA", "CUDA_STATIC", "CUDA_INCREMENTAL"]);
+assert.deepEqual(allPresented.cudaDevices, [cuda.devices[0]]);
+
+// Case F: a browser declaration cannot self-assert CUDA qualification.
 for (const spoof of [
   { ...cuda, qualification: undefined },
   { ...cuda, nativeBuildFingerprint: "present" },

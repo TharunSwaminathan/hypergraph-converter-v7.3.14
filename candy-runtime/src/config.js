@@ -40,6 +40,7 @@ export function createRuntimeConfig(overrides = {}) {
     runtimeRoot,
     backendAvailable: overrides.backendAvailable,
     cudaBackendDiscovery: overrides.cudaBackendDiscovery,
+    motifBackendDiscovery: overrides.motifBackendDiscovery,
     nativeRunner: overrides.nativeRunner,
   });
 }

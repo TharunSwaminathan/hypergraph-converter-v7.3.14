@@ -1,0 +1,274 @@
+{
+  "schemaVersion": "candy.scope4c-boundary-qualification/1",
+  "status": "BOUNDARY_QUALIFICATION_PASS",
+  "readiness": [
+    {
+      "backend": "CUDA_STATIC",
+      "id": "missing-binary",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "missing-record",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "malformed-record",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "stale-binary",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "stale-source",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "stale-makefile",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "wrong-architecture",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "invalid-device",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "wrong-taxonomy",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "wrong-qualified-commit",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "wrong-runtime",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "wrong-compiler",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "missing-evidence",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "corrupt-evidence",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "no_gpu",
+      "status": "UNAVAILABLE",
+      "environmentFailure": "controlled_probe_fixture"
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "id": "wsl_unavailable",
+      "status": "UNAVAILABLE",
+      "environmentFailure": "controlled_probe_fixture"
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "missing-binary",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "missing-record",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "malformed-record",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "stale-binary",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "stale-source",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "stale-makefile",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "wrong-architecture",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "invalid-device",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "wrong-taxonomy",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "wrong-qualified-commit",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "wrong-runtime",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "wrong-compiler",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "missing-evidence",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "corrupt-evidence",
+      "status": "UNAVAILABLE",
+      "productionSourceTouched": false
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "no_gpu",
+      "status": "UNAVAILABLE",
+      "environmentFailure": "controlled_probe_fixture"
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "id": "wsl_unavailable",
+      "status": "UNAVAILABLE",
+      "environmentFailure": "controlled_probe_fixture"
+    },
+    {
+      "id": "unavailable-submission",
+      "classification": "BACKEND_UNAVAILABLE",
+      "fallbackExecuted": false
+    }
+  ],
+  "lifecycle": [
+    {
+      "id": "before-spawn",
+      "classification": "JOB_CANCELLED",
+      "launched": false
+    },
+    {
+      "id": "shutdown-during-discovery",
+      "classification": "BACKEND_UNAVAILABLE",
+      "jobReserved": false,
+      "nativeSpawned": false
+    },
+    {
+      "id": "running-and-queued-repeated-cancel",
+      "runningStatus": "cancelled",
+      "queuedStatus": "cancelled",
+      "tempRequestsRemoved": true,
+      "orphan": false,
+      "fixture": "real_Windows_WSL_process_control_not_forced_GPU_delay"
+    },
+    {
+      "id": "shutdown-drain",
+      "tempRequestsRemoved": true,
+      "orphan": false,
+      "postShutdownSubmission": "BACKEND_UNAVAILABLE"
+    },
+    {
+      "id": "process-timeout",
+      "classification": "PROCESS_TIMEOUT",
+      "orphan": false,
+      "fixture": "real_Windows_WSL_process_control"
+    },
+    {
+      "id": "qualified-native-launch-failure",
+      "classification": "BACKEND_UNAVAILABLE",
+      "resultAccepted": false,
+      "fixture": "unchanged_qualified_fault_binary"
+    }
+  ],
+  "resultConfusion": [
+    {
+      "id": "backend",
+      "rejected": true
+    },
+    {
+      "id": "mode",
+      "rejected": true
+    },
+    {
+      "id": "taxonomy",
+      "rejected": true
+    },
+    {
+      "id": "graph",
+      "rejected": true
+    },
+    {
+      "id": "device",
+      "rejected": true
+    }
+  ],
+  "resource": [
+    {
+      "id": "artifact-retention-budget",
+      "classification": "RESOURCE_LIMIT"
+    },
+    {
+      "id": "job-retention-budget",
+      "classification": "RESOURCE_LIMIT"
+    }
+  ]
+}

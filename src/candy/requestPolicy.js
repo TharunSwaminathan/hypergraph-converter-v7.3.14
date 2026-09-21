@@ -20,12 +20,15 @@ export function candyRequestConfirmationBinding({ argumentsValue, graph }) {
     backend: argumentsValue.backend,
     mode: argumentsValue.mode,
     sourceVertexId: argumentsValue.sourceVertexId,
-    ...(argumentsValue.backend === "LOCAL_CUDA" ? { deviceId: argumentsValue.deviceId } : { threads: argumentsValue.threads }),
+    ...(["LOCAL_CUDA","CUDA_STATIC","CUDA_INCREMENTAL"].includes(argumentsValue.backend) ? { deviceId: argumentsValue.deviceId } : { threads: argumentsValue.threads }),
     timeoutMs: argumentsValue.timeoutMs,
     graphId: graph.id,
     graphVersion: graph.version,
     propertyStateVersion: argumentsValue.propertyStateVersion ?? null,
     updateBatchId: argumentsValue.updateBatchId ?? null,
+    updateContextId: argumentsValue.updateContextId ?? null,
+    motifContextVersion: graph.motifContextVersion ?? null,
+    runtimeSessionId: graph.runtimeSessionId ?? null,
   };
   // A stable browser-side binding token prevents changed material arguments
   // from reusing a confirmation. Runtime request identity is independently SHA-256.
@@ -38,5 +41,5 @@ export function candyRequestConfirmationBinding({ argumentsValue, graph }) {
 }
 
 export function candyRequestNeedsConfirmation(argumentsValue, graph = {}) {
-  return argumentsValue.backend === "LOCAL_CUDA" || argumentsValue.mode === "COMPARE" || Number(argumentsValue.threads) > 8 || Number(argumentsValue.timeoutMs) > 30_000 || Number(graph.vertexCount) > 100_000 || Number(graph.edgeCount) > 500_000;
+  return ["LOCAL_CUDA","CUDA_STATIC","CUDA_INCREMENTAL"].includes(argumentsValue.backend) || argumentsValue.mode === "COMPARE" || Number(argumentsValue.threads) > 8 || Number(argumentsValue.timeoutMs) > 30_000 || Number(graph.vertexCount) > 100_000 || Number(graph.edgeCount) > 500_000;
 }

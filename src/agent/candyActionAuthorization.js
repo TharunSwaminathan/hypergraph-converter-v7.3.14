@@ -1,4 +1,5 @@
 import { analyzePositiveAuthorization } from "./deterministicNlu/positiveAuthorization.js";
+import { motifQueryPolicy } from "./motifQueryPolicy.js";
 
 const CANDY_TOPIC = /\b(candy|sssp|single[- ]source shortest paths?|shortest paths?|job)\b/i;
 const ACTION_VERBS = Object.freeze({
@@ -6,7 +7,11 @@ const ACTION_VERBS = Object.freeze({
   CANCEL_CANDY_JOB: new Set(["cancel", "stop"]),
 });
 
-export function authorizeCandyReactAction(action, userQuery) {
+export function authorizeCandyReactAction(action, userQuery, observation = {}) {
+  if (action === "SUBMIT_CANDY_MOTIF_JOB") {
+    const policy=motifQueryPolicy(userQuery,observation);
+    return {allowed:Boolean(policy.ok),reason:policy.message??"This request did not authorize motif analysis."};
+  }
   if (["DISCOVER_CANDY_CAPABILITIES", "GET_CANDY_JOB_STATUS", "OPEN_CANDY_RESULT"].includes(action)) return Object.freeze({ allowed: true });
   const allowedVerbs = ACTION_VERBS[action];
   if (!allowedVerbs || !CANDY_TOPIC.test(String(userQuery ?? ""))) return Object.freeze({ allowed: false, reason: "The request did not name the matching CANDY operation." });

@@ -1,0 +1,640 @@
+{
+  "schemaVersion": "candy.scope4c-delta-audit/1",
+  "status": "PASS",
+  "baseline": "1df4890e8bc80be44a5324727c00fde8cbbc01c6",
+  "head": "1df4890e8bc80be44a5324727c00fde8cbbc01c6",
+  "branch": "candy-integration-scope4c-runtime-integration",
+  "protectedTags": {
+    "candy-integration-scope4b2-cuda-incremental-qualified": "febf3ec1aa97917f7fc989511078ec8013817bf8",
+    "candy-integration-scope4b1-cuda-static-qualified": "a27eb1246e342097de448408ffa0a4775545c4ae",
+    "candy-integration-scope4a-qualified": "7b4206ba66f38df18b0a0fe33d55800f79ef0000",
+    "candy-integration-scope4a-security-blocked": "9b70bd2f2ede2130857822d0603b1c394bb6c557",
+    "candy-integration-scope3-cuda-qualified": "48b78c106615add75128832236ccc07e0bcff6cc",
+    "candy-integration-scope3-cuda-env-blocked": "81491e4a04b4d33adb3ebd0679cbe196ce109288",
+    "candy-integration-scope2-qualified": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3"
+  },
+  "protectedTagsUnchanged": true,
+  "nativeGitChanges": [],
+  "frozenFiles": [
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-architecture.md",
+      "sha256": "6239badd11ed70a1ddb43cd205fb0374b9d33cefe72ff88118cc20a3411e3dfc",
+      "gitBaselineSha256": "78c110f063ea5d9f650f12f5782b93cee5f6bceeab393813b1ac43aa1026229f",
+      "configuredCheckoutSha256": "6239badd11ed70a1ddb43cd205fb0374b9d33cefe72ff88118cc20a3411e3dfc",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-audit-report.md",
+      "sha256": "087d18b5e703b569044bbdacef4ce8628ad5fb16e54c53bb06af5a8f083eeb09",
+      "gitBaselineSha256": "8163553f31903bcab1136441f32f7ecfc54935ed1cb46560686a48bfdfe13232",
+      "configuredCheckoutSha256": "087d18b5e703b569044bbdacef4ce8628ad5fb16e54c53bb06af5a8f083eeb09",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-environment.txt",
+      "sha256": "3796d302262607a3ae70e4527cd5e95c1b9695e260e979b8aab86436b8252b49",
+      "gitBaselineSha256": "a60e450ae3fac194ca94afa3a57135c0b9377223b3bbc8d69866527af7f71418",
+      "configuredCheckoutSha256": "3796d302262607a3ae70e4527cd5e95c1b9695e260e979b8aab86436b8252b49",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-initcheck-qualification.json",
+      "sha256": "8f77642af711595fd4ba1b66cb04608b8a856060802209e77210341091dbdf72",
+      "gitBaselineSha256": "e84874f19f1fca1b600f5b278421074363a599ec14b5c44ba8d2702217726128",
+      "configuredCheckoutSha256": "8f77642af711595fd4ba1b66cb04608b8a856060802209e77210341091dbdf72",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-issue-register.json",
+      "sha256": "bcf4374bc53b24e5d4a6817634440d9d65f756c4369690c6e8eb6077c4df4aed",
+      "gitBaselineSha256": "463838fda14039c9978ebbf0264a48cfd9fd1776356d1f028504c0b4638b4972",
+      "configuredCheckoutSha256": "bcf4374bc53b24e5d4a6817634440d9d65f756c4369690c6e8eb6077c4df4aed",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-memcheck-qualification.json",
+      "sha256": "bc8071686bff75bc26d8d426225bc317a950606cd074a74ee160fc1dc2f125df",
+      "gitBaselineSha256": "fe93c4cc1b088eaecacf7934d446eb165a8608b6dae6fa8fc5a0f7d30942d0eb",
+      "configuredCheckoutSha256": "bc8071686bff75bc26d8d426225bc317a950606cd074a74ee160fc1dc2f125df",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-native-qualification.json",
+      "sha256": "fa82a2e46518adc959b8b6b25f4e67dc44cbfe72d03b75cd07b764f8c305af63",
+      "gitBaselineSha256": "150a3bc7c8abf3297602b0d97d2fb1bd57c2a23771b9cb0b04fe4e346db30e9c",
+      "configuredCheckoutSha256": "fa82a2e46518adc959b8b6b25f4e67dc44cbfe72d03b75cd07b764f8c305af63",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-qualification.json",
+      "sha256": "77e4d18d5c749f5bec53fa1e7ecd8100c41b91fe7e0feba0a26207e0e8eaa508",
+      "gitBaselineSha256": "e57a661c82b18c3d04e550c1d94482accc66667f0fe39fa06c8ca4c212e453ac",
+      "configuredCheckoutSha256": "77e4d18d5c749f5bec53fa1e7ecd8100c41b91fe7e0feba0a26207e0e8eaa508",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-racecheck-qualification.json",
+      "sha256": "5d60eaceae2cffb7aee62ef1798beedd7cf7b0fd05e4c081db53c99071601fe6",
+      "gitBaselineSha256": "e6dedee8e297e3deb6973c332bd03ba0f7f241b70f200affa51a908561350975",
+      "configuredCheckoutSha256": "5d60eaceae2cffb7aee62ef1798beedd7cf7b0fd05e4c081db53c99071601fe6",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-cuda-static-synccheck-qualification.json",
+      "sha256": "27c10a45cebb0526f1440b347a0fe63e8c527488ed7da6f2f448f66c59b0ceee",
+      "gitBaselineSha256": "2a0645ffde2c96c250e4f69ac99341c36999cfda00eeacf0ad55daa3e2f64725",
+      "configuredCheckoutSha256": "27c10a45cebb0526f1440b347a0fe63e8c527488ed7da6f2f448f66c59b0ceee",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-security/coverage.json",
+      "sha256": "1f5d181f32c6f354ac7ba390bc136198946176d5ebcab65ece70c66867f25e95",
+      "gitBaselineSha256": "ce5ba4a2f54036a0f0228ac21dec7ca71b67ba27f7bd39f857f7d9152d9bd513",
+      "configuredCheckoutSha256": "1f5d181f32c6f354ac7ba390bc136198946176d5ebcab65ece70c66867f25e95",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-security/findings.json",
+      "sha256": "08d58c7b0e153db672e5ffa1cfb26575d071d202a926f953a82883f3aaf4302f",
+      "gitBaselineSha256": "08d97d1c6495e019ff413e9aca61901c14ddf5ab5304b1b5d5d33b1dbf9c6929",
+      "configuredCheckoutSha256": "08d58c7b0e153db672e5ffa1cfb26575d071d202a926f953a82883f3aaf4302f",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-security/report.md",
+      "sha256": "4d9b57a7be9a1edd4dae8bdc2753c83061fd49221b85eb43d14bb3b72566b3de",
+      "gitBaselineSha256": "adb4a151f8e5635445a5165d3458f16faa6afe7b08f6a8cbf3b63f3ca6024d51",
+      "configuredCheckoutSha256": "4d9b57a7be9a1edd4dae8bdc2753c83061fd49221b85eb43d14bb3b72566b3de",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b1-security/scan-manifest.json",
+      "sha256": "4925af85430867a9ec2a8d4ef39118d368d016d7b91395e1bf4b06b4f1e9357a",
+      "gitBaselineSha256": "e0e45c9831d2487ba0fb14dee9bdd21079c27084524d0fa1244a07b6e5b68050",
+      "configuredCheckoutSha256": "4925af85430867a9ec2a8d4ef39118d368d016d7b91395e1bf4b06b4f1e9357a",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-application-gates.json",
+      "sha256": "35e4faee7f4f777e19943ebcd96596723839ab9b57eccd4a841d6e919c0e3a17",
+      "gitBaselineSha256": "b9bc47d381cadb431c7e3eaafb402c7d076f8bfb7289002980cf04808daa27b8",
+      "configuredCheckoutSha256": "35e4faee7f4f777e19943ebcd96596723839ab9b57eccd4a841d6e919c0e3a17",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-architecture.md",
+      "sha256": "a124edd1865da3aa43de4d776aa3706d77ab33522d9ffc9027e58faa34bd2217",
+      "gitBaselineSha256": "b8413fdc7e31f3502e1cab0f821d29af2ef8b67576196033faa75da2bad29be9",
+      "configuredCheckoutSha256": "a124edd1865da3aa43de4d776aa3706d77ab33522d9ffc9027e58faa34bd2217",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-audit-report.md",
+      "sha256": "3b1713df5b01fc5f575d6f632ffded654f31bbb44a59163789d1e9d0e0f77a60",
+      "gitBaselineSha256": "de82c024b904a66c39b57930970d795a25e16df3c06c721cd0263204e1a932cc",
+      "configuredCheckoutSha256": "3b1713df5b01fc5f575d6f632ffded654f31bbb44a59163789d1e9d0e0f77a60",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-environment.txt",
+      "sha256": "db69fe736e7eda51e115f5f1ff8d8bfe139847b45f05f218e12e3f4b53aab8cb",
+      "gitBaselineSha256": "d2ab742824e295be10211b395b75e87658d9526ca5cefe4f2fd96e921e8d2229",
+      "configuredCheckoutSha256": "db69fe736e7eda51e115f5f1ff8d8bfe139847b45f05f218e12e3f4b53aab8cb",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-initcheck-qualification.json",
+      "sha256": "6a5e796c88a73d11cd7d815c49f0e39115082408fd0d432bbcb84736d3730aca",
+      "gitBaselineSha256": "5bac0e37d1d582a9949b3f23c99825c360517d0987ae15bbaad70ff7d2f8e6a1",
+      "configuredCheckoutSha256": "6a5e796c88a73d11cd7d815c49f0e39115082408fd0d432bbcb84736d3730aca",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-issue-register.json",
+      "sha256": "41f80a8ef3883108ace5741e2f92b230273b11389bf9ec1e38042fcfa3640a3f",
+      "gitBaselineSha256": "c02ba7623bfd21656681a8f1c8e3147eb13015499278e03d66a743f18847f39a",
+      "configuredCheckoutSha256": "41f80a8ef3883108ace5741e2f92b230273b11389bf9ec1e38042fcfa3640a3f",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-memcheck-qualification.json",
+      "sha256": "5efb60f797d3633ed039cf3b51c9b50d46c66898efea43784e60cda88b7b4100",
+      "gitBaselineSha256": "6d4a19da53a69f841cd80ef7ddc653b6706391b6b3de089b78a156f0c50ad0cd",
+      "configuredCheckoutSha256": "5efb60f797d3633ed039cf3b51c9b50d46c66898efea43784e60cda88b7b4100",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-native-qualification.json",
+      "sha256": "6b2e65f1d50e8084c6a6ceffaa03da4757ff8ccb37e3c77a8fe2526a5ef4fe13",
+      "gitBaselineSha256": "3393a6d6d85181f41be97eec499070db4439a7b2208db5933ef013d31bc1df73",
+      "configuredCheckoutSha256": "6b2e65f1d50e8084c6a6ceffaa03da4757ff8ccb37e3c77a8fe2526a5ef4fe13",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-qualification.json",
+      "sha256": "e7bac1237652c8ac0f13fb5983f8a48f382de00ebd133928c6a4b2901745d640",
+      "gitBaselineSha256": "8433b455ba6bb34fd06e022832545594053da3774b56a62da6330d310b22b461",
+      "configuredCheckoutSha256": "e7bac1237652c8ac0f13fb5983f8a48f382de00ebd133928c6a4b2901745d640",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-racecheck-qualification.json",
+      "sha256": "cfb5322201afcedc7d027b8478f40f4c769f683e3f180b51230950c378a1efb4",
+      "gitBaselineSha256": "34fefef75adb5b1853dbe96df266f18bf22a34ab96709f0f9884f80734b006a7",
+      "configuredCheckoutSha256": "cfb5322201afcedc7d027b8478f40f4c769f683e3f180b51230950c378a1efb4",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-incremental-synccheck-qualification.json",
+      "sha256": "bb2eea1ce6573f19026dd9a69385bb00ae3488f9f9e49b7d4c70bbeb86af4948",
+      "gitBaselineSha256": "e808a9e3d44595fcd4b09a92a9c6e2b9274509488b7581db8a41bdbec52765cc",
+      "configuredCheckoutSha256": "bb2eea1ce6573f19026dd9a69385bb00ae3488f9f9e49b7d4c70bbeb86af4948",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-cuda-static-regression.json",
+      "sha256": "f9488958cce866796fedd871921cecb88e8832599bcc188741a46d58887a55d3",
+      "gitBaselineSha256": "0c7427f4ef724e7d1afa6d810cfd989c3e267308447cf67f21de11b32af41080",
+      "configuredCheckoutSha256": "f9488958cce866796fedd871921cecb88e8832599bcc188741a46d58887a55d3",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-security/coverage.json",
+      "sha256": "0642342db81e0dc0da61f7349f975d051ba92f95f9703cebd6a7cbfcb1cc3020",
+      "gitBaselineSha256": "c95575dd381f8c6bc90f8f6a519d880a50c0d1eb79a8d17638f28a90c7f605f3",
+      "configuredCheckoutSha256": "0642342db81e0dc0da61f7349f975d051ba92f95f9703cebd6a7cbfcb1cc3020",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-security/findings.json",
+      "sha256": "9037ff4de9e4cb93d482669cca93798c05e13772dfc2a39a13c190624ec38632",
+      "gitBaselineSha256": "697acf6f36a3926ef3f64864a305d8bd55d0a85fa0f15e31ded798255601931b",
+      "configuredCheckoutSha256": "9037ff4de9e4cb93d482669cca93798c05e13772dfc2a39a13c190624ec38632",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-security/report.md",
+      "sha256": "cea0d74fc8830231e563fc75c47759deeeb7bdaf9031a19c174bff94eb1c0204",
+      "gitBaselineSha256": "271bad1238c8639a12dbf73ad74d2a7b157c98294a2aa22bf31b892536137aae",
+      "configuredCheckoutSha256": "cea0d74fc8830231e563fc75c47759deeeb7bdaf9031a19c174bff94eb1c0204",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-security/scan-manifest.json",
+      "sha256": "f1271ba2d46ae82538ebec9187a428a4873e56501147c4b97d90b5a030044206",
+      "gitBaselineSha256": "81b02e18d58ea7f57791601159d595b8e93821cb1249ede301a2725913d89bb3",
+      "configuredCheckoutSha256": "f1271ba2d46ae82538ebec9187a428a4873e56501147c4b97d90b5a030044206",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "artifacts/candy-scope4b2-sssp-regression.json",
+      "sha256": "324df60a2624c673f56e503b158d19e65c3e582b54e9f3bcd8c291db00f58b88",
+      "gitBaselineSha256": "f78d6ccf502640292efe75ee948f42c57c1b57810b975c3e55ced65550a24d8e",
+      "configuredCheckoutSha256": "324df60a2624c673f56e503b158d19e65c3e582b54e9f3bcd8c291db00f58b88",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+      "sha256": "8ff4f5400378974f4b394a9cae59fa47e703a84dbf6d9f98e9ccd5ef9f90f88d",
+      "gitBaselineSha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b",
+      "configuredCheckoutSha256": "8ff4f5400378974f4b394a9cae59fa47e703a84dbf6d9f98e9ccd5ef9f90f88d",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/README.md",
+      "sha256": "885c356403af49bd77fe5c308d3f629d9509a1c471dccc7724e3edca516a0ddb",
+      "gitBaselineSha256": "f7de1030c27c32620e9c1c931c35a6dce0d7d997778efac67ac5e8d371ad8f18",
+      "configuredCheckoutSha256": "885c356403af49bd77fe5c308d3f629d9509a1c471dccc7724e3edca516a0ddb",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+      "sha256": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef",
+      "gitBaselineSha256": "b92bf79bc4d7d76b86fb3e28f77222c94931fc6e2342a7e1084d195dd15420da",
+      "configuredCheckoutSha256": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+      "sha256": "695d82ec5c51ddf157bb1e4163ab9212711f72024797a190e3202a72038036a6",
+      "gitBaselineSha256": "1fc3276f6254c55f48d541d57e671dc8f5a0e9a9928f2dec1b270592bbe63ed6",
+      "configuredCheckoutSha256": "695d82ec5c51ddf157bb1e4163ab9212711f72024797a190e3202a72038036a6",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda/README.md",
+      "sha256": "2c749d36a5f66676777acb194196c935b7f10813e2a6ab4acc54ac814dad1b95",
+      "gitBaselineSha256": "5c3bfd268e1f40243a9873d41a0f2a8a7e969e71d4d39e0c0a3d46e4d3186987",
+      "configuredCheckoutSha256": "2c749d36a5f66676777acb194196c935b7f10813e2a6ab4acc54ac814dad1b95",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+      "sha256": "74a9210e8872cf845d7c4c958732615c6f1eb81e4225a823542567aa837ac797",
+      "gitBaselineSha256": "00558907950ce0f1fc507a80e20ea4e8bd0958586c5f154baec0a98c611789fe",
+      "configuredCheckoutSha256": "74a9210e8872cf845d7c4c958732615c6f1eb81e4225a823542567aa837ac797",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/Makefile",
+      "sha256": "5355eb0c137109a346fdb0227235b656279f21049cf72b10bec504602c1de5c7",
+      "gitBaselineSha256": "3eadaff386e8c579f53ea7bf0f0a394135c2b455de771cb221594dfe32e29f62",
+      "configuredCheckoutSha256": "5355eb0c137109a346fdb0227235b656279f21049cf72b10bec504602c1de5c7",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/QUALIFICATION.md",
+      "sha256": "1ed62e377c5920c5ea63eb181582158c15559d6b4beca05893025975788f1591",
+      "gitBaselineSha256": "041fbcb6860125460c11494c32daf7de53ce65e3507e11704de61e0b11cdcf49",
+      "configuredCheckoutSha256": "1ed62e377c5920c5ea63eb181582158c15559d6b4beca05893025975788f1591",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/README.md",
+      "sha256": "b6aa3db9c00cc0d16f687bce486285a133803f52a3503d8ace0d0fdee8bc82ed",
+      "gitBaselineSha256": "b564e9cf2baff740fcbca967d066cc5823f14450a133740ea0c97f1d7d5788d3",
+      "configuredCheckoutSha256": "b6aa3db9c00cc0d16f687bce486285a133803f52a3503d8ace0d0fdee8bc82ed",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/src/main.cu",
+      "sha256": "b181def3f1b520a942f0f7982fc10cc51866c4d7c9a506669f3f9f2bdb0097e8",
+      "gitBaselineSha256": "e854c2643a27292267ae84a19ebf325ccd7cca47d2d2ef319c8cd32d4a042086",
+      "configuredCheckoutSha256": "b181def3f1b520a942f0f7982fc10cc51866c4d7c9a506669f3f9f2bdb0097e8",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/sssp-openmp/Makefile",
+      "sha256": "608d5a520c50c40e716e8ce330f3c611f8263b73bf6b4cdf4b241c5724efa123",
+      "gitBaselineSha256": "682486b993f4566e30378d1d17052630aa0d67242b2cd6f0561306f464f8381f",
+      "configuredCheckoutSha256": "608d5a520c50c40e716e8ce330f3c611f8263b73bf6b4cdf4b241c5724efa123",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/sssp-openmp/README.md",
+      "sha256": "f4d3095b56ccaafacb6ac9b869a221d106ccbae45c419b5eba815965c57c262d",
+      "gitBaselineSha256": "e1c425fcb79cbac19fd1f09ce54da30201da9974fa2b77b357a8d9ba24282f16",
+      "configuredCheckoutSha256": "f4d3095b56ccaafacb6ac9b869a221d106ccbae45c419b5eba815965c57c262d",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/sssp-openmp/src/main.cpp",
+      "sha256": "d9ae80bc430f2c2082dfb5817f0d756b355e1de5f5356068024c7f2979397d98",
+      "gitBaselineSha256": "9e68146847148e5c6d491eb2d662f395b0212288246af1606421ef37500d9963",
+      "configuredCheckoutSha256": "d9ae80bc430f2c2082dfb5817f0d756b355e1de5f5356068024c7f2979397d98",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/upstream/ESCHER-GPU-PROVENANCE.md",
+      "sha256": "6a2a49b44e01925936a23b650ad1b04109e3b4f8ffd00d54a84246dde3eb397f",
+      "gitBaselineSha256": "c56a1492ef9993adfceba85bfac6a3fa8b6ba583be5d8d5fe56bf505eefeb847",
+      "configuredCheckoutSha256": "6a2a49b44e01925936a23b650ad1b04109e3b4f8ffd00d54a84246dde3eb397f",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/upstream/MOSP-CUDA-PROVENANCE.md",
+      "sha256": "01edcf3e5928538eeed14e54c983beaccd21452d4033952689fe0900ec5bda19",
+      "gitBaselineSha256": "bcbc4b21b328b884ca68a1be8d7ec95d4c1545702d910c5f04139fc9b825f3f6",
+      "configuredCheckoutSha256": "01edcf3e5928538eeed14e54c983beaccd21452d4033952689fe0900ec5bda19",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/native/upstream/MOSP-OpenMP-PROVENANCE.md",
+      "sha256": "6126bbd3f218825f60f8763042f5e8241e4699930b6e5472e8d1c988e865d92e",
+      "gitBaselineSha256": "b3e60b7f9c8d27d541e30cca30743a72b7cb214b57d104c81176c776f0f77d05",
+      "configuredCheckoutSha256": "6126bbd3f218825f60f8763042f5e8241e4699930b6e5472e8d1c988e865d92e",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/test/hypergraph-motif-cuda-contract.mjs",
+      "sha256": "e7c716b4ea10a6d0476a7297749f660211d710ed570217dd51bb2afc63473b3a",
+      "gitBaselineSha256": "de47a685cf9028a37b17dc089412449bb8a4571541305482e4ab382cf7a0eb3f",
+      "configuredCheckoutSha256": "e7c716b4ea10a6d0476a7297749f660211d710ed570217dd51bb2afc63473b3a",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs",
+      "sha256": "19211dd6498be6a0233f6b62ff3ff77cf5e44c43f3782ca615809d2695ec1a16",
+      "gitBaselineSha256": "3edbfb6243de00b379618e4ffbeaa486ca15ec7d7d030b5e57fd325a96553bf4",
+      "configuredCheckoutSha256": "19211dd6498be6a0233f6b62ff3ff77cf5e44c43f3782ca615809d2695ec1a16",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/test/run-hypergraph-motif-cuda-incremental-qualification.mjs",
+      "sha256": "41b1c01c2c9a73c3a866c7e8c314a19be189d69ee68844494f5f76d15cc3ca3e",
+      "gitBaselineSha256": "f6a28b4990b67d6cdde00568ffbdfec80ed2b877b9177b27e84bbed0a38f1ac9",
+      "configuredCheckoutSha256": "41b1c01c2c9a73c3a866c7e8c314a19be189d69ee68844494f5f76d15cc3ca3e",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "candy-runtime/test/run-hypergraph-motif-cuda-qualification.mjs",
+      "sha256": "6a624a633cadde70942caf75569dddbfa1d0af7f994d9a74fb34de6f4ab9b81c",
+      "gitBaselineSha256": "fbfeb6d6ebccb0074c97479b3584bde2b14ae7eec6348b17ebeb488939afa4f1",
+      "configuredCheckoutSha256": "6a624a633cadde70942caf75569dddbfa1d0af7f994d9a74fb34de6f4ab9b81c",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "tests/candy-scope4b1-static-contract.test.mjs",
+      "sha256": "b9a580f686675b04872def87d2e26dc54f7c40932708a34cd5ec1968bfadc69d",
+      "gitBaselineSha256": "743752fbaaa2ffcf8f5c39dbc041380a22adc2855d86751c999fb31475d7b500",
+      "configuredCheckoutSha256": "b9a580f686675b04872def87d2e26dc54f7c40932708a34cd5ec1968bfadc69d",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "tests/candy-scope4b2-incremental-contract.test.mjs",
+      "sha256": "a7dbf8973732a7057e061852cc0fd1a36d9d8942ed5d46e1c32ef1a5a2eef248",
+      "gitBaselineSha256": "3084f214ca4acb44b71a413ad4a220a477a10d0775a8e90a54765b2f76311e7a",
+      "configuredCheckoutSha256": "a7dbf8973732a7057e061852cc0fd1a36d9d8942ed5d46e1c32ef1a5a2eef248",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    },
+    {
+      "path": "tests/fixtures/candy-scope4-motifs.mjs",
+      "sha256": "5cb41fb67904c908072ed13bae59fc38192e94c38052af1efc6c3d8f637efbfd",
+      "gitBaselineSha256": "acb7ebf1a94ea8fbb1c3c6c878031f2130357491616c1788ceb07e357d16c90a",
+      "configuredCheckoutSha256": "5cb41fb67904c908072ed13bae59fc38192e94c38052af1efc6c3d8f637efbfd",
+      "byteEqualToGitBlob": false,
+      "byteEqualToConfiguredCheckout": true,
+      "lineEndingEquivalent": true
+    }
+  ],
+  "physicalNativeBytesEqualToGitBaseline": false,
+  "qualifiedHarnessChanges": [],
+  "historicalEvidenceRestored": true,
+  "dependenciesChanged": false,
+  "escherSourceAdded": false,
+  "productionCpuFallbackIntroduced": false,
+  "implicitProjectionIntroduced": false,
+  "incrementalStaticFallbackIntroduced": false,
+  "reviewedSource": [
+    {
+      "path": "candy-runtime/src/artifacts/artifactStore.js",
+      "sha256": "1888e1d55037ca0ab962f445775cc762a8a0106caf906e42af0394485441afdb"
+    },
+    {
+      "path": "candy-runtime/src/backends/motifJobAdapter.js",
+      "sha256": "b0ae5f493e527f97285ea712c9b1e7d7401b77ee44fde887ba4c0b9976c66f63"
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeProcessRunner.js",
+      "sha256": "fef2b83285105bc21df433c5b4449fc2a3cc5fe5aa02f951ead1e6f296ee3745"
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeSupervisor.sh",
+      "sha256": "a757bbf3188be5fb72cf33ab084510d6ddbe96d9e1a2061bc7f0b513115bd331"
+    },
+    {
+      "path": "candy-runtime/src/capabilities/capabilityRegistry.js",
+      "sha256": "682b2d4834e789a966ddf237bd2afa4fb01b865159869d1bec9df0676a16c5ef"
+    },
+    {
+      "path": "candy-runtime/src/capabilities/motifQualification.js",
+      "sha256": "ddaa972ae29df0ee8f1159038198280eabfda5632e71e111c99021e65a02ac96"
+    },
+    {
+      "path": "candy-runtime/src/config.js",
+      "sha256": "bacf91e0cf7aa8a8f0600516f7d8d3384e5f77d9b0453852fb1f4e9a9e905514"
+    },
+    {
+      "path": "candy-runtime/src/jobs/jobManager.js",
+      "sha256": "35e3ff5deb29b17be93d7326e4ac6caef2e095ba29dfbaaa74b2052d33f65df0"
+    },
+    {
+      "path": "candy-runtime/src/server.js",
+      "sha256": "5809b892b2fcf487f0ab72c798adae2e99182364109c6e27033640b3a6840708"
+    },
+    {
+      "path": "src/agent/candyActionAuthorization.js",
+      "sha256": "ce54b39d032585e7e9e7d2bf2a78fb3b3c35a28f9fa5f81d3f4f1b77f2879d19"
+    },
+    {
+      "path": "src/agent/confirmationPolicy.js",
+      "sha256": "688004f5cf750d10f9dac586012e381f5b8d335adfef4794e4e8e2b05c943942"
+    },
+    {
+      "path": "src/agent/motifQueryPolicy.js",
+      "sha256": "926992a7ef37865671137e59109c9350b4de319be727130f8fa3c92c519a6a02"
+    },
+    {
+      "path": "src/agent/orchestratorCapabilities.js",
+      "sha256": "b04df9592a39a34bc951c6306a2492ab35bcf2216d785783f1f60394763eaf85"
+    },
+    {
+      "path": "src/agent/orchestratorLoop.js",
+      "sha256": "f3abe64b9f647edc0f3fc1918371df39bdcf2722f531a1dc67ba34f6496bf62e"
+    },
+    {
+      "path": "src/agent/orchestratorObservation.js",
+      "sha256": "0e56c357f849987ef624e27a11a00b1f7debb024e5ef403a7809a4738a8d537e"
+    },
+    {
+      "path": "src/agent/prompts/reactOrchestratorPrompt.js",
+      "sha256": "77b89f45e78a35bdfd5dafd21d614eee5814357e538e0506263e39081540b1e2"
+    },
+    {
+      "path": "src/App.jsx",
+      "sha256": "df81280e732d453d404e011fa4bf6ef9f63354af6f1fa5347390d79c0beca688"
+    },
+    {
+      "path": "src/candy/capabilityDiscovery.js",
+      "sha256": "fa4d182d008ae3d1b126c892a44105ed793351c5334f6ba542a0346a308df56a"
+    },
+    {
+      "path": "src/candy/contracts/runtimeMotif.js",
+      "sha256": "853bc0687006c68313840fe3b7c04abc7edf028093814fd9ef2c21dffd92a690"
+    },
+    {
+      "path": "src/candy/deterministicRouting.js",
+      "sha256": "2835ceb97e2ce7ae80c1a55ec0fac3d6758f754b99ee57e75ad463c21fbe30e0"
+    },
+    {
+      "path": "src/candy/motifWorkflow.js",
+      "sha256": "dd83e91a13fcd53a26904e8313eb664b4937c2d08b2b00b5138b4f560eafb296"
+    },
+    {
+      "path": "src/candy/requestPolicy.js",
+      "sha256": "57604de20239038e85504aa3b8a1e47100741f63ae720478e19b6db53af71eaa"
+    },
+    {
+      "path": "src/candy/resultObservation.js",
+      "sha256": "24ad485ec42ed309154cc421ed6149db253de61fd14f33579489277317c94551"
+    },
+    {
+      "path": "src/candy/runtimeCapabilityPresentation.js",
+      "sha256": "641db531c29fcb583f5cf49a4d708cb766c66f331e158ebdf66071d4e99104a8"
+    },
+    {
+      "path": "src/candy/useCandyRuntime.js",
+      "sha256": "96647554060b89de1baec5b9d892952ae054f99169971f81033c418c3d7d9207"
+    },
+    {
+      "path": "src/components/AgentChatPanel.jsx",
+      "sha256": "692eb04a3148ca5636f0bb6a9fedd55ca815a5373de284bd87257000a2ffb57d"
+    },
+    {
+      "path": "src/components/CandyRuntimePanel.jsx",
+      "sha256": "3e5e6800789e7870e48c66ac208c8a45448fff6db4ccc5274678abbf8b01eebd"
+    },
+    {
+      "path": "tests/candy-scope3-ui-truthfulness.test.mjs",
+      "sha256": "f4aefb547f53094eafd4fe49383998493f3c9ab4c006809be5ed3b5f57543d34"
+    }
+  ],
+  "reviewedSourceHashesVerified": true,
+  "wslDefaultDistribution": "Ubuntu",
+  "wslVersion": 2,
+  "wslListVerbose": "NAME      STATE           VERSION\r\n* Ubuntu    Stopped         2",
+  "gitDiffStat": " candy-runtime/README.md                            | 10 ++-\n candy-runtime/src/artifacts/artifactStore.js       | 15 +++-\n candy-runtime/src/backends/nativeProcessRunner.js  | 73 +++++++++++++---\n .../src/capabilities/capabilityRegistry.js         | 22 +++++\n candy-runtime/src/config.js                        |  1 +\n candy-runtime/src/jobs/jobManager.js               | 96 +++++++++++++++++++---\n candy-runtime/src/server.js                        |  3 +-\n src/App.jsx                                        | 13 ++-\n src/agent/candyActionAuthorization.js              |  7 +-\n src/agent/confirmationPolicy.js                    |  5 +-\n src/agent/orchestratorCapabilities.js              | 16 +++-\n src/agent/orchestratorLoop.js                      | 23 +++++-\n src/agent/orchestratorObservation.js               |  4 +\n src/agent/prompts/reactOrchestratorPrompt.js       |  3 +\n src/candy/capabilityDiscovery.js                   | 20 +++--\n src/candy/deterministicRouting.js                  |  3 +\n src/candy/requestPolicy.js                         |  7 +-\n src/candy/resultObservation.js                     |  8 ++\n src/candy/runtimeCapabilityPresentation.js         | 13 ++-\n src/candy/useCandyRuntime.js                       | 57 ++++++++++---\n src/components/AgentChatPanel.jsx                  | 15 +++-\n src/components/CandyRuntimePanel.jsx               | 39 +++++++--\n tests/candy-scope3-ui-truthfulness.test.mjs        | 10 ++-\n 23 files changed, 397 insertions(+), 66 deletions(-)\n",
+  "gitDiffCheckExitCode": 0,
+  "noGitMutations": true,
+  "finalStatusCapturedInManifest": true,
+  "securitySnapshotMeaning": "The tool-owned digest identifies the launch snapshot. Final source fixes and all later integration additions are explicitly reconciled through sealed coverage surface hashes and this final Git inventory; the original digest is not represented as a digest of the final tree.",
+  "coreAutocrlf": "true",
+  "nativeBytesEqualToConfiguredBaselineCheckout": true,
+  "checkoutLineEndingNote": "The starting clean Windows checkout uses core.autocrlf=true. Each frozen file matches the baseline configured CRLF checkout byte-for-byte; raw LF Git blob hashes are recorded separately and are not confused with physical checkout bytes."
+}

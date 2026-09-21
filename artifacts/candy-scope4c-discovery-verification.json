@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "candy.scope4c-discovery-verification/1",
+  "verification": "mounted_production_react_panel_and_hook_real_authenticated_http",
+  "visibleUserBrowserAutomated": false,
+  "credentialRecorded": false,
+  "cases": [
+    {
+      "id": "no-active-graph",
+      "runtimeCapabilityStatus": "ready",
+      "activeGraphStatus": "unavailable",
+      "reason": "No committed graph is active. Convert a graph to enable compatible analysis.",
+      "notice": "CANDY companion discovered (ready). No committed graph is active. Convert a graph to enable compatible analysis.",
+      "runtimeSessionUnchanged": true
+    },
+    {
+      "id": "committed-hypergraph",
+      "activeGraphStatus": "ready",
+      "executableBackends": [
+        "CUDA_STATIC"
+      ],
+      "withoutRediscovery": true,
+      "withoutRepairing": true,
+      "incrementalDisabled": true
+    }
+  ],
+  "status": "DISCOVERY_VERIFICATION_PASS",
+  "runtimeSessionId": "95ecb3bd-a4d1-4cb6-b10f-62a2b07f3bc5"
+}

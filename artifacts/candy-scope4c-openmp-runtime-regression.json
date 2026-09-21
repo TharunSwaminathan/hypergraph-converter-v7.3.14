@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "candy.scope4c-openmp-runtime/1",
+  "status": "OPENMP_RUNTIME_REGRESSION_PASS",
+  "cases": [
+    {
+      "id": "static",
+      "jobId": "3454c93b-62d4-4197-940c-fc4530fa5286",
+      "backend": "LOCAL_OPENMP",
+      "validation": {
+        "status": "not_requested",
+        "method": "native_semantic_validation"
+      }
+    },
+    {
+      "id": "incremental",
+      "jobId": "92367164-bbef-46c4-9387-119606a8c65d",
+      "backend": "LOCAL_OPENMP",
+      "affectedCount": 1
+    },
+    {
+      "id": "repeated-cancel",
+      "resultAccepted": false
+    }
+  ],
+  "cudaUnavailableOpenmpExplicitlyAvailable": true,
+  "implicitCudaFallback": false,
+  "platform": "win32"
+}

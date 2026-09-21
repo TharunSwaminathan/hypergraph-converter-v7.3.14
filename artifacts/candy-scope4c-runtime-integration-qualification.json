@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "candy.scope4c-runtime-integration-qualification/1",
+  "status": "PASS",
+  "baseline": "1df4890e8bc80be44a5324727c00fde8cbbc01c6",
+  "branch": "candy-integration-scope4c-runtime-integration",
+  "protectedTags": {
+    "candy-integration-scope4b2-cuda-incremental-qualified": "febf3ec1aa97917f7fc989511078ec8013817bf8",
+    "candy-integration-scope4b1-cuda-static-qualified": "a27eb1246e342097de448408ffa0a4775545c4ae",
+    "candy-integration-scope4a-qualified": "7b4206ba66f38df18b0a0fe33d55800f79ef0000",
+    "candy-integration-scope4a-security-blocked": "9b70bd2f2ede2130857822d0603b1c394bb6c557",
+    "candy-integration-scope3-cuda-qualified": "48b78c106615add75128832236ccc07e0bcff6cc",
+    "candy-integration-scope3-cuda-env-blocked": "81491e4a04b4d33adb3ebd0679cbe196ce109288",
+    "candy-integration-scope2-qualified": "50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3"
+  },
+  "manualBrowserModeB": "MANUAL_MODE_B_VERIFICATION_PASS",
+  "readinessDiscovery": "DISCOVERY_VERIFICATION_PASS",
+  "liveRuntimeCases": 7,
+  "httpAndNativeFailureCases": 21,
+  "liveOllamaCases": 7,
+  "model": {
+    "name": "qwen3:8b",
+    "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+    "version": "0.34.2",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "8.2B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 4096
+    }
+  },
+  "nativeStatic": {
+    "parity": 487,
+    "failures": 69
+  },
+  "nativeIncremental": {
+    "parity": 405,
+    "failures": 104
+  },
+  "scope4aR": [
+    "candy-scope4a-adversarial.test.mjs",
+    "candy-scope4a-contracts-adapter.test.mjs",
+    "candy-scope4a-oracle-delta.test.mjs",
+    "candy-scope4a-taxonomy.test.mjs"
+  ],
+  "scope3Harnesses": [
+    {
+      "harness": "run-native-qualification.mjs",
+      "environment": {},
+      "result": "PASS"
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {},
+      "result": "PASS"
+    },
+    {
+      "harness": "run-cuda-failure-qualification.mjs",
+      "environment": {},
+      "result": "PASS"
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "memcheck"
+      },
+      "result": "PASS"
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "racecheck"
+      },
+      "result": "PASS"
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "initcheck"
+      },
+      "result": "PASS"
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "synccheck"
+      },
+      "result": "PASS"
+    },
+    {
+      "harness": "run-companion-cuda-qualification.mjs",
+      "environment": {},
+      "result": "PASS"
+    }
+  ],
+  "openmpRuntime": "OPENMP_RUNTIME_REGRESSION_PASS",
+  "chatbotBrowser": "PASS",
+  "boundaryChecks": {
+    "readiness": 33,
+    "lifecycle": 6,
+    "resultConfusion": 5,
+    "resource": 2
+  },
+  "applicationGates": [
+    {
+      "gate": "npm run test",
+      "status": "PASS",
+      "passedTestFiles": 247
+    },
+    {
+      "gate": "npm run lint",
+      "status": "PASS"
+    },
+    {
+      "gate": "npm run build",
+      "status": "PASS"
+    },
+    {
+      "gate": "npm run build:github",
+      "status": "PASS"
+    },
+    {
+      "gate": "npm audit --omit=dev",
+      "status": "PASS",
+      "audit": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "dependencies": {
+          "prod": 5,
+          "dev": 171,
+          "optional": 33,
+          "peer": 0,
+          "peerOptional": 0,
+          "total": 175
+        }
+      }
+    },
+    {
+      "gate": "git diff --check",
+      "status": "PASS"
+    }
+  ],
+  "security": {
+    "scanId": "8f05dfe9-6287-42e1-aa11-113f9e16908d",
+    "status": "SEALED",
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:d5c8f5299b37bb654cc929232ba8d0cd81cfe39e8cb3eab203a526da2f22d073",
+    "coverage": "complete",
+    "deferred": 0,
+    "openQuestions": 0,
+    "sealedAt": "2026-09-21T00:38:51.467104Z",
+    "findings": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0
+    },
+    "artifactDirectory": "artifacts/candy-scope4c-security/",
+    "measuredUsage": {
+      "source": "codex_rollout",
+      "threadCount": 5,
+      "inputTokens": 57776086,
+      "cachedInputTokens": 55197440,
+      "outputTokens": 320500,
+      "reasoningOutputTokens": 82724,
+      "cacheWriteInputTokens": 0,
+      "totalTokens": 58096586,
+      "coverage": "complete"
+    }
+  },
+  "limitations": [
+    "Current Studio commits Hypergraph only; incremental UI remains unavailable without an authoritative DynamicHypergraph plus qualified pending update. Runtime/fixture incremental E2E is qualified.",
+    "Visible Mode B verification is manual user evidence bound to an authenticated completed Runtime job. Production React panel/hook discovery was separately verified with real HTTP; no automated visible-browser claim.",
+    "Local ignored qualification records establish operator-controlled consistency and are unsigned. Private host directories/Windows ACLs and configured Ollama endpoint are trusted operator prerequisites.",
+    "Queued/running/shutdown process control uses an actual slow Linux process fixture. Real CUDA job timeout/cancellation were also tested; no claim that a long-running GPU kernel was forcibly interrupted. Severe host/WSL failure preventing Linux kill cannot guarantee remote orphan cleanup.",
+    "Only qwen3:8b installed model was qualified. Schema recovery uses a labeled synthetic malformed first proposal followed by a real qwen response.",
+    "Native parity suites were rerun fresh. Frozen historical sanitizer evidence was hash-verified for motifs; all four Scope3 SSSP sanitizer suites were freshly rerun. No motif native source/harness changes.",
+    "Existing paired Runtime and local preview intentionally remain available to the user; qualification child servers and temporary fixtures were closed/removed."
+  ],
+  "changedFileManifest": "artifacts/candy-scope4c-changed-file-manifest.json",
+  "uncommitted": true,
+  "noGitMutations": true
+}

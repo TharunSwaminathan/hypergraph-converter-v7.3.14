@@ -1,8 +1,8 @@
-# CANDY Runtime Companion — Scope 2 Phase C
+# CANDY Runtime Companion — Scope 4C
 
-This dependency-free Node package exposes the qualified Scope 1 OpenMP SSSP binary through an authenticated loopback-only REST API.
+This dependency-free Node package exposes qualified OpenMP/CUDA SSSP and CUDA hypergraph 3-edge motif backends through an authenticated loopback-only REST API.
 
-Scope 3 also contains an isolated CUDA incremental-SSSP candidate under `native/sssp-cuda`. It is deliberately absent from this companion's backend enum and capability response because the current qualification environment has no CUDA toolkit, `nvcc`, or Compute Sanitizer. There is no automatic OpenMP fallback for an explicit CUDA request. Runtime integration is permitted only after the candidate passes the documented CUDA build, device, parity, failure, cancellation, stress, and sanitizer gates on compatible hardware.
+CUDA availability requires an exact ignored local qualification record, matching binary/source/Makefile and actual toolchain/device. Motif records also bind the protected qualification commit, unchanged evidence and installed CUDA runtime. STATIC and INCREMENTAL readiness are checked independently. These unsigned operator records establish local consistency; they are not publisher attestations. Explicit CUDA requests never select a CPU or another CUDA mode as fallback.
 
 ## Trust boundary
 
@@ -11,7 +11,7 @@ Scope 3 also contains an isolated CUDA incremental-SSSP candidate under `native/
 - All capability, artifact, job, cancellation, and result routes require `Authorization: Bearer <session token>`.
 - Browser origins are matched exactly against the allowlist in `src/config.js`.
 - Artifacts are content-addressed (`sha256:<lowercase digest>`) and stored under a companion-owned temporary root.
-- The only executable is the fixed `native/sssp-openmp/build/candy-sssp-openmp` path. Windows execution crosses the explicit WSL2 boundary.
+- Executables use fixed paths under `native/sssp-openmp`, `native/sssp-cuda`, `native/hypergraph-motif-cuda`, and `native/hypergraph-motif-cuda-incremental`. Windows execution uses Ubuntu WSL, a fixed supervisor acknowledgment and a dedicated Linux process group for cancellation/timeout.
 - Native stdout/stderr, request bodies, artifacts, results, timeouts, graph sizes, updates, and retained jobs are bounded.
 
 ## API
@@ -21,3 +21,5 @@ Scope 3 also contains an isolated CUDA incremental-SSSP candidate under `native/
 Unknown routes, schemas, algorithms, backends, graph types, and IDs fail closed. There is no shell, exec, filesystem-path, arbitrary proxy, or environment endpoint.
 
 Run from the repository root with `npm run candy:runtime`. Stop with Ctrl+C so the temporary credential and companion-owned artifact directory are removed.
+
+Motif STATIC accepts Hypergraph/DynamicHypergraph. INCREMENTAL requires an immutable OLD DynamicHypergraph and qualified DELETE_THEN_INSERT update artifact; the unchanged trusted transport derives NEW and candidates. Results are read-only; incremental output is delta-only. The current Studio provides a committed Hypergraph and therefore enables STATIC only. Before conversion, Runtime readiness may be ready while active-graph eligibility is unavailable. Browser discovery preserves session pairing and updates graph eligibility after conversion.

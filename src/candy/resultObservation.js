@@ -20,5 +20,13 @@ export function boundedCandyJobObservation(value) {
     errorClassification: text(value.error?.classification) || null,
     warnings: Array.isArray(value.warnings) ? value.warnings.slice(0, 8).map(item => text(item, 160)) : [],
     lifecycle: Array.isArray(value.lifecycle) ? value.lifecycle.slice(-12).map(item => text(item, 32)) : [],
+    ...(value.schemaVersion === "candy.runtime-motif-result/1" ? {
+      interpretation: text(value.interpretation), taxonomyVersion: text(value.taxonomyVersion),
+      counts: Object.freeze([...(value.native.counts ?? value.native.deltaCounts)]),
+      total: value.native.totalConnectedTriples ?? value.native.deltaTotalConnectedTriples,
+      outputGraphRef: value.native.outputGraphRef ?? null, updateId: text(value.native.updateId) || null,
+      oldAffectedEdgeCount: value.native.oldAffectedEdgeCount ?? null, newAffectedEdgeCount: value.native.newAffectedEdgeCount ?? null,
+      oldCandidateCount: value.native.oldCandidateCount ?? null, newCandidateCount: value.native.newCandidateCount ?? null,
+    } : {}),
   });
 }

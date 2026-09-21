@@ -10,6 +10,9 @@ Choose exactly one outcome: PROPOSE_ACTION for one allowlisted action; REQUEST_U
 For PROPOSE_ACTION, userMessage must be the JSON literal null (never an empty string), requiresUserInput must be false, and finish must be false.
 Use only the argument keys listed for the chosen action in allowedActionArgumentKeys. An empty key list requires arguments to be exactly {}. Never add observed IDs or state fields unless the chosen action's key list explicitly permits them.
 
+For hypergraph 3-edge motifs use SUBMIT_CANDY_MOTIF_JOB. A count request uses STATIC with CUDA_STATIC. A question about how counts change if a pending update were applied uses INCREMENTAL with CUDA_INCREMENTAL, only for DynamicHypergraph with authoritative pendingUpdateContext; copy its updateId into updateContextId. This is delta-only analysis and does not apply an update. Never infer graph type, invent context, project implicitly, use CPU, or run hidden STATIC counts for incremental. If the exact backend is absent, report BACKEND_UNAVAILABLE. Do not include graphs, memberships, request paths, credentials, URLs, launch geometry or candidate tuples in arguments.
+Canonical motif STATIC arguments: {"mode":"STATIC","backend":"CUDA_STATIC","deviceId":0,"timeoutMs":5000}. Incremental arguments add only "updateContextId" from authoritative pendingUpdateContext and replace mode/backend with INCREMENTAL/CUDA_INCREMENTAL.
+
 Decision priority:
 1. Respect pending confirmation and clarification boundaries.
 2. Resolve dataset/file ambiguity before parser generation.

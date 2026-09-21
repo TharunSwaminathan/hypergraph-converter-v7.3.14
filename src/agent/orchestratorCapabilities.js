@@ -7,6 +7,7 @@ import {
   isSafeVisualLimit,
 } from "./capabilityRegistry.js";
 import { isOrdinaryGraphType } from "../candy/contracts/graphTypes.js";
+import { motifSelectorErrors } from "../candy/motifWorkflow.js";
 
 export const START_CUSTOM_PARSER_WORKFLOW = "START_CUSTOM_PARSER_WORKFLOW";
 
@@ -65,6 +66,16 @@ export const REACT_CAPABILITY_DEFINITIONS = Object.freeze({
   APPLY_CUSTOM_RESULT: { keys: [], validate: noArguments, confirmation: true },
   CLEAR_GRAPH: { keys: [], validate: noArguments, confirmation: true },
   DISCOVER_CANDY_CAPABILITIES: { keys: [], validate: noArguments, stopAfterResult: true },
+  SUBMIT_CANDY_MOTIF_JOB: {
+    keys: ["mode","backend","deviceId","timeoutMs","updateContextId"], validate: motifSelectorErrors, stopAfterResult: true,
+    modelArgumentContract: Object.freeze({
+      mode: "STATIC counts the current Hypergraph or DynamicHypergraph. INCREMENTAL requires DynamicHypergraph and authoritativeObservation.candy.pendingUpdateContext.",
+      backend: "STATIC requires literal CUDA_STATIC; INCREMENTAL requires literal CUDA_INCREMENTAL. Never use CPU, LOCAL_CUDA SSSP, projection, or STATIC fallback.",
+      deviceId: "Required integer from the matching discovered capability; normally 0.",
+      timeoutMs: "Required integer 1..60000. Use literal 5000 unless explicitly supplied by the user.",
+      updateContextId: "INCREMENTAL ONLY: copy pendingUpdateContext.updateId exactly. Omit for STATIC. Never invent an update or serialize graphs, memberships or candidate tuples.",
+    }),
+  },
   SUBMIT_CANDY_JOB: {
     keys: ["algorithm", "backend", "mode", "sourceVertexId", "threads", "deviceId", "timeoutMs"],
     validate: validCandySubmission,
@@ -98,6 +109,7 @@ export function validateReactActionArguments(action, argumentsValue) {
 }
 
 export function reactActionRequiresConfirmation(action, state = {}, argumentsValue = {}) {
+  if (action === "SUBMIT_CANDY_MOTIF_JOB") return true;
   if (["RUN_CUSTOM_PARSER", "APPLY_CUSTOM_RESULT", "CLEAR_GRAPH", "DOWNLOAD_EXPORT", "EXPORT_GRAPH_PNG"].includes(action)) return true;
   if (action === "SUBMIT_CANDY_JOB") {
     return argumentsValue.backend === "LOCAL_CUDA"
@@ -129,10 +141,12 @@ export function availableReactActions(state = {}) {
   if (!state.customParser?.applyReady) actions.delete("APPLY_CUSTOM_RESULT");
   if (!state.dataset?.available) ["VALIDATE_MAPPING_SPEC", "REPAIR_MAPPING_SPEC", "GENERATE_PARSER_FROM_MAPPING"].forEach(action => actions.delete(action));
   if (!state.candy?.featureEnabled) {
-    ["DISCOVER_CANDY_CAPABILITIES", "SUBMIT_CANDY_JOB", "GET_CANDY_JOB_STATUS", "CANCEL_CANDY_JOB", "OPEN_CANDY_RESULT"].forEach(action => actions.delete(action));
+    ["DISCOVER_CANDY_CAPABILITIES", "SUBMIT_CANDY_JOB", "SUBMIT_CANDY_MOTIF_JOB", "GET_CANDY_JOB_STATUS", "CANCEL_CANDY_JOB", "OPEN_CANDY_RESULT"].forEach(action => actions.delete(action));
   } else {
     if (state.candy.status === "disabled") actions.delete("DISCOVER_CANDY_CAPABILITIES");
     if (state.candy.capabilityStatus !== "ready" || !state.graph?.available || !isOrdinaryGraphType(state.graph?.graphType)) actions.delete("SUBMIT_CANDY_JOB");
+    if (state.candy.capabilityStatus !== "ready" || !state.graph?.available || !["Hypergraph","DynamicHypergraph"].includes(state.graph?.graphType)
+      || !state.candy.capabilities?.some(cap=>["CUDA_STATIC","CUDA_INCREMENTAL"].includes(cap.backend))) actions.delete("SUBMIT_CANDY_MOTIF_JOB");
     const jobs = state.candy.jobs ?? [];
     if (!jobs.length) ["GET_CANDY_JOB_STATUS", "CANCEL_CANDY_JOB", "OPEN_CANDY_RESULT"].forEach(action => actions.delete(action));
     if (!jobs.some(job => ["queued", "preparing", "running", "validating", "cancelling"].includes(job.status))) actions.delete("CANCEL_CANDY_JOB");

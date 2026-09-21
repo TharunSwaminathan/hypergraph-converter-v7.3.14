@@ -4,6 +4,7 @@ import { actionStopsAfterResult, reactActionRequiresConfirmation } from "./orche
 import { MAX_REACT_STEPS } from "./reactOrchestratorConfig.js";
 import { observationStillCurrent } from "./orchestratorObservation.js";
 import { validateOrchestratorStep } from "./orchestratorStepValidator.js";
+import { motifQueryPolicy } from "./motifQueryPolicy.js";
 
 const safeResult = (action, result = {}) => ({
   action,
@@ -77,6 +78,8 @@ export async function runBoundedOrchestrator({
 
   const initial = await getObservation(lastToolResult);
   if (initial.pendingConfirmation) return { ok: false, outcome: "confirmation_pending", stopReason: "confirmation", metrics, lastToolResult };
+  const motifPolicy=motifQueryPolicy(userQuery,initial);
+  if (motifPolicy.requested && !motifPolicy.ok) return {ok:false,outcome:"motif_request_rejected",classification:motifPolicy.classification,userMessage:motifPolicy.message,stopReason:"typed_preflight",metrics};
   if (initial.upload?.requiresReupload && /\b(continue|resume|convert|parse|parser|file|dataset)\b/i.test(userQuery)) {
     return { ok: false, outcome: "request_user_input", stopReason: "clarification", userMessage: "The saved thread has file references only. Re-upload the source files before continuing; no prior approval or action was restored.", metrics };
   }
@@ -84,7 +87,7 @@ export async function runBoundedOrchestrator({
     return { ok: true, outcome: "request_user_input", stopReason: "clarification", userMessage: CUSTOM_PARSER_GROUPING_QUESTION, metrics, continuation: { originalQuery: String(userQuery).slice(0, 2000), datasetId: initial.dataset.activeDatasetId, stateVersionToken: initial.stateVersionToken } };
   }
   const semantics = analyzeRequestSemantics(userQuery);
-  if (requestMustRemainReadOnly(userQuery, semantics)) {
+  if (!motifPolicy.ok && requestMustRemainReadOnly(userQuery, semantics)) {
     return { ok: true, outcome: "fallback", stopReason: "read_only", metrics, fallbackRequired: true };
   }
 
@@ -102,21 +105,28 @@ export async function runBoundedOrchestrator({
     }
     if (Number.isFinite(modelResult?.promptChars)) metrics.promptChars.push(modelResult.promptChars);
     if (!modelResult?.ok) {
+      if (motifPolicy.ok) return { ok: false, outcome: "model_unavailable", stopReason: "model_failure", error: "The local model was unavailable; no motif job or workspace action was performed.", metrics };
       metrics.fallbackCount += 1;
       if (fallback) return { ...(await fallback({ reason: modelResult?.error ?? "The local model was unavailable.", classification: modelResult?.classification })), metrics, fallbackUsed: true };
       return { ok: false, outcome: "model_unavailable", stopReason: "model_failure", error: modelResult?.error ?? "The local model was unavailable.", metrics };
     }
     const validated = validateOrchestratorStep(modelResult.raw ?? modelResult.step, observation.availableCapabilities);
     if (!validated.ok) {
+      if (motifPolicy.ok) {
+        lastToolResult=safeResult("SUBMIT_CANDY_MOTIF_JOB",{ok:false,outcome:"schema_rejected",error:"The model invented missing, unknown or incompatible motif arguments. Reobserve and use the strict bounded selector schema."});
+        continue;
+      }
       metrics.fallbackCount += 1;
       if (fallback) return { ...(await fallback({ reason: "The ReAct step failed strict validation.", validationErrors: validated.errors })), metrics, fallbackUsed: true, validationErrors: validated.errors };
       return { ok: false, outcome: "invalid_step", stopReason: "validation_failure", errors: validated.errors, metrics };
     }
     const step = validated.data;
+    if (motifPolicy.ok && step.outcome === "PROPOSE_ACTION" && step.action !== "SUBMIT_CANDY_MOTIF_JOB") return {ok:false,outcome:"motif_action_family_rejected",stopReason:"authorization",metrics,error:"A motif analysis request cannot authorize projection, SSSP or workspace mutation."};
     onStep?.({ index, step, observation });
     if (step.outcome === "REQUEST_USER_INPUT") return { ok: true, outcome: "request_user_input", stopReason: "clarification", userMessage: step.userMessage, step, metrics };
     if (step.outcome === "FINAL_RESPONSE") {
       if (!finalResponseIsGrounded(step.userMessage, lastToolResult)) {
+        if (motifPolicy.ok) return { ok: false, outcome: "ungrounded_final_response", stopReason: "validation_failure", error: "The model claimed an unobserved motif result; no action was performed.", metrics };
         metrics.fallbackCount += 1;
         if (fallback) return { ...(await fallback({ reason: "The model response claimed an unobserved successful action." })), metrics, fallbackUsed: true };
         return { ok: false, outcome: "ungrounded_final_response", stopReason: "validation_failure", error: "The model response claimed an unobserved successful action.", metrics };
@@ -128,6 +138,17 @@ export async function runBoundedOrchestrator({
     if (!observationStillCurrent(observation, current)) {
       lastToolResult = safeResult(step.action, { ok: false, outcome: "stale_observation", error: "Authoritative state changed before execution." });
       continue;
+    }
+    if (step.action === "SUBMIT_CANDY_MOTIF_JOB") {
+      const selector=step.arguments;
+      const policy=motifQueryPolicy(userQuery,current);
+      const capability=current.candy?.capabilities?.find(cap=>cap.backend===selector.backend && cap.modes?.includes(selector.mode));
+      if (!policy.ok || selector.mode !== policy.mode || selector.backend !== policy.backend
+        || !capability?.devices?.some(device=>device.id===selector.deviceId)
+        || selector.mode === "INCREMENTAL" && selector.updateContextId !== current.candy?.pendingUpdateContext?.updateId) {
+        lastToolResult=safeResult(step.action,{ok:false,outcome:"motif_context_rejected",error:"The selector differs from the requested mode, qualified device or authoritative pending update. No action was staged."});
+        continue;
+      }
     }
     const signature = `${step.action}:${JSON.stringify(step.arguments)}:${observation.stateVersionToken}`;
     if (seen.has(signature)) return { ok: false, outcome: "repeated_action_blocked", stopReason: "repeat_guard", error: "The same action was proposed twice against unchanged state.", metrics, lastToolResult };

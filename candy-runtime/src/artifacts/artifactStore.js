@@ -7,10 +7,13 @@ const ID_PATTERN = /^sha256:([a-f0-9]{64})$/;
 const MEDIA_TYPES = new Set(["application/json", "application/vnd.candy.graph+json", "application/vnd.candy.updates+json", "application/vnd.candy.state+json", "application/vnd.candy.result+json", "text/plain"]);
 
 export class ArtifactStore {
-  constructor({ root, maxBytes }) {
+  constructor({ root, maxBytes, maxArtifacts = 512, maxTotalBytes = 64 * 1024 * 1024 }) {
     this.root = resolve(root);
     this.maxBytes = maxBytes;
     this.metadataById = new Map();
+    this.maxArtifacts = maxArtifacts;
+    this.maxTotalBytes = maxTotalBytes;
+    this.writes = Promise.resolve();
   }
 
   async initialize() {
@@ -35,11 +38,19 @@ export class ArtifactStore {
   }
 
   async put(bytes, mediaType) {
+    const owned = Buffer.from(bytes);
+    const write = this.writes.then(() => this.putOwned(owned,mediaType));
+    this.writes = write.catch(()=>{});
+    return write;
+  }
+
+  async putOwned(bytes, mediaType) {
     if (!MEDIA_TYPES.has(mediaType)) throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA, "Unsupported artifact media type.");
     const content = Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
     if (content.length > this.maxBytes) throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT, "Artifact exceeds the configured size limit.");
     const digest = createHash("sha256").update(content).digest("hex");
     const id = `sha256:${digest}`;
+    if (!this.metadataById.has(id) && (this.metadataById.size >= this.maxArtifacts || [...this.metadataById.values()].reduce((total,item)=>total+item.byteLength,0)+content.length > this.maxTotalBytes)) throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT,"Artifact store retention budget reached.");
     const path = this.pathForId(id);
     let handle;
     try {
@@ -77,10 +88,12 @@ export class ArtifactStore {
     if (!real.startsWith(`${this.realRoot}${sep}`)) throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA, "Artifact escaped the store.");
     const bytes = await readFile(real);
     if (bytes.length > this.maxBytes) throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT, "Stored artifact exceeds the configured size limit.");
+    if (`sha256:${createHash("sha256").update(bytes).digest("hex")}` !== id || bytes.length !== this.metadata(id).byteLength) throw new CandyContractError(CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE,"Immutable artifact content no longer matches its authorized digest.");
     return bytes;
   }
 
   async dispose() {
+    await this.writes;
     await rm(this.root, { recursive: true, force: true });
   }
 }

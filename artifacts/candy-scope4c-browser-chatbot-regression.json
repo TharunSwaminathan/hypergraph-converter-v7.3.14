@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "candy.scope4c-browser-chatbot-regression/1",
+  "status": "PASS",
+  "evidence": "candy-scope4c-application-gates.json",
+  "execution": "All test files executed by unchanged serial fail-fast run-node-tests.mjs; groups below are subsets of that complete successful run.",
+  "fullSuitePassed": 247,
+  "groups": {
+    "scope4aR": [
+      "candy-scope4a-adversarial.test.mjs",
+      "candy-scope4a-contracts-adapter.test.mjs",
+      "candy-scope4a-oracle-delta.test.mjs",
+      "candy-scope4a-taxonomy.test.mjs"
+    ],
+    "scope4bContracts": [
+      "candy-scope4b1-static-contract.test.mjs",
+      "candy-scope4b2-incremental-contract.test.mjs"
+    ],
+    "scope3": [
+      "candy-scope3-phaseA-contract.test.mjs",
+      "candy-scope3-phaseB-source.test.mjs",
+      "candy-scope3-phaseC-integration.test.mjs",
+      "candy-scope3-ui-truthfulness.test.mjs"
+    ],
+    "runtimeFoundation": [
+      "candy-scope2-frontend-react.test.mjs",
+      "candy-scope2-incremental-job.test.mjs",
+      "candy-scope2-job-engine.test.mjs",
+      "candy-scope2-job-failure-matrix.test.mjs",
+      "candy-scope2-runtime-foundation.test.mjs"
+    ],
+    "chatbotBrowser": [
+      "agent-chat-panel-dom-v7-3-13.test.mjs",
+      "agent-chat-pending-router-integration-v7-3-10.test.mjs",
+      "agent-local-model.test.mjs",
+      "candy-scope2-frontend-react.test.mjs",
+      "confirmation-policy-authority-v7-3-10.test.mjs",
+      "confirmation-selection-staleness-v7-3-10.test.mjs",
+      "custom-parser-conversation.test.mjs",
+      "custom-parser-scope-v7-3-13.test.mjs",
+      "custom-parser-workflow-v7-3.test.mjs",
+      "dataset-mapping-chat-routing.test.mjs",
+      "deterministic-command-catalog-routing.test.mjs",
+      "deterministic-nlu-authoritative-routing.test.mjs",
+      "deterministic-nlu-parser-workflow.test.mjs",
+      "local-model-cancellation.test.mjs",
+      "local-model-request-coordinator.test.mjs",
+      "local-model-runtime-state.test.mjs",
+      "local-model-settings-trace-v7-3-13.test.mjs",
+      "ollama-metrics.test.mjs",
+      "parser-profile-v3.test.mjs",
+      "parser-reconciliation.test.mjs",
+      "parser-sandbox.test.mjs",
+      "parser-validation-v7-3-11.test.mjs",
+      "parser-validation-v7-3-13.test.mjs",
+      "scope2-react-adversarial.test.mjs",
+      "scope2-react-core.test.mjs",
+      "scope2-react-integration.test.mjs"
+    ]
+  },
+  "modeA": "Existing browser-only/no-Runtime feature-flag and legacy chat/parser/ActionPlan suites passed. Browser production bundles contain no Runtime Node/WSL/process imports.",
+  "modeB": "MANUAL_MODE_B_VERIFICATION_PASS",
+  "discovery": "DISCOVERY_VERIFICATION_PASS",
+  "visibleBrowserAutomation": false,
+  "workspaceMutation": "No production motif flow calls graph commit/apply; committed incidence is read-only. Live qualification graph objects were unchanged.",
+  "strictMotifContractSubtests": 12
+}

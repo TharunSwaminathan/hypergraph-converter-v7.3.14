@@ -1,6 +1,8 @@
 import { SSSP_ACCEPTED_GRAPH_TYPES } from "./contracts/graphTypes.js";
+import { MOTIF_ALGORITHM, MOTIF_TAXONOMY } from "./contracts/runtimeMotif.js";
 
 const FRONTEND_CAPABILITIES = Object.freeze([
+  ...["CUDA_STATIC","CUDA_INCREMENTAL"].map(backend=>Object.freeze({capability:"RUN_HYPERGRAPH_3EDGE_MOTIFS",algorithm:MOTIF_ALGORITHM,algorithmVersion:"scope4c-qualified-motif/1",taxonomyVersion:MOTIF_TAXONOMY,backend,graphTypes:Object.freeze(backend==="CUDA_STATIC"?["Hypergraph","DynamicHypergraph"]:["DynamicHypergraph"]),modes:Object.freeze([backend==="CUDA_STATIC"?"STATIC":"INCREMENTAL"]),adapterVersion:"candy.qualified-motif-transport/1"})),
   Object.freeze({
     capability: "RUN_SSSP",
     algorithm: "SSSP",
@@ -25,11 +27,13 @@ const SHA256_FINGERPRINT = /^sha256:[a-f0-9]{64}$/;
 const CUDA_EXECUTION_ENVIRONMENTS = new Set(["WSL2_CUDA", "LINUX_CUDA"]);
 
 function validatedCudaDevices(remote) {
-  if (remote.adapterVersion !== "candy.cuda-adapter/1"
+  const motif=["CUDA_STATIC","CUDA_INCREMENTAL"].includes(remote.backend);
+  if (remote.adapterVersion !== (motif?"candy.qualified-motif-transport/1":"candy.cuda-adapter/1")
     || !SHA256_FINGERPRINT.test(remote.nativeBuildFingerprint ?? "")
     || !CUDA_EXECUTION_ENVIRONMENTS.has(remote.executionEnvironment)
-    || remote.qualification?.schemaVersion !== "candy.cuda-qualified-build/1"
-    || remote.qualification?.status !== "exact_local_attestation"
+    || remote.qualification?.schemaVersion !== (motif?"candy.motif-qualified-build/1":"candy.cuda-qualified-build/1")
+    || remote.qualification?.status !== (motif?"exact_local_operator_record":"exact_local_attestation")
+    || motif && remote.taxonomyVersion !== MOTIF_TAXONOMY
     || !Array.isArray(remote.devices)
     || remote.devices.length < 1
     || remote.devices.length > 8) return null;
@@ -57,11 +61,15 @@ export function intersectCandyCapabilities(runtimeDeclaration, { authorized = fa
     const modes = local.modes.filter(value => remote.modes?.includes(value));
     if (!graphTypes.length || !modes.length) continue;
     if (graphType && !graphTypes.includes(graphType)) continue;
-    const devices = local.backend === "LOCAL_CUDA" ? validatedCudaDevices(remote) : undefined;
-    if (local.backend === "LOCAL_CUDA" && !devices) continue;
+    const cudaBackend=["LOCAL_CUDA","CUDA_STATIC","CUDA_INCREMENTAL"].includes(local.backend);
+    const devices = cudaBackend ? validatedCudaDevices(remote) : undefined;
+    if (cudaBackend && !devices) continue;
     accepted.push(Object.freeze({ capability: remote.capability, algorithm: local.algorithm, algorithmVersion: local.algorithmVersion, backend: local.backend, graphTypes: Object.freeze(graphTypes), modes: Object.freeze(modes), limits: Object.freeze({ ...(remote.limits ?? {}) }), ...(devices ? { devices: Object.freeze(devices) } : {}) }));
   }
-  return Object.freeze({ status: accepted.length ? "ready" : "unavailable", capabilities: Object.freeze(accepted), reason: accepted.length ? null : "No qualified capability matches the active graph and frontend schemas." });
+  const reason = accepted.length ? null : graphType === "__NO_ACTIVE_GRAPH__"
+    ? "No committed graph is active. Convert a graph to enable compatible analysis."
+    : "No qualified capability matches the active graph and frontend schemas.";
+  return Object.freeze({ status: accepted.length ? "ready" : "unavailable", capabilities: Object.freeze(accepted), reason });
 }
 
 export function frontendCandyCapabilities() {

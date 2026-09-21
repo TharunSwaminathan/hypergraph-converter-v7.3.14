@@ -67,7 +67,7 @@ export async function startCandyRuntime(overrides = {}) {
     }
     if (!protectedRequest(request, response, config, auth)) return;
     try {
-      if (request.method === "GET" && request.url === "/v1/capabilities") return writeJson(response, 200, capabilities, cors);
+      if (request.method === "GET" && request.url === "/v1/capabilities") return writeJson(response, 200, { ...await buildCapabilityDeclaration(config), runtimeSessionId: jobs.runtimeSessionId }, cors);
       if (request.method === "POST" && request.url === "/v1/artifacts") {
         const upload = decodeArtifactUpload(await readJsonBody(request, config.limits.requestBytes), config.limits.artifactBytes);
         return writeJson(response, 201, await artifactStore.put(upload.bytes, upload.mediaType), cors);
@@ -99,6 +99,7 @@ export async function startCandyRuntime(overrides = {}) {
     jobs,
     artifactStore,
     async close() {
+      await jobs.close();
       await new Promise(resolve => server.close(resolve));
       if (!config.artifactRoot) await artifactStore.dispose();
     },

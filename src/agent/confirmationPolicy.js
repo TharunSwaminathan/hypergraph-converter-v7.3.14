@@ -73,8 +73,8 @@ export const CONFIRMATION_POLICY = Object.freeze({
   }),
   run_candy_expensive_compute: Object.freeze({
     required: true,
-    title: "Run potentially expensive local SSSP?",
-    message: "This exact CANDY request uses CUDA, COMPARE, or exceeds the low-cost envelope. Confirm the bound graph version, source, backend, mode, backend-specific threads/device, updates, and timeout.",
+    title: "Run potentially expensive local CANDY analysis?",
+    message: "This exact CANDY request uses CUDA, COMPARE, or exceeds the low-cost envelope. Confirm the bound graph version, backend, mode, device/resources, pending update and timeout. Motif analysis does not apply graph updates.",
   }),
 });
 
@@ -87,6 +87,7 @@ export const CAPABILITY_CONFIRMATION_ALIASES = Object.freeze({
   EXPORT_GRAPH_PNG: "download_file",
   PARSE_ACTIVE_BATCH: "parse_uploaded_files",
   SUBMIT_CANDY_JOB: "run_candy_expensive_compute",
+  SUBMIT_CANDY_MOTIF_JOB: "run_candy_expensive_compute",
 });
 
 export const CONFIRMATION_REQUIRED_ACTIONS = new Set(

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "candy.scope4c-issue-register/1",
+  "status": "CLOSED",
+  "unresolvedCritical": 0,
+  "unresolvedHigh": 0,
+  "unresolvedMedium": 0,
+  "unresolvedLow": 0,
+  "issues": [
+    {
+      "id": "4C-readiness-display",
+      "status": "RESOLVED",
+      "problem": "No active graph was displayed as unavailable companion.",
+      "resolution": "Expose Runtime qualification readiness separately from committed graph eligibility; recompute graph intersection without re-pairing.",
+      "evidence": "DISCOVERY_VERIFICATION_PASS"
+    },
+    {
+      "id": "4C-committed-authority",
+      "status": "RESOLVED",
+      "problem": "Visual batch preview could differ from committed graph/version.",
+      "resolution": "Runtime payload and cardinalities derive exclusively from committed hes.",
+      "evidence": "Reviewed App.jsx SHA bound in delta audit."
+    },
+    {
+      "id": "4C-linux-process-cleanup",
+      "status": "RESOLVED",
+      "problem": "Killing Windows WSL client alone did not establish Linux process cleanup.",
+      "resolution": "Fixed Ubuntu supervisor acknowledgment, dedicated group kill, bounded retries and shutdown drain.",
+      "evidence": "BOUNDARY_QUALIFICATION_PASS"
+    },
+    {
+      "id": "4C-shutdown-discovery",
+      "status": "RESOLVED",
+      "problem": "Async readiness could finish after shutdown and reserve a job.",
+      "resolution": "Recheck closing immediately after readiness await; adversarial held-probe test proves no reservation/launch.",
+      "evidence": "BOUNDARY_QUALIFICATION_PASS"
+    },
+    {
+      "id": "4C-legacy-openmp",
+      "status": "RESOLVED",
+      "problem": "Frozen OpenMP success protocol omits backend.",
+      "resolution": "Accept omission exclusively for fixed server-selected LOCAL_OPENMP. Reject explicit null/conflicts and require exact CUDA backend.",
+      "evidence": "OPENMP_RUNTIME_REGRESSION_PASS"
+    },
+    {
+      "id": "4C-cleanup-lint",
+      "status": "RESOLVED",
+      "problem": "Throw from finally violated lint and could bypass controlled job failure.",
+      "resolution": "Clear result fields and publish typed terminal cleanup failure.",
+      "evidence": "Final full tests/lint and fresh boundary/OMP regressions passed."
+    }
+  ],
+  "limitations": [
+    "Current Studio commits Hypergraph only; incremental UI remains unavailable without an authoritative DynamicHypergraph plus qualified pending update. Runtime/fixture incremental E2E is qualified.",
+    "Visible Mode B verification is manual user evidence bound to an authenticated completed Runtime job. Production React panel/hook discovery was separately verified with real HTTP; no automated visible-browser claim.",
+    "Local ignored qualification records establish operator-controlled consistency and are unsigned. Private host directories/Windows ACLs and configured Ollama endpoint are trusted operator prerequisites.",
+    "Queued/running/shutdown process control uses an actual slow Linux process fixture. Real CUDA job timeout/cancellation were also tested; no claim that a long-running GPU kernel was forcibly interrupted. Severe host/WSL failure preventing Linux kill cannot guarantee remote orphan cleanup.",
+    "Only qwen3:8b installed model was qualified. Schema recovery uses a labeled synthetic malformed first proposal followed by a real qwen response.",
+    "Native parity suites were rerun fresh. Frozen historical sanitizer evidence was hash-verified for motifs; all four Scope3 SSSP sanitizer suites were freshly rerun. No motif native source/harness changes.",
+    "Existing paired Runtime and local preview intentionally remain available to the user; qualification child servers and temporary fixtures were closed/removed."
+  ]
+}

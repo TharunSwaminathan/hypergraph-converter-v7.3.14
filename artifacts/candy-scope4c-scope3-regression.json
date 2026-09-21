@@ -1,0 +1,1330 @@
+{
+  "schemaVersion": "candy.scope4c-scope3-regression/1",
+  "status": "SCOPE3_REGRESSION_PASS",
+  "cases": [
+    {
+      "harness": "run-native-qualification.mjs",
+      "environment": {},
+      "durationMs": 14582,
+      "qualification": {
+        "result": "PASS",
+        "sanitizer": "none",
+        "fixturePasses": 12,
+        "stressCases": 40,
+        "fixedSeed": "0x5eed1234",
+        "malformedInput": "PASS",
+        "staleState": "PASS",
+        "forcedMismatchFailure": "PASS",
+        "nativeHypergraphRejection": "PASS",
+        "performanceSamples": [
+          {
+            "id": "simple-chain",
+            "preparationMs": 4.18212,
+            "computeMs": 0.000595,
+            "validationMs": 0.000409
+          },
+          {
+            "id": "diamond-equal-cost",
+            "preparationMs": 5.11398,
+            "computeMs": 0.00064,
+            "validationMs": 0.000433
+          },
+          {
+            "id": "disconnected",
+            "preparationMs": 4.58016,
+            "computeMs": 0.000556,
+            "validationMs": 0.000249
+          },
+          {
+            "id": "insertion-decreases-distance",
+            "preparationMs": 4.60097,
+            "computeMs": 0.109223,
+            "validationMs": 0.001006
+          },
+          {
+            "id": "insertion-no-effect",
+            "preparationMs": 3.77983,
+            "computeMs": 0.085054,
+            "validationMs": 0.001036
+          },
+          {
+            "id": "deletion-invalidates-parent",
+            "preparationMs": 4.19433,
+            "computeMs": 0.118437,
+            "validationMs": 0.000782
+          },
+          {
+            "id": "deletion-creates-unreachable",
+            "preparationMs": 4.38304,
+            "computeMs": 0.096035,
+            "validationMs": 0.000749
+          },
+          {
+            "id": "mixed-batch",
+            "preparationMs": 4.0988,
+            "computeMs": 0.096177,
+            "validationMs": 0.001087
+          },
+          {
+            "id": "isolated-vertices",
+            "preparationMs": 4.94076,
+            "computeMs": 0.000806,
+            "validationMs": 0.000347
+          },
+          {
+            "id": "zero-weight-cycle",
+            "preparationMs": 5.79367,
+            "computeMs": 0.000639,
+            "validationMs": 0.000359
+          }
+        ]
+      }
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {},
+      "durationMs": 17681,
+      "qualification": {
+        "result": "PASS",
+        "sanitizer": "none",
+        "fixturePasses": 12,
+        "stressPasses": 40,
+        "fixedSeed": "0x5eed1234",
+        "parity": [
+          {
+            "fixture": "simple-chain",
+            "graphHash": "0c6c83448e9c8828117af53073fed4dd987a37ad20d671fad091f08cc49e2bc1",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "openmpDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "referenceDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.81344,
+              "hostToDeviceMs": 0.684045,
+              "kernelMs": 1.42924,
+              "deviceToHostMs": 0.04433,
+              "referenceMs": 0.002111,
+              "totalMs": 188.743
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "diamond-equal-cost",
+            "graphHash": "f334c16be0ad2dc90f3e4291762f092bf7c9535f6c61ec67d062f97f40608c12",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "openmpDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "referenceDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.23142,
+              "hostToDeviceMs": 0.418712,
+              "kernelMs": 0.949615,
+              "deviceToHostMs": 0.051125,
+              "referenceMs": 0.001768,
+              "totalMs": 160.965
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "disconnected",
+            "graphHash": "2b84605cfcf6c206c49f4df62afbcae19b3c7feab6608ce7eeda2bc58f2d931d",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "openmpDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "referenceDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 6.06363,
+              "hostToDeviceMs": 0.505391,
+              "kernelMs": 0.840543,
+              "deviceToHostMs": 0.055386,
+              "referenceMs": 0.001268,
+              "totalMs": 164.398
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-decreases-distance",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "7693ef3e20741acc01ac852e368a0aad259472eb985b844d0ac4cd9cbf154887",
+            "source": "A",
+            "cudaDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "openmpDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "referenceDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.45451,
+              "hostToDeviceMs": 0.403272,
+              "kernelMs": 1.22871,
+              "deviceToHostMs": 0.059184,
+              "referenceMs": 0.002802,
+              "totalMs": 179.791
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-no-effect",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "b641e8097980807805396e9ac4090a70b9c8ce784992d6e06785287df7051f00",
+            "source": "A",
+            "cudaDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "openmpDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "referenceDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.26062,
+              "hostToDeviceMs": 0.597459,
+              "kernelMs": 1.12044,
+              "deviceToHostMs": 0.081041,
+              "referenceMs": 0.002019,
+              "totalMs": 160.538
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-invalidates-parent",
+            "graphHash": "beb341938881db65b6e6141c3744b51984d665275163d201cd0f1b76e79885c7",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "openmpDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "referenceDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.29303,
+              "hostToDeviceMs": 0.592341,
+              "kernelMs": 1.03458,
+              "deviceToHostMs": 0.051832,
+              "referenceMs": 0.001626,
+              "totalMs": 157.418
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-creates-unreachable",
+            "graphHash": "999bd230f749bf2e144132b1ac50248dff36e9f63b355b58773a1a001e1b9207",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "openmpDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "referenceDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.11725,
+              "hostToDeviceMs": 0.583028,
+              "kernelMs": 0.915019,
+              "deviceToHostMs": 0.062727,
+              "referenceMs": 0.001595,
+              "totalMs": 164.831
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "mixed-batch",
+            "graphHash": "70828217f5ed088e571a18264cf6616b38c5c3e094bb7bd8325df74d06ffd20c",
+            "updateHash": "7fa1a9af677a29678dc8cfc0d0d338d81e6ee9892a220ea0bd3b95a859d131b9",
+            "source": "A",
+            "cudaDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "openmpDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "referenceDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.07848,
+              "hostToDeviceMs": 0.489288,
+              "kernelMs": 1.22582,
+              "deviceToHostMs": 0.055401,
+              "referenceMs": 0.002724,
+              "totalMs": 153.361
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "isolated-vertices",
+            "graphHash": "7109003a88b5d7ab416ffab8a5a09e00baca220900e3c7a56be5422edfc2f605",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "source",
+            "cudaDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "openmpDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "referenceDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.72923,
+              "hostToDeviceMs": 0.226084,
+              "kernelMs": 0.000085,
+              "deviceToHostMs": 0.863775,
+              "referenceMs": 0.001235,
+              "totalMs": 181.636
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "zero-weight-cycle",
+            "graphHash": "9f88ae8d2f57d93dcd8aa4d7920b2750f27aec2da09606b7070495e0eb20bc78",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "Z",
+            "cudaDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "openmpDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "referenceDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.59882,
+              "hostToDeviceMs": 0.601832,
+              "kernelMs": 1.03086,
+              "deviceToHostMs": 0.04892,
+              "referenceMs": 0.001257,
+              "totalMs": 162.579
+            },
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "harness": "run-cuda-failure-qualification.mjs",
+      "environment": {},
+      "durationMs": 3479,
+      "qualification": {
+        "result": "PASS",
+        "sanitizer": "none",
+        "cases": [
+          {
+            "id": "invalid-device",
+            "classification": "BACKEND_UNAVAILABLE",
+            "result": "PASS"
+          },
+          {
+            "id": "malformed-request",
+            "classification": "INVALID_GRAPH_SCHEMA",
+            "result": "PASS"
+          },
+          {
+            "id": "malformed-csr",
+            "classification": "INVALID_GRAPH_SCHEMA",
+            "result": "PASS"
+          },
+          {
+            "id": "invalid-update-vertex",
+            "classification": "INVALID_UPDATE_BATCH",
+            "result": "PASS"
+          },
+          {
+            "id": "stale-graph",
+            "classification": "STALE_GRAPH_VERSION",
+            "result": "PASS"
+          },
+          {
+            "id": "stale-property",
+            "classification": "STALE_PROPERTY_STATE",
+            "result": "PASS"
+          },
+          {
+            "id": "negative-weight",
+            "classification": "UNSUPPORTED_WEIGHT_MODEL",
+            "result": "PASS"
+          },
+          {
+            "id": "resource-count-limit",
+            "classification": "RESOURCE_LIMIT",
+            "result": "PASS"
+          },
+          {
+            "id": "hypergraph",
+            "classification": "INVALID_GRAPH_TYPE",
+            "result": "PASS"
+          },
+          {
+            "id": "cuda-static-forbidden",
+            "classification": "ALGORITHM_FAILURE",
+            "result": "PASS"
+          },
+          {
+            "id": "bounded-success-output",
+            "classification": null,
+            "result": "PASS"
+          },
+          {
+            "id": "memory-preflight",
+            "classification": "RESOURCE_LIMIT",
+            "result": "PASS"
+          },
+          {
+            "id": "allocation",
+            "classification": "RESOURCE_LIMIT",
+            "result": "PASS"
+          },
+          {
+            "id": "kernel-launch",
+            "classification": "ALGORITHM_FAILURE",
+            "result": "PASS"
+          },
+          {
+            "id": "synchronization",
+            "classification": "ALGORITHM_FAILURE",
+            "result": "PASS"
+          },
+          {
+            "id": "nonconvergence",
+            "classification": "RESULT_VALIDATION_FAILURE",
+            "result": "PASS"
+          },
+          {
+            "id": "compare-mismatch",
+            "classification": "RESULT_VALIDATION_FAILURE",
+            "result": "PASS"
+          },
+          {
+            "id": "missing-request",
+            "classification": "INVALID_GRAPH_SCHEMA",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "memcheck"
+      },
+      "durationMs": 27079,
+      "qualification": {
+        "result": "PASS",
+        "sanitizer": "memcheck",
+        "fixturePasses": 12,
+        "stressPasses": 40,
+        "fixedSeed": "0x5eed1234",
+        "parity": [
+          {
+            "fixture": "simple-chain",
+            "graphHash": "0c6c83448e9c8828117af53073fed4dd987a37ad20d671fad091f08cc49e2bc1",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "openmpDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "referenceDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 8.0561,
+              "hostToDeviceMs": 1.84356,
+              "kernelMs": 1.22664,
+              "deviceToHostMs": 0.058939,
+              "referenceMs": 0.001671,
+              "totalMs": 287.837
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "diamond-equal-cost",
+            "graphHash": "f334c16be0ad2dc90f3e4291762f092bf7c9535f6c61ec67d062f97f40608c12",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "openmpDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "referenceDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 2.70345,
+              "hostToDeviceMs": 1.44889,
+              "kernelMs": 3.30694,
+              "deviceToHostMs": 0.048523,
+              "referenceMs": 0.002384,
+              "totalMs": 198.554
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "disconnected",
+            "graphHash": "2b84605cfcf6c206c49f4df62afbcae19b3c7feab6608ce7eeda2bc58f2d931d",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "openmpDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "referenceDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.40939,
+              "hostToDeviceMs": 1.06396,
+              "kernelMs": 1.70228,
+              "deviceToHostMs": 0.055573,
+              "referenceMs": 0.001352,
+              "totalMs": 192.371
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-decreases-distance",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "7693ef3e20741acc01ac852e368a0aad259472eb985b844d0ac4cd9cbf154887",
+            "source": "A",
+            "cudaDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "openmpDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "referenceDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.67983,
+              "hostToDeviceMs": 1.00256,
+              "kernelMs": 2.12239,
+              "deviceToHostMs": 0.061243,
+              "referenceMs": 0.00168,
+              "totalMs": 199.432
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-no-effect",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "b641e8097980807805396e9ac4090a70b9c8ce784992d6e06785287df7051f00",
+            "source": "A",
+            "cudaDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "openmpDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "referenceDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.68612,
+              "hostToDeviceMs": 1.69722,
+              "kernelMs": 2.45319,
+              "deviceToHostMs": 0.236487,
+              "referenceMs": 0.001796,
+              "totalMs": 200.219
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-invalidates-parent",
+            "graphHash": "beb341938881db65b6e6141c3744b51984d665275163d201cd0f1b76e79885c7",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "openmpDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "referenceDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 3.80936,
+              "hostToDeviceMs": 1.24442,
+              "kernelMs": 2.56421,
+              "deviceToHostMs": 0.069561,
+              "referenceMs": 0.001919,
+              "totalMs": 214.181
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-creates-unreachable",
+            "graphHash": "999bd230f749bf2e144132b1ac50248dff36e9f63b355b58773a1a001e1b9207",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "openmpDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "referenceDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.77464,
+              "hostToDeviceMs": 2.53316,
+              "kernelMs": 3.11616,
+              "deviceToHostMs": 0.083477,
+              "referenceMs": 0.001455,
+              "totalMs": 220.409
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "mixed-batch",
+            "graphHash": "70828217f5ed088e571a18264cf6616b38c5c3e094bb7bd8325df74d06ffd20c",
+            "updateHash": "7fa1a9af677a29678dc8cfc0d0d338d81e6ee9892a220ea0bd3b95a859d131b9",
+            "source": "A",
+            "cudaDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "openmpDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "referenceDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.49741,
+              "hostToDeviceMs": 1.49927,
+              "kernelMs": 2.37623,
+              "deviceToHostMs": 0.045692,
+              "referenceMs": 0.001902,
+              "totalMs": 292.779
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "isolated-vertices",
+            "graphHash": "7109003a88b5d7ab416ffab8a5a09e00baca220900e3c7a56be5422edfc2f605",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "source",
+            "cudaDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "openmpDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "referenceDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.20694,
+              "hostToDeviceMs": 1.41009,
+              "kernelMs": 0.000066,
+              "deviceToHostMs": 0.393151,
+              "referenceMs": 0.001667,
+              "totalMs": 192.76
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "zero-weight-cycle",
+            "graphHash": "9f88ae8d2f57d93dcd8aa4d7920b2750f27aec2da09606b7070495e0eb20bc78",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "Z",
+            "cudaDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "openmpDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "referenceDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 3.84082,
+              "hostToDeviceMs": 1.81971,
+              "kernelMs": 3.13305,
+              "deviceToHostMs": 0.069204,
+              "referenceMs": 0.002004,
+              "totalMs": 196.443
+            },
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "racecheck"
+      },
+      "durationMs": 30681,
+      "qualification": {
+        "result": "PASS",
+        "sanitizer": "racecheck",
+        "fixturePasses": 12,
+        "stressPasses": 40,
+        "fixedSeed": "0x5eed1234",
+        "parity": [
+          {
+            "fixture": "simple-chain",
+            "graphHash": "0c6c83448e9c8828117af53073fed4dd987a37ad20d671fad091f08cc49e2bc1",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "openmpDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "referenceDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.09942,
+              "hostToDeviceMs": 0.531735,
+              "kernelMs": 5.05253,
+              "deviceToHostMs": 0.067193,
+              "referenceMs": 0.00178,
+              "totalMs": 271.546
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "diamond-equal-cost",
+            "graphHash": "f334c16be0ad2dc90f3e4291762f092bf7c9535f6c61ec67d062f97f40608c12",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "openmpDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "referenceDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.09706,
+              "hostToDeviceMs": 0.627129,
+              "kernelMs": 5.85859,
+              "deviceToHostMs": 0.058083,
+              "referenceMs": 0.002197,
+              "totalMs": 243.361
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "disconnected",
+            "graphHash": "2b84605cfcf6c206c49f4df62afbcae19b3c7feab6608ce7eeda2bc58f2d931d",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "openmpDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "referenceDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.35631,
+              "hostToDeviceMs": 1.0784,
+              "kernelMs": 7.27036,
+              "deviceToHostMs": 0.078142,
+              "referenceMs": 0.002074,
+              "totalMs": 246.664
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-decreases-distance",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "7693ef3e20741acc01ac852e368a0aad259472eb985b844d0ac4cd9cbf154887",
+            "source": "A",
+            "cudaDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "openmpDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "referenceDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.13876,
+              "hostToDeviceMs": 0.577892,
+              "kernelMs": 16.7512,
+              "deviceToHostMs": 0.067553,
+              "referenceMs": 0.002223,
+              "totalMs": 377.037
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-no-effect",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "b641e8097980807805396e9ac4090a70b9c8ce784992d6e06785287df7051f00",
+            "source": "A",
+            "cudaDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "openmpDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "referenceDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.30246,
+              "hostToDeviceMs": 0.541838,
+              "kernelMs": 7.38602,
+              "deviceToHostMs": 0.051993,
+              "referenceMs": 0.002674,
+              "totalMs": 230.395
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-invalidates-parent",
+            "graphHash": "beb341938881db65b6e6141c3744b51984d665275163d201cd0f1b76e79885c7",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "openmpDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "referenceDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.34163,
+              "hostToDeviceMs": 0.707892,
+              "kernelMs": 13.1897,
+              "deviceToHostMs": 0.058623,
+              "referenceMs": 0.002324,
+              "totalMs": 242.974
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-creates-unreachable",
+            "graphHash": "999bd230f749bf2e144132b1ac50248dff36e9f63b355b58773a1a001e1b9207",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "openmpDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "referenceDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.56678,
+              "hostToDeviceMs": 0.969472,
+              "kernelMs": 5.52755,
+              "deviceToHostMs": 0.070601,
+              "referenceMs": 0.002094,
+              "totalMs": 362.686
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "mixed-batch",
+            "graphHash": "70828217f5ed088e571a18264cf6616b38c5c3e094bb7bd8325df74d06ffd20c",
+            "updateHash": "7fa1a9af677a29678dc8cfc0d0d338d81e6ee9892a220ea0bd3b95a859d131b9",
+            "source": "A",
+            "cudaDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "openmpDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "referenceDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.2169,
+              "hostToDeviceMs": 0.522802,
+              "kernelMs": 17.0714,
+              "deviceToHostMs": 0.0634,
+              "referenceMs": 0.002756,
+              "totalMs": 242.129
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "isolated-vertices",
+            "graphHash": "7109003a88b5d7ab416ffab8a5a09e00baca220900e3c7a56be5422edfc2f605",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "source",
+            "cudaDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "openmpDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "referenceDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.29435,
+              "hostToDeviceMs": 0.451263,
+              "kernelMs": 0.000128,
+              "deviceToHostMs": 0.411231,
+              "referenceMs": 0.001362,
+              "totalMs": 233.84
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "zero-weight-cycle",
+            "graphHash": "9f88ae8d2f57d93dcd8aa4d7920b2750f27aec2da09606b7070495e0eb20bc78",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "Z",
+            "cudaDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "openmpDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "referenceDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.83237,
+              "hostToDeviceMs": 0.530968,
+              "kernelMs": 6.01754,
+              "deviceToHostMs": 0.060049,
+              "referenceMs": 0.001626,
+              "totalMs": 235.589
+            },
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "initcheck"
+      },
+      "durationMs": 26968,
+      "qualification": {
+        "result": "PASS",
+        "sanitizer": "initcheck",
+        "fixturePasses": 12,
+        "stressPasses": 40,
+        "fixedSeed": "0x5eed1234",
+        "parity": [
+          {
+            "fixture": "simple-chain",
+            "graphHash": "0c6c83448e9c8828117af53073fed4dd987a37ad20d671fad091f08cc49e2bc1",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "openmpDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "referenceDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.20643,
+              "hostToDeviceMs": 0.771018,
+              "kernelMs": 4.06873,
+              "deviceToHostMs": 0.095328,
+              "referenceMs": 0.001268,
+              "totalMs": 214.902
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "diamond-equal-cost",
+            "graphHash": "f334c16be0ad2dc90f3e4291762f092bf7c9535f6c61ec67d062f97f40608c12",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "openmpDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "referenceDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.34585,
+              "hostToDeviceMs": 0.651461,
+              "kernelMs": 2.96343,
+              "deviceToHostMs": 0.131683,
+              "referenceMs": 0.001338,
+              "totalMs": 202.018
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "disconnected",
+            "graphHash": "2b84605cfcf6c206c49f4df62afbcae19b3c7feab6608ce7eeda2bc58f2d931d",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "openmpDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "referenceDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.97282,
+              "hostToDeviceMs": 1.00462,
+              "kernelMs": 6.02336,
+              "deviceToHostMs": 0.119335,
+              "referenceMs": 0.001465,
+              "totalMs": 302.321
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-decreases-distance",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "7693ef3e20741acc01ac852e368a0aad259472eb985b844d0ac4cd9cbf154887",
+            "source": "A",
+            "cudaDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "openmpDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "referenceDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.13844,
+              "hostToDeviceMs": 1.44444,
+              "kernelMs": 6.96638,
+              "deviceToHostMs": 0.063485,
+              "referenceMs": 0.0018,
+              "totalMs": 212.392
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-no-effect",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "b641e8097980807805396e9ac4090a70b9c8ce784992d6e06785287df7051f00",
+            "source": "A",
+            "cudaDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "openmpDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "referenceDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 3.92306,
+              "hostToDeviceMs": 1.55903,
+              "kernelMs": 5.19573,
+              "deviceToHostMs": 0.062224,
+              "referenceMs": 0.001894,
+              "totalMs": 197.551
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-invalidates-parent",
+            "graphHash": "beb341938881db65b6e6141c3744b51984d665275163d201cd0f1b76e79885c7",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "openmpDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "referenceDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.31429,
+              "hostToDeviceMs": 0.954888,
+              "kernelMs": 4.49713,
+              "deviceToHostMs": 0.096763,
+              "referenceMs": 0.001382,
+              "totalMs": 199.137
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-creates-unreachable",
+            "graphHash": "999bd230f749bf2e144132b1ac50248dff36e9f63b355b58773a1a001e1b9207",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "openmpDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "referenceDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 21.51,
+              "hostToDeviceMs": 1.39384,
+              "kernelMs": 4.4284,
+              "deviceToHostMs": 0.104026,
+              "referenceMs": 0.001742,
+              "totalMs": 303.196
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "mixed-batch",
+            "graphHash": "70828217f5ed088e571a18264cf6616b38c5c3e094bb7bd8325df74d06ffd20c",
+            "updateHash": "7fa1a9af677a29678dc8cfc0d0d338d81e6ee9892a220ea0bd3b95a859d131b9",
+            "source": "A",
+            "cudaDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "openmpDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "referenceDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.27722,
+              "hostToDeviceMs": 1.13256,
+              "kernelMs": 5.14568,
+              "deviceToHostMs": 0.124781,
+              "referenceMs": 0.001907,
+              "totalMs": 213.431
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "isolated-vertices",
+            "graphHash": "7109003a88b5d7ab416ffab8a5a09e00baca220900e3c7a56be5422edfc2f605",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "source",
+            "cudaDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "openmpDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "referenceDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.25608,
+              "hostToDeviceMs": 0.697914,
+              "kernelMs": 0.000092,
+              "deviceToHostMs": 0.342212,
+              "referenceMs": 0.001202,
+              "totalMs": 193.067
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "zero-weight-cycle",
+            "graphHash": "9f88ae8d2f57d93dcd8aa4d7920b2750f27aec2da09606b7070495e0eb20bc78",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "Z",
+            "cudaDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "openmpDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "referenceDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 3.82798,
+              "hostToDeviceMs": 0.692125,
+              "kernelMs": 4.56752,
+              "deviceToHostMs": 0.092982,
+              "referenceMs": 0.001898,
+              "totalMs": 214.087
+            },
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "harness": "run-cuda-native-qualification.mjs",
+      "environment": {
+        "CANDY_CUDA_SANITIZER_TOOL": "synccheck"
+      },
+      "durationMs": 26977,
+      "qualification": {
+        "result": "PASS",
+        "sanitizer": "synccheck",
+        "fixturePasses": 12,
+        "stressPasses": 40,
+        "fixedSeed": "0x5eed1234",
+        "parity": [
+          {
+            "fixture": "simple-chain",
+            "graphHash": "0c6c83448e9c8828117af53073fed4dd987a37ad20d671fad091f08cc49e2bc1",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "openmpDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "referenceDistanceHash": "17f66f2f133c5b3a473a32750ffcef944a00b0581ef1750d412c6f0e26a852ee",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 3.81309,
+              "hostToDeviceMs": 0.523461,
+              "kernelMs": 3.7508,
+              "deviceToHostMs": 0.067206,
+              "referenceMs": 0.00161,
+              "totalMs": 202.368
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "diamond-equal-cost",
+            "graphHash": "f334c16be0ad2dc90f3e4291762f092bf7c9535f6c61ec67d062f97f40608c12",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "openmpDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "referenceDistanceHash": "173872518c72d80c67fd84981df21b6c84a82f7c5d8f40bd60fa1f26dc6f7e32",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.96281,
+              "hostToDeviceMs": 0.548438,
+              "kernelMs": 4.43859,
+              "deviceToHostMs": 0.073845,
+              "referenceMs": 0.002179,
+              "totalMs": 203.035
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "disconnected",
+            "graphHash": "2b84605cfcf6c206c49f4df62afbcae19b3c7feab6608ce7eeda2bc58f2d931d",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "A",
+            "cudaDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "openmpDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "referenceDistanceHash": "b1dc33a1281648fa7f53644df0aae95259f10e5888f6d56dd22779ab69c486d9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 3.63435,
+              "hostToDeviceMs": 0.405914,
+              "kernelMs": 4.51481,
+              "deviceToHostMs": 0.045511,
+              "referenceMs": 0.001729,
+              "totalMs": 208.703
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-decreases-distance",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "7693ef3e20741acc01ac852e368a0aad259472eb985b844d0ac4cd9cbf154887",
+            "source": "A",
+            "cudaDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "openmpDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "referenceDistanceHash": "3952d6aa3320af40013f230a26fcea92a91ba4a8b10fbb83ec6fb6b347670ad9",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.71402,
+              "hostToDeviceMs": 0.721484,
+              "kernelMs": 4.7613,
+              "deviceToHostMs": 0.047027,
+              "referenceMs": 0.002463,
+              "totalMs": 189.676
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "insertion-no-effect",
+            "graphHash": "9b388f82d89aa397af0538b740bb08d81d1761b76bbf182bd8c8d3afcfd3e9a3",
+            "updateHash": "b641e8097980807805396e9ac4090a70b9c8ce784992d6e06785287df7051f00",
+            "source": "A",
+            "cudaDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "openmpDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "referenceDistanceHash": "aef1798ab7ec893447fbcfbaf2383dc3890ceb6d84a32c743dc29ba4a5a701b8",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.61939,
+              "hostToDeviceMs": 0.510455,
+              "kernelMs": 3.94251,
+              "deviceToHostMs": 0.068119,
+              "referenceMs": 0.001601,
+              "totalMs": 294.892
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-invalidates-parent",
+            "graphHash": "beb341938881db65b6e6141c3744b51984d665275163d201cd0f1b76e79885c7",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "openmpDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "referenceDistanceHash": "14c3cabb1f935ad38bcb8dd79a7cef08c4e5f61eb8a659689fa825fcec76cd92",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.97565,
+              "hostToDeviceMs": 0.555431,
+              "kernelMs": 7.32515,
+              "deviceToHostMs": 0.078267,
+              "referenceMs": 0.002068,
+              "totalMs": 204.791
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "deletion-creates-unreachable",
+            "graphHash": "999bd230f749bf2e144132b1ac50248dff36e9f63b355b58773a1a001e1b9207",
+            "updateHash": "315d2ed564fa9b6dedafd39ea735a395f4c1ee22d6f742494a80af064e26b831",
+            "source": "A",
+            "cudaDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "openmpDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "referenceDistanceHash": "ac246202475c42c60482ee5c4c00ec842afcfa4a445dfb7123818415d5fac626",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 5.30131,
+              "hostToDeviceMs": 0.516385,
+              "kernelMs": 3.97024,
+              "deviceToHostMs": 0.066111,
+              "referenceMs": 0.001345,
+              "totalMs": 199.296
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "mixed-batch",
+            "graphHash": "70828217f5ed088e571a18264cf6616b38c5c3e094bb7bd8325df74d06ffd20c",
+            "updateHash": "7fa1a9af677a29678dc8cfc0d0d338d81e6ee9892a220ea0bd3b95a859d131b9",
+            "source": "A",
+            "cudaDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "openmpDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "referenceDistanceHash": "f84b16d392b555ecf87025a7bd496675ffffe266db25fbc9ea144bc2f896c7af",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.8948,
+              "hostToDeviceMs": 0.48482,
+              "kernelMs": 4.92076,
+              "deviceToHostMs": 0.052017,
+              "referenceMs": 0.002612,
+              "totalMs": 193.361
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "isolated-vertices",
+            "graphHash": "7109003a88b5d7ab416ffab8a5a09e00baca220900e3c7a56be5422edfc2f605",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "source",
+            "cudaDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "openmpDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "referenceDistanceHash": "4fe29e8e7cf8b4fad3d74b152597a87a2ac1c901f8454488ae1f5427b148f9ca",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.66584,
+              "hostToDeviceMs": 0.331098,
+              "kernelMs": 0.00006,
+              "deviceToHostMs": 0.313568,
+              "referenceMs": 0.001322,
+              "totalMs": 177.495
+            },
+            "result": "PASS"
+          },
+          {
+            "fixture": "zero-weight-cycle",
+            "graphHash": "9f88ae8d2f57d93dcd8aa4d7920b2750f27aec2da09606b7070495e0eb20bc78",
+            "updateHash": "7f439c6d2b7cd604b57f6dd1b79cbd74d23fab30ef598e18e8951c05b4e23af8",
+            "source": "Z",
+            "cudaDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "openmpDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "referenceDistanceHash": "2a08979e8002252124e861b2816490b04fe03b6b779f9287fb7c25652bbc4052",
+            "cudaParentValid": true,
+            "openmpParentValid": true,
+            "cudaMetrics": {
+              "preparationMs": 4.15507,
+              "hostToDeviceMs": 0.552893,
+              "kernelMs": 3.16674,
+              "deviceToHostMs": 0.049853,
+              "referenceMs": 0.001405,
+              "totalMs": 196.767
+            },
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "harness": "run-companion-cuda-qualification.mjs",
+      "environment": {},
+      "durationMs": 2920,
+      "qualification": {
+        "result": "PASS",
+        "transport": "authenticated_loopback_http",
+        "backend": "LOCAL_CUDA",
+        "device": {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        },
+        "fingerprint": "sha256:3dc577fbf812b2e756a1bf5e4effd1548231fd72fe1efa7eda4d0200fc374dab",
+        "observedPollStates": [
+          "preparing",
+          "running",
+          "completed"
+        ],
+        "lifecycle": [
+          "queued",
+          "preparing",
+          "running",
+          "validating",
+          "completed"
+        ],
+        "repeatedStatus": "completed",
+        "resultValidation": "passed",
+        "cancellationBeforeLaunch": "cancelled",
+        "timeoutClassification": "PROCESS_TIMEOUT",
+        "nearCompletionCancel": "completed_preserved",
+        "hypergraphClassification": "INVALID_GRAPH_TYPE",
+        "orphanProcess": false,
+        "cancellationDuringGpu": "not_forced; qualification job is shorter than a reliable external cancellation observation window"
+      }
+    }
+  ],
+  "qualifiedAttestation": {
+    "schemaVersion": "candy.cuda-qualified-build/1",
+    "executable": {
+      "relativePath": "native\\sssp-cuda\\build\\candy-sssp-cuda",
+      "sha256": "3dc577fbf812b2e756a1bf5e4effd1548231fd72fe1efa7eda4d0200fc374dab"
+    },
+    "build": {
+      "qualifiedArchitecture": "sm_120",
+      "nvccVersion": "13.4.59",
+      "sourceSha256": "b181def3f1b520a942f0f7982fc10cc51866c4d7c9a506669f3f9f2bdb0097e8",
+      "makefileSha256": "5355eb0c137109a346fdb0227235b656279f21049cf72b10bec504602c1de5c7"
+    },
+    "device": {
+      "id": 0,
+      "name": "NVIDIA GeForce RTX 5060",
+      "memoryMiB": 8151,
+      "computeCapability": "12.0"
+    },
+    "qualification": {
+      "fixtures": 12,
+      "stressCases": 40,
+      "seed": "0x5eed1234",
+      "memcheck": "PASS",
+      "racecheck": "PASS",
+      "initcheck": "PASS",
+      "synccheck": "PASS"
+    }
+  },
+  "operatorRecordRestoredToPriorState": true
+}

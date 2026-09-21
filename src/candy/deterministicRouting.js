@@ -4,6 +4,7 @@ import {
   isHypergraphType,
   isOrdinaryGraphType,
 } from "./contracts/graphTypes.js";
+import { motifQueryPolicy } from "../agent/motifQueryPolicy.js";
 
 const CANDY_TOPIC = /\b(candy|sssp|single[- ]source shortest[- ]paths?|shortest[- ]paths?)\b/i;
 const EXECUTION_VERB = /\b(run|compute|start|submit|execute|find|calculate|use)\b/i;
@@ -40,6 +41,8 @@ function readOnlyExplanation(graphType, cudaRequested = false, cuda = null) {
 
 export function routeDeterministicCandyRequest(query, state = {}) {
   const value = String(query ?? "").trim();
+  const motif=motifQueryPolicy(value,{graph:{graphType:graphTypeFromState(state)},candy:state.candy});
+  if (motif.requested) return Object.freeze(motif.ok?{kind:"delegate",motif:true}:{kind:"blocked",classification:motif.classification,message:motif.message});
   if (!CANDY_TOPIC.test(value)) return null;
   const graphType = graphTypeFromState(state);
   const cudaRequested = CUDA_PREFERENCE.test(value);

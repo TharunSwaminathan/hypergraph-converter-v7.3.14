@@ -1413,6 +1413,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   }
 
   function authorizeReactAction({ action, arguments: argumentsValue, userQuery }) {
+    if (action === "SUBMIT_CANDY_MOTIF_JOB") return authorizeCandyReactAction(action,userQuery,currentReactObservation());
     const semantics = analyzeRequestSemantics(userQuery);
     if (requestMustRemainReadOnly(userQuery, semantics)) {
       return { allowed: false, reason: "The request is read-only, quoted, hypothetical, or negated." };
@@ -1453,8 +1454,8 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       append("agent", result.ok ? `CANDY discovery completed: ${result.intersection.status}.` : `CANDY discovery did not succeed: ${result.error}`, result.ok ? "status" : "warning");
       return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_discovery_completed" : "candy_unavailable", error: result.error, stop: true });
     }
-    if (action === "SUBMIT_CANDY_JOB") {
-      const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0 };
+    if (["SUBMIT_CANDY_JOB","SUBMIT_CANDY_MOTIF_JOB"].includes(action)) {
+      const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
       if (candyRequestNeedsConfirmation(argumentsValue, graph)) {
         const binding = candyRequestConfirmationBinding({ argumentsValue, graph });
         const copy = getConfirmationCopy("run_candy_expensive_compute");
@@ -1478,7 +1479,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
     }
     if (action === "OPEN_CANDY_RESULT") {
       const result = await agentActions.openCandyResult(argumentsValue.jobId);
-      append("agent", result.ok ? `Opened the validated CANDY result for ${argumentsValue.jobId}. Reachable: ${result.observation.reachableCount}; unreachable: ${result.observation.unreachableCount}.` : `CANDY result is unavailable: ${result.error}`, result.ok ? "status" : "warning");
+      append("agent", result.ok ? (result.observation.counts ? `Opened validated ${result.observation.interpretation} motif result for ${argumentsValue.jobId}. Total: ${result.observation.total}. The workspace was not changed.` : `Opened the validated CANDY result for ${argumentsValue.jobId}. Reachable: ${result.observation.reachableCount}; unreachable: ${result.observation.unreachableCount}.`) : `CANDY result is unavailable: ${result.error}`, result.ok ? "status" : "warning");
       return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_result_opened" : "candy_result_failed", details: result.observation, stop: true });
     }
     const result = await dispatchOllamaActionPlan(capabilityActionPlan(action, argumentsValue, query), query);
@@ -2438,6 +2439,11 @@ export default function AgentChatPanel({ agentState, agentActions }) {
       append("agent", candyRoute.classification ? `${candyRoute.classification}: ${candyRoute.message}` : candyRoute.message, candyRoute.kind === "blocked" ? "warning" : "status");
       return;
     }
+    if (candyRoute?.motif) {
+      if ((current.reactOrchestratorEnabled ?? reactOrchestratorEnabled()) && typeof agentActions.runReactOrchestratorStep === "function") await runReactActionPath(query);
+      else append("agent","Bounded ReAct motif planning is disabled. Use the explicit Runtime motif analysis control; no model action or job was created.","warning");
+      return;
+    }
 
     if (shouldEnterReactBeforeBroadRouting(query, current)) {
       await runReactActionPath(query);
@@ -2619,7 +2625,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
           ? `Exported a mapping fine-tuning example with full text from ${result.fileCount} active-batch file${result.fileCount === 1 ? "" : "s"}.`
           : `Mapping fine-tuning export failed: ${result.error}`, result.ok ? "status" : "error");
       } else if (action.actionType === "run_candy_expensive_compute") {
-        const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0 };
+        const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
         const currentBinding = candyRequestConfirmationBinding({ argumentsValue: action.candyArguments, graph });
         if (currentBinding.requestHash !== action.candyBinding?.requestHash) {
           append("agent", "The staged CANDY request no longer matches the active graph or resource envelope. Request it again.", "warning");
@@ -3365,6 +3371,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
             actions={agentActions}
             busy={busy || Boolean(pendingAction)}
             onNotice={(text, tone) => append("agent", text, tone)}
+            onSubmitMotif={argumentsValue => executeReactCapability({action:"SUBMIT_CANDY_MOTIF_JOB",arguments:argumentsValue},argumentsValue.mode === "STATIC" ? "Count the 3-edge motifs on the current hypergraph using CUDA." : "How do the motif counts change if I apply this update?")}
           />
           {lastNluDiagnostic && (
             <details className="agent-nlu-diagnostics" open>

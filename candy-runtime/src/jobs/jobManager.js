@@ -9,6 +9,9 @@ import { CANDY_ERROR_CODES, CandyContractError } from "../../../src/candy/contra
 import { JOB_SUBMIT_SCHEMA_VERSION } from "../config.js";
 import { parseNativeResult, serializeNativeSsspRequest } from "../backends/nativeRequestAdapter.js";
 import { NativeProcessRunner } from "../backends/nativeProcessRunner.js";
+import { MOTIF_ALGORITHM, validateRuntimeMotifRequest } from "../../../src/candy/contracts/runtimeMotif.js";
+import { prepareMotifJob, acceptMotifNative } from "../backends/motifJobAdapter.js";
+import { verifyQualifiedMotifBackend } from "../capabilities/motifQualification.js";
 
 const TERMINAL = new Set(["completed", "failed", "cancelled"]);
 const SUBMIT_KEYS = new Set(["schemaVersion", "request", "graphSnapshot", "graphArtifactId", "propertyStateArtifactId", "updateBatchArtifactId"]);
@@ -61,7 +64,7 @@ function publicJob(job) {
     backend: job.request.backend,
     mode: job.request.mode,
     graphRef: job.request.graphRef,
-    sourceVertexId: job.request.parameters.sourceVertexId,
+    sourceVertexId: job.request.parameters?.sourceVertexId,
     createdAt: job.createdAt,
     updatedAt: job.updatedAt,
     resultRef: job.resultRef ?? null,
@@ -75,13 +78,28 @@ export class JobManager {
     this.artifactStore = artifactStore;
     this.config = config;
     this.jobs = new Map();
-    this.runner = config.nativeRunner ?? new NativeProcessRunner({ runtimeRoot: config.runtimeRoot, stdoutBytes: config.limits.stdoutBytes, stderrBytes: config.limits.stderrBytes, cudaBackendDiscovery: config.cudaBackendDiscovery });
+    this.runtimeSessionId = randomUUID();
+    this.motifQueue = Promise.resolve();
+    this.executions = new Set();
+    this.closing = false;
+    this.runner = config.nativeRunner ?? new NativeProcessRunner({ runtimeRoot: config.runtimeRoot, stdoutBytes: config.limits.stdoutBytes, stderrBytes: config.limits.stderrBytes, cudaBackendDiscovery: config.cudaBackendDiscovery, motifBackendDiscovery: config.motifBackendDiscovery });
   }
 
   async submit(payload) {
     exactSubmit(payload);
+    if (this.closing) throw new CandyContractError(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE,"Runtime is shutting down.");
+    payload = JSON.parse(JSON.stringify(payload));
     const snapshot = validateGraphSnapshot(payload.graphSnapshot);
-    const request = validateAlgorithmRequest(payload.request, snapshot); // Graph type fails closed here, before native preparation.
+    const motif = payload.request?.algorithm === MOTIF_ALGORITHM;
+    const request = motif ? validateRuntimeMotifRequest(payload.request,snapshot) : validateAlgorithmRequest(payload.request, snapshot);
+    if (motif) {
+      if (Object.hasOwn(payload,"propertyStateArtifactId") || request.mode === "STATIC" && Object.hasOwn(payload,"updateBatchArtifactId")
+        || request.mode === "INCREMENTAL" && payload.updateBatchArtifactId !== request.updateRef.artifactId) throw new CandyContractError(CANDY_ERROR_CODES.INVALID_UPDATE_BATCH,"Motif submission contains an incompatible prior-state or update binding.");
+      if (request.mode === "INCREMENTAL") this.artifactStore.metadata(request.updateRef.artifactId);
+      const ready = await verifyQualifiedMotifBackend(this.config,request.backend);
+      if (!ready.available || ready.device?.id !== request.deviceId) throw new CandyContractError(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE,"The exact requested qualified motif backend/device is unavailable.");
+    }
+    if (this.closing) throw new CandyContractError(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE, "Runtime shut down during backend discovery.");
     if (payload.graphArtifactId !== snapshot.canonicalArtifactRef.id) throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA, "Graph artifact does not match GraphSnapshot.canonicalArtifactRef.");
     this.artifactStore.metadata(payload.graphArtifactId);
     if (this.jobs.size >= this.config.limits.maxJobs) throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT, "Runtime job retention limit reached.");
@@ -91,7 +109,12 @@ export class JobManager {
     const now = new Date().toISOString();
     const job = { jobId: randomUUID(), requestHash, request, snapshot, payload, status: "queued", lifecycle: ["queued"], createdAt: now, updatedAt: now, controller: new AbortController(), resultRef: null, error: null };
     this.jobs.set(job.jobId, job);
-    queueMicrotask(() => this.execute(job).catch(() => {}));
+    queueMicrotask(() => {
+      const execution = motif ? this.motifQueue.then(() => this.execute(job)) : this.execute(job);
+      if (motif) this.motifQueue = execution.catch(() => {});
+      this.executions.add(execution);
+      execution.finally(() => this.executions.delete(execution)).catch(() => {});
+    });
     return publicJob(job);
   }
 
@@ -105,7 +128,7 @@ export class JobManager {
     const job = this.jobs.get(jobId);
     if (!job) throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA, "Unknown CANDY job ID.");
     if (job.status !== "completed" || !job.fullResult) throw new CandyContractError(job.status === "cancelled" ? CANDY_ERROR_CODES.JOB_CANCELLED : CANDY_ERROR_CODES.ALGORITHM_FAILURE, "CANDY job has no accepted result.");
-    return job.fullResult;
+    return JSON.parse(JSON.stringify(job.fullResult));
   }
 
   cancel(jobId) {
@@ -115,7 +138,7 @@ export class JobManager {
     if (TERMINAL.has(job.status)) return publicJob(job);
     this.transition(job, job.status === "queued" ? "cancelled" : "cancelling");
     job.controller.abort();
-    if (job.status === "cancelling") this.transition(job, "cancelled");
+    if (job.status === "cancelling" && job.request.algorithm !== MOTIF_ALGORITHM) this.transition(job, "cancelled");
     return publicJob(job);
   }
 
@@ -127,9 +150,30 @@ export class JobManager {
 
   async execute(job) {
     let workspace;
+    let motifTerminal = null;
     try {
       if (job.controller.signal.aborted) return;
       this.transition(job, "preparing");
+      if (job.request.algorithm === MOTIF_ALGORITHM) {
+        const packed = await prepareMotifJob(job,this.artifactStore);
+        workspace = await mkdtemp(join(tmpdir(),"candy-job-"));
+        const requestPath = join(workspace,"request.txt");
+        await writeFile(requestPath,packed.text,{encoding:"utf8",mode:0o600});
+        if (job.controller.signal.aborted) throw new CandyContractError(CANDY_ERROR_CODES.JOB_CANCELLED,"Motif job was cancelled before native execution.");
+        this.transition(job,"running");
+        const processResult = await this.runner.run({ backend: job.request.backend, requestPath, timeoutMs: job.request.timeoutMs, deviceId: job.request.deviceId, signal: job.controller.signal });
+        if (job.controller.signal.aborted) throw new CandyContractError(CANDY_ERROR_CODES.JOB_CANCELLED,"Motif job was cancelled before result validation.");
+        this.transition(job,"validating");
+        const result = acceptMotifNative(processResult,packed,job,this.runtimeSessionId);
+        const bytes = Buffer.from(JSON.stringify(result));
+        if (bytes.length > this.config.limits.resultBytes) throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT,"Motif result exceeds the configured size limit.");
+        const artifact = await this.artifactStore.put(bytes,"application/vnd.candy.result+json");
+        if (job.controller.signal.aborted) throw new CandyContractError(CANDY_ERROR_CODES.JOB_CANCELLED,"Motif job was cancelled before result acceptance.");
+        job.fullResult = JSON.parse(JSON.stringify({ ...result, resultArtifactRef: artifact }));
+        job.resultRef = artifact.id;
+        motifTerminal = "completed";
+        return;
+      }
       const graph = parseJson(await this.artifactStore.read(job.payload.graphArtifactId));
       if (graph.graphType !== job.snapshot.graphType) throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_TYPE, "Canonical graph artifact type does not match its snapshot.");
       const csr = canonicalOrdinaryGraphToCsr(graph, { limits: { maxVertices: this.config.limits.maxVertices, maxEdges: this.config.limits.maxEdges } });
@@ -158,7 +202,11 @@ export class JobManager {
       this.transition(job, "validating");
       const native = parseNativeResult(processResult.stdout);
       if (processResult.exitCode !== 0) throw new CandyContractError(CANDY_ERROR_CODES.PROCESS_CRASH, "Native SSSP returned success content with a non-zero exit status.", { exitCode: processResult.exitCode });
-      if (native.backend !== job.request.backend || native.graphId !== job.request.graphRef.graphId || native.graphVersion !== job.request.graphRef.graphVersion || native.mode !== job.request.mode || native.source !== csr.mapping.toNative(job.request.parameters.sourceVertexId)) throw new CandyContractError(CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE, "Native result identity does not match the authorized job.");
+      // The frozen Scope 1 OpenMP protocol predates the backend output field.
+      // Its identity comes from the fixed selected executable; an explicit
+      // conflicting backend remains invalid, and CUDA must always declare it.
+      const backendMatches = native.backend === job.request.backend || job.request.backend === "LOCAL_OPENMP" && !Object.hasOwn(native, "backend");
+      if (!backendMatches || native.graphId !== job.request.graphRef.graphId || native.graphVersion !== job.request.graphRef.graphVersion || native.mode !== job.request.mode || native.source !== csr.mapping.toNative(job.request.parameters.sourceVertexId)) throw new CandyContractError(CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE, "Native result identity does not match the authorized job.");
       const fullArtifact = await this.artifactStore.put(Buffer.from(JSON.stringify({ ...native, vertexMapping: csr.mapping.entries })), "application/vnd.candy.result+json");
       const result = {
         schemaVersion: CANDY_SCHEMA_VERSIONS.ALGORITHM_RESULT,
@@ -185,14 +233,42 @@ export class JobManager {
     } catch (error) {
       if (job.controller.signal.aborted || error?.code === CANDY_ERROR_CODES.JOB_CANCELLED) {
         job.error = new CandyContractError(CANDY_ERROR_CODES.JOB_CANCELLED, "CANDY job was cancelled.").toJSON();
-        this.transition(job, "cancelled");
+        if (job.request.algorithm === MOTIF_ALGORITHM) motifTerminal = "cancelled";
+        else this.transition(job, "cancelled");
       } else {
         const safe = error instanceof CandyContractError ? error : new CandyContractError(CANDY_ERROR_CODES.ALGORITHM_FAILURE, "CANDY job failed during controlled execution.");
         job.error = safe.toJSON();
-        this.transition(job, "failed");
+        if (job.request.algorithm === MOTIF_ALGORITHM) motifTerminal = "failed";
+        else this.transition(job, "failed");
       }
     } finally {
-      if (workspace) await rm(workspace, { recursive: true, force: true });
+      if (workspace) {
+        try { await rm(workspace, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }); }
+        catch {
+          job.fullResult = null;
+          job.resultRef = null;
+          job.error = new CandyContractError(CANDY_ERROR_CODES.ALGORITHM_FAILURE, "Native request cleanup failed; no result was accepted.").toJSON();
+          if (job.request.algorithm === MOTIF_ALGORITHM) motifTerminal = "failed";
+          else this.transition(job, job.controller.signal.aborted ? "cancelled" : "failed");
+        }
+      }
+      if (motifTerminal) {
+        if (job.controller.signal.aborted) {
+          motifTerminal = "cancelled";
+          job.fullResult = null;
+          job.resultRef = null;
+          job.error = new CandyContractError(CANDY_ERROR_CODES.JOB_CANCELLED, "CANDY job was cancelled.").toJSON();
+        }
+        this.transition(job, motifTerminal);
+      }
     }
+  }
+
+  async close() {
+    this.closing = true;
+    for (const job of this.jobs.values()) if (!TERMINAL.has(job.status)) this.cancel(job.jobId);
+    // Submit schedules execution in a microtask; drain that scheduling first.
+    await Promise.resolve();
+    await Promise.allSettled([...this.executions]);
   }
 }
