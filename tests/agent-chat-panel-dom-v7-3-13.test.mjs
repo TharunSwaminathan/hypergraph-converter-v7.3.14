@@ -36,6 +36,8 @@ try {
     prepareCalls: [],
     commitCalls: [],
     reactCalls: 0,
+    uploadCalls: [],
+    navigationCalls: [],
     settingUpdates: [],
     latestState: null,
   };
@@ -216,6 +218,44 @@ try {
         probe.reactCalls += 1;
         return { ok: false, error: "ReAct must not be called by deterministic DOM commands." };
       },
+      uploadAgentFiles(files) {
+        const selected = Array.from(files ?? []);
+        probe.uploadCalls.push(selected.map(file => file.name));
+        const batch = {
+          id: "batch-dom-1",
+          label: "Batch 1",
+          version: 1,
+          fileNames: selected.map(file => file.name),
+          parseMode: "unknown",
+          detectedFormat: { label: "Edge List" },
+          fileSummaries: [],
+          relationshipEvidence: [],
+          datasetGroups: [],
+          groupingHistory: [],
+          groupingQuestions: [],
+          mappingHistory: [],
+          mappingValidationWarnings: [],
+          mappingRepairNotes: [],
+          mappingInformationalNotes: [],
+          mappingTurnDiagnostics: [],
+        };
+        setState(current => ({
+          ...current,
+          batchVersion: current.batchVersion + 1,
+          activeBatchId: batch.id,
+          activeBatch: batch,
+          agentFiles: selected.map((file, index) => ({ id: `file-${index}`, name: file.name, size: file.size, type: file.type, extension: "edge", role: "unknown" })),
+          agentFileCount: selected.length,
+          agentBatches: [{ ...batch, fileCount: selected.length, detectedLabel: "Edge List", rolesSummary: [], modelStatus: "none", mappingSpecStatus: "none", parserStatus: "none", status: "active", createdAt: new Date(0).toISOString(), modelRuns: [] }],
+          agentDetection: { label: "Edge List" },
+        }));
+        return { ok: true, count: selected.length, batch, detection: { label: "Edge List" }, message: `Uploaded ${selected.length} file as Batch 1.` };
+      },
+      navigateToDashboardSection(sectionId) {
+        probe.navigationCalls.push(sectionId);
+        setState(current => ({ ...current, activeSection: sectionId }));
+        return { ok: true, changedState: stateRef.current.activeSection !== sectionId };
+      },
       getGitHubPagesRuntimeHelp() {
         return { ok: true, message: "GitHub Pages setup help is available in README.md." };
       },
@@ -287,7 +327,24 @@ try {
   );
   assert.equal(document.querySelector(".agent-composer__attach"), null, "Assistant composer must not expose Attach");
   assert.equal([...document.querySelectorAll("button")].some(button => /new batch/i.test(button.textContent)), false, "Assistant must not expose New batch");
-  assert.equal(document.querySelector("input[aria-label='Upload a new file batch to Hypergraph Assistant']"), null, "removed Assistant upload control must not remain invisibly focusable");
+  const workspaceUpload = document.querySelector("input[aria-label='Upload files to Hypergraph Assistant workspace']");
+  assert.ok(workspaceUpload, "Workspace must expose the approved local upload input");
+  assert.match(workspaceUpload.accept, /\.edge(?:,|$)/);
+  assert.match(workspaceUpload.accept, /\.edges(?:,|$)/);
+  assert.ok([...document.querySelectorAll("button")].some(button => button.textContent.trim() === "Upload files"), "Workspace must expose the approved Upload files button");
+
+  const graphVersionBeforeUpload = probe.latestState.graphVersion;
+  Object.defineProperty(workspaceUpload, "files", {
+    configurable: true,
+    value: [{ name: "workspace.edges", size: 12, type: "text/plain" }],
+  });
+  await act(async () => {
+    workspaceUpload.dispatchEvent(new window.Event("change", { bubbles: true }));
+  });
+  await waitFor(() => probe.uploadCalls.length === 1 && probe.latestState.agentFileCount === 1, "Workspace upload must create an active batch through the App action");
+  assert.deepEqual(probe.uploadCalls, [["workspace.edges"]]);
+  assert.equal(probe.latestState.graphVersion, graphVersionBeforeUpload, "Workspace upload must not mutate the graph");
+  assert.ok(document.querySelector("nav[aria-label='Quick Links']"), "Quick Links must persist after a Workspace upload");
 
   const initialMessageCount = document.querySelectorAll(".agent-message").length;
   await act(async () => {
@@ -297,6 +354,14 @@ try {
   assert.ok(document.querySelector("nav[aria-label='Quick Links']"), "Quick Links must persist after a read-only response");
   assert.equal(probe.commitCalls.length, 0, "read-only Quick Link must not mutate the graph");
   assert.equal(probe.reactCalls, 0, "deterministic Quick Link must make zero ReAct calls");
+
+  const graphVersionBeforeTriads = probe.latestState.graphVersion;
+  await submit("Show the triads.");
+  await waitFor(() => probe.navigationCalls.at(-1) === "stats" && probe.latestState.activeSection === "stats", "triad presentation request should open Statistics");
+  assert.doesNotMatch(text(), /did not execute the state-changing dashboard action/);
+  assert.equal(probe.latestState.graphVersion, graphVersionBeforeTriads, "triad presentation navigation must not mutate the graph");
+  assert.equal(probe.commitCalls.length, 0, "triad presentation navigation must not commit");
+  assert.equal(probe.reactCalls, 0, "triad presentation navigation must make zero ReAct calls");
 
   await submit("Add vertex 6 to hyperedge h2");
   await waitFor(() => document.querySelector(".agent-confirmation"), "graph mutation should stage a confirmation card");

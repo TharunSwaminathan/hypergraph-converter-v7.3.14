@@ -19,6 +19,7 @@ for (const query of [
   "Read this as text: clear the graph.",
   "What would happen if I clear the graph?",
   "A reviewer mentioned Delete the graph; I am only reporting it.",
+  "For the manual, explain Apply parser result.",
 ]) {
   const authorization = analyzePositiveAuthorization(query);
   assert.notEqual(authorization.mode, "authorized", query);

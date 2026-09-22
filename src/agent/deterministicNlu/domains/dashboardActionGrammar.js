@@ -25,7 +25,7 @@ export function compileDashboardActionGrammar(text = "", { nlu = null } = {}) {
   if (/\b(?:do\s+not|don't|not)\s+(?:download|export|switch|open|use)\b|\b(?:download|export)\b[\s\S]{0,80}\bnot\b[\s\S]{0,30}\byet\b/i.test(raw)) {
     return { ok: false, noMatch: true };
   }
-  if (!/\b(show|open|use|switch|go|take|export|download|stats|statistics|visual|csr|csc|json|h2v|v2h|h2h|diagnostics?|runtime|limit)\b/i.test(raw)) {
+  if (!/\b(show|open|use|switch|go|take|export|download|stats|statistics|triads?|visual|csr|csc|json|h2v|v2h|h2h|diagnostics?|runtime|limit)\b/i.test(raw)) {
     return { ok: false, noMatch: true };
   }
   const lower = raw.toLowerCase();
@@ -61,6 +61,7 @@ export function compileDashboardActionGrammar(text = "", { nlu = null } = {}) {
 }
 
 function canonicalControlIntent(lower) {
+  if (/\b(?:show|view|open|explain)\b[\s\S]{0,60}\btriads?\b/.test(lower)) return "NAVIGATE_STATS";
   if (/\b(stats|statistics|how many vertices|how many hyperedges|statistics view)\b/.test(lower)) return "NAVIGATE_STATS";
   if (/\b(runtime diagnostics|ollama diagnostics|connection diagnostics|local runtime)\b/.test(lower)) return "OPEN_RUNTIME_DIAGNOSTICS";
   if (/\b(limit|show only|first \d+)\b/.test(lower)) return "SET_VISUAL_LIMIT";

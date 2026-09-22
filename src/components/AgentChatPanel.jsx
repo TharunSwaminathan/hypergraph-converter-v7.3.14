@@ -69,6 +69,7 @@ import { reactOrchestratorEnabled } from "../agent/reactOrchestratorConfig.js";
 import { candyRequestConfirmationBinding, candyRequestNeedsConfirmation } from "../candy/requestPolicy.js";
 import { routeDeterministicCandyRequest } from "../candy/deterministicRouting.js";
 import { authorizeCandyReactAction } from "../agent/candyActionAuthorization.js";
+import { UPLOAD_ACCEPT_ATTRIBUTE } from "../agent/uploadPolicy.js";
 
 const SUGGESTIONS = [
   "Explain H2V",
@@ -136,7 +137,7 @@ function sideEffectScopeForAgentPlan(plan) {
   }
   if (kind === "open_file_picker") return "file_picker";
   if (["download_export", "export_graph_png", "copy_ai_prompt"].includes(kind)) return "download_or_copy";
-  if (["switch_route", "switch_section", "select_export_preview", "set_visual_limit", "set_graph_view", "set_graph_layout", "search_graph_vertex", "reset_graph_view", "reheat_graph", "scroll_visualization", "view_previous_batch"].includes(kind)) return "navigation";
+  if (["switch_route", "switch_section", "show_stats", "select_export_preview", "set_visual_limit", "set_graph_view", "set_graph_layout", "search_graph_vertex", "reset_graph_view", "reheat_graph", "scroll_visualization", "view_previous_batch"].includes(kind)) return "navigation";
   if (["graph_edit_preview", "add_graph_edge", "remove_graph_edge", "rename_graph_vertex", "add_graph_vertex", "remove_graph_vertex", "clear_graph"].includes(kind)) return "graph_edit_preview";
   // The exact capability plan is intentionally not guessed here.  A caller
   // can only execute it after the authorization contract names this scope.
@@ -234,7 +235,7 @@ function modelResultText(result) {
   return `${data.summary}${roles ? ` Roles: ${roles}.` : ""}${warnings}${repaired}${partial}`;
 }
 
-export default function AgentChatPanel({ agentState, agentActions }) {
+export default function AgentChatPanel({ agentState, agentActions, externalMotifRequest = null, onExternalMotifRequestHandled = () => {} }) {
   const [messages, setMessages] = useState([WELCOME_MESSAGE]);
   const [input, setInput] = useState("");
   const [pendingAction, setPendingAction] = useState(null);
@@ -251,8 +252,10 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   const [lastNluDiagnostic, setLastNluDiagnostic] = useState(null);
   const [streaming, setStreamingState] = useState(false);
   const [transientStatus, setTransientStatus] = useState("");
+  const [workspaceUploadBusy, setWorkspaceUploadBusy] = useState(false);
   const [showJumpToLatest, setShowJumpToLatest] = useState(false);
   const historyRef = useRef(null);
+  const workspaceFileInputRef = useRef(null);
   const mappingEditorRef = useRef(null);
   const abortControllerRef = useRef(null);
   const submissionCoordinatorRef = useRef(null);
@@ -267,6 +270,8 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   const expectedContinuationTransitionRef = useRef(null);
   const resumingContinuationRef = useRef(false);
   const reactContinuationRef = useRef(null);
+  const handledExternalMotifRequestRef = useRef(null);
+  const externalMotifRequestHandlerRef = useRef(null);
   const activeBatchSignature = activeBatchFileSignature(agentState);
   const hasSpecialist = Boolean(agentState.specialist);
   // The model coordinator may settle before its React props reach submit's
@@ -360,6 +365,28 @@ export default function AgentChatPanel({ agentState, agentActions }) {
   useEffect(() => {
     latestStateRef.current = agentState;
   }, [agentState]);
+
+  externalMotifRequestHandlerRef.current = async request => {
+      const requestId = request.id;
+      if (busy || pendingAction) {
+        append("agent", "The Statistics motif request was not staged because another Assistant action is busy or awaiting confirmation. Finish or cancel it, then choose Compute 3-edge motifs again.", "warning");
+        onExternalMotifRequestHandled(requestId);
+        return;
+      }
+      const argumentsValue = request.argumentsValue;
+      await executeReactCapability(
+        { action: "SUBMIT_CANDY_MOTIF_JOB", arguments: argumentsValue },
+        "Count the 3-edge motifs on the current hypergraph using CUDA.",
+      );
+      onExternalMotifRequestHandled(requestId);
+  };
+
+  useEffect(() => {
+    const requestId = externalMotifRequest?.id;
+    if (requestId == null || handledExternalMotifRequestRef.current === requestId) return;
+    handledExternalMotifRequestRef.current = requestId;
+    void externalMotifRequestHandlerRef.current?.(externalMotifRequest);
+  }, [externalMotifRequest]);
 
   useEffect(() => {
     pendingContinuationRef.current = pendingContinuation;
@@ -488,6 +515,30 @@ export default function AgentChatPanel({ agentState, agentActions }) {
         : `I could not verify removal of ${file.name}.`,
       verified ? "status" : "error",
     );
+  }
+
+  async function uploadWorkspaceFiles(fileList) {
+    const files = Array.from(fileList ?? []);
+    if (!files.length || workspaceUploadBusy || busy || pendingAction) return;
+    const previousVersion = latestStateRef.current.batchVersion;
+    setWorkspaceUploadBusy(true);
+    setTransientStatus(`Reading ${files.length} local file${files.length === 1 ? "" : "s"}…`);
+    try {
+      const result = await agentActions.uploadAgentFiles(files);
+      const verified = result?.ok && await verify({ type: "batch_version", previous: previousVersion });
+      if (verified) {
+        append("agent", `${result.message} The files are available in Workspace; no parse, conversion, parser run, or graph change was started.`, "status");
+      } else {
+        append("agent", result?.cancelled
+          ? (result.error ?? "The upload was cancelled before a batch was created.")
+          : `The Workspace upload was not accepted. ${result?.error ?? "I could not verify a new active batch."}`, result?.cancelled ? "warning" : "error");
+      }
+    } catch (error) {
+      append("agent", `The Workspace upload failed. ${error instanceof Error ? error.message : String(error)}`, "error");
+    } finally {
+      setWorkspaceUploadBusy(false);
+      setTransientStatus("");
+    }
   }
 
   async function activateBatch(batchId) {
@@ -2935,6 +2986,28 @@ export default function AgentChatPanel({ agentState, agentActions }) {
               <span className="agent-upload__count">{agentState.agentFileCount || "none"}</span>
             </div>
             <div className="agent-upload__buttons">
+              <input
+                ref={workspaceFileInputRef}
+                className="agent-upload__input"
+                type="file"
+                multiple
+                accept={UPLOAD_ACCEPT_ATTRIBUTE}
+                aria-label="Upload files to Hypergraph Assistant workspace"
+                onClick={event => { event.currentTarget.value = ""; }}
+                onChange={event => {
+                  const files = event.currentTarget.files;
+                  uploadWorkspaceFiles(files);
+                  event.currentTarget.value = "";
+                }}
+              />
+              <button
+                type="button"
+                className="agent-upload__button"
+                onClick={() => workspaceFileInputRef.current?.click()}
+                disabled={busy || workspaceUploadBusy || Boolean(pendingAction)}
+              >
+                {workspaceUploadBusy ? "Reading files…" : "Upload files"}
+              </button>
               {agentState.activeBatch && (
                 <button type="button" className="agent-upload__clear" onClick={() => submit("Clear active batch")} disabled={busy || Boolean(pendingAction)}>
                   Clear active
@@ -2999,7 +3072,7 @@ export default function AgentChatPanel({ agentState, agentActions }) {
           )}
 
           {agentState.agentFileCount === 0 ? (
-            <div className="agent-upload__empty">Use Batch Updates to choose or drop local data files. Each accepted upload creates a new active batch, and nothing leaves your browser.</div>
+            <div className="agent-upload__empty">Use Upload files here, or choose/drop files in Batch Updates. Each accepted upload creates a new active batch, and nothing leaves your browser.</div>
           ) : (
             <>
               <div className="agent-batch-summary">

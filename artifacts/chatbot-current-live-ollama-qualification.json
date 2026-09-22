@@ -1,0 +1,313 @@
+{
+  "schemaVersion": "candy.scope4c-live-ollama/1",
+  "status": "LIVE_OLLAMA_QUALIFICATION_PASS",
+  "cases": [
+    {
+      "id": "A_STATIC",
+      "query": "Count the 3-edge motifs on the current hypergraph using CUDA.",
+      "graphType": "Hypergraph",
+      "syntheticInvalidFirstStep": false,
+      "outcome": "exact_cuda_confirmation_staged",
+      "classification": null,
+      "error": null,
+      "metrics": {
+        "modelCalls": 1,
+        "actionsExecuted": 0,
+        "confirmationsStaged": 1,
+        "fallbackCount": 0,
+        "iterations": 1,
+        "observationChars": [
+          928
+        ],
+        "promptChars": [
+          8563
+        ]
+      },
+      "outputs": [
+        {
+          "raw": "{\n  \"outcome\": \"PROPOSE_ACTION\",\n  \"action\": \"SUBMIT_CANDY_MOTIF_JOB\",\n  \"arguments\": {\n    \"mode\": \"STATIC\",\n    \"backend\": \"CUDA_STATIC\",\n    \"deviceId\": 0,\n    \"timeoutMs\": 5000\n  },\n  \"requiresUserInput\": false,\n  \"userMessage\": null,\n  \"finish\": false\n}",
+          "done": true,
+          "doneReason": "stop",
+          "promptChars": 8563
+        }
+      ],
+      "proposal": {
+        "action": "SUBMIT_CANDY_MOTIF_JOB",
+        "arguments": {
+          "mode": "STATIC",
+          "backend": "CUDA_STATIC",
+          "deviceId": 0,
+          "timeoutMs": 5000
+        }
+      },
+      "workspaceMutated": false,
+      "liveRuntime": {
+        "jobId": "e09dcb71-f66f-4272-ba99-1f277ca351c4",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "interpretation": "absolute_counts",
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultArtifactRef": {
+          "id": "sha256:28f4fdf300d1775b3a542d934674d975a4defef4013f677576462100e6937be7",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 1596
+        },
+        "cuda": {
+          "deviceIndex": 0,
+          "deviceName": "NVIDIA GeForce RTX 5060",
+          "computeMajor": 12,
+          "computeMinor": 0,
+          "compiledArchitecture": "sm_120",
+          "compilerVersion": "13.4.59",
+          "runtimeVersion": 13040,
+          "driverVersion": 13040,
+          "kernelLaunchSucceeded": true,
+          "synchronizationSucceeded": true,
+          "kernelMilliseconds": 0.78032
+        }
+      }
+    },
+    {
+      "id": "B_INCREMENTAL",
+      "query": "How do the motif counts change if I apply this update?",
+      "graphType": "DynamicHypergraph",
+      "syntheticInvalidFirstStep": false,
+      "outcome": "exact_cuda_confirmation_staged",
+      "classification": null,
+      "error": null,
+      "metrics": {
+        "modelCalls": 1,
+        "actionsExecuted": 0,
+        "confirmationsStaged": 1,
+        "fallbackCount": 0,
+        "iterations": 1,
+        "observationChars": [
+          1535
+        ],
+        "promptChars": [
+          9593
+        ]
+      },
+      "outputs": [
+        {
+          "raw": "{\n  \"outcome\": \"PROPOSE_ACTION\",\n  \"action\": \"SUBMIT_CANDY_MOTIF_JOB\",\n  \"arguments\": {\n    \"mode\": \"INCREMENTAL\",\n    \"backend\": \"CUDA_INCREMENTAL\",\n    \"deviceId\": 0,\n    \"timeoutMs\": 5000,\n    \"updateContextId\": \"delete-h2\"\n  },\n  \"requiresUserInput\": false,\n  \"userMessage\": null,\n  \"finish\": false\n}",
+          "done": true,
+          "doneReason": "stop",
+          "promptChars": 9593
+        }
+      ],
+      "proposal": {
+        "action": "SUBMIT_CANDY_MOTIF_JOB",
+        "arguments": {
+          "mode": "INCREMENTAL",
+          "backend": "CUDA_INCREMENTAL",
+          "deviceId": 0,
+          "timeoutMs": 5000,
+          "updateContextId": "delete-h2"
+        }
+      },
+      "workspaceMutated": false,
+      "liveRuntime": {
+        "jobId": "2f59768c-45ca-4749-8f9e-d80f16daf70d",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "interpretation": "delta_only",
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultArtifactRef": {
+          "id": "sha256:9df8dc616fd154b1395bc53503b196cafa251b2bcb21ca2bd2ff5096bac3698a",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 2219
+        },
+        "cuda": {
+          "deviceIndex": 0,
+          "deviceName": "NVIDIA GeForce RTX 5060",
+          "computeMajor": 12,
+          "computeMinor": 0,
+          "compiledArchitecture": "sm_120",
+          "compilerVersion": "13.4.59",
+          "runtimeVersion": 13040,
+          "driverVersion": 13040,
+          "kernelLaunchSucceeded": true,
+          "synchronizationSucceeded": true,
+          "kernelMilliseconds": 0.612192
+        }
+      }
+    },
+    {
+      "id": "C_ORDINARY",
+      "query": "Count the 3-edge motifs on the current hypergraph using CUDA.",
+      "graphType": "OrdinaryGraph",
+      "syntheticInvalidFirstStep": false,
+      "outcome": "motif_request_rejected",
+      "classification": "INVALID_GRAPH_TYPE",
+      "error": null,
+      "metrics": {
+        "modelCalls": 0,
+        "actionsExecuted": 0,
+        "confirmationsStaged": 0,
+        "fallbackCount": 0,
+        "iterations": 0,
+        "observationChars": [],
+        "promptChars": []
+      },
+      "outputs": [],
+      "proposal": null,
+      "workspaceMutated": false
+    },
+    {
+      "id": "D_HYPERGRAPH_INCREMENTAL",
+      "query": "Run incremental motif analysis.",
+      "graphType": "Hypergraph",
+      "syntheticInvalidFirstStep": false,
+      "outcome": "motif_request_rejected",
+      "classification": "INVALID_GRAPH_TYPE",
+      "error": null,
+      "metrics": {
+        "modelCalls": 0,
+        "actionsExecuted": 0,
+        "confirmationsStaged": 0,
+        "fallbackCount": 0,
+        "iterations": 0,
+        "observationChars": [],
+        "promptChars": []
+      },
+      "outputs": [],
+      "proposal": null,
+      "workspaceMutated": false
+    },
+    {
+      "id": "E_UNAVAILABLE",
+      "query": "Count the 3-edge motifs on the current hypergraph using CUDA.",
+      "graphType": "Hypergraph",
+      "syntheticInvalidFirstStep": false,
+      "outcome": "motif_request_rejected",
+      "classification": "BACKEND_UNAVAILABLE",
+      "error": null,
+      "metrics": {
+        "modelCalls": 0,
+        "actionsExecuted": 0,
+        "confirmationsStaged": 0,
+        "fallbackCount": 0,
+        "iterations": 0,
+        "observationChars": [],
+        "promptChars": []
+      },
+      "outputs": [],
+      "proposal": null,
+      "workspaceMutated": false
+    },
+    {
+      "id": "F_SCHEMA_RECOVERY",
+      "query": "Count the 3-edge motifs on the current hypergraph using CUDA.",
+      "graphType": "Hypergraph",
+      "syntheticInvalidFirstStep": true,
+      "outcome": "exact_cuda_confirmation_staged",
+      "classification": null,
+      "error": null,
+      "metrics": {
+        "modelCalls": 2,
+        "actionsExecuted": 0,
+        "confirmationsStaged": 1,
+        "fallbackCount": 0,
+        "iterations": 2,
+        "observationChars": [
+          937,
+          1185
+        ],
+        "promptChars": [
+          8873
+        ]
+      },
+      "outputs": [
+        {
+          "raw": "{\n  \"outcome\": \"PROPOSE_ACTION\",\n  \"action\": \"SUBMIT_CANDY_MOTIF_JOB\",\n  \"arguments\": {\n    \"mode\": \"STATIC\",\n    \"backend\": \"CUDA_STATIC\",\n    \"deviceId\": 0,\n    \"timeoutMs\": 5000\n  },\n  \"requiresUserInput\": false,\n  \"userMessage\": null,\n  \"finish\": false\n}",
+          "done": true,
+          "doneReason": "stop",
+          "promptChars": 8873
+        }
+      ],
+      "proposal": {
+        "action": "SUBMIT_CANDY_MOTIF_JOB",
+        "arguments": {
+          "mode": "STATIC",
+          "backend": "CUDA_STATIC",
+          "deviceId": 0,
+          "timeoutMs": 5000
+        }
+      },
+      "workspaceMutated": false,
+      "liveRuntime": {
+        "jobId": "5973004f-c804-4f58-970d-d35f080a12f1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "interpretation": "absolute_counts",
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultArtifactRef": {
+          "id": "sha256:c56a3a3f5571eb2620055ea53d7665520f1c7e43907e44ca296892c6427a4a1a",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 1596
+        },
+        "cuda": {
+          "deviceIndex": 0,
+          "deviceName": "NVIDIA GeForce RTX 5060",
+          "computeMajor": 12,
+          "computeMinor": 0,
+          "compiledArchitecture": "sm_120",
+          "compilerVersion": "13.4.59",
+          "runtimeVersion": 13040,
+          "driverVersion": 13040,
+          "kernelLaunchSucceeded": true,
+          "synchronizationSucceeded": true,
+          "kernelMilliseconds": 1.09587
+        }
+      }
+    },
+    {
+      "id": "G_PROJECTION",
+      "query": "Project this and then count motifs.",
+      "graphType": "Hypergraph",
+      "syntheticInvalidFirstStep": false,
+      "outcome": "motif_request_rejected",
+      "classification": "INVALID_GRAPH_TYPE",
+      "error": null,
+      "metrics": {
+        "modelCalls": 0,
+        "actionsExecuted": 0,
+        "confirmationsStaged": 0,
+        "fallbackCount": 0,
+        "iterations": 0,
+        "observationChars": [],
+        "promptChars": []
+      },
+      "outputs": [],
+      "proposal": null,
+      "workspaceMutated": false
+    }
+  ],
+  "model": {
+    "name": "qwen3:8b",
+    "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+    "version": "0.34.2",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "8.2B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 4096
+    }
+  }
+}

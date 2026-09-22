@@ -24,6 +24,11 @@ import {
   computeCanvasBackingSize,
   createPreviewRafScheduler,
   hyperedgeMetadata,
+  parsePreviewLimitInput,
+  PREVIEW_LIMIT_MAX,
+  PREVIEW_LIMIT_MIN,
+  PREVIEW_SEARCH_MAX_LENGTH,
+  resolvePreviewHyperedgeSearch,
   resolvePreviewSearch,
   shouldDisplayWeight,
 } from "../visualization/previewRuntime.js";
@@ -56,8 +61,12 @@ export default function Viz({
   const [zoom, setZoom] = useState(100);
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 520 });
   const [internalSearch, setInternalSearch] = useState("");
+  const [hyperedgeSearch, setHyperedgeSearch] = useState("");
+  const [customLimit, setCustomLimit] = useState("");
+  const [customLimitError, setCustomLimitError] = useState("");
   const [internalLayout, setInternalLayout] = useState("force");
   const [internalViewMode, setInternalViewMode] = useState("hypergraph"); // "hypergraph" | "linegraph"
+  const previousGraphVersionRef = useRef(graphVersion);
   const search = controlledSearch ?? internalSearch;
   const layout = controlledLayout ?? internalLayout;
   const viewMode = controlledViewMode ?? internalViewMode;
@@ -94,7 +103,28 @@ export default function Viz({
   const coMembershipVisual = useMemo(() => buildVisualCoMembershipOverlay(he), [he]);
   const visualEdges = viewMode === "linegraph" ? lineGraphVisual.edges : coMembershipVisual.edges;
   const searchHit = useMemo(() => resolvePreviewSearch(verts, search), [search, verts]);
+  const hyperedgeSearchHits = useMemo(
+    () => viewMode === "hypergraph" ? resolvePreviewHyperedgeSearch(he, hyperedgeSearch) : [],
+    [he, hyperedgeSearch, viewMode],
+  );
+  const filteredHyperedgeList = hyperedgeSearch.trim() ? hyperedgeSearchHits : he;
   const forceStrategy = useMemo(() => chooseForceStrategy(verts.length), [verts.length]);
+
+  useEffect(() => {
+    if (viewMode === "hypergraph") return;
+    setHyperedgeSearch("");
+    setSelHE(null);
+  }, [viewMode]);
+
+  useEffect(() => {
+    if (previousGraphVersionRef.current === graphVersion) return;
+    previousGraphVersionRef.current = graphVersion;
+    setSelHE(null);
+    setSelV(null);
+    setInfo(null);
+    setSearchValue("");
+    setHyperedgeSearch("");
+  }, [graphVersion, setSearchValue]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -186,11 +216,12 @@ export default function Viz({
       ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.s, t.s);
 
       const selHeObj = selHE != null ? he.find(h => graphIdentifiersEqual(h.id, selHE)) : null;
-      const hiVerts = new Set((selHeObj ? selHeObj.vertices : (selV != null ? [selV] : searchHit != null ? [searchHit] : [])).map(String));
+      const searchedHyperedgeVertices = hyperedgeSearchHits.flatMap(hyperedge => hyperedge.vertices);
+      const hiVerts = new Set((selHeObj ? selHeObj.vertices : (selV != null ? [selV] : searchHit != null ? [searchHit] : searchedHyperedgeVertices)).map(String));
       const hiHEs = selV != null ? new Set(he.filter(h => h.vertices.map(String).includes(String(selV))).map(h => String(h.id)))
         : searchHit != null ? new Set(he.filter(h => h.vertices.map(String).includes(String(searchHit))).map(h => String(h.id)))
-          : selHE != null ? new Set([String(selHE)]) : new Set();
-      const anySelect = selHE != null || selV != null || searchHit != null;
+          : selHE != null ? new Set([String(selHE)]) : new Set(hyperedgeSearchHits.map(h => String(h.id)));
+      const anySelect = selHE != null || selV != null || searchHit != null || hyperedgeSearch.trim().length > 0;
 
       if (viewMode === "hypergraph") {
         he.forEach((h, i) => {
@@ -260,7 +291,7 @@ export default function Viz({
       if (schedulerRef.current === scheduler) schedulerRef.current = null;
       if (requestDrawRef.current === scheduler.request) requestDrawRef.current = () => false;
     };
-  }, [he, verts, topology, visualEdges, selHE, selV, searchHit, layout, viewMode, algoHighlight, componentColors, canvasSize, forceStrategy]);
+  }, [he, verts, topology, visualEdges, selHE, selV, searchHit, hyperedgeSearch, hyperedgeSearchHits, layout, viewMode, algoHighlight, componentColors, canvasSize, forceStrategy]);
 
   function toWorld(cx, cy) { const t = stateRef.current?.transform || { x: 0, y: 0, s: 1 }; return { wx: (cx - t.x) / t.s, wy: (cy - t.y) / t.s }; }
   function getXY(e) { const r = canvasRef.current.getBoundingClientRect(); const src = e.touches ? e.touches[0] : e; return { cx: src.clientX - r.left, cy: src.clientY - r.top }; }
@@ -315,7 +346,7 @@ export default function Viz({
     };
   }, [onUp]);
   useEffect(() => { const c = canvasRef.current; if (!c) return; c.addEventListener("wheel", onWheel, { passive: false }); return () => c.removeEventListener("wheel", onWheel); }, [onWheel]);
-  const reset = useCallback(() => { const s = stateRef.current; if (s) { s.transform = { x: 0, y: 0, s: 1 }; if (layout === "force") s.alpha = 0.8; } setZoom(100); setSelHE(null); setSelV(null); requestDrawRef.current(); }, [layout]);
+  const reset = useCallback(() => { const s = stateRef.current; if (s) { s.transform = { x: 0, y: 0, s: 1 }; if (layout === "force") s.alpha = 0.8; } setZoom(100); setSelHE(null); setSelV(null); setSearchValue(""); setHyperedgeSearch(""); setCustomLimitError(""); requestDrawRef.current(); }, [layout, setSearchValue]);
   const reheat = useCallback(() => { if (layout !== "force") return; if (reheatForceState(stateRef.current)) requestDrawRef.current(); }, [layout]);
   function downloadPNG() { const c = canvasRef.current; if (!c) return; const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "hypergraph.png"; a.click(); }
   useEffect(() => {
@@ -333,6 +364,18 @@ export default function Viz({
     lastExportPngSignalRef.current = exportPngSignal;
     downloadPNG();
   }, [exportPngSignal]);
+
+  function applyCustomPreviewLimit(event) {
+    event.preventDefault();
+    const parsed = parsePreviewLimitInput(customLimit);
+    if (!parsed.ok) {
+      setCustomLimitError(parsed.error);
+      return;
+    }
+    setVizLimit(parsed.value);
+    setCustomLimit(String(parsed.value));
+    setCustomLimitError("");
+  }
   const selInfo = useMemo(() => {
     if (selHE != null) { const h = he.find(x => graphIdentifiersEqual(x.id, selHE)); if (!h) return null; return { type: "hyperedge", id: h.id, attrs: hyperedgeMetadata(h) }; }
     if (selV != null) { const inHEs = he.filter(h => h.vertices.map(String).includes(String(selV))); return { type: "vertex", id: String(selV), attrs: [["degree", String(inHEs.length)], ["in", inHEs.map(h => h.id).join(", ") || "none"]] }; }
@@ -371,8 +414,13 @@ export default function Viz({
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <span style={{ fontSize: 13, color: T.textDim }}>show</span>
           {[10, 25, 50, 100, 200].map(n => (
-            <button key={n} onClick={() => setVizLimit(n)} style={{ padding: "4px 11px", borderRadius: 7, fontSize: 13, fontWeight: vizLimit === n ? 700 : 400, border: "1px solid " + (vizLimit === n ? T.accent : T.border), background: vizLimit === n ? T.accentLt : "transparent", color: vizLimit === n ? T.accent : T.textDim, cursor: "pointer" }}>{n}</button>
+            <button key={n} onClick={() => { setVizLimit(n); setCustomLimitError(""); }} style={{ padding: "4px 11px", borderRadius: 7, fontSize: 13, fontWeight: vizLimit === n ? 700 : 400, border: "1px solid " + (vizLimit === n ? T.accent : T.border), background: vizLimit === n ? T.accentLt : "transparent", color: vizLimit === n ? T.accent : T.textDim, cursor: "pointer" }}>{n}</button>
           ))}
+          <form aria-label="Custom preview size" onSubmit={applyCustomPreviewLimit} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+            <label htmlFor="custom-preview-size" style={{ fontSize: 12, color: T.textDim }}>Custom:</label>
+            <input id="custom-preview-size" aria-label="Custom preview size value" inputMode="numeric" value={customLimit} onChange={event => setCustomLimit(event.target.value)} placeholder={`${PREVIEW_LIMIT_MIN}-${PREVIEW_LIMIT_MAX}`} maxLength={12} style={{ width: 78, padding: "4px 7px", borderRadius: 7, border: "1px solid " + (customLimitError ? T.rose : T.border), fontSize: 12, fontFamily: "monospace", background: T.surface, color: T.text }} />
+            <button type="submit" style={{ padding: "4px 9px", borderRadius: 7, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>Apply</button>
+          </form>
           <span style={{ fontSize: 13, color: T.textFaint }}>of {hyperedges.length}</span>
         </div>
         <div style={{ marginLeft: "auto", display: "flex", gap: 8, alignItems: "center" }}>
@@ -382,11 +430,20 @@ export default function Viz({
           <button onClick={downloadPNG} style={{ padding: "5px 12px", borderRadius: 7, border: "1px solid " + T.border, background: "transparent", color: T.accent, fontSize: 13, cursor: "pointer", fontWeight: 600 }}>↓ PNG</button>
         </div>
       </div>
+      {customLimitError && <div role="alert" style={{ marginBottom: 8, color: T.rose, fontSize: 12 }}>{customLimitError}</div>}
       {/* Search */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-        <input value={search} onChange={e => setSearchValue(e.target.value)} placeholder="Search vertex…" style={{ padding: "7px 14px", borderRadius: 8, border: "1px solid " + (searchHit != null ? T.accent : T.border), fontSize: 13, fontFamily: "monospace", outline: "none", width: 220, background: searchHit != null ? T.accentLt : T.surface, color: T.text }} />
-        {search && <button onClick={() => setSearchValue("")} style={{ fontSize: 12, color: T.textDim, background: "none", border: "none", cursor: "pointer" }}>✕</button>}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
+        <input aria-label="Search vertex" maxLength={PREVIEW_SEARCH_MAX_LENGTH} value={search} onChange={e => setSearchValue(e.target.value)} placeholder="Search vertex…" style={{ padding: "7px 14px", borderRadius: 8, border: "1px solid " + (searchHit != null ? T.accent : T.border), fontSize: 13, fontFamily: "monospace", outline: "none", width: 220, background: searchHit != null ? T.accentLt : T.surface, color: T.text }} />
+        {search && <button aria-label="Clear vertex search" onClick={() => setSearchValue("")} style={{ fontSize: 12, color: T.textDim, background: "none", border: "none", cursor: "pointer" }}>✕</button>}
         {searchHit != null && <span style={{ fontSize: 12, color: T.accent, fontWeight: 600 }}>Found: {String(searchHit)}</span>}
+        {search && searchHit == null && <span role="status" style={{ fontSize: 12, color: T.rose }}>Vertex not found</span>}
+        {viewMode === "hypergraph" ? <>
+          <input aria-label="Search hyperedge" maxLength={PREVIEW_SEARCH_MAX_LENGTH} value={hyperedgeSearch} onChange={event => setHyperedgeSearch(event.target.value)} placeholder="Search hyperedge…" style={{ padding: "7px 14px", borderRadius: 8, border: "1px solid " + (hyperedgeSearchHits.length ? T.teal : T.border), fontSize: 13, fontFamily: "monospace", outline: "none", width: 220, background: hyperedgeSearchHits.length ? T.tealLt : T.surface, color: T.text }} />
+          {hyperedgeSearch && <button aria-label="Clear hyperedge search" onClick={() => setHyperedgeSearch("")} style={{ fontSize: 12, color: T.textDim, background: "none", border: "none", cursor: "pointer" }}>✕</button>}
+          {hyperedgeSearch && (hyperedgeSearchHits.length
+            ? <span role="status" style={{ fontSize: 12, color: T.teal, fontWeight: 600 }}>Found {hyperedgeSearchHits.length}: {hyperedgeSearchHits.slice(0, 3).map(item => String(item.id)).join(", ")}{hyperedgeSearchHits.length > 3 ? "…" : ""}</span>
+            : <span role="status" style={{ fontSize: 12, color: T.rose }}>Hyperedge not found</span>)}
+        </> : <span style={{ fontSize: 12, color: T.textFaint }}>Hyperedge search is available in Hypergraph view; Line Graph dots are vertices.</span>}
         <span style={{ fontSize: 12, color: T.textFaint, marginLeft: "auto" }}>scroll=zoom · drag canvas=pan · drag node=move · click=select</span>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 260px", gap: 12 }}>
@@ -432,8 +489,9 @@ export default function Viz({
             {selInfo ? (<><div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, fontWeight: 600 }}>Selected</div><div style={{ fontFamily: "monospace", fontWeight: 700, fontSize: 17, color: selInfo.type === "hyperedge" ? T.accent : T.teal, marginBottom: 10 }}>{selInfo.id}</div>{selInfo.attrs.map(([k, v]) => (<div key={k} style={{ marginBottom: 9 }}><div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: .7, marginBottom: 2, fontWeight: 600 }}>{k}</div><div style={{ fontSize: 13, color: T.text, fontFamily: "monospace", wordBreak: "break-all", lineHeight: 1.6 }}>{v}</div></div>))}<button onClick={() => { setSelHE(null); setSelV(null); }} style={{ marginTop: 4, fontSize: 12, color: T.textDim, background: "none", border: "1px solid " + T.border, borderRadius: 6, padding: "4px 12px", cursor: "pointer" }}>clear ×</button></>) : (<div style={{ color: T.textFaint, fontSize: 13, textAlign: "center", padding: "20px 0", lineHeight: 1.8 }}>Click a node or<br />ring to inspect</div>)}
           </div>
           <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 12, padding: 10, flex: 1, overflowY: "auto", maxHeight: 380, boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
-            <div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, fontWeight: 600, padding: "0 4px" }}>Hyperedges ({he.length})</div>
-            {he.map((h, i) => { const selected = graphIdentifiersEqual(selHE, h.id); return (<div key={h.id} onClick={() => { setSelHE(value => graphIdentifiersEqual(value, h.id) ? null : h.id); setSelV(null); }} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 10px", borderRadius: 8, cursor: "pointer", marginBottom: 3, background: selected ? T.accentLt : "transparent", border: "1px solid " + (selected ? T.accent + "55" : "transparent"), transition: "all .12s" }}><div style={{ width: 10, height: 10, borderRadius: 3, flexShrink: 0, background: PALETTE[i % PALETTE.length] }} /><span style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 700, color: selected ? T.accent : T.text }}>{h.id}</span>{h.time != null && <span style={{ fontSize: 10, color: T.teal }}>t{h.time}</span>}{shouldDisplayWeight(h.weight) && <span style={{ fontSize: 10, color: T.amber }}>w{h.weight}</span>}<span style={{ fontSize: 12, color: T.textDim, marginLeft: "auto", fontFamily: "monospace" }}>{h.vertices.length}v</span></div>); })}
+            <div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, fontWeight: 600, padding: "0 4px" }}>Hyperedges ({filteredHyperedgeList.length}{hyperedgeSearch.trim() ? ` of ${he.length}` : ""})</div>
+            {filteredHyperedgeList.map(h => { const i = he.indexOf(h); const selected = graphIdentifiersEqual(selHE, h.id); return (<div key={h.id} onClick={() => { setSelHE(value => graphIdentifiersEqual(value, h.id) ? null : h.id); setSelV(null); }} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 10px", borderRadius: 8, cursor: "pointer", marginBottom: 3, background: selected ? T.accentLt : "transparent", border: "1px solid " + (selected ? T.accent + "55" : "transparent"), transition: "all .12s" }}><div style={{ width: 10, height: 10, borderRadius: 3, flexShrink: 0, background: PALETTE[i % PALETTE.length] }} /><span style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 700, color: selected ? T.accent : T.text }}>{h.id}</span>{h.time != null && <span style={{ fontSize: 10, color: T.teal }}>t{h.time}</span>}{shouldDisplayWeight(h.weight) && <span style={{ fontSize: 10, color: T.amber }}>w{h.weight}</span>}<span style={{ fontSize: 12, color: T.textDim, marginLeft: "auto", fontFamily: "monospace" }}>{h.vertices.length}v</span></div>); })}
+            {hyperedgeSearch.trim() && filteredHyperedgeList.length === 0 && <div style={{ padding: "12px 8px", fontSize: 12, color: T.textFaint }}>No hyperedges match this read-only filter.</div>}
           </div>
         </div>
       </div>

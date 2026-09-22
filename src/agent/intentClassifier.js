@@ -240,7 +240,7 @@ export function classifyIntent(text) {
   if (visualLimit && /\b(limit|visual|show|only|first|edges?|hyperedges?)\b/.test(normalized)) {
     return { ...result, intent: "change_visual_limit", value: Number(visualLimit[1]) };
   }
-  if (/\b(show|give|display|open|what are|current)\b.*\b(stats?|statistics)\b|\bhow many (?:vertices|hyperedges|incidences)\b/.test(normalized)) {
+  if (/\b(show|give|display|open|what are|current)\b.*\b(stats?|statistics)\b|\b(?:show|view|open|explain)\b.*\btriads?\b|\bhow many (?:vertices|hyperedges|incidences)\b/.test(normalized)) {
     return { ...result, intent: "show_stats" };
   }
   if (/\b(help|guide|guidance|how|generate|create)\b.*\b(custom parser|parser code|multiple files?)\b|\bgenerate parser guidance\b/.test(normalized)) {

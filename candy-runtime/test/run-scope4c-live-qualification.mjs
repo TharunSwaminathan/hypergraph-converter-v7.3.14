@@ -11,6 +11,9 @@ import { canonicalizeHypergraphIncidence } from "../../src/candy/adapters/hyperg
 import { applyHypergraphMotifUpdate } from "../../src/candy/adapters/hypergraphUpdateAdapter.js";
 
 const report = {schemaVersion:"candy.scope4c-live-runtime/1",status:"RUNNING",cases:[],failures:[]};
+const outputUrl = process.env.CANDY_QUALIFICATION_OUTPUT
+  ? new URL(process.env.CANDY_QUALIFICATION_OUTPUT, import.meta.url)
+  : new URL("../../artifacts/candy-scope4c-live-runtime-qualification.json", import.meta.url);
 const child = fork(fileURLToPath(new URL("./scope4c-live-server.mjs",import.meta.url)),[],{stdio:["ignore","pipe","pipe","ipc"]});
 // Private IPC carries the approved pairing credential; it is never recorded.
 const ready = await new Promise((resolve,reject) => { child.once("message",resolve);child.once("error",reject);child.once("exit",code=>reject(new Error(`Runtime startup failed: ${code}`))); });
@@ -98,6 +101,6 @@ try {
 } catch(error) {report.status="LIVE_RUNTIME_QUALIFICATION_FAIL";report.error=error.stack;process.exitCode=1;console.error(error.message);}
 finally {
   child.send("close");await new Promise(resolve=>child.once("exit",resolve));
-  await writeFile(new URL("../../artifacts/candy-scope4c-live-runtime-qualification.json",import.meta.url),JSON.stringify(report,null,2)+"\n");
+  await writeFile(outputUrl,JSON.stringify(report,null,2)+"\n");
   console.log(`${report.status}: ${report.cases.length} live Runtime/CUDA parity cases`);
 }

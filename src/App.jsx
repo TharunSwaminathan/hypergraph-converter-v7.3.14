@@ -34,6 +34,7 @@ import TriadStatistic from "./components/TriadStatistic.jsx";
 import AdvancedOptionsPanel from "./components/AdvancedOptionsPanel.jsx";
 import { useAlgorithms } from "./hooks/useAlgorithms.js";
 import AgentChatPanel from "./components/AgentChatPanel.jsx";
+import CandyMotifStatistics from "./components/CandyMotifStatistics.jsx";
 import { useCandyRuntime } from "./candy/useCandyRuntime.js";
 import { useCustomParserSpecialist } from "./hooks/useCustomParserSpecialist.js";
 import {
@@ -261,6 +262,8 @@ function AppCore() {
   const [graphResetNonce, setGraphResetNonce] = useState(0);
   const [graphReheatNonce, setGraphReheatNonce] = useState(0);
   const [graphPngNonce, setGraphPngNonce] = useState(0);
+  const [statsMotifRequest, setStatsMotifRequest] = useState(null);
+  const statsMotifRequestCounterRef = useRef(0);
   const [graphIdentity, setGraphIdentity] = useState(() => createGraphIdentity([]));
   const [graphHistory, setGraphHistory] = useState([]);
   const [selectedGraphEntity, setSelectedGraphEntity] = useState(null);
@@ -3678,6 +3681,14 @@ function AppCore() {
     edgeCount: candyGraphValue?.hyperedges.length ?? 0,
     graphValue: candyGraphValue,
   });
+
+  function requestStaticMotifFromStatistics(argumentsValue) {
+    statsMotifRequestCounterRef.current += 1;
+    setStatsMotifRequest({ id: statsMotifRequestCounterRef.current, argumentsValue });
+    setActiveToolsSection("assistant");
+    showNotice("Motif computation was sent to Hypergraph Assistant for exact confirmation. No Runtime job has started.");
+    window.requestAnimationFrame?.(() => document.getElementById("tools-tab-assistant")?.scrollIntoView?.({ behavior: "smooth", block: "start" }));
+  }
   const selectedMappingPresentation = useMemo(() => {
     const input = {
       h2v: { data: h2v, status: h2vRequested ? DERIVED_STATUS.COMPUTED : DERIVED_STATUS.NOT_REQUESTED, reason: "not requested" },
@@ -5212,6 +5223,11 @@ function AppCore() {
                       </div>
                     ))}
                   </div>
+                  <CandyMotifStatistics
+                    candy={candyRuntime.state}
+                    requestPending={Boolean(statsMotifRequest)}
+                    onRequestStaticMotif={requestStaticMotifFromStatistics}
+                  />
                 </div>
               );
             })()}
@@ -5312,7 +5328,12 @@ function AppCore() {
 
           {/* Hypergraph Assistant */}
           <div id="tools-panel-assistant" role="tabpanel" aria-labelledby="tools-tab-assistant" hidden={activeToolsSection !== "assistant"} style={{ display: activeToolsSection === "assistant" ? "block" : "none" }}>
-            <AgentChatPanel agentState={agentState} agentActions={agentActions} />
+            <AgentChatPanel
+              agentState={agentState}
+              agentActions={agentActions}
+              externalMotifRequest={statsMotifRequest}
+              onExternalMotifRequestHandled={requestId => setStatsMotifRequest(current => current?.id === requestId ? null : current)}
+            />
           </div>
         </div>
       </div>

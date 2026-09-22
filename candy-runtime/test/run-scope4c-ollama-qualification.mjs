@@ -11,6 +11,9 @@ import { submitMotifWorkflow, validateBrowserMotifResult } from "../../src/candy
 import { ALL_30_MOTIF_WITNESSES, ANCHOR_OVER_SUBTRACTION_COUNTEREXAMPLE, ANCHOR_COUNTEREXAMPLE_DELETE } from "../../tests/fixtures/candy-scope4-motifs.mjs";
 
 const report={schemaVersion:"candy.scope4c-live-ollama/1",status:"RUNNING",cases:[]};
+const outputUrl = process.env.CANDY_QUALIFICATION_OUTPUT
+  ? new URL(process.env.CANDY_QUALIFICATION_OUTPUT, import.meta.url)
+  : new URL("../../artifacts/candy-scope4c-live-ollama-qualification.json", import.meta.url);
 const child=fork(fileURLToPath(new URL("./scope4c-live-server.mjs",import.meta.url)),[],{stdio:["ignore","pipe","pipe","ipc"]});
 const ready=await new Promise((resolve,reject)=>{child.once("message",resolve);child.once("error",reject);child.once("exit",code=>reject(new Error(`Runtime startup failed: ${code}`)));});
 const client=createCandyClient({baseUrl:`http://127.0.0.1:${ready.port}`,token:ready.pairingToken});
@@ -63,4 +66,4 @@ try {
   await caseRun("G_PROJECTION","Project this and then count motifs.",graph);
   report.status="LIVE_OLLAMA_QUALIFICATION_PASS";
 } catch(error){report.status="LIVE_OLLAMA_QUALIFICATION_FAIL";report.error=error.stack;process.exitCode=1;console.error(error.message);}
-finally {child.send("close");await new Promise(resolve=>child.once("exit",resolve));await writeFile(new URL("../../artifacts/candy-scope4c-live-ollama-qualification.json",import.meta.url),JSON.stringify(report,null,2)+"\n");console.log(report.status);}
+finally {child.send("close");await new Promise(resolve=>child.once("exit",resolve));await writeFile(outputUrl,JSON.stringify(report,null,2)+"\n");console.log(report.status);}

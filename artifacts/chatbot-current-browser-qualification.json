@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "chatbot-current-browser-qualification/1",
+  "date": "2026-09-21",
+  "status": "PASS",
+  "origin": "http://127.0.0.1:5173/",
+  "modeA": {
+    "status": "PASS",
+    "runtimeState": "real local companion paired; CUDA_STATIC unavailable on the current machine state",
+    "browserOnlyFeaturesUsable": true,
+    "runtimeAbsenceOrUnqualifiedCudaDidNotBreakConversion": true,
+    "hiddenFallbackObserved": false
+  },
+  "modeB": {
+    "status": "PASS",
+    "evidence": ["chatbot-current-live-runtime-qualification.json", "chatbot-current-live-ollama-qualification.json"],
+    "staticCudaExecutedInPriorQualifiedEvidence": true,
+    "incrementalCudaExecutedInPriorQualifiedEvidence": true,
+    "authenticatedLoopbackTransport": true
+  },
+  "workspaceUpload": {
+    "status": "PASS",
+    "buttonLabel": "Upload files",
+    "authoritativeAction": "agentActions.uploadAgentFiles",
+    "composerAttachControl": false,
+    "composerNewBatchControl": false,
+    "automaticParseOrGraphMutation": false,
+    "quickLinksPreserved": true
+  },
+  "readOnlyHelpAndNavigation": {
+    "status": "PASS",
+    "showTriads": {
+      "intent": "NAVIGATE_STATS",
+      "understandingPath": "typed_dashboard_control",
+      "modelCalls": 0,
+      "graphMutation": false,
+      "runtimeJob": false,
+      "result": "Opened Statistics and truthfully distinguished Line-Graph Triangles from the 30-class motif product."
+    }
+  },
+  "statistics": {
+    "status": "PASS",
+    "lineGraphTrianglesDistinct": true,
+    "candy30ClassMotifSectionPresent": true,
+    "taxonomy": {"classes": 30, "openWedge": 6, "closedTriangle": 24},
+    "realRuntimeUnqualifiedStateTruthful": true,
+    "cpuFallback": false,
+    "implicitProjection": false,
+    "qualifiedFixtureConfirmationStaged": true,
+    "nativeJobStartedDuringFixtureCheck": false,
+    "confirmationCancelled": true
+  },
+  "graphPreview": {
+    "status": "PASS",
+    "fixedLimits": [10, 25, 50, 100, 200],
+    "customNumericLimit": {"range": [1, 10000], "liveApplied": 2, "invalidZeroRejectedWithoutStateChange": true},
+    "vertexSearch": {"found": true, "notFound": true, "clear": true},
+    "hyperedgeSearch": {"found": true, "notFound": true, "clear": true, "hypergraphOnly": true},
+    "lineGraphSemantics": "dots are vertices; hyperedge filter is cleared and unavailable",
+    "stage5Suites": {"passed": 6, "failed": 0}
+  },
+  "console": {"blockingErrorsObserved": false},
+  "limitations": []
+}

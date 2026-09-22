@@ -1,3 +1,19 @@
+export const PREVIEW_LIMIT_MIN = 1;
+export const PREVIEW_LIMIT_MAX = 10000;
+export const PREVIEW_SEARCH_MAX_LENGTH = 240;
+
+export function parsePreviewLimitInput(value) {
+  const text = String(value ?? "").trim();
+  if (!/^\d+$/.test(text)) {
+    return { ok: false, value: null, error: `Enter a whole number from ${PREVIEW_LIMIT_MIN.toLocaleString()} to ${PREVIEW_LIMIT_MAX.toLocaleString()}.` };
+  }
+  const parsed = Number(text);
+  if (!Number.isSafeInteger(parsed) || parsed < PREVIEW_LIMIT_MIN || parsed > PREVIEW_LIMIT_MAX) {
+    return { ok: false, value: null, error: `Preview size must be from ${PREVIEW_LIMIT_MIN.toLocaleString()} to ${PREVIEW_LIMIT_MAX.toLocaleString()} hyperedges.` };
+  }
+  return { ok: true, value: parsed, error: null };
+}
+
 export function resolvePreviewSearch(vertices, query) {
   const normalizedQuery = String(query ?? "").trim().toLowerCase();
   if (!normalizedQuery) return null;
@@ -6,6 +22,15 @@ export function resolvePreviewSearch(vertices, query) {
   const partial = vertices.find(vertex => String(vertex).toLowerCase().includes(normalizedQuery));
   return partial === undefined ? null : partial;
 }
+
+export function resolvePreviewHyperedgeSearch(hyperedges, query) {
+  const normalizedQuery = String(query ?? "").trim().toLowerCase();
+  if (!normalizedQuery || normalizedQuery.length > PREVIEW_SEARCH_MAX_LENGTH) return [];
+  const matches = (hyperedges ?? []).filter(hyperedge => String(hyperedge?.id ?? "").toLowerCase().includes(normalizedQuery));
+  const exact = matches.filter(hyperedge => String(hyperedge.id).toLowerCase() === normalizedQuery);
+  return exact.length ? exact : matches;
+}
+
 
 export function shouldDisplayWeight(weight) {
   return weight !== null && weight !== undefined && weight !== 1;

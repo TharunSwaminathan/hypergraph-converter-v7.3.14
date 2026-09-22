@@ -71,6 +71,7 @@ const NO_CONSENT_PROPOSITION_RE = /\b(?:(?:this|that|it|these\s+words?|that\s+st
 const PRESERVE_RE = /\b(?:(?:keep|leave|retain|preserve)\s+(?:every\s+)?(?:the\s+)?(?:current\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session|product[-\s]?state|pending\s+action)(?:(?:\s+fields?)?\s+(?:exactly\s+)?(?:untouched|unchanged|unmodified|intact|as[-\s]?is|as\s+it\s+is))?|(?:leave|keep)\s+everything\s+(?:exactly\s+)?(?:unchanged|untouched|unmodified)|(?:workspace|state|graph|mapping|parser|dashboard|session)\s+must\s+remain\s+(?:untouched|unchanged|unmodified|intact)|do\s+not\s+(?:write\s+to|touch|modify|change|alter)\s+(?:the\s+)?(?:workspace|state|graph|mapping|parser|dashboard|session))\b/i;
 const BROAD_PRESERVE_RE = /\b(?:retain|keep|leave|preserve)\s+(?:(?:all|every|the)\s+)?(?:(?:current|existing|this|the)\s+)?(?:application\s+)?(?:state|workspace|graph|mapping|parser|dashboard|session)\b/i;
 const INFORMATIONAL_RE = /\b(?:(?:for\s+)?(?:reference|information|informational|discussion|review|audit)\s+only|read[-\s]?only|learning,?\s+not\s+action|literal\s+(?:data|text)|treat\s+(?:these\s+words|this)\s+literally|not\s+operationally|analy[sz]e\s+only)\b/i;
+const DOCUMENTATION_PREAMBLE_RE = /^\s*for\s+(?:the\s+)?(?:manual|handbook|documentation|docs?|reference)(?:\s+only)?\s*[,;:]?\s*(?:explain|describe|document)\b/i;
 const REPORTED_RE = /\b(?:(?:manual|handbook|documentation|docs?|guide|file|data|fixture|excerpt|transcript|log|note|text|model\s+output|reviewer|teammate|observer|someone(?:\s+else)?)\s+(?:says?|said|reads?|prints?|contains?|includes?|shows?|mentions?|mentioned|suggested|recorded|typed|asked|requested|instructed|directed)|i\s+am\s+(?:only\s+)?(?:reporting|relaying|quoting)|incident\s+log|archive\s+note|example\s+(?:input|block|command)|sample\s+command)\b/i;
 const HYPOTHETICAL_RE = /\b(?:hypothetical(?:ly)?|imagine|suppose|counterfactual|if\b|what\s+(?:would|could|will)\s+happen\s+if|were\s+(?:somebody|someone|i|we)\s+to|had\s+(?:i|we)\b|might\b|perhaps\b|maybe\b|plan\s+to\b|intend\s+to\b|eventually\b|another\s+day\b|next\s+week\b|later\b|i\s+am\s+considering\b)\b/i;
 const COMPARISON_RE = /\bcompare\b|\bagainst\s+(?:doing\s+nothing|preserving|retaining)\b/i;
@@ -277,7 +278,7 @@ function analyzeAuthorizationClause(clause, index) {
     quotedOrCode: protectedAction,
     reported: clause.inheritedScope === "reported" || REPORTED_RE.test(activeText),
     hypothetical: HYPOTHETICAL_RE.test(activeText),
-    explanatory: clause.inheritedScope === "explanatory" || EXPLANATION_START_RE.test(activeText),
+    explanatory: clause.inheritedScope === "explanatory" || EXPLANATION_START_RE.test(activeText) || DOCUMENTATION_PREAMBLE_RE.test(activeText),
     instructional: PROCEDURE_RE.test(activeText),
     denied: clause.inheritedScope === "denied" || DENIAL_RE.test(activeText) || EXPRESS_DENIAL_RE.test(activeText) || CONTEXTUAL_NON_AUTH_RE.test(activeText) || FIRST_PERSON_NO_CONSENT_RE.test(activeText) || clausePolarity.polarity === "non_authorizing",
     preserveState: PRESERVE_RE.test(activeText) || BROAD_PRESERVE_RE.test(activeText),

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { presentCandyCapabilities } from "../candy/runtimeCapabilityPresentation.js";
-import { HYPERGRAPH_3EDGE_MOTIF_TAXONOMY } from "../candy/hypergraphMotifs/taxonomy.js";
+import CandyMotifResult from "./CandyMotifResult.jsx";
 
 export default function CandyRuntimePanel({ candy, actions, busy = false, onNotice = () => {}, onSubmitMotif = () => {} }) {
   const [credential, setCredential] = useState("");
@@ -60,15 +60,7 @@ export default function CandyRuntimePanel({ candy, actions, busy = false, onNoti
         <button type="button" disabled={busy || selected.status !== "completed"} onClick={()=>observe(()=>actions.openCandyResult(selected.jobId))}>Open validated result</button>
       </div>}
       {selected?.errorClassification && <p role="status">{selected.errorClassification}</p>}
-      {result && <div aria-label="Validated motif result">
-        <p>{result.mode === "STATIC" ? "Connected triples" : "Signed total delta (delta only)"}: <strong>{result.native.totalConnectedTriples ?? result.native.deltaTotalConnectedTriples}</strong> · {result.backend} · graph {result.inputGraphRef.graphId} version {result.inputGraphRef.graphVersion}</p>
-        <p>Device {result.native.cuda.deviceIndex}: {result.native.cuda.deviceName} · kernel {result.native.cuda.kernelMilliseconds} ms</p>
-        {result.mode === "INCREMENTAL" && <p>Update {result.updateRef.updateId} · output version {result.native.outputGraphRef.graphVersion} · affected edges {result.native.oldAffectedEdgeCount} → {result.native.newAffectedEdgeCount} · candidates {result.native.oldCandidateCount} → {result.native.newCandidateCount}. The workspace was not changed.</p>}
-        <details><summary>All 30 stable motif {result.mode === "STATIC" ? "counts" : "signed deltas"}</summary>
-          <table><thead><tr><th>Class ID</th><th>Group</th><th>{result.mode === "STATIC" ? "Count" : "Delta"}</th></tr></thead><tbody>{HYPERGRAPH_3EDGE_MOTIF_TAXONOMY.entries.map(entry=><tr key={entry.motifId}><td>{entry.motifId}</td><td>{entry.shape}</td><td>{(result.native.counts ?? result.native.deltaCounts)[entry.motifId-1]}</td></tr>)}</tbody></table>
-        </details>
-        {result.mode === "INCREMENTAL" && <p>Nonzero signed deltas: {result.native.deltaCounts.map((count,index)=>count?`${index+1}: ${count>0?"+":""}${count}`:null).filter(Boolean).join(", ") || "none"}</p>}
-      </div>}
+      {result && <CandyMotifResult result={result} />}
       {candy.selectedJob && <dl className="agent-model__details"><div><dt>Selected job</dt><dd>{candy.selectedJob.jobId}</dd></div><div><dt>Status</dt><dd>{candy.selectedJob.status}</dd></div><div><dt>Validation</dt><dd>{candy.selectedJob.validationStatus || "pending"}</dd></div></dl>}
     </details>
   );

@@ -19,7 +19,11 @@ export function graphStatsResponse(state) {
   if (!state.hasGraph || !state.stats) {
     return "No graph is loaded yet. Upload or paste data first, then parse it.";
   }
-  return `Current graph: ${state.hyperedgeCount.toLocaleString()} hyperedges, ${state.vertexCount.toLocaleString()} vertices, ${state.incidenceCount.toLocaleString()} incidences. Visualization limit: first ${state.vizLimit.toLocaleString()} hyperedges.`;
+  const staticMotifsReady = Boolean(state.candy?.authorized && state.candy?.capabilities?.some(capability => capability.backend === "CUDA_STATIC" && capability.modes?.includes("STATIC")));
+  const motifAvailability = staticMotifsReady
+    ? "The optional Hypergraph 3-Edge Motifs section can compute 30 structural classes with the qualified CUDA_STATIC Runtime after explicit confirmation."
+    : "The optional Hypergraph 3-Edge Motifs section will explain why qualified CUDA_STATIC computation is unavailable; it never selects CPU fallback or projects the graph.";
+  return `Current graph: ${state.hyperedgeCount.toLocaleString()} hyperedges, ${state.vertexCount.toLocaleString()} vertices, ${state.incidenceCount.toLocaleString()} incidences. Browser-computed Statistics include cardinality and degree distributions, validation, incidence density, maximum and average degree, and V2V projection density. Line-Graph Triangles counts triangles in the line graph; it is not the 30-class hypergraph motif product. ${motifAvailability} Visualization limit: first ${state.vizLimit.toLocaleString()} hyperedges.`;
 }
 
 export function customParserGuidance() {
@@ -50,5 +54,5 @@ export function diagnosticsResponse(state) {
 
 export const EXPORT_GUIDANCE = "Load and convert a graph first, then open Export to preview H2V, V2H, H2H, canonical JSON, incidence CSV, CSR JSON/CSV, and other generated formats. Selecting a preview is safe; starting a download remains a separate manual action.";
 
-export const VISUALIZATION_GUIDANCE = "The graph preview appears after a successful conversion. Use the limit controls to cap visible hyperedges, choose force/circular/grid layout, search vertices, scroll to zoom, and drag to pan.";
+export const VISUALIZATION_GUIDANCE = "The graph preview appears after a successful conversion. Use fixed or bounded custom limit controls to cap visible hyperedges, choose force/circular/grid layout, search vertices, filter hyperedges in Hypergraph view, scroll to zoom, and drag to pan.";
 

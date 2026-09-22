@@ -135,7 +135,7 @@ export function useCandyRuntime({ graphType = null, graphId = null, graphVersion
   }, [graph, graphType, graphId, graphVersion, state.capabilities,state.authorized,enabled,client,graphValue,pendingUpdate,contextKey]);
 
   return {
-    state: Object.freeze({ ...state, graphType, edgeCount, pendingUpdateContext: graphType === "DynamicHypergraph" && pendingUpdate ? {updateId:pendingUpdate.updateId,baseGraphRef:pendingUpdate.baseGraphRef,nextGraphVersion:pendingUpdate.nextGraphVersion} : null }),
+    state: Object.freeze({ ...state, graphType, graphId, graphVersion, edgeCount, pendingUpdateContext: graphType === "DynamicHypergraph" && pendingUpdate ? {updateId:pendingUpdate.updateId,baseGraphRef:pendingUpdate.baseGraphRef,nextGraphVersion:pendingUpdate.nextGraphVersion} : null }),
     actions: Object.freeze({ pair, discover, getJobStatus, cancelJob, openResult, submitFromAssistant }),
   };
 }

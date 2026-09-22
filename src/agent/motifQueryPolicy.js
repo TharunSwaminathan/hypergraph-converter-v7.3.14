@@ -1,9 +1,9 @@
 // Analysis-specific routing; it never authorizes projection or graph mutation.
 export function motifQueryPolicy(query, observation = {}) {
   const text=String(query??"");
-  if (!/\bmotifs?\b/i.test(text)) return {matched:false};
+  if (!/\b(?:motifs?|triads?)\b/i.test(text)) return {matched:false};
   const denied=/\b(do not|don't|never|without|not asking|for reference|documentation|pretend|quoted|says|said)\b/i.test(text) || /["“”`]/.test(text);
-  const requested=!denied && (/\b(count|run|compute|calculate|analy[sz]e)\b/i.test(text) || /^\s*how\s+do\b[\s\S]*\bmotif\s+counts?\b[\s\S]*\bchange\b/i.test(text));
+  const requested=!denied && (/\b(count|run|compute|calculate|analy[sz]e)\b/i.test(text) || /^\s*how\s+do\b[\s\S]*\b(?:motif|triad)\s+counts?\b[\s\S]*\bchange\b/i.test(text));
   if (!requested) return {matched:true,requested:false};
   if (/\bproject(?:ion)?\b/i.test(text)) return {matched:true,requested:true,ok:false,classification:"INVALID_GRAPH_TYPE",message:"Projection requires a separate explicit action and consent. Motif analysis accepts the authoritative hypergraph; no projection was performed."};
   const mode=/\bincremental\b|\bcounts?\b[\s\S]*\bchange\b/i.test(text)?"INCREMENTAL":"STATIC";

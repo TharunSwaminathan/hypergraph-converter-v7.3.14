@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "chatbot-current-issue-register/1",
+  "date": "2026-09-21",
+  "baseline": "faeca1053f95a61bfe03ac88295c563d32f91969",
+  "decision": "PASS",
+  "resolved": [
+    {"id": "CHAT-UI-001", "severity": "Medium", "title": "Workspace upload control missing", "resolution": "Workspace Upload files now delegates exactly to agentActions.uploadAgentFiles."},
+    {"id": "CHAT-TEST-002", "severity": "Medium", "title": "Obsolete Assistant upload assertion", "resolution": "DOM coverage now requires Workspace upload while rejecting composer Attach/New Batch."},
+    {"id": "CHAT-NLU-003", "severity": "Medium", "title": "Documentation questions received generic answers", "resolution": "Named documentation requests resolve to differentiated read-only catalog Help."},
+    {"id": "CHAT-AUTH-004", "severity": "Medium", "title": "Documentation form classified as positive authorization", "resolution": "Documentation preambles are explanatory and cannot authorize mutation."},
+    {"id": "CHAT-PREVIEW-005", "severity": "Medium", "title": "Custom preview size missing", "resolution": "Added strict integer custom sizing from 1 through 10,000 with invalid-state preservation."},
+    {"id": "CHAT-PREVIEW-006", "severity": "Medium", "title": "Hyperedge filter missing", "resolution": "Added bounded Hypergraph-only hyperedge search, not-found feedback, and clear/reset behavior."},
+    {"id": "CHAT-STATS-007", "severity": "Medium", "title": "30-class motif product absent from Statistics", "resolution": "Added a separate Hypergraph 3-Edge Motifs section that uses only the qualified existing CANDY path."},
+    {"id": "CHAT-STATS-008", "severity": "Medium", "title": "Statistics guidance did not distinguish motif products", "resolution": "Responses and UI now distinguish Line-Graph Triangles from 30 CANDY classes and state no projection or CPU fallback."},
+    {"id": "CHAT-NAV-009", "severity": "Medium", "title": "Show the triads was refused as an unknown side effect", "resolution": "show_stats is recognized as authorized navigation; integrated DOM and live checks prove zero graph mutation, Runtime execution, and model calls."}
+  ],
+  "openSecurityFindings": [],
+  "openMaterialDefects": [],
+  "knownLimitations": [
+    {"id": "OBS-001", "title": "Production bundle emits a large-chunk warning", "classification": "Non-blocking performance observation", "status": "OBSERVATION"}
+  ]
+}

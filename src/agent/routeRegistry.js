@@ -110,7 +110,7 @@ export const ROUTE_REGISTRY = {
     label: "Statistics",
     sectionId: "stats",
     virtual: true,
-    guidance: "Statistics summarizes the currently parsed graph, including cardinalities, degrees, validation, and projections.",
+    guidance: "Statistics summarizes browser-computed cardinalities, degrees, validation, and projections. Line-Graph Triangles is separate from the optional Runtime-computed Hypergraph 3-Edge Motifs product with 30 structural classes.",
   },
   diagnostics: {
     id: "diagnostics",

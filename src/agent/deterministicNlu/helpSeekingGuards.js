@@ -10,12 +10,19 @@ const BASIC_HELP_FRAMES = Object.freeze([
   /^\s*does\s+(?:the\s+)?(?:deterministic\s+)?(?:chatbot|assistant)\b/i,
 ]);
 
+const DOCUMENTATION_HELP_FRAMES = Object.freeze([
+  /^\s*for\s+(?:the\s+)?(?:manual|handbook|documentation|docs?|reference)(?:\s+only)?\s*[,;:]?\s*(?:explain|describe|document)\b/i,
+  /^\s*(?:write|provide|give\s+me)\s+(?:the\s+)?instructions?\b/i,
+  /^\s*(?:explain|describe|document)\b[\s\S]*\bcommand\b[\s\S]*\bwithout\s+(?:changing|running|executing|applying|performing)\s+anything\b/i,
+]);
+
 // Backwards-compatible export. The source now comes from one canonical lexicon.
 export const ACTION_COMMAND_TOPIC_RE = ACTION_VERB_RE;
 
 export function isHelpSeekingQuestionText(text = "") {
   const raw = String(text ?? "").trim();
   if (!raw) return false;
+  if (DOCUMENTATION_HELP_FRAMES.some(pattern => pattern.test(raw))) return true;
   const semantics = analyzeRequestSemantics(raw);
   if (semantics.groundedWorkflowGuidance) return false;
   if (semantics.instructional) return true;
@@ -28,6 +35,8 @@ export function helpSeekingTopic(text = "") {
   const stripped = raw
     .replace(/[?!.]+$/g, "")
     .replace(/^\s*(?:please\s+|ok(?:ay)?[, ]+\s*|hey[, ]+\s*)*/i, "")
+    .replace(/^\s*for\s+(?:the\s+)?(?:manual|handbook|documentation|docs?|reference)(?:\s+only)?\s*[,;:]?\s*/i, "")
+    .replace(/^\s*(?:write|provide|give\s+me)\s+(?:the\s+)?instructions?(?:\s+(?:showing|explaining))?\s+how\s+(?:i|we|someone)\s+would\s+/i, "")
     .replace(/^\s*(?:before\s+doing\s+anything[,;—-]*\s*)/i, "")
     .replace(/^\s*(?:without\s+changing\s+anything[,;—-]*\s*)/i, "")
     .replace(/^\s*(?:i\s+(?:was\s+)?wonder(?:ed|ing)?\s+how\s+(?:to|i|we)\s+)/i, "")
@@ -45,7 +54,11 @@ export function helpSeekingTopic(text = "") {
     .replace(/^\s*how\s+would\s+someone\s+/i, "")
     .replace(/^\s*how\s+is\s+it\s+possible\s+to\s+/i, "")
     .replace(/^\s*(?:can|does)\s+(?:the\s+)?(?:deterministic\s+)?(?:chatbot|assistant)\s+/i, "")
+    .replace(/^\s*(?:explain|describe|document)\s+(?:the\s+)?/i, "")
     .replace(/^\s*(?:to|for|about)\s+/i, "")
+    .replace(/\s+without\s+(?:changing|running|executing|applying|performing)\s+anything\s*$/i, "")
+    .replace(/\s+command\s*$/i, "")
+    .replace(/\bdelete[-\s]+edge\b/gi, "delete hyperedge")
     .trim();
   return stripped || raw;
 }
