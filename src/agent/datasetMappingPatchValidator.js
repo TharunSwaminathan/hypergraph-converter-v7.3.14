@@ -1,9 +1,10 @@
-import { DATASET_MAPPING_PATCH_OPS, DATASET_MAPPING_PATCH_TASK } from "./datasetMappingPatchSchema.js";
+import { DATASET_MAPPING_PATCH_OPS, DATASET_MAPPING_PATCH_SCHEMA, DATASET_MAPPING_PATCH_TASK } from "./datasetMappingPatchSchema.js";
 import {
   DATASET_MAPPING_V2_FILE_ROLES,
   DATASET_MAPPING_V2_POLICIES,
 } from "./datasetMappingSpecV2.js";
 import { extractFirstJsonObject } from "./modelResponseValidator.js";
+import { validateStrictJsonSchema } from "./strictJsonSchemaValidator.js";
 
 export function validateDatasetMappingPatchDraft(candidate, {
   fileNames = [],
@@ -13,6 +14,7 @@ export function validateDatasetMappingPatchDraft(candidate, {
   const errors = [];
   const draft = typeof candidate === "string" ? extractFirstJsonObject(candidate) : candidate;
   if (!draft || typeof draft !== "object" || Array.isArray(draft)) return { ok: false, draft: null, errors: ["Patch draft must be an object."] };
+  errors.push(...validateStrictJsonSchema(draft, DATASET_MAPPING_PATCH_SCHEMA).errors);
   if (draft.task !== DATASET_MAPPING_PATCH_TASK) errors.push("task must be plan_dataset_mapping_patch.");
   if (!["patch", "clarification", "not_mapping"].includes(draft.classification)) errors.push("Unsupported patch classification.");
   if (!["low", "medium", "high"].includes(draft.confidence)) errors.push("confidence must be low, medium, or high.");

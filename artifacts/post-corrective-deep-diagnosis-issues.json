@@ -1,0 +1,569 @@
+{
+  "baseline": "4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302",
+  "scope": "Diagnosis only; no production source changed and no graph mutation committed.",
+  "severityScale": "CRITICAL/HIGH/MEDIUM/LOW/OBSERVATION; conditional exposure is stated explicitly",
+  "issues": [
+    {
+      "id": "D01",
+      "title": "GraphMutationDraft format contradicts its operation validator",
+      "severity": "HIGH",
+      "confidence": "confirmed live",
+      "reproduction": "Run the artifact live probe against qwen3:8b; 9/13 operation families fail after repair on the latest complete run (10/13 on the preceding run). ADD_INCIDENCE has eight populated irrelevant keys rejected by the validator.",
+      "rootCause": "The shared operation JSON schema requires eleven transport keys for every type; the validator accepts only populated fields relevant to that type. Repair sends the same contradictory format.",
+      "affectedFiles": [
+        "src/agent/graphMutationDraftSchema.js",
+        "src/agent/graphMutationDraftValidator.js",
+        "src/agent/graphMutationModelPlanner.js",
+        "src/agent/prompts/graphMutationPlannerPrompt.js"
+      ],
+      "affectedTests": [
+        "tests/graph-mutation-model-planner.test.mjs",
+        "tests/graph-mutation.test.mjs",
+        "tests/graph-mutation-planner-budget.test.mjs"
+      ],
+      "subsystem": "graph mutation",
+      "symptom": "Model-assisted edit cannot form accepted draft",
+      "expected": "Exact model format yields a validator-acceptable operation",
+      "actual": "Validator rejects irrelevant model-populated fields",
+      "existingProtection": "Deterministic validator and confirmation stop commit",
+      "whyExistingTestsMissedIt": "Stubbed model outputs conform to the validator and do not sample the exact production format with a live model across every operation family.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "No corrupt graph; edit unavailable",
+      "UXImpact": "Most operations fail",
+      "recommendedCorrection": "Align a per-operation output contract with the existing fail-closed validator; verify the exact candidate schema with Ollama before adoption.",
+      "correctionRisk": "Changing schema may reduce model compatibility; validator must remain fail-closed",
+      "regressionTestsRequired": [
+        "Schema-validator closure for all 13 types including null/empty irrelevant fields",
+        "Live qwen3:8b first/repair matrix and bridge parity",
+        "No graph commit on invalid draft"
+      ],
+      "blocking": true,
+      "evidence": [
+        "live-ollama.json: 13 family rows; graphMutationDraftSchema.js:112-133; graphMutationDraftValidator.js:35-49"
+      ]
+    },
+    {
+      "id": "D02",
+      "title": "Transport timeout hides an earlier invalid structured response",
+      "severity": "MEDIUM",
+      "confidence": "confirmed controlled",
+      "reproduction": "Stub first generation with an invalid draft, then make repair throw a classified timeout; planner returns fallbackReason model_generation_timeout while attempt 1 is invalid.",
+      "rootCause": "The planner's catch path summarizes the last transport failure and drops structured validation evidence from the top-level result; the UI renders fallbackReason.",
+      "affectedFiles": [
+        "src/agent/graphMutationModelPlanner.js",
+        "src/App.jsx"
+      ],
+      "affectedTests": [
+        "tests/graph-mutation-model-planner.test.mjs",
+        "tests/local-model-cancellation.test.mjs"
+      ],
+      "subsystem": "graph planner/error handling",
+      "symptom": "UI presents timeout after prior validation failure",
+      "expected": "Both validation and terminal transport error remain visible",
+      "actual": "Terminal timeout is shown as sole fallback",
+      "existingProtection": "No invalid draft is executed",
+      "whyExistingTestsMissedIt": "Tests cover isolated invalid response or timeout, not invalid-first plus repair-timeout and the UI presentation.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "No graph commit",
+      "UXImpact": "Misleading error, slow recovery",
+      "recommendedCorrection": "Preserve a ranked per-attempt error history and surface first validation failure alongside the terminal transport status.",
+      "correctionRisk": "Changing precedence could hide real transport failure; retain both",
+      "regressionTestsRequired": [
+        "Invalid first response followed by timeout, abort, or bridge disconnect",
+        "UI diagnostic evidence retains the first validation errors"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Controlled invalid_first_then_repair_timeout_controlled row"
+      ]
+    },
+    {
+      "id": "D03",
+      "title": "Primitive abort reasons are classified as unknown network errors",
+      "severity": "LOW",
+      "confidence": "confirmed live",
+      "reproduction": "The artifact live matrix calls a 1 ms generation timeout and explicit cancellation; reasons model_generation_timeout and request_aborted are both classified unknown_network_error.",
+      "rootCause": "AbortController carries string reasons while fetch error mapping recognizes AbortError objects only.",
+      "affectedFiles": [
+        "src/agent/localModelClient.js"
+      ],
+      "affectedTests": [
+        "tests/local-model-cancellation.test.mjs",
+        "tests/local-model-settings-trace-v7-3-13.test.mjs"
+      ],
+      "subsystem": "local model transport",
+      "symptom": "Abort classified as network failure",
+      "expected": "Cancellation and timeout have distinct classes",
+      "actual": "Both become unknown_network_error",
+      "existingProtection": "Request is aborted",
+      "whyExistingTestsMissedIt": "Classification assertions use Error-shaped mocks rather than actual AbortSignal.reason from live fetch.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "No graph commit",
+      "UXImpact": "Wrong remediation advice",
+      "recommendedCorrection": "Normalize abort reasons at the fetch boundary and classify timeout, cancellation, and network failure separately.",
+      "correctionRisk": "Normalize without misclassifying genuine network errors",
+      "regressionTestsRequired": [
+        "Live or fetch-faithful AbortSignal.reason cases for timeout and explicit cancel"
+      ],
+      "blocking": false,
+      "evidence": [
+        "live-ollama.json: timeout and cancellation rows"
+      ]
+    },
+    {
+      "id": "D04",
+      "title": "Full diagnostics is an early-success current-transport probe",
+      "severity": "MEDIUM",
+      "confidence": "confirmed browser and source",
+      "reproduction": "Click Run full diagnostics while direct Ollama is available; direct succeeds, bridge and graph-planner rows remain not tested, and the active connection is refreshed.",
+      "rootCause": "The button calls mode current, which short-circuits after a successful transport and is wired to reconnect state.",
+      "affectedFiles": [
+        "src/components/LocalRuntimeDiagnosticsPanel.jsx",
+        "src/agent/localRuntimeDiagnostics.js",
+        "src/App.jsx"
+      ],
+      "affectedTests": [
+        "tests/local-model-runtime-state.test.mjs",
+        "tests/agent-local-model.test.mjs"
+      ],
+      "subsystem": "advanced diagnostics",
+      "symptom": "Full action leaves rows untested",
+      "expected": "Full action tests advertised checks without altering connection",
+      "actual": "Direct success short-circuits and refreshes connection",
+      "existingProtection": "Individual isolated probes exist",
+      "whyExistingTestsMissedIt": "No browser assertion requires every advertised diagnostic row to execute or isolated diagnostics to leave connection state unchanged.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "None demonstrated",
+      "UXImpact": "False sense of coverage",
+      "recommendedCorrection": "Separate full, current, and reconnect actions with explicit coverage and state semantics.",
+      "correctionRisk": "Additional probes may be slow and stateful; separate modes",
+      "regressionTestsRequired": [
+        "Full action visits direct, bridge, listing, generation, and planner rows",
+        "Read-only full probe preserves active transport"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Browser full-diagnostics sequence; LocalRuntimeDiagnosticsPanel.jsx:118"
+      ]
+    },
+    {
+      "id": "D05",
+      "title": "Isolated bridge probe displays the active direct endpoint",
+      "severity": "MEDIUM",
+      "confidence": "confirmed browser",
+      "reproduction": "Connect through direct Ollama, then click Test local bridge; successful last-probe line reads bridge plus Direct Ollama and http://localhost:11434.",
+      "rootCause": "The isolated result records its probe kind but formats transport and endpoint from the active runtime configuration.",
+      "affectedFiles": [
+        "src/agent/localRuntimeDiagnostics.js",
+        "src/components/LocalRuntimeDiagnosticsPanel.jsx"
+      ],
+      "affectedTests": [
+        "tests/local-model-runtime-state.test.mjs"
+      ],
+      "subsystem": "advanced diagnostics",
+      "symptom": "Bridge probe line names direct endpoint",
+      "expected": "Probe line identifies actual bridge transport/URL",
+      "actual": "Line mixes bridge result with active direct URL",
+      "existingProtection": "Probe itself succeeds and active connection is unchanged",
+      "whyExistingTestsMissedIt": "Probe tests do not assert displayed endpoint identity when probe transport differs from active transport.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "None demonstrated",
+      "UXImpact": "Wrong endpoint attribution",
+      "recommendedCorrection": "Store and render endpoint/transport from the isolated probe result, not current connection.",
+      "correctionRisk": "Do not accidentally switch active transport when fixing display",
+      "regressionTestsRequired": [
+        "Direct-active/bridge-isolated and bridge-active/direct-isolated display matrix"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Browser bridge-isolated probe; localRuntimeDiagnostics.js:200-213"
+      ]
+    },
+    {
+      "id": "D06",
+      "title": "Diagnostics snapshots erase prior rows and export too little evidence",
+      "severity": "LOW",
+      "confidence": "confirmed browser",
+      "reproduction": "Run graph-planner probe, then Test simple generation; former planner failure becomes not tested while Last isolated probe still says graph-planner failed. Copy diagnostic report yields 231 characters without row status or error.",
+      "rootCause": "Each probe overwrites a whole snapshot; clipboard report is constructed from static configuration rather than current diagnostic results.",
+      "affectedFiles": [
+        "src/agent/localRuntimeDiagnostics.js",
+        "src/components/LocalRuntimeDiagnosticsPanel.jsx",
+        "src/App.jsx"
+      ],
+      "affectedTests": [
+        "tests/local-model-runtime-state.test.mjs"
+      ],
+      "subsystem": "advanced diagnostics",
+      "symptom": "Prior failure disappears; copied report omits it",
+      "expected": "Diagnostic history and export preserve bounded failure evidence",
+      "actual": "Snapshot resets rows; clipboard has static configuration only",
+      "existingProtection": "Current probe result remains visible temporarily",
+      "whyExistingTestsMissedIt": "Tests verify single snapshots/copy availability, not sequential probe history and copied content.",
+      "securityImpact": "Potential disclosure if export is not redacted",
+      "dataIntegrityImpact": "None demonstrated",
+      "UXImpact": "Support evidence lost",
+      "recommendedCorrection": "Keep timestamped per-probe results and include redacted status, endpoint, classification, and recent error in report.",
+      "correctionRisk": "History must be bounded and redact prompt/file content",
+      "regressionTestsRequired": [
+        "Sequential probe preservation",
+        "Clipboard report contains safe statuses and failure classification"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Browser graph-planner then simple-generation and copy-report sequence"
+      ]
+    },
+    {
+      "id": "D07",
+      "title": "Disconnected-but-disabled local assistant cannot reconnect through visible Connect action",
+      "severity": "MEDIUM",
+      "confidence": "confirmed browser and source",
+      "reproduction": "Disable local assist, then click Connect or Reconnect; the quick control dispatches testConnection and refuses because enabled is false, until the separate catalog command enables it.",
+      "rootCause": "Connect maps to a test-only command with an enabled precondition rather than a clear enable-and-connect workflow.",
+      "affectedFiles": [
+        "src/components/AgentChatPanel.jsx",
+        "src/agent/actionPlanner.js",
+        "src/agent/deterministicControlPlanner.js",
+        "src/App.jsx"
+      ],
+      "affectedTests": [
+        "tests/local-model-runtime-state.test.mjs",
+        "tests/local-model-settings-trace-v7-3-13.test.mjs"
+      ],
+      "subsystem": "assistant settings",
+      "symptom": "Connect button cannot recover disabled state",
+      "expected": "Visible Connect either enables/attempts or clearly instructs prerequisite",
+      "actual": "TestConnection refuses disabled configuration",
+      "existingProtection": "Explicit enable command exists",
+      "whyExistingTestsMissedIt": "No end-to-end disabled-to-connected button scenario exists.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "None demonstrated",
+      "UXImpact": "Recovery dead end",
+      "recommendedCorrection": "Make enable and connect distinct labeled actions or implement an explicit guarded enable-and-connect control.",
+      "correctionRisk": "Do not silently enable model if user intended disabled state",
+      "regressionTestsRequired": [
+        "Disabled/disconnected state through Connect and Reconnect UI actions"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Browser disabled-connect sequence; actionPlanner.js:200-203"
+      ]
+    },
+    {
+      "id": "D08",
+      "title": "Tiny graph conversion reports line-graph triangles as too large",
+      "severity": "LOW",
+      "confidence": "confirmed browser",
+      "reproduction": "Convert the bundled H2V example (3 hyperedges, 5 vertices); Statistics shows one line-graph triangle while conversion summary says too large to count in browser.",
+      "rootCause": "Conversion summary sets triadsStatus not_requested and triads null; resultSummary maps any null to too-large.",
+      "affectedFiles": [
+        "src/App.jsx",
+        "src/agent/resultSummary.js"
+      ],
+      "affectedTests": [
+        "tests/stage6-triad-statistics.test.mjs",
+        "tests/post-scope4c-motif-statistics.test.mjs"
+      ],
+      "subsystem": "statistics/result summary",
+      "symptom": "Tiny graph says triangles too large",
+      "expected": "Summary distinguishes not requested from resource limit",
+      "actual": "Null mapped to too-large despite Statistics count one",
+      "existingProtection": "Statistics computes count independently",
+      "whyExistingTestsMissedIt": "Statistic unit tests and summary wording are tested separately, not from the same converted graph.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "No underlying count corruption",
+      "UXImpact": "False resource warning",
+      "recommendedCorrection": "Distinguish not-requested, unavailable, and budget-exceeded summary states.",
+      "correctionRisk": "Avoid expensive recount in summary path",
+      "regressionTestsRequired": [
+        "Small graph conversion summary matches Statistics triangle count/status"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Browser bundled H2V conversion; App.jsx:3732; resultSummary.js:77"
+      ]
+    },
+    {
+      "id": "D09",
+      "title": "Empty Custom Parser run is shown as success with Apply enabled",
+      "severity": "MEDIUM",
+      "confidence": "confirmed browser",
+      "reproduction": "On Custom Parser with no files, click Run Parser; UI displays green 0 hyperedges parsed and enables Apply to graph, but apply handler rejects zero edges.",
+      "rootCause": "Preview success styling and Apply enablement use result existence rather than semantic ok/nonempty outcome.",
+      "affectedFiles": [
+        "src/App.jsx"
+      ],
+      "affectedTests": [
+        "tests/custom-parser-workflow-v7-3.test.mjs",
+        "tests/parser-validation-v7-3-13.test.mjs"
+      ],
+      "subsystem": "Custom Parser UI",
+      "symptom": "Empty run shows green success and Apply",
+      "expected": "Empty/no-file result is failure or neutral, Apply disabled",
+      "actual": "0 hyperedges shown as success while handler rejects Apply",
+      "existingProtection": "Apply handler rejects zero edges",
+      "whyExistingTestsMissedIt": "Tests assert empty-result rejection at the handler, not the no-file live button state and styling.",
+      "securityImpact": "No code exploit in this case",
+      "dataIntegrityImpact": "No graph corruption observed",
+      "UXImpact": "Misleading action affordance",
+      "recommendedCorrection": "Gate success and Apply by validated nonempty result, with an explicit empty/no-files message.",
+      "correctionRisk": "Preserve legitimate empty-preview semantics if supported elsewhere",
+      "regressionTestsRequired": [
+        "No-file parser run display and disabled Apply",
+        "Zero-edge parser result must not appear successful"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Browser no-file Run Parser; App.jsx:2925-2954,3037-3038"
+      ]
+    },
+    {
+      "id": "D10",
+      "title": "Dynamic import bypasses Custom Parser static safety guard",
+      "severity": "MEDIUM",
+      "confidence": "confirmed static probe; execution intentionally not attempted",
+      "reproduction": "Run artifact parser-safety-probe.mjs: Acorn emits ImportExpression and validateParserCodeSafety returns ok:true for an async parser containing import().",
+      "rootCause": "AST walker blocks import only as a CallExpression callee. Modern Acorn emits ImportExpression, and the regex fallback is skipped on successful parse.",
+      "affectedFiles": [
+        "src/utils/customParser.js",
+        "src/agent/customParserSpecialist.js"
+      ],
+      "affectedTests": [
+        "tests/parser-sandbox.test.mjs",
+        "tests/custom-parser-scope-v7-3-13.test.mjs"
+      ],
+      "subsystem": "Custom Parser security",
+      "symptom": "Static guard accepts dynamic import",
+      "expected": "ImportExpression rejected before Worker creation",
+      "actual": "Parse-only probe returns safety.ok true",
+      "existingProtection": "User confirmation; Worker limits and global shadowing",
+      "whyExistingTestsMissedIt": "Tests cover common global APIs and static import but not ImportExpression in parsed async code.",
+      "securityImpact": "Conditional module execution with worker data; no exploit executed",
+      "dataIntegrityImpact": "Possible uploaded-data exposure if user runs unsafe code",
+      "UXImpact": "Trusted-code warning insufficient",
+      "recommendedCorrection": "Reject ImportExpression and verify worker isolation as defense in depth; retain explicit trusted-code warning.",
+      "correctionRisk": "Parser syntax/AST variants and CSP need testing; keep user review",
+      "regressionTestsRequired": [
+        "Parse-only dynamic import and nested import expression rejection",
+        "Model draft guard rejects import without executing it"
+      ],
+      "blocking": true,
+      "evidence": [
+        "parser-safety-probe.mjs output; customParser.js:216-254,327-365,641-646"
+      ]
+    },
+    {
+      "id": "D11",
+      "title": "Private Ollama endpoint validation does not constrain redirects",
+      "severity": "MEDIUM",
+      "confidence": "confirmed source path; no external redirect executed",
+      "reproduction": "Source trace: configure a private URL that responds 307/308 to another host; browser/Node fetch uses default redirect following after initial private-URL validation.",
+      "rootCause": "Local-model and bridge requests validate the initial endpoint, but do not use redirect:error or revalidate each Location hop.",
+      "affectedFiles": [
+        "src/agent/localModelClient.js",
+        "local-runtime-bridge.js"
+      ],
+      "affectedTests": [
+        "tests/agent-local-model.test.mjs",
+        "tests/bridge-robustness-v7-3-13.test.mjs"
+      ],
+      "subsystem": "local model/bridge security",
+      "symptom": "Validated private URL may redirect externally",
+      "expected": "No request body leaves validated local target",
+      "actual": "Default fetch follows 307/308 without hop validation",
+      "existingProtection": "Initial private URL check; bridge CORS/route allowlist",
+      "whyExistingTestsMissedIt": "Tests exercise private endpoint allowlisting and local CORS, not a redirecting upstream.",
+      "securityImpact": "Conditional prompt/file-preview exfiltration by redirecting local endpoint",
+      "dataIntegrityImpact": "Possible data exposure; no redirect executed",
+      "UXImpact": "Unseen endpoint change",
+      "recommendedCorrection": "Disallow redirects for model and bridge upstream requests or validate every hop as private and same-origin.",
+      "correctionRisk": "Reject redirects without breaking legitimate local deployments",
+      "regressionTestsRequired": [
+        "Loopback-only 307/308 redirect fixture confirms no second-hop POST",
+        "Redirect Location does not leak request body"
+      ],
+      "blocking": true,
+      "evidence": [
+        "localModelClient.js:61-78,99-103; local-runtime-bridge.js:51-67,178-186"
+      ]
+    },
+    {
+      "id": "D12",
+      "title": "Dataset interpretation validator accepts schema-invalid objects",
+      "severity": "MEDIUM",
+      "confidence": "confirmed controlled",
+      "reproduction": "Supply a draft missing schema-required summary, groups, fileRoles, relationships, and entitySuggestions plus extra property; validator returns ok:true.",
+      "rootCause": "Validator supplies empty-array defaults and validates selected values without enforcing exact required/extra top-level keys.",
+      "affectedFiles": [
+        "src/agent/datasetInterpretationDraftSchema.js",
+        "src/agent/datasetInterpretationDraftValidator.js"
+      ],
+      "affectedTests": [
+        "tests/dataset-mapping-runtime-state.test.mjs"
+      ],
+      "subsystem": "dataset interpretation",
+      "symptom": "Schema-invalid interpretation accepted",
+      "expected": "Required keys and extra-property policy match schema",
+      "actual": "Missing five keys plus extra accepted",
+      "existingProtection": "Semantic reference checks remain",
+      "whyExistingTestsMissedIt": "Handwritten valid fixtures and semantic reference tests omit schema/validator closure negatives.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "Incomplete advisory mapping evidence can propagate",
+      "UXImpact": "Silent contract drift",
+      "recommendedCorrection": "Define explicit normalization policy or require exact schema shape before semantic checks.",
+      "correctionRisk": "Explicit normalization may be intended; choose and document contract",
+      "regressionTestsRequired": [
+        "Required-field and additional-property negative matrix for interpretation drafts"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Controlled validator probe; datasetInterpretationDraftSchema.js; datasetInterpretationDraftValidator.js"
+      ]
+    },
+    {
+      "id": "D13",
+      "title": "Dataset mapping patch validator accepts schema-invalid objects",
+      "severity": "MEDIUM",
+      "confidence": "confirmed controlled",
+      "reproduction": "Supply patch without required clarificationQuestion and with extra top-level/operation properties; validator returns ok:true.",
+      "rootCause": "Reference checks do not enforce schema-required properties or additionalProperties:false at either level.",
+      "affectedFiles": [
+        "src/agent/datasetMappingPatchSchema.js",
+        "src/agent/datasetMappingPatchValidator.js"
+      ],
+      "affectedTests": [
+        "tests/dataset-mapping-runtime-state.test.mjs"
+      ],
+      "subsystem": "dataset mapping patch",
+      "symptom": "Schema-invalid patch accepted",
+      "expected": "Required and additional-property rules enforced",
+      "actual": "Missing clarificationQuestion and extras accepted",
+      "existingProtection": "Deterministic patch applier still validates",
+      "whyExistingTestsMissedIt": "Tests focus on allowed mapping references and later applier behavior, not exact draft closure.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "Malformed advisory patch may propagate",
+      "UXImpact": "Silent contract drift",
+      "recommendedCorrection": "Apply a structural validation layer before semantic reference checks; keep deterministic applier authority.",
+      "correctionRisk": "Avoid changing accepted historical drafts without migration tests",
+      "regressionTestsRequired": [
+        "Missing clarificationQuestion and extra top-level/nested fields rejected or explicitly normalized"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Controlled validator probe; datasetMappingPatchSchema.js; datasetMappingPatchValidator.js"
+      ]
+    },
+    {
+      "id": "D14",
+      "title": "Duplicate upload filenames are accepted despite name-keyed downstream joins",
+      "severity": "MEDIUM",
+      "confidence": "confirmed static probe and source",
+      "reproduction": "Artifact parser-safety-probe.mjs passes two distinct same.csv file objects through validateSelectedFiles; both are accepted. Dataset profile lookup then builds Map keyed by fileName, collapsing one profile.",
+      "rootCause": "Upload IDs are unique but downstream mapping/profile contracts select by file name; upload validation does not enforce batch-unique names.",
+      "affectedFiles": [
+        "src/agent/uploadPolicy.js",
+        "src/agent/fileDetection.js",
+        "src/App.jsx",
+        "src/agent/datasetInterpretationDraftValidator.js",
+        "src/agent/datasetMappingReferenceResolver.js"
+      ],
+      "affectedTests": [
+        "tests/upload-policy-v7-3-12.test.mjs",
+        "tests/upload-cancellation-v7-3-13.test.mjs",
+        "tests/dataset-mapping-runtime-state.test.mjs"
+      ],
+      "subsystem": "upload/batch identity",
+      "symptom": "Same-name uploads remain ambiguous",
+      "expected": "Each batch file is uniquely addressable end to end",
+      "actual": "Validator accepts duplicates; name-keyed Map collapses profiles",
+      "existingProtection": "Per-file upload ID and byte caps exist",
+      "whyExistingTestsMissedIt": "Upload tests cover extensions, size, and cancellation, but not same-name files from different directories and downstream name-keyed lookup.",
+      "securityImpact": "No direct security escalation established",
+      "dataIntegrityImpact": "Possible wrong-file mapping or profile selection",
+      "UXImpact": "Ambiguous file display",
+      "recommendedCorrection": "Reject duplicate names within a batch or move all downstream references to stable file IDs with explicit display-name disambiguation.",
+      "correctionRisk": "Reject duplicates or migrate all references to IDs consistently",
+      "regressionTestsRequired": [
+        "Same-name distinct files in one batch",
+        "Mapping/profile lookup preserves identity or rejects ambiguity"
+      ],
+      "blocking": true,
+      "evidence": [
+        "parser-safety-probe.mjs duplicateNames; uploadPolicy.js:38-57; App.jsx:4010-4012"
+      ]
+    },
+    {
+      "id": "D15",
+      "title": "Copied Ollama origin setup command is POSIX-only in Windows UI",
+      "severity": "LOW",
+      "confidence": "confirmed browser clipboard",
+      "reproduction": "Click Copy Ollama origin setup command in Windows browser; clipboard starts OLLAMA_ORIGINS=... ollama serve, not a PowerShell/cmd assignment.",
+      "rootCause": "Diagnostic command generator has one shell syntax for all platforms.",
+      "affectedFiles": [
+        "src/agent/localRuntimeDiagnostics.js",
+        "src/components/LocalRuntimeDiagnosticsPanel.jsx"
+      ],
+      "affectedTests": [
+        "tests/local-model-runtime-state.test.mjs"
+      ],
+      "subsystem": "advanced diagnostics/Windows",
+      "symptom": "Origin command cannot run in PowerShell/cmd",
+      "expected": "Command matches named Windows shell",
+      "actual": "Clipboard contains POSIX VAR=value command",
+      "existingProtection": "Other PowerShell curl text is correctly labeled",
+      "whyExistingTestsMissedIt": "Tests do not validate copied snippets in PowerShell/cmd/WSL contexts.",
+      "securityImpact": "None demonstrated",
+      "dataIntegrityImpact": "None demonstrated",
+      "UXImpact": "Recovery instruction fails",
+      "recommendedCorrection": "Offer separately labeled PowerShell, cmd, and POSIX command variants.",
+      "correctionRisk": "Changing shell snippets must preserve quoting for origins",
+      "regressionTestsRequired": [
+        "Clipboard command syntax for each named shell"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Browser clipboard origin command; localRuntimeDiagnostics.js:78"
+      ]
+    },
+    {
+      "id": "D16",
+      "title": "Windows launcher assumes unbundled Node and fixed origins",
+      "severity": "MEDIUM",
+      "confidence": "confirmed environment/source",
+      "reproduction": "In the default shell npm/ollama/python were absent; tests stopped at 151/249 until bundled runtimes were prepended. Bridge and Vite were launched on 8787/5178; launcher/config defaults assume installed Node and common 5173 origins.",
+      "rootCause": "Windows scripts and documentation rely on ambient PATH and static origin/port assumptions rather than detecting available runtimes and actual UI port.",
+      "affectedFiles": [
+        "run-with-ollama.bat",
+        "run-local-runtime-bridge.bat",
+        "configure-ollama-origins.example.bat",
+        "MODEL_SETUP.md",
+        "local-runtime-bridge.js"
+      ],
+      "affectedTests": [
+        "tests/bridge-robustness-v7-3-13.test.mjs",
+        "tests/bridge-limits-v7-3-12.test.mjs"
+      ],
+      "subsystem": "Windows/WSL launchers",
+      "symptom": "Default PATH/port assumptions make startup brittle",
+      "expected": "Launcher identifies runtimes and actual Vite/bridge origin",
+      "actual": "Ambient tools absent; script prints fixed 5173 and checks any 200",
+      "existingProtection": "Manual explicit runtime/origin startup works",
+      "whyExistingTestsMissedIt": "CI/test shell supplies Node and a fixed environment; no clean Windows PATH/occupied-port launcher scenario.",
+      "securityImpact": "No direct exposure shown; origin widening must be avoided",
+      "dataIntegrityImpact": "None demonstrated",
+      "UXImpact": "Startup failure or wrong URL",
+      "recommendedCorrection": "Preflight Node/Ollama resolution, determine actual frontend origin, validate health identity, and provide precise Windows recovery text.",
+      "correctionRisk": "Cross-platform process ownership and port detection need careful testing",
+      "regressionTestsRequired": [
+        "Windows clean-PATH launcher preflight",
+        "Occupied 5173 fallback origin and bridge CORS consistency",
+        "Health endpoint identity on occupied 8787"
+      ],
+      "blocking": false,
+      "evidence": [
+        "Environment report; run-with-ollama.bat; run-local-runtime-bridge.bat"
+      ]
+    }
+  ]
+}

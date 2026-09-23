@@ -1,0 +1,623 @@
+{
+  "schemaVersion": "candy.scope4c-live-runtime/1",
+  "status": "LIVE_RUNTIME_QUALIFICATION_PASS",
+  "cases": [
+    {
+      "id": "static-open-wedge",
+      "jobId": "aefcbd25-6652-408c-a083-3e3b3fb614df",
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "graphArtifactId": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+      "requestDigest": "f0c09485a9439e03179e90741764d5e6fb75f63ad7adad840579bdf5df910365",
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 1,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.710144
+      },
+      "resultArtifactRef": {
+        "id": "sha256:0a730d90b663e853cae98c520dd41cb6767db594112711cdab81c6b5f1fb4491",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 1597
+      },
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "static-closed",
+      "jobId": "161ab683-7c1d-411d-b7c5-045e766e79f7",
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "graphArtifactId": "sha256:f609804a1627d57e49b61be4ac684ad7fae17c51532e3c932e3da166cce3da48",
+      "requestDigest": "83dbd533832a105a9ebf455254454dd0db5742f617eb02c3598104985e90967f",
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "total": 1,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.519392
+      },
+      "resultArtifactRef": {
+        "id": "sha256:1ca8972cbb0400f5fc6cbd02d7117514f34298dcefffe4ba4c9e8b6a39a3dc01",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 1599
+      },
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "incremental-delete",
+      "jobId": "c381f8cd-f8b6-4546-840a-9bebda442769",
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "graphArtifactId": "sha256:49b36fffd08f44337b30caf27b7f4919e4cbed7b49c9291e2e1e395ed4247ec4",
+      "requestDigest": "cdd7bb9dc53d6d4b03d17bc6b6d634e48947e26b8e0768e18abf330da7d018b6",
+      "counts": [
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": -1,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.636576
+      },
+      "resultArtifactRef": {
+        "id": "sha256:86ea20763b65b99c8236160ec44d96ba555bbd4c5d8708b0cc5b6836b19868af",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 2170
+      },
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "incremental-insert",
+      "jobId": "aee01f1d-7835-4e5c-b821-eaed76a61b6a",
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "graphArtifactId": "sha256:49b36fffd08f44337b30caf27b7f4919e4cbed7b49c9291e2e1e395ed4247ec4",
+      "requestDigest": "219b162e1964db63590903b645114de6fa8ef940f0b322f20204108848c4e691",
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 2,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.737568
+      },
+      "resultArtifactRef": {
+        "id": "sha256:5e0f812e26e3df278dce4ac3093c0e95ee2bfaa29f336a2cb54ddb79a276da09",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 2168
+      },
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "incremental-replace",
+      "jobId": "df76a384-565b-419b-a046-f6a3a1b746a0",
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "graphArtifactId": "sha256:49b36fffd08f44337b30caf27b7f4919e4cbed7b49c9291e2e1e395ed4247ec4",
+      "requestDigest": "a368ae2480226cb151536fe5c4457cd723eb287559ca00d8a3f36f05f1cc1754",
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 0,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.806528
+      },
+      "resultArtifactRef": {
+        "id": "sha256:a20ebe2638b2c666f2346eb4f9bd523b33bba575611bf1f4648f474dc7d1a901",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 2170
+      },
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "incremental-anchor-counterexample",
+      "jobId": "3edaea7b-6ea0-4715-b972-873d57ac6d00",
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "graphArtifactId": "sha256:2d3e7aae3112bb53101f49763bcca4a9cde95f276a9efc5c17841efa9d4c812d",
+      "requestDigest": "b7b4fb447c1c3b1371661ae477fa39155b00ff548c8c379f564e61918d1ef955",
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        -2,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": -3,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.704928
+      },
+      "resultArtifactRef": {
+        "id": "sha256:c1a691ef448050e1d94ecf51381f27d7371b5e1c05f3c9ec518d1e4874e9c96b",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 2219
+      },
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "static-multiclass",
+      "jobId": "291ddbd7-fb0b-454c-824f-75d229794769",
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "graphArtifactId": "sha256:ec84c632e441aa3163d6a4fa741a413d8185f49543b961186df994efd6ec8dd4",
+      "requestDigest": "8e4a5bf99d699402cc5b8a1f84d7dcadb12778fd8b940b41cfb2b18d3212e7de",
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 6,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.50208
+      },
+      "resultArtifactRef": {
+        "id": "sha256:58bb24bc8f5b0e31d8e7479961ac052592103066b29ff157f3de9fb057e814db",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 1624
+      },
+      "workspaceUnchanged": true
+    }
+  ],
+  "failures": [
+    {
+      "id": "missing-bearer",
+      "httpStatus": 401,
+      "classification": "ALGORITHM_FAILURE",
+      "secretEchoed": false
+    },
+    {
+      "id": "wrong-bearer",
+      "httpStatus": 401,
+      "classification": "ALGORITHM_FAILURE",
+      "secretEchoed": false
+    },
+    {
+      "id": "wrong-origin",
+      "httpStatus": 403,
+      "classification": "ALGORITHM_FAILURE",
+      "secretEchoed": false
+    },
+    {
+      "id": "malformed-json",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "oversized-body",
+      "httpStatus": 413,
+      "classification": "RESOURCE_LIMIT",
+      "secretEchoed": false
+    },
+    {
+      "id": "unknown-route",
+      "httpStatus": 404,
+      "classification": "ALGORITHM_FAILURE",
+      "secretEchoed": false
+    },
+    {
+      "id": "invalid-artifact-ref",
+      "httpStatus": 404,
+      "classification": "ALGORITHM_FAILURE",
+      "secretEchoed": false
+    },
+    {
+      "id": "absent-artifact-ref",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "invalid-job-id",
+      "httpStatus": 404,
+      "classification": "ALGORITHM_FAILURE",
+      "secretEchoed": false
+    },
+    {
+      "id": "nonexistent-job-cancel",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "unknown-capability",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "wrong-backend",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "wrong-mode",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "wrong-taxonomy",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "caller-new",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "candidate-injection",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "ordinary-motif-type",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_TYPE",
+      "secretEchoed": false
+    },
+    {
+      "id": "stale-request-ref",
+      "httpStatus": 400,
+      "classification": "STALE_GRAPH_VERSION",
+      "secretEchoed": false
+    },
+    {
+      "id": "stale-artifact-ref",
+      "httpStatus": 400,
+      "classification": "INVALID_GRAPH_SCHEMA",
+      "secretEchoed": false
+    },
+    {
+      "id": "real-native-timeout",
+      "classification": "PROCESS_TIMEOUT",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "failed"
+      ],
+      "resultAccepted": false
+    },
+    {
+      "id": "real-native-cancel-repeat",
+      "classification": "JOB_CANCELLED",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "cancelling",
+        "cancelled"
+      ],
+      "resultAccepted": false
+    }
+  ],
+  "runtime": {
+    "pid": 3416,
+    "platform": "win32",
+    "host": "127.0.0.1",
+    "distro": "Ubuntu",
+    "transport": "authenticated_http_browser_client"
+  },
+  "runtimeSessionId": "1b1b2b47-73c6-4459-8444-2bc6c35ea6c6",
+  "httpServerSurvivedAdversarialRequests": true
+}

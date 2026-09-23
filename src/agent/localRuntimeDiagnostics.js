@@ -55,13 +55,16 @@ export function runtimeCommandLabel(kind) {
     browserFetch: "browser fetch test",
     powershellCurl: "PowerShell curl test",
     wslCurl: "WSL curl test",
-    ollamaOrigins: "Ollama origins setup command",
+    powershellOrigins: "PowerShell Ollama origins command",
+    cmdOrigins: "cmd.exe Ollama origins command",
+    posixOrigins: "POSIX/bash Ollama origins command",
     diagnosticReport: "diagnostic report",
   }[kind] ?? "diagnostic text";
 }
 
 export function buildRuntimeCommands(config = {}, deployment = detectDeploymentMode()) {
   const model = config.model || RECOMMENDED_OLLAMA_MODEL;
+  const allowedOrigin = deployment.origin || DEFAULT_GITHUB_PAGES_ORIGIN;
   return {
     browserFetch: [
       `fetch("${DIRECT_OLLAMA_BASE_URL}/api/tags")`,
@@ -84,7 +87,9 @@ export function buildRuntimeCommands(config = {}, deployment = detectDeploymentM
       `curl ${BRIDGE_HEALTH_URL}`,
       `curl ${BRIDGE_OLLAMA_BASE_URL}/api/tags`,
     ].join("\n"),
-    ollamaOrigins: `OLLAMA_ORIGINS=${deployment.origin || DEFAULT_GITHUB_PAGES_ORIGIN},http://localhost:5173,http://127.0.0.1:5173 ollama serve`,
+    powershellOrigins: `$env:OLLAMA_ORIGINS='${allowedOrigin}'; ollama serve`,
+    cmdOrigins: `set "OLLAMA_ORIGINS=${allowedOrigin}" && ollama serve`,
+    posixOrigins: `OLLAMA_ORIGINS='${allowedOrigin}' ollama serve`,
     diagnosticReport: [
       "Hypergraph Converter Studio local model diagnostics",
       `Runtime: Ollama`,
@@ -100,6 +105,68 @@ export function buildRuntimeCommands(config = {}, deployment = detectDeploymentM
       "The app will automatically try direct Ollama first and the local bridge second; you do not choose a runtime.",
     ].join("\n"),
   };
+}
+
+const DIAGNOSTIC_FIELDS = [
+  "directRuntimeReachability",
+  "bridgeReachability",
+  "modelListingStatus",
+  "generationStatus",
+  "plannerReadiness",
+];
+
+function redactDiagnosticText(value, limit = 500) {
+  return String(value ?? "")
+    .replace(/\b(authorization|bearer|token|api[-_ ]?key|password|credential)\s*[:=]\s*[^\s,;]+/gi, "$1=[redacted]")
+    .slice(0, limit);
+}
+
+function diagnosticHistoryEntry(snapshot) {
+  return {
+    timestamp: snapshot.ranAt ?? new Date().toISOString(),
+    mode: snapshot.mode ?? "unknown",
+    testedTransport: snapshot.testedTransport ?? null,
+    testedTransportLabel: snapshot.testedTransportLabel ?? null,
+    testedEndpoint: snapshot.testedEndpoint ?? null,
+    overallStatus: snapshot.overallStatus ?? "not_tested",
+    classification: snapshot.lastConnectionErrorClassification ?? "",
+    summary: redactDiagnosticText(snapshot.summary),
+  };
+}
+
+export function mergeRuntimeDiagnosticEvidence(previous = {}, next = {}, limit = 12) {
+  const merged = { ...previous, ...next };
+  for (const field of DIAGNOSTIC_FIELDS) {
+    if ((next[field]?.status ?? "not_tested") === "not_tested" && previous[field]) merged[field] = previous[field];
+  }
+  const history = [...(previous.history ?? []), diagnosticHistoryEntry(next)].slice(-limit);
+  return { ...merged, history };
+}
+
+export function buildRuntimeDiagnosticReport(snapshot = {}) {
+  const lines = [
+    "Hypergraph Converter Studio local model diagnostics",
+    `Timestamp: ${snapshot.ranAt ?? "not run"}`,
+    `Active transport: ${snapshot.activeTransportLabel ?? "None"}`,
+    `Active endpoint: ${snapshot.activeEndpoint ?? snapshot.baseUrl ?? "None"}`,
+  ];
+  for (const [field, label] of [
+    ["directRuntimeReachability", "Direct Ollama"],
+    ["bridgeReachability", "Local bridge"],
+    ["modelListingStatus", "Model listing"],
+    ["generationStatus", "Structured generation"],
+    ["plannerReadiness", "Graph planner"],
+  ]) {
+    const item = snapshot[field] ?? {};
+    lines.push(`${label}: ${item.status ?? "not_tested"}${item.classification ? ` (${item.classification})` : ""} — ${redactDiagnosticText(item.message ?? "Not tested.")}`);
+  }
+  if ((snapshot.history ?? []).length) {
+    lines.push("Recent bounded diagnostic history:");
+    for (const item of snapshot.history.slice(-12)) {
+      lines.push(`- ${item.timestamp} | ${item.mode} | tested ${item.testedTransportLabel ?? item.testedTransport ?? "n/a"} | ${item.testedEndpoint ?? "n/a"} | ${item.overallStatus}${item.classification ? ` (${item.classification})` : ""} | ${redactDiagnosticText(item.summary)}`);
+    }
+  }
+  return lines.join("\n");
 }
 
 export function formatActionableRuntimeError(error, context = {}) {
@@ -205,11 +272,62 @@ export async function runRuntimeDiagnostics({
       ...snapshot,
       activeTransport: config.activeTransport || null,
       activeTransportLabel: config.activeTransport ? transportLabel(config.activeTransport) : "None",
+      testedTransport: transport,
+      testedTransportLabel: attempt.label,
+      testedEndpoint: attempt.baseUrl,
       overallStatus: attempt.ok ? "ok" : "failed",
       lastConnectionErrorClassification: attempt.ok ? "" : attempt.classification,
       suggestedFix: attempt.ok ? "Probe succeeded. Click Reconnect if you want to use this connection." : attempt.suggestedFix,
       summary: attempt.ok ? `${attempt.label} probe succeeded.` : `${attempt.label} probe failed.`,
       isolatedProbe: true,
+    };
+  }
+
+  if (mode === "full") {
+    const attempts = [];
+    let snapshot = started;
+    for (const transport of ["direct", "bridge"]) {
+      const attempt = await probeOllamaTransport(transport, config);
+      attempts.push(attempt);
+      snapshot = applyAttemptToSnapshot(snapshot, attempt);
+    }
+    const passed = attempts.filter(attempt => attempt.ok).length;
+    const overallStatus = passed === attempts.length ? "ok" : passed ? "warning" : "failed";
+    const failures = attempts.filter(attempt => !attempt.ok);
+    return {
+      ...snapshot,
+      activeTransport: config.activeTransport || null,
+      activeTransportLabel: config.activeTransport ? transportLabel(config.activeTransport) : "None",
+      activeEndpoint: config.activeBaseUrl || (config.activeTransport ? OLLAMA_TRANSPORTS[config.activeTransport]?.baseUrl : "None"),
+      attempts,
+      testedTransport: "direct+bridge",
+      testedTransportLabel: "Direct Ollama + Local Bridge",
+      testedEndpoint: `${DIRECT_OLLAMA_BASE_URL} ; ${BRIDGE_OLLAMA_BASE_URL}`,
+      overallStatus,
+      lastConnectionErrorClassification: failures[0]?.classification ?? "",
+      suggestedFix: failures[0]?.suggestedFix ?? "All transport, listing, and tiny generation checks passed.",
+      summary: `Full read-only diagnostics completed: ${attempts.map(attempt => `${attempt.label} ${attempt.ok ? "passed" : `failed (${attempt.classification})`}`).join("; ")}.`,
+      readOnly: true,
+    };
+  }
+
+  if (mode === "current-connection") {
+    const transport = config.activeTransport || config.lastSuccessfulTransport || "direct";
+    const attempt = await probeOllamaTransport(transport, config);
+    const snapshot = applyAttemptToSnapshot(started, attempt);
+    return {
+      ...snapshot,
+      activeTransport: config.activeTransport || null,
+      activeTransportLabel: config.activeTransport ? transportLabel(config.activeTransport) : "None",
+      activeEndpoint: config.activeBaseUrl || (config.activeTransport ? OLLAMA_TRANSPORTS[config.activeTransport]?.baseUrl : "None"),
+      testedTransport: transport,
+      testedTransportLabel: attempt.label,
+      testedEndpoint: attempt.baseUrl,
+      overallStatus: attempt.ok ? "ok" : "failed",
+      lastConnectionErrorClassification: attempt.ok ? "" : attempt.classification,
+      suggestedFix: attempt.ok ? "Current connection test passed." : attempt.suggestedFix,
+      summary: attempt.ok ? `${attempt.label} current connection test passed.` : `${attempt.label} current connection test failed.`,
+      readOnly: true,
     };
   }
 

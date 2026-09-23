@@ -141,6 +141,9 @@ export function buildGraphMutationPlannerPrompt({
     recentReferences,
   });
   const boundedQuery = String(userQuery ?? "").slice(0, GRAPH_MUTATION_DRAFT_LIMITS.maxQueryChars);
+  const explicitPreviewRequested = /\b(?:preview|what would happen if|without changing|without applying|do not change|don't change)\b/i.test(boundedQuery);
+  const explicitPendingCorrection = Boolean(graphContext.pendingMutation)
+    && /\b(?:actually|instead|rather than|i meant|no[,;:]?)\b/i.test(boundedQuery);
   const messages = [
     {
       role: "system",
@@ -152,9 +155,17 @@ export function buildGraphMutationPlannerPrompt({
         "Use surface references from the user; deterministic code resolves IDs.",
         "Modifiers such as again, too, please, now, instead, only, and actually are usually not entity IDs unless quoted.",
         "Use clarification for uncertainty; use not_mutation for explanation/export/navigation/parsing/mapping/stats/visualization.",
-        "Set previewOnly when the user asks impact/preview/what would happen or says not to change it.",
+        "An explanation or definition question such as 'What is a hyperedge?' is not_mutation, never clarification.",
+        "When a requested mutation lacks a required entity, use classification clarification, operations [], a non-empty clarificationQuestion, and previewOnly false.",
+        "For classification mutation, operations must be non-empty and contain the requested exact operation, including for previews.",
+        "Adding an existing vertex to an existing hyperedge is ADD_INCIDENCE. standaloneVerticesSupported=false only prohibits isolated standalone vertices; it never blocks incidence edits.",
+        "Set previewOnly true only when the user explicitly asks impact/preview/what would happen or says not to change it; otherwise set it false.",
+        "For not_mutation, unsupported, or clarification, operations must be [] and previewOnly must be false.",
+        "When pendingMutation exists and the user says actually/instead/no and supplies a replacement edit, set correction.isCorrection and correction.replacePendingPlan true. A correction is not automatically a preview.",
+        "For an unambiguous mutation set clarificationQuestion to null. Always emit every required top-level field.",
         "A pronoun needs selected, recentVerifiedReferences, or pendingMutation context.",
         "Operation enum: ADD_HYPEREDGE, REMOVE_HYPEREDGE, ADD_INCIDENCE, REMOVE_INCIDENCE, RENAME_HYPEREDGE, RENAME_VERTEX, REMOVE_VERTEX_GLOBAL, SET_HYPEREDGE_WEIGHT, SET_HYPEREDGE_TIME, SET_HYPEREDGE_ATTRIBUTE, REMOVE_HYPEREDGE_ATTRIBUTE, CLEAR_GRAPH, UNDO_LAST_MUTATION.",
+        "Each operation is an exact type-specific object. Include only the fields required by that operation variant; never add null placeholders or fields belonging to another operation type.",
         "No chain-of-thought, markdown, code fences, JavaScript, or extra fields.",
       ].join("\n"),
     },
@@ -176,6 +187,24 @@ export function buildGraphMutationPlannerPrompt({
           "acknowledgement",
           "confidence",
         ],
+        semanticInvariants: {
+          mutation: "classification=mutation requires one or more exact type-specific operations; previewOnly never replaces operations",
+          clarification: "classification=clarification requires operations=[], previewOnly=false, and a non-empty clarificationQuestion",
+          notMutation: "explanation/definition/documentation questions use classification=not_mutation, operations=[], previewOnly=false",
+          pendingCorrection: graphContext.pendingMutation
+            ? "This request has a pending mutation. If the user supplies an explicit correction/replacement, set both correction booleans true and emit the replacement operation."
+            : "No pending mutation exists; set both correction booleans false.",
+        },
+        requestSpecificRequirements: {
+          explicitPreviewRequested,
+          previewRule: explicitPreviewRequested
+            ? "If the entities and operation are explicit, emit the operation and set previewOnly=true. Do not classify a supported incidence preview as clarification."
+            : "Set previewOnly=false unless another explicit preview phrase is present.",
+          explicitPendingCorrection,
+          requiredCorrection: explicitPendingCorrection
+            ? { isCorrection: true, replacePendingPlan: true }
+            : { isCorrection: false, replacePendingPlan: false },
+        },
       }, null, 2),
     },
   ];

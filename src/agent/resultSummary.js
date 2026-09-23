@@ -20,6 +20,14 @@ function statusText(value) {
   return null;
 }
 
+export function derivedResultSummaryText(result = {}) {
+  if (result.status === "computed" && Number.isFinite(Number(result.value))) return numberText(result.value);
+  if (result.status === "not_requested") return "not requested";
+  if (result.status === "over_budget") return "resource/budget exceeded";
+  if (result.status === "error") return "failed";
+  return "unavailable";
+}
+
 export const RESULT_SUMMARY_ACTIONS = [
   { id: "open_mappings", label: "Mappings", actionType: "OPEN_SECTION", sectionId: "mappings" },
   { id: "open_statistics", label: "Statistics", actionType: "OPEN_SECTION", sectionId: "stats" },
@@ -74,7 +82,7 @@ export function buildGraphResultSummaryMessage(state = {}, {
     ["Incidence density", present(summary.incidenceDensityPercent, value => `${Number(value).toFixed(3)}%`)],
     ["V2V projection density", present(summary.v2vProjectionDensityPercent, value => `${Number(value).toFixed(3)}%`)],
     ["V2V edges", summary.v2vEdgeCount],
-    ["Line-graph triangles", summary.triads === null ? "too large to count in browser" : summary.triads],
+    ["Line-graph triangles", derivedResultSummaryText({ status: summary.triadsStatus, value: summary.triads, reason: summary.triadsReason })],
     ["Duplicate hyperedges", statusText(summary.duplicateStatus)],
     ["Singleton hyperedges", statusText(summary.singletonStatus)],
     ["Validation", summary.validationStatus],

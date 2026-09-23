@@ -67,6 +67,16 @@ const ENTITY_REFERENCE_SCHEMA = {
   },
 };
 
+function referenceSchema(entityType) {
+  return {
+    ...ENTITY_REFERENCE_SCHEMA,
+    properties: {
+      ...ENTITY_REFERENCE_SCHEMA.properties,
+      entityType: { type: "string", enum: [entityType] },
+    },
+  };
+}
+
 const CORRECTION_SCHEMA = {
   type: "object",
   additionalProperties: false,
@@ -82,20 +92,90 @@ const EMPTY_POLICY_SCHEMA = {
   enum: Object.values(EMPTY_HYPEREDGE_POLICIES),
 };
 
-const NULLABLE_ENTITY_REFERENCE_SCHEMA = {
-  anyOf: [ENTITY_REFERENCE_SCHEMA, { type: "null" }],
-};
-
-const NULLABLE_EMPTY_POLICY_SCHEMA = {
-  anyOf: [EMPTY_POLICY_SCHEMA, { type: "null" }],
-};
-
 const JSON_VALUE_SCHEMA = {
   type: ["string", "number", "boolean", "object", "array", "null"],
 };
 
+const VERTEX_REFERENCE_SCHEMA = referenceSchema("vertex");
+const HYPEREDGE_REFERENCE_SCHEMA = referenceSchema("hyperedge");
+const VERTEX_REFERENCE_REF = { $ref: "#/$defs/vertexReference" };
+const HYPEREDGE_REFERENCE_REF = { $ref: "#/$defs/hyperedgeReference" };
+const EMPTY_POLICY_REF = { $ref: "#/$defs/emptyHyperedgePolicy" };
+const JSON_VALUE_REF = { $ref: "#/$defs/jsonValue" };
+
+function operationSchema(type, properties = {}, required = Object.keys(properties)) {
+  return {
+    type: "object",
+    additionalProperties: false,
+    required: ["type", ...required],
+    properties: {
+      type: { enum: [type] },
+      ...properties,
+    },
+  };
+}
+
+export const GRAPH_MUTATION_OPERATION_SCHEMAS = Object.freeze([
+  operationSchema(GRAPH_MUTATION_OPS.ADD_HYPEREDGE, {
+    newHyperedgeId: { type: "string", maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxIdentifierChars },
+    vertexReferences: {
+      type: "array",
+      minItems: 1,
+      maxItems: GRAPH_MUTATION_DRAFT_LIMITS.maxOperations * 2,
+      items: VERTEX_REFERENCE_REF,
+    },
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.REMOVE_HYPEREDGE, { hyperedgeReference: HYPEREDGE_REFERENCE_REF }),
+  operationSchema(GRAPH_MUTATION_OPS.ADD_INCIDENCE, {
+    vertexReference: VERTEX_REFERENCE_REF,
+    hyperedgeReference: HYPEREDGE_REFERENCE_REF,
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.REMOVE_INCIDENCE, {
+    vertexReference: VERTEX_REFERENCE_REF,
+    hyperedgeReference: HYPEREDGE_REFERENCE_REF,
+    emptyHyperedgePolicy: EMPTY_POLICY_REF,
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.RENAME_HYPEREDGE, {
+    hyperedgeReference: HYPEREDGE_REFERENCE_REF,
+    newHyperedgeId: { type: "string", maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxIdentifierChars },
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.RENAME_VERTEX, {
+    vertexReference: VERTEX_REFERENCE_REF,
+    newVertexId: { type: "string", maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxIdentifierChars },
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.REMOVE_VERTEX_GLOBAL, {
+    vertexReference: VERTEX_REFERENCE_REF,
+    emptyHyperedgePolicy: EMPTY_POLICY_REF,
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.SET_HYPEREDGE_WEIGHT, {
+    hyperedgeReference: HYPEREDGE_REFERENCE_REF,
+    weight: { type: "number" },
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.SET_HYPEREDGE_TIME, {
+    hyperedgeReference: HYPEREDGE_REFERENCE_REF,
+    time: JSON_VALUE_REF,
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.SET_HYPEREDGE_ATTRIBUTE, {
+    hyperedgeReference: HYPEREDGE_REFERENCE_REF,
+    key: { type: "string", maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxAttributeKeyChars },
+    value: JSON_VALUE_REF,
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.REMOVE_HYPEREDGE_ATTRIBUTE, {
+    hyperedgeReference: HYPEREDGE_REFERENCE_REF,
+    key: { type: "string", maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxAttributeKeyChars },
+  }),
+  operationSchema(GRAPH_MUTATION_OPS.CLEAR_GRAPH),
+  operationSchema(GRAPH_MUTATION_OPS.UNDO_LAST_MUTATION),
+]);
+
 export const GRAPH_MUTATION_DRAFT_SCHEMA = {
   type: "object",
+  $defs: {
+    vertexReference: VERTEX_REFERENCE_SCHEMA,
+    hyperedgeReference: HYPEREDGE_REFERENCE_SCHEMA,
+    emptyHyperedgePolicy: EMPTY_POLICY_SCHEMA,
+    jsonValue: JSON_VALUE_SCHEMA,
+  },
   additionalProperties: false,
   required: [
     "task",
@@ -116,34 +196,7 @@ export const GRAPH_MUTATION_DRAFT_SCHEMA = {
       type: "array",
       maxItems: GRAPH_MUTATION_DRAFT_LIMITS.maxOperations,
       items: {
-        type: "object",
-        additionalProperties: false,
-        required: [
-          "type",
-          "vertexReference",
-          "hyperedgeReference",
-          "vertexReferences",
-          "newHyperedgeId",
-          "newVertexId",
-          "emptyHyperedgePolicy",
-          "weight",
-          "time",
-          "key",
-          "value",
-        ],
-        properties: {
-          type: { type: "string", enum: GRAPH_MUTATION_DRAFT_SUPPORTED_OPS },
-          vertexReference: NULLABLE_ENTITY_REFERENCE_SCHEMA,
-          hyperedgeReference: NULLABLE_ENTITY_REFERENCE_SCHEMA,
-          vertexReferences: { type: "array", maxItems: GRAPH_MUTATION_DRAFT_LIMITS.maxOperations * 2, items: ENTITY_REFERENCE_SCHEMA },
-          newHyperedgeId: { type: ["string", "null"], maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxIdentifierChars },
-          newVertexId: { type: ["string", "null"], maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxIdentifierChars },
-          emptyHyperedgePolicy: NULLABLE_EMPTY_POLICY_SCHEMA,
-          weight: { type: ["number", "null"] },
-          time: JSON_VALUE_SCHEMA,
-          key: { type: ["string", "null"], maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxAttributeKeyChars },
-          value: JSON_VALUE_SCHEMA,
-        },
+        oneOf: GRAPH_MUTATION_OPERATION_SCHEMAS,
       },
     },
     clarificationQuestion: { type: ["string", "null"], maxLength: GRAPH_MUTATION_DRAFT_LIMITS.maxClarificationChars },

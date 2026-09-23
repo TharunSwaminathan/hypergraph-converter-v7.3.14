@@ -1,8 +1,10 @@
 import { extractFirstJsonObject } from "./modelResponseValidator.js";
 import {
   DATASET_INTERPRETATION_CLASSIFICATIONS,
+  DATASET_INTERPRETATION_DRAFT_SCHEMA,
   DATASET_INTERPRETATION_TASK,
 } from "./datasetInterpretationDraftSchema.js";
+import { validateStrictJsonSchema } from "./strictJsonSchemaValidator.js";
 
 const ROLES = new Set(["vertex_table", "hyperedge_table", "membership", "incidence", "edge_list", "hyperedge_list", "matrix_coordinate_list", "validation_expected_output", "update_stream", "ignored", "unknown"]);
 const CONFIDENCE = new Set(["low", "medium", "high"]);
@@ -39,6 +41,7 @@ export function validateDatasetInterpretationDraft(candidate, {
   const draft = objectFrom(candidate);
   const errors = [];
   if (!draft || typeof draft !== "object" || Array.isArray(draft)) return { ok: false, draft: null, errors: ["Interpretation draft must be one JSON object."] };
+  errors.push(...validateStrictJsonSchema(draft, DATASET_INTERPRETATION_DRAFT_SCHEMA).errors);
   if (draft.task !== DATASET_INTERPRETATION_TASK) errors.push("task must be plan_dataset_interpretation.");
   if (!DATASET_INTERPRETATION_CLASSIFICATIONS.includes(draft.classification)) errors.push(`Unsupported interpretation classification ${draft.classification}.`);
   if (!["together", "separate", "grouped", "unknown"].includes(draft.parseModeRecommendation)) errors.push("parseModeRecommendation is invalid.");

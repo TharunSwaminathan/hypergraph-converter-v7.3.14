@@ -235,6 +235,10 @@ export function validateParserCodeSafety(code) {
   };
 }
 
+export function hasNonEmptyCustomParserResult(result) {
+  return Array.isArray(result?.hyperedges) && result.hyperedges.length > 0;
+}
+
 function analyzeParserCodeAst(source) {
   let ast;
   try {
@@ -277,6 +281,13 @@ function walkAst(node, scope, violations) {
       return;
     case "ImportDeclaration":
       violations.push("static_import");
+      return;
+    case "ImportExpression":
+      // Modern Acorn represents import(...) as ImportExpression rather than
+      // a CallExpression whose callee has type Import. Reject the expression
+      // itself before descending so every nested/awaited form fails closed.
+      violations.push("dynamic_import");
+      walkAst(node.source, scope, violations);
       return;
     case "VariableDeclaration":
       node.declarations.forEach(declaration => {

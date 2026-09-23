@@ -23,6 +23,8 @@ const negatives = [
   [`return Object.getPrototypeOf({});`, /prototype_escape/],
   [`return (() => {}).constructor("return 1")();`, /prototype_escape|function_constructor/],
   [`delete helpers.splitLines; return [];`, /global_mutation/],
+  [`return import("data:text/javascript,export default 1");`, /dynamic_import/],
+  [`return (async () => await import(fileName))();`, /dynamic_import/],
 ];
 
 for (const [source, pattern] of negatives) {

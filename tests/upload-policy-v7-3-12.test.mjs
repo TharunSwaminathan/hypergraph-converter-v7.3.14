@@ -29,6 +29,14 @@ for (const name of ["graph.edge", "graph.EDGE", "graph.EdGe", "graph.edges"]) {
 }
 assert.equal(isAcceptedUploadFileName("graph.edg"), false);
 assert.throws(() => validateSelectedFiles([file("graph.edg", 10)]), /Unsupported upload extension/);
+assert.throws(
+  () => validateSelectedFiles([file("same.csv", 10, "first"), file("same.csv", 11, "second")]),
+  /Duplicate upload filename same\.csv/,
+);
+assert.throws(
+  () => validateSelectedFiles([file("SAME.csv", 10, "first"), file("same.csv", 11, "second")]),
+  /Duplicate upload filename same\.csv/i,
+);
 assert.match(UPLOAD_ACCEPT_ATTRIBUTE, /\.edge(?:,|$)/);
 assert.match(UPLOAD_ACCEPT_ATTRIBUTE, /\.edges(?:,|$)/);
 assert.deepEqual(

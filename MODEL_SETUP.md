@@ -224,15 +224,18 @@ bash run-with-ollama.sh
 
 The launcher:
 
-1. locates Ollama,
+1. locates the installed Node.js, npm, and Ollama runtimes before using them,
 2. verifies or starts the Ollama server,
-3. checks `qwen3:8b`,
-4. offers to pull the model if missing,
-5. starts the local Ollama bridge,
-6. verifies bridge health,
-7. installs npm dependencies when needed,
-8. starts Vite,
-9. prints the dashboard URL, model, direct endpoint, and bridge endpoint.
+3. checks `qwen3:8b` and offers to pull it if missing,
+4. selects a free loopback frontend port beginning at `5173` (or verifies the explicit `FRONTEND_PORT`),
+5. derives exact bridge origins from that selected port,
+6. refuses a bridge-port conflict unless `/health` identifies `hypergraph-ollama-bridge`,
+7. starts and identity-checks the local Ollama bridge,
+8. installs npm dependencies when needed,
+9. starts Vite with `--strictPort`, and
+10. prints the actual dashboard URL, model, direct endpoint, bridge endpoint, and bridge origins.
+
+Do not assume that the dashboard uses port `5173`. Copy the exact `Dashboard URL` printed by the launcher. If all ports from `5173` through `5192` are occupied, close an occupying process or set `FRONTEND_PORT` to a free port. If bridge port `8787` is occupied by an unrelated service, stop that service or set `HYPERGRAPH_BRIDGE_PORT` to a free loopback port. The combined launchers propagate that exact bridge port to the Vite browser build through `VITE_HYPERGRAPH_BRIDGE_PORT`; standalone/static builds continue to default to `8787` unless built with the same public environment value.
 
 ## Assistant Settings
 
@@ -314,15 +317,16 @@ The full graph-planner readiness test validates a returned `GraphMutationDraft` 
 
 ## Local Ollama bridge
 
-Manual bridge start:
+Manual bridge start requires an exact frontend origin. Prefer the standard launcher. For a standalone bridge, set `HYPERGRAPH_BRIDGE_ORIGINS` first:
 
 ```bash
-bash run-local-runtime-bridge.sh
+HYPERGRAPH_BRIDGE_ORIGINS=http://127.0.0.1:<actual-vite-port> bash run-local-runtime-bridge.sh
 ```
 
 Windows:
 
 ```bat
+set "HYPERGRAPH_BRIDGE_ORIGINS=http://127.0.0.1:<actual-vite-port>"
 run-local-runtime-bridge.bat
 ```
 
@@ -334,13 +338,15 @@ GET  /ollama/api/tags
 POST /ollama/api/chat
 ```
 
-The bridge binds to `127.0.0.1` by default, forwards only known Ollama paths, blocks public targets, uses an origin allowlist, supports preflight/CORS, and does not persist request bodies.
+The bridge binds to `127.0.0.1` by default, forwards only known Ollama paths, blocks public targets, requires exact HTTP(S) origins (no wildcard, credentials, path, query, or fragment), supports preflight/CORS, and does not persist request bodies.
 
-To change the deployed GitHub Pages origin, edit `ALLOWED_ORIGINS` in `local-runtime-bridge.js` or set:
+To allow the actual local dashboard and a deployed GitHub Pages origin, set:
 
 ```bash
-HYPERGRAPH_BRIDGE_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,https://YOUR_USERNAME.github.io
+HYPERGRAPH_BRIDGE_ORIGINS=http://127.0.0.1:<actual-vite-port>,https://YOUR_USERNAME.github.io
 ```
+
+The standard launchers set this automatically for the selected loopback port. A generic HTTP 200 from another service is not accepted as bridge health.
 
 ## Direct GitHub Pages to local Ollama
 
@@ -381,7 +387,7 @@ Paste:
 
 ```ini
 [Service]
-Environment="OLLAMA_ORIGINS=https://hypergraphproject.github.io,http://localhost:5173,http://127.0.0.1:5173"
+Environment="OLLAMA_ORIGINS=https://hypergraphproject.github.io,http://127.0.0.1:<actual-vite-port>"
 ```
 
 Then:
@@ -394,10 +400,10 @@ sudo systemctl restart ollama
 Windows flow:
 
 ```powershell
-[Environment]::SetEnvironmentVariable('OLLAMA_ORIGINS', 'https://hypergraphproject.github.io,https://YOUR_USERNAME.github.io,http://localhost:5173,http://127.0.0.1:5173', 'User')
+[Environment]::SetEnvironmentVariable('OLLAMA_ORIGINS', 'https://hypergraphproject.github.io,https://YOUR_USERNAME.github.io,http://127.0.0.1:<actual-vite-port>', 'User')
 ```
 
-Fully quit and restart Ollama after setting the variable.
+Replace `<actual-vite-port>` with the port in the launcher's printed Dashboard URL. Fully quit and restart Ollama after setting the variable.
 
 ## WSL vs Windows troubleshooting
 

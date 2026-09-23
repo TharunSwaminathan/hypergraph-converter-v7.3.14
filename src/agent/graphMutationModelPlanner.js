@@ -85,6 +85,11 @@ function buildGraphMutationRepairRequest(originalRequest, {
     "Return one corrected JSON object only. No markdown, no prose, no code fences.",
     "Match the attached GraphMutationDraft response format exactly.",
     "Never add executable fields or prose.",
+    "Re-derive the entire corrected object from the original userQuery and graphContext; do not preserve invalid empty operations or an incorrect classification from the rejected response.",
+    "A mutation requires one or more exact type-specific operations even when previewOnly is true.",
+    "A missing mutation entity requires classification clarification, operations [], previewOnly false, and a non-empty clarificationQuestion.",
+    "Explanation/definition/documentation questions require classification not_mutation, operations [], and previewOnly false.",
+    "If pendingMutation exists and the user explicitly corrects/replaces it, emit the replacement operation and set both correction booleans true.",
     "Validation errors:",
     ...validationErrors.slice(0, 8).map(error => `- ${error}`),
   ].join("\n");
@@ -111,6 +116,19 @@ function remainingMs(deadline) {
 
 function attemptTimeoutMs(deadline, preferred) {
   return Math.max(1, Math.min(Number(preferred) || 1, remainingMs(deadline) || 1));
+}
+
+function attemptFailureSummary(attempts, classification, terminalMessage) {
+  const parts = attempts
+    .filter(attempt => (attempt.validationErrors ?? []).length)
+    .map(attempt => `Attempt ${attempt.attempt} structured validation failed: ${attempt.validationErrors.join("; ")}`);
+  const terminalLabel = classification === "model_generation_timeout"
+    ? "model generation timed out"
+    : classification === "request_aborted"
+      ? "request was aborted"
+      : `transport failed (${classification})`;
+  parts.push(`Attempt ${attempts.length + 1} ${terminalLabel}: ${terminalMessage}`);
+  return parts.join("\n");
 }
 
 export async function planGraphMutationWithModel({
@@ -200,13 +218,24 @@ export async function planGraphMutationWithModel({
     }
   } catch (error) {
     const classification = classifyLocalModelError(error);
+    const terminalMessage = error instanceof Error ? error.message : String(error);
+    const fallbackReason = attemptFailureSummary(attempts, classification, terminalMessage);
+    attempts.push({
+      task: `${GRAPH_MUTATION_DRAFT_TASK}${attempts.length ? "_repair" : ""}`,
+      attempt: attempts.length + 1,
+      status: classification,
+      classification,
+      error: terminalMessage,
+      validationErrors: [],
+      repaired: false,
+    });
     return {
       ok: false,
       plannerPath: classification === "request_aborted" ? "aborted" : "deterministic_nlu_fallback",
       aborted: classification === "request_aborted",
       fallbackAllowed: classification !== "request_aborted",
       classification,
-      fallbackReason: error instanceof Error ? error.message : String(error),
+      fallbackReason,
       attempts,
       metrics,
       request,

@@ -20,16 +20,36 @@ const UPSTREAM_TIMEOUT_MS = readBoundedPositiveIntegerEnv("HYPERGRAPH_BRIDGE_UPS
 const MAX_RESPONSE_BYTES = readBoundedPositiveIntegerEnv("HYPERGRAPH_BRIDGE_MAX_RESPONSE_BYTES", 25 * 1024 * 1024, { min: 1024, max: 250 * 1024 * 1024 });
 const OLLAMA_BASE_URL = process.env.OLLAMA_BASE_URL || "http://127.0.0.1:11434";
 
-// Edit this list or set HYPERGRAPH_BRIDGE_ORIGINS to a comma-separated list.
-export const ALLOWED_ORIGINS = (process.env.HYPERGRAPH_BRIDGE_ORIGINS
+function normalizeAllowedOrigin(value) {
+  const trimmed = String(value ?? "").trim();
+  if (!trimmed || trimmed === "*") throw new Error("Bridge origins must be explicit HTTP(S) origins; wildcards and blank values are not allowed.");
+  let url;
+  try {
+    url = new URL(trimmed);
+  } catch {
+    throw new Error(`Invalid bridge origin: ${JSON.stringify(trimmed)}.`);
+  }
+  if (!["http:", "https:"].includes(url.protocol)
+      || url.username
+      || url.password
+      || url.pathname !== "/"
+      || url.search
+      || url.hash
+      || url.origin === "null") {
+    throw new Error(`Bridge origin must be an exact HTTP(S) origin without credentials, path, query, or fragment: ${JSON.stringify(trimmed)}.`);
+  }
+  return url.origin;
+}
+
+const configuredOrigins = process.env.HYPERGRAPH_BRIDGE_ORIGINS
   ? process.env.HYPERGRAPH_BRIDGE_ORIGINS.split(",")
-  : [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "https://hypergraphproject.github.io",
-  ])
-  .map(origin => origin.trim())
-  .filter(Boolean);
+  : process.env.HYPERGRAPH_FRONTEND_ORIGIN
+    ? [process.env.HYPERGRAPH_FRONTEND_ORIGIN]
+    : ["https://hypergraphproject.github.io"];
+
+export const ALLOWED_ORIGINS = [...new Set(configuredOrigins
+  .map(origin => normalizeAllowedOrigin(origin))
+  .filter(Boolean))];
 
 const ROUTES = new Map([
   ["GET /ollama/api/tags", { path: "/api/tags" }],
@@ -177,6 +197,7 @@ async function proxyRequest(req, res, route, cors) {
   try {
     const response = await fetch(url, {
       method: req.method,
+      redirect: "error",
       headers: {
         "Content-Type": req.headers["content-type"] || "application/json",
         Accept: "application/json",

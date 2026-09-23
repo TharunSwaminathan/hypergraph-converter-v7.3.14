@@ -183,7 +183,9 @@ export function planAgentAction(classification, state) {
     case "local_model_enable":
       return { kind: "configure_local_model", patch: { enabled: true }, message: `Local assistant enabled for Ollama with ${RECOMMENDED_OLLAMA_MODEL}. Start Ollama, then click Connect or ask me to reconnect.` };
     case "local_model_connect":
-      return { kind: "test_local_model" };
+      return state.localModel?.config?.enabled === false
+        ? { kind: "respond", message: "Local assistant is disabled. Open Assistant Settings, click Enable local assistant, then click Connect." }
+        : { kind: "test_local_model" };
     case "local_model_reconnect_bridge":
       return { kind: "test_local_model", configOverride: { preferTransport: "bridge" } };
     case "local_model_disable":

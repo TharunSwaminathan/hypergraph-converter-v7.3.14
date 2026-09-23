@@ -41,6 +41,7 @@ export function validateSelectedFiles(files, policy = UPLOAD_POLICY) {
     throw new Error(`Upload limit exceeded: at most ${policy.maxFiles} files may be selected.`);
   }
   let aggregate = 0;
+  const displayNames = new Set();
   for (const file of list) {
     if (file?.name && !isAcceptedUploadFileName(file.name)) {
       throw new Error(`Unsupported upload extension for ${file.name}. Accepted extensions: ${UPLOAD_FILE_EXTENSIONS.join(", ")}.`);
@@ -53,6 +54,11 @@ export function validateSelectedFiles(files, policy = UPLOAD_POLICY) {
     if (aggregate > policy.maxAggregateBytes) {
       throw new Error(`Upload limit exceeded: selected files total ${aggregate.toLocaleString()} bytes; max aggregate size is ${policy.maxAggregateBytes.toLocaleString()} bytes.`);
     }
+    const displayName = String(file?.name ?? "").normalize("NFC").trim().toLocaleLowerCase("en-US");
+    if (displayName && displayNames.has(displayName)) {
+      throw new Error(`Duplicate upload filename ${file.name}. File names must be unique within a batch because mapping and parser references use the display filename.`);
+    }
+    if (displayName) displayNames.add(displayName);
   }
   return list;
 }

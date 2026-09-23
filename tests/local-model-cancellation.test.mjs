@@ -39,6 +39,23 @@ try {
       return true;
     },
   );
+
+  globalThis.fetch = async (_url, options) => {
+    await new Promise((_resolve, reject) => {
+      options.signal.addEventListener("abort", () => reject(options.signal.reason), { once: true });
+    });
+  };
+  const primitiveCancel = new AbortController();
+  const cancelled = fetchJson("http://localhost:11434/api/chat", { signal: primitiveCancel.signal }, 10000);
+  primitiveCancel.abort("request_aborted");
+  await assert.rejects(cancelled, error => {
+    assert.equal(error.classification, "request_aborted");
+    return true;
+  });
+  await assert.rejects(fetchJson("http://localhost:11434/api/chat", {}, 1), error => {
+    assert.equal(error.classification, "model_generation_timeout");
+    return true;
+  });
 } finally {
   globalThis.fetch = originalFetch;
 }

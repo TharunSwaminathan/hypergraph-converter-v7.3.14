@@ -27,7 +27,7 @@ import { buildMappingPresentation } from "./derived/mappingPresentation.js";
 import { useAsyncDerivedProduct } from "./hooks/useAsyncDerivedProduct.js";
 import {
   buildAiPrompt, DEFAULT_CUSTOM_PARSER, runCustomParser,
-  buildBatchCustomParserTemplate, normalizeCustomParserOutput,
+  buildBatchCustomParserTemplate, hasNonEmptyCustomParserResult, normalizeCustomParserOutput,
 } from "./utils/customParser.js";
 import AlgorithmsPanel from "./components/AlgorithmsPanel.jsx";
 import TriadStatistic from "./components/TriadStatistic.jsx";
@@ -49,12 +49,14 @@ import {
   generateWithLocalModel,
 } from "./agent/localModelClient.js";
 import {
+  buildRuntimeDiagnosticReport,
   buildRuntimeCommands,
   createRuntimeDiagnosticsSnapshot,
   detectDeploymentMode,
   diagnosticsEstablishConnection,
   formatActionableRuntimeError,
   isIsolatedRuntimeProbeMode,
+  mergeRuntimeDiagnosticEvidence,
   runRuntimeDiagnostics,
   runtimeCommandLabel,
 } from "./agent/localRuntimeDiagnostics.js";
@@ -2009,9 +2011,11 @@ function AppCore() {
   async function testConfiguredLocalModel(overrides = {}) {
     const effective = effectiveLocalModelConfig(overrides);
     if (effective.enabled === false) {
-      const enabledConfig = { ...effective, enabled: true };
-      setLocalModelConfig(enabledConfig);
-      return testConfiguredLocalModel({ ...overrides, enabled: true });
+      return {
+        ok: false,
+        classification: "assistant_disabled",
+        error: "Local assistant is disabled. Click Enable local assistant first, then Connect.",
+      };
     }
     setLocalModelBusy(true);
     setLocalModelStatus("connecting");
@@ -2146,6 +2150,7 @@ function AppCore() {
   }
 
   async function runLocalRuntimeDiagnostics(mode = "current") {
+    if (mode === "reconnect") return testConfiguredLocalModel();
     if (mode === "graph-planner") {
       setRuntimeDiagnosticsBusy(true);
       try {
@@ -2158,18 +2163,34 @@ function AppCore() {
     const testGeneration = mode === "generation" || mode === "current";
     setRuntimeDiagnosticsBusy(true);
     try {
-      const result = await runRuntimeDiagnostics({
+      let result = await runRuntimeDiagnostics({
         config: localModelConfig,
         mode,
         testGeneration,
         fetchImpl: fetch,
         locationLike: window.location,
       });
+      if (mode === "full" && localModelConfig.enabled !== false) {
+        const planner = await runGraphPlannerReadinessDiagnostic({ record: false, requireConnected: false });
+        const merged = mergeRuntimeDiagnosticEvidence(result, planner.diagnostics ?? {});
+        const plannerFailed = !planner.ok;
+        result = {
+          ...merged,
+          mode: "full",
+          readOnly: true,
+          overallStatus: plannerFailed || result.overallStatus === "failed"
+            ? "failed"
+            : result.overallStatus,
+          summary: `${result.summary}\n${planner.message || planner.error || "Graph planner diagnostic did not complete."}`.trim(),
+        };
+      }
       if (isolatedProbe) {
         setRuntimeProbeResult(result);
+        setRuntimeDiagnostics(current => mergeRuntimeDiagnosticEvidence(current, result));
       } else {
-        setRuntimeDiagnostics(result);
-        if (diagnosticsEstablishConnection(result)) {
+        setRuntimeDiagnostics(current => mergeRuntimeDiagnosticEvidence(current, result));
+        const readOnly = ["full", "current-connection", "generation"].includes(mode);
+        if (!readOnly && diagnosticsEstablishConnection(result)) {
           setLocalModelConfig(current => ({
             ...current,
             enabled: true,
@@ -2179,7 +2200,7 @@ function AppCore() {
           }));
           setLocalModelStatus("connected");
           setLocalModelModels(result.modelListingStatus?.models ?? []);
-        } else if (result.overallStatus === "failed") {
+        } else if (!readOnly && result.overallStatus === "failed") {
           setLocalModelStatus("error");
         }
         if (result.summary) setLocalModelMessage(result.summary);
@@ -2202,10 +2223,13 @@ function AppCore() {
         summary: classified.suggestedFix,
         overallStatus: "failed",
       };
-      if (isolatedProbe) setRuntimeProbeResult(failureSnapshot);
+      if (isolatedProbe) {
+        setRuntimeProbeResult(failureSnapshot);
+        setRuntimeDiagnostics(current => mergeRuntimeDiagnosticEvidence(current, failureSnapshot));
+      }
       else {
-        setRuntimeDiagnostics(failureSnapshot);
-        setLocalModelStatus("error");
+        setRuntimeDiagnostics(current => mergeRuntimeDiagnosticEvidence(current, failureSnapshot));
+        if (!["full", "current-connection", "generation"].includes(mode)) setLocalModelStatus("error");
         setLocalModelMessage(classified.suggestedFix);
       }
       return {
@@ -2223,7 +2247,7 @@ function AppCore() {
 
   async function copyRuntimeDiagnosticCommand(kind) {
     const commands = runtimeDiagnostics?.commands ?? buildRuntimeCommands(localModelConfig, detectDeploymentMode(window.location));
-    const text = commands[kind];
+    const text = kind === "diagnosticReport" ? buildRuntimeDiagnosticReport(runtimeDiagnostics) : commands[kind];
     if (!text) return { ok: false, error: `No ${runtimeCommandLabel(kind)} is available yet.` };
     try {
       await navigator.clipboard.writeText(text);
@@ -2242,9 +2266,9 @@ function AppCore() {
     return { ok: true, message: commands.githubPagesSetupHelp };
   }
 
-  async function runGraphPlannerReadinessDiagnostic() {
+  async function runGraphPlannerReadinessDiagnostic({ record = true, requireConnected = true } = {}) {
     const effective = effectiveLocalModelConfig();
-    if (localModelStatus !== "connected") {
+    if (requireConnected && localModelStatus !== "connected") {
       return { ok: false, error: "Connect Ollama before running the full graph-planner readiness test." };
     }
     const testHyperedges = [{ id: "h0", vertices: ["4", "5"] }];
@@ -2302,8 +2326,10 @@ function AppCore() {
       overallStatus: passed ? "ok" : "failed",
       summary: message,
     };
-    setRuntimeProbeResult(snapshot);
-    setRuntimeDiagnostics(current => ({ ...current, plannerReadiness: snapshot.plannerReadiness }));
+    if (record) {
+      setRuntimeProbeResult(snapshot);
+      setRuntimeDiagnostics(current => mergeRuntimeDiagnosticEvidence(current, snapshot));
+    }
     return { ok: passed, message, diagnostics: snapshot };
   }
 
@@ -2941,16 +2967,21 @@ function AppCore() {
       if (staleSpecialistRun()) return { ok: false, error: "Parser source or dataset changed during execution. The stale result was discarded." };
       setCustomLogs(raw.logs ?? []);
       const normalized = normalizeCustomParserOutput(raw.result);
+      if (!hasNonEmptyCustomParserResult(normalized)) {
+        setCustomErr(customFiles.length === 0
+          ? "No files are loaded. Add at least one file before running Custom Parser."
+          : "Custom parser returned no hyperedges. Review the parser and input files, then run it again.");
+        setCustomResult(null);
+        setCustomResultId(null);
+        setCustomLogs(prev => [...prev, "No graph preview was created because the parser returned zero hyperedges."]);
+        updateBatchParserStatus(customCodeBinding?.batchId, "failed");
+        return { ok: false, error: customFiles.length === 0 ? "No files are loaded." : "Custom parser returned no hyperedges." };
+      }
       setCustomResult(normalized);
       const nextResultId = `result-${++customResultCounterRef.current}`;
       setCustomResultId(nextResultId);
       setCustomLogs(prev => [...prev, `✓ ${normalized.hyperedges.length} hyperedges parsed from ${normalized.source}.`]);
       if (normalized.warnings?.length) setCustomLogs(prev => [...prev, ...normalized.warnings.map(w => "⚠ " + w)]);
-      if (normalized.hyperedges.length === 0) {
-        if (specialistSnapshot) { setCustomErr("Custom parser returned no hyperedges."); setCustomResult(null); setCustomResultId(null); }
-        updateBatchParserStatus(customCodeBinding?.batchId, "failed");
-        return { ok: false, error: "Custom parser returned no hyperedges." };
-      }
       const suspiciousWarnings = findSuspiciousOutputWarnings(normalized.hyperedges, usesActiveBatch ? activeAgentBatch : null);
       if (suspiciousWarnings.length) {
         setCustomLogs(prev => [...prev, ...suspiciousWarnings.map(warning => `⚠ ${warning}`)]);
@@ -3712,6 +3743,7 @@ function AppCore() {
     const avgDegree = st.degs?.length ? st.degs.reduce((a, b) => a + b, 0) / Math.max(1, st.degs.length) : 0;
     const incidenceDensityPercent = (st.incidenceDensity ?? 0) * 100;
     const v2vProjectionDensityPercent = st.v2vProjectionDensity == null ? null : st.v2vProjectionDensity * 100;
+    const triadResult = countTriadsBounded(finalHes);
     return {
       inputFormat: fmt,
       inputFormatLabel: FMTS.find(f => f.id === fmt)?.label ?? fmt,
@@ -3728,8 +3760,9 @@ function AppCore() {
       v2vEdgeCount: v2vResult.status === DERIVED_STATUS.COMPUTED ? v2v.length : null,
       v2vProjectionStatus: v2vResult.status,
       v2vProjectionReason: v2vResult.reason,
-      triads: null,
-      triadsStatus: "not_requested",
+      triads: triadResult.status === DERIVED_STATUS.COMPUTED ? triadResult.value : null,
+      triadsStatus: triadResult.status,
+      triadsReason: triadResult.reason,
       validationStatus: issues.length ? `${issues.length} issue${issues.length === 1 ? "" : "s"}` : "Clean",
       duplicateStatus: issues.some(issue => issue.type === "duplicate") ? "duplicates found" : "no duplicate hyperedges",
       singletonStatus: issues.some(issue => issue.type === "singleton") ? "singleton hyperedges found" : "no singleton hyperedges",
@@ -5047,11 +5080,13 @@ function AppCore() {
                 <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Run custom parser in Assistant to review its confirmation.")) : runCustom()} disabled={customRunning} style={{ padding: "9px 24px", borderRadius: 8, background: customRunning ? T.textFaint : T.teal, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: customRunning ? "not-allowed" : "pointer" }}>
                   {customRunning ? "Running…" : "▶ Run Parser"}
                 </button>
-                {customResult && (
-                  <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Apply parser result in Assistant to review its confirmation.")) : applyCustomResult()} style={{ padding: "9px 20px", borderRadius: 8, background: T.green, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>
-                    Apply to graph →
-                  </button>
-                )}
+                <button
+                  onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Apply parser result in Assistant to review its confirmation.")) : applyCustomResult()}
+                  disabled={!hasNonEmptyCustomParserResult(customResult)}
+                  style={{ padding: "9px 20px", borderRadius: 8, background: hasNonEmptyCustomParserResult(customResult) ? T.green : T.textFaint, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: hasNonEmptyCustomParserResult(customResult) ? "pointer" : "not-allowed" }}
+                >
+                  Apply to graph →
+                </button>
                 {customErr && <span style={{ fontSize: 13, color: T.rose }}>⚠ {customErr}</span>}
               </div>
               {customLogs.length > 0 && (

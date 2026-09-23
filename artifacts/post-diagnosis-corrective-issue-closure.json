@@ -1,0 +1,185 @@
+{
+  "baseline": "4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302",
+  "branch": "post-diagnosis-full-corrective",
+  "recordedAt": "2026-09-23",
+  "allowedStates": ["CLOSED", "PARTIAL", "BLOCKED"],
+  "summary": {"closed": 16, "partial": 0, "blocked": 0},
+  "issues": [
+    {
+      "issue": "D01",
+      "title": "GraphMutationDraft format contradicted its operation validator",
+      "preChangeReproduction": "Live qwen3:8b produced validator-invalid irrelevant fields for 9/13 families after repair on the latest diagnosis run (10/13 on the preceding run).",
+      "rootCause": "One shared schema required every transport key while the fail-closed validator permitted only fields relevant to the selected operation.",
+      "changeMade": "Replaced the operation schema with an exact compact 13-variant contract and aligned planner/prompt behavior without weakening the deterministic validator.",
+      "permanentTests": ["tests/graph-mutation-schema-closure.test.mjs", "tests/graph-mutation-model-planner.test.mjs"],
+      "liveVerification": "Two consecutive authoritative qwen3:8b matrices passed 13/13 final-valid; all 26 family rows were first-attempt valid, with direct/bridge control parity and no graph commit.",
+      "securityEffect": "Preserves fail-closed validation and confirmation; no model response gains direct mutation authority.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D02",
+      "title": "Repair timeout hid an earlier invalid structured response",
+      "preChangeReproduction": "An invalid first response followed by a repair timeout surfaced only model_generation_timeout.",
+      "rootCause": "The terminal transport catch path replaced earlier structured validation evidence.",
+      "changeMade": "Retained bounded per-attempt evidence and the first invalid-response details alongside the terminal transport failure.",
+      "permanentTests": ["tests/graph-mutation-model-planner.test.mjs"],
+      "liveVerification": "The supplemental invalid-first/repair-timeout control preserves both validation and timeout provenance.",
+      "securityEffect": "Improves auditability while continuing to reject the invalid draft.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D03",
+      "title": "Primitive abort reasons were classified as unknown network errors",
+      "preChangeReproduction": "A 1 ms timeout and explicit cancellation both mapped to unknown_network_error.",
+      "rootCause": "Fetch error mapping recognized AbortError objects but not primitive AbortSignal.reason values.",
+      "changeMade": "Normalized abort reasons at the transport boundary and classified timeout and explicit cancellation distinctly.",
+      "permanentTests": ["tests/local-model-cancellation.test.mjs"],
+      "liveVerification": "Final live probe reports the expected timeout and cancellation classifications.",
+      "securityEffect": "Accurate failure provenance prevents unsafe recovery advice; no authority change.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D04",
+      "title": "Full diagnostics short-circuited as a current-transport reconnect",
+      "preChangeReproduction": "Direct success left bridge and planner rows untested and refreshed active connection state.",
+      "rootCause": "The full button invoked current mode and shared reconnect semantics.",
+      "changeMade": "Separated read-only full diagnostics from reconnect/current-connection actions and made full mode visit the advertised checks.",
+      "permanentTests": ["tests/agent-local-model.test.mjs", "tests/regression-v7-2-2.test.mjs"],
+      "liveVerification": "Browser full diagnostics completed direct, bridge, listing, generation, and planner readiness while preserving connection state.",
+      "securityEffect": "Read-only diagnostics no longer silently acquire runtime-control authority.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D05",
+      "title": "Isolated bridge probe displayed the active direct endpoint",
+      "preChangeReproduction": "With direct active, Test local bridge showed the direct transport and localhost:11434.",
+      "rootCause": "Presentation used active configuration rather than the isolated probe result.",
+      "changeMade": "Captured and rendered transport and endpoint identity from each isolated probe.",
+      "permanentTests": ["tests/agent-local-model.test.mjs"],
+      "liveVerification": "Opposite-transport probes display the tested endpoint and preserve the active transport.",
+      "securityEffect": "Makes endpoint attribution auditable without switching the trusted connection.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D06",
+      "title": "Sequential diagnostics erased evidence and exported too little",
+      "preChangeReproduction": "A later probe reset earlier rows; copied report omitted live status and failure classification.",
+      "rootCause": "Each result replaced the snapshot and export was constructed from static configuration.",
+      "changeMade": "Preserved bounded sequential evidence and exported richer status/classification details through explicit redaction.",
+      "permanentTests": ["tests/agent-local-model.test.mjs"],
+      "liveVerification": "Sequential browser probes retained their rows and copy/export actions completed with bounded redacted output.",
+      "securityEffect": "Export excludes bearer values, prompts, uploads, parser source, and credential assignments.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D07",
+      "title": "A disabled assistant could not recover through visible Connect",
+      "preChangeReproduction": "Connect/Reconnect refused while disabled until a separate hidden enable command was used.",
+      "rootCause": "The visible action mapped to a test-only operation with an enabled precondition.",
+      "changeMade": "Made recovery explicit as Enable then Connect; diagnostics remain unable to silently enable the assistant.",
+      "permanentTests": ["tests/agent-local-model.test.mjs"],
+      "liveVerification": "Browser disabled -> Enable -> Connect -> Reconnect -> Disconnect lifecycle passed.",
+      "securityEffect": "Maintains explicit user intent at the runtime-control boundary.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D08",
+      "title": "Tiny graph summary called line-graph triangles too large",
+      "preChangeReproduction": "The 3-hyperedge/5-vertex example showed one triangle in Statistics but 'too large' in the result summary.",
+      "rootCause": "Any null triangle value was mapped to budget-exceeded even when status was not_requested.",
+      "changeMade": "Separated not-requested, unavailable, and bounded/too-large result states with truthful wording.",
+      "permanentTests": ["tests/result-summary-parser-ui-semantics.test.mjs"],
+      "liveVerification": "Browser Statistics and corrected summary agree on the small graph's one Line-Graph Triangle.",
+      "securityEffect": "No authority impact; removes misleading resource-state output.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D09",
+      "title": "Empty Custom Parser results appeared successful with Apply enabled",
+      "preChangeReproduction": "No-files Run Parser produced a green zero-edge preview and enabled Apply despite handler rejection.",
+      "rootCause": "UI success and Apply gating checked result existence instead of validated nonempty semantics.",
+      "changeMade": "No-file and zero-edge results are warnings/errors and Apply requires a valid nonempty parser result.",
+      "permanentTests": ["tests/result-summary-parser-ui-semantics.test.mjs", "tests/custom-parser-scope-v7-3-13.test.mjs"],
+      "liveVerification": "No-file and empty browser states keep Apply disabled; a valid one-edge result previews and applies to 1 hyperedge/2 vertices.",
+      "securityEffect": "Prevents an invalid parser result from being presented as executable authority.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D10",
+      "title": "Dynamic import bypassed Custom Parser static safety",
+      "preChangeReproduction": "Acorn emitted ImportExpression and the safety validator returned ok for async import().",
+      "rootCause": "The AST walker blocked only import-shaped CallExpression nodes and skipped regex fallback after a successful parse.",
+      "changeMade": "Rejected ImportExpression and dynamic-import forms before Worker creation, retaining the trusted-code warning and isolation controls.",
+      "permanentTests": ["tests/parser-sandbox.test.mjs", "tests/custom-parser-scope-v7-3-13.test.mjs"],
+      "liveVerification": "Parse-only adversarial probes reject direct and nested dynamic imports without executing them.",
+      "securityEffect": "Final security scan found no residual issue on the parser import boundary.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D11",
+      "title": "Private Ollama validation did not constrain redirects",
+      "preChangeReproduction": "A validated loopback URL could return 307/308 and default fetch behavior could follow Location with the request body.",
+      "rootCause": "Only the initial URL was validated; fetch redirect following was not disabled.",
+      "changeMade": "Set redirect:error on direct model, bridge upstream, and launcher identity requests, preserving fixed loopback endpoints.",
+      "permanentTests": ["tests/agent-local-model.test.mjs", "tests/bridge-robustness-v7-3-13.test.mjs", "tests/launcher-preflight.test.mjs"],
+      "liveVerification": "A loopback 307 fixture confirmed the model POST body was not delivered to the second hop.",
+      "securityEffect": "Final security scan found no redirect/body locality finding.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D12",
+      "title": "Dataset interpretation validator accepted schema-invalid objects",
+      "preChangeReproduction": "A draft missing required fields and containing an extra property returned ok.",
+      "rootCause": "Handwritten checks defaulted missing arrays and did not enforce required/additionalProperties recursively.",
+      "changeMade": "Added reusable strict JSON-schema validation plus semantic/reference validation for interpretation drafts.",
+      "permanentTests": ["tests/dataset-structured-contract-closure.test.mjs"],
+      "liveVerification": "Browser dataset inference succeeded for a valid draft and rejected unknown properties.",
+      "securityEffect": "Closes extra-property and prototype-shaped model-output ambiguity before state use.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D13",
+      "title": "Dataset mapping patch validator accepted schema-invalid objects",
+      "preChangeReproduction": "A patch missing clarificationQuestion and containing extra top-level/nested properties returned ok.",
+      "rootCause": "Reference validation did not enforce the declared closed schema.",
+      "changeMade": "Enforced recursive required/additionalProperties/type/enum checks before mapping reference semantics.",
+      "permanentTests": ["tests/dataset-structured-contract-closure.test.mjs"],
+      "liveVerification": "Valid deterministic mapping worked; an unknown property was rejected in the browser flow.",
+      "securityEffect": "Prevents injected undeclared patch fields from reaching mapping authority.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D14",
+      "title": "Duplicate upload filenames conflicted with name-keyed joins",
+      "preChangeReproduction": "Two distinct same.csv objects passed validation and downstream Map(fileName) collapsed a profile.",
+      "rootCause": "Upload IDs were unique while downstream contracts selected by filename and batch validation allowed collisions.",
+      "changeMade": "Rejected batch filename collisions after Unicode normalization and case folding.",
+      "permanentTests": ["tests/upload-policy-v7-3-12.test.mjs"],
+      "liveVerification": "Two browser-selected duplicate.edge fixtures were rejected; valid single-file upload continued to work.",
+      "securityEffect": "Removes ambiguous file authority and cross-file profile substitution.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D15",
+      "title": "Copied Ollama origin command was POSIX-only in a Windows UI",
+      "preChangeReproduction": "The Windows browser copied OLLAMA_ORIGINS=... ollama serve and labeled it generically.",
+      "rootCause": "One shell syntax was generated for all platforms.",
+      "changeMade": "Generated and labeled distinct PowerShell, cmd, and POSIX commands.",
+      "permanentTests": ["tests/agent-local-model.test.mjs"],
+      "liveVerification": "Browser copy controls produced the distinct labeled shell variants.",
+      "securityEffect": "Reduces unsafe manual rewriting; commands contain URL origins and no credentials.",
+      "finalState": "CLOSED"
+    },
+    {
+      "issue": "D16",
+      "title": "Launchers assumed ambient runtimes and fixed ports/origins",
+      "preChangeReproduction": "Ambient npm/ollama/python were unavailable; unrelated HTTP 200 health could appear ready; Vite used 5178 while scripts assumed 5173.",
+      "rootCause": "Launcher preflight did not verify bridge identity or reconcile selected ports/origins, and documentation blurred user prerequisites.",
+      "changeMade": "Added executable Windows/POSIX preflight and identity checks, actual Vite origin handling, wildcard rejection, explicit user-installed prerequisites, and validated HYPERGRAPH_BRIDGE_PORT -> VITE_HYPERGRAPH_BRIDGE_PORT propagation with default 8787.",
+      "permanentTests": ["tests/launcher-preflight.test.mjs", "tests/agent-local-model.test.mjs"],
+      "liveVerification": "Default-port direct/bridge browser lifecycle passed; executable tests verify occupied/unrelated responder handling, alternate Vite origins, custom port 9123, and invalid-port fallback.",
+      "securityEffect": "Custom configuration still constructs only validated fixed-loopback URLs; wildcard origins are rejected and no Codex-private production runtime path was embedded.",
+      "finalState": "CLOSED"
+    }
+  ]
+}

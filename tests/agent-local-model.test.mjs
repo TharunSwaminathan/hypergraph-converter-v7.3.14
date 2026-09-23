@@ -24,15 +24,20 @@ import {
   DIRECT_OLLAMA_BASE_URL,
   getOllamaAttemptOrder,
   listModelsForTransport,
+  resolveBridgeTransportUrls,
 } from "../src/agent/ollamaConnectionManager.js";
 import {
+  buildRuntimeCommands,
+  buildRuntimeDiagnosticReport,
   createRuntimeDiagnosticsSnapshot,
   isIsolatedRuntimeProbeMode,
+  mergeRuntimeDiagnosticEvidence,
   runRuntimeDiagnostics,
 } from "../src/agent/localRuntimeDiagnostics.js";
 import { classifyIntent } from "../src/agent/intentClassifier.js";
 import { planAgentAction } from "../src/agent/actionPlanner.js";
 import { resolveDeterministicControlPlan } from "../src/agent/deterministicControlPlanner.js";
+import { isTransportSelectingConnectionPlan } from "../src/agent/runtimeControlPolicy.js";
 import { buildDeterministicActionPlan, resolveCanonicalIntent } from "../src/agent/orchestrationPlanner.js";
 import { validateOllamaActionPlan } from "../src/agent/ollamaActionPlanValidator.js";
 
@@ -50,6 +55,13 @@ function jsonResponse(data, status = 200) {
 function ollamaTags(models = [RECOMMENDED_OLLAMA_MODEL]) {
   return { models: models.map(name => ({ name })) };
 }
+
+assert.deepEqual(resolveBridgeTransportUrls({ VITE_HYPERGRAPH_BRIDGE_PORT: "9123" }), {
+  port: 9123,
+  healthUrl: "http://127.0.0.1:9123/health",
+  ollamaBaseUrl: "http://127.0.0.1:9123/ollama",
+});
+assert.equal(resolveBridgeTransportUrls({ VITE_HYPERGRAPH_BRIDGE_PORT: "not-a-port" }).port, 8787);
 
 function ollamaOkChat(content = "{\"status\":\"ok\"}") {
   return { message: { content } };
@@ -258,6 +270,7 @@ await withMockFetch(async url => {
     messages: [{ role: "user", content: "bounded prompt" }],
     responseSchema,
   });
+  assert.equal(calls[0].options.redirect, "error", "local model requests must reject redirects before forwarding prompt bodies");
   assert.equal(content, "{\"ok\":true}");
   const body = JSON.parse(calls[0].options.body);
   assert.equal(body.model, RECOMMENDED_OLLAMA_MODEL);
@@ -347,6 +360,60 @@ await withMockFetch(async url => {
 });
 
 await withMockFetch(async url => {
+  if (url === BRIDGE_HEALTH_URL) return jsonResponse({ ok: true, service: "hypergraph-ollama-bridge" });
+  if (url === `${BRIDGE_OLLAMA_BASE_URL}/api/tags`) return jsonResponse(ollamaTags());
+  if (url === `${BRIDGE_OLLAMA_BASE_URL}/api/chat`) return jsonResponse(ollamaOkChat());
+  throw new Error(`unexpected URL ${url}`);
+}, async () => {
+  const result = await runRuntimeDiagnostics({
+    config: baseConfig({ activeTransport: "direct", activeBaseUrl: DIRECT_OLLAMA_BASE_URL }),
+    mode: "bridge",
+  });
+  assert.equal(result.activeTransport, "direct");
+  assert.equal(result.activeEndpoint, DIRECT_OLLAMA_BASE_URL);
+  assert.equal(result.testedTransport, "bridge");
+  assert.equal(result.testedEndpoint, BRIDGE_OLLAMA_BASE_URL);
+});
+
+await withMockFetch(async url => {
+  if (url === `${DIRECT_OLLAMA_BASE_URL}/api/tags`) return jsonResponse(ollamaTags());
+  if (url === `${DIRECT_OLLAMA_BASE_URL}/api/chat`) return jsonResponse(ollamaOkChat());
+  if (url === BRIDGE_HEALTH_URL) return jsonResponse({ ok: true, service: "hypergraph-ollama-bridge" });
+  if (url === `${BRIDGE_OLLAMA_BASE_URL}/api/tags`) return jsonResponse(ollamaTags());
+  if (url === `${BRIDGE_OLLAMA_BASE_URL}/api/chat`) return jsonResponse(ollamaOkChat());
+  throw new Error(`unexpected URL ${url}`);
+}, async calls => {
+  const active = baseConfig({ activeTransport: "direct", activeBaseUrl: DIRECT_OLLAMA_BASE_URL });
+  const result = await runRuntimeDiagnostics({ config: active, mode: "full" });
+  assert.equal(result.overallStatus, "ok");
+  assert.equal(result.activeTransport, "direct", "full diagnostics must preserve the selected transport");
+  assert.equal(result.activeEndpoint, DIRECT_OLLAMA_BASE_URL);
+  assert.ok(calls.some(call => call.url === `${DIRECT_OLLAMA_BASE_URL}/api/tags`));
+  assert.ok(calls.some(call => call.url === `${BRIDGE_OLLAMA_BASE_URL}/api/tags`));
+  assert.equal(result.directRuntimeReachability.status, "ok");
+  assert.equal(result.bridgeReachability.status, "ok");
+});
+
+{
+  const initial = createRuntimeDiagnosticsSnapshot(baseConfig());
+  const direct = { ...initial, ranAt: "2026-09-22T00:00:00.000Z", mode: "direct-ollama", testedTransport: "direct", testedTransportLabel: "Direct Ollama", testedEndpoint: DIRECT_OLLAMA_BASE_URL, overallStatus: "failed", directRuntimeReachability: { status: "failed", classification: "runtime_not_running", message: "token=secret connection refused" }, summary: "token=secret connection refused" };
+  const afterDirect = mergeRuntimeDiagnosticEvidence(initial, direct);
+  const bridge = { ...createRuntimeDiagnosticsSnapshot(baseConfig()), ranAt: "2026-09-22T00:01:00.000Z", mode: "bridge", testedTransport: "bridge", testedTransportLabel: "Local Bridge", testedEndpoint: BRIDGE_OLLAMA_BASE_URL, overallStatus: "ok", bridgeReachability: { status: "ok", message: "bridge responded" }, summary: "bridge passed" };
+  const merged = mergeRuntimeDiagnosticEvidence(afterDirect, bridge);
+  assert.equal(merged.directRuntimeReachability.status, "failed", "later probes must preserve prior unrelated evidence");
+  assert.equal(merged.bridgeReachability.status, "ok");
+  assert.equal(merged.history.length, 2);
+  const report = buildRuntimeDiagnosticReport(merged);
+  assert.match(report, /tested Direct Ollama/);
+  assert.match(report, /runtime_not_running/);
+  assert.doesNotMatch(report, /secret/);
+  const commands = buildRuntimeCommands(baseConfig(), { origin: "http://127.0.0.1:5178", mode: "local_dev" });
+  assert.equal(commands.powershellOrigins, "$env:OLLAMA_ORIGINS='http://127.0.0.1:5178'; ollama serve");
+  assert.equal(commands.cmdOrigins, "set \"OLLAMA_ORIGINS=http://127.0.0.1:5178\" && ollama serve");
+  assert.equal(commands.posixOrigins, "OLLAMA_ORIGINS='http://127.0.0.1:5178' ollama serve");
+}
+
+await withMockFetch(async url => {
   if (url === `${DIRECT_OLLAMA_BASE_URL}/api/tags`) throw new TypeError("Failed to fetch");
   if (url === BRIDGE_HEALTH_URL) return jsonResponse({ ok: true });
   if (url === `${BRIDGE_OLLAMA_BASE_URL}/api/tags`) return jsonResponse(ollamaTags());
@@ -377,8 +444,13 @@ await withMockFetch(async url => {
 {
   assert.equal(classifyIntent("Connect local assistant").intent, "local_model_connect");
   assert.equal(planAgentAction(classifyIntent("Connect local assistant"), { localModel: { config: baseConfig(), status: "disconnected" } }).kind, "test_local_model");
+  const disabledConnect = planAgentAction(classifyIntent("Connect local assistant"), { localModel: { config: baseConfig({ enabled: false }), status: "disabled" } });
+  assert.equal(disabledConnect.kind, "respond");
+  assert.match(disabledConnect.message, /Enable local assistant.*then click Connect/i);
   assert.equal(classifyIntent("Use Ollama bridge").intent, "local_model_reconnect_bridge");
-  assert.deepEqual(resolveDeterministicControlPlan("Use Ollama bridge", { localModel: { config: baseConfig(), status: "disconnected" } }).configOverride, { preferTransport: "bridge" });
+  const bridgePlan = resolveDeterministicControlPlan("Use Ollama bridge", { localModel: { config: baseConfig(), status: "disconnected" } });
+  assert.deepEqual(bridgePlan.configOverride, { preferTransport: "bridge" });
+  assert.equal(isTransportSelectingConnectionPlan(bridgePlan), true, "transport-selecting reconnects require runtime-control authorization");
   assert.equal(planAgentAction(classifyIntent("Use model something-else"), { localModel: { config: baseConfig(), status: "connected" } }).kind, "set_local_model_name");
   conversationActionRegressionTests += 5;
 }
@@ -416,6 +488,7 @@ await withMockFetch(async url => {
   assert.match(panelSource, /qwen3:8b/);
   assert.match(panelSource, /Connect/);
   assert.match(panelSource, /Reconnect/);
+  assert.match(panelSource, /Enable local assistant/);
   assert.match(panelSource, /connected · deterministic execution/);
   assert.match(panelSource, /Local assistant disconnected · deterministic controls available/);
   assert.doesNotMatch(panelSource, /Ã‚Â·|Â·/);

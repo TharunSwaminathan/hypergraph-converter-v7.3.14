@@ -1,0 +1,1898 @@
+{
+  "generatedAt": "2026-09-23T01:28:29.164Z",
+  "node": "C:\\Users\\tharu\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+  "model": "qwen3:8b",
+  "noMutationExecution": true,
+  "graph": "qualification-only in-memory graph; drafts are validated but never resolved or executed",
+  "environment": {
+    "ollamaVersion": "0.34.2",
+    "model": {
+      "name": "qwen3:8b",
+      "model": "qwen3:8b",
+      "modified_at": "2026-09-08T20:17:06.8276649-05:00",
+      "size": 5225388164,
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 40960,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ]
+    }
+  },
+  "matrixRuns": [
+    {
+      "run": 1,
+      "startedAt": "2026-09-23T01:26:46.837Z",
+      "cases": [
+        {
+          "expectedOperation": "ADD_HYPEREDGE",
+          "userQuery": "Create a new hyperedge h2 with Alice and Carol.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "ADD_HYPEREDGE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Create a new hyperedge h2 containing vertices Alice and Carol.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_HYPEREDGE\",\n      \"newHyperedgeId\": \"h2\",\n      \"vertexReferences\": [\n        {\n          \"entityType\": \"vertex\",\n          \"referenceKind\": \"literal\",\n          \"surfaceText\": \"Alice\"\n        },\n        {\n          \"entityType\": \"vertex\",\n          \"referenceKind\": \"literal\",\n          \"surfaceText\": \"Carol\"\n        }\n      ]\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The new hyperedge h2 will be created with vertices Alice and Carol.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3675,
+          "promptChars": 4489,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3670.2,
+              "loadDurationMs": 2.68,
+              "promptEvalCount": 984,
+              "promptEvalDurationMs": 191.93,
+              "evalCount": 204,
+              "evalDurationMs": 3417.82,
+              "evalTokensPerSecond": 59.69,
+              "doneReason": "stop",
+              "clientElapsedMs": 3673.7,
+              "approximateTransportOverheadMs": 3.5
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3675
+        },
+        {
+          "expectedOperation": "REMOVE_HYPEREDGE",
+          "userQuery": "Remove hyperedge h1.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_HYPEREDGE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the hyperedge identified by the ID 'h1'.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The hyperedge 'h1' will be removed from the graph.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3039,
+          "promptChars": 4462,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3022.08,
+              "loadDurationMs": 2.06,
+              "promptEvalCount": 978,
+              "promptEvalDurationMs": 193.09,
+              "evalCount": 163,
+              "evalDurationMs": 2746.28,
+              "evalTokensPerSecond": 59.35,
+              "doneReason": "stop",
+              "clientElapsedMs": 3039.33,
+              "approximateTransportOverheadMs": 17.25
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3040
+        },
+        {
+          "expectedOperation": "ADD_INCIDENCE",
+          "userQuery": "Add Alice to hyperedge h1.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "ADD_INCIDENCE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add Alice to hyperedge h1.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The operation to add Alice to hyperedge h1 is planned.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3421,
+          "promptChars": 4468,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3410.34,
+              "loadDurationMs": 1.55,
+              "promptEvalCount": 980,
+              "promptEvalDurationMs": 194.49,
+              "evalCount": 188,
+              "evalDurationMs": 3139.56,
+              "evalTokensPerSecond": 59.88,
+              "doneReason": "stop",
+              "clientElapsedMs": 3421.24,
+              "approximateTransportOverheadMs": 10.9
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3422
+        },
+        {
+          "expectedOperation": "REMOVE_INCIDENCE",
+          "userQuery": "Remove Alice from hyperedge h0 and keep h0 if it becomes empty.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_INCIDENCE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove Alice from hyperedge h0 and keep h0 if it becomes empty.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"emptyHyperedgePolicy\": \"keep_empty\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The operation will remove Alice from hyperedge h0 and keep h0 if it becomes empty.\",\n  \"confidence\": "
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3986,
+          "promptChars": 4505,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3973.7,
+              "loadDurationMs": 2.17,
+              "promptEvalCount": 988,
+              "promptEvalDurationMs": 194.89,
+              "evalCount": 215,
+              "evalDurationMs": 3642.63,
+              "evalTokensPerSecond": 59.02,
+              "doneReason": "stop",
+              "clientElapsedMs": 3985.88,
+              "approximateTransportOverheadMs": 12.18
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3986
+        },
+        {
+          "expectedOperation": "RENAME_HYPEREDGE",
+          "userQuery": "Rename hyperedge h1 to hNew.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "RENAME_HYPEREDGE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename hyperedge h1 to hNew.\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_HYPEREDGE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      },\n      \"newHyperedgeId\": \"hNew\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The hyperedge h1 will be renamed to hNew.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3136,
+          "promptChars": 4470,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3122.75,
+              "loadDurationMs": 2.1,
+              "promptEvalCount": 981,
+              "promptEvalDurationMs": 194.27,
+              "evalCount": 169,
+              "evalDurationMs": 2847.07,
+              "evalTokensPerSecond": 59.36,
+              "doneReason": "stop",
+              "clientElapsedMs": 3135.43,
+              "approximateTransportOverheadMs": 12.68
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3136
+        },
+        {
+          "expectedOperation": "RENAME_VERTEX",
+          "userQuery": "Rename vertex Alice to Alicia everywhere.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "RENAME_VERTEX"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename vertex 'Alice' to 'Alicia' in all hyperedges it is incident to.\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_VERTEX\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"newVertexId\": \"Alicia\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The vertex 'Alice' will be renamed to 'Alicia' in all hyperedges it is incident to.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3447,
+          "promptChars": 4483,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3435.62,
+              "loadDurationMs": 2.63,
+              "promptEvalCount": 979,
+              "promptEvalDurationMs": 195,
+              "evalCount": 185,
+              "evalDurationMs": 3146.52,
+              "evalTokensPerSecond": 58.8,
+              "doneReason": "stop",
+              "clientElapsedMs": 3446.52,
+              "approximateTransportOverheadMs": 10.9
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3447
+        },
+        {
+          "expectedOperation": "REMOVE_VERTEX_GLOBAL",
+          "userQuery": "Remove vertex Bob everywhere and keep empty hyperedges.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_VERTEX_GLOBAL"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove vertex Bob from all hyperedges and keep empty hyperedges.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_VERTEX_GLOBAL\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Bob\"\n      },\n      \"emptyHyperedgePolicy\": \"keep_empty\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The vertex 'Bob' will be removed from all hyperedges, and empty hyperedges will be retained.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3402,
+          "promptChars": 4497,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3392.45,
+              "loadDurationMs": 2.7,
+              "promptEvalCount": 982,
+              "promptEvalDurationMs": 195.04,
+              "evalCount": 178,
+              "evalDurationMs": 3104.29,
+              "evalTokensPerSecond": 57.34,
+              "doneReason": "stop",
+              "clientElapsedMs": 3402.02,
+              "approximateTransportOverheadMs": 9.57
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3402
+        },
+        {
+          "expectedOperation": "SET_HYPEREDGE_WEIGHT",
+          "userQuery": "Set the weight of hyperedge h0 to 3.5.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "SET_HYPEREDGE_WEIGHT"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the weight of hyperedge h0 to 3.5.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_WEIGHT\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"weight\": 3.5\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The weight of hyperedge h0 will be set to 3.5.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3220,
+          "promptChars": 4480,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3216.11,
+              "loadDurationMs": 3.34,
+              "promptEvalCount": 986,
+              "promptEvalDurationMs": 193.55,
+              "evalCount": 176,
+              "evalDurationMs": 2932.79,
+              "evalTokensPerSecond": 60.01,
+              "doneReason": "stop",
+              "clientElapsedMs": 3220,
+              "approximateTransportOverheadMs": 3.89
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3220
+        },
+        {
+          "expectedOperation": "SET_HYPEREDGE_TIME",
+          "userQuery": "Set the time of hyperedge h0 to 2026.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "SET_HYPEREDGE_TIME"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the time of hyperedge h0 to 2026.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_TIME\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"time\": 2026\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The time of hyperedge h0 will be set to 2026.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3285,
+          "promptChars": 4479,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3273.92,
+              "loadDurationMs": 2.6,
+              "promptEvalCount": 987,
+              "promptEvalDurationMs": 194.11,
+              "evalCount": 179,
+              "evalDurationMs": 2984.75,
+              "evalTokensPerSecond": 59.97,
+              "doneReason": "stop",
+              "clientElapsedMs": 3284.42,
+              "approximateTransportOverheadMs": 10.5
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3285
+        },
+        {
+          "expectedOperation": "SET_HYPEREDGE_ATTRIBUTE",
+          "userQuery": "Set the color attribute of hyperedge h0 to green.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "SET_HYPEREDGE_ATTRIBUTE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the color attribute of hyperedge h0 to green.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_ATTRIBUTE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"key\": \"color\",\n      \"value\": \"green\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The color attribute of hyperedge h0 will be set to green.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3257,
+          "promptChars": 4491,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3246.42,
+              "loadDurationMs": 1.54,
+              "promptEvalCount": 984,
+              "promptEvalDurationMs": 193.73,
+              "evalCount": 177,
+              "evalDurationMs": 2961.27,
+              "evalTokensPerSecond": 59.77,
+              "doneReason": "stop",
+              "clientElapsedMs": 3257.23,
+              "approximateTransportOverheadMs": 10.81
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3257
+        },
+        {
+          "expectedOperation": "REMOVE_HYPEREDGE_ATTRIBUTE",
+          "userQuery": "Remove the color attribute from hyperedge h0.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_HYPEREDGE_ATTRIBUTE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the color attribute from hyperedge h0.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE_ATTRIBUTE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"key\": \"color\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The color attribute will be removed from hyperedge h0.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3124,
+          "promptChars": 4487,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3117.98,
+              "loadDurationMs": 2.05,
+              "promptEvalCount": 982,
+              "promptEvalDurationMs": 193.99,
+              "evalCount": 166,
+              "evalDurationMs": 2785.39,
+              "evalTokensPerSecond": 59.6,
+              "doneReason": "stop",
+              "clientElapsedMs": 3124.17,
+              "approximateTransportOverheadMs": 6.19
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3124
+        },
+        {
+          "expectedOperation": "CLEAR_GRAPH",
+          "userQuery": "Clear the graph.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "CLEAR_GRAPH"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Clear the graph by removing all hyperedges and vertices.\",\n  \"operations\": [\n    {\n      \"type\": \"CLEAR_GRAPH\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The graph will be cleared, removing all hyperedges and vertices.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 2248,
+          "promptChars": 4458,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 2236.23,
+              "loadDurationMs": 2.06,
+              "promptEvalCount": 976,
+              "promptEvalDurationMs": 195.37,
+              "evalCount": 122,
+              "evalDurationMs": 1962.04,
+              "evalTokensPerSecond": 62.18,
+              "doneReason": "stop",
+              "clientElapsedMs": 2247.88,
+              "approximateTransportOverheadMs": 11.65
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 2248
+        },
+        {
+          "expectedOperation": "UNDO_LAST_MUTATION",
+          "userQuery": "Undo the last graph mutation.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "UNDO_LAST_MUTATION"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Undo the last graph mutation.\",\n  \"operations\": [\n    {\n      \"type\": \"UNDO_LAST_MUTATION\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The last graph mutation will be undone.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 2133,
+          "promptChars": 4471,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 2123.28,
+              "loadDurationMs": 3.18,
+              "promptEvalCount": 978,
+              "promptEvalDurationMs": 194.14,
+              "evalCount": 115,
+              "evalDurationMs": 1843.7,
+              "evalTokensPerSecond": 62.37,
+              "doneReason": "stop",
+              "clientElapsedMs": 2132.92,
+              "approximateTransportOverheadMs": 9.64
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 2133
+        }
+      ],
+      "passed": 13,
+      "total": 13,
+      "ok": true,
+      "completedAt": "2026-09-23T01:27:28.239Z"
+    },
+    {
+      "run": 2,
+      "startedAt": "2026-09-23T01:27:28.240Z",
+      "cases": [
+        {
+          "expectedOperation": "ADD_HYPEREDGE",
+          "userQuery": "Create a new hyperedge h2 with Alice and Carol.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "ADD_HYPEREDGE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Create a new hyperedge h2 containing the vertices Alice and Carol.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_HYPEREDGE\",\n      \"newHyperedgeId\": \"h2\",\n      \"vertexReferences\": [\n        {\n          \"entityType\": \"vertex\",\n          \"referenceKind\": \"literal\",\n          \"surfaceText\": \"Alice\"\n        },\n        {\n          \"entityType\": \"vertex\",\n          \"referenceKind\": \"literal\",\n          \"surfaceText\": \"Carol\"\n        }\n      ]\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The new hyperedge h2 will be created with the vertices Alice and Carol.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3587,
+          "promptChars": 4489,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3575.06,
+              "loadDurationMs": 2.05,
+              "promptEvalCount": 984,
+              "promptEvalDurationMs": 18.81,
+              "evalCount": 206,
+              "evalDurationMs": 3422.33,
+              "evalTokensPerSecond": 60.19,
+              "doneReason": "stop",
+              "clientElapsedMs": 3587.13,
+              "approximateTransportOverheadMs": 12.07
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3587
+        },
+        {
+          "expectedOperation": "REMOVE_HYPEREDGE",
+          "userQuery": "Remove hyperedge h1.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_HYPEREDGE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the hyperedge identified by the ID 'h1'.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The hyperedge 'h1' will be removed from the graph.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3074,
+          "promptChars": 4462,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3062.16,
+              "loadDurationMs": 2.07,
+              "promptEvalCount": 978,
+              "promptEvalDurationMs": 193.49,
+              "evalCount": 163,
+              "evalDurationMs": 2738.05,
+              "evalTokensPerSecond": 59.53,
+              "doneReason": "stop",
+              "clientElapsedMs": 3073.91,
+              "approximateTransportOverheadMs": 11.75
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3074
+        },
+        {
+          "expectedOperation": "ADD_INCIDENCE",
+          "userQuery": "Add Alice to hyperedge h1.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "ADD_INCIDENCE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add Alice to hyperedge h1.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The operation to add Alice to hyperedge h1 has been planned.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3303,
+          "promptChars": 4468,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3297.33,
+              "loadDurationMs": 2.29,
+              "promptEvalCount": 980,
+              "promptEvalDurationMs": 18.77,
+              "evalCount": 189,
+              "evalDurationMs": 3147.45,
+              "evalTokensPerSecond": 60.05,
+              "doneReason": "stop",
+              "clientElapsedMs": 3302.92,
+              "approximateTransportOverheadMs": 5.6
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3303
+        },
+        {
+          "expectedOperation": "REMOVE_INCIDENCE",
+          "userQuery": "Remove Alice from hyperedge h0 and keep h0 if it becomes empty.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_INCIDENCE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove Alice from hyperedge h0 and keep h0 if it becomes empty.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"emptyHyperedgePolicy\": \"keep_empty\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The operation will remove Alice from hyperedge h0 and keep h0 if it becomes empty.\",\n  \"confidence\": "
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3798,
+          "promptChars": 4505,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3782.23,
+              "loadDurationMs": 1.57,
+              "promptEvalCount": 988,
+              "promptEvalDurationMs": 18.69,
+              "evalCount": 215,
+              "evalDurationMs": 3630.29,
+              "evalTokensPerSecond": 59.22,
+              "doneReason": "stop",
+              "clientElapsedMs": 3797.94,
+              "approximateTransportOverheadMs": 15.71
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3798
+        },
+        {
+          "expectedOperation": "RENAME_HYPEREDGE",
+          "userQuery": "Rename hyperedge h1 to hNew.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "RENAME_HYPEREDGE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename hyperedge h1 to hNew.\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_HYPEREDGE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      },\n      \"newHyperedgeId\": \"hNew\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The hyperedge h1 will be renamed to hNew.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 2987,
+          "promptChars": 4470,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 2979.81,
+              "loadDurationMs": 2.94,
+              "promptEvalCount": 981,
+              "promptEvalDurationMs": 16.68,
+              "evalCount": 169,
+              "evalDurationMs": 2829.63,
+              "evalTokensPerSecond": 59.73,
+              "doneReason": "stop",
+              "clientElapsedMs": 2986.84,
+              "approximateTransportOverheadMs": 7.03
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 2987
+        },
+        {
+          "expectedOperation": "RENAME_VERTEX",
+          "userQuery": "Rename vertex Alice to Alicia everywhere.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "RENAME_VERTEX"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename vertex 'Alice' to 'Alicia' in all hyperedges it is incident to.\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_VERTEX\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"newVertexId\": \"Alicia\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The vertex 'Alice' will be renamed to 'Alicia' in all hyperedges it is incident to.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3280,
+          "promptChars": 4483,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3272.73,
+              "loadDurationMs": 2.92,
+              "promptEvalCount": 979,
+              "promptEvalDurationMs": 18.86,
+              "evalCount": 185,
+              "evalDurationMs": 3119.7,
+              "evalTokensPerSecond": 59.3,
+              "doneReason": "stop",
+              "clientElapsedMs": 3280.17,
+              "approximateTransportOverheadMs": 7.44
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3280
+        },
+        {
+          "expectedOperation": "REMOVE_VERTEX_GLOBAL",
+          "userQuery": "Remove vertex Bob everywhere and keep empty hyperedges.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_VERTEX_GLOBAL"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove vertex Bob from all hyperedges while preserving empty hyperedges.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_VERTEX_GLOBAL\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Bob\"\n      },\n      \"emptyHyperedgePolicy\": \"keep_empty\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The vertex 'Bob' will be removed from all hyperedges, and empty hyperedges will be preserved.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3361,
+          "promptChars": 4497,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3343.9,
+              "loadDurationMs": 1.6,
+              "promptEvalCount": 982,
+              "promptEvalDurationMs": 195.62,
+              "evalCount": 176,
+              "evalDurationMs": 3018.14,
+              "evalTokensPerSecond": 58.31,
+              "doneReason": "stop",
+              "clientElapsedMs": 3360.65,
+              "approximateTransportOverheadMs": 16.74
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3361
+        },
+        {
+          "expectedOperation": "SET_HYPEREDGE_WEIGHT",
+          "userQuery": "Set the weight of hyperedge h0 to 3.5.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "SET_HYPEREDGE_WEIGHT"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the weight of hyperedge h0 to 3.5.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_WEIGHT\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"weight\": 3.5\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The weight of hyperedge h0 will be set to 3.5.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3114,
+          "promptChars": 4480,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3111.74,
+              "loadDurationMs": 2.01,
+              "promptEvalCount": 986,
+              "promptEvalDurationMs": 18.72,
+              "evalCount": 176,
+              "evalDurationMs": 2951.69,
+              "evalTokensPerSecond": 59.63,
+              "doneReason": "stop",
+              "clientElapsedMs": 3113.93,
+              "approximateTransportOverheadMs": 2.19
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3114
+        },
+        {
+          "expectedOperation": "SET_HYPEREDGE_TIME",
+          "userQuery": "Set the time of hyperedge h0 to 2026.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "SET_HYPEREDGE_TIME"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the time of hyperedge h0 to 2026.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_TIME\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"time\": 2026\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The time of hyperedge h0 will be set to 2026.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3134,
+          "promptChars": 4479,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3127.63,
+              "loadDurationMs": 2.87,
+              "promptEvalCount": 987,
+              "promptEvalDurationMs": 17.42,
+              "evalCount": 179,
+              "evalDurationMs": 2977.19,
+              "evalTokensPerSecond": 60.12,
+              "doneReason": "stop",
+              "clientElapsedMs": 3134.26,
+              "approximateTransportOverheadMs": 6.63
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3134
+        },
+        {
+          "expectedOperation": "SET_HYPEREDGE_ATTRIBUTE",
+          "userQuery": "Set the color attribute of hyperedge h0 to green.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "SET_HYPEREDGE_ATTRIBUTE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the color attribute of hyperedge h0 to green.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_ATTRIBUTE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h0\"\n      },\n      \"key\": \"color\",\n      \"value\": \"green\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The color attribute of hyperedge h0 will be set to green.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3131,
+          "promptChars": 4491,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3125.54,
+              "loadDurationMs": 2.07,
+              "promptEvalCount": 984,
+              "promptEvalDurationMs": 18.96,
+              "evalCount": 177,
+              "evalDurationMs": 2968.21,
+              "evalTokensPerSecond": 59.63,
+              "doneReason": "stop",
+              "clientElapsedMs": 3130.76,
+              "approximateTransportOverheadMs": 5.22
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3131
+        },
+        {
+          "expectedOperation": "REMOVE_HYPEREDGE_ATTRIBUTE",
+          "userQuery": "Remove the color attribute from hyperedge h0.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "REMOVE_HYPEREDGE_ATTRIBUTE"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the color attribute from hyperedge h0.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE_ATTRIBUTE\",\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"key\": \"color\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The color attribute will be removed from hyperedge h0.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 3112,
+          "promptChars": 4487,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 3104.43,
+              "loadDurationMs": 2.81,
+              "promptEvalCount": 982,
+              "promptEvalDurationMs": 196.23,
+              "evalCount": 166,
+              "evalDurationMs": 2772.25,
+              "evalTokensPerSecond": 59.88,
+              "doneReason": "stop",
+              "clientElapsedMs": 3111.95,
+              "approximateTransportOverheadMs": 7.53
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 3112
+        },
+        {
+          "expectedOperation": "CLEAR_GRAPH",
+          "userQuery": "Clear the graph.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "CLEAR_GRAPH"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Clear the graph by removing all hyperedges and vertices.\",\n  \"operations\": [\n    {\n      \"type\": \"CLEAR_GRAPH\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The graph will be cleared, removing all hyperedges and vertices.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 2128,
+          "promptChars": 4458,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 2112.1,
+              "loadDurationMs": 2.04,
+              "promptEvalCount": 976,
+              "promptEvalDurationMs": 18.74,
+              "evalCount": 122,
+              "evalDurationMs": 1961.63,
+              "evalTokensPerSecond": 62.19,
+              "doneReason": "stop",
+              "clientElapsedMs": 2127.64,
+              "approximateTransportOverheadMs": 15.53
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 2128
+        },
+        {
+          "expectedOperation": "UNDO_LAST_MUTATION",
+          "userQuery": "Undo the last graph mutation.",
+          "ok": true,
+          "classification": "mutation",
+          "operationTypes": [
+            "UNDO_LAST_MUTATION"
+          ],
+          "operationMatched": true,
+          "firstAttemptValid": true,
+          "repairUsed": false,
+          "finalValid": true,
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "valid",
+              "classification": null,
+              "validatorErrors": [],
+              "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Undo the last graph mutation.\",\n  \"operations\": [\n    {\n      \"type\": \"UNDO_LAST_MUTATION\"\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The last graph mutation will be undone.\",\n  \"confidence\": \"high\"\n}"
+            }
+          ],
+          "validatorErrors": [],
+          "elapsedMs": 2015,
+          "promptChars": 4471,
+          "schemaChars": 4923,
+          "metrics": [
+            {
+              "attempt": 1,
+              "task": "plan_graph_mutation",
+              "totalDurationMs": 2001.87,
+              "loadDurationMs": 1.54,
+              "promptEvalCount": 978,
+              "promptEvalDurationMs": 18.7,
+              "evalCount": 115,
+              "evalDurationMs": 1857.04,
+              "evalTokensPerSecond": 61.93,
+              "doneReason": "stop",
+              "clientElapsedMs": 2014.6,
+              "approximateTransportOverheadMs": 12.73
+            }
+          ],
+          "previewOnly": false,
+          "correction": {
+            "isCorrection": false,
+            "replacePendingPlan": false
+          },
+          "fallbackReason": null,
+          "wallElapsedMs": 2015
+        }
+      ],
+      "passed": 13,
+      "total": 13,
+      "ok": true,
+      "completedAt": "2026-09-23T01:28:08.290Z"
+    }
+  ],
+  "supplemental": [
+    {
+      "name": "ollama_environment",
+      "ok": true,
+      "ollamaVersion": "0.34.2",
+      "selectedModel": {
+        "name": "qwen3:8b",
+        "model": "qwen3:8b",
+        "modified_at": "2026-09-08T20:17:06.8276649-05:00",
+        "size": 5225388164,
+        "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "8.2B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 40960,
+          "embedding_length": 4096
+        },
+        "capabilities": [
+          "completion",
+          "tools",
+          "thinking"
+        ]
+      },
+      "wallElapsedMs": 26
+    },
+    {
+      "name": "bridge_identity",
+      "ok": true,
+      "httpStatus": 200,
+      "service": "hypergraph-ollama-bridge",
+      "allowedOrigins": [
+        "http://127.0.0.1:5178",
+        "http://localhost:5178",
+        "http://127.0.0.1:5173",
+        "http://localhost:5173"
+      ],
+      "wallElapsedMs": 2
+    },
+    {
+      "name": "direct_tiny_structured_generation",
+      "ok": true,
+      "result": {
+        "ok": true,
+        "content": "{\"status\":\"ok\"}",
+        "parsed": {
+          "status": "ok"
+        },
+        "data": {
+          "model": "qwen3:8b",
+          "created_at": "2026-09-23T01:26:46.7111351Z",
+          "message": {
+            "role": "assistant",
+            "content": "{\"status\":\"ok\"}"
+          },
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 259417700,
+          "load_duration": 2322200,
+          "prompt_eval_count": 42,
+          "prompt_eval_cached_count": 41,
+          "prompt_eval_duration": 32087000,
+          "eval_count": 6,
+          "eval_duration": 141816000
+        }
+      },
+      "wallElapsedMs": 269
+    },
+    {
+      "name": "bridge_tiny_structured_generation",
+      "ok": true,
+      "result": {
+        "ok": true,
+        "content": "{\"status\":\"ok\"}",
+        "parsed": {
+          "status": "ok"
+        },
+        "data": {
+          "model": "qwen3:8b",
+          "created_at": "2026-09-23T01:26:46.8340816Z",
+          "message": {
+            "role": "assistant",
+            "content": "{\"status\":\"ok\"}"
+          },
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 115257600,
+          "load_duration": 2676500,
+          "prompt_eval_count": 42,
+          "prompt_eval_cached_count": 41,
+          "prompt_eval_duration": 29768000,
+          "eval_count": 6,
+          "eval_duration": 80380000
+        }
+      },
+      "wallElapsedMs": 122
+    },
+    {
+      "name": "clarification",
+      "ok": true,
+      "classification": "clarification",
+      "expectedOperation": null,
+      "operationTypes": [],
+      "operationMatched": true,
+      "firstAttemptValid": true,
+      "repairUsed": false,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "classification": null,
+          "validatorErrors": [],
+          "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"clarification\",\n  \"intentSummary\": \"The user wants to remove a vertex from the graph, but no vertex is currently selected.\",\n  \"operations\": [],\n  \"clarificationQuestion\": \"Which vertex would you like to remove from the graph?\",\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"Awaiting clarification on which vertex to remove.\",\n  \"confidence\": \"low\"\n}"
+        }
+      ],
+      "validatorErrors": [],
+      "elapsedMs": 2217,
+      "promptChars": 4476,
+      "schemaChars": 4923,
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 2208.31,
+          "loadDurationMs": 1.54,
+          "promptEvalCount": 979,
+          "promptEvalDurationMs": 196.26,
+          "evalCount": 122,
+          "evalDurationMs": 1931.66,
+          "evalTokensPerSecond": 63.16,
+          "doneReason": "stop",
+          "clientElapsedMs": 2217.27,
+          "approximateTransportOverheadMs": 8.96
+        }
+      ],
+      "previewOnly": false,
+      "correction": {
+        "isCorrection": false,
+        "replacePendingPlan": false
+      },
+      "fallbackReason": null,
+      "wallElapsedMs": 2218
+    },
+    {
+      "name": "not_mutation",
+      "ok": true,
+      "classification": "not_mutation",
+      "expectedOperation": null,
+      "operationTypes": [],
+      "operationMatched": true,
+      "firstAttemptValid": true,
+      "repairUsed": false,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "classification": null,
+          "validatorErrors": [],
+          "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"not_mutation\",\n  \"intentSummary\": \"The user is asking for a definition or explanation of a hyperedge.\",\n  \"operations\": [],\n  \"clarificationQuestion\": \"What is a hyperedge?\",\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The query is not a mutation request but an explanatory question.\",\n  \"confidence\": \"high\"\n}"
+        }
+      ],
+      "validatorErrors": [],
+      "elapsedMs": 2134,
+      "promptChars": 4462,
+      "schemaChars": 4923,
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 2123.29,
+          "loadDurationMs": 1.55,
+          "promptEvalCount": 978,
+          "promptEvalDurationMs": 194.35,
+          "evalCount": 117,
+          "evalDurationMs": 1841.95,
+          "evalTokensPerSecond": 63.52,
+          "doneReason": "stop",
+          "clientElapsedMs": 2134.38,
+          "approximateTransportOverheadMs": 11.09
+        }
+      ],
+      "previewOnly": false,
+      "correction": {
+        "isCorrection": false,
+        "replacePendingPlan": false
+      },
+      "fallbackReason": null,
+      "wallElapsedMs": 2135
+    },
+    {
+      "name": "preview_only",
+      "ok": true,
+      "classification": "mutation",
+      "expectedOperation": "ADD_INCIDENCE",
+      "operationTypes": [
+        "ADD_INCIDENCE"
+      ],
+      "operationMatched": true,
+      "firstAttemptValid": true,
+      "repairUsed": false,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "classification": null,
+          "validatorErrors": [],
+          "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Preview adding Alice to h1 without changing the graph.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": true,\n  \"acknowledgement\": \"Previewing the addition of Alice to h1 without modifying the graph.\",\n  \"confidence\": \"high\"\n}"
+        }
+      ],
+      "validatorErrors": [],
+      "elapsedMs": 3516,
+      "promptChars": 4575,
+      "schemaChars": 4923,
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 3510.94,
+          "loadDurationMs": 2.74,
+          "promptEvalCount": 998,
+          "promptEvalDurationMs": 197.19,
+          "evalCount": 192,
+          "evalDurationMs": 3221.17,
+          "evalTokensPerSecond": 59.61,
+          "doneReason": "stop",
+          "clientElapsedMs": 3515.45,
+          "approximateTransportOverheadMs": 4.5
+        }
+      ],
+      "previewOnly": true,
+      "correction": {
+        "isCorrection": false,
+        "replacePendingPlan": false
+      },
+      "fallbackReason": null,
+      "wallElapsedMs": 3516
+    },
+    {
+      "name": "pending_correction",
+      "ok": true,
+      "classification": "mutation",
+      "expectedOperation": "ADD_INCIDENCE",
+      "operationTypes": [
+        "ADD_INCIDENCE"
+      ],
+      "operationMatched": true,
+      "firstAttemptValid": true,
+      "repairUsed": false,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "classification": null,
+          "validatorErrors": [],
+          "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Actually, add Carol to h0 instead.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Carol\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": true,\n    \"replacePendingPlan\": true\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The mutation has been corrected to add Carol to h0 instead.\",\n  \"confidence\": \"high\"\n}"
+        }
+      ],
+      "validatorErrors": [],
+      "elapsedMs": 3579,
+      "promptChars": 5182,
+      "schemaChars": 4923,
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 3568.13,
+          "loadDurationMs": 1.53,
+          "promptEvalCount": 1150,
+          "promptEvalDurationMs": 249.09,
+          "evalCount": 191,
+          "evalDurationMs": 3227.4,
+          "evalTokensPerSecond": 59.18,
+          "doneReason": "stop",
+          "clientElapsedMs": 3578.51,
+          "approximateTransportOverheadMs": 10.38
+        }
+      ],
+      "previewOnly": false,
+      "correction": {
+        "isCorrection": true,
+        "replacePendingPlan": true
+      },
+      "fallbackReason": null,
+      "wallElapsedMs": 3579
+    },
+    {
+      "name": "live_invalid_first_then_repair",
+      "ok": true,
+      "classification": "mutation",
+      "expectedOperation": "ADD_INCIDENCE",
+      "operationTypes": [
+        "ADD_INCIDENCE"
+      ],
+      "operationMatched": true,
+      "firstAttemptValid": false,
+      "repairUsed": true,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "classification": null,
+          "validatorErrors": [
+            "draft.intentSummary is required.",
+            "draft.clarificationQuestion is required.",
+            "draft.correction is required.",
+            "draft.previewOnly is required.",
+            "draft.acknowledgement is required.",
+            "draft.confidence is required.",
+            "draft.confidence is not supported.",
+            "draft.intentSummary must be a string.",
+            "draft.acknowledgement must be a string.",
+            "draft.previewOnly must be a boolean.",
+            "draft.clarificationQuestion must be a string or null.",
+            "draft.correction must be an object.",
+            "mutation drafts require at least one operation."
+          ],
+          "rawResponsePreview": "{\"task\":\"plan_graph_mutation\",\"classification\":\"mutation\",\"operations\":[]}"
+        },
+        {
+          "attempt": 2,
+          "status": "repaired",
+          "classification": null,
+          "validatorErrors": [],
+          "rawResponsePreview": "{\"task\":\"plan_graph_mutation\",\"classification\":\"mutation\",\"intentSummary\":\"Add Alice to hyperedge h1\",\"operations\":[{\"type\":\"ADD_INCIDENCE\",\"vertexReference\": {\"entityType\": \"vertex\",\"referenceKind\": \"literal\",\"surfaceText\": \"Alice\"},\"hyperedgeReference\": {\"entityType\": \"hyperedge\",\"referenceKind\": \"literal\",\"surfaceText\": \"h1\"}}],\"clarificationQuestion\":null,\"correction\":{\"isCorrection\":false,\"replacePendingPlan\":false},\"previewOnly\":false,\"acknowledgement\":\"The operation to add Alice to hyperedge h1 is planned.\",\"confidence\": \"high\"}"
+        }
+      ],
+      "validatorErrors": [
+        "draft.intentSummary is required.",
+        "draft.clarificationQuestion is required.",
+        "draft.correction is required.",
+        "draft.previewOnly is required.",
+        "draft.acknowledgement is required.",
+        "draft.confidence is required.",
+        "draft.confidence is not supported.",
+        "draft.intentSummary must be a string.",
+        "draft.acknowledgement must be a string.",
+        "draft.previewOnly must be a boolean.",
+        "draft.clarificationQuestion must be a string or null.",
+        "draft.correction must be an object.",
+        "mutation drafts require at least one operation."
+      ],
+      "elapsedMs": 2682,
+      "promptChars": 5782,
+      "schemaChars": 4923,
+      "metrics": [
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 2671.46,
+          "loadDurationMs": 2.06,
+          "promptEvalCount": 1228,
+          "promptEvalDurationMs": 290.97,
+          "evalCount": 128,
+          "evalDurationMs": 2217.87,
+          "evalTokensPerSecond": 57.71,
+          "doneReason": "stop",
+          "clientElapsedMs": 2682.08,
+          "approximateTransportOverheadMs": 10.61
+        }
+      ],
+      "previewOnly": false,
+      "correction": {
+        "isCorrection": false,
+        "replacePendingPlan": false
+      },
+      "fallbackReason": null,
+      "calls": 2,
+      "wallElapsedMs": 2683
+    },
+    {
+      "name": "invalid_first_then_repair_timeout_provenance",
+      "ok": true,
+      "calls": 2,
+      "classification": "model_generation_timeout",
+      "fallbackReason": "Attempt 1 structured validation failed: draft.intentSummary is required.; draft.clarificationQuestion is required.; draft.correction is required.; draft.previewOnly is required.; draft.acknowledgement is required.; draft.confidence is required.; draft.confidence is not supported.; draft.intentSummary must be a string.; draft.acknowledgement must be a string.; draft.previewOnly must be a boolean.; draft.clarificationQuestion must be a string or null.; draft.correction must be an object.; mutation drafts require at least one operation.\nAttempt 2 model generation timed out: Ollama request timed out.",
+      "firstAttemptValid": false,
+      "repairUsed": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "classification": null,
+          "validatorErrors": [
+            "draft.intentSummary is required.",
+            "draft.clarificationQuestion is required.",
+            "draft.correction is required.",
+            "draft.previewOnly is required.",
+            "draft.acknowledgement is required.",
+            "draft.confidence is required.",
+            "draft.confidence is not supported.",
+            "draft.intentSummary must be a string.",
+            "draft.acknowledgement must be a string.",
+            "draft.previewOnly must be a boolean.",
+            "draft.clarificationQuestion must be a string or null.",
+            "draft.correction must be an object.",
+            "mutation drafts require at least one operation."
+          ],
+          "rawResponsePreview": "{\"task\":\"plan_graph_mutation\",\"classification\":\"mutation\",\"operations\":[]}"
+        },
+        {
+          "attempt": 2,
+          "status": "model_generation_timeout",
+          "classification": "model_generation_timeout",
+          "validatorErrors": [],
+          "rawResponsePreview": null
+        }
+      ],
+      "validatorErrors": [
+        "draft.intentSummary is required.",
+        "draft.clarificationQuestion is required.",
+        "draft.correction is required.",
+        "draft.previewOnly is required.",
+        "draft.acknowledgement is required.",
+        "draft.confidence is required.",
+        "draft.confidence is not supported.",
+        "draft.intentSummary must be a string.",
+        "draft.acknowledgement must be a string.",
+        "draft.previewOnly must be a boolean.",
+        "draft.clarificationQuestion must be a string or null.",
+        "draft.correction must be an object.",
+        "mutation drafts require at least one operation."
+      ],
+      "wallElapsedMs": 0
+    },
+    {
+      "name": "live_timeout",
+      "ok": true,
+      "classification": "model_generation_timeout",
+      "error": "Ollama request timed out after 1 ms.",
+      "wallElapsedMs": 15
+    },
+    {
+      "name": "live_explicit_cancel",
+      "ok": true,
+      "classification": "request_aborted",
+      "error": "Ollama request was stopped before completion.",
+      "wallElapsedMs": 30
+    },
+    {
+      "name": "direct_bridge_parity",
+      "ok": true,
+      "direct": {
+        "ok": true,
+        "classification": "mutation",
+        "expectedOperation": "ADD_INCIDENCE",
+        "operationTypes": [
+          "ADD_INCIDENCE"
+        ],
+        "operationMatched": true,
+        "firstAttemptValid": true,
+        "repairUsed": false,
+        "finalValid": true,
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "valid",
+            "classification": null,
+            "validatorErrors": [],
+            "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add the vertex 'Alice' to the hyperedge 'h1'.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The operation is valid and will add 'Alice' to 'h1'.\",\n  \"confidence\": \"high\"\n}"
+          }
+        ],
+        "validatorErrors": [],
+        "elapsedMs": 3337,
+        "promptChars": 4458,
+        "schemaChars": 4923,
+        "metrics": [
+          {
+            "attempt": 1,
+            "task": "plan_graph_mutation",
+            "totalDurationMs": 3334.81,
+            "loadDurationMs": 2.73,
+            "promptEvalCount": 978,
+            "promptEvalDurationMs": 17.1,
+            "evalCount": 198,
+            "evalDurationMs": 3289.39,
+            "evalTokensPerSecond": 60.19,
+            "doneReason": "stop",
+            "clientElapsedMs": 3337.29,
+            "approximateTransportOverheadMs": 2.48
+          }
+        ],
+        "previewOnly": false,
+        "correction": {
+          "isCorrection": false,
+          "replacePendingPlan": false
+        },
+        "fallbackReason": null
+      },
+      "bridge": {
+        "ok": true,
+        "classification": "mutation",
+        "expectedOperation": "ADD_INCIDENCE",
+        "operationTypes": [
+          "ADD_INCIDENCE"
+        ],
+        "operationMatched": true,
+        "firstAttemptValid": true,
+        "repairUsed": false,
+        "finalValid": true,
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "valid",
+            "classification": null,
+            "validatorErrors": [],
+            "rawResponsePreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add the vertex 'Alice' to the hyperedge 'h1'.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      }\n    }\n  ],\n  \"clarificationQuestion\": null,\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The operation is valid and will add 'Alice' to 'h1'.\",\n  \"confidence\": \"high\"\n}"
+          }
+        ],
+        "validatorErrors": [],
+        "elapsedMs": 6657,
+        "promptChars": 4458,
+        "schemaChars": 4923,
+        "metrics": [
+          {
+            "attempt": 1,
+            "task": "plan_graph_mutation",
+            "totalDurationMs": 6650.89,
+            "loadDurationMs": 1.57,
+            "promptEvalCount": 978,
+            "promptEvalDurationMs": 17.91,
+            "evalCount": 198,
+            "evalDurationMs": 3293.57,
+            "evalTokensPerSecond": 60.12,
+            "doneReason": "stop",
+            "clientElapsedMs": 6656.93,
+            "approximateTransportOverheadMs": 6.04
+          }
+        ],
+        "previewOnly": false,
+        "correction": {
+          "isCorrection": false,
+          "replacePendingPlan": false
+        },
+        "fallbackReason": null
+      },
+      "wallElapsedMs": 6657
+    }
+  ],
+  "summary": {
+    "matrixPass": true,
+    "matrixRuns": [
+      {
+        "run": 1,
+        "passed": 13,
+        "total": 13,
+        "ok": true
+      },
+      {
+        "run": 2,
+        "passed": 13,
+        "total": 13,
+        "ok": true
+      }
+    ],
+    "supplementalFailures": [],
+    "allRequiredPassed": true
+  }
+}

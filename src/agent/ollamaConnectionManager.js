@@ -12,8 +12,24 @@ import {
 } from "./localModelClient.js";
 
 export const DIRECT_OLLAMA_BASE_URL = "http://localhost:11434";
-export const BRIDGE_HEALTH_URL = "http://127.0.0.1:8787/health";
-export const BRIDGE_OLLAMA_BASE_URL = "http://127.0.0.1:8787/ollama";
+
+export function resolveBridgeTransportUrls(env = import.meta.env) {
+  const rawPort = String(env?.VITE_HYPERGRAPH_BRIDGE_PORT ?? "").trim();
+  const candidate = Number(rawPort);
+  const port = rawPort && Number.isInteger(candidate) && candidate >= 1 && candidate <= 65535
+    ? candidate
+    : 8787;
+  const origin = `http://127.0.0.1:${port}`;
+  return Object.freeze({
+    port,
+    healthUrl: `${origin}/health`,
+    ollamaBaseUrl: `${origin}/ollama`,
+  });
+}
+
+const configuredBridgeTransport = resolveBridgeTransportUrls();
+export const BRIDGE_HEALTH_URL = configuredBridgeTransport.healthUrl;
+export const BRIDGE_OLLAMA_BASE_URL = configuredBridgeTransport.ollamaBaseUrl;
 
 export const OLLAMA_TRANSPORTS = {
   direct: {

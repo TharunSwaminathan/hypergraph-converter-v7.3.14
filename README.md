@@ -517,11 +517,13 @@ On Windows:
 run-with-ollama.bat
 ```
 
-The launcher verifies Ollama, checks `qwen3:8b`, starts the local Ollama bridge, installs dashboard dependencies when needed, and starts Vite at:
+The launcher verifies installed Node.js, npm, Ollama, and `qwen3:8b`; selects an available loopback frontend port; derives an exact origin allowlist; identity-checks the local bridge; installs dashboard dependencies when needed; and starts Vite with strict port binding. It prints the actual URL, for example:
 
 ```text
-http://localhost:5173
+http://127.0.0.1:5173
 ```
+
+The frontend port may differ when `5173` is occupied. Use the printed URL rather than assuming a port. An unrelated service returning HTTP 200 on the bridge port is rejected; set `HYPERGRAPH_BRIDGE_PORT` to another free port or stop the conflicting service. The combined launcher propagates the chosen bridge port to the Vite browser build, while ordinary static builds default to bridge port `8787`.
 
 Then open Assistant Settings and click Connect. The app tries the last successful transport first, then direct Ollama, then the local bridge, and reports one connected or failed state.
 
@@ -578,15 +580,16 @@ Isolated direct/bridge probes are read-only. A failed probe does not disconnect 
 
 ## Local Ollama bridge
 
-`local-runtime-bridge.js` is an optional local helper started by `run-with-ollama` or manually with:
+`local-runtime-bridge.js` is an optional local helper started by `run-with-ollama`. A manual start must supply the dashboard's exact origin:
 
 ```bash
-bash run-local-runtime-bridge.sh
+HYPERGRAPH_BRIDGE_ORIGINS=http://127.0.0.1:<actual-vite-port> bash run-local-runtime-bridge.sh
 ```
 
 Windows:
 
 ```bat
+set "HYPERGRAPH_BRIDGE_ORIGINS=http://127.0.0.1:<actual-vite-port>"
 run-local-runtime-bridge.bat
 ```
 
@@ -598,7 +601,7 @@ GET  /ollama/api/tags
 POST /ollama/api/chat
 ```
 
-It is not a general proxy. It allowlists origins, blocks public targets, forwards request bodies in memory only, and does not log full prompts or uploaded file previews.
+It is not a general proxy. It accepts only exact HTTP(S) origins (never wildcard origins), blocks public targets, follows no upstream redirects, forwards request bodies in memory only, and does not log full prompts or uploaded file previews.
 
 ## GitHub Pages + local Ollama
 

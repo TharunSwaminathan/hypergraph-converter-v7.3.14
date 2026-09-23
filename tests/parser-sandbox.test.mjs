@@ -12,6 +12,18 @@ assert.equal(validateParserCodeSafety("async function parseHypergraph(){ return 
 assert.equal(validateParserCodeSafety("async function parseHypergraph(){ return fetch('https://example.com'); }").ok, false);
 assert.equal(validateParserCodeSafety("async function parseHypergraph(){ return new Function('return 1')(); }").ok, false);
 
+for (const dynamicImport of [
+  `async function parseHypergraph(){ return import("data:text/javascript,export default 1"); }`,
+  `async function parseHypergraph(){ return await import("data:text/javascript,export default 1"); }`,
+  `async function parseHypergraph(){ const load = () => import("data:text/javascript,export default 1"); return load; }`,
+  `async function parseHypergraph(files){ return import(files[0].name); }`,
+  `async function parseHypergraph(){ return Promise.resolve().then(() => import("data:text/javascript,export default 1")); }`,
+]) {
+  const safety = validateParserCodeSafety(dynamicImport);
+  assert.equal(safety.ok, false, `dynamic import must be rejected before worker creation: ${dynamicImport}`);
+  assert.ok(safety.violations.includes("dynamic_import"));
+}
+
 for (const bypass of [
   `async function parseHypergraph(){ return self["fet" + "ch"]("https://example.com"); }`,
   `async function parseHypergraph(){ return (() => {}).constructor("return 1")(); }`,

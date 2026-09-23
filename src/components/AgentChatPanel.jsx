@@ -70,6 +70,7 @@ import { candyRequestConfirmationBinding, candyRequestNeedsConfirmation } from "
 import { routeDeterministicCandyRequest } from "../candy/deterministicRouting.js";
 import { authorizeCandyReactAction } from "../agent/candyActionAuthorization.js";
 import { UPLOAD_ACCEPT_ATTRIBUTE } from "../agent/uploadPolicy.js";
+import { isTransportSelectingConnectionPlan } from "../agent/runtimeControlPolicy.js";
 
 const SUGGESTIONS = [
   "Explain H2V",
@@ -115,6 +116,7 @@ function sideEffectScopeForAgentPlan(plan) {
   if (kind === "pending_cancel") return "cancellation";
   if (kind === "runtime_stop") return "runtime_control";
   if (["configure_local_model", "set_local_model_name"].includes(kind)) return "runtime_control";
+  if (isTransportSelectingConnectionPlan(plan)) return "runtime_control";
   if (["test_local_model", "list_local_models", "run_runtime_diagnostics", "run_local_model_task"].includes(kind)) {
     if (kind === "run_local_model_task") {
       const task = String(plan?.task ?? plan?.userIntent ?? "");
@@ -3390,9 +3392,15 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
             The project uses one local runtime: Ollama. The app automatically tries direct Ollama and the local bridge; these are automatic connection methods, not separate runtimes.
           </div>
           <div className="agent-model__actions">
-            <button type="button" onClick={() => submit(QUICK_CONTROL_COMMANDS.testConnection)} disabled={busy || Boolean(pendingAction) || agentState.localModel?.busy}>Connect</button>
-            <button type="button" onClick={() => submit(QUICK_CONTROL_COMMANDS.testConnection)} disabled={busy || Boolean(pendingAction) || agentState.localModel?.busy}>Reconnect</button>
-            <button type="button" onClick={() => agentActions.updateLocalModelSettings({ enabled: false })} disabled={busy || Boolean(pendingAction)}>Disconnect local assistant</button>
+            {agentState.localModel?.config?.enabled === false ? (
+              <button type="button" onClick={() => agentActions.updateLocalModelSettings({ enabled: true })} disabled={busy || Boolean(pendingAction)}>Enable local assistant</button>
+            ) : (
+              <>
+                <button type="button" onClick={() => submit(QUICK_CONTROL_COMMANDS.testConnection)} disabled={busy || Boolean(pendingAction) || agentState.localModel?.busy}>Connect</button>
+                <button type="button" onClick={() => submit(QUICK_CONTROL_COMMANDS.testConnection)} disabled={busy || Boolean(pendingAction) || agentState.localModel?.busy}>Reconnect</button>
+                <button type="button" onClick={() => agentActions.updateLocalModelSettings({ enabled: false })} disabled={busy || Boolean(pendingAction)}>Disconnect local assistant</button>
+              </>
+            )}
             <button type="button" onClick={() => setWorkspacePanel("advanced")} disabled={busy || Boolean(pendingAction)}>Open diagnostics</button>
             <button type="button" onClick={() => submit(QUICK_CONTROL_COMMANDS.listModels)} disabled={busy || Boolean(pendingAction) || agentState.localModel?.busy}>Is qwen3:8b installed?</button>
             <button type="button" onClick={() => submit(QUICK_CONTROL_COMMANDS.explainFileRolesWithModel)} disabled={busy || Boolean(pendingAction)}>Explain file roles</button>

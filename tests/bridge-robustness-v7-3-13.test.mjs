@@ -21,6 +21,18 @@ function readJsonBody(req) {
 }
 
 let clientDisconnectObserved = false;
+let redirectedBodyObserved = false;
+const redirectSink = http.createServer(async (req, res) => {
+  if (req.method === "POST") {
+    redirectedBodyObserved = true;
+    await readJsonBody(req);
+  }
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({ ok: true }));
+});
+redirectSink.listen(0, "127.0.0.1");
+await once(redirectSink, "listening");
+const redirectSinkPort = redirectSink.address().port;
 const upstream = http.createServer(async (req, res) => {
   if (req.url === "/api/tags") {
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -28,6 +40,11 @@ const upstream = http.createServer(async (req, res) => {
     return;
   }
   const body = await readJsonBody(req);
+  if (body.mode === "redirect") {
+    res.writeHead(307, { Location: `http://127.0.0.1:${redirectSinkPort}/capture` });
+    res.end();
+    return;
+  }
   if (body.mode === "timeout") {
     return;
   }
@@ -115,6 +132,11 @@ try {
   assert.equal(upstreamError.status, 502);
   assert.equal((await upstreamError.json()).error, "bridge_runtime_unreachable");
 
+  const redirected = await chat("redirect", { prompt: "REDIRECT_BODY_MUST_NOT_LEAK" });
+  assert.equal(redirected.status, 502);
+  assert.equal((await redirected.json()).error, "bridge_runtime_unreachable");
+  assert.equal(redirectedBodyObserved, false, "bridge must reject redirects without forwarding the POST body to the second hop");
+
   try {
     const oversized = await chat("oversized");
     assert.equal(oversized.status, 200, "headers may already be streamed before the bridge detects a response cap breach");
@@ -156,6 +178,7 @@ try {
 } finally {
   bridge.kill();
   upstream.close();
+  redirectSink.close();
 }
 
 console.log("v7.3.13 bridge robustness tests passed.");

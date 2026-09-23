@@ -6,6 +6,7 @@ import {
   resolveGraphMutationDraftToPlan,
 } from "../src/agent/graphMutationModelPlanner.js";
 import { GRAPH_MUTATION_DRAFT_TASK } from "../src/agent/graphMutationDraftSchema.js";
+import { buildGraphMutationPlannerPrompt } from "../src/agent/prompts/graphMutationPlannerPrompt.js";
 import { createGraphIdentity } from "../src/graph/graphIdentity.js";
 
 const graph = [
@@ -13,6 +14,18 @@ const graph = [
   { id: "h1", vertices: ["Carol"], time: null, weight: 1, attributes: {} },
 ];
 const identity = createGraphIdentity(graph, null, { replace: true });
+
+const semanticPrompt = buildGraphMutationPlannerPrompt({
+  userQuery: "Actually, add Carol to h0 instead.",
+  hyperedges: graph,
+  graphIdentity: identity,
+  pendingAction: { actionType: "apply_graph_mutation", plan: { operations: [{ type: "ADD_INCIDENCE" }] } },
+});
+const semanticPromptText = semanticPrompt.messages.map(message => message.content).join("\n");
+assert.match(semanticPromptText, /explanation or definition question/i);
+assert.match(semanticPromptText, /mutation requires one or more exact type-specific operations/i);
+assert.match(semanticPromptText, /both correction booleans true/i);
+assert.match(semanticPromptText, /classification=clarification requires operations=\[\]/i);
 
 function ref(entityType, surfaceText, referenceKind = "literal") {
   return { entityType, referenceKind, surfaceText };
@@ -130,6 +143,23 @@ const repair = await planGraphMutationWithModel({
 });
 assert.equal(repair.ok, true, "one repair attempt can recover a valid draft");
 assert.equal(repair.attempts.length, 2);
+
+const invalidThenTimeout = await planGraphMutationWithModel({
+  config: { enabled: true, activeBaseUrl: "http://127.0.0.1:11434", model: "qwen3:8b" },
+  userQuery: "Put Alice in h1.",
+  hyperedges: graph,
+  graphIdentity: identity,
+  generate: async (_config, request) => {
+    if (!request.repairAttempt) return "{\"task\":\"bad\"}";
+    throw Object.assign(new Error("Ollama request timed out after 1000 ms."), { classification: "model_generation_timeout" });
+  },
+});
+assert.equal(invalidThenTimeout.ok, false);
+assert.equal(invalidThenTimeout.classification, "model_generation_timeout");
+assert.equal(invalidThenTimeout.attempts[0].status, "invalid");
+assert.equal(invalidThenTimeout.attempts[1].status, "model_generation_timeout");
+assert.match(invalidThenTimeout.fallbackReason, /Attempt 1 structured validation failed/);
+assert.match(invalidThenTimeout.fallbackReason, /Attempt 2 model generation timed out/);
 
 const notMutation = resolveGraphMutationDraftToPlan({
   draft: draft({ classification: "not_mutation", operations: [] }),

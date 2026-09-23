@@ -89,7 +89,10 @@ export function classifyLocalModelError(error) {
   if (error?.classification) return error.classification;
   if (error?.name === "AbortError") return "request_aborted";
   if (error?.status) return "http_failure";
-  const message = String(error?.message ?? "").toLowerCase();
+  const message = String(error?.message ?? error ?? "").toLowerCase();
+  if (message === "request_aborted" || message.includes("request was stopped") || message.includes("generation was stopped")) return "request_aborted";
+  if (message === "model_generation_timeout") return "model_generation_timeout";
+  if (message === "runtime_not_running" || message.includes("runtime not running")) return "runtime_not_running";
   if (message.includes("timed out")) return "model_generation_timeout";
   if (message.includes("non-json") || message.includes("invalid json")) return "invalid_response";
   if (message.includes("failed to fetch") || message.includes("networkerror")) return "connection_failure";
@@ -99,7 +102,7 @@ export function classifyLocalModelError(error) {
 export async function fetchJson(url, options = {}, timeoutMs = DEFAULT_LOCAL_MODEL_TIMEOUT_MS) {
   const { signal, cleanup, timedOut } = timeoutSignal(timeoutMs, options.signal);
   try {
-    const response = await fetch(url, { ...options, signal });
+    const response = await fetch(url, { ...options, signal, redirect: "error" });
     const text = await response.text();
     let data = {};
     try {
@@ -116,8 +119,9 @@ export async function fetchJson(url, options = {}, timeoutMs = DEFAULT_LOCAL_MOD
     }
     return data;
   } catch (error) {
-    if (error?.name === "AbortError") {
-      const classification = timedOut() ? "model_generation_timeout" : "request_aborted";
+    if (signal.aborted || error?.name === "AbortError") {
+      const reason = String(signal.reason ?? error?.message ?? error ?? "");
+      const classification = timedOut() || reason === "model_generation_timeout" ? "model_generation_timeout" : "request_aborted";
       const message = classification === "model_generation_timeout"
         ? `Ollama request timed out after ${timeoutMs} ms.`
         : "Ollama request was stopped before completion.";
@@ -144,7 +148,7 @@ function timeoutSignal(timeoutMs, externalSignal = null) {
   }, timeoutMs);
   const abortFromExternal = () => controller.abort("request_aborted");
   if (externalSignal) {
-    if (externalSignal.aborted) controller.abort();
+    if (externalSignal.aborted) controller.abort("request_aborted");
     else externalSignal.addEventListener("abort", abortFromExternal, { once: true });
   }
   return {
@@ -347,6 +351,7 @@ export async function generateConversationWithLocalModel(config, payload, {
   try {
     const response = await fetch(`${safe.baseUrl}/api/chat`, {
       method: "POST",
+      redirect: "error",
       headers: { "Content-Type": "application/json" },
       signal: requestSignal,
       body: JSON.stringify(ollamaChatBody(safe, messages, payload, { stream: true })),
@@ -399,8 +404,9 @@ export async function generateConversationWithLocalModel(config, payload, {
     if (parserError) throw parserError;
     return accumulated;
   } catch (error) {
-    if (signal?.aborted || error?.name === "AbortError") {
-      const classification = timedOut() ? "model_generation_timeout" : "request_aborted";
+    if (requestSignal.aborted || signal?.aborted || error?.name === "AbortError") {
+      const reason = String(requestSignal.reason ?? error?.message ?? error ?? "");
+      const classification = timedOut() || reason === "model_generation_timeout" ? "model_generation_timeout" : "request_aborted";
       throw Object.assign(
         abortError(classification === "model_generation_timeout" ? `Ollama request timed out after ${timeoutMs ?? safe.timeoutMs} ms.` : "Conversational generation was stopped."),
         { classification },

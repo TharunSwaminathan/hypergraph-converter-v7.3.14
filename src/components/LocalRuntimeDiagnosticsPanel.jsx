@@ -107,7 +107,7 @@ export default function LocalRuntimeDiagnosticsPanel({
           <span>Last isolated probe · {lastProbe.mode?.replaceAll("-", " ") || "runtime probe"}</span>
           <p>
             <strong className={statusClass(lastProbe.overallStatus)}>{lastProbe.overallStatus?.replaceAll("_", " ")}</strong>
-            {` · ${lastProbe.activeTransportLabel || lastProbe.mode || "probe"} · ${lastProbe.baseUrl || lastProbe.activeEndpoint || "unknown endpoint"}`}
+            {` · ${lastProbe.testedTransportLabel || lastProbe.testedTransport || lastProbe.mode || "probe"} · ${lastProbe.testedEndpoint || "unknown endpoint"}`}
             {lastProbe.summary ? ` — ${lastProbe.summary}` : ""}
           </p>
           <small>This probe is read-only and does not change the selected model, active connection method, active endpoint, or connection status.</small>
@@ -115,8 +115,9 @@ export default function LocalRuntimeDiagnosticsPanel({
       )}
 
       <div className="agent-runtime-diag__actions">
-        <button type="button" onClick={() => run("current", "Full diagnostics")} disabled={disabled}>Run full diagnostics</button>
-        <button type="button" onClick={() => run("current", "Reconnect")} disabled={disabled}>Reconnect</button>
+        <button type="button" onClick={() => run("full", "Full diagnostics")} disabled={disabled}>Run full diagnostics</button>
+        <button type="button" onClick={() => run("current-connection", "Current connection test")} disabled={disabled}>Test current connection</button>
+        <button type="button" onClick={() => run("reconnect", "Reconnect")} disabled={disabled}>Reconnect</button>
         <button type="button" onClick={() => run("direct-ollama", "Direct Ollama probe")} disabled={disabled}>Test direct Ollama</button>
         <button type="button" onClick={() => run("bridge", "Local bridge probe")} disabled={disabled}>Test local bridge</button>
         <button type="button" onClick={() => run("generation", "Simple generation test")} disabled={disabled || localModel?.config?.enabled === false}>Test simple generation</button>
@@ -127,7 +128,9 @@ export default function LocalRuntimeDiagnosticsPanel({
         <button type="button" onClick={() => copy("browserFetch")} disabled={disabled || !commands.browserFetch}>Copy browser fetch test</button>
         <button type="button" onClick={() => copy("powershellCurl")} disabled={disabled || !commands.powershellCurl}>Copy PowerShell curl test</button>
         <button type="button" onClick={() => copy("wslCurl")} disabled={disabled || !commands.wslCurl}>Copy WSL curl test</button>
-        <button type="button" onClick={() => copy("ollamaOrigins")} disabled={disabled || !commands.ollamaOrigins}>Copy Ollama origin setup command</button>
+        <button type="button" onClick={() => copy("powershellOrigins")} disabled={disabled || !commands.powershellOrigins}>Copy PowerShell origin command</button>
+        <button type="button" onClick={() => copy("cmdOrigins")} disabled={disabled || !commands.cmdOrigins}>Copy cmd.exe origin command</button>
+        <button type="button" onClick={() => copy("posixOrigins")} disabled={disabled || !commands.posixOrigins}>Copy POSIX/bash origin command</button>
         <button type="button" onClick={() => copy("diagnosticReport")} disabled={disabled || !commands.diagnosticReport}>Copy diagnostic report</button>
         <button type="button" onClick={showSetupHelp} disabled={disabled}>Show GitHub Pages setup help</button>
       </div>

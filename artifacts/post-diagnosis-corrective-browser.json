@@ -1,0 +1,29 @@
+{
+  "recordedAt": "2026-09-23",
+  "applicationUrl": "http://127.0.0.1:5178/",
+  "browser": "Codex in-app browser",
+  "status": "PASS",
+  "scopeNote": "This record consolidates the completed live browser qualification. No browser sequence was repeated after the final custom bridge-port propagation change because the browser default remains 8787 and the changed custom-port path is covered by executable source/launcher tests.",
+  "checks": [
+    {"area": "assistant lifecycle", "result": "PASS", "evidence": "Disabled -> Enable -> direct Connect -> Reconnect -> explicit Use Ollama bridge -> bridge connected -> isolated direct probe preserved bridge -> Disconnect."},
+    {"area": "runtime-control authorization", "result": "PASS", "evidence": "Bridge-preferring reconnect executed as runtime_control after the narrow runtimeControlPolicy correction; read-only isolated probes did not switch transport or enable the assistant."},
+    {"area": "full diagnostics", "result": "PASS", "evidence": "Direct, bridge, listing, generation, and graph-planner readiness rows completed; copied/exported diagnostics retained bounded redacted evidence."},
+    {"area": "graph conversion and truthfulness", "result": "PASS", "evidence": "Bundled H2V example produced 3 hyperedges and 5 vertices; Statistics reported one Line-Graph Triangle and the corrected summary no longer described the null/not-requested state as too large."},
+    {"area": "preview and batch safety", "result": "PASS", "evidence": "Circular, Grid, and Line Graph views rendered; custom preview/search controls worked; batch ADD_VERTEX preview changed only the preview and Discard preserved committed graph state."},
+    {"area": "assistant mutation confirmation", "result": "PASS", "evidence": "Read-only help/statistics made no mutation; graph mutations staged confirmation and Cancel preserved the graph; clear-graph confirmation was exercised and the working graph was restored without retaining a destructive change."},
+    {"area": "upload identity", "result": "PASS", "evidence": "A real .edge fixture was uploaded; two distinct duplicate.edge inputs were rejected as an ambiguous duplicate batch name, including the normalized case-insensitive policy covered by tests."},
+    {"area": "dataset mapping", "result": "PASS", "evidence": "Deterministic inference completed and an unknown property was rejected by the strict contract."},
+    {"area": "Custom Parser empty states", "result": "PASS", "evidence": "No-files state showed a warning with Apply disabled; a zero-edge result was rejected with Apply disabled."},
+    {"area": "Custom Parser valid result", "result": "PASS", "evidence": "A one-edge parser preview enabled Apply; applying yielded 1 hyperedge and 2 vertices."},
+    {"area": "settings and persistence", "result": "PASS", "evidence": "Assistant settings lifecycle, diagnostic controls, copied setup/report actions, and Quick Links persistence were exercised."}
+  ],
+  "mutationSafety": {
+    "modelProbeCommittedGraph": false,
+    "browserStagedMutationCommitted": false,
+    "invalidOrEmptyParserApplied": false
+  },
+  "limitations": [
+    "Custom bridge port propagation was verified by executable launcher/source tests rather than restarting the already-qualified default-port browser session.",
+    "Native Runtime Companion/CUDA execution was subsequently completed outside the Codex sandbox against the same current corrective tree; see post-diagnosis-corrective-live-runtime-requalification.json."
+  ]
+}

@@ -59,7 +59,8 @@ assert.match(client, /model_generation_timeout/);
 assert.match(client, /think: false/);
 
 const schema = await read("src/agent/graphMutationDraftSchema.js");
-assert.doesNotMatch(schema, /operations:[\s\S]*oneOf:/);
+assert.match(schema, /operations:[\s\S]*oneOf: GRAPH_MUTATION_OPERATION_SCHEMAS/);
+assert.match(schema, /additionalProperties: false/);
 assert.match(schema, /GRAPH_MUTATION_DRAFT_SUPPORTED_OPS/);
 
 assert.doesNotMatch(`${app}\n${panel}\n${planner}\n${client}`, /openai|gemini|apiKey|api_key|LangGraph/i);

@@ -25,6 +25,40 @@ export const DATASET_MAPPING_PATCH_OPS = Object.freeze([
   "ADD_ASSUMPTION",
 ]);
 
+const RELATIONSHIP_PATCH_SCHEMA = Object.freeze({
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    id: { type: "string" },
+    groupId: { type: ["string", "null"] },
+    type: { type: "string" },
+    sourceFile: { type: "string" },
+    sourceColumns: { type: "array", items: { type: "string" } },
+    targetFile: { type: "string" },
+    targetColumns: { type: "array", items: { type: "string" } },
+    vertexSourceFile: { type: ["string", "null"] },
+    vertexColumns: { type: "array", items: { type: "string" } },
+    cardinality: { type: "string" },
+    joinType: { type: "string" },
+    confidence: { type: "number" },
+    evidenceIds: { type: "array", items: { type: "string" } },
+  },
+});
+
+const FILTER_PATCH_SCHEMA = Object.freeze({
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    id: { type: "string" },
+    groupId: { type: ["string", "null"] },
+    fileName: { type: "string" },
+    column: { type: "string" },
+    operator: { type: "string" },
+    value: {},
+    values: { type: "array" },
+  },
+});
+
 export const DATASET_MAPPING_PATCH_SCHEMA = Object.freeze({
   type: "object",
   additionalProperties: false,
@@ -63,8 +97,8 @@ export const DATASET_MAPPING_PATCH_SCHEMA = Object.freeze({
           listDelimiter: { type: ["string", "null"] },
           policy: { type: ["string", "null"] },
           value: {},
-          filter: { type: ["object", "null"] },
-          relationship: { type: ["object", "null"] },
+          filter: { ...FILTER_PATCH_SCHEMA, type: ["object", "null"] },
+          relationship: { ...RELATIONSHIP_PATCH_SCHEMA, type: ["object", "null"] },
           assumption: { type: ["string", "null"] },
         },
       },

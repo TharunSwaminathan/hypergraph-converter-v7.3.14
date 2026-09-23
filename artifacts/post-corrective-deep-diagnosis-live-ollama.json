@@ -1,0 +1,1236 @@
+{
+  "generatedAt": "2026-09-22T20:25:49.508Z",
+  "node": "C:\\Users\\tharu\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+  "model": "qwen3:8b",
+  "graph": "diagnostic-only in-memory graph; no operations executed",
+  "rows": [
+    {
+      "name": "direct_api_tags",
+      "ok": true,
+      "httpStatus": 200,
+      "modelNames": [
+        "gemma4:26b",
+        "qwen3:8b"
+      ],
+      "elapsedMs": 28
+    },
+    {
+      "name": "bridge_health",
+      "ok": true,
+      "httpStatus": 200,
+      "service": "hypergraph-ollama-bridge",
+      "allowedOrigins": [
+        "http://127.0.0.1:5178",
+        "http://localhost:5178",
+        "http://127.0.0.1:5173",
+        "http://localhost:5173"
+      ],
+      "elapsedMs": 2
+    },
+    {
+      "name": "bridge_api_tags",
+      "ok": true,
+      "httpStatus": 200,
+      "modelNames": [
+        "gemma4:26b",
+        "qwen3:8b"
+      ],
+      "elapsedMs": 15
+    },
+    {
+      "name": "direct_tiny_structured_generation",
+      "ok": true,
+      "elapsedMs": 4487
+    },
+    {
+      "name": "bridge_tiny_structured_generation",
+      "ok": true,
+      "elapsedMs": 103
+    },
+    {
+      "name": "ADD_INCIDENCE",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add Alice to hyperedge h1.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": [\n        {\n          \"entit"
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add Alice to hyperedge h1.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": [\n        {\n          \"entit"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 5382.9,
+          "loadDurationMs": 2.65,
+          "promptEvalCount": 592,
+          "promptEvalDurationMs": 233.82,
+          "evalCount": 293,
+          "evalDurationMs": 5135.25,
+          "evalTokensPerSecond": 57.06,
+          "doneReason": "stop",
+          "clientElapsedMs": 5388.47,
+          "approximateTransportOverheadMs": 5.57
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 4709.7,
+          "loadDurationMs": 2.36,
+          "promptEvalCount": 1021,
+          "promptEvalDurationMs": 176.15,
+          "evalCount": 283,
+          "evalDurationMs": 4521.44,
+          "evalTokensPerSecond": 62.59,
+          "doneReason": "stop",
+          "clientElapsedMs": 4711.7,
+          "approximateTransportOverheadMs": 2
+        }
+      ],
+      "promptChars": 4047,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].vertexReferences is not allowed.; operations[0].newHyperedgeId is not allowed.; operations[0].newVertexId is not allowed.; operations[0].emptyHyperedgePolicy is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 10102
+    },
+    {
+      "name": "REMOVE_INCIDENCE",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove Alice from h0 and keep h0 if it becomes empty.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\""
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove Alice from h0 and keep h0 if it becomes empty.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\""
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 5534.28,
+          "loadDurationMs": 3.92,
+          "promptEvalCount": 600,
+          "promptEvalDurationMs": 132.76,
+          "evalCount": 309,
+          "evalDurationMs": 5317.73,
+          "evalTokensPerSecond": 58.11,
+          "doneReason": "stop",
+          "clientElapsedMs": 5536.53,
+          "approximateTransportOverheadMs": 2.25
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 5026.16,
+          "loadDurationMs": 2.64,
+          "promptEvalCount": 1034,
+          "promptEvalDurationMs": 178.39,
+          "evalCount": 301,
+          "evalDurationMs": 4835.26,
+          "evalTokensPerSecond": 62.25,
+          "doneReason": "stop",
+          "clientElapsedMs": 5027.97,
+          "approximateTransportOverheadMs": 1.81
+        }
+      ],
+      "promptChars": 4103,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].vertexReferences is not allowed.; operations[0].newHyperedgeId is not allowed.; operations[0].newVertexId is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 10565
+    },
+    {
+      "name": "ADD_HYPEREDGE",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].vertexReference is not allowed.",
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Create a new hyperedge h2 with Alice and Carol.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_HYPEREDGE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h2\"\n      },\n      \"vertexReferences\": [\n     "
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].vertexReference is not allowed.",
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Create a new hyperedge h2 with Alice and Carol.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_HYPEREDGE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h2\"\n      },\n      \"vertexReferences\": [\n     "
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 6100.47,
+          "loadDurationMs": 3.32,
+          "promptEvalCount": 598,
+          "promptEvalDurationMs": 132.61,
+          "evalCount": 336,
+          "evalDurationMs": 5882.54,
+          "evalTokensPerSecond": 57.12,
+          "doneReason": "stop",
+          "clientElapsedMs": 6102.66,
+          "approximateTransportOverheadMs": 2.19
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 5330.66,
+          "loadDurationMs": 2.63,
+          "promptEvalCount": 1061,
+          "promptEvalDurationMs": 195.18,
+          "evalCount": 318,
+          "evalDurationMs": 5124.48,
+          "evalTokensPerSecond": 62.06,
+          "doneReason": "stop",
+          "clientElapsedMs": 5332.38,
+          "approximateTransportOverheadMs": 1.72
+        }
+      ],
+      "promptChars": 4227,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].vertexReference is not allowed.; operations[0].hyperedgeReference is not allowed.; operations[0].newVertexId is not allowed.; operations[0].emptyHyperedgePolicy is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 11436
+    },
+    {
+      "name": "REMOVE_HYPEREDGE",
+      "ok": true,
+      "classification": "mutation",
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the hyperedge identified as h1.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"remove_empty\",\n      \"weigh"
+        },
+        {
+          "attempt": 2,
+          "status": "repaired",
+          "errors": [],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the hyperedge identified as h1.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"literal\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": null,\n      \"weight\": null,\n"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 4199.87,
+          "loadDurationMs": 4.35,
+          "promptEvalCount": 592,
+          "promptEvalDurationMs": 132.54,
+          "evalCount": 228,
+          "evalDurationMs": 3978.12,
+          "evalTokensPerSecond": 57.31,
+          "doneReason": "stop",
+          "clientElapsedMs": 4202.59,
+          "approximateTransportOverheadMs": 2.72
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3578.7,
+          "loadDurationMs": 2.11,
+          "promptEvalCount": 884,
+          "promptEvalDurationMs": 133.51,
+          "evalCount": 219,
+          "evalDurationMs": 3436.17,
+          "evalTokensPerSecond": 63.73,
+          "doneReason": "stop",
+          "clientElapsedMs": 3580.37,
+          "approximateTransportOverheadMs": 1.66
+        }
+      ],
+      "promptChars": 3526,
+      "schemaChars": 2981,
+      "draftOperationTypes": [
+        "REMOVE_HYPEREDGE"
+      ],
+      "previewOnly": false,
+      "elapsedMs": 7783
+    },
+    {
+      "name": "RENAME_VERTEX",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename vertex Alice to Alicia everywhere.\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_VERTEX\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [\n        {\n "
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename vertex Alice to Alicia everywhere.\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_VERTEX\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [\n        {\n "
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 5990.81,
+          "loadDurationMs": 2.06,
+          "promptEvalCount": 593,
+          "promptEvalDurationMs": 130.77,
+          "evalCount": 337,
+          "evalDurationMs": 5789.42,
+          "evalTokensPerSecond": 58.21,
+          "doneReason": "stop",
+          "clientElapsedMs": 6004.17,
+          "approximateTransportOverheadMs": 13.36
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 5454.85,
+          "loadDurationMs": 2.06,
+          "promptEvalCount": 1068,
+          "promptEvalDurationMs": 197.1,
+          "evalCount": 329,
+          "evalDurationMs": 5247.08,
+          "evalTokensPerSecond": 62.7,
+          "doneReason": "stop",
+          "clientElapsedMs": 5456.23,
+          "approximateTransportOverheadMs": 1.38
+        }
+      ],
+      "promptChars": 4226,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].hyperedgeReference is not allowed.; operations[0].vertexReferences is not allowed.; operations[0].newHyperedgeId is not allowed.; operations[0].emptyHyperedgePolicy is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 11461
+    },
+    {
+      "name": "RENAME_HYPEREDGE",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename hyperedge h1 to hNew\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_HYPEREDGE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": \"hNew\",\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empty\",\n      \"weight\": null,\n"
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Rename hyperedge h1 to hNew\",\n  \"operations\": [\n    {\n      \"type\": \"RENAME_HYPEREDGE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": \"hNew\",\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empty\",\n      \"weight\": null,\n"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 4249.16,
+          "loadDurationMs": 6.86,
+          "promptEvalCount": 595,
+          "promptEvalDurationMs": 132.56,
+          "evalCount": 230,
+          "evalDurationMs": 4024.12,
+          "evalTokensPerSecond": 57.16,
+          "doneReason": "stop",
+          "clientElapsedMs": 4250.63,
+          "approximateTransportOverheadMs": 1.47
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3632.79,
+          "loadDurationMs": 2.06,
+          "promptEvalCount": 889,
+          "promptEvalDurationMs": 133.26,
+          "evalCount": 223,
+          "evalDurationMs": 3490.42,
+          "evalTokensPerSecond": 63.89,
+          "doneReason": "stop",
+          "clientElapsedMs": 3634.34,
+          "approximateTransportOverheadMs": 1.55
+        }
+      ],
+      "promptChars": 3513,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].emptyHyperedgePolicy is not allowed.",
+      "elapsedMs": 7885
+    },
+    {
+      "name": "REMOVE_VERTEX_GLOBAL",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove vertex Bob everywhere and keep empty hyperedges.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_VERTEX_GLOBAL\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Bob\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferen"
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove vertex Bob everywhere and keep empty hyperedges.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_VERTEX_GLOBAL\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Bob\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferen"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 5892.18,
+          "loadDurationMs": 3.17,
+          "promptEvalCount": 596,
+          "promptEvalDurationMs": 132.48,
+          "evalCount": 324,
+          "evalDurationMs": 5645.77,
+          "evalTokensPerSecond": 57.39,
+          "doneReason": "stop",
+          "clientElapsedMs": 5907.37,
+          "approximateTransportOverheadMs": 15.19
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 5286.42,
+          "loadDurationMs": 1.55,
+          "promptEvalCount": 1059,
+          "promptEvalDurationMs": 192.92,
+          "evalCount": 318,
+          "evalDurationMs": 5082.48,
+          "evalTokensPerSecond": 62.57,
+          "doneReason": "stop",
+          "clientElapsedMs": 5288.05,
+          "approximateTransportOverheadMs": 1.63
+        }
+      ],
+      "promptChars": 4228,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].hyperedgeReference is not allowed.; operations[0].vertexReferences is not allowed.; operations[0].newHyperedgeId is not allowed.; operations[0].newVertexId is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 11196
+    },
+    {
+      "name": "SET_HYPEREDGE_WEIGHT",
+      "ok": true,
+      "classification": "mutation",
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the weight of hyperedge h0 to 3.5.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_WEIGHT\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": \"h0\",\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empty\",\n      \"we"
+        },
+        {
+          "attempt": 2,
+          "status": "repaired",
+          "errors": [],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the weight of hyperedge h0 to 3.5.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_WEIGHT\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": null,\n      \"weight\": 3"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 4497.84,
+          "loadDurationMs": 3.52,
+          "promptEvalCount": 598,
+          "promptEvalDurationMs": 132.77,
+          "evalCount": 245,
+          "evalDurationMs": 4274.4,
+          "evalTokensPerSecond": 57.32,
+          "doneReason": "stop",
+          "clientElapsedMs": 4499.57,
+          "approximateTransportOverheadMs": 1.73
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3788.58,
+          "loadDurationMs": 2.06,
+          "promptEvalCount": 918,
+          "promptEvalDurationMs": 135.35,
+          "evalCount": 232,
+          "evalDurationMs": 3644.67,
+          "evalTokensPerSecond": 63.65,
+          "doneReason": "stop",
+          "clientElapsedMs": 3790.65,
+          "approximateTransportOverheadMs": 2.07
+        }
+      ],
+      "promptChars": 3581,
+      "schemaChars": 2981,
+      "draftOperationTypes": [
+        "SET_HYPEREDGE_WEIGHT"
+      ],
+      "previewOnly": false,
+      "elapsedMs": 8290
+    },
+    {
+      "name": "SET_HYPEREDGE_TIME",
+      "ok": true,
+      "classification": "mutation",
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the time of hyperedge h0 to 2026.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_TIME\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": \"h0\",\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empty\",\n      \"weigh"
+        },
+        {
+          "attempt": 2,
+          "status": "repaired",
+          "errors": [],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the time of hyperedge h0 to 2026.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_TIME\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": null,\n      \"weight\": null"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 4558.87,
+          "loadDurationMs": 4,
+          "promptEvalCount": 599,
+          "promptEvalDurationMs": 132.5,
+          "evalCount": 248,
+          "evalDurationMs": 4349.85,
+          "evalTokensPerSecond": 57.01,
+          "doneReason": "stop",
+          "clientElapsedMs": 4562.73,
+          "approximateTransportOverheadMs": 3.87
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3841.63,
+          "loadDurationMs": 2.09,
+          "promptEvalCount": 922,
+          "promptEvalDurationMs": 135.14,
+          "evalCount": 235,
+          "evalDurationMs": 3695.29,
+          "evalTokensPerSecond": 63.59,
+          "doneReason": "stop",
+          "clientElapsedMs": 3842.92,
+          "approximateTransportOverheadMs": 1.29
+        }
+      ],
+      "promptChars": 3577,
+      "schemaChars": 2981,
+      "draftOperationTypes": [
+        "SET_HYPEREDGE_TIME"
+      ],
+      "previewOnly": false,
+      "elapsedMs": 8406
+    },
+    {
+      "name": "SET_HYPEREDGE_ATTRIBUTE",
+      "ok": true,
+      "classification": "mutation",
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the color attribute of hyperedge h0 to green.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_ATTRIBUTE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": \"h0\",\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_emp"
+        },
+        {
+          "attempt": 2,
+          "status": "repaired",
+          "errors": [],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Set the color attribute of hyperedge h0 to green.\",\n  \"operations\": [\n    {\n      \"type\": \"SET_HYPEREDGE_ATTRIBUTE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": null,\n   "
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 4409.18,
+          "loadDurationMs": 2.6,
+          "promptEvalCount": 596,
+          "promptEvalDurationMs": 130.59,
+          "evalCount": 240,
+          "evalDurationMs": 4205.09,
+          "evalTokensPerSecond": 57.07,
+          "doneReason": "stop",
+          "clientElapsedMs": 4422.61,
+          "approximateTransportOverheadMs": 13.43
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3723.08,
+          "loadDurationMs": 1.61,
+          "promptEvalCount": 911,
+          "promptEvalDurationMs": 134.33,
+          "evalCount": 227,
+          "evalDurationMs": 3580.06,
+          "evalTokensPerSecond": 63.41,
+          "doneReason": "stop",
+          "clientElapsedMs": 3724.61,
+          "approximateTransportOverheadMs": 1.53
+        }
+      ],
+      "promptChars": 3624,
+      "schemaChars": 2981,
+      "draftOperationTypes": [
+        "SET_HYPEREDGE_ATTRIBUTE"
+      ],
+      "previewOnly": false,
+      "elapsedMs": 8148
+    },
+    {
+      "name": "REMOVE_HYPEREDGE_ATTRIBUTE",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the color attribute from hyperedge h0.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE_ATTRIBUTE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empt"
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove the color attribute from hyperedge h0.\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_HYPEREDGE_ATTRIBUTE\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empt"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 4273.74,
+          "loadDurationMs": 1.61,
+          "promptEvalCount": 594,
+          "promptEvalDurationMs": 132.77,
+          "evalCount": 233,
+          "evalDurationMs": 4062.7,
+          "evalTokensPerSecond": 57.35,
+          "doneReason": "stop",
+          "clientElapsedMs": 4289.13,
+          "approximateTransportOverheadMs": 15.4
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3654.54,
+          "loadDurationMs": 1.55,
+          "promptEvalCount": 889,
+          "promptEvalDurationMs": 133.22,
+          "evalCount": 224,
+          "evalDurationMs": 3513.22,
+          "evalTokensPerSecond": 63.76,
+          "doneReason": "stop",
+          "clientElapsedMs": 3656.3,
+          "approximateTransportOverheadMs": 1.76
+        }
+      ],
+      "promptChars": 3566,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].emptyHyperedgePolicy is not allowed.",
+      "elapsedMs": 7946
+    },
+    {
+      "name": "CLEAR_GRAPH",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Clear the graph by removing all hyperedges and vertices.\",\n  \"operations\": [\n    {\n      \"type\": \"CLEAR_GRAPH\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": null,\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"remove_empty\",\n      \"weight\": null,\n      \"time\": null,\n      \"key\": null,\n      \"value\": null\n    }\n  ],\n  \"clarific"
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Clear the graph by removing all hyperedges and vertices.\",\n  \"operations\": [\n    {\n      \"type\": \"CLEAR_GRAPH\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": null,\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"remove_empty\",\n      \"weight\": null,\n      \"time\": null,\n      \"key\": null,\n      \"value\": null\n    }\n  ],\n  \"clarific"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 3715.43,
+          "loadDurationMs": 2.6,
+          "promptEvalCount": 590,
+          "promptEvalDurationMs": 132.37,
+          "evalCount": 203,
+          "evalDurationMs": 3509.87,
+          "evalTokensPerSecond": 57.84,
+          "doneReason": "stop",
+          "clientElapsedMs": 3719.73,
+          "approximateTransportOverheadMs": 4.3
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3181.98,
+          "loadDurationMs": 2.22,
+          "promptEvalCount": 855,
+          "promptEvalDurationMs": 122.25,
+          "evalCount": 194,
+          "evalDurationMs": 3050.99,
+          "evalTokensPerSecond": 63.59,
+          "doneReason": "stop",
+          "clientElapsedMs": 3189.91,
+          "approximateTransportOverheadMs": 7.93
+        }
+      ],
+      "promptChars": 3446,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].emptyHyperedgePolicy is not allowed.",
+      "elapsedMs": 6910
+    },
+    {
+      "name": "UNDO_LAST_MUTATION",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Undo the last graph mutation\",\n  \"operations\": [\n    {\n      \"type\": \"UNDO_LAST_MUTATION\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": null,\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empty\",\n      \"weight\": 1,\n      \"time\": \"now\",\n      \"key\": \"key\",\n      \"value\": \"value\"\n    }\n  ],\n  \"clarificationQuestion\": null,"
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Undo the last graph mutation\",\n  \"operations\": [\n    {\n      \"type\": \"UNDO_LAST_MUTATION\",\n      \"vertexReference\": null,\n      \"hyperedgeReference\": null,\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": null,\n      \"newVertexId\": null,\n      \"emptyHyperedgePolicy\": \"keep_empty\",\n      \"weight\": 1,\n      \"time\": \"now\",\n      \"key\": \"key\",\n      \"value\": \"value\"\n    }\n  ],\n  \"clarificationQuestion\": null,"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 3642.41,
+          "loadDurationMs": 3.77,
+          "promptEvalCount": 592,
+          "promptEvalDurationMs": 132.74,
+          "evalCount": 200,
+          "evalDurationMs": 3432.42,
+          "evalTokensPerSecond": 58.27,
+          "doneReason": "stop",
+          "clientElapsedMs": 3647.15,
+          "approximateTransportOverheadMs": 4.75
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 3179.18,
+          "loadDurationMs": 2.08,
+          "promptEvalCount": 894,
+          "promptEvalDurationMs": 133.68,
+          "evalCount": 191,
+          "evalDurationMs": 3036.52,
+          "evalTokensPerSecond": 62.9,
+          "doneReason": "stop",
+          "clientElapsedMs": 3196.53,
+          "approximateTransportOverheadMs": 17.35
+        }
+      ],
+      "promptChars": 3563,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].emptyHyperedgePolicy is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 6844
+    },
+    {
+      "name": "CLARIFICATION",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove a vertex from the graph\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_VERTEX_GLOBAL\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"that vertex\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"\"\n      },\n      \"vertexReferences\": [\n        {\n "
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].hyperedgeReference is not allowed.",
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Remove a vertex from the graph\",\n  \"operations\": [\n    {\n      \"type\": \"REMOVE_VERTEX_GLOBAL\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"that vertex\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"\"\n      },\n      \"vertexReferences\": [\n        {\n "
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 5271.25,
+          "loadDurationMs": 3.23,
+          "promptEvalCount": 593,
+          "promptEvalDurationMs": 131.84,
+          "evalCount": 294,
+          "evalDurationMs": 5063.05,
+          "evalTokensPerSecond": 58.07,
+          "doneReason": "stop",
+          "clientElapsedMs": 5273.98,
+          "approximateTransportOverheadMs": 2.73
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 4759.69,
+          "loadDurationMs": 2.1,
+          "promptEvalCount": 1024,
+          "promptEvalDurationMs": 174.41,
+          "evalCount": 286,
+          "evalDurationMs": 4572.98,
+          "evalTokensPerSecond": 62.54,
+          "doneReason": "stop",
+          "clientElapsedMs": 4761.23,
+          "approximateTransportOverheadMs": 1.54
+        }
+      ],
+      "promptChars": 4147,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].hyperedgeReference is not allowed.; operations[0].vertexReferences is not allowed.; operations[0].newHyperedgeId is not allowed.; operations[0].newVertexId is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 10035
+    },
+    {
+      "name": "NOT_MUTATION",
+      "ok": true,
+      "classification": "clarification",
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "previewOnly is meaningful only for mutation drafts."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"clarification\",\n  \"intentSummary\": \"The user is asking for an explanation of what a hyperedge is, which is a concept in hypergraph theory.\",\n  \"operations\": [],\n  \"clarificationQuestion\": \"Would you like a definition of a hyperedge or an example of how it is used in a hypergraph?\",\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": true,\n  \"acknowledgement\": \"The user's query is informational "
+        },
+        {
+          "attempt": 2,
+          "status": "repaired",
+          "errors": [],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"clarification\",\n  \"intentSummary\": \"The user is asking for an explanation of what a hyperedge is, which is a concept in hypergraph theory.\",\n  \"operations\": [],\n  \"clarificationQuestion\": \"Would you like a definition of a hyperedge or an example of how it is used in a hypergraph?\",\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": false,\n  \"acknowledgement\": \"The user's query is informational"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 2581.14,
+          "loadDurationMs": 2.9,
+          "promptEvalCount": 592,
+          "promptEvalDurationMs": 132.69,
+          "evalCount": 146,
+          "evalDurationMs": 2366,
+          "evalTokensPerSecond": 61.71,
+          "doneReason": "stop",
+          "clientElapsedMs": 2582.84,
+          "approximateTransportOverheadMs": 1.7
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 2310.09,
+          "loadDurationMs": 1.57,
+          "promptEvalCount": 802,
+          "promptEvalDurationMs": 96.42,
+          "evalCount": 142,
+          "evalDurationMs": 2205.8,
+          "evalTokensPerSecond": 64.38,
+          "doneReason": "stop",
+          "clientElapsedMs": 2323.09,
+          "approximateTransportOverheadMs": 13
+        }
+      ],
+      "promptChars": 3276,
+      "schemaChars": 2981,
+      "draftOperationTypes": [],
+      "previewOnly": false,
+      "elapsedMs": 4906
+    },
+    {
+      "name": "PREVIEW_ONLY",
+      "ok": false,
+      "classification": null,
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "mutation drafts require at least one operation."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Preview adding Alice to h1 without changing the graph.\",\n  \"operations\": [],\n  \"clarificationQuestion\": \"Are you sure you want to preview adding Alice to h1 without making any changes?\",\n  \"correction\": {\n    \"isCorrection\": false,\n    \"replacePendingPlan\": false\n  },\n  \"previewOnly\": true,\n  \"acknowledgement\": \"Acknowledged: Preview mode is active. No changes will be made to the graph.\",\n  \"confidence\": \"high"
+        },
+        {
+          "attempt": 2,
+          "status": "invalid",
+          "errors": [
+            "operations[0].vertexReferences is not allowed.",
+            "operations[0].newHyperedgeId is not allowed.",
+            "operations[0].newVertexId is not allowed.",
+            "operations[0].emptyHyperedgePolicy is not allowed.",
+            "operations[0].weight is not allowed.",
+            "operations[0].time is not allowed.",
+            "operations[0].key is not allowed.",
+            "operations[0].value is not allowed."
+          ],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Preview adding Alice to h1 without changing the graph.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": "
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 2364.13,
+          "loadDurationMs": 4.68,
+          "promptEvalCount": 597,
+          "promptEvalDurationMs": 132.77,
+          "evalCount": 131,
+          "evalDurationMs": 2159.66,
+          "evalTokensPerSecond": 60.66,
+          "doneReason": "stop",
+          "clientElapsedMs": 2365.05,
+          "approximateTransportOverheadMs": 0.92
+        },
+        {
+          "attempt": 2,
+          "task": "plan_graph_mutation_repair",
+          "totalDurationMs": 5671.79,
+          "loadDurationMs": 2.16,
+          "promptEvalCount": 791,
+          "promptEvalDurationMs": 92.97,
+          "evalCount": 326,
+          "evalDurationMs": 5570.59,
+          "evalTokensPerSecond": 58.52,
+          "doneReason": "stop",
+          "clientElapsedMs": 5688.57,
+          "approximateTransportOverheadMs": 16.78
+        }
+      ],
+      "promptChars": 3244,
+      "schemaChars": 2981,
+      "fallbackReason": "GraphMutationDraft failed validation: operations[0].vertexReferences is not allowed.; operations[0].newHyperedgeId is not allowed.; operations[0].newVertexId is not allowed.; operations[0].emptyHyperedgePolicy is not allowed.; operations[0].weight is not allowed.; operations[0].time is not allowed.; operations[0].key is not allowed.; operations[0].value is not allowed.",
+      "elapsedMs": 8054
+    },
+    {
+      "name": "PENDING_CORRECTION",
+      "ok": true,
+      "classification": "mutation",
+      "firstAttemptValid": true,
+      "repairRequired": false,
+      "finalValid": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "valid",
+          "errors": [],
+          "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add Carol to hyperedge h0\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Carol\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h0\"\n      },\n      \"vertexReferences\": [],\n      \"newHyperedgeId\": n"
+        }
+      ],
+      "metrics": [
+        {
+          "attempt": 1,
+          "task": "plan_graph_mutation",
+          "totalDurationMs": 4459.32,
+          "loadDurationMs": 3.51,
+          "promptEvalCount": 747,
+          "promptEvalDurationMs": 189.32,
+          "evalCount": 245,
+          "evalDurationMs": 4194.02,
+          "evalTokensPerSecond": 58.42,
+          "doneReason": "stop",
+          "clientElapsedMs": 4460.85,
+          "approximateTransportOverheadMs": 1.53
+        }
+      ],
+      "promptChars": 2999,
+      "schemaChars": 2981,
+      "draftOperationTypes": [
+        "ADD_INCIDENCE"
+      ],
+      "previewOnly": true,
+      "elapsedMs": 4461
+    },
+    {
+      "name": "bridge_ADD_INCIDENCE_parity",
+      "ok": false,
+      "firstAttemptValid": false,
+      "finalValid": false,
+      "repairRequired": false,
+      "errors": [
+        "operations[0].vertexReferences is not allowed.",
+        "operations[0].newHyperedgeId is not allowed.",
+        "operations[0].newVertexId is not allowed.",
+        "operations[0].emptyHyperedgePolicy is not allowed.",
+        "operations[0].weight is not allowed.",
+        "operations[0].time is not allowed.",
+        "operations[0].key is not allowed.",
+        "operations[0].value is not allowed."
+      ],
+      "rawPreview": "{\n  \"task\": \"plan_graph_mutation\",\n  \"classification\": \"mutation\",\n  \"intentSummary\": \"Add Alice to hyperedge h1.\",\n  \"operations\": [\n    {\n      \"type\": \"ADD_INCIDENCE\",\n      \"vertexReference\": {\n        \"entityType\": \"vertex\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"Alice\"\n      },\n      \"hyperedgeReference\": {\n        \"entityType\": \"hyperedge\",\n        \"referenceKind\": \"selected\",\n        \"surfaceText\": \"h1\"\n      },\n      \"vertexReferences\": [\n        {\n          \"entit",
+      "metrics": [
+        {
+          "totalDurationMs": 5434.53,
+          "loadDurationMs": 2.25,
+          "promptEvalCount": 592,
+          "promptEvalDurationMs": 34.46,
+          "evalCount": 299,
+          "evalDurationMs": 5286.82,
+          "evalTokensPerSecond": 56.56,
+          "doneReason": "stop",
+          "clientElapsedMs": 5438.62,
+          "approximateTransportOverheadMs": 4.1
+        }
+      ],
+      "promptChars": 2372,
+      "schemaChars": 2981,
+      "elapsedMs": 5439
+    },
+    {
+      "name": "invalid_first_then_repair_timeout_controlled",
+      "ok": true,
+      "synthetic": true,
+      "calls": 2,
+      "classification": "model_generation_timeout",
+      "fallbackReason": "Ollama request timed out.",
+      "firstAttemptValid": false,
+      "repairRequired": true,
+      "finalValid": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "invalid",
+          "errors": [
+            "draft.intentSummary is required.",
+            "draft.clarificationQuestion is required.",
+            "draft.correction is required.",
+            "draft.previewOnly is required.",
+            "draft.acknowledgement is required.",
+            "draft.confidence is required.",
+            "draft.confidence is not supported.",
+            "draft.intentSummary must be a string.",
+            "draft.acknowledgement must be a string.",
+            "draft.previewOnly must be a boolean.",
+            "draft.clarificationQuestion must be a string or null.",
+            "draft.correction must be an object.",
+            "mutation drafts require at least one operation."
+          ]
+        }
+      ],
+      "topLevelValidationPresent": false,
+      "elapsedMs": 0
+    },
+    {
+      "name": "live_timeout_path",
+      "ok": false,
+      "classification": "unknown_network_error",
+      "error": "model_generation_timeout",
+      "elapsedMs": 2
+    },
+    {
+      "name": "live_cancellation_path",
+      "ok": false,
+      "classification": "unknown_network_error",
+      "error": "request_aborted",
+      "elapsedMs": 27
+    }
+  ]
+}
