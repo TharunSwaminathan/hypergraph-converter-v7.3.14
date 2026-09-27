@@ -15,6 +15,7 @@ export function createConfirmationSnapshot(actionType, state, context = {}) {
     resultId: state.customResultId ?? null,
     graphId: state.graphId ?? null,
     graphVersion: state.graphVersion ?? 0,
+    graphType: state.graphType ?? state.candy?.graphType ?? null,
     graphFingerprint: state.graphFingerprint ?? null,
     customCodeVersion: state.customCodeVersion ?? 0,
     mutationPlanId: mutationPlan?.planId ?? null,
@@ -35,6 +36,7 @@ export function isConfirmationStale(snapshot, state) {
     || snapshot.resultId !== (state.customResultId ?? null)
     || snapshot.graphId !== (state.graphId ?? null)
     || snapshot.graphVersion !== (state.graphVersion ?? 0)
+    || snapshot.graphType !== (state.graphType ?? state.candy?.graphType ?? null)
     || snapshot.graphFingerprint !== (state.graphFingerprint ?? null)
     || snapshot.customCodeVersion !== (state.customCodeVersion ?? 0)
     || (snapshot.selectionFingerprint != null

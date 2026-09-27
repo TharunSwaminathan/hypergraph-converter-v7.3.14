@@ -1,3 +1,5 @@
+import { GRAPH_TYPES } from "../candy/contracts/graphTypes.js";
+
 function sortKeys(value) {
   if (Array.isArray(value)) return value.map(sortKeys);
   if (!value || typeof value !== "object") return value;
@@ -29,8 +31,21 @@ export function canonicalizeGraph(hyperedges = []) {
     .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: "base" }));
 }
 
-export function graphFingerprint(hyperedges = []) {
-  const serialized = stableStringify(canonicalizeGraph(hyperedges));
+export function canonicalizeGraphAuthority(hyperedges = [], {
+  graphType = GRAPH_TYPES.HYPERGRAPH,
+  explicitVertices = null,
+} = {}) {
+  return {
+    graphType,
+    explicitVertices: Array.isArray(explicitVertices)
+      ? [...explicitVertices].map(vertex => String(vertex)).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }))
+      : null,
+    hyperedges: canonicalizeGraph(hyperedges),
+  };
+}
+
+export function graphFingerprint(hyperedges = [], options = {}) {
+  const serialized = stableStringify(canonicalizeGraphAuthority(hyperedges, options));
   let hash = 2166136261;
   for (let index = 0; index < serialized.length; index += 1) {
     hash ^= serialized.charCodeAt(index);

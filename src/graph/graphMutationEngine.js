@@ -22,6 +22,7 @@ export function applyGraphMutationPlan(baseHyperedges = [], plan, graphIdentity 
   const affected = { hyperedges: new Set(), vertices: new Set() };
   const stats = { addedHyperedges: 0, removedHyperedges: 0, addedIncidences: 0, removedIncidences: 0, renamedHyperedges: 0, renamedVertices: 0, attributeChanges: 0 };
   const errors = [];
+  let graphType = graphIdentity.graphType ?? "Hypergraph";
 
   const applyOne = operation => {
     if (operation.type === GRAPH_MUTATION_OPS.COMMIT_BATCH_UPDATES) {
@@ -36,6 +37,7 @@ export function applyGraphMutationPlan(baseHyperedges = [], plan, graphIdentity 
       }
       working.clear();
       for (const hyperedge of event.beforeHyperedges) working.set(String(hyperedge.id), cloneHyperedge(hyperedge));
+      graphType = event.beforeGraphType ?? graphType;
       warnings.push(`Undo restores graph before: ${event.summary ?? event.planSummary ?? "last mutation"}.`);
       return;
     }
@@ -229,6 +231,7 @@ export function applyGraphMutationPlan(baseHyperedges = [], plan, graphIdentity 
       hyperedges: [...affected.hyperedges].sort(),
       vertices: [...affected.vertices].sort(),
     },
+    graphType,
     beforeFingerprint: graphFingerprint(baseHyperedges),
     afterFingerprint: graphFingerprint(hyperedges),
   };

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "candy.scope5a-qualification/1",
+  "scope": "CANDY Scope 5A",
+  "branch": "candy-integration-scope5a-graph-state",
+  "startingSha": "215d6d11b7413670100c4cb9c59d8bb22a566a10",
+  "headSha": "215d6d11b7413670100c4cb9c59d8bb22a566a10",
+  "decision": "PASS",
+  "productRequirements": {
+    "singleAuthoritativeGraphEnvelope": "PASS",
+    "supportedApplicationTypesOnly": "PASS",
+    "hypergraphDefault": "PASS",
+    "explicitDynamicHypergraphSelection": "PASS",
+    "typeBoundVersionAndFingerprint": "PASS",
+    "noImplicitPromotion": "PASS",
+    "previewNonAuthoritative": "PASS",
+    "replacementClearUndoTransitions": "PASS",
+    "staticHypergraph": "PASS",
+    "staticDynamicHypergraph": "PASS",
+    "incrementalUnavailableWithoutPendingUpdate": "PASS",
+    "noCpuFallback": "PASS",
+    "noImplicitProjection": "PASS",
+    "assistantObservationOnly": "PASS"
+  },
+  "gates": {
+    "focusedTests": "PASS",
+    "fullApplicationTests": "PASS_254_OF_254",
+    "lint": "PASS",
+    "productionBuild": "PASS",
+    "githubPagesBuild": "PASS",
+    "gitDiffCheck": "PASS",
+    "targetedSecurityReview": "PASS_NO_FINDINGS",
+    "protectedNativeSourceDelta": "PASS_NONE",
+    "dependencyFileDelta": "PASS_NONE",
+    "npmAuditOmitDev": "PASS_EXTERNAL_0_PRODUCTION_VULNERABILITIES"
+  },
+  "blockedQualifications": [],
+  "dependencyAudit": {
+    "command": "npm audit --omit=dev",
+    "status": "PASS",
+    "productionVulnerabilities": 0,
+    "executionEnvironment": "USER_NORMAL_POWERSHELL_OUTSIDE_CODEX_SANDBOX",
+    "resultSource": "Externally supplied by the user after manual execution.",
+    "previousBlock": "Codex sandbox/network-policy-specific; not a product failure.",
+    "dependencyManifestChanged": false,
+    "productSourceChangedAfterGreenRun": false
+  },
+  "security": {
+    "scanId": "084a9b07-4873-471d-8e0a-5554451e232a",
+    "coverage": "complete",
+    "changedProductionFilesReviewed": 10,
+    "findings": 0,
+    "unresolvedHigh": 0
+  },
+  "integrity": {
+    "nativePathsChanged": [],
+    "dependencyFilesChanged": [],
+    "historicalTagsExpected": {
+      "post-diagnosis-full-corrective-qualified": "57daa23050c89cd0d2c74328766d284311376da4",
+      "post-scope4c-chatbot-ui-corrective-qualified": "4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302",
+      "candy-integration-scope4c-runtime-integration-qualified": "faeca1053f95a61bfe03ac88295c563d32f91969"
+    }
+  },
+  "deferredScope5B": [
+    "PendingDynamicHypergraphUpdate",
+    "updateId and pending revision authority",
+    "motifUpdate authority",
+    "proposedGraphFingerprint",
+    "applyPendingHypergraphUpdate",
+    "pending-update authoring and lifecycle UI",
+    "CUDA_INCREMENTAL enablement and authoritative update application"
+  ],
+  "repositoryDeliveryState": "UNCOMMITTED"
+}

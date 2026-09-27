@@ -13,6 +13,7 @@ export function createDeterministicContextBinding({
     groupingRevision: activeBatch?.groupingRevision ?? null,
     graphId: graphIdentity?.graphId ?? null,
     graphVersion: graphIdentity?.graphVersion ?? null,
+    graphType: graphIdentity?.graphType ?? null,
     graphFingerprint: graphIdentity?.graphFingerprint ?? null,
     selectedEntity: selectedEntity ? {
       type: selectedEntity.type ?? null,
@@ -36,6 +37,7 @@ export function createStateContextBinding(state = {}, pendingAction = null) {
     groupingRevision: state.activeBatch?.groupingRevision ?? null,
     graphId: state.graphId ?? null,
     graphVersion: state.graphVersion ?? null,
+    graphType: state.graphType ?? state.candy?.graphType ?? null,
     graphFingerprint: state.graphFingerprint ?? null,
     selectedEntity: state.selectedGraphEntity ? {
       type: state.selectedGraphEntity.type ?? null,
@@ -55,7 +57,7 @@ export function bindingMismatch(expected = {}, actual = {}, scope = "all") {
   const keysByScope = {
     mapping: ["batchId", "batchVersion", "mappingRevision", "groupingRevision"],
     parser: ["batchId", "batchVersion", "mappingRevision", "groupingRevision"],
-    graph: ["graphId", "graphVersion", "graphFingerprint", "pendingActionType", "pendingActionPlanHash"],
+    graph: ["graphId", "graphVersion", "graphType", "graphFingerprint", "pendingActionType", "pendingActionPlanHash"],
     dashboard: [],
     grounded: [],
     pending: ["pendingActionType", "pendingActionPlanHash"],
@@ -66,6 +68,7 @@ export function bindingMismatch(expected = {}, actual = {}, scope = "all") {
       "groupingRevision",
       "graphId",
       "graphVersion",
+      "graphType",
       "graphFingerprint",
       "pendingActionType",
       "pendingActionPlanHash",

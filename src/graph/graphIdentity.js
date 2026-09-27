@@ -1,4 +1,5 @@
 import { graphFingerprint } from "./graphFingerprint.js";
+import { GRAPH_TYPES } from "../candy/contracts/graphTypes.js";
 
 let fallbackIdCounter = 0;
 
@@ -9,41 +10,55 @@ export function createGraphId(prefix = "graph") {
   return `${prefix}-${Date.now().toString(36)}-${fallbackIdCounter.toString(36)}`;
 }
 
-export function createGraphIdentity(hyperedges = [], previous = null, { replace = false, clear = false } = {}) {
+export function createGraphIdentity(hyperedges = [], previous = null, {
+  replace = false,
+  clear = false,
+  graphType = previous?.graphType ?? GRAPH_TYPES.HYPERGRAPH,
+  explicitVertices = previous?.explicitVertices ?? null,
+} = {}) {
   const hasGraph = Boolean(hyperedges?.length);
   if (!hasGraph) {
     return {
       graphId: clear ? createGraphId("empty-graph") : (previous?.graphId ?? createGraphId("empty-graph")),
       graphVersion: previous?.graphVersion ?? 0,
-      graphFingerprint: graphFingerprint([]),
+      graphFingerprint: graphFingerprint([], { graphType, explicitVertices }),
+      graphType,
     };
   }
-  const fingerprint = graphFingerprint(hyperedges);
+  const fingerprint = graphFingerprint(hyperedges, { graphType, explicitVertices });
   if (!previous || replace || previous.graphFingerprint !== fingerprint) {
     return {
       graphId: replace || !previous ? createGraphId("graph") : previous.graphId,
       graphVersion: replace || !previous ? 1 : previous.graphVersion + 1,
       graphFingerprint: fingerprint,
+      graphType,
     };
   }
-  return { ...previous, graphFingerprint: fingerprint };
+  return { ...previous, graphFingerprint: fingerprint, graphType };
 }
 
-export function nextCommittedGraphIdentity(previous, hyperedges, { replacement = false } = {}) {
-  const fingerprint = graphFingerprint(hyperedges);
+export function nextCommittedGraphIdentity(previous, hyperedges, {
+  replacement = false,
+  preserveGraphId = false,
+  graphType = previous?.graphType ?? GRAPH_TYPES.HYPERGRAPH,
+  explicitVertices = previous?.explicitVertices ?? null,
+} = {}) {
+  const fingerprint = graphFingerprint(hyperedges, { graphType, explicitVertices });
   if (previous?.graphFingerprint === fingerprint) {
-    return { ...previous, graphFingerprint: fingerprint };
+    return { ...previous, graphFingerprint: fingerprint, graphType };
   }
   if (!hyperedges?.length) {
     return {
-      graphId: createGraphId("empty-graph"),
+      graphId: preserveGraphId ? previous?.graphId ?? createGraphId("empty-graph") : createGraphId("empty-graph"),
       graphVersion: (previous?.graphVersion ?? 0) + 1,
       graphFingerprint: fingerprint,
+      graphType,
     };
   }
   return {
     graphId: replacement ? createGraphId("graph") : previous?.graphId ?? createGraphId("graph"),
     graphVersion: (previous?.graphVersion ?? 0) + 1,
     graphFingerprint: fingerprint,
+    graphType,
   };
 }

@@ -135,7 +135,12 @@ import { compileDeterministicAction } from "./agent/deterministicNlu/compileDete
 import { prepareDeterministicTurn } from "./agent/deterministicNlu/prepareDeterministicTurn.js";
 import { upsertRuntimeTrace } from "./agent/deterministicNlu/runtimeInstrumentation.js";
 import { createDeterministicContextBinding, bindingMismatch } from "./agent/deterministicNlu/contextBinding.js";
-import { createGraphIdentity, nextCommittedGraphIdentity } from "./graph/graphIdentity.js";
+import {
+  APPLICATION_GRAPH_TYPES,
+  commitGraphState,
+  createGraphState,
+  graphIdentityFromState,
+} from "./graph/graphState.js";
 import { createMutationPlan } from "./graph/graphMutationValidator.js";
 import { previewGraphMutation } from "./graph/graphMutationPreview.js";
 import { createGraphHistoryEvent, appendGraphHistory } from "./graph/graphHistory.js";
@@ -252,7 +257,7 @@ function AppCore() {
   const [applyBatch, setApplyBatch] = useState(false);
   // (batchWarnings is derived below, together with finalHes)
   // Output state
-  const [hes, setHes] = useState(null); const [warnings, setWarnings] = useState([]); const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
+  const [graphState, setGraphState] = useState(() => createGraphState()); const [warnings, setWarnings] = useState([]); const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
   const [vizLimit, setVizLimit] = useState(50); const [activeSection, setActiveSection] = useState("mappings");
   const [selectedMappingId, setSelectedMappingId] = useState("h2v");
   const [expId, setExpId] = useState("h2v_txt");
@@ -266,13 +271,14 @@ function AppCore() {
   const [graphPngNonce, setGraphPngNonce] = useState(0);
   const [statsMotifRequest, setStatsMotifRequest] = useState(null);
   const statsMotifRequestCounterRef = useRef(0);
-  const [graphIdentity, setGraphIdentity] = useState(() => createGraphIdentity([]));
   const [graphHistory, setGraphHistory] = useState([]);
   const [selectedGraphEntity, setSelectedGraphEntity] = useState(null);
   const [selectionNotice, setSelectionNotice] = useState("");
   const [graphConversationReferences, setGraphConversationReferences] = useState(() => createGraphConversationReferences());
   const [deterministicTurnTraces, setDeterministicTurnTraces] = useState([]);
-  const graphVersion = graphIdentity.graphVersion;
+  const hes = graphState.hyperedges;
+  const graphIdentity = useMemo(() => graphIdentityFromState(graphState), [graphState]);
+  const graphVersion = graphState.graphVersion;
   const [notice, setNotice] = useState("");
   const vizRef = useRef(null);
   const dashboardSectionRef = useRef(null);
@@ -326,17 +332,19 @@ function AppCore() {
     plan = null,
     preview = null,
     warnings: nextWarnings = null,
+    graphType = undefined,
   } = {}) => {
-    const previousHyperedges = hes ?? [];
+    const previousHyperedges = graphState.hyperedges ?? [];
     const normalizedNext = nextHyperedges?.length ? nextHyperedges : null;
-    const nextIdentity = nextCommittedGraphIdentity(graphIdentity, normalizedNext ?? [], { replacement: replacement || clear });
-    const graphChanged = nextIdentity.graphFingerprint !== graphIdentity.graphFingerprint;
-    setHes(normalizedNext);
+    const nextState = commitGraphState(graphState, normalizedNext, { replacement, clear, graphType });
+    const graphChanged = nextState.graphFingerprint !== graphState.graphFingerprint;
+    setGraphState(nextState);
     if (Array.isArray(nextWarnings)) setWarnings(nextWarnings);
-    setGraphIdentity(nextIdentity);
     if (graphChanged) {
       setGraphHistory(current => appendGraphHistory(current, createGraphHistoryEvent({
-        graphIdentity: nextIdentity,
+        graphIdentity: nextState,
+        beforeGraphType: graphState.graphType,
+        afterGraphType: nextState.graphType,
         beforeHyperedges: previousHyperedges,
         afterHyperedges: normalizedNext ?? [],
         plan: plan ?? { summary },
@@ -348,13 +356,14 @@ function AppCore() {
     }
     return {
       ok: true,
-      graphId: nextIdentity.graphId,
-      graphVersion: nextIdentity.graphVersion,
-      graphFingerprint: nextIdentity.graphFingerprint,
+      graphId: nextState.graphId,
+      graphVersion: nextState.graphVersion,
+      graphFingerprint: nextState.graphFingerprint,
+      graphType: nextState.graphType,
       graphChanged,
       hyperedgeCount: normalizedNext?.length ?? 0,
     };
-  }, [graphIdentity, hes]);
+  }, [graphState]);
 
   const setTxt = useCallback(v => {
     setTexts(previous => ({ ...previous, [fmt]: v }));
@@ -417,7 +426,7 @@ function AppCore() {
 
   const parseAndCommit = useCallback((targetFormat, payload, { preserveOnError = false } = {}) => {
     setErr(""); setLoading(true);
-    if (!preserveOnError) { setHes(null); setWarnings([]); }
+    if (!preserveOnError) setWarnings([]);
     return new Promise(resolve => setTimeout(() => {
       try {
         const raw = parseInputFormat(targetFormat, payload);
@@ -2272,7 +2281,7 @@ function AppCore() {
       return { ok: false, error: "Connect Ollama before running the full graph-planner readiness test." };
     }
     const testHyperedges = [{ id: "h0", vertices: ["4", "5"] }];
-    const testIdentity = createGraphIdentity(testHyperedges);
+    const testIdentity = graphIdentityFromState(createGraphState(testHyperedges));
     const result = await runExclusiveLocalModelTask({
       task: "graph_mutation_planner_diagnostic",
       message: "Testing full graph mutation planner readiness…",
@@ -3119,6 +3128,19 @@ function AppCore() {
     return { ok: true, ...commit };
   }
 
+  function changeCommittedGraphType(nextGraphType) {
+    if (!hes?.length) return { ok: false, error: "Load a graph before selecting its application graph type." };
+    if (nextGraphType === graphState.graphType) return { ok: true, graphChanged: false, graphType: graphState.graphType };
+    const commit = commitGraph(hes, {
+      source: "graph_type",
+      summary: `Changed committed graph type from ${graphState.graphType} to ${nextGraphType}.`,
+      graphType: nextGraphType,
+    });
+    setApplyBatch(false);
+    showNotice(`Committed graph type changed to ${commit.graphType}. No CANDY job was started.`);
+    return commit;
+  }
+
   function scrollToVisualization() {
     if (!vizRef.current) return false;
     vizRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3612,7 +3634,7 @@ function AppCore() {
         preview,
       };
     }
-    if (preview.beforeFingerprint === preview.afterFingerprint) {
+    if (!preview.graphChanged) {
       return {
         ok: true,
         graphChanged: false,
@@ -3628,6 +3650,7 @@ function AppCore() {
       summary: plan.summary ?? "Graph mutation",
       plan,
       preview,
+      graphType: preview.graphType,
       warnings: [...warnings, ...preview.warnings],
     });
     setApplyBatch(false);
@@ -3696,16 +3719,16 @@ function AppCore() {
   const h2h = useMemo(() => h2hResult.status === DERIVED_STATUS.COMPUTED ? h2hResult.value : [], [h2hResult]);
   const v2v = useMemo(() => v2vResult.status === DERIVED_STATUS.COMPUTED ? v2vResult.edges : [], [v2vResult]);
   const st = useMemo(() => finalHes ? computeStats(finalHes) : null, [finalHes]);
-  // The Studio's committed canonical object is a hypergraph. CANDY must not
-  // reinterpret pair-sized hyperedges as an ordinary graph or project them.
+  // The committed application graph type is explicit authority. CANDY must
+  // not infer it from edge cardinality or implicitly project it.
   const candyGraphValue = useMemo(() => hes?.length ? {
     schemaVersion: "candy.hypergraph-incidence/1", graphId: graphIdentity.graphId,
-    graphVersion, graphType: "Hypergraph",
+    graphVersion, graphType: graphState.graphType,
     vertices: [...new Set(hes.flatMap(edge => edge.vertices))],
     hyperedges: hes.map(edge => ({ id: edge.id, vertices: [...edge.vertices] })),
-  } : null, [hes, graphIdentity.graphId, graphVersion]);
+  } : null, [hes, graphIdentity.graphId, graphState.graphType, graphVersion]);
   const candyRuntime = useCandyRuntime({
-    graphType: candyGraphValue ? "Hypergraph" : null,
+    graphType: candyGraphValue ? graphState.graphType : null,
     graphId: graphIdentity.graphId,
     graphVersion,
     vertexCount: candyGraphValue?.vertices.length ?? 0,
@@ -4113,6 +4136,7 @@ function AppCore() {
     graphHyperedges: finalHes ?? [],
     graphId: graphIdentity.graphId,
     graphVersion,
+    graphType: graphState.graphType,
     graphFingerprint: graphIdentity.graphFingerprint,
     committedHyperedgeCount: hes?.length ?? 0,
     batchPreviewActive,
@@ -4301,6 +4325,7 @@ function AppCore() {
       graph: {
         graphId: graphIdentity.graphId,
         graphVersion: graphIdentity.graphVersion,
+        graphType: graphState.graphType,
         selectedEntity: selectedGraphEntity,
         recentVerifiedReferences: recentReferenceContext(graphConversationReferences),
       },
@@ -4332,6 +4357,7 @@ function AppCore() {
         hasGraph: Boolean(finalHes?.length),
         graphId: graphIdentity.graphId,
         graphVersion: graphIdentity.graphVersion,
+        graphType: graphState.graphType,
         graphFingerprint: graphIdentity.graphFingerprint,
         selectedGraphEntity,
         activeBatch,
@@ -5161,6 +5187,17 @@ function AppCore() {
               <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Committed graph</div>
               <div style={{ fontFamily: "monospace", color: T.textDim, fontSize: 12 }}>version {graphIdentity.graphVersion} · {graphIdentity.graphFingerprint}</div>
             </div>
+            <label style={{ display: "grid", gap: 4, fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>
+              Graph type
+              <select
+                aria-label="Committed graph type"
+                value={graphState.graphType}
+                onChange={event => changeCommittedGraphType(event.target.value)}
+                style={{ border: "1px solid " + T.border, borderRadius: 7, background: T.bg, color: T.text, padding: "5px 8px", fontSize: 12, fontWeight: 600, textTransform: "none", letterSpacing: 0 }}
+              >
+                {APPLICATION_GRAPH_TYPES.map(graphType => <option key={graphType} value={graphType}>{graphType}</option>)}
+              </select>
+            </label>
             <div>
               <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Selection</div>
               <div style={{ fontFamily: "monospace", color: selectedGraphEntity ? T.accent : T.textFaint, fontSize: 12 }}>{selectedGraphEntity ? `${selectedGraphEntity.type}:${selectedGraphEntity.id}` : "none"}</div>
@@ -5169,7 +5206,7 @@ function AppCore() {
               <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Mutation history</div>
               <div style={{ fontFamily: "monospace", color: T.textDim, fontSize: 12 }}>{graphHistory.length} committed change{graphHistory.length === 1 ? "" : "s"}</div>
             </div>
-            <div style={{ marginLeft: "auto", color: T.textFaint, fontSize: 12 }}>Route switches and preview toggles do not change this version.</div>
+            <div style={{ marginLeft: "auto", color: T.textFaint, fontSize: 12 }}>Type changes are versioned authority transitions. They do not run analysis or apply graph edits.</div>
           </div>
         )}
 

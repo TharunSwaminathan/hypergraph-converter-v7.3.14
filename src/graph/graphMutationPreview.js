@@ -27,7 +27,9 @@ export function previewGraphMutation(baseHyperedges = [], plan, graphIdentity = 
       vertices: after.vertices - before.vertices,
       incidences: after.incidences - before.incidences,
     },
-    graphChanged: result.ok ? result.beforeFingerprint !== result.afterFingerprint : false,
+    graphChanged: result.ok
+      ? result.beforeFingerprint !== result.afterFingerprint || result.graphType !== graphIdentity.graphType
+      : false,
     operationCount: plan?.operations?.length ?? 0,
     summary: plan?.summary ?? "Graph mutation preview",
   };

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "candy.scope5a-test-results/1",
+  "scope": "CANDY Scope 5A first-class DynamicHypergraph application state",
+  "branch": "candy-integration-scope5a-graph-state",
+  "startingSha": "215d6d11b7413670100c4cb9c59d8bb22a566a10",
+  "headSha": "215d6d11b7413670100c4cb9c59d8bb22a566a10",
+  "recordedDate": "2026-09-23",
+  "qualificationUpdatedDate": "2026-09-26",
+  "sourceChangedAfterGreenRun": false,
+  "focusedTests": {
+    "status": "PASS",
+    "coverage": [
+      "Scope 5A graph-state authority and type-transition tests",
+      "graph mutation and undo regressions",
+      "Scope 4C contract/runtime/UI regressions",
+      "orchestrator and confirmation regressions",
+      "Scope 2 React-core regression"
+    ]
+  },
+  "fullApplicationSuite": {
+    "status": "PASS",
+    "testFilesPassed": 254,
+    "testFilesTotal": 254,
+    "executionNote": "Rerun with the provisioned Python runtime available on PATH; all test files passed."
+  },
+  "lint": {
+    "status": "PASS"
+  },
+  "productionBuild": {
+    "status": "PASS",
+    "note": "Existing Vite large-chunk advisory only."
+  },
+  "githubPagesBuild": {
+    "status": "PASS",
+    "note": "Existing Vite large-chunk advisory only."
+  },
+  "diffCheck": {
+    "status": "PASS"
+  },
+  "dependencyAudit": {
+    "command": "npm audit --omit=dev",
+    "status": "PASS",
+    "executionEnvironment": "USER_NORMAL_POWERSHELL_OUTSIDE_CODEX_SANDBOX",
+    "productionVulnerabilities": 0,
+    "resultSource": "Externally supplied by the user after manual execution.",
+    "previousBlock": "Codex sandbox/network-policy-specific; not a product failure.",
+    "resultAvailable": true,
+    "dependencyManifestChanged": false
+  },
+  "integrity": {
+    "protectedNativeSourceDelta": [],
+    "dependencyFileDelta": [],
+    "dependencyFilesChecked": [
+      "package.json",
+      "package-lock.json"
+    ]
+  },
+  "security": {
+    "status": "PASS",
+    "scanId": "084a9b07-4873-471d-8e0a-5554451e232a",
+    "productionFilesReviewed": 10,
+    "coverage": "complete",
+    "findingCount": 0,
+    "unresolvedHighCount": 0
+  },
+  "decision": "PASS",
+  "blockedGates": []
+}

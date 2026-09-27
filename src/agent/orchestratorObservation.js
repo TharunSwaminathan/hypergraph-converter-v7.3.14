@@ -21,6 +21,8 @@ export function orchestratorStateVersion(state = {}, pendingConfirmation = null)
     customResultId: text(state.customResultId),
     graphId: text(state.graphId),
     graphVersion: Number(state.graphVersion) || 0,
+    graphType: text(state.graphType ?? state.candy?.graphType) || "Hypergraph",
+    graphFingerprint: text(state.graphFingerprint, 96),
     candyRuntimeVersion: text(state.candy?.runtimeVersion),
     candyRuntimeSession: text(state.candy?.runtimeSessionId),
     candyMotifContextVersion: text(state.candy?.motifContextVersion),
@@ -102,7 +104,7 @@ export function buildAuthoritativeOrchestratorObservation({
       graphLayout: text(state.graphLayout) || null,
       graphSearch: text(state.graphSearch) || null,
     },
-    graph: { available: Boolean(state.hasGraph), id: text(state.graphId) || null, version: Number(state.graphVersion) || 0, graphType: text(state.candy?.graphType) || "Hypergraph", vertexCount: Number(state.vertexCount) || 0, edgeCount: Number(state.candy?.edgeCount) || 0 },
+    graph: { available: Boolean(state.hasGraph), id: text(state.graphId) || null, version: Number(state.graphVersion) || 0, graphType: text(state.graphType ?? state.candy?.graphType) || "Hypergraph", fingerprint: text(state.graphFingerprint, 96) || null, vertexCount: Number(state.vertexCount) || 0, edgeCount: Number(state.candy?.edgeCount) || 0 },
     candy: {
       featureEnabled: Boolean(state.candy?.featureEnabled),
       status: text(state.candy?.status) || "disabled",
