@@ -1,5 +1,6 @@
 import { T } from "../theme.js";
 import { HYPERGRAPH_3EDGE_MOTIF_TAXONOMY } from "../candy/hypergraphMotifs/taxonomy.js";
+import { signedMotifValue } from "../candy/resultObservation.js";
 
 const GROUPS = ["OPEN_WEDGE", "CLOSED_TRIANGLE"];
 
@@ -16,7 +17,7 @@ export default function CandyMotifResult({ result, compact = false }) {
     <div aria-label={incremental ? "Validated hypergraph motif delta" : "Validated hypergraph motif result"} style={{ marginTop: 14, border: "1px solid " + T.border, borderRadius: 10, padding: compact ? 12 : 16, background: T.surface }}>
       <div style={{ fontSize: 12, color: T.textFaint, textTransform: "uppercase", letterSpacing: .7, fontWeight: 700 }}>{incremental ? "Motif change (delta only)" : "Validated static result"}</div>
       <p style={{ margin: "8px 0", color: T.text }}>
-        {incremental ? "Signed total connected 3-edge motif delta" : "Total connected 3-edge motifs"}: <strong>{Number(total ?? 0).toLocaleString()}</strong>
+        {incremental ? "Signed total connected 3-edge motif delta" : "Total connected 3-edge motifs"}: <strong>{incremental ? signedMotifValue(total) : Number(total ?? 0).toLocaleString()}</strong>
       </p>
       <p style={{ margin: "6px 0", fontSize: 12, color: T.textDim }}>
         Backend <strong>{backend}</strong> · graph <code>{graphRef?.graphId ?? "unknown"}</code> version <strong>{graphRef?.graphVersion ?? "unknown"}</strong>
@@ -35,7 +36,7 @@ export default function CandyMotifResult({ result, compact = false }) {
             {GROUPS.map(group => <tbody key={group}>
               <tr><th colSpan={3} style={{ ...cellStyle, textAlign: "left", background: T.card, color: group === "OPEN_WEDGE" ? T.teal : T.purple }}>{group}</th></tr>
               {HYPERGRAPH_3EDGE_MOTIF_TAXONOMY.entries.filter(entry => entry.shape === group).map(entry => <tr key={entry.motifId}>
-                <td style={cellStyle}>{entry.motifId}</td><td style={cellStyle}>{entry.shape}</td><td style={cellStyle}>{values?.[entry.motifId - 1] ?? 0}</td>
+                <td style={cellStyle}>{entry.motifId}</td><td style={cellStyle}>{entry.shape}</td><td style={cellStyle}>{incremental ? signedMotifValue(values[entry.motifId - 1]) : values?.[entry.motifId - 1] ?? 0}</td>
               </tr>)}
             </tbody>)}
           </table>

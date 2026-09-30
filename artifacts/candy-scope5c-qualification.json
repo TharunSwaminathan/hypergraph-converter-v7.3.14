@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "candy.scope5c-qualification/1",
+  "scope": "CANDY Scope 5C",
+  "decision": "PASS",
+  "branch": "candy-integration-scope5c-runtime-binding",
+  "startingSha": "3379e0102704521960a5ccc1185a14a2beb2725d",
+  "finalHead": "3379e0102704521960a5ccc1185a14a2beb2725d",
+  "qualifiedTags": {
+    "candy-integration-scope5b-pending-update-qualified": "3379e0102704521960a5ccc1185a14a2beb2725d",
+    "candy-integration-scope5a-graph-state-qualified": "eb829fb627de349be99d440ebfed11990f76837e"
+  },
+  "exitCriteria": [
+    {
+      "id": 1,
+      "requirement": "VALIDATED plus CHANGED pending update submits incrementally",
+      "status": "PASS"
+    },
+    {
+      "id": 2,
+      "requirement": "DynamicHypergraph alone cannot authorize incremental",
+      "status": "PASS"
+    },
+    {
+      "id": 3,
+      "requirement": "Explicit current count remains STATIC",
+      "status": "PASS"
+    },
+    {
+      "id": 4,
+      "requirement": "Exact CUDA_INCREMENTAL capability and device required",
+      "status": "PASS"
+    },
+    {
+      "id": 5,
+      "requirement": "No CPU fallback",
+      "status": "PASS"
+    },
+    {
+      "id": 6,
+      "requirement": "No STATIC fallback for incremental",
+      "status": "PASS"
+    },
+    {
+      "id": 7,
+      "requirement": "No implicit projection",
+      "status": "PASS"
+    },
+    {
+      "id": 8,
+      "requirement": "Separate analysis confirmation",
+      "status": "PASS"
+    },
+    {
+      "id": 9,
+      "requirement": "Exact Runtime session binding",
+      "status": "PASS"
+    },
+    {
+      "id": 10,
+      "requirement": "Exact graph ID/version/fingerprint/type binding",
+      "status": "PASS"
+    },
+    {
+      "id": 11,
+      "requirement": "Exact update ID/revision/digest binding",
+      "status": "PASS"
+    },
+    {
+      "id": 12,
+      "requirement": "Exact proposed fingerprint/next version binding",
+      "status": "PASS"
+    },
+    {
+      "id": 13,
+      "requirement": "Exact request/artifact/backend/mode/device/taxonomy binding",
+      "status": "PASS"
+    },
+    {
+      "id": 14,
+      "requirement": "Stale/substituted result rejected",
+      "status": "PASS"
+    },
+    {
+      "id": 15,
+      "requirement": "Graph/update/session transitions invalidate current result",
+      "status": "PASS"
+    },
+    {
+      "id": 16,
+      "requirement": "Cancellation/timeout do not mutate graph",
+      "status": "PASS"
+    },
+    {
+      "id": 17,
+      "requirement": "Successful analysis never Apply",
+      "status": "PASS"
+    },
+    {
+      "id": 18,
+      "requirement": "Apply never implicitly analyze",
+      "status": "PASS"
+    },
+    {
+      "id": 19,
+      "requirement": "Default delta-only presentation",
+      "status": "PASS"
+    },
+    {
+      "id": 20,
+      "requirement": "Line-Graph Triangles separate",
+      "status": "PASS"
+    },
+    {
+      "id": 21,
+      "requirement": "Scope 5A/5B regressions green",
+      "status": "PASS"
+    },
+    {
+      "id": 22,
+      "requirement": "All application gates PASS",
+      "status": "PASS"
+    },
+    {
+      "id": 23,
+      "requirement": "No unresolved High",
+      "status": "PASS"
+    },
+    {
+      "id": 24,
+      "requirement": "Frozen native directories unchanged",
+      "status": "PASS"
+    },
+    {
+      "id": 25,
+      "requirement": "Historical evidence and qualified tags unchanged",
+      "status": "PASS"
+    }
+  ],
+  "gates": {
+    "focusedTests": "PASS 28/28 files",
+    "fullTests": "PASS 260/260 files",
+    "lint": "PASS",
+    "productionBuild": "PASS",
+    "githubPagesBuild": "PASS",
+    "productionDependencyAudit": "PASS 0 vulnerabilities",
+    "gitDiffCheck": "PASS",
+    "targetedSecurityReview": "Complete / 0 findings / unresolved High=0"
+  },
+  "securityScan": {
+    "scanId": "06b37d23-5c5c-4afb-b016-c156a500519d",
+    "status": "complete",
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:ab49a2794b716b80e34e5737d1b0150e024a209a670f1e5cf42979980383f515",
+    "coverage": "complete",
+    "reviewedProductionFiles": 14,
+    "coverageRows": 16,
+    "findings": 0,
+    "unresolvedHigh": 0,
+    "completedAtUtc": "2026-09-30T04:27:28.019542Z",
+    "canonicalThreatModelPreserved": true,
+    "reportPath": "C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14\\3379e0102704521960a5ccc1185a14a2beb2725d_20260930T041232Z_wofpq_ux\\report.md",
+    "measuredUsage": {
+      "source": "codex_rollout",
+      "threadCount": 3,
+      "inputTokens": 4718935,
+      "cachedInputTokens": 4506752,
+      "outputTokens": 25438,
+      "reasoningOutputTokens": 3078,
+      "totalTokens": 4744373,
+      "attribution": "Tool-reported rollout usage across the three participating threads; not claimed as isolated scan-only fresh tokens."
+    }
+  },
+  "protectedDeltas": {
+    "runtimeProductionFiles": 0,
+    "nativeCudaFiles": 0,
+    "dependencyManifestFiles": 0,
+    "earlierEvidenceFiles": 0,
+    "qualifiedTagChanges": 0
+  },
+  "auditExecution": {
+    "outsideCodexSandbox": true,
+    "previousBlockEnvironmentPolicySpecific": true,
+    "packageJsonChanged": false,
+    "packageLockJsonChanged": false
+  },
+  "finalInventory": {
+    "modifiedTrackedCount": 12,
+    "addedUntrackedCount": 11,
+    "total": 23,
+    "productionFiles": 14,
+    "testFixtureFiles": 5,
+    "evidenceFiles": 4,
+    "modified": [
+      "src/App.jsx",
+      "src/candy/motifStatisticsAvailability.js",
+      "src/candy/motifWorkflow.js",
+      "src/candy/requestPolicy.js",
+      "src/candy/resultObservation.js",
+      "src/candy/useCandyRuntime.js",
+      "src/components/AgentChatPanel.jsx",
+      "src/components/CandyMotifResult.jsx",
+      "src/components/CandyMotifStatistics.jsx",
+      "src/components/CandyRuntimePanel.jsx",
+      "src/graph/pendingHypergraphUpdate.js",
+      "tests/candy-scope5-graph-state.test.mjs"
+    ],
+    "added": [
+      "src/candy/motifAnalysisController.js",
+      "src/candy/motifPreflight.js",
+      "src/candy/motifResultRegistry.js",
+      "tests/candy-scope5-races.test.mjs",
+      "tests/candy-scope5-result-binding.test.mjs",
+      "tests/candy-scope5-runtime-integration.test.mjs",
+      "tests/fixtures/candy-scope5-runtime.mjs",
+      "artifacts/candy-scope5c-implementation-report.md",
+      "artifacts/candy-scope5c-test-results.json",
+      "artifacts/candy-scope5c-security-review.md",
+      "artifacts/candy-scope5c-qualification.json"
+    ],
+    "stagedFiles": 0
+  },
+  "repositoryState": {
+    "allUncommitted": true,
+    "committed": false,
+    "tagged": false,
+    "pushed": false,
+    "merged": false,
+    "reset": false,
+    "amended": false,
+    "historyRewritten": false,
+    "noProductSourceChangedAfterFinalGreenRun": true
+  },
+  "liveRuntime": {
+    "newExecution": false,
+    "evidence": "artifacts/post-diagnosis-corrective-live-runtime-requalification.json",
+    "evidenceStatus": "LIVE_RUNTIME_QUALIFICATION_PASS",
+    "previousEvidenceUnchanged": true
+  },
+  "deferred": [
+    "Scope 5D complete UI/Assistant pending stage/edit/discard/Apply lifecycle",
+    "Scope 5E broader multi-tab/persistence/concurrency hardening",
+    "Scope 5F final application/live CUDA qualification",
+    "Optional authoritative prior STATIC reconstruction"
+  ],
+  "hardStop": "After Scope 5C final report"
+}

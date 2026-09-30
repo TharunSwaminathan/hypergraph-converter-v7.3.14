@@ -149,7 +149,7 @@ assert.equal(observation.graph.graphType, GRAPH_TYPES.DYNAMIC_HYPERGRAPH);
 assert.equal(observation.graph.fingerprint, dynamic.graphFingerprint);
 assert.equal(observation.availableCapabilities.some(capability => /GRAPH_TYPE|DYNAMIC_HYPERGRAPH/.test(capability)), false);
 
-// App wiring uses the envelope type, exposes only an explicit UI selector, and passes no pending update.
+// App wiring preserves 5A type authority; 5C observes the existing 5B owner.
 const appSource = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8");
 assert.match(appSource, /const \[graphState, setGraphState\] = useState\(\(\) => createGraphState\(\)\)/);
 assert.doesNotMatch(appSource, /\[hes, setHes\]/);
@@ -157,7 +157,7 @@ assert.doesNotMatch(appSource, /\[graphIdentity, setGraphIdentity\]/);
 assert.match(appSource, /aria-label="Committed graph type"/);
 assert.match(appSource, /graphVersion, graphType: graphState\.graphType/);
 const runtimeCall = appSource.slice(appSource.indexOf("const candyRuntime = useCandyRuntime"), appSource.indexOf("function requestStaticMotifFromStatistics"));
-assert.doesNotMatch(runtimeCall, /pendingUpdate\s*:/, "Scope 5A must not create pending-update authority");
-assert.match(runtimeCall, /graphType: candyGraphValue \? graphState\.graphType : null/);
+assert.match(runtimeCall, /pendingController: pendingHypergraphUpdateControllerRef\.current/);
+assert.match(runtimeCall, /graphType: graphState\.graphType/);
 
 console.log("CANDY Scope 5A first-class graph-state tests passed.");

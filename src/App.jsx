@@ -36,6 +36,7 @@ import { useAlgorithms } from "./hooks/useAlgorithms.js";
 import AgentChatPanel from "./components/AgentChatPanel.jsx";
 import CandyMotifStatistics from "./components/CandyMotifStatistics.jsx";
 import { useCandyRuntime } from "./candy/useCandyRuntime.js";
+import { useSyncExternalStore } from "react";
 import { useCustomParserSpecialist } from "./hooks/useCustomParserSpecialist.js";
 import {
   analyzeUploadBatch,
@@ -274,6 +275,11 @@ function AppCore() {
       commit: (hyperedges, options) => commitGraphControllerRef.current(hyperedges, options),
     });
   }
+  const pendingHypergraphUpdate = useSyncExternalStore(
+    pendingHypergraphUpdateControllerRef.current.subscribe,
+    pendingHypergraphUpdateControllerRef.current.getCurrent,
+    pendingHypergraphUpdateControllerRef.current.getCurrent,
+  );
   const [vizLimit, setVizLimit] = useState(50); const [activeSection, setActiveSection] = useState("mappings");
   const [selectedMappingId, setSelectedMappingId] = useState("h2v");
   const [expId, setExpId] = useState("h2v_txt");
@@ -3745,19 +3751,15 @@ function AppCore() {
   const st = useMemo(() => finalHes ? computeStats(finalHes) : null, [finalHes]);
   // The committed application graph type is explicit authority. CANDY must
   // not infer it from edge cardinality or implicitly project it.
-  const candyGraphValue = useMemo(() => hes?.length ? {
-    schemaVersion: "candy.hypergraph-incidence/1", graphId: graphIdentity.graphId,
-    graphVersion, graphType: graphState.graphType,
-    vertices: [...new Set(hes.flatMap(edge => edge.vertices))],
-    hyperedges: hes.map(edge => ({ id: edge.id, vertices: [...edge.vertices] })),
-  } : null, [hes, graphIdentity.graphId, graphState.graphType, graphVersion]);
   const candyRuntime = useCandyRuntime({
-    graphType: candyGraphValue ? graphState.graphType : null,
     graphId: graphIdentity.graphId,
-    graphVersion,
-    vertexCount: candyGraphValue?.vertices.length ?? 0,
-    edgeCount: candyGraphValue?.hyperedges.length ?? 0,
-    graphValue: candyGraphValue,
+    graphVersion, graphType: graphState.graphType,
+    graphFingerprint: graphState.graphFingerprint,
+    graphState,
+    getGraphState: () => graphStateRef.current,
+    pendingController: pendingHypergraphUpdateControllerRef.current,
+    pendingUpdate: pendingHypergraphUpdate,
+    edgeCount: hes?.length ?? 0,
   });
 
   function requestStaticMotifFromStatistics(argumentsValue) {
@@ -4897,6 +4899,7 @@ function AppCore() {
     pairCandyRuntime: candyRuntime.actions.pair,
     discoverCandyRuntime: candyRuntime.actions.discover,
     submitCandyJob: candyRuntime.actions.submitFromAssistant,
+    stageCandyMotifAnalysis: candyRuntime.actions.stageMotifAnalysis,
     getCandyJobStatus: candyRuntime.actions.getJobStatus,
     cancelCandyJob: candyRuntime.actions.cancelJob,
     openCandyResult: candyRuntime.actions.openResult,

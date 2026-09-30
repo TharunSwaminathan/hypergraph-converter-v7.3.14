@@ -24,6 +24,9 @@ export function candyRequestConfirmationBinding({ argumentsValue, graph }) {
     timeoutMs: argumentsValue.timeoutMs,
     graphId: graph.id,
     graphVersion: graph.version,
+    graphFingerprint: graph.graphFingerprint ?? null,
+    graphType: graph.graphType ?? null,
+    applicationBinding: graph.applicationBinding ?? null,
     propertyStateVersion: argumentsValue.propertyStateVersion ?? null,
     updateBatchId: argumentsValue.updateBatchId ?? null,
     updateContextId: argumentsValue.updateContextId ?? null,
@@ -37,7 +40,7 @@ export function candyRequestConfirmationBinding({ argumentsValue, graph }) {
     hash ^= char.codePointAt(0);
     hash = Math.imul(hash, 16777619);
   }
-  return Object.freeze({ requestHash: `binding-v1:${(hash >>> 0).toString(16).padStart(8, "0")}`, ...envelope });
+  return Object.freeze({ requestHash: `binding-v1:${(hash >>> 0).toString(16).padStart(8, "0")}`, authorityKey: stable(envelope), ...envelope });
 }
 
 export function candyRequestNeedsConfirmation(argumentsValue, graph = {}) {

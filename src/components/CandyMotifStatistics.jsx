@@ -7,6 +7,7 @@ export default function CandyMotifStatistics({ candy, onRequestStaticMotif, requ
   const result = candy?.selectedMotifResult;
   const resultGraphRef = result?.inputGraphRef ?? result?.native?.inputGraphRef;
   const resultIsCurrent = Boolean(result)
+    && (!Object.hasOwn(candy, "resultEvidence") || Boolean(candy.resultEvidence))
     && resultGraphRef?.graphId === candy?.graphId
     && Number(resultGraphRef?.graphVersion) === Number(candy?.graphVersion);
 
@@ -32,7 +33,7 @@ export default function CandyMotifStatistics({ candy, onRequestStaticMotif, requ
           {requestPending ? "Request staged…" : "Compute 3-edge motifs"}
         </button>
       </div>
-      <p role="status" style={{ margin: "10px 0 0", color: availability.ready ? T.teal : T.textDim, fontSize: 12 }}>{availability.message}</p>
+      <p role="status" style={{ margin: "10px 0 0", color: availability.ready ? T.teal : T.textDim, fontSize: 12 }}>{availability.reason ? availability.reason + ": " : ""}{availability.message}</p>
       {result && !resultIsCurrent && <p role="status" style={{ color: T.amber, fontSize: 12 }}>A previous motif result was cleared from this view because it does not match the active graph identity/version.</p>}
       {resultIsCurrent && <CandyMotifResult result={result} compact />}
     </section>

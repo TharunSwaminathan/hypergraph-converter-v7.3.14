@@ -69,6 +69,7 @@ export function createPendingHypergraphUpdateDraft({ session, graphState, plan, 
 export async function validatePendingHypergraphUpdate({ session, pendingUpdate, graphState, history = [] } = {}) {
   const ledger = assertCurrentRecord(session, pendingUpdate, ["draft", "validated"]);
   const derived = await deriveValidatedContent(pendingUpdate, graphState, history);
+  assertCurrentRecord(session, pendingUpdate, ["draft", "validated"]);
   if (derived.noOp) {
     ledger.lifecycle = "discarded";
     requireSession(session).currentUpdateId = null;
@@ -199,16 +200,22 @@ export function createPendingHypergraphUpdateController({ getGraphState, commit,
   if (typeof getGraphState !== "function") throw new TypeError("getGraphState is required.");
   const session = createPendingHypergraphUpdateSession();
   let current = null;
+  const listeners = new Set();
+  const publish = value => { current = value; for (const listener of listeners) listener(); };
   const controller = {
     session,
     getCurrent: () => current,
+    subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); },
     createDraft(plan) {
-      current = createPendingHypergraphUpdateDraft({ session, graphState: getGraphState(), plan, previousPending: current });
+      publish(createPendingHypergraphUpdateDraft({ session, graphState: getGraphState(), plan, previousPending: current }));
       return current;
     },
     async validate() {
-      const result = await validatePendingHypergraphUpdate({ session, pendingUpdate: current, graphState: getGraphState(), history: getHistory() });
-      current = result.pendingUpdate;
+      const validating = current;
+      const result = await validatePendingHypergraphUpdate({ session, pendingUpdate: validating, graphState: getGraphState(), history: getHistory() });
+      if (current !== validating) failCandy(CANDY_ERROR_CODES.STALE_GRAPH_VERSION, "Pending revision changed during validation.");
+      requireExactBase(validating, getGraphState());
+      publish(result.pendingUpdate);
       return result;
     },
     async stage(plan) {
@@ -217,11 +224,11 @@ export function createPendingHypergraphUpdateController({ getGraphState, commit,
     },
     discard() {
       const discarded = discardPendingHypergraphUpdate({ session, pendingUpdate: current });
-      current = null;
+      publish(null);
       return discarded;
     },
     onGraphTransition(nextGraphState, reason) {
-      if (current) current = stalePendingHypergraphUpdate({ session, pendingUpdate: current, graphState: nextGraphState, reason });
+      if (current) publish(stalePendingHypergraphUpdate({ session, pendingUpdate: current, graphState: nextGraphState, reason }));
       return current;
     },
     async apply(confirmation) {
@@ -235,10 +242,10 @@ export function createPendingHypergraphUpdateController({ getGraphState, commit,
           commit,
           getCurrentGraphState: getGraphState,
         });
-        current = null;
+        publish(null);
         return result;
       } catch (error) {
-        if (error?.code === CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE) current = null;
+        if (error?.code === CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE) publish(null);
         throw error;
       }
     },

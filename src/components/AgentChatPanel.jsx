@@ -1508,11 +1508,14 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_discovery_completed" : "candy_unavailable", error: result.error, stop: true });
     }
     if (["SUBMIT_CANDY_JOB","SUBMIT_CANDY_MOTIF_JOB"].includes(action)) {
-      const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
+      const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, graphFingerprint: latestStateRef.current.graphFingerprint, applicationBinding: latestStateRef.current.candy?.applicationBinding, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
       if (candyRequestNeedsConfirmation(argumentsValue, graph)) {
         const binding = candyRequestConfirmationBinding({ argumentsValue, graph });
+        const motif = ["CUDA_STATIC", "CUDA_INCREMENTAL"].includes(argumentsValue.backend);
+        const staged = motif ? agentActions.stageCandyMotifAnalysis(argumentsValue) : null;
+        if (motif && !staged.ok) return executionOutcome({ ok: false, outcome: "candy_job_rejected", error: staged.error, details: staged, stop: true });
         const copy = getConfirmationCopy("run_candy_expensive_compute");
-        setPendingAction({ actionType: "run_candy_expensive_compute", ...copy, candyArguments: argumentsValue, candyBinding: binding, confirmationToken: createConfirmationSnapshot("run_candy_expensive_compute", latestStateRef.current) });
+        setPendingAction({ actionType: "run_candy_expensive_compute", ...copy, candyArguments: argumentsValue, candyBinding: binding, motifConfirmation: staged?.confirmation, confirmationToken: createConfirmationSnapshot("run_candy_expensive_compute", latestStateRef.current) });
         append("agent", "I staged the exact high-cost CANDY request for confirmation. No job has been created.", "warning");
         return executionOutcome({ ok: true, outcome: "confirmation_required", changedState: false, stop: true });
       }
@@ -2678,13 +2681,13 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
           ? `Exported a mapping fine-tuning example with full text from ${result.fileCount} active-batch file${result.fileCount === 1 ? "" : "s"}.`
           : `Mapping fine-tuning export failed: ${result.error}`, result.ok ? "status" : "error");
       } else if (action.actionType === "run_candy_expensive_compute") {
-        const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
+        const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, graphFingerprint: latestStateRef.current.graphFingerprint, applicationBinding: latestStateRef.current.candy?.applicationBinding, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
         const currentBinding = candyRequestConfirmationBinding({ argumentsValue: action.candyArguments, graph });
-        if (currentBinding.requestHash !== action.candyBinding?.requestHash) {
+        if (currentBinding.authorityKey !== action.candyBinding?.authorityKey) {
           append("agent", "The staged CANDY request no longer matches the active graph or resource envelope. Request it again.", "warning");
           confirmationOutcome = "stale_confirmation";
         } else {
-          const result = await agentActions.submitCandyJob(action.candyArguments);
+          const result = await agentActions.submitCandyJob(action.candyArguments, action.motifConfirmation);
           confirmed = Boolean(result.ok);
           confirmationOutcome = result.ok ? "candy_job_submitted" : "candy_job_rejected";
           append("agent", result.ok ? `CANDY job submitted as ${result.job?.jobId}. Ask for status later; this loop will not poll it.` : `CANDY job was not submitted: ${result.classification ?? "ERROR"} — ${result.error}`, result.ok ? "status" : "warning");

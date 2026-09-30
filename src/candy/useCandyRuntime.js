@@ -1,141 +1,129 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState, useSyncExternalStore } from "react";
 import { createCandyClient } from "./client.js";
 import { intersectCandyCapabilities } from "./capabilityDiscovery.js";
 import { candyRuntimeEnabled, DEFAULT_CANDY_RUNTIME_URL } from "./featureFlag.js";
-import { boundedCandyJobObservation } from "./resultObservation.js";
 import { validateCandySubmissionIntent } from "./requestPolicy.js";
-import { submitMotifWorkflow, validateBrowserMotifResult } from "./motifWorkflow.js";
+import { createMotifAnalysisController } from "./motifAnalysisController.js";
+import { motifApplicationBinding, motifAuthorityKey, motifPreflight } from "./motifPreflight.js";
 
 const TOKEN_KEY = "hypergraph-studio.candy-runtime-token.session";
 const safeSession = () => typeof sessionStorage === "undefined" ? null : sessionStorage;
 
-export function useCandyRuntime({ graphType = null, graphId = null, graphVersion = 0, vertexCount = 0, edgeCount = 0, graphValue = null, pendingUpdate = null } = {}) {
+function createLiveContext(initial) {
+  let value=initial, declaration=null, generation=0, mounted=true;
+  return Object.freeze({get:()=>value,update:patch=>{value={...value,...patch};},
+    getDeclaration:()=>declaration,setDeclaration:next=>{declaration=next;},
+    nextDiscovery:()=>++generation,isCurrent:expected=>mounted && expected===generation,
+    mount:()=>{mounted=true;},unmount:()=>{mounted=false;generation++;}});
+}
+
+export function useCandyRuntime({ graphState = null, getGraphState = null, pendingController = null,
+  graphType = null, graphId = null, graphVersion = 0, graphFingerprint = null, vertexCount = 0, edgeCount = 0,
+  graphValue = null, pendingUpdate = null } = {}) {
   const enabled = candyRuntimeEnabled();
-  const tokenRef = useRef(safeSession()?.getItem(TOKEN_KEY) ?? "");
-  const declarationRef = useRef(null);
-  const bindingsRef = useRef(new Map());
-  const contextRef = useRef(null);
-  const [state, setState] = useState(() => ({
-    featureEnabled: enabled,
-    status: enabled ? "not_discovered" : "disabled",
-    baseUrl: DEFAULT_CANDY_RUNTIME_URL,
-    authorized: false,
-    runtimeVersion: null,
-    capabilityStatus: "unavailable",
-    capabilityReason: null,
-    runtimeCapabilityStatus: "unavailable",
-    capabilities: [],
-    runtimeCapabilities: [],
-    lastError: null,
-    jobs: [],
-    selectedJob: null,
+  const [state, setState] = useState(() => ({ featureEnabled:enabled,status:enabled?"not_discovered":"disabled",
+    baseUrl:DEFAULT_CANDY_RUNTIME_URL,authorized:false,runtimeVersion:null,runtimeSessionId:null,
+    capabilityStatus:"unavailable",capabilityReason:null,runtimeCapabilityStatus:"unavailable",
+    capabilities:[],runtimeCapabilities:[],lastError:null }));
+  const [live] = useState(() => createLiveContext({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,token:safeSession()?.getItem(TOKEN_KEY) ?? ""}));
+  const [controller] = useState(() => createMotifAnalysisController({
+    getContext:()=>{
+      const current=live.get();
+      const graph=current.getGraphState?.() ?? current.graphState ?? {...current.graphValue,graphFingerprint:current.graphFingerprint};
+      return {graph,pendingUpdate:current.pendingController?.getCurrent() ?? (current.pendingController ? null : current.pendingUpdate),runtime:current.state};
+    },
+    getClient:()=>createCandyClient({baseUrl:live.get().state.baseUrl,token:live.get().token}),
   }));
-  const graph = useMemo(() => ({ graphType, id: graphId, version: graphVersion, vertexCount, edgeCount }), [graphType, graphId, graphVersion, vertexCount, edgeCount]);
-  const contextKey = useMemo(() => JSON.stringify({graphId,graphVersion,graphType,graphValue,pendingUpdate}), [graphId,graphVersion,graphType,graphValue,pendingUpdate]);
-  useEffect(() => {
-    contextRef.current = contextKey;
-    let active=true;
-    crypto.subtle.digest("SHA-256",new TextEncoder().encode(contextKey)).then(bytes=>{
-      if(active) setState(current=>({...current,motifContextVersion:`sha256:${Array.from(new Uint8Array(bytes),byte=>byte.toString(16).padStart(2,"0")).join("")}`,selectedMotifResult:null}));
-    });
-    return ()=>{active=false;};
-  }, [contextKey]);
-  const client = useCallback(() => createCandyClient({ baseUrl: state.baseUrl, token: tokenRef.current }), [state.baseUrl]);
+  useLayoutEffect(() => {
+    live.update({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state});
+    controller.synchronize();
+  });
+  const analysis=useSyncExternalStore(controller.subscribe,controller.getSnapshot,controller.getSnapshot);
+  const authoritativeGraph = graphState ?? {...graphValue,graphFingerprint};
+  const authoritativePending = pendingController ? pendingController.getCurrent() : pendingUpdate;
+  const applicationBinding=motifApplicationBinding(authoritativeGraph,authoritativePending);
+  const contextKey=motifAuthorityKey(applicationBinding);
+  useEffect(()=>{ controller.synchronize(); },[controller,contextKey,state.runtimeSessionId,state.authorized]);
+  useEffect(()=>{
+    live.mount(); controller.activate();
+    return ()=>{ live.unmount(); controller.dispose(); };
+  },[controller,live]);
 
   const pair = useCallback(value => {
-    const token = String(value ?? "").trim();
-    tokenRef.current = token;
-    bindingsRef.current.clear();
-    declarationRef.current = null;
-    if (token) safeSession()?.setItem(TOKEN_KEY, token); else safeSession()?.removeItem(TOKEN_KEY);
-    setState(current => ({ ...current, authorized: false, status: token ? "not_discovered" : "unauthorized", capabilities: [], runtimeCapabilities: [], capabilityStatus: "unavailable", capabilityReason: null, runtimeCapabilityStatus: "unavailable", runtimeSessionId: null, jobs: [], selectedJob: null, selectedMotifResult: null, lastError: null }));
-    return { ok: Boolean(token) };
-  }, []);
+    const token=String(value ?? "").trim();
+    live.nextDiscovery(); controller.invalidate();
+    live.update({token}); live.setDeclaration(null);
+    if (token) safeSession()?.setItem(TOKEN_KEY,token); else safeSession()?.removeItem(TOKEN_KEY);
+    const next={...live.get().state,authorized:false,status:token?"not_discovered":"unauthorized",runtimeSessionId:null,
+      capabilities:[],runtimeCapabilities:[],capabilityStatus:"unavailable",capabilityReason:null,runtimeCapabilityStatus:"unavailable",lastError:null};
+    live.update({state:next}); setState(next);
+    return {ok:Boolean(token)};
+  },[controller,live]);
 
   const discover = useCallback(async () => {
-    if (!enabled) return { ok: false, classification: "feature_disabled", error: "CANDY native integration is disabled; browser-only mode remains active." };
-    setState(current => ({ ...current, status: "discovering", lastError: null }));
+    if (!enabled) return {ok:false,classification:"feature_disabled",error:"CANDY native integration is disabled; browser-only mode remains active."};
+    const generation=live.nextDiscovery();
+    controller.invalidate(); live.setDeclaration(null);
+    const initial={...live.get().state,status:"discovering",authorized:false,runtimeSessionId:null,capabilities:[],runtimeCapabilities:[],lastError:null};
+    live.update({state:initial}); setState(initial);
+    const check=()=>{if(!live.isCurrent(generation)) throw Object.assign(new Error("Runtime discovery was superseded or unmounted."),{classification:"STALE_GRAPH_VERSION"});};
     try {
-      const runtimeClient = client();
-      const health = await runtimeClient.health();
-      if (health.schemaVersion !== "candy.runtime-api/1") throw Object.assign(new Error("The companion API schema is incompatible."), { classification: "incompatible" });
-      const declaration = await runtimeClient.capabilities();
-      declarationRef.current = declaration;
-      const discovered = intersectCandyCapabilities(declaration, { authorized: true });
-      const intersection = intersectCandyCapabilities(declaration, { authorized: true, graphType: graphType ?? "__NO_ACTIVE_GRAPH__" });
-      setState(current => ({ ...current, status: "ready", authorized: true, runtimeVersion: health.serviceVersion, runtimeSessionId: declaration.runtimeSessionId ?? null, motifReadiness: declaration.motifReadiness ?? [], capabilityStatus: intersection.status, capabilityReason: intersection.reason, runtimeCapabilityStatus: discovered.status, capabilities: intersection.capabilities, runtimeCapabilities: discovered.capabilities, lastError: null }));
-      return { ok: true, health, intersection, discovered };
-    } catch (error) {
-      const classification = error.classification ?? "BACKEND_UNAVAILABLE";
-      const status = classification === "UNAUTHORIZED" ? "unauthorized" : classification === "incompatible" ? "incompatible" : "unavailable";
-      setState(current => ({ ...current, status, authorized: false, capabilities: [], runtimeCapabilities: [], capabilityStatus: "unavailable", capabilityReason: null, runtimeCapabilityStatus: "unavailable", lastError: { classification, message: error.message } }));
-      return { ok: false, classification, error: error.message };
-    }
-  }, [client, enabled, graphType]);
-
-  useEffect(() => {
-    if (!state.authorized || !declarationRef.current) return;
-    const intersection = intersectCandyCapabilities(declarationRef.current, { authorized: true, graphType: graphType ?? "__NO_ACTIVE_GRAPH__" });
-    setState(current => ({ ...current, capabilityStatus: intersection.status, capabilityReason: intersection.reason, capabilities: intersection.capabilities }));
-  }, [graphType, state.authorized]);
-
-  const getJobStatus = useCallback(async jobId => {
-    try {
-      const job = await client().getJob(jobId);
-      const observation = boundedCandyJobObservation(job);
-      setState(current => ({ ...current, selectedJob: observation, jobs: [...current.jobs.filter(item => item.jobId !== observation.jobId), observation].slice(-8) }));
-      return { ok: true, job: observation };
-    } catch (error) { return { ok: false, classification: error.classification, error: error.message }; }
-  }, [client]);
-
-  const cancelJob = useCallback(async jobId => {
-    try {
-      const job = boundedCandyJobObservation(await client().cancelJob(jobId));
-      setState(current => ({ ...current, selectedJob: job, jobs: [...current.jobs.filter(item => item.jobId !== job.jobId), job].slice(-8) }));
-      return { ok: true, job };
-    } catch (error) { return { ok: false, classification: error.classification, error: error.message }; }
-  }, [client]);
-
-  const openResult = useCallback(async jobId => {
-    try {
-      const result = await client().getResult(jobId);
-      if (contextRef.current !== contextKey) throw Object.assign(new Error("The workspace changed before result observation."),{classification:"STALE_GRAPH_VERSION"});
-      if (bindingsRef.current.has(jobId) || result.schemaVersion === "candy.runtime-motif-result/1") {
-        const accepted = bindingsRef.current.get(jobId);
-        if (!accepted || accepted.contextKey !== contextKey || accepted.binding.runtimeSessionId !== declarationRef.current?.runtimeSessionId || result.jobId !== jobId) throw Object.assign(new Error("The motif result targets a stale graph, update, job or Runtime session."), { classification: "STALE_GRAPH_VERSION" });
-        await validateBrowserMotifResult(result,accepted.binding);
-        if (contextRef.current !== contextKey) throw Object.assign(new Error("The workspace changed during result validation."),{classification:"STALE_GRAPH_VERSION"});
+      check();
+      const client=createCandyClient({baseUrl:initial.baseUrl,token:live.get().token});
+      const health=await client.health(); check();
+      if(health.schemaVersion!=="candy.runtime-api/1") throw Object.assign(new Error("The companion API schema is incompatible."),{classification:"incompatible"});
+      const declaration=await client.capabilities(); check();
+      if(typeof declaration.runtimeSessionId!=="string" || !declaration.runtimeSessionId) throw Object.assign(new Error("Runtime session identity is unavailable."),{classification:"incompatible"});
+      const discovered=intersectCandyCapabilities(declaration,{authorized:true});
+      const currentType=live.get().getGraphState?.()?.graphType ?? live.get().graphType;
+      const intersection=intersectCandyCapabilities(declaration,{authorized:true,graphType:currentType ?? "__NO_ACTIVE_GRAPH__"});
+      live.setDeclaration(declaration);
+      const next={...live.get().state,status:"ready",authorized:true,runtimeVersion:health.serviceVersion,runtimeSessionId:declaration.runtimeSessionId,
+        motifReadiness:declaration.motifReadiness ?? [],capabilityStatus:intersection.status,capabilityReason:intersection.reason,
+        runtimeCapabilityStatus:discovered.status,capabilities:intersection.capabilities,runtimeCapabilities:discovered.capabilities,lastError:null};
+      live.update({state:next}); setState(next);
+      return {ok:true,health,intersection,discovered};
+    } catch(error) {
+      const classification=error.classification ?? "BACKEND_UNAVAILABLE";
+      if(live.isCurrent(generation)) {
+        const next={...live.get().state,status:classification==="UNAUTHORIZED"?"unauthorized":classification==="incompatible"?"incompatible":"unavailable",
+          authorized:false,runtimeSessionId:null,capabilities:[],runtimeCapabilities:[],lastError:{classification,message:error.message}};
+        live.update({state:next}); setState(next);
       }
-      const observation = boundedCandyJobObservation(result);
-      setState(current => ({ ...current, selectedJob: observation, selectedMotifResult: result.schemaVersion === "candy.runtime-motif-result/1" ? result : null }));
-      return { ok: true, observation };
-    } catch (error) { return { ok: false, classification: error.classification, error: error.message }; }
-  }, [client,contextKey]);
-
-  const submitFromAssistant = useCallback(async argumentsValue => {
-    if (["CUDA_STATIC","CUDA_INCREMENTAL"].includes(argumentsValue.backend)) {
-      if (!enabled || !state.authorized) return {ok:false,classification:"BACKEND_UNAVAILABLE",error:"Authenticated Runtime motif integration is unavailable.",nativeJobCreated:false};
-      const advertised=state.capabilities.some(cap=>cap.backend===argumentsValue.backend && cap.modes.includes(argumentsValue.mode));
-      if (!advertised) return {ok:false,classification:"BACKEND_UNAVAILABLE",error:"The exact requested motif backend is unavailable. No fallback was selected.",nativeJobCreated:false};
-      const session=declarationRef.current?.runtimeSessionId;
-      try {
-        if (!graphValue || graphValue.graphType !== graphType || graphValue.graphId !== graphId || graphValue.graphVersion !== graphVersion) throw Object.assign(new Error("The authoritative motif graph does not match the current workspace identity and type."), {classification:"STALE_GRAPH_VERSION"});
-        const accepted=await submitMotifWorkflow({client:client(),graphValue,pendingUpdate,argumentsValue,runtimeSessionId:session,isCurrent:()=>contextRef.current===contextKey && declarationRef.current?.runtimeSessionId===session});
-        bindingsRef.current.set(accepted.job.jobId,{binding:accepted.binding,contextKey});
-        const observation=boundedCandyJobObservation(accepted.job);
-        setState(current=>({...current,selectedJob:observation,selectedMotifResult:null,jobs:[...current.jobs.filter(item=>item.jobId!==observation.jobId),observation].slice(-8)}));
-        return {ok:true,job:observation,nativeJobCreated:true,workspaceMutated:false};
-      } catch(error) {return {ok:false,classification:error.code??error.classification??"ALGORITHM_FAILURE",error:error.message,nativeJobCreated:false,workspaceMutated:false};}
+      return {ok:false,classification,error:error.message};
     }
-    const safety = validateCandySubmissionIntent(argumentsValue, graph);
-    if (!safety.ok) return { ok: false, classification: safety.classification, error: safety.message, nativeJobCreated: false, implicitProjectionPerformed: false };
-    const advertised = state.capabilities.some(capability => capability.backend === argumentsValue.backend && capability.modes.includes(argumentsValue.mode));
-    if (!advertised) return { ok: false, classification: "BACKEND_UNAVAILABLE", error: `${argumentsValue.backend} is not currently advertised for ${argumentsValue.mode}. No fallback backend was selected.`, nativeJobCreated: false, implicitProjectionPerformed: false };
-    return { ok: false, classification: "INVALID_GRAPH_SCHEMA", error: "This Hypergraph Studio does not currently expose an authoritative ordinary-graph artifact to CANDY. Importing or projecting one requires a separately authorized workflow.", nativeJobCreated: false };
-  }, [graph, graphType, graphId, graphVersion, state.capabilities,state.authorized,enabled,client,graphValue,pendingUpdate,contextKey]);
+  },[controller,enabled,live]);
 
+  useEffect(()=>{
+    if(!state.authorized || !live.getDeclaration()) return;
+    const intersection=intersectCandyCapabilities(live.getDeclaration(),{authorized:true,graphType:graphType ?? "__NO_ACTIVE_GRAPH__"});
+    setState(current=>({...current,capabilityStatus:intersection.status,capabilityReason:intersection.reason,capabilities:intersection.capabilities}));
+  },[graphType,state.authorized,live]);
+
+  const submitFromAssistant = useCallback(async (argumentsValue,confirmation) => {
+    if(["CUDA_STATIC","CUDA_INCREMENTAL"].includes(argumentsValue.backend)) return controller.submit(argumentsValue,confirmation);
+    const safety=validateCandySubmissionIntent(argumentsValue,{graphType});
+    return {ok:false,classification:safety.ok?"INVALID_GRAPH_SCHEMA":safety.classification,
+      error:safety.ok?"No authoritative ordinary-graph artifact is exposed; projection requires a separate workflow.":safety.message,nativeJobCreated:false,implicitProjectionPerformed:false};
+  },[controller,graphType]);
+
+  const availability=mode=>{
+    const backend=mode==="STATIC"?"CUDA_STATIC":"CUDA_INCREMENTAL";
+    const capability=state.capabilities.find(cap=>cap.backend===backend);
+    return motifPreflight({graph:authoritativeGraph,pendingUpdate:authoritativePending,runtime:state,
+      argumentsValue:{mode,backend,deviceId:capability?.devices?.[0]?.id,timeoutMs:5000,
+      ...(mode==="INCREMENTAL"?{updateContextId:authoritativePending?.updateId}:{})}});
+  };
+  const resultEvidence=controller.currentResult({applicationBinding,runtimeSessionId:state.runtimeSessionId});
   return {
-    state: Object.freeze({ ...state, graphType, graphId, graphVersion, edgeCount, pendingUpdateContext: graphType === "DynamicHypergraph" && pendingUpdate ? {updateId:pendingUpdate.updateId,baseGraphRef:pendingUpdate.baseGraphRef,nextGraphVersion:pendingUpdate.nextGraphVersion} : null }),
-    actions: Object.freeze({ pair, discover, getJobStatus, cancelJob, openResult, submitFromAssistant }),
+    state:Object.freeze({...state,graphType,graphId,graphVersion,graphFingerprint,edgeCount,vertexCount,
+      motifContextVersion:contextKey,applicationBinding,analysisStatus:analysis.status,
+      lastError:analysis.lastError ?? state.lastError,jobs:analysis.job?[analysis.job]:[],selectedJob:analysis.job,
+      selectedMotifResult:resultEvidence?.result ?? null,resultEvidence,
+      staticAvailability:availability("STATIC"),incrementalAvailability:availability("INCREMENTAL"),
+      pendingUpdateContext:authoritativePending?.status==="VALIDATED" && authoritativePending.motifImpact==="CHANGED"
+        ? Object.freeze({...applicationBinding,baseGraphRef:authoritativePending.baseGraphRef}):null}),
+    actions:Object.freeze({pair,discover,stageMotifAnalysis:controller.stage,getJobStatus:controller.getJobStatus,
+      cancelJob:controller.cancelJob,openResult:controller.openResult,submitFromAssistant}),
   };
 }
