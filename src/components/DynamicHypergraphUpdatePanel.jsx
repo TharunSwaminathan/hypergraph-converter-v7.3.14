@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { T } from "../theme.js";
 import { getConfirmationCopy } from "../agent/confirmationPolicy.js";
 import CandyMotifResult from "./CandyMotifResult.jsx";
@@ -9,6 +9,13 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const lock = useRef(false);
+  const ownedRef = useRef(null);
+  useEffect(() => { ownedRef.current = { approval, controls }; }, [approval, controls]);
+  useEffect(() => () => {
+    const owned = ownedRef.current;
+    if (owned?.approval?.kind === "apply") owned.controls.cancelApply(owned.approval.token);
+    if (owned?.approval?.kind === "analysis") owned.controls.cancelAnalysisConfirmation(owned.approval.token);
+  }, []);
   const selector = pending && { updateId: pending.updateId, revision: pending.revision };
   const validated = graphType === "DynamicHypergraph" && pending?.status === "VALIDATED";
   const analysisBusy = ["STAGED", "RUNNING"].includes(candy?.analysisStatus);
@@ -27,6 +34,7 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
   }
   function cancel() {
     if (approval?.kind === "apply") controls.cancelApply(approval.token);
+    if (approval?.kind === "analysis") controls.cancelAnalysisConfirmation(approval.token);
     setApproval(null);
   }
   function request(kind) {
@@ -41,6 +49,7 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
   return <section aria-label="Dynamic Hypergraph pending update" style={{ marginTop: 18, padding: 20, border: `1px solid ${T.border}`, borderRadius: 12, background: T.card }}>
     <h3 style={{ marginTop: 0 }}>Dynamic Hypergraph Update</h3>
     <p>Author Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.</p>
+    <p>Workspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.</p>
     <dl className="agent-model__details">
       <div><dt>Graph type</dt><dd>{graphType}</dd></div>
       <div><dt>Pending status</dt><dd>{pending?.status ?? "NONE"}</dd></div>

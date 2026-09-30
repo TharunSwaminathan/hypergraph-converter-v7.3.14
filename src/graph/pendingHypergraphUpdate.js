@@ -22,13 +22,16 @@ let fallbackUpdateId = 0;
 
 export function createPendingHypergraphUpdateSession() {
   const session = Object.freeze({ kind: "PendingDynamicHypergraphUpdateSession" });
-  SESSION_STATE.set(session, { nextRevision: 0, currentUpdateId: null, records: new Map() });
+  SESSION_STATE.set(session, { active: true, nextRevision: 0, currentUpdateId: null, records: new Map() });
   return session;
 }
 
 export function createPendingHypergraphUpdateDraft({ session, graphState, plan, previousPending = null } = {}) {
   requireDynamicGraph(graphState);
   const ledger = requireSession(session);
+  if (ledger.records.get(ledger.currentUpdateId)?.lifecycle === "applying") {
+    failCandy(CANDY_ERROR_CODES.INVALID_UPDATE_BATCH, "An Apply transition is already in progress.");
+  }
   const validation = validateMutationPlan(plan, graphState.hyperedges ?? [], graphIdentityFromState(graphState));
   if (!validation.ok) failCandy(CANDY_ERROR_CODES.INVALID_UPDATE_BATCH, "GraphMutationPlan cannot become a pending update draft.", { errors: validation.errors });
   if (plan.planHash !== mutationPlanHash(plan)) failCandy(CANDY_ERROR_CODES.INVALID_UPDATE_BATCH, "GraphMutationPlan hash is stale.");
@@ -206,6 +209,15 @@ export function createPendingHypergraphUpdateController({ getGraphState, commit,
     session,
     getCurrent: () => current,
     subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); },
+    activate() { SESSION_STATE.get(session).active = true; },
+    dispose() {
+      const ledger = SESSION_STATE.get(session);
+      ledger.active = false;
+      for (const record of ledger.records.values()) record.lifecycle = "revoked";
+      ledger.currentUpdateId = null;
+      ledger.records.clear();
+      publish(null);
+    },
     createDraft(plan) {
       publish(createPendingHypergraphUpdateDraft({ session, graphState: getGraphState(), plan, previousPending: current }));
       return current;
@@ -242,6 +254,7 @@ export function createPendingHypergraphUpdateController({ getGraphState, commit,
           commit,
           getCurrentGraphState: getGraphState,
         });
+        requireSession(session);
         publish(null);
         return result;
       } catch (error) {
@@ -343,7 +356,7 @@ function matchesBaseGraph(pendingUpdate, graphState) {
 
 function requireSession(session) {
   const value = SESSION_STATE.get(session);
-  if (!value) throw new TypeError("A live pending-update browser session is required.");
+  if (!value?.active) throw new TypeError("A live pending-update browser session is required.");
   return value;
 }
 

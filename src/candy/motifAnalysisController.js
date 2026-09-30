@@ -13,7 +13,7 @@ const rejected = error => ({ok:false,classification:error.code ?? error.classifi
 export function createMotifAnalysisController({ getContext, getClient }) {
   const registry = createMotifResultRegistry(), listeners = new Set();
   let state=Object.freeze({status:"NONE",job:null,resultEvidence:null,lastError:null});
-  let epoch=0, active=true, approval=null, jobBinding=null, currentKey=null;
+  let epoch=0, resultReadEpoch=0, active=true, approval=null, jobBinding=null, currentKey=null;
   const emit = patch => { state=Object.freeze({...state,...patch}); for (const listener of listeners) listener(); };
   const context = () => {
     const value=getContext();
@@ -50,6 +50,9 @@ export function createMotifAnalysisController({ getContext, getClient }) {
     synchronize() { if (currentKey && (currentKey!==context().key || jobBinding && !isCurrent(jobBinding.context,jobBinding.epoch)
       || approval && !isCurrent(approval.context,approval.epoch))) invalidate(); },
     invalidate,
+    cancelConfirmation(token) {
+      if (approval?.token === token) invalidate("NONE");
+    },
     activate() { active=true; },
     dispose() { active=false; invalidate(); listeners.clear(); },
     stage(argumentsValue) {
@@ -95,8 +98,9 @@ export function createMotifAnalysisController({ getContext, getClient }) {
       }
     },
     async getJobStatus(jobId) {
+      let binding;
       try {
-        const binding=requireJob(jobId);
+        binding=requireJob(jobId);
         const job=await binding.client.getJob(jobId); requireJob(jobId); checkJob(job,binding);
         const observation=boundedCandyJobObservation(job);
         if (["failed","cancelled"].includes(job.status)) {
@@ -104,7 +108,13 @@ export function createMotifAnalysisController({ getContext, getClient }) {
           emit({status:job.status==="cancelled"?"CANCELLED":"FAILED",job:observation,resultEvidence:null,lastError:job.error ?? null});
         } else emit({job:observation});
         return {ok:true,job:observation,workspaceMutated:false};
-      } catch(error) { return rejected(error); }
+      } catch(error) {
+        if (binding && jobBinding===binding) {
+          invalidate("FAILED");
+          emit({lastError:{classification:error.code ?? error.classification ?? "BACKEND_UNAVAILABLE",message:error.message}});
+        }
+        return rejected(error);
+      }
     },
     async cancelJob(jobId) {
       try {
@@ -119,9 +129,11 @@ export function createMotifAnalysisController({ getContext, getClient }) {
     },
     async openResult(jobId) {
       let binding;
+      const readGeneration = ++resultReadEpoch;
+      const checkRead = () => { if (readGeneration !== resultReadEpoch) fail("STALE_GRAPH_VERSION", "Result read was superseded."); };
       try {
         binding=requireJob(jobId);
-        const job=await binding.client.getJob(jobId); requireJob(jobId); checkJob(job,binding);
+        const job=await binding.client.getJob(jobId); requireJob(jobId); checkRead(); checkJob(job,binding);
         if (job.status!=="completed") {
           if (["failed","cancelled"].includes(job.status)) {
             jobBinding=null; approval=null; registry.clear();
@@ -129,13 +141,13 @@ export function createMotifAnalysisController({ getContext, getClient }) {
           }
           fail(job.error?.classification ?? "RESULT_VALIDATION_FAILURE","Only a completed current job can supply a result.");
         }
-        const result=await binding.client.getResult(jobId); requireJob(jobId);
-        const evidence=await registry.accept(result,binding.binding,()=>isCurrent(binding.context,binding.epoch) && jobBinding===binding);
-        requireJob(jobId);
+        const result=await binding.client.getResult(jobId); requireJob(jobId); checkRead();
+        const evidence=await registry.accept(result,binding.binding,()=>readGeneration===resultReadEpoch && isCurrent(binding.context,binding.epoch) && jobBinding===binding);
+        requireJob(jobId); checkRead();
         emit({status:"RESULT_READY",resultEvidence:evidence,job:boundedCandyJobObservation(evidence.result)});
         return {ok:true,observation:state.job,workspaceMutated:false};
       } catch(error) {
-        if (binding && jobBinding===binding) { registry.clear(); jobBinding=null; emit({status:"FAILED",resultEvidence:null,lastError:{classification:error.code ?? error.classification,message:error.message}}); }
+        if (readGeneration===resultReadEpoch && binding && jobBinding===binding) { registry.clear(); jobBinding=null; emit({status:"FAILED",resultEvidence:null,lastError:{classification:error.code ?? error.classification,message:error.message}}); }
         return rejected(error);
       }
     },

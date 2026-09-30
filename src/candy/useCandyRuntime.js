@@ -7,7 +7,16 @@ import { createMotifAnalysisController } from "./motifAnalysisController.js";
 import { motifApplicationBinding, motifAuthorityKey, motifPreflight } from "./motifPreflight.js";
 
 const TOKEN_KEY = "hypergraph-studio.candy-runtime-token.session";
-const safeSession = () => typeof sessionStorage === "undefined" ? null : sessionStorage;
+// Storage may be denied, cleared, or injected. Pairing remains a credential
+// hint only: every new owner starts unauthorized and requires discovery.
+function pairingStorage(value) {
+  try {
+    const storage = globalThis.sessionStorage;
+    if (value === undefined) return storage?.getItem(TOKEN_KEY) ?? "";
+    if (value) storage?.setItem(TOKEN_KEY, value); else storage?.removeItem(TOKEN_KEY);
+  } catch { /* Keep live pairing usable when browser storage is unavailable. */ }
+  return "";
+}
 
 function createLiveContext(initial) {
   let value=initial, declaration=null, generation=0, mounted=true;
@@ -25,7 +34,7 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
     baseUrl:DEFAULT_CANDY_RUNTIME_URL,authorized:false,runtimeVersion:null,runtimeSessionId:null,
     capabilityStatus:"unavailable",capabilityReason:null,runtimeCapabilityStatus:"unavailable",
     capabilities:[],runtimeCapabilities:[],lastError:null }));
-  const [live] = useState(() => createLiveContext({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,token:safeSession()?.getItem(TOKEN_KEY) ?? ""}));
+  const [live] = useState(() => createLiveContext({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,token:pairingStorage()}));
   const [controller] = useState(() => createMotifAnalysisController({
     getContext:()=>{
       const current=live.get();
@@ -53,7 +62,7 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
     const token=String(value ?? "").trim();
     live.nextDiscovery(); controller.invalidate();
     live.update({token}); live.setDeclaration(null);
-    if (token) safeSession()?.setItem(TOKEN_KEY,token); else safeSession()?.removeItem(TOKEN_KEY);
+    pairingStorage(token);
     const next={...live.get().state,authorized:false,status:token?"not_discovered":"unauthorized",runtimeSessionId:null,
       capabilities:[],runtimeCapabilities:[],capabilityStatus:"unavailable",capabilityReason:null,runtimeCapabilityStatus:"unavailable",lastError:null};
     live.update({state:next}); setState(next);
@@ -123,7 +132,7 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
       staticAvailability:availability("STATIC"),incrementalAvailability:availability("INCREMENTAL"),
       pendingUpdateContext:authoritativePending?.status==="VALIDATED" && authoritativePending.motifImpact==="CHANGED"
         ? Object.freeze({...applicationBinding,baseGraphRef:authoritativePending.baseGraphRef}):null}),
-    actions:Object.freeze({pair,discover,stageMotifAnalysis:controller.stage,getJobStatus:controller.getJobStatus,
+    actions:Object.freeze({pair,discover,stageMotifAnalysis:controller.stage,cancelMotifConfirmation:controller.cancelConfirmation,getJobStatus:controller.getJobStatus,
       cancelJob:controller.cancelJob,openResult:controller.openResult,submitFromAssistant}),
   };
 }

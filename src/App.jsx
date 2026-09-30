@@ -289,6 +289,11 @@ function AppCore() {
     getGraphState: () => graphStateRef.current,
     getCandy: () => candyRuntimeRef.current,
   }));
+  useEffect(() => {
+    const owner = pendingHypergraphUpdateControllerRef.current;
+    owner.activate();
+    return () => { dynamicUpdateControls.invalidateApply(); owner.dispose(); };
+  }, [dynamicUpdateControls]);
   const [pendingPreviewRequested, setPendingPreviewRequested] = useState(false);
   const [vizLimit, setVizLimit] = useState(50); const [activeSection, setActiveSection] = useState("mappings");
   const [selectedMappingId, setSelectedMappingId] = useState("h2v");
@@ -4928,6 +4933,7 @@ function AppCore() {
     discoverCandyRuntime: candyRuntime.actions.discover,
     submitCandyJob: candyRuntime.actions.submitFromAssistant,
     stageCandyMotifAnalysis: argumentsValue => { dynamicUpdateControls.invalidateApply(); return candyRuntime.actions.stageMotifAnalysis(argumentsValue); },
+    cancelCandyMotifConfirmation: candyRuntime.actions.cancelMotifConfirmation,
     getCandyJobStatus: candyRuntime.actions.getJobStatus,
     cancelCandyJob: dynamicUpdateControls.cancelAnalysis,
     openCandyResult: candyRuntime.actions.openResult,

@@ -276,6 +276,19 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   const reactContinuationRef = useRef(null);
   const handledExternalMotifRequestRef = useRef(null);
   const confirmedActionIdsRef = useRef(new Set());
+  const mountedRef = useRef(true);
+  const pendingOwnerRef = useRef(null);
+  useEffect(() => { pendingOwnerRef.current = { action: pendingAction, actions: agentActions }; }, [pendingAction, agentActions]);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      abortControllerRef.current?.abort();
+      const owned = pendingOwnerRef.current;
+      if (owned?.action?.applyConfirmation) owned.actions.cancelDynamicUpdateApply?.(owned.action.applyConfirmation);
+      if (owned?.action?.motifConfirmation) owned.actions.cancelCandyMotifConfirmation?.(owned.action.motifConfirmation);
+    };
+  }, []);
   const externalMotifRequestHandlerRef = useRef(null);
   const activeBatchSignature = activeBatchFileSignature(agentState);
   const hasSpecialist = Boolean(agentState.specialist);
@@ -1493,6 +1506,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   }
 
   async function executeReactCapability(step, query) {
+    if (!mountedRef.current) return executionOutcome({ ok: false, outcome: "unmounted", stop: true });
     let { action, arguments: argumentsValue } = step;
     let preparedAnalysis = null;
     const argumentErrors = validateReactActionArguments(action, argumentsValue);
@@ -2322,6 +2336,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       deterministicFirst: options.deterministicFirst === true,
       conversation: buildPanelSessionContext(query, pending).conversation,
     });
+    if (!mountedRef.current) return { handled: true, outcome: "unmounted", tracePatch: {} };
     const tracePatch = graphTracePatchFromResult(result);
     if (result.noMatch) return { handled: false, outcome: "not_handled", result, tracePatch };
     if (result.needsClarification) {
@@ -2596,6 +2611,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   }
 
   async function confirmPending({ allowWhileRouting = false } = {}) {
+    if (!mountedRef.current) return executionOutcome({ ok: false, outcome: "unmounted", stop: true });
     if (!pendingAction || (busy && !allowWhileRouting)) return executionOutcome({ ok: false, outcome: "not_confirmed" });
     const action = pendingAction;
     if (confirmedActionIdsRef.current.has(action.confirmationToken?.id)) return executionOutcome({ ok: false, outcome: "confirmation_consumed" });
@@ -2773,6 +2789,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   function cancelPending() {
     if (busy) return;
     if (pendingAction?.applyConfirmation) agentActions.cancelDynamicUpdateApply?.(pendingAction.applyConfirmation);
+    if (pendingAction?.motifConfirmation) agentActions.cancelCandyMotifConfirmation?.(pendingAction.motifConfirmation);
     setPendingAction(null);
     append("agent", "Action cancelled. No changes were made.", "status");
   }
@@ -2970,6 +2987,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
             <div role="status" className="agent-status">
               {persistence.error || (persistence.status === "loading" ? "Restoring saved thread…" : "Chat saved on this browser. Workspace references never grant execution permission.")}
             </div>
+            {persistence.restoredWorkspace && <p role="status">Restored messages are historical context. No graph, pending update, confirmation, Runtime job or current result was restored. Reload the graph and review any requested change again.</p>}
             {persistence.restoredWorkspace?.requiresReupload && !agentState.agentFileCount && <details className="agent-upload">
               <summary>Saved workspace requires re-upload</summary>
               <p>Re-upload {persistence.restoredWorkspace.files.map(file => file.name).join(", ")}. Saved parser and graph references are historical; no files or approvals were restored.</p>

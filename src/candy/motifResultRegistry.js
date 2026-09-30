@@ -2,16 +2,17 @@ import { validateBrowserMotifResult } from "./motifWorkflow.js";
 import { motifAuthorityKey } from "./motifPreflight.js";
 
 export function createMotifResultRegistry() {
-  let evidence = null;
+  let evidence = null, epoch = 0;
   return Object.freeze({
-    clear() { evidence = null; },
+    clear() { epoch++; evidence = null; },
     getCurrent({ applicationBinding, runtimeSessionId }) {
       return evidence && evidence.runtimeSessionId === runtimeSessionId
         && motifAuthorityKey(evidence.applicationBinding) === motifAuthorityKey(applicationBinding) ? evidence : null;
     },
     async accept(result, binding, isCurrent = () => true) {
+      const generation = ++epoch;
       const check = () => {
-        if (!isCurrent()) throw Object.assign(new Error("Result authority is stale or abandoned."), {code:"STALE_GRAPH_VERSION"});
+        if (generation !== epoch || !isCurrent()) throw Object.assign(new Error("Result authority is stale or abandoned."), {code:"STALE_GRAPH_VERSION"});
       };
       check();
       if (!binding?.applicationBinding || !binding.jobId || !binding.nativeRequestDigest)

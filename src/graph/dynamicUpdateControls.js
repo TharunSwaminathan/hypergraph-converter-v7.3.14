@@ -86,7 +86,14 @@ export function createDynamicUpdateControls({ pendingController, getGraphState, 
     },
     cancelApply(approval) { if (approval === applyApproval) applyApproval = null; },
     invalidateApply() { applyApproval = null; },
-    isApplyCurrent: approval => approval === applyApproval && analysisKey() === applyAnalysisKey,
+    isApplyCurrent: approval => {
+      const pending = current(), graph = getGraphState();
+      return Boolean(approval && approval === applyApproval && analysisKey() === applyAnalysisKey
+        && Date.now() <= approval.expiresAt && pending?.status === "VALIDATED"
+        && approval.pendingUpdateId === pending.updateId && approval.pendingUpdateRevision === pending.revision
+        && approval.graphId === graph.graphId && approval.graphVersion === graph.graphVersion
+        && approval.graphFingerprint === graph.graphFingerprint && approval.graphType === graph.graphType);
+    },
     requestAnalysis(selector) {
       applyApproval = null;
       const pending = exact(selector), candy = getCandy(), availability = candy.state.incrementalAvailability;
@@ -100,6 +107,7 @@ export function createDynamicUpdateControls({ pendingController, getGraphState, 
       const result = await getCandy().actions.submitFromAssistant(argumentsValue, approval);
       return { ...result, pending: observe() };
     },
+    cancelAnalysisConfirmation: approval => getCandy().actions.cancelMotifConfirmation?.(approval),
     refreshAnalysis: jobId => getCandy().actions.getJobStatus(jobId),
     openAnalysisResult: jobId => getCandy().actions.openResult(jobId),
     cancelAnalysis(jobId) { applyApproval = null; return getCandy().actions.cancelJob(jobId); },
