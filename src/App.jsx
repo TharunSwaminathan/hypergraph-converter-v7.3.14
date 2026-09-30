@@ -144,6 +144,7 @@ import {
 import { createMutationPlan } from "./graph/graphMutationValidator.js";
 import { previewGraphMutation } from "./graph/graphMutationPreview.js";
 import { createGraphHistoryEvent, appendGraphHistory } from "./graph/graphHistory.js";
+import { createPendingHypergraphUpdateController } from "./graph/pendingHypergraphUpdate.js";
 import { compileGraphMutationGrammar } from "./agent/deterministicNlu/domains/graphMutationGrammar.js";
 import {
   isPlausibleGraphMutationText,
@@ -258,6 +259,21 @@ function AppCore() {
   // (batchWarnings is derived below, together with finalHes)
   // Output state
   const [graphState, setGraphState] = useState(() => createGraphState()); const [warnings, setWarnings] = useState([]); const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
+  const [graphHistory, setGraphHistory] = useState([]);
+  const graphStateRef = useRef(graphState);
+  graphStateRef.current = graphState;
+  const graphHistoryRef = useRef(graphHistory);
+  graphHistoryRef.current = graphHistory;
+  const commitGraphControllerRef = useRef(null);
+  const pendingHypergraphUpdateControllerRef = useRef(null);
+  if (!pendingHypergraphUpdateControllerRef.current) {
+    // Scope 5B owns one browser-session authority aggregate. UI/Assistant staging remains inaccessible until Scope 5D.
+    pendingHypergraphUpdateControllerRef.current = createPendingHypergraphUpdateController({
+      getGraphState: () => graphStateRef.current,
+      getHistory: () => graphHistoryRef.current,
+      commit: (hyperedges, options) => commitGraphControllerRef.current(hyperedges, options),
+    });
+  }
   const [vizLimit, setVizLimit] = useState(50); const [activeSection, setActiveSection] = useState("mappings");
   const [selectedMappingId, setSelectedMappingId] = useState("h2v");
   const [expId, setExpId] = useState("h2v_txt");
@@ -271,7 +287,6 @@ function AppCore() {
   const [graphPngNonce, setGraphPngNonce] = useState(0);
   const [statsMotifRequest, setStatsMotifRequest] = useState(null);
   const statsMotifRequestCounterRef = useRef(0);
-  const [graphHistory, setGraphHistory] = useState([]);
   const [selectedGraphEntity, setSelectedGraphEntity] = useState(null);
   const [selectionNotice, setSelectionNotice] = useState("");
   const [graphConversationReferences, setGraphConversationReferences] = useState(() => createGraphConversationReferences());
@@ -338,6 +353,11 @@ function AppCore() {
     const normalizedNext = nextHyperedges?.length ? nextHyperedges : null;
     const nextState = commitGraphState(graphState, normalizedNext, { replacement, clear, graphType });
     const graphChanged = nextState.graphFingerprint !== graphState.graphFingerprint;
+    const graphAuthorityChanged = nextState.graphId !== graphState.graphId
+      || nextState.graphVersion !== graphState.graphVersion
+      || nextState.graphFingerprint !== graphState.graphFingerprint
+      || nextState.graphType !== graphState.graphType;
+    graphStateRef.current = nextState;
     setGraphState(nextState);
     if (Array.isArray(nextWarnings)) setWarnings(nextWarnings);
     if (graphChanged) {
@@ -354,6 +374,9 @@ function AppCore() {
       setSelectedGraphEntity(null);
       setSelectionNotice("Selection cleared because the graph changed.");
     }
+    if (graphAuthorityChanged && source !== "pending_dynamic_hypergraph_update") {
+      pendingHypergraphUpdateControllerRef.current.onGraphTransition(nextState, "COMMITTED_GRAPH_AUTHORITY_CHANGED");
+    }
     return {
       ok: true,
       graphId: nextState.graphId,
@@ -364,6 +387,7 @@ function AppCore() {
       hyperedgeCount: normalizedNext?.length ?? 0,
     };
   }, [graphState]);
+  commitGraphControllerRef.current = commitGraph;
 
   const setTxt = useCallback(v => {
     setTexts(previous => ({ ...previous, [fmt]: v }));

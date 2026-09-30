@@ -51,6 +51,11 @@ export const CONFIRMATION_POLICY = Object.freeze({
     title: "Apply graph mutation?",
     message: "This conversational edit will change the committed graph after deterministic validation. Continue?",
   }),
+  apply_pending_hypergraph_update: Object.freeze({
+    required: true,
+    title: "Apply pending DynamicHypergraph update?",
+    message: "This separately authorized action commits the exact validated pending revision once. It does not run CANDY analysis.",
+  }),
   undo_graph_mutation: Object.freeze({
     required: true,
     title: "Undo last graph mutation?",
