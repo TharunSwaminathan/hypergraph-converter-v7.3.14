@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "candy.scope5d-qualification/1",
+  "scope": "CANDY Scope 5D",
+  "decision": "PASS",
+  "branch": "candy-integration-scope5d-ui-assistant",
+  "startingSha": "adad84847dac54261f3036dc488c35ed4caef3e7",
+  "finalHead": "adad84847dac54261f3036dc488c35ed4caef3e7",
+  "qualifiedTags": {
+    "candy-integration-scope5c-runtime-binding-qualified": "adad84847dac54261f3036dc488c35ed4caef3e7",
+    "candy-integration-scope5b-pending-update-qualified": "3379e0102704521960a5ccc1185a14a2beb2725d",
+    "candy-integration-scope5a-graph-state-qualified": "eb829fb627de349be99d440ebfed11990f76837e"
+  },
+  "exitCriteria": [
+    {
+      "id": 1,
+      "requirement": "Complete manual workflow",
+      "status": "PASS"
+    },
+    {
+      "id": 2,
+      "requirement": "Assistant shares qualified controllers",
+      "status": "PASS"
+    },
+    {
+      "id": 3,
+      "requirement": "No second graph/update/result authority",
+      "status": "PASS"
+    },
+    {
+      "id": 4,
+      "requirement": "Stage/edit/discard noncommitting",
+      "status": "PASS"
+    },
+    {
+      "id": 5,
+      "requirement": "Analysis separate",
+      "status": "PASS"
+    },
+    {
+      "id": 6,
+      "requirement": "Apply separate and optional analysis",
+      "status": "PASS"
+    },
+    {
+      "id": 7,
+      "requirement": "Confirmation actions cannot cross",
+      "status": "PASS"
+    },
+    {
+      "id": 8,
+      "requirement": "No automatic stage/analyze/apply",
+      "status": "PASS"
+    },
+    {
+      "id": 9,
+      "requirement": "Truthful signed delta-only display",
+      "status": "PASS"
+    },
+    {
+      "id": 10,
+      "requirement": "Visible fail-closed stale state",
+      "status": "PASS"
+    },
+    {
+      "id": 11,
+      "requirement": "Bounded closed Assistant selectors",
+      "status": "PASS"
+    },
+    {
+      "id": 12,
+      "requirement": "Re-observation after lifecycle transitions",
+      "status": "PASS"
+    },
+    {
+      "id": 13,
+      "requirement": "Scope 5A/5B/5C green",
+      "status": "PASS"
+    },
+    {
+      "id": 14,
+      "requirement": "Full tests/build/lint/audit pass",
+      "status": "PASS"
+    },
+    {
+      "id": 15,
+      "requirement": "No unresolved High security issue",
+      "status": "PASS"
+    },
+    {
+      "id": 16,
+      "requirement": "Runtime/native source unchanged",
+      "status": "PASS"
+    }
+  ],
+  "gates": {
+    "focusedTests": "PASS 3/3 files",
+    "fullTests": "PASS 263/263 files",
+    "lint": "PASS",
+    "productionBuild": "PASS",
+    "githubPagesBuild": "PASS",
+    "productionDependencyAudit": "PASS 0 vulnerabilities",
+    "gitDiffCheck": "PASS",
+    "targetedSecurityReview": "Complete / 18 production files / 0 findings / unresolved High=0 / exact final snapshot"
+  },
+  "securityScan": {
+    "scanId": "ae750a68-1c9c-4a3a-bea9-fa02825727c9",
+    "status": "complete",
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:1058802432100fa872a65ddefec3f756d615f83dc9dc740c06ed7ddca017c2cd",
+    "coverage": "complete",
+    "reviewedProductionFiles": 18,
+    "findings": 0,
+    "unresolvedHigh": 0,
+    "warnings": [],
+    "completedAtUtc": "2026-09-30T14:54:11.316437Z",
+    "reportPath": "C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14\\adad84847dac54261f3036dc488c35ed4caef3e7_20260930T145119Z_gm2smd1y\\report.md",
+    "canonicalThreatModelSha256": "ef6bbf480db34573a2e8b19e1aaada25090c794e25dc8466bc4b0f472534766a",
+    "measuredUsage": {
+      "cacheWriteInputTokens": 0,
+      "cachedInputTokens": 645632,
+      "coverage": "complete",
+      "inputTokens": 657855,
+      "outputTokens": 3085,
+      "reasoningOutputTokens": 531,
+      "source": "codex_rollout",
+      "threadCount": 1,
+      "totalTokens": 660940,
+      "attribution": "Tool-reported rollout usage during final follow-up scan; not claimed as isolated fresh review tokens."
+    },
+    "priorCorrectiveScanId": "4e4fe4bb-55cd-4a16-b685-e3f96c51a911"
+  },
+  "finalProductionHashes": [
+    {
+      "path": "src/App.jsx",
+      "sha256": "4a83729a56dbc3fa2cfa04b6c4ab6bd9ee2b52311c65777a2c9ab06ac2b35b35"
+    },
+    {
+      "path": "src/agent/confirmationPolicy.js",
+      "sha256": "65c4ab6ec310350ad0bf3ae46a2605c4c98bf2d27a20d5f9c8bc1c92e0e61b05"
+    },
+    {
+      "path": "src/agent/deterministicNlu/domains/graphMutationGrammar.js",
+      "sha256": "6ba6ca4e7742ca722bbc45421759e0ac3038eb6718159de12b79329c9478f735"
+    },
+    {
+      "path": "src/agent/deterministicNlu/graphOperationAuthorization.js",
+      "sha256": "ea7c443dab1cbbdfe9ee2f51c4ab3099b28b24ecac4dc67d4bd4751eac48f3d5"
+    },
+    {
+      "path": "src/agent/dynamicUpdatePolicy.js",
+      "sha256": "6695426d765f027421381ce7a370ea7dfd55eae70947bff476e3dfea4e3c7e30"
+    },
+    {
+      "path": "src/agent/motifQueryPolicy.js",
+      "sha256": "62522bd2899f2cba62800361fe5825f7d953114e65c5c7f31e6778187eb5e80b"
+    },
+    {
+      "path": "src/agent/orchestratorCapabilities.js",
+      "sha256": "d3b0df61ac096dea46b0de1834c1a5b040d11bfb09512a126a43e051a10b9892"
+    },
+    {
+      "path": "src/agent/orchestratorLoop.js",
+      "sha256": "c9fa1c917a9c06fa29d03c0266c8d2833c16bf934b6c94e57660b2e2d71119e6"
+    },
+    {
+      "path": "src/agent/orchestratorObservation.js",
+      "sha256": "63eaa032b87670cff9c08ba76ce8ce3843bae770d974738f47349687aa43382d"
+    },
+    {
+      "path": "src/agent/prompts/reactOrchestratorPrompt.js",
+      "sha256": "e0c697fa44d75f954c333ea03054b6440274784bbc05fc070f1e0053450b44be"
+    },
+    {
+      "path": "src/components/AdvancedOptionsPanel.jsx",
+      "sha256": "5a6ad848204718676914c6cab3ac5675ed0e273f6606c8364e4c362068299666"
+    },
+    {
+      "path": "src/components/AgentChatPanel.jsx",
+      "sha256": "5691792854e8b581470e1e2d4319afe57bfacf082e6f993f444b3b437c967d07"
+    },
+    {
+      "path": "src/components/CandyMotifResult.jsx",
+      "sha256": "dcac12669fff8448a763e71690b2a971faae59f0cd3f2aa99d6cd1c268d477be"
+    },
+    {
+      "path": "src/components/CandyRuntimePanel.jsx",
+      "sha256": "ed40be31eb85d9bc25e67102513a10cec2eb9ff3fcd439354728a0171134a709"
+    },
+    {
+      "path": "src/components/DynamicHypergraphUpdatePanel.jsx",
+      "sha256": "014e2bb3b71023cce73f8fb25fdb81fcf9b5b64c26e40706765d155f1966b0cb"
+    },
+    {
+      "path": "src/components/Viz.jsx",
+      "sha256": "ade887a08aab2551b1c5fb752bb2a7a8e13aee834d20181362857ba95cd4d4ec"
+    },
+    {
+      "path": "src/graph/dynamicUpdateControls.js",
+      "sha256": "7e89ab48cce00cbb8ae00084ad92578a5e4c1d73fcf8d873837dfbd3d877991e"
+    },
+    {
+      "path": "src/visualization/dynamicUpdatePreview.js",
+      "sha256": "9695c1f14efaae917c1415548099cbddd5916d713a08c212da2a4f71c088474f"
+    }
+  ],
+  "protectedDeltas": {
+    "runtimeProductionFiles": 0,
+    "nativeCudaFiles": 0,
+    "dependencyManifestFiles": 0,
+    "earlierEvidenceFiles": 0,
+    "qualifiedTagChanges": 0
+  },
+  "finalInventory": {
+    "modified": [
+      "src/App.jsx",
+      "src/agent/confirmationPolicy.js",
+      "src/agent/deterministicNlu/domains/graphMutationGrammar.js",
+      "src/agent/deterministicNlu/graphOperationAuthorization.js",
+      "src/agent/motifQueryPolicy.js",
+      "src/agent/orchestratorCapabilities.js",
+      "src/agent/orchestratorLoop.js",
+      "src/agent/orchestratorObservation.js",
+      "src/agent/prompts/reactOrchestratorPrompt.js",
+      "src/components/AdvancedOptionsPanel.jsx",
+      "src/components/AgentChatPanel.jsx",
+      "src/components/CandyMotifResult.jsx",
+      "src/components/CandyRuntimePanel.jsx",
+      "src/components/Viz.jsx",
+      "tests/agent-chat-panel-dom-v7-3-13.test.mjs",
+      "tests/candy-scope5-graph-state.test.mjs",
+      "tests/candy-scope5-runtime-integration.test.mjs"
+    ],
+    "added": [
+      "src/agent/dynamicUpdatePolicy.js",
+      "src/components/DynamicHypergraphUpdatePanel.jsx",
+      "src/graph/dynamicUpdateControls.js",
+      "src/visualization/dynamicUpdatePreview.js",
+      "tests/candy-scope5d-assistant.test.mjs",
+      "tests/candy-scope5d-lifecycle.test.mjs",
+      "tests/candy-scope5d-ui.test.mjs",
+      "tests/fixtures/candy-scope5d-controls.mjs",
+      "artifacts/candy-scope5d-implementation-report.md",
+      "artifacts/candy-scope5d-test-results.json",
+      "artifacts/candy-scope5d-security-review.md",
+      "artifacts/candy-scope5d-qualification.json"
+    ],
+    "modifiedTrackedCount": 17,
+    "addedUntrackedCount": 12,
+    "total": 29,
+    "productionFiles": 18,
+    "testFixtureFiles": 7,
+    "evidenceFiles": 4,
+    "stagedFiles": 0
+  },
+  "repositoryState": {
+    "allUncommitted": true,
+    "committed": false,
+    "tagged": false,
+    "pushed": false,
+    "merged": false,
+    "reset": false,
+    "amended": false,
+    "historyRewritten": false,
+    "noProductSourceChangedAfterFinalGreenRun": true
+  },
+  "liveRuntime": {
+    "newExecution": false,
+    "previousEvidenceUnchanged": true
+  },
+  "deferred": [
+    "Scope 5E broad persistence, multi-tab recovery and concurrency hardening",
+    "Scope 5F final live application/CUDA qualification",
+    "Optional authoritative prior STATIC reconstruction"
+  ],
+  "hardStop": "After Scope 5D report"
+}
+

@@ -147,7 +147,8 @@ const observation = buildAuthoritativeOrchestratorObservation({
 });
 assert.equal(observation.graph.graphType, GRAPH_TYPES.DYNAMIC_HYPERGRAPH);
 assert.equal(observation.graph.fingerprint, dynamic.graphFingerprint);
-assert.equal(observation.availableCapabilities.some(capability => /GRAPH_TYPE|DYNAMIC_HYPERGRAPH/.test(capability)), false);
+assert.equal(observation.availableCapabilities.some(capability => /GRAPH_TYPE/.test(capability)), false);
+assert.ok(observation.availableCapabilities.includes("STAGE_DYNAMIC_HYPERGRAPH_UPDATE"), "Scope 5D exposes staging on the qualified graph authority");
 
 // App wiring preserves 5A type authority; 5C observes the existing 5B owner.
 const appSource = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8");

@@ -32,13 +32,15 @@ const TRAILING_CONVERSATIONAL_MODIFIERS = [
 export function looksLikeGraphMutationRequest(text = "") {
   const q = String(text ?? "").toLowerCase();
   if (!q.trim()) return false;
+  if (/^(?:delete|remove)\s+h[A-Za-z0-9_.:-]+[.!?]?$/.test(q)) return true;
+  if (/^(?:instead,?\s*)?replace\s+(?:hyperedge\s+|edge\s+)?h[A-Za-z0-9_.:-]+\s+with\b/.test(q)) return true;
   if (/\bwhat\s+(?:is|are)\b.*\b(?:hyperedge|vertex|graph|incidence)\b/.test(q)) return false;
   if (/\b(export|download|show stats|visuali[sz]e|route|tab|upload|parse)\b/.test(q) && !/\b(add|remove|delete|rename|undo|clear|set|change|detach|connect)\b/.test(q)) return false;
   if (/\bwhat would happen if\b/.test(q) && !/\bpreview|show impact|without applying\b/.test(q)) return false;
   if (/\b(?:remove|delete)\s+all\s+hyperedges\b/.test(q)) return true;
   if (/\b(?:add|include|put|insert)\b[\s\S]{1,120}\b(?:to|in|into|inside|within)\b/.test(q)) return true;
   if (/\b(?:take|remove|delete|detach)\b[\s\S]{1,120}\b(?:from|out of)\b/.test(q)) return true;
-  return /\b(add|create|remove|delete|rename|undo|clear|set|change|include|put|insert|detach|connect|needs|belongs|belong|should|make|call|take)\b/.test(q)
+  return /\b(add|create|remove|delete|replace|rename|undo|clear|set|change|include|put|insert|detach|connect|needs|belongs|belong|should|make|call|take)\b/.test(q)
     && (/\b(graph|hyperedge|edge|group|vertex|incidence|weight|time|attribute|attr|everywhere|last mutation|previous mutation|mutation|that|selected)\b/.test(q)
       || /\b(?:to|from|of|in|into|inside|within)\s+h[\w.-]*\b/.test(q)
       || /\b(?:to|from|of|in|into|inside|within)\s+["'`]/.test(q)
@@ -99,6 +101,26 @@ function compileResolvedGraphMutation(raw, {
     legacyParserCalled: false,
   };
   const common = { nlu, hyperedges, graphIdentity, selectedEntity, recentReferences, metadata };
+
+  const bareDelete = raw.match(/^(?:delete|remove)\s+(h[A-Za-z0-9_.:-]+)[.!?]?$/i);
+  if (bareDelete) {
+    const resolved = resolveHyperedgeReference(bareDelete[1], hyperedges, selectedEntity);
+    if (!resolved.ok) return clarification(resolved.error, nlu, "remove_hyperedge");
+    return planResult({ operations: [{ type: GRAPH_MUTATION_OPS.REMOVE_HYPEREDGE, hyperedgeId: resolved.id }],
+      summary: `Delete hyperedge ${resolved.id}.`, intent: "remove_hyperedge", graphIdentity, metadata, nlu });
+  }
+
+  const replacement = raw.match(/^replace\s+(?:hyperedge\s+|edge\s+)?(h[A-Za-z0-9_.:-]+)\s+with\s+(?:vertices\s+)?(.+?)\s*[.!?]?$/i);
+  if (replacement) {
+    const resolved = resolveHyperedgeReference(replacement[1], hyperedges, selectedEntity);
+    if (!resolved.ok) return clarification(resolved.error, nlu, "replace_hyperedge");
+    const vertices = splitGraphEntityList(replacement[2], { kind: "vertex" });
+    if (!vertices.length) return clarification("Specify the replacement memberships.", nlu, "replace_hyperedge");
+    return planResult({ operations: [
+      { type: GRAPH_MUTATION_OPS.REMOVE_HYPEREDGE, hyperedgeId: resolved.id },
+      { type: GRAPH_MUTATION_OPS.ADD_HYPEREDGE, hyperedgeId: resolved.id, vertices },
+    ], summary: `Replace hyperedge ${resolved.id}.`, intent: "replace_hyperedge", graphIdentity, metadata, nlu });
+  }
 
   if (pendingAction?.actionType === "apply_graph_mutation") {
     const correction = compilePendingCorrection(raw, pendingAction, common);
@@ -607,7 +629,7 @@ function graphDraft({
 
 function stripActionPreamble(text = "") {
   return String(text ?? "").trim().replace(
-    /^(?:for\s+(?:the\s+)?current\s+(?:task|graph),?\s*|go\s+ahead\s+and\s+|i\s+want\s+you\s+to\s+|please\s+|now,?\s*|this\s+time,?\s*)/i,
+    /^(?:instead,?\s*|for\s+(?:the\s+)?current\s+(?:task|graph),?\s*|go\s+ahead\s+and\s+|i\s+want\s+you\s+to\s+|please\s+|now,?\s*|this\s+time,?\s*)/i,
     "",
   ).trim();
 }

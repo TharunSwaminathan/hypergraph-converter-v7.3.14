@@ -93,6 +93,8 @@ export const CAPABILITY_CONFIRMATION_ALIASES = Object.freeze({
   PARSE_ACTIVE_BATCH: "parse_uploaded_files",
   SUBMIT_CANDY_JOB: "run_candy_expensive_compute",
   SUBMIT_CANDY_MOTIF_JOB: "run_candy_expensive_compute",
+  ANALYZE_DYNAMIC_HYPERGRAPH_UPDATE: "run_candy_expensive_compute",
+  APPLY_DYNAMIC_HYPERGRAPH_UPDATE: "apply_pending_hypergraph_update",
 });
 
 export const CONFIRMATION_REQUIRED_ACTIONS = new Set(

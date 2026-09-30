@@ -79,7 +79,7 @@ const metadata=await harness({operations:[{type:"SET_HYPEREDGE_WEIGHT",hyperedge
 assert.equal(metadata.pending.getCurrent().motifImpact,"NONE");assert.equal(metadata.analysis.stage(selector(metadata.pending.getCurrent())).ok,false);assert.equal(metadata.counts.uploads,0);
 const app=await readFile(new URL("../src/App.jsx",import.meta.url),"utf8");
 assert.match(app,/pendingController: pendingHypergraphUpdateControllerRef.current/);
-assert.match(app,/stageCandyMotifAnalysis: candyRuntime.actions.stageMotifAnalysis/);
+assert.match(app,/stageCandyMotifAnalysis: argumentsValue => \{ dynamicUpdateControls.invalidateApply\(\); return candyRuntime.actions.stageMotifAnalysis\(argumentsValue\); \}/, "Scope 5D revokes prior Apply approval before delegating to the qualified analysis owner");
 assert.doesNotMatch(await readFile(new URL("../src/candy/useCandyRuntime.js",import.meta.url),"utf8"),/JSON.stringify\(\{graphId,graphVersion,graphType,graphValue,pendingUpdate\}/);
 
 // Actual React hook, authenticated injected HTTP boundary, and minimal views.

@@ -121,7 +121,7 @@ export async function runBoundedOrchestrator({
       return { ok: false, outcome: "invalid_step", stopReason: "validation_failure", errors: validated.errors, metrics };
     }
     const step = validated.data;
-    if (motifPolicy.ok && step.outcome === "PROPOSE_ACTION" && step.action !== "SUBMIT_CANDY_MOTIF_JOB") return {ok:false,outcome:"motif_action_family_rejected",stopReason:"authorization",metrics,error:"A motif analysis request cannot authorize projection, SSSP or workspace mutation."};
+    if (motifPolicy.ok && step.outcome === "PROPOSE_ACTION" && !["SUBMIT_CANDY_MOTIF_JOB", "ANALYZE_DYNAMIC_HYPERGRAPH_UPDATE"].includes(step.action)) return {ok:false,outcome:"motif_action_family_rejected",stopReason:"authorization",metrics,error:"A motif analysis request cannot authorize projection, SSSP or workspace mutation."};
     onStep?.({ index, step, observation });
     if (step.outcome === "REQUEST_USER_INPUT") return { ok: true, outcome: "request_user_input", stopReason: "clarification", userMessage: step.userMessage, step, metrics };
     if (step.outcome === "FINAL_RESPONSE") {

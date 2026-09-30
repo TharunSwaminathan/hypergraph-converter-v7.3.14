@@ -28,6 +28,13 @@ export default function CandyMotifResult({ result, compact = false }) {
       {incremental && <p style={{ margin: "8px 0", fontSize: 12, color: T.amber }}>
         This is a signed delta for update <code>{result.updateRef?.updateId ?? "unknown"}</code>. It is not a fabricated full count, and the update was not applied.
       </p>}
+      {incremental && <div aria-label="Affected motif classes">
+        <p>This result describes the proposed pending transition. It becomes stale when graph, update or Runtime session authority changes. Graph has not been applied.</p>
+        <strong>Affected / nonzero classes first</strong>
+        {HYPERGRAPH_3EDGE_MOTIF_TAXONOMY.entries.filter(entry => values[entry.motifId - 1] !== 0).map(entry =>
+          <div key={entry.motifId}>Class {entry.motifId} · {entry.shape}: <strong>{signedMotifValue(values[entry.motifId - 1])}</strong></div>)}
+        {values.every(value => value === 0) && <p>No nonzero class changes (0).</p>}
+      </div>}
       <details style={{ marginTop: 10 }}>
         <summary style={{ cursor: "pointer", fontWeight: 700, color: T.accent }}>All 30 stable motif {incremental ? "signed deltas" : "class counts"}</summary>
         <div style={{ overflowX: "auto", marginTop: 10 }}>

@@ -6,7 +6,6 @@ export default function CandyRuntimePanel({ candy, actions, busy = false, onNoti
   const [credential, setCredential] = useState("");
   const presentation = presentCandyCapabilities(candy);
   const staticCapability=candy?.staticAvailability?.ready ? candy.staticAvailability.capability : null;
-  const incrementalCapability=candy?.incrementalAvailability?.ready ? candy.incrementalAvailability.capability : null;
   const selected=candy?.selectedJob;
   const result=candy?.selectedMotifResult;
   const observe=async operation=>{const response=await operation();onNotice(response.ok?"CANDY job observation updated.":response.error,response.ok?"status":"warning");};
@@ -52,9 +51,9 @@ export default function CandyRuntimePanel({ candy, actions, busy = false, onNoti
       <p role="status">Analysis: {candy.analysisStatus ?? "NONE"}</p>
       <div className="agent-file-actions">
         <button type="button" disabled={busy || !staticCapability || !candy.authorized} onClick={()=>onSubmitMotif({mode:"STATIC",backend:"CUDA_STATIC",deviceId:staticCapability.devices[0].id,timeoutMs:5000})}>Count 3-edge motifs with CUDA</button>
-        <button type="button" disabled={busy || !incrementalCapability || !candy.authorized} onClick={()=>onSubmitMotif({mode:"INCREMENTAL",backend:"CUDA_INCREMENTAL",deviceId:incrementalCapability.devices[0].id,timeoutMs:5000,updateContextId:candy.pendingUpdateContext.updateId})}>Analyze pending motif delta</button>
+        <button type="button" onClick={() => actions.openDynamicUpdatePanel?.()}>Open pending update panel</button>
       </div>
-      {!incrementalCapability && <p role="status">{candy.incrementalAvailability?.reason ?? "NO_VALIDATED_PENDING_UPDATE"}: {candy.incrementalAvailability?.message ?? "An authoritative DynamicHypergraph and qualified pending update are required."}</p>}
+      {!candy.incrementalAvailability?.ready && <p role="status">{candy.incrementalAvailability?.reason ?? "NO_VALIDATED_PENDING_UPDATE"}: {candy.incrementalAvailability?.message ?? "An authoritative DynamicHypergraph and qualified pending update are required."}</p>}
       {selected && <div className="agent-file-actions">
         <button type="button" disabled={busy} onClick={()=>observe(()=>actions.getCandyJobStatus(selected.jobId))}>Refresh job status</button>
         <button type="button" disabled={busy || ["completed","failed","cancelled"].includes(selected.status)} onClick={()=>observe(()=>actions.cancelCandyJob(selected.jobId))}>Cancel job</button>

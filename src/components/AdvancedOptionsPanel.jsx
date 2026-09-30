@@ -20,6 +20,7 @@ export default function AdvancedOptionsPanel({
   exampleText,
   onUploadFiles,
   activeUploadBatch,
+  dynamicUpdateMode = false,
 }) {
   const disabled = !hasGraph || batchParsedCount === 0;
   const fileInputRef = useRef(null);
@@ -135,6 +136,8 @@ export default function AdvancedOptionsPanel({
       </div>
 
       <textarea
+        id="batch-update-commands"
+        aria-label="Batch update commands"
         rows={7}
         value={batchText}
         onChange={e => setBatchText(e.target.value)}
@@ -142,7 +145,7 @@ export default function AdvancedOptionsPanel({
         style={inputSt}
       />
 
-      <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+      {!dynamicUpdateMode && <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <button
           type="button"
           onClick={onPreviewBatch}
@@ -176,7 +179,8 @@ export default function AdvancedOptionsPanel({
             {batchUnknownCount > 0 ? <span style={{ color: T.amber }}> · {batchUnknownCount} unknown</span> : ""}
           </span>
         )}
-      </div>
+      </div>}
+      {dynamicUpdateMode && <p style={{ color: T.textDim }}>Stage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing <code>UPDATE h2: A, B</code> command. Committed graph stays unchanged until separate Apply confirmation.</p>}
 
       {batchWarnings.length > 0 && batchPreviewActive && (
         <div style={{ marginTop: 12, padding: "10px 14px", background: T.amberLt, border: "1px solid " + T.amber + "55", borderRadius: 8 }}>

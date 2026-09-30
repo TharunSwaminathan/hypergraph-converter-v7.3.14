@@ -1,5 +1,6 @@
 ﻿import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { T, PALETTE } from "../theme.js";
+import { UPDATE_PREVIEW_COLORS } from "../visualization/dynamicUpdatePreview.js";
 import { vcmp } from "../utils/parsers.js";
 import { DERIVED_STATUS } from "../utils/mappings.js";
 import { createDerivedProductCache } from "../derived/derivedProductCache.js";
@@ -50,6 +51,7 @@ export default function Viz({
   exportPngSignal = 0,
   onSelectionChange,
   graphVersion = 0,
+  updateSemantics = null,
 }) {
   const canvasRef = useRef(null); const containerRef = useRef(null); const stateRef = useRef(null);
   const schedulerRef = useRef(null); const requestDrawRef = useRef(() => false);
@@ -227,15 +229,16 @@ export default function Viz({
         he.forEach((h, i) => {
           const pts = h.vertices.map(v => getGraphIdentifierValue(ns, v)).filter(Boolean);
           const bounds = computeHyperedgeBounds(pts); if (!bounds) return;
-          const color = PALETTE[i % PALETTE.length];
+          const semantic = updateSemantics?.get(h.id);
+          const color = UPDATE_PREVIEW_COLORS[semantic] ?? PALETTE[i % PALETTE.length];
           const selected = hiHEs.has(String(h.id)), dimmed = anySelect && !selected;
           ctx.beginPath(); ctx.ellipse(bounds.cx, bounds.cy, bounds.rx, bounds.ry, 0, 0, 2 * Math.PI);
           ctx.fillStyle = color + (dimmed ? "08" : selected ? "22" : "12"); ctx.fill();
           ctx.strokeStyle = color + (dimmed ? "22" : selected ? "EE" : "66");
-          ctx.lineWidth = selected ? 2.5 : 1.5; ctx.setLineDash(selected ? [] : [6, 4]); ctx.stroke(); ctx.setLineDash([]);
+          ctx.lineWidth = selected ? 2.5 : 1.5; ctx.setLineDash(semantic === "deleted" ? [3, 3] : selected || semantic === "inserted" ? [] : [6, 4]); ctx.stroke(); ctx.setLineDash([]);
           ctx.save(); ctx.font = selected ? "bold 12px system-ui" : "11px system-ui";
           ctx.fillStyle = color + (dimmed ? "44" : selected ? "FF" : "BB"); ctx.textAlign = "center";
-          ctx.fillText(String(h.id) + (h.time != null ? " [t=" + h.time + "]" : ""), bounds.cx, bounds.cy - bounds.ry + 16); ctx.restore();
+          ctx.fillText(String(h.id) + (semantic ? ` [${semantic}]` : "") + (h.time != null ? " [t=" + h.time + "]" : ""), bounds.cx, bounds.cy - bounds.ry + 16); ctx.restore();
         });
       }
 
@@ -291,7 +294,7 @@ export default function Viz({
       if (schedulerRef.current === scheduler) schedulerRef.current = null;
       if (requestDrawRef.current === scheduler.request) requestDrawRef.current = () => false;
     };
-  }, [he, verts, topology, visualEdges, selHE, selV, searchHit, hyperedgeSearch, hyperedgeSearchHits, layout, viewMode, algoHighlight, componentColors, canvasSize, forceStrategy]);
+  }, [he, verts, topology, visualEdges, selHE, selV, searchHit, hyperedgeSearch, hyperedgeSearchHits, layout, viewMode, algoHighlight, componentColors, canvasSize, forceStrategy, updateSemantics]);
 
   function toWorld(cx, cy) { const t = stateRef.current?.transform || { x: 0, y: 0, s: 1 }; return { wx: (cx - t.x) / t.s, wy: (cy - t.y) / t.s }; }
   function getXY(e) { const r = canvasRef.current.getBoundingClientRect(); const src = e.touches ? e.touches[0] : e; return { cx: src.clientX - r.left, cy: src.clientY - r.top }; }
@@ -495,6 +498,11 @@ export default function Viz({
           </div>
         </div>
       </div>
+      {updateSemantics && <div role="status" style={{ marginTop: 10 }}>
+        Pending comparison preview · unchanged (gray) · inserted (green) · deleted (red, dashed) · replaced / same-ID changed (amber). Deleted rings retain old memberships; replaced rings show proposed memberships.
+        {hyperedges.length > he.length && ` Sampled view: ${he.length} of ${hyperedges.length} edges under the existing preview limit.`}
+        {viewMode !== "hypergraph" && " Switch to Hypergraph view to inspect edge change rings."}
+      </div>}
       <div style={{ marginTop: 10, display: "flex", gap: 6, flexWrap: "wrap" }}>
         {[...verts].sort(vcmp).map(v => { const active = graphIdentifiersEqual(selV, v) || (selHE != null && he.find(h => graphIdentifiersEqual(h.id, selHE))?.vertices.map(String).includes(String(v))) || graphIdentifiersEqual(searchHit, v); return (<div key={String(v)} onClick={() => { setSelV(x => graphIdentifiersEqual(x, v) ? null : v); setSelHE(null); }} style={{ padding: "4px 12px", borderRadius: 16, cursor: "pointer", border: "1px solid " + (active ? T.accent : T.border), background: active ? T.accentLt : "transparent", fontSize: 13, fontFamily: "monospace", color: active ? T.accent : T.textDim, transition: "all .12s", fontWeight: active ? 700 : 400 }}>{String(v)}</div>); })}
       </div>

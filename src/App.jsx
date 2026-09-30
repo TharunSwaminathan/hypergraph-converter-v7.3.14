@@ -146,6 +146,9 @@ import { createMutationPlan } from "./graph/graphMutationValidator.js";
 import { previewGraphMutation } from "./graph/graphMutationPreview.js";
 import { createGraphHistoryEvent, appendGraphHistory } from "./graph/graphHistory.js";
 import { createPendingHypergraphUpdateController } from "./graph/pendingHypergraphUpdate.js";
+import { createDynamicUpdateControls } from "./graph/dynamicUpdateControls.js";
+import { dynamicUpdatePreview } from "./visualization/dynamicUpdatePreview.js";
+import DynamicHypergraphUpdatePanel from "./components/DynamicHypergraphUpdatePanel.jsx";
 import { compileGraphMutationGrammar } from "./agent/deterministicNlu/domains/graphMutationGrammar.js";
 import {
   isPlausibleGraphMutationText,
@@ -268,7 +271,7 @@ function AppCore() {
   const commitGraphControllerRef = useRef(null);
   const pendingHypergraphUpdateControllerRef = useRef(null);
   if (!pendingHypergraphUpdateControllerRef.current) {
-    // Scope 5B owns one browser-session authority aggregate. UI/Assistant staging remains inaccessible until Scope 5D.
+    // UI and Assistant share the single Scope 5B browser-session authority.
     pendingHypergraphUpdateControllerRef.current = createPendingHypergraphUpdateController({
       getGraphState: () => graphStateRef.current,
       getHistory: () => graphHistoryRef.current,
@@ -280,6 +283,13 @@ function AppCore() {
     pendingHypergraphUpdateControllerRef.current.getCurrent,
     pendingHypergraphUpdateControllerRef.current.getCurrent,
   );
+  const candyRuntimeRef = useRef({ state: {}, actions: {} });
+  const [dynamicUpdateControls] = useState(() => createDynamicUpdateControls({
+    pendingController: pendingHypergraphUpdateControllerRef.current,
+    getGraphState: () => graphStateRef.current,
+    getCandy: () => candyRuntimeRef.current,
+  }));
+  const [pendingPreviewRequested, setPendingPreviewRequested] = useState(false);
   const [vizLimit, setVizLimit] = useState(50); const [activeSection, setActiveSection] = useState("mappings");
   const [selectedMappingId, setSelectedMappingId] = useState("h2v");
   const [expId, setExpId] = useState("h2v_txt");
@@ -3222,6 +3232,9 @@ function AppCore() {
   }, [finalHes, graphIdentity.graphId]);
 
   function applyBatchUpdatesForAgent() {
+    if (graphStateRef.current.graphType === "DynamicHypergraph") {
+      return { ok: false, error: "Stage dynamic Batch Updates in the pending update panel, then request its separate Apply confirmation." };
+    }
     if (!hes?.length) return { ok: false, error: "Load a base graph before applying batch updates." };
     if (!batchUpdates.length) return { ok: false, error: "No batch update operations are available." };
     const parseWarnings = [];
@@ -3259,6 +3272,7 @@ function AppCore() {
   }
 
   function previewBatchUpdatesForAgent() {
+    if (graphStateRef.current.graphType === "DynamicHypergraph") return dynamicUpdateControls.stageBatch(batchText);
     if (!hes?.length) return { ok: false, error: "Load a base graph before previewing batch updates." };
     if (!batchUpdates.length) return { ok: false, error: "No batch update operations are available to preview." };
     setApplyBatch(true);
@@ -3651,6 +3665,9 @@ function AppCore() {
   }
 
   function commitGraphMutationForAgent(plan) {
+    if (graphStateRef.current.graphType === "DynamicHypergraph" && !(plan?.operations?.length === 1 && plan.operations[0].type === "UNDO_LAST_MUTATION")) {
+      return { ok: false, error: "Dynamic graph edits must be staged and separately applied through the pending update controller." };
+    }
     if (!plan) return { ok: false, error: "No graph mutation plan is staged." };
     if (batchPreviewActive) {
       return { ok: false, error: "A batch-update preview is active. Commit or discard that preview before committing conversational graph edits.", blockedByBatchPreview: true };
@@ -3761,6 +3778,16 @@ function AppCore() {
     pendingUpdate: pendingHypergraphUpdate,
     edgeCount: hes?.length ?? 0,
   });
+  candyRuntimeRef.current = candyRuntime;
+  const pendingDynamicUpdate = dynamicUpdateControls.observe();
+  const pendingPreview = useMemo(() => pendingPreviewRequested
+    ? dynamicUpdatePreview(graphState, pendingHypergraphUpdate) : null,
+  [pendingPreviewRequested, graphState, pendingHypergraphUpdate]);
+  function openDynamicUpdatePanel() {
+    setActiveToolsSection("advanced");
+    window.requestAnimationFrame?.(() => document.getElementById("dynamic-update-panel")?.scrollIntoView?.({ behavior: "smooth", block: "start" }));
+    return { ok: true };
+  }
 
   function requestStaticMotifFromStatistics(argumentsValue) {
     statsMotifRequestCounterRef.current += 1;
@@ -4164,6 +4191,7 @@ function AppCore() {
     graphVersion,
     graphType: graphState.graphType,
     graphFingerprint: graphIdentity.graphFingerprint,
+    pendingDynamicUpdate,
     committedHyperedgeCount: hes?.length ?? 0,
     batchPreviewActive,
     batchPreviewHyperedgeCount: batchPreviewActive ? finalHes?.length ?? 0 : 0,
@@ -4899,9 +4927,9 @@ function AppCore() {
     pairCandyRuntime: candyRuntime.actions.pair,
     discoverCandyRuntime: candyRuntime.actions.discover,
     submitCandyJob: candyRuntime.actions.submitFromAssistant,
-    stageCandyMotifAnalysis: candyRuntime.actions.stageMotifAnalysis,
+    stageCandyMotifAnalysis: argumentsValue => { dynamicUpdateControls.invalidateApply(); return candyRuntime.actions.stageMotifAnalysis(argumentsValue); },
     getCandyJobStatus: candyRuntime.actions.getJobStatus,
-    cancelCandyJob: candyRuntime.actions.cancelJob,
+    cancelCandyJob: dynamicUpdateControls.cancelAnalysis,
     openCandyResult: candyRuntime.actions.openResult,
     requestParserSpecialist: specialist.generate,
     adoptSpecialistDraft: specialist.adopt,
@@ -4983,6 +5011,13 @@ function AppCore() {
     applyBatchUpdates: applyBatchUpdatesForAgent,
     discardBatchPreview: discardBatchPreviewForAgent,
     prepareGraphMutation: prepareGraphMutationForAgent,
+    stageDynamicUpdatePlan: dynamicUpdateControls.stagePlan,
+    discardDynamicUpdate: dynamicUpdateControls.discard,
+    requestDynamicUpdateApply: dynamicUpdateControls.requestApply,
+    confirmDynamicUpdateApply: dynamicUpdateControls.confirmApply,
+    cancelDynamicUpdateApply: dynamicUpdateControls.cancelApply,
+    requestDynamicUpdateAnalysis: dynamicUpdateControls.requestAnalysis,
+    openDynamicUpdatePanel,
     commitGraphMutation: commitGraphMutationForAgent,
     clearGraph,
     scrollToVisualization,
@@ -5355,10 +5390,11 @@ function AppCore() {
         )}
 
         {/* Visualization */}
-        {finalHes && finalHes.length > 0 && (
+        {(pendingPreview?.hyperedges.length > 0 || finalHes?.length > 0) && (
           <div ref={vizRef} style={{ marginTop: 40, scrollMarginTop: 20 }}>
             <Viz
-              hyperedges={finalHes}
+              hyperedges={pendingPreview?.hyperedges ?? finalHes}
+              updateSemantics={pendingPreview?.semantics}
               vizLimit={vizLimit}
               setVizLimit={setVizLimit}
               algoHighlight={algo.highlight}
@@ -5394,6 +5430,7 @@ function AppCore() {
               Preview is a temporary overlay, while commit writes changes back to the committed graph. */}
           <div id="tools-panel-advanced" role="tabpanel" aria-labelledby="tools-tab-advanced" hidden={activeToolsSection !== "advanced"} style={{ display: activeToolsSection === "advanced" ? "block" : "none" }}>
             <AdvancedOptionsPanel
+              dynamicUpdateMode={graphState.graphType === "DynamicHypergraph"}
               batchText={batchText}
               setBatchText={setBatchText}
               batchPreviewActive={batchPreviewActive}
@@ -5412,6 +5449,15 @@ function AppCore() {
                 detectedLabel: activeAgentBatch.detectedFormat?.label ?? "Unknown",
               } : null}
             />
+            <div id="dynamic-update-panel">
+              <DynamicHypergraphUpdatePanel
+                graphType={graphState.graphType} graphVersion={graphVersion}
+                pending={pendingDynamicUpdate} controls={dynamicUpdateControls} candy={candyRuntime.state}
+                batchText={batchText} previewActive={Boolean(pendingPreview)}
+                onPreview={value => { setPendingPreviewRequested(value); if (value) scrollToVisualization(); }}
+                onEdit={() => document.getElementById("batch-update-commands")?.focus()}
+              />
+            </div>
           </div>
 
           {/* Algorithms */}
