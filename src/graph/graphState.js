@@ -1,5 +1,5 @@
 import { GRAPH_TYPES } from "../candy/contracts/graphTypes.js";
-import { graphFingerprint } from "./graphFingerprint.js";
+import { canonicalizeGraph, graphFingerprint, stableStringify } from "./graphFingerprint.js";
 import { createGraphIdentity, nextCommittedGraphIdentity } from "./graphIdentity.js";
 
 export const APPLICATION_GRAPH_TYPES = Object.freeze([
@@ -31,6 +31,7 @@ export function createGraphState(hyperedges = null, {
   const committedHyperedges = normalizeCommittedHyperedges(hyperedges);
   const typeOnlyTransition = Boolean(previous
     && previous.graphType !== authoritativeType
+    && stableStringify(canonicalizeGraph(previous.hyperedges)) === stableStringify(canonicalizeGraph(committedHyperedges))
     && previous.graphFingerprint === graphFingerprint(committedHyperedges ?? [], {
       graphType: previous.graphType,
       explicitVertices,

@@ -1,4 +1,4 @@
-import { graphFingerprint } from "./graphFingerprint.js";
+import { canonicalizeGraphAuthority, graphFingerprint, stableStringify } from "./graphFingerprint.js";
 import { GRAPH_TYPES } from "../candy/contracts/graphTypes.js";
 
 let fallbackIdCounter = 0;
@@ -44,7 +44,12 @@ export function nextCommittedGraphIdentity(previous, hyperedges, {
   explicitVertices = previous?.explicitVertices ?? null,
 } = {}) {
   const fingerprint = graphFingerprint(hyperedges, { graphType, explicitVertices });
-  if (previous?.graphFingerprint === fingerprint) {
+  // The short fingerprint is a change marker, not content authority. GraphState
+  // retains the OLD content, so equal markers must also match that content.
+  const sameContent = !Object.hasOwn(previous ?? {}, "hyperedges")
+    || stableStringify(canonicalizeGraphAuthority(previous.hyperedges, previous))
+      === stableStringify(canonicalizeGraphAuthority(hyperedges, { graphType, explicitVertices }));
+  if (!replacement && previous?.graphFingerprint === fingerprint && sameContent) {
     return { ...previous, graphFingerprint: fingerprint, graphType };
   }
   if (!hyperedges?.length) {

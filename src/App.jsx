@@ -373,7 +373,8 @@ function AppCore() {
     const previousHyperedges = graphState.hyperedges ?? [];
     const normalizedNext = nextHyperedges?.length ? nextHyperedges : null;
     const nextState = commitGraphState(graphState, normalizedNext, { replacement, clear, graphType });
-    const graphChanged = nextState.graphFingerprint !== graphState.graphFingerprint;
+    const graphChanged = nextState.graphVersion !== graphState.graphVersion
+      || nextState.graphFingerprint !== graphState.graphFingerprint;
     const graphAuthorityChanged = nextState.graphId !== graphState.graphId
       || nextState.graphVersion !== graphState.graphVersion
       || nextState.graphFingerprint !== graphState.graphFingerprint
@@ -3314,7 +3315,7 @@ function AppCore() {
       plan: interpretation.plan,
       preview,
       summary: interpretation.plan.summary,
-      graphChanged: preview.beforeFingerprint !== preview.afterFingerprint,
+      graphChanged: preview.graphChanged,
       ...extras,
     };
   }

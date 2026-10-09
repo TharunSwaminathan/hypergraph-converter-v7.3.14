@@ -1,0 +1,306 @@
+{
+  "evidence": [
+    {
+      "path": "artifacts/candy-scope5f-environment.json",
+      "sha256": "3051d96ffee8e79a7b59bf1565fb587f6cd1f6d900b1e849efdfb5c463a095b9"
+    },
+    {
+      "path": "artifacts/candy-scope5f-application-gates.json",
+      "sha256": "2e684b76e40c0e4584972f36494e6b146e3bed9094e4fad0661af75605e3001b"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-qualification.json",
+      "sha256": "9035e716c675988f43bad1f4158c38aadfc02fd0f9457411798d79e3dc958505"
+    },
+    {
+      "path": "artifacts/candy-scope5f-live-runtime-qualification.json",
+      "sha256": "eed597f6f0a19043a1f948b425db1a1253d55c2267fc6ac1663c668d365d10c3"
+    },
+    {
+      "path": "artifacts/candy-scope5f-assistant-qualification.json",
+      "sha256": "96d09e72b69f78880a6f954595e71799748095f7260bfee08567c78d1a11a9e3"
+    },
+    {
+      "path": "artifacts/candy-scope5f-security-qualification.md",
+      "sha256": "506c4e8e4e58546caa7a56d4d1491affdf413f3cc27ca5d7d91979712d271563"
+    },
+    {
+      "path": "artifacts/candy-scope5-final-qualification.md",
+      "sha256": "6c756a440707e9a434953171ed8fdd7f393fd6e5bcdfef861b3c0cae22af56ab"
+    }
+  ],
+  "head": "1e8f7fa2eac97f9cadf72224ae9e99febdea85df",
+  "security": {
+    "usage": {
+      "cacheWriteInputTokens": 0,
+      "cachedInputTokens": 24085248,
+      "coverage": "complete",
+      "inputTokens": 25660056,
+      "outputTokens": 83716,
+      "reasoningOutputTokens": 14038,
+      "source": "codex_rollout",
+      "threadCount": 4,
+      "totalTokens": 25743772
+    },
+    "canonicalReport": "C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14\\1e8f7fa2eac97f9cadf72224ae9e99febdea85df_20260930T155702Z_raud90lf\\report.md",
+    "repositoryCoverage": "partial",
+    "unresolvedHigh": 0,
+    "integratedReview": "Reviewed final production bytes and harnesses independently",
+    "scanId": "e45d8f49-801f-4eb9-ba8f-153daf34c1c6",
+    "unresolvedCorrectnessMedium": 0,
+    "qualification": "artifacts/candy-scope5f-security-qualification.md",
+    "integratedFinalSourceDisposition": "PASS",
+    "snapshotWarning": [
+      "Working-tree contents changed while the scan was running; results were saved for the original snapshot."
+    ],
+    "canonicalCompletion": "complete",
+    "sourceHashes": "artifacts/candy-scope5f-source-inventory.json",
+    "unresolvedCritical": 0
+  },
+  "intermediateAttempts": [
+    "artifacts/candy-scope5f-live-runtime-attempt1.json",
+    "artifacts/candy-scope5f-live-runtime-attempt2.json",
+    "artifacts/candy-scope5f-live-runtime-attempt3.json",
+    "artifacts/candy-scope5f-live-runtime-attempt4.json",
+    "artifacts/candy-scope5f-assistant-attempt1.json"
+  ],
+  "browserQualification": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+  "historicalTags": [
+    "eb829fb627de349be99d440ebfed11990f76837e refs/tags/candy-integration-scope5a-graph-state-qualified",
+    "3379e0102704521960a5ccc1185a14a2beb2725d refs/tags/candy-integration-scope5b-pending-update-qualified",
+    "adad84847dac54261f3036dc488c35ed4caef3e7 refs/tags/candy-integration-scope5c-runtime-binding-qualified",
+    "18fa9aebd7c91b22c7415519a56ec160a88d2956 refs/tags/candy-integration-scope5d-ui-assistant-qualified",
+    "1e8f7fa2eac97f9cadf72224ae9e99febdea85df refs/tags/candy-integration-scope5e-hardening-qualified"
+  ],
+  "liveRuntime": {
+    "authOriginNegatives": 3,
+    "parityAll30": true,
+    "cases": [
+      "insertion",
+      "deletion",
+      "same-id-replacement",
+      "old-new-id-replacement",
+      "multiple-changed-hyperedges",
+      "zero-delta-disconnected-insertion",
+      "novel-inserted-vertex"
+    ],
+    "matrixCases": 7,
+    "jobSubmissions": 34,
+    "applyNeverAnalyzes": true,
+    "requiredBindingNegatives": 21,
+    "substitutionAndAuthNegatives": 24,
+    "analysisNeverCommits": true,
+    "applyWithoutAnalysis": true,
+    "status": "PASS",
+    "evidence": "artifacts/candy-scope5f-live-runtime-qualification.json",
+    "lifecycleCases": [
+      "runtime-unavailable-and-apply-without-analysis",
+      "metadata-only",
+      "full-no-op",
+      "real-incremental-cancellation",
+      "late-genuine-CUDA-result-after-cancel",
+      "real-incremental-timeout",
+      "real-runtime-restart"
+    ],
+    "visibleBrowser": false
+  },
+  "collision": {
+    "markerAlgorithmPreserved": true,
+    "rootCause": "Short-marker equality returned old committed identity before explicit replacement handling",
+    "dynamicHypergraphFingerprint": "gfp-7912e519-294",
+    "files": [
+      "src/App.jsx",
+      "src/components/AgentChatPanel.jsx",
+      "src/graph/graphIdentity.js",
+      "src/graph/graphMutationPreview.js",
+      "src/graph/graphState.js"
+    ],
+    "discoveredDuring": "5F",
+    "realStaticCounts": {
+      "replacement": 0,
+      "old": 1
+    },
+    "regression": "tests/candy-scope5f-collision.test.mjs",
+    "hypergraphFingerprint": "gfp-27452219-287",
+    "confidence": "high",
+    "before": "artifacts/candy-scope5f-collision-before.json",
+    "after": "artifacts/candy-scope5f-collision-after.json",
+    "originalSeverity": "medium",
+    "status": "REMEDIATED"
+  },
+  "productDefectsRemaining": 0,
+  "scope": "5F",
+  "assistant": {
+    "evidence": "artifacts/candy-scope5f-assistant-qualification.json",
+    "maxReactSteps": 8,
+    "jobs": 1,
+    "modelCases": [
+      "model-incremental",
+      "model-separate-apply",
+      "model-discard"
+    ],
+    "commits": 1,
+    "installedModel": {
+      "name": "qwen3:8b",
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "version": "0.34.0",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 40960,
+        "embedding_length": 4096
+      }
+    },
+    "visibleBrowser": false,
+    "separateConfirmations": true,
+    "status": "PASS",
+    "productionAuthorization": true,
+    "deterministicAndAdversarialEvidence": "Final automated Scope5 mounted/controller suites; not visible browser"
+  },
+  "harnessSources": [
+    "candy-runtime/test/run-scope5f-collision-qualification.mjs",
+    "candy-runtime/test/run-scope5f-live-qualification.mjs",
+    "candy-runtime/test/run-scope5f-assistant-qualification.mjs"
+  ],
+  "worktreeDisposition": "UNCOMMITTED",
+  "limitations": [
+    "No visible browser/reload/two-tab/CORS observation; controller and happy-dom evidence do not replace it",
+    "Immediate real cancellation does not prove termination of an already running CUDA kernel; late rejection uses a gated genuine completed result",
+    "Harness commit history is a controller transition record; full App history and React Runtime hook reconnection remain browser-blocked",
+    "Canonical security metadata remains original snapshot; final-byte source reviews and SHA-256 inventory separately bind actual corrected tree",
+    "Whole repository was not exhaustively audited; integrated requested boundaries reviewed",
+    "Private Windows local-state/temp ACL protections remain deployment assumptions"
+  ],
+  "hardStop": true,
+  "blockedGates": [
+    {
+      "id": "visible-application-stage-analyze-result-apply",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "visible-assistant-deterministic-and-installed-model-workflow",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "reload-validated-pending",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "reload-analysis-confirmation",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "reload-result-ready",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "reload-apply-confirmation",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "two-tab-independent-workspaces-and-no-shared-authority",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "inert-render-navigation-panels-statistics-runtime-assistant-quicklinks-preview",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "browser-runtime-discovery-reconnect-cors-enforcement",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    },
+    {
+      "id": "visible-metadata-only-and-full-no-op",
+      "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+    }
+  ],
+  "environment": "artifacts/candy-scope5f-environment.json",
+  "branch": "candy-integration-scope5f-final-qualification",
+  "finishedAt": "2026-10-09T15:10:56.8709986Z",
+  "verdict": "PASS WITH QUALIFICATION BLOCKED",
+  "plainPassEligible": false,
+  "schemaVersion": "candy.scope5-final-qualification/1",
+  "protectedDeltas": {
+    "allEmpty": true,
+    "nativePaths": [],
+    "manifests": [],
+    "trackedHistoricalArtifacts": []
+  },
+  "automated": {
+    "lint": "PASS",
+    "build": "PASS",
+    "focusedScope5Total": 15,
+    "diffCheck": "PASS",
+    "evidence": "artifacts/candy-scope5f-application-gates.json",
+    "fullTestFilesPassed": 268,
+    "auditVulnerabilities": 0,
+    "buildGithub": "PASS",
+    "focusedScope5Passed": 15,
+    "status": "PASS",
+    "fullTestFilesTotal": 268,
+    "audit": "PASS"
+  },
+  "baseline": "1e8f7fa2eac97f9cadf72224ae9e99febdea85df",
+  "sourceInventory": {
+    "files": [
+      {
+        "sha256": "2917e7f87fd39043d8d3af3b1ee64c780c182f927f7b608f0294947286b0974c",
+        "kind": "production-collision-correction",
+        "path": "src/App.jsx"
+      },
+      {
+        "sha256": "6b0228f2507f35d0b0c86529eac4fc58d6cbead5425d301317e65f7ec4b1f121",
+        "kind": "production-collision-correction",
+        "path": "src/components/AgentChatPanel.jsx"
+      },
+      {
+        "sha256": "3cb304e33ff2705398db08f68bf63478d722dfe01073324512cb91002f5ec75d",
+        "kind": "production-collision-correction",
+        "path": "src/graph/graphIdentity.js"
+      },
+      {
+        "sha256": "c8886ec1a54a64eef502ba2b01c8d87f37172ed955ec8e461b81f0c0c190c041",
+        "kind": "production-collision-correction",
+        "path": "src/graph/graphState.js"
+      },
+      {
+        "sha256": "fa6f8963e8fdd44ee4815a9305f725a33c6a08f3c8722e0ee35cb83af677372d",
+        "kind": "production-collision-correction",
+        "path": "src/graph/graphMutationPreview.js"
+      },
+      {
+        "sha256": "e16551fda2675abb038d264743122cddceab3a300bdc6e7a549d30048109df2f",
+        "kind": "qualification-infrastructure",
+        "path": "tests/candy-scope5f-collision.test.mjs"
+      },
+      {
+        "sha256": "d601cc2d2e545ae23d2f0cb26404bff3659bd5b800c10366858a302cba3e2e38",
+        "kind": "qualification-infrastructure",
+        "path": "tests/fixtures/candy-scope5f-collision.mjs"
+      },
+      {
+        "sha256": "f6710b98370e61ae8375dd59c3219000b8d11635659afb9e6a7fd5935dc0f4d9",
+        "kind": "qualification-infrastructure",
+        "path": "candy-runtime/test/run-scope5f-collision-qualification.mjs"
+      },
+      {
+        "sha256": "d8a9b3fe8c6d077030f18ad769fdaaadd435560d8cc918cfdae7709b034c78c1",
+        "kind": "qualification-infrastructure",
+        "path": "candy-runtime/test/run-scope5f-live-qualification.mjs"
+      },
+      {
+        "sha256": "376ad76ca3e519a582b948b1f05417a5314a3890d47863690f8909ee0231bcdd",
+        "kind": "qualification-infrastructure",
+        "path": "candy-runtime/test/run-scope5f-assistant-qualification.mjs"
+      }
+    ],
+    "baseline": "1e8f7fa2eac97f9cadf72224ae9e99febdea85df",
+    "capturedAt": "2026-10-09T15:00:50.405739Z"
+  }
+}

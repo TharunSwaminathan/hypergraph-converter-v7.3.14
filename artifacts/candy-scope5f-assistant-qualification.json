@@ -1,0 +1,337 @@
+{
+  "schemaVersion": "candy.scope5f-assistant/1",
+  "evidenceKind": "INSTALLED_MODEL_PRODUCTION_ORCHESTRATOR_CONTROLLER_REAL_RUNTIME",
+  "visibleBrowser": false,
+  "cases": [
+    {
+      "id": "model-incremental",
+      "query": "Run incremental motif analysis.",
+      "result": {
+        "ok": true,
+        "outcome": "confirmation_staged",
+        "stopReason": "confirmation",
+        "step": {
+          "outcome": "PROPOSE_ACTION",
+          "action": "SUBMIT_CANDY_MOTIF_JOB",
+          "arguments": {
+            "mode": "INCREMENTAL",
+            "backend": "CUDA_INCREMENTAL",
+            "deviceId": 0,
+            "timeoutMs": 5000,
+            "updateContextId": "pending-56d0e00d-d78c-4233-9565-ac28f30a4868"
+          },
+          "requiresUserInput": false,
+          "userMessage": null,
+          "finish": false
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "actionsExecuted": 0,
+          "confirmationsStaged": 1,
+          "fallbackCount": 0,
+          "iterations": 1,
+          "observationChars": [
+            4139
+          ],
+          "promptChars": [
+            14903
+          ]
+        }
+      },
+      "outputs": [
+        {
+          "raw": "{\n  \"outcome\": \"PROPOSE_ACTION\",\n  \"action\": \"SUBMIT_CANDY_MOTIF_JOB\",\n  \"arguments\": {\n    \"mode\": \"INCREMENTAL\",\n    \"backend\": \"CUDA_INCREMENTAL\",\n    \"deviceId\": 0,\n    \"timeoutMs\": 5000,\n    \"updateContextId\": \"pending-56d0e00d-d78c-4233-9565-ac28f30a4868\"\n  },\n  \"requiresUserInput\": false,\n  \"userMessage\": null,\n  \"finish\": false\n}",
+          "done": true,
+          "promptChars": 14903
+        }
+      ],
+      "graphUnchanged": true,
+      "newJobs": 0,
+      "commits": 0,
+      "liveRuntime": {
+        "jobId": "8c2e3773-7b80-471f-a34a-f9fadb4e8e08",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "fd49fa8b-c4de-4025-aad8-f630135e4840",
+          "jobId": "8c2e3773-7b80-471f-a34a-f9fadb4e8e08",
+          "requestId": "566c61bf-2011-44b6-adfb-f1cf1170a5c3",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "graph-ed9370ad-3f0a-4168-b9d7-76789eeee0cd",
+            "graphVersion": 1
+          },
+          "graphArtifactId": "sha256:5a781b0431f3e61f03ca25cb97f04c2525d5a880a740a266c580d3f172e96bec",
+          "updateRef": {
+            "updateId": "pending-56d0e00d-d78c-4233-9565-ac28f30a4868",
+            "artifactId": "sha256:8005323e80163994183f71f1d47ab513d059f65f4b98254ad175c3d99c8abfae",
+            "nextGraphVersion": 2
+          },
+          "requestDigest": "bd7adcac6a11f24f2ffb6fe66829069e773fcd3a19e7024b54a6f62d0491e37f",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifDelta",
+          "interpretation": "delta_only",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_INCREMENTAL",
+            "mode": "INCREMENTAL",
+            "inputGraphRef": {
+              "graphId": "graph-ed9370ad-3f0a-4168-b9d7-76789eeee0cd",
+              "graphVersion": 1
+            },
+            "outputGraphRef": {
+              "graphId": "graph-ed9370ad-3f0a-4168-b9d7-76789eeee0cd",
+              "graphVersion": 2
+            },
+            "updateId": "pending-56d0e00d-d78c-4233-9565-ac28f30a4868",
+            "requestDigest": "bd7adcac6a11f24f2ffb6fe66829069e773fcd3a19e7024b54a6f62d0491e37f",
+            "oldAffectedEdgeCount": 1,
+            "newAffectedEdgeCount": 0,
+            "oldCandidateCount": 1,
+            "newCandidateCount": 0,
+            "oldAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "newAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaCounts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaTotalConnectedTriples": -1,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.955264
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:c218886b5c318f26909b4ef48ca6d88a26c74b08e20de95b11ddea78c8198eaf",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 2351
+          }
+        },
+        "graphCommits": 0
+      }
+    },
+    {
+      "id": "model-separate-apply",
+      "query": "Apply the pending update.",
+      "result": {
+        "ok": true,
+        "outcome": "confirmation_staged",
+        "stopReason": "confirmation",
+        "step": {
+          "outcome": "PROPOSE_ACTION",
+          "action": "APPLY_DYNAMIC_HYPERGRAPH_UPDATE",
+          "arguments": {
+            "updateId": "pending-56d0e00d-d78c-4233-9565-ac28f30a4868",
+            "revision": 1
+          },
+          "requiresUserInput": false,
+          "userMessage": null,
+          "finish": false
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "actionsExecuted": 0,
+          "confirmationsStaged": 1,
+          "fallbackCount": 0,
+          "iterations": 1,
+          "observationChars": [
+            4250
+          ],
+          "promptChars": [
+            15008
+          ]
+        }
+      },
+      "outputs": [
+        {
+          "raw": "{\n  \"outcome\": \"PROPOSE_ACTION\",\n  \"action\": \"APPLY_DYNAMIC_HYPERGRAPH_UPDATE\",\n  \"arguments\": {\n    \"updateId\": \"pending-56d0e00d-d78c-4233-9565-ac28f30a4868\",\n    \"revision\": 1\n  },\n  \"requiresUserInput\": false,\n  \"userMessage\": null,\n  \"finish\": false\n}",
+          "done": true,
+          "promptChars": 15008
+        }
+      ],
+      "graphUnchanged": true,
+      "newJobs": 0,
+      "commits": 0,
+      "confirmedApply": {
+        "commits": 1,
+        "newJobs": 0,
+        "resultNotCurrent": true
+      }
+    },
+    {
+      "id": "model-discard",
+      "query": "Discard the pending update.",
+      "result": {
+        "ok": true,
+        "outcome": "tool_result",
+        "stopReason": "tool_boundary",
+        "lastToolResult": {
+          "action": "DISCARD_DYNAMIC_HYPERGRAPH_UPDATE",
+          "ok": true,
+          "outcome": "completed",
+          "error": null,
+          "stateMutationCommitted": false,
+          "resultId": ""
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "actionsExecuted": 1,
+          "confirmationsStaged": 0,
+          "fallbackCount": 0,
+          "iterations": 1,
+          "observationChars": [
+            4253
+          ],
+          "promptChars": [
+            15013
+          ]
+        }
+      },
+      "outputs": [
+        {
+          "raw": "{\n  \"outcome\": \"PROPOSE_ACTION\",\n  \"action\": \"DISCARD_DYNAMIC_HYPERGRAPH_UPDATE\",\n  \"arguments\": {\n    \"updateId\": \"pending-2ebe96dd-83db-4cf2-87ee-422fea5adae0\",\n    \"revision\": 2\n  },\n  \"requiresUserInput\": false,\n  \"userMessage\": null,\n  \"finish\": false\n}",
+          "done": true,
+          "promptChars": 15013
+        }
+      ],
+      "graphUnchanged": true,
+      "newJobs": 0,
+      "commits": 0
+    }
+  ],
+  "model": {
+    "name": "qwen3:8b",
+    "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+    "version": "0.34.0",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "8.2B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 4096
+    }
+  },
+  "status": "PASS",
+  "runtimeSessionId": "fd49fa8b-c4de-4025-aad8-f630135e4840",
+  "jobs": 1,
+  "commits": 1,
+  "finishedAt": "2026-10-09T15:00:43.133Z"
+}

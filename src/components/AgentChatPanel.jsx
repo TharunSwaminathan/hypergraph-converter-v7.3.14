@@ -1707,7 +1707,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     const delta = preview.delta ?? {};
     const signed = value => Number(value) >= 0 ? `+${value}` : String(value);
     const ops = result.plan?.operations?.length ?? preview.operationCount ?? 0;
-    const changed = preview.beforeFingerprint !== preview.afterFingerprint;
+  const changed = preview.graphChanged;
     const leading = result.pendingPlanReplaced
       ? "Understood — I discarded the earlier plan and prepared the revised change instead."
       : (result.acknowledgement || result.summary || preview.summary || "Graph mutation preview");

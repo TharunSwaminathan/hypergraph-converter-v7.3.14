@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "candy.scope5f-browser/1",
+  "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+  "visibleBrowserEvidence": false,
+  "helperFailure": "trusted Node process exited unexpectedly; kernel reset, rerun your request",
+  "recoveryAttempts": [
+    {"operation": "Initial browser-helper entry point", "outcome": "Helper failed before returning browser state"},
+    {"operation": "Documentation refresh and helper reset", "outcome": "Same trusted Node process failure"},
+    {"operation": "Fresh cua.getState retry on 2026-10-09", "outcome": "Same trusted Node process failure"}
+  ],
+  "gates": [
+    {"id": "visible-application-stage-analyze-result-apply", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "visible-assistant-deterministic-and-installed-model-workflow", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "reload-validated-pending", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "reload-analysis-confirmation", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "reload-result-ready", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "reload-apply-confirmation", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "two-tab-independent-workspaces-and-no-shared-authority", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "inert-render-navigation-panels-statistics-runtime-assistant-quicklinks-preview", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "browser-runtime-discovery-reconnect-cors-enforcement", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"},
+    {"id": "visible-metadata-only-and-full-no-op", "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"}
+  ],
+  "supportingEvidence": [
+    {"kind": "Real authenticated Runtime/CUDA with production application controllers", "path": "artifacts/candy-scope5f-live-runtime-qualification.json", "replacesVisibleBrowserGate": false},
+    {"kind": "Mounted happy-dom UI/Assistant and persistence/concurrency automated regressions", "path": "artifacts/candy-scope5f-focused-tests.log", "replacesVisibleBrowserGate": false},
+    {"kind": "Installed-model production orchestrator/controller qualification", "path": "artifacts/candy-scope5f-assistant-qualification.json", "replacesVisibleBrowserGate": false}
+  ],
+  "screenshots": [],
+  "plainPassEligible": false
+}
