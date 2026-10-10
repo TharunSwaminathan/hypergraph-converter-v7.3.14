@@ -51,8 +51,23 @@ try {
   await act(async () => { button("Confirm Apply only").click(); button("Confirm Apply only").click(); await new Promise(resolve => setTimeout(resolve, 30)); });
   assert.equal(h.counts.commits, 1); assert.equal(h.counts.submissions, jobs);
   assert.equal(document.querySelector('[aria-label="Validated hypergraph motif delta"]'), null);
+  assert.match(document.body.textContent, /Applied once\. Committed graph version/);
   await act(async () => setText("DELETE h2")); await click("Stage pending update");
-  await act(async () => setText("UPDATE h2: x, z")); await click("Re-stage edited commands");
+  await click("Analyze motif delta"); await click("Confirm analysis only"); await click("Open signed delta result");
+  assert.match(document.body.textContent, /Validated delta describes the proposed pending transition\. Graph has not been applied\./);
+  const externalJobs = h.counts.submissions, externalVersion = h.graph.graphVersion;
+  await act(async () => {
+    const approval = controls.requestApply(selector()).confirmation;
+    const applied = await controls.confirmApply(approval);
+    assert.equal(applied.ok, true);
+    h.analysis.synchronize();
+  });
+  assert.equal(h.graph.graphVersion, externalVersion + 1);
+  assert.equal(h.counts.submissions, externalJobs, "external Apply does not analyze");
+  assert.equal(document.querySelector('[aria-label="Validated hypergraph motif delta"]'), null);
+  assert.doesNotMatch(document.querySelector('[aria-label="Dynamic Hypergraph pending update"]').textContent, /Graph has not been applied/, "an Apply through another UI surface must invalidate the old graph notice");
+  await act(async () => setText("DELETE h3")); await click("Stage pending update");
+  await act(async () => setText("UPDATE h3: x, z")); await click("Re-stage edited commands");
   assert.ok(h.pending.getCurrent().revision > first.revision + 1);
   await click("Apply pending update");
   await act(async () => {
@@ -64,7 +79,7 @@ try {
   assert.equal(button("Analyze motif delta").disabled, true); assert.equal(button("Apply pending update").disabled, true);
   assert.ok(button("Commit Batch Changes"), "Hypergraph keeps existing Batch controls");
   await click("Discard pending update"); assert.equal(h.pending.getCurrent(), null);
-  assert.equal(h.counts.commits, 1);
+  assert.equal(h.counts.commits, 2);
   await act(async () => root.unmount());
   const app = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8");
   assert.match(app, /Line-Graph Triangles/); assert.match(app, /<CandyMotifStatistics/);

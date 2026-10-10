@@ -7,7 +7,8 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
   batchText, previewActive, onPreview, onEdit }) {
   const [approval, setApproval] = useState(null);
   const [busy, setBusy] = useState(false);
-  const [notice, setNotice] = useState("");
+  const [notice, setNotice] = useState(null);
+  const announce = (message, version = graphVersion) => setNotice({ message, graphVersion: version });
   const lock = useRef(false);
   const ownedRef = useRef(null);
   useEffect(() => { ownedRef.current = { approval, controls }; }, [approval, controls]);
@@ -29,7 +30,7 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
   async function run(operation) {
     if (lock.current) return;
     lock.current = true; setBusy(true);
-    try { await operation(); } catch (error) { setNotice(error.message); setApproval(null); }
+    try { await operation(); } catch (error) { announce(error.message); setApproval(null); }
     finally { lock.current = false; setBusy(false); }
   }
   function cancel() {
@@ -43,7 +44,7 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
     if (!result.ok) throw new Error(result.error ?? "Confirmation unavailable.");
     setApproval({ kind, token: result.confirmation, argumentsValue: result.argumentsValue,
       updateId: pending.updateId, revision: pending.revision, session: candy?.runtimeSessionId });
-    setNotice("No action has run. Review the separate confirmation below.");
+    announce("No action has run. Review the separate confirmation below.");
   }
   const copy = getConfirmationCopy(approval?.kind === "apply" ? "apply_pending_hypergraph_update" : "run_candy_expensive_compute");
   return <section aria-label="Dynamic Hypergraph pending update" style={{ marginTop: 18, padding: 20, border: `1px solid ${T.border}`, borderRadius: 12, background: T.card }}>
@@ -67,11 +68,11 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
     {validated && !available?.ready && <p role="status">{available?.message}</p>}
     <div className="agent-file-actions">
       <button type="button" disabled={busy || graphType !== "DynamicHypergraph" || !batchText.trim()} onClick={() => run(async () => {
-        cancel(); const result = await controls.stageBatch(batchText); setNotice(result.noOp ? "No graph change; no pending authority created." : "Pending update staged. Committed graph and version are unchanged.");
+        cancel(); const result = await controls.stageBatch(batchText); announce(result.noOp ? "No graph change; no pending authority created." : "Pending update staged. Committed graph and version are unchanged.");
       })}>{pending ? "Re-stage edited commands" : "Stage pending update"}</button>
       <button type="button" disabled={busy || !validated} onClick={() => onPreview(!previewActive)}>{previewActive ? "Show committed preview" : "Inspect pending preview"}</button>
       <button type="button" disabled={busy || !pending} onClick={onEdit}>Edit commands</button>
-      <button type="button" disabled={busy || !pending} onClick={() => run(() => { cancel(); controls.discard(selector); onPreview(false); setNotice("Pending update discarded. Committed graph and version are unchanged."); })}>Discard pending update</button>
+      <button type="button" disabled={busy || !pending} onClick={() => run(() => { cancel(); controls.discard(selector); onPreview(false); announce("Pending update discarded. Committed graph and version are unchanged."); })}>Discard pending update</button>
       <button type="button" disabled={busy || !validated || !available?.ready || analysisBusy} onClick={() => run(() => request("analysis"))}>Analyze motif delta</button>
       <button type="button" disabled={busy || !validated} onClick={() => run(() => request("apply"))}>Apply pending update</button>
     </div>
@@ -86,15 +87,15 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
         const result = chosen.kind === "apply" ? await controls.confirmApply(chosen.token) : await controls.confirmAnalysis(chosen.argumentsValue, chosen.token);
         if (!result.ok) throw new Error(result.error ?? "Action rejected; request a fresh confirmation.");
         if (chosen.kind === "apply") onPreview(false);
-        setNotice(chosen.kind === "apply" ? `Applied once. Committed graph version ${result.graphState.graphVersion}. No Runtime job was created.` : "Analysis submitted. Graph has not been applied. Refresh job status and open its validated result below.");
+        announce(chosen.kind === "apply" ? `Applied once. Committed graph version ${result.graphState.graphVersion}. No Runtime job was created.` : "Analysis submitted. Graph has not been applied. Refresh job status and open its validated result below.", chosen.kind === "apply" ? result.graphState.graphVersion : graphVersion);
       })}>{approval.kind === "apply" ? "Confirm Apply only" : "Confirm analysis only"}</button>
       <button type="button" disabled={busy} onClick={cancel}>Cancel confirmation</button>
     </div>}
-    <p role="status" aria-live="polite">{notice}</p>
+    <p role="status" aria-live="polite">{notice?.graphVersion === graphVersion ? notice.message : ""}</p>
     {candy?.selectedJob?.mode === "INCREMENTAL" && <div className="agent-file-actions">
-      <button type="button" disabled={busy} onClick={() => run(async () => { const result = await controls.refreshAnalysis(candy.selectedJob.jobId); if (!result.ok) throw new Error(result.error); setNotice(`Analysis job: ${result.job.status}`); })}>Refresh analysis status</button>
-      <button type="button" disabled={busy || candy.selectedJob.status !== "completed"} onClick={() => run(async () => { const result = await controls.openAnalysisResult(candy.selectedJob.jobId); if (!result.ok) throw new Error(result.error); setNotice("Validated delta describes the proposed pending transition. Graph has not been applied."); })}>Open signed delta result</button>
-      <button type="button" disabled={busy || ["completed", "failed", "cancelled"].includes(candy.selectedJob.status)} onClick={() => run(async () => { cancel(); const result = await controls.cancelAnalysis(candy.selectedJob.jobId); if (!result.ok) throw new Error(result.error); setNotice("Analysis cancelled. Graph unchanged."); })}>Cancel analysis</button>
+      <button type="button" disabled={busy} onClick={() => run(async () => { const result = await controls.refreshAnalysis(candy.selectedJob.jobId); if (!result.ok) throw new Error(result.error); announce(`Analysis job: ${result.job.status}`); })}>Refresh analysis status</button>
+      <button type="button" disabled={busy || candy.selectedJob.status !== "completed"} onClick={() => run(async () => { const result = await controls.openAnalysisResult(candy.selectedJob.jobId); if (!result.ok) throw new Error(result.error); announce("Validated delta describes the proposed pending transition. Graph has not been applied."); })}>Open signed delta result</button>
+      <button type="button" disabled={busy || ["completed", "failed", "cancelled"].includes(candy.selectedJob.status)} onClick={() => run(async () => { cancel(); const result = await controls.cancelAnalysis(candy.selectedJob.jobId); if (!result.ok) throw new Error(result.error); announce("Analysis cancelled. Graph unchanged."); })}>Cancel analysis</button>
     </div>}
     {pending?.resultCurrent && <CandyMotifResult result={candy.selectedMotifResult} />}
     {["STALE", "FAILED", "CANCELLED"].includes(candy?.analysisStatus) && <p role="status">Analysis {candy.analysisStatus.toLowerCase()}. {candy.lastError?.message} Old results are not current. Request a fresh analysis when available.</p>}

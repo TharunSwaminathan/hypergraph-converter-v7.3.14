@@ -1,3 +1,21 @@
+# CANDY Scope 5F final qualification — visible-browser closure
+
+**Verdict: PASS — corrected UNCOMMITTED working tree.**
+
+All required visible-browser gates now pass. The earlier browser-helper block is resolved and preserved as history. Real Chrome/UI checks used the authenticated loopback Runtime; four reload states, independent tabs, Assistant, inert navigation, unavailable Runtime and replacement/currentness checks completed.
+
+The frozen checkpoint `bf0240a54fb6ac8284bd9ac371306511158a1a2e` is **not** claimed qualified: browser testing exposed a stale panel notice after Assistant Apply. One component and its mounted regression were corrected; affected real browser paths and 268/268 tests, lint, both builds, the existing production audit (zero vulnerabilities), diff check and corrective security review pass. A future final commit must bind and qualify the corrected bytes before release/tag; qualifiedCommit is null.
+
+See [browser closure observations](candy-scope5f-browser-closure.md), [browser qualification](candy-scope5f-browser-qualification.json), and [corrective security disposition/source hashes](candy-scope5f-browser-corrective-security.json). The security scan found no reportable vulnerability in the narrow correction; its snapshot warning and measured usage remain recorded. The supplementary broad audit reports four development dependencies in the unchanged lock; it does not replace the existing `--omit=dev` audit gate.
+
+HEAD and blocked tag remain `bf0240a`; all new evidence/correction stays UNCOMMITTED. No commit, tag, push, merge, fast-forward or history rewrite occurred. Prior collision finding/correction, real CUDA matrix, installed-model/controller evidence and integrated security evidence remain unchanged and valid for their original boundaries.
+
+---
+
+## Preserved original qualification report
+
+The following original report is retained verbatim as historical evidence. Its blocked verdict, earlier head and uncommitted disposition describe the earlier qualification attempt; the closure above and browserClosure JSON describe current state.
+
 # CANDY Scope 5F final qualification
 
 **Verdict: PASS WITH QUALIFICATION BLOCKED**
