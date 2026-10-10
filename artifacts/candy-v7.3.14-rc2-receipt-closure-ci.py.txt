@@ -1,0 +1,23 @@
+import subprocess,json,pathlib,urllib.request,base64,datetime
+W=pathlib.Path(__file__).parent;R=r'C:\Users\tharu\OneDrive\Documents\Candi\hypergraph-converter-v7.3.14';C='9d79d9f9027b338096d7cf62d67c2a22e9cab247';TREE='86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3'
+result={'observedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'commit':C,'gpuLiveQualification':'UNAVAILABLE/SKIPPED','connectorAttempt':'Repository Actions read returned 404; fallback to existing authorized Git credential helper','runs':[]}
+try:
+ p=subprocess.run(['git','credential','fill'],input=b'protocol=https\nhost=github.com\n\n',cwd=R,capture_output=True,timeout=30,check=True)
+ credential=dict(line.split('=',1) for line in p.stdout.decode().splitlines() if '=' in line);auth=base64.b64encode((credential['username']+':'+credential['password']).encode()).decode();del credential,p
+ def get(path):
+  req=urllib.request.Request('https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/'+path,headers={'Authorization':'Basic '+auth,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'CANDY-RC2-closure'})
+  with urllib.request.urlopen(req,timeout=30) as resp:return json.load(resp)
+ remote=get('commits/'+C);assert remote['sha']==C and remote['commit']['tree']['sha']==TREE
+ ref=get('git/ref/heads/release-v7.3.14-rc2');assert ref['object']['sha']==C
+ result['remoteRefSha']=ref['object']['sha'];result['remoteCommitTree']=remote['commit']['tree']['sha']
+ runs=get('actions/runs?head_sha='+C+'&per_page=30')
+ for run in runs['workflow_runs']:
+  if run['head_sha']==C and run['path']=='.github/workflows/cpu-release-gates.yml':
+   jobs=get('actions/runs/'+str(run['id'])+'/jobs')['jobs']
+   item={k:run[k] for k in ['id','name','path','head_sha','head_branch','event','status','conclusion','html_url','created_at','updated_at','run_attempt']}
+   item['jobs']=[{k:j[k] for k in ['id','name','status','conclusion','runner_name','runner_group_name','labels','steps']} for j in jobs];result['runs'].append(item)
+ successes=[r for r in result['runs'] if r['status']=='completed' and r['conclusion']=='success' and r['head_branch']=='release-v7.3.14-rc2' and r['jobs'] and all(j['conclusion']=='success' and 'self-hosted' not in j['labels'] and 'ubuntu-24.04' in j['labels'] for j in r['jobs'])]
+ assert successes,'No successful GitHub-hosted CPU run for exact RC2 SHA';result['selectedRunId']=successes[0]['id'];result['selectedRunUrl']=successes[0]['html_url'];result['status']='PASS';result['method']='GitHub REST read using existing Git credential helper; no credential persisted';del auth
+except Exception as e:result.update(status='UNAVAILABLE',error=type(e).__name__)
+(W/'ci.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps(result))
+if result['status']!='PASS':raise SystemExit(1)

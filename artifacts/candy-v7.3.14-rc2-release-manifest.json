@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "candy.rc2-release-manifest/1",
+  "verdict": "PASS",
+  "capturedAt": "2026-10-10T16:43:50.362103+00:00",
+  "branch": "release-v7.3.14-rc2",
+  "baseHead": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+  "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+  "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+  "byteBasis": "Raw Git blobs read from actual RC2 commit using git ls-tree and git cat-file --batch; no checkout filters or temporary index.",
+  "scope": "Only RC1-01 package completeness and RC1-02 documentation truthfulness; no Scope 6B",
+  "rc1": {
+    "commit": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+    "verdict": "NON-PASS",
+    "evidenceFilesDurablyPreserved": false,
+    "authoritativeInput": "Human supplied confirmation and two RC1 findings in this chat; historical files missing and not reconstructed. Retained outside RC1 scratch files were not rewritten."
+  },
+  "archive": {
+    "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-rc2-source.zip",
+    "sha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b",
+    "bytes": 1670542,
+    "entries": 890,
+    "files": 833,
+    "directories": 57,
+    "modeCounts": {
+      "0644": 813,
+      "0755": 77
+    },
+    "crc": "PASS",
+    "cleanPopulatedIdentical": true,
+    "matchesPriorProspectiveBytes": true,
+    "allPayloadsMatchCommittedGitBlobs": true
+  },
+  "correctiveFiles": [
+    {
+      "path": "candy-runtime/README.md",
+      "gitMode": "100644",
+      "gitBlob": "f707a56adedbb9a0c46209888fc97337b54ec777",
+      "bytes": 3768,
+      "sha256": "bbb628856917138d7394404d326f1881f266042169d7e272d5651f42094a5bdc",
+      "packaged": true
+    },
+    {
+      "path": "docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md",
+      "gitMode": "100644",
+      "gitBlob": "601d2aa769a987d0eaaaf06ae20f3ca4bd83d8ed",
+      "bytes": 7543,
+      "sha256": "242aae2a0e9d8954ef20d3baa1b263274c2b44cbb5cdac93976801963cdff035",
+      "packaged": true
+    },
+    {
+      "path": "docs/RELEASE_v7.3.14.md",
+      "gitMode": "100644",
+      "gitBlob": "a86b7b322816b9ff0803b95ad6622104308908ba",
+      "bytes": 3344,
+      "sha256": "c5b768f8c0beaf9bf27f6f9915ec9f3d21a85eff2b6e3d9d70d2dd763f9bc837",
+      "packaged": true
+    },
+    {
+      "path": "scripts/package-portable-source.py",
+      "gitMode": "100644",
+      "gitBlob": "eca07b2741d6369dad4ad380cd63ca7916538765",
+      "bytes": 27366,
+      "sha256": "c8906a1ddec308df0b03347de76f780869bfff8430758e6db2cfe6ea88a42f75",
+      "packaged": true
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "gitMode": "100644",
+      "gitBlob": "0241dbf2bb6554d533dd97da8c0af692b895c458",
+      "bytes": 7872,
+      "sha256": "7679cd39bb8b93dad23f789f9fd04dd45fa295cd2adf0e9fbfd5789f0a70446e",
+      "packaged": true
+    },
+    {
+      "path": "tests/candy-rc2-package.test.mjs",
+      "gitMode": "100644",
+      "gitBlob": "aeb11f57d0e224375c3103443c9ce58798851c03",
+      "bytes": 6682,
+      "sha256": "94da0e7ad4bae5cd72c6482b328e450a304a97b678905b072006423b6479bce6",
+      "packaged": true
+    }
+  ],
+  "packageLockSha256": "53fb9226f7b511cb55db2455e331a03bc6e57161375ef3cdca2d4038fbddd22b",
+  "sourceInventorySha256": "1b86790e824e63567597e3b5276f3fe9be3374394d634641d9b167609ae94d62",
+  "protectedDeltas": {
+    "native": [],
+    "runtimeAndStudioProduction": [],
+    "packageManifests": [],
+    "workflow": [],
+    "historicalEvidence": []
+  },
+  "nativeRecordsBinariesSourcesAndTagsUnchanged": true,
+  "preservedRefs": {
+    "release-v7.3.14-rc1": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+    "candy-integration-scope6a-release-hardening-qualified": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2"
+  },
+  "tools": {
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "python": "3.13.15",
+    "host": "Windows; trusted native smoke WSL2_CUDA RTX 5060 sm_120"
+  },
+  "remoteCpuCI": {
+    "status": "PASS",
+    "newExactRc2Sha": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "workflow": ".github/workflows/cpu-release-gates.yml",
+    "runId": 38069470191,
+    "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/38069470191",
+    "attempt": 1,
+    "runner": "GitHub-hosted ubuntu-24.04",
+    "gpuOnPublicCpuRunner": "UNAVAILABLE/SKIPPED",
+    "receipt": "artifacts/candy-v7.3.14-rc2-closure-ci.json",
+    "oldRc1RunReused": false
+  },
+  "publisherAttestation": false,
+  "standaloneNativeRelease": false,
+  "evidenceExcludedFromSourceArchive": true,
+  "commitTagPushMergePerformed": false,
+  "closedAt": "2026-10-10T17:10:00.126274+00:00",
+  "rc2Committed": true,
+  "eligibleForFinalReleasePromotion": true,
+  "sourceCommitAndPushPreexistingAtClosureStart": true,
+  "noProductChangesDuringClosure": true,
+  "closureActions": {
+    "committedEvidence": false,
+    "createdTag": false,
+    "pushedEvidence": false,
+    "mergedMain": false,
+    "startedScope6B": false
+  },
+  "priorCorrectiveQualification": {
+    "verdict": "PASS WITH REMOTE-CI CLOSURE REQUIRED",
+    "capturedAt": "2026-10-10T16:43:50.362103+00:00",
+    "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+    "manifestSha256": "08ef6ac9e98dc048adc61a5919ebae117bd17aaa22911c5020f77a4ed87aeeab"
+  }
+}

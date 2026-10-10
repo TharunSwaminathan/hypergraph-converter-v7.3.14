@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "candy.rc2-qualification/1",
+  "verdict": "PASS",
+  "baseHead": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+  "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+  "rc2Committed": true,
+  "blockerDisposition": [
+    {
+      "id": "RC1-01",
+      "kind": "RELEASE_COMPLETENESS",
+      "status": "CORRECTED",
+      "fix": "Producer and verifier exclude artifacts only immediately under the project root; require and include candy-runtime/src/artifacts/artifactStore.js. All other exclusions and qualification checks remain unchanged."
+    },
+    {
+      "id": "RC1-02",
+      "kind": "DOCUMENTATION_TRUTHFULNESS",
+      "status": "CORRECTED",
+      "fix": "Three current docs describe Hypergraph/DynamicHypergraph, qualified STATIC/current counts and incremental pending delta-only analysis, independent Analyze/Apply authority, extracted Runtime health/discovery and fail-closed CUDA; CPU CI grants no GPU qualification."
+    }
+  ],
+  "gates": {
+    "fullTests": {
+      "passed": 272,
+      "total": 272
+    },
+    "lint": "PASS",
+    "repositoryBuild": "PASS",
+    "repositoryGithubBuild": "PASS",
+    "targetedAThroughJRegression": "PASS",
+    "frozenRawGitBlobPackage": "PASS",
+    "cleanPopulatedReproducibility": "PASS",
+    "workflowPackageGate": "PASS",
+    "extractedInstallAndBuilds": "PASS",
+    "normalExtractedRuntime": "PASS",
+    "extractedCudaFailClosed": "PASS",
+    "realBrowser": "PASS",
+    "trustedNativeSmoke": "PASS",
+    "documentation": "PASS",
+    "productionAudit": "PASS_ZERO_VULNERABILITIES",
+    "manualReleaseSecurityReview": "PASS_ZERO_REPORTABLE_CRITICAL_HIGH",
+    "protectedDeltas": "PASS_EMPTY",
+    "gitDiffCheck": "PASS",
+    "remoteExactRc2CpuCI": "PASS",
+    "committedTreeIdentity": "PASS",
+    "actualCommittedBlobPackageIdentity": "PASS",
+    "closureBrowserRecheck": "PASS"
+  },
+  "developmentAudit": {
+    "vulnerablePackages": 4,
+    "high": 3,
+    "moderate": 1,
+    "names": [
+      "baseline-browser-mapping",
+      "brace-expansion",
+      "browserslist",
+      "source-map-js"
+    ],
+    "scope": "Development tooling only; production dependency tree and source imports exclude these packages. No package changes within RC2."
+  },
+  "archive": {
+    "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-rc2-source.zip",
+    "sha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b",
+    "bytes": 1670542,
+    "entries": 890,
+    "files": 833,
+    "directories": 57,
+    "modeCounts": {
+      "0644": 813,
+      "0755": 77
+    },
+    "crc": "PASS",
+    "cleanPopulatedIdentical": true,
+    "matchesPriorProspectiveBytes": true,
+    "allPayloadsMatchCommittedGitBlobs": true
+  },
+  "remainingBlocker": null,
+  "hardStop": "No evidence commit/push, no v7.3.14 tag, no main merge, no Scope 6B.",
+  "closedAt": "2026-10-10T17:10:00.126274+00:00",
+  "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+  "eligibleForFinalV7314Tagging": true,
+  "remoteCpuCI": {
+    "status": "PASS",
+    "newExactRc2Sha": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "workflow": ".github/workflows/cpu-release-gates.yml",
+    "runId": 38069470191,
+    "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/38069470191",
+    "attempt": 1,
+    "runner": "GitHub-hosted ubuntu-24.04",
+    "gpuOnPublicCpuRunner": "UNAVAILABLE/SKIPPED",
+    "receipt": "artifacts/candy-v7.3.14-rc2-closure-ci.json",
+    "oldRc1RunReused": false
+  },
+  "noProductChangesDuringClosure": true,
+  "limitations": [
+    "GPU on public CPU runner is UNAVAILABLE/SKIPPED; native smoke uses existing trusted local qualification only.",
+    "Four previously recorded development-only advisories remain; current production audit zero.",
+    "Unchanged Windows zipfile backslash-name inspection limitation; actual original RC2 paths canonical.",
+    "Source/browser release; no standalone native distribution, publisher attestation, performance or large native-scale claim.",
+    "Historical RC1 evidence remains missing/not reconstructed; RC1 permanently NON-PASS.",
+    "Final additive RC2 evidence remains uncommitted as instructed."
+  ]
+}

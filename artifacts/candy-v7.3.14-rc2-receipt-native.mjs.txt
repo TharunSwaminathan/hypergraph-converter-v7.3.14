@@ -1,0 +1,41 @@
+import {pathToFileURL} from 'node:url';
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const root='C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14';
+const mod=p=>import(pathToFileURL(root+'/'+p));
+const {verifyQualifiedMotifBackend,MOTIF_SPECS}=await mod('candy-runtime/src/capabilities/motifQualification.js');
+const {startCandyRuntime}=await mod('candy-runtime/src/server.js');
+const {createCandyClient}=await mod('src/candy/client.js');
+const {createBenchmarkFixture,requireQualifiedBenchmarkFixture}=await mod('scripts/benchmarks/scope6a-fixtures.mjs');
+const {submitMotifWorkflow,validateBrowserMotifResult}=await mod('src/candy/motifWorkflow.js');
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const output=new URL('./native.json',import.meta.url);
+const snapshot=async()=>{
+ const a=[];
+ for(const [backend,s] of Object.entries(MOTIF_SPECS)){
+  const files=[`candy-runtime/.local/${backend.toLowerCase()}-qualified-build.json`,`candy-runtime/native/${s.directory}/src/main.cu`,`candy-runtime/native/${s.directory}/Makefile`,`candy-runtime/native/${s.directory}/build/${s.binary}`];
+  a.push({backend,qualifiedCommit:s.commit,tag:s.tag,peeled:execFileSync('git',['rev-parse',s.tag+'^{}'],{cwd:root,encoding:'utf8',windowsHide:true}).trim(),files:await Promise.all(files.map(async path=>{try{return {path,sha256:hash(await readFile(root+'/'+path))};}catch{return {path,missing:true};}}))});
+ } return a;
+};
+const before=await snapshot(); const discovery=[];
+for(const backend of Object.keys(MOTIF_SPECS))discovery.push({backend,...await verifyQualifiedMotifBackend({runtimeRoot:root+'/candy-runtime'},backend)});
+const result={commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8',windowsHide:true}).trim(),before,discovery,injectedDiscovery:false,nativeRunnerMock:false};
+let runtime;
+try{
+ runtime=await startCandyRuntime({port:0});
+ const client=createCandyClient({baseUrl:`http://127.0.0.1:${runtime.port}`,token:runtime.pairingToken});
+ const declaration=await client.capabilities(); result.capabilities=declaration.capabilities.map(c=>({backend:c.backend,modes:c.modes,nativeBuildFingerprint:c.nativeBuildFingerprint})); result.motifReadiness=declaration.motifReadiness;
+ if(!discovery.every(d=>d.available))throw Error('Existing qualified motif backend unavailable');
+ const graph=requireQualifiedBenchmarkFixture(createBenchmarkFixture('S1'));
+ const accepted=await submitMotifWorkflow({client,graphValue:graph,argumentsValue:{mode:'STATIC',backend:'CUDA_STATIC',deviceId:0,timeoutMs:5000},runtimeSessionId:declaration.runtimeSessionId,isCurrent:()=>true});
+ let job;const deadline=Date.now()+15000;
+ do{job=await client.getJob(accepted.job.jobId);if(!['completed','failed','cancelled'].includes(job.status))await new Promise(r=>setTimeout(r,25));}while(!['completed','failed','cancelled'].includes(job.status)&&Date.now()<deadline);
+ if(job.status!=='completed')throw Error('STATIC smoke '+job.status);
+ const value=await client.getResult(job.jobId);await validateBrowserMotifResult(value,accepted.binding);
+ if(value.native.counts.length!==30||value.native.counts.some(n=>n!==0)||value.native.totalConnectedTriples!==0)throw Error('S1 known zero motif counts mismatch');
+ result.static={status:'REAL_NATIVE_SUCCESS',fixture:'S1 disjoint 16 hyperedges / 64 vertices / 64 incidences',counts:value.native.counts,totalConnectedTriples:value.native.totalConnectedTriples,resultSha256:hash(JSON.stringify(value)),cuda:value.native.cuda,execution:value.execution}; result.status='PASS';
+}catch(e){result.status='QUALIFICATION_BLOCKED';result.error=e.message;}
+finally{if(runtime)await runtime.close();}
+result.after=await snapshot();result.nativeHashesAndTagsUnchanged=JSON.stringify(before)===JSON.stringify(result.after);if(!result.nativeHashesAndTagsUnchanged)result.status='FAIL';
+await writeFile(output,JSON.stringify(result,null,2)+'\n'); console.log(JSON.stringify({status:result.status,discovery:discovery.map(d=>({backend:d.backend,available:d.available,reason:d.reason})),nativeHashesAndTagsUnchanged:result.nativeHashesAndTagsUnchanged}));

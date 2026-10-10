@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "observedAt": "2026-10-10T17:03:58.900755+00:00",
+  "command": "npm run candy:runtime",
+  "normalPackagedCli": true,
+  "extractedRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted\\hypergraph-converter-v7.3.14",
+  "startup": "PASS",
+  "health": {
+    "httpStatus": 200,
+    "runtimeStatus": "ready"
+  },
+  "discovery": {
+    "unauthenticatedHttpStatus": 401,
+    "authenticatedHttpStatus": 200,
+    "capabilityBackends": []
+  },
+  "motifReadiness": [
+    {
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "status": "UNAVAILABLE",
+      "reason": "motif_qualification_unavailable_or_stale"
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "status": "UNAVAILABLE",
+      "reason": "motif_qualification_unavailable_or_stale"
+    }
+  ],
+  "cudaFailClosed": true,
+  "copiedGitQualificationNativeOrLocalState": false,
+  "injectedDiscovery": false,
+  "pairingTokenPersistedInEvidence": false,
+  "cleanup": {
+    "gracefulCtrlCRequested": true,
+    "pairingCredentialRemoved": true,
+    "runtimeListenerClosed": true,
+    "previewListenerClosed": true,
+    "browserTabClosed": true
+  },
+  "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+  "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+  "archiveSha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b"
+}

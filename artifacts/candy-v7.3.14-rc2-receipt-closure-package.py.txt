@@ -1,0 +1,45 @@
+import pathlib,subprocess,json,hashlib,importlib.util,shutil,zipfile,os
+W=pathlib.Path(__file__).parent;R=pathlib.Path(r'C:\Users\tharu\OneDrive\Documents\Candi\hypergraph-converter-v7.3.14');A=R/'artifacts';C='9d79d9f9027b338096d7cf62d67c2a22e9cab247';TREE='86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3';BASE='117ed4b9d8caa929ead5df3d6af59ad70a878cb2';EXPECTED='fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b'
+def git(*args):return subprocess.check_output(['git',*args],cwd=R)
+commands=[['status','--short'],['branch','--show-current'],['rev-parse','HEAD'],['rev-parse','origin/release-v7.3.14-rc2'],['rev-parse','HEAD^{tree}'],['diff','--check'],['log','--oneline','--decorate','-10'],['diff','--name-status',BASE,C]]
+baseline=[]
+for args in commands:
+ r=subprocess.run(['git',*args],cwd=R,capture_output=True,text=True);assert r.returncode==0;baseline.append({'command':'git '+' '.join(args),'exitCode':r.returncode,'stdout':r.stdout,'stderr':r.stderr})
+assert git('branch','--show-current').decode().strip()=='release-v7.3.14-rc2' and git('rev-parse','HEAD').decode().strip()==C and git('rev-parse','origin/release-v7.3.14-rc2').decode().strip()==C and git('rev-parse','HEAD^{tree}').decode().strip()==TREE
+assert not git('diff','--name-only') and not git('diff','--cached','--name-only')
+assert all(p.startswith('artifacts/candy-v7.3.14-rc2-') for p in git('ls-files','--others','--exclude-standard').decode().splitlines())
+expectedFiles=['candy-runtime/README.md','docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md','docs/RELEASE_v7.3.14.md','scripts/package-portable-source.py','scripts/verify-portable-archive.py','tests/candy-rc2-package.test.mjs'];assert git('diff','--name-only',BASE,C).decode().splitlines()==expectedFiles
+assert git('rev-parse','release-v7.3.14-rc1').decode().strip()==BASE and git('rev-parse','candy-integration-scope6a-release-hardening-qualified^{}').decode().strip()==BASE
+(W/'baseline.json').write_text(json.dumps(baseline,indent=2)+'\n',encoding='utf8')
+before={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in A.glob('candy-v7.3.14-rc2-*')};(W/'evidence-before.json').write_text(json.dumps(before,indent=2)+'\n',encoding='utf8')
+for line in (A/'candy-v7.3.14-rc2-checksums.txt').read_text().splitlines():
+ digest,path=line.split('  ',1);target=R/path if path.startswith('artifacts/') else pathlib.Path(path);assert hashlib.sha256(target.read_bytes()).hexdigest()==digest
+prior=json.loads((A/'candy-v7.3.14-rc2-package.json').read_text());inventory=[]
+for item in git('ls-tree','-r','-z',C).split(b'\0'):
+ if item:
+  meta,path=item.split(b'\t');mode,kind,oid=meta.decode().split();assert kind=='blob' and mode!='120000';inventory.append({'path':path.decode(),'gitMode':mode,'gitBlob':oid})
+proc=subprocess.Popen(['git','cat-file','--batch'],cwd=R,stdin=subprocess.PIPE,stdout=subprocess.PIPE);clean=W/'clean'/R.name
+for rec in inventory:
+ proc.stdin.write((rec['gitBlob']+'\n').encode());proc.stdin.flush();head=proc.stdout.readline().decode().split();b=proc.stdout.read(int(head[2]));assert proc.stdout.read(1)==b'\n';assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==rec['gitBlob'];target=clean/rec['path'];target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(b);rec.update(bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+proc.stdin.close();assert proc.wait()==0
+def load(path,name):
+ s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+pack=load(clean/'scripts/package-portable-source.py','closure_pack');verify=load(clean/'scripts/verify-portable-archive.py','closure_verify');pop=W/'populated'/R.name;shutil.copytree(clean,pop);markers=prior['excludedSyntheticMarkers']
+for rel in markers:
+ target=pop/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_text('SYNTHETIC_NON_SECRET\n',encoding='utf8')
+cases=[]
+for label,root in [('clean',clean),('populated',pop)]:
+ output=W/(label+'.zip');counts=pack.create_zip(root,output);report,manifest=verify.verify(output,R.name);assert report['ok'] and report['sha256']==EXPECTED and report['bytes']==1670542 and report['memberCount']==890 and counts['directory_entries']==57
+ with zipfile.ZipFile(output) as z:
+  names=z.namelist();assert R.name+'/candy-runtime/src/artifacts/artifactStore.js' in names;assert all(R.name+'/'+p not in names for p in markers);assert all(i.orig_filename==i.filename and '\\' not in i.orig_filename for i in z.infolist())
+  bypath={r['path']:r for r in inventory}
+  for entry in z.infolist():
+   if not entry.is_dir():
+    rec=bypath[entry.filename[len(R.name)+1:]];assert hashlib.sha256(z.read(entry)).hexdigest()==rec['sha256'];rec['packaged']=True
+ cases.append({'case':label,'archive':str(output),'counts':counts,'integrity':report});(W/(label+'-manifest.json')).write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf8')
+assert (W/'clean.zip').read_bytes()==(W/'populated.zip').read_bytes()==pathlib.Path(prior['archive']).read_bytes()
+assert inventory==prior['sourceInventory'],'Committed inventory does not match prospective inventory'
+archive=W/'hypergraph-converter-v7.3.14-rc2-source.zip';shutil.copyfile(W/'clean.zip',archive)
+with zipfile.ZipFile(archive) as z:z.extractall(W/'extracted')
+result={'rc2Commit':C,'candidateGitTree':TREE,'rc2Committed':True,'byteBasis':'Raw Git blobs read from actual RC2 commit using git ls-tree and git cat-file --batch; no checkout filters or temporary index.','sourceInventory':inventory,'cases':cases,'reproducible':True,'matchesProspectiveArchiveExactly':True,'excludedSyntheticMarkers':markers,'archive':str(archive),'deliveryArchive':prior['archive'],'extractedRoot':str(W/'extracted'/R.name),'allArchivePayloadsMatchCommittedGitBlobs':True,'committedCorrectiveFiles':expectedFiles}
+(W/'package.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf8');print(json.dumps({'commit':C,'tree':TREE,'sha256':EXPECTED,'bytes':1670542,'entries':890,'files':833,'directories':57,'cleanPopulatedAndPriorIdentical':True,'extractedRoot':result['extractedRoot']}))

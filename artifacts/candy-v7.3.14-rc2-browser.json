@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "browser": "Real Chrome via native browser control",
+  "url": "http://127.0.0.1:4178/hypergraph-converter/",
+  "servedFrom": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted\\hypergraph-converter-v7.3.14",
+  "build": "npm run build:github",
+  "previewCommand": "node node_modules/vite/bin/vite.js preview --base=/hypergraph-converter/ --host 127.0.0.1 --port 4178 --strictPort",
+  "fixture": "h0: A, B\nh1: B, C\nh2: B, D",
+  "hyperedges": 3,
+  "vertices": 4,
+  "incidences": 6,
+  "statistics": {
+    "status": "PASS",
+    "lineGraphTriangles": 1,
+    "maxDegree": 3,
+    "averageDegree": 1.5,
+    "incidenceDensityPercent": 50
+  },
+  "preview": "PASS: three rings and four vertex labels observed in screenshot",
+  "dynamicHypergraph": "PASS: explicit type transition from committed version 1 to version 2",
+  "assistant": "PASS: deterministic controls present; local model disconnected; historical messages explicitly grant no authority",
+  "navigation": [
+    "Batch Updates",
+    "Algorithms",
+    "Hypergraph Assistant",
+    "Batch Updates"
+  ],
+  "afterNavigation": {
+    "version": 2,
+    "graphFingerprint": "gfp-15fa9085-288",
+    "pendingStatus": "NONE",
+    "operations": 0,
+    "analysis": "NONE",
+    "currentPendingDeltaResult": false
+  },
+  "automaticStageAnalyzeApply": false,
+  "sourceMode": "Native integration disabled in the default extracted browser build; browser-only mode. Normal extracted CLI health/auth/discovery separately passed.",
+  "runtimePairingPerformedInBrowser": false,
+  "closed": true,
+  "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+  "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+  "archiveSha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b",
+  "closureObservedAt": "2026-10-10T17:10:00.126274+00:00",
+  "closureKind": "Lightweight real Chrome recheck from regenerated committed archive; full prior matrix reused because exact package bytes match",
+  "retainedPriorSourceModeEvidence": "Same archive bytes; original Advanced/source-mode screenshot and text retained from corrective qualification. Normal packaged CLI was freshly checked separately."
+}

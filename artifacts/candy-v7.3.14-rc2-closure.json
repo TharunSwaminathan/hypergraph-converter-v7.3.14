@@ -1,0 +1,303 @@
+{
+  "schemaVersion": "candy.rc2-closure/1",
+  "status": "PASS",
+  "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+  "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+  "observedAt": "2026-10-10T17:10:00.126274+00:00",
+  "baseline": [
+    {
+      "command": "git status --short",
+      "exitCode": 0,
+      "stdout": "?? artifacts/candy-v7.3.14-rc2-archive-members.json\n?? artifacts/candy-v7.3.14-rc2-audit-full.json\n?? artifacts/candy-v7.3.14-rc2-audit-production.json\n?? artifacts/candy-v7.3.14-rc2-browser-assistant.txt\n?? artifacts/candy-v7.3.14-rc2-browser-converted.txt\n?? artifacts/candy-v7.3.14-rc2-browser-dynamic-after.txt\n?? artifacts/candy-v7.3.14-rc2-browser-dynamic-before.txt\n?? artifacts/candy-v7.3.14-rc2-browser-dynamic.png\n?? artifacts/candy-v7.3.14-rc2-browser-source-mode.png\n?? artifacts/candy-v7.3.14-rc2-browser-source-mode.txt\n?? artifacts/candy-v7.3.14-rc2-browser-statistics.png\n?? artifacts/candy-v7.3.14-rc2-browser-statistics.txt\n?? artifacts/candy-v7.3.14-rc2-browser-summary.png\n?? artifacts/candy-v7.3.14-rc2-browser.json\n?? artifacts/candy-v7.3.14-rc2-checksums.txt\n?? artifacts/candy-v7.3.14-rc2-extracted-audit-prod.log.txt\n?? artifacts/candy-v7.3.14-rc2-extracted-build-github.log.txt\n?? artifacts/candy-v7.3.14-rc2-extracted-build.log.txt\n?? artifacts/candy-v7.3.14-rc2-extracted-ci.log.txt\n?? artifacts/candy-v7.3.14-rc2-extracted-runtime.json\n?? artifacts/candy-v7.3.14-rc2-final-inventory.json\n?? artifacts/candy-v7.3.14-rc2-gates.json\n?? artifacts/candy-v7.3.14-rc2-native.json\n?? artifacts/candy-v7.3.14-rc2-package.json\n?? artifacts/candy-v7.3.14-rc2-qualification.json\n?? artifacts/candy-v7.3.14-rc2-receipt-freeze.py.txt\n?? artifacts/candy-v7.3.14-rc2-receipt-native.mjs.txt\n?? artifacts/candy-v7.3.14-rc2-receipt-review.py.txt\n?? artifacts/candy-v7.3.14-rc2-release-manifest.json\n?? artifacts/candy-v7.3.14-rc2-report.md\n?? artifacts/candy-v7.3.14-rc2-repository-run-build-github.log.txt\n?? artifacts/candy-v7.3.14-rc2-repository-run-build.log.txt\n?? artifacts/candy-v7.3.14-rc2-repository-run-lint.log.txt\n?? artifacts/candy-v7.3.14-rc2-repository-test.log.txt\n?? artifacts/candy-v7.3.14-rc2-security-review.json\n?? artifacts/candy-v7.3.14-rc2-security.md\n?? artifacts/candy-v7.3.14-rc2-workflow-package.json\n",
+      "stderr": ""
+    },
+    {
+      "command": "git branch --show-current",
+      "exitCode": 0,
+      "stdout": "release-v7.3.14-rc2\n",
+      "stderr": ""
+    },
+    {
+      "command": "git rev-parse HEAD",
+      "exitCode": 0,
+      "stdout": "9d79d9f9027b338096d7cf62d67c2a22e9cab247\n",
+      "stderr": ""
+    },
+    {
+      "command": "git rev-parse origin/release-v7.3.14-rc2",
+      "exitCode": 0,
+      "stdout": "9d79d9f9027b338096d7cf62d67c2a22e9cab247\n",
+      "stderr": ""
+    },
+    {
+      "command": "git rev-parse HEAD^{tree}",
+      "exitCode": 0,
+      "stdout": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3\n",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git log --oneline --decorate -10",
+      "exitCode": 0,
+      "stdout": "9d79d9f (HEAD -> release-v7.3.14-rc2, origin/release-v7.3.14-rc2) fix: correct v7.3.14 RC2 packaging and release docs\n117ed4b (tag: candy-integration-scope6a-release-hardening-qualified, origin/release-v7.3.14-rc1, origin/candy-integration-scope6a-release-hardening, release-v7.3.14-rc1, candy-integration-scope6a-release-hardening) feat: qualify CANDY Scope 6A release hardening\nf8343ae (origin/candy-integration-scope6-readiness, candy-integration-scope6-readiness) docs: record CANDY Scope 6 readiness audit\nb24c4e3 (origin/main, origin/candy-integration-scope5-main-promotion, origin/HEAD, main, candy-integration-scope5-main-promotion) merge: promote qualified CANDY Scope 5 to main\n54dd4d3 (tag: candy-integration-scope5f-final-qualified, origin/candy-integration-scope5f-final-qualification, origin/candy-integration-scope5-dynamic-hypergraph, candy-integration-scope5f-final-qualification, candy-integration-scope5-dynamic-hypergraph) feat: qualify CANDY Scope 5 dynamic hypergraph workflow\nbf0240a (tag: candy-integration-scope5f-browser-blocked) fix: harden Scope 5 graph lineage and record blocked final qualification\n1e8f7fa (tag: candy-integration-scope5e-hardening-qualified, origin/candy-integration-scope5e-hardening, candy-integration-scope5e-hardening) feat: qualify CANDY Scope 5E hardening\n18fa9ae (tag: candy-integration-scope5d-ui-assistant-qualified, origin/candy-integration-scope5d-ui-assistant, candy-integration-scope5d-ui-assistant) feat: qualify CANDY Scope 5D UI assistant\nadad848 (tag: candy-integration-scope5c-runtime-binding-qualified, origin/candy-integration-scope5c-runtime-binding, candy-integration-scope5c-runtime-binding) feat: qualify CANDY Scope 5C runtime binding\n3379e01 (tag: candy-integration-scope5b-pending-update-qualified, origin/candy-integration-scope5b-pending-update, candy-integration-scope5b-pending-update) feat: qualify CANDY Scope 5B pending update\n",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --name-status 117ed4b9d8caa929ead5df3d6af59ad70a878cb2 9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+      "exitCode": 0,
+      "stdout": "M\tcandy-runtime/README.md\nM\tdocs/CANDY_SCOPE6A_RELEASE_CONTRACT.md\nM\tdocs/RELEASE_v7.3.14.md\nM\tscripts/package-portable-source.py\nM\tscripts/verify-portable-archive.py\nA\ttests/candy-rc2-package.test.mjs\n",
+      "stderr": ""
+    }
+  ],
+  "archive": {
+    "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-rc2-source.zip",
+    "sha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b",
+    "bytes": 1670542,
+    "entries": 890,
+    "files": 833,
+    "directories": 57,
+    "modeCounts": {
+      "0644": 813,
+      "0755": 77
+    },
+    "crc": "PASS",
+    "cleanPopulatedIdentical": true,
+    "matchesPriorProspectiveBytes": true,
+    "allPayloadsMatchCommittedGitBlobs": true
+  },
+  "remoteCpuCI": {
+    "status": "PASS",
+    "newExactRc2Sha": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "workflow": ".github/workflows/cpu-release-gates.yml",
+    "runId": 38069470191,
+    "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/38069470191",
+    "attempt": 1,
+    "runner": "GitHub-hosted ubuntu-24.04",
+    "gpuOnPublicCpuRunner": "UNAVAILABLE/SKIPPED",
+    "receipt": "artifacts/candy-v7.3.14-rc2-closure-ci.json",
+    "oldRc1RunReused": false
+  },
+  "extractedGates": [
+    {
+      "command": "npm ci",
+      "exitCode": 0,
+      "status": "PASS",
+      "startedAt": "2026-10-10T17:02:55.886519+00:00",
+      "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted-ci.log",
+      "logSha256": "b07ed353f9b0e25b8a04b075264f1103a8d715b5a7cb55d7d40c5fbe17e66298"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "status": "PASS",
+      "startedAt": "2026-10-10T17:03:03.035946+00:00",
+      "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted-build.log",
+      "logSha256": "85126031e21cecc21f1f30651dee3cedfc40230e2db749e55d8c5fff380cf437"
+    },
+    {
+      "command": "npm run build:github",
+      "exitCode": 0,
+      "status": "PASS",
+      "startedAt": "2026-10-10T17:03:04.620731+00:00",
+      "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted-build-github.log",
+      "logSha256": "f32896fef7996cec8881cbfcd07b99688465355c08e8b4b0c97f60ccc9783e29"
+    },
+    {
+      "command": "npm audit --omit=dev --json",
+      "exitCode": 0,
+      "status": "PASS",
+      "startedAt": "2026-10-10T17:03:05.480825+00:00",
+      "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted-audit-prod.log",
+      "logSha256": "4c50fa7d8851688b449be29f21d096c3d6d00af503500dcf0fbe06bea8eb66b7",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    }
+  ],
+  "runtime": {
+    "status": "PASS",
+    "observedAt": "2026-10-10T17:03:58.900755+00:00",
+    "command": "npm run candy:runtime",
+    "normalPackagedCli": true,
+    "extractedRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted\\hypergraph-converter-v7.3.14",
+    "startup": "PASS",
+    "health": {
+      "httpStatus": 200,
+      "runtimeStatus": "ready"
+    },
+    "discovery": {
+      "unauthenticatedHttpStatus": 401,
+      "authenticatedHttpStatus": 200,
+      "capabilityBackends": []
+    },
+    "motifReadiness": [
+      {
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      },
+      {
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      }
+    ],
+    "cudaFailClosed": true,
+    "copiedGitQualificationNativeOrLocalState": false,
+    "injectedDiscovery": false,
+    "pairingTokenPersistedInEvidence": false,
+    "cleanup": {
+      "gracefulCtrlCRequested": true,
+      "pairingCredentialRemoved": true,
+      "runtimeListenerClosed": true,
+      "previewListenerClosed": true,
+      "browserTabClosed": true
+    },
+    "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+    "archiveSha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b"
+  },
+  "browser": {
+    "status": "PASS",
+    "browser": "Real Chrome via native browser control",
+    "url": "http://127.0.0.1:4178/hypergraph-converter/",
+    "servedFrom": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\extracted\\hypergraph-converter-v7.3.14",
+    "build": "npm run build:github",
+    "previewCommand": "node node_modules/vite/bin/vite.js preview --base=/hypergraph-converter/ --host 127.0.0.1 --port 4178 --strictPort",
+    "fixture": "h0: A, B\nh1: B, C\nh2: B, D",
+    "hyperedges": 3,
+    "vertices": 4,
+    "incidences": 6,
+    "statistics": {
+      "status": "PASS",
+      "lineGraphTriangles": 1,
+      "maxDegree": 3,
+      "averageDegree": 1.5,
+      "incidenceDensityPercent": 50
+    },
+    "preview": "PASS: three rings and four vertex labels observed in screenshot",
+    "dynamicHypergraph": "PASS: explicit type transition from committed version 1 to version 2",
+    "assistant": "PASS: deterministic controls present; local model disconnected; historical messages explicitly grant no authority",
+    "navigation": [
+      "Batch Updates",
+      "Algorithms",
+      "Hypergraph Assistant",
+      "Batch Updates"
+    ],
+    "afterNavigation": {
+      "version": 2,
+      "graphFingerprint": "gfp-15fa9085-288",
+      "pendingStatus": "NONE",
+      "operations": 0,
+      "analysis": "NONE",
+      "currentPendingDeltaResult": false
+    },
+    "automaticStageAnalyzeApply": false,
+    "sourceMode": "Native integration disabled in the default extracted browser build; browser-only mode. Normal extracted CLI health/auth/discovery separately passed.",
+    "runtimePairingPerformedInBrowser": false,
+    "closed": true,
+    "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+    "archiveSha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b",
+    "closureObservedAt": "2026-10-10T17:10:00.126274+00:00",
+    "closureKind": "Lightweight real Chrome recheck from regenerated committed archive; full prior matrix reused because exact package bytes match",
+    "retainedPriorSourceModeEvidence": "Same archive bytes; original Advanced/source-mode screenshot and text retained from corrective qualification. Normal packaged CLI was freshly checked separately."
+  },
+  "nativeUnchanged": true,
+  "protectedDeltas": [],
+  "securityCriticalHigh": 0,
+  "documentation": "PASS",
+  "evidenceBeforeSha256": {
+    "candy-v7.3.14-rc2-archive-members.json": "4d23e137b873a8354a90ad1c45d89dfc79a0d6e2610ddf1921fc0c01da3685db",
+    "candy-v7.3.14-rc2-audit-full.json": "2be62bcec144d0a3d3897527dff6c65447269122ae4c61ad8ac5b347aab91760",
+    "candy-v7.3.14-rc2-audit-production.json": "b134bfe628044cd8e285a53d626730513342be5be207babfef988113a466508c",
+    "candy-v7.3.14-rc2-browser-assistant.txt": "1b5913bf45cc79afa327c092c35697aa6f0e7601fb08831c9f0516fc1328f41b",
+    "candy-v7.3.14-rc2-browser-converted.txt": "6b406da00bd5c857790ccb3fdfdff835603f6b1e23006c49c4ce49f84dd9c683",
+    "candy-v7.3.14-rc2-browser-dynamic-after.txt": "9b77f8a65c728a0053d40898ac27957e77743b5f63d47fe8de0ca0eb2889405c",
+    "candy-v7.3.14-rc2-browser-dynamic-before.txt": "919ad37adf2fa2ef6828c58813a27605db13cc9807bcb6b7e615458f46fbd7c7",
+    "candy-v7.3.14-rc2-browser-dynamic.png": "bd71086235223fc007a3082b8eb1dfcb11abe71e8fba95118679d1e5066bf675",
+    "candy-v7.3.14-rc2-browser-source-mode.png": "dd3e9ccd104d08939c495bc40637d378fd958b4aa2be39da53d537ef9d60c148",
+    "candy-v7.3.14-rc2-browser-source-mode.txt": "99b5c869ebdb9a2a33cbf59cfbbe5ffcda387a6811a5630470891287ce0fed90",
+    "candy-v7.3.14-rc2-browser-statistics.png": "5dcfdbb0585145ddd0eeea96d08043a85bbda045631e008a7fb3d170984ebd9d",
+    "candy-v7.3.14-rc2-browser-statistics.txt": "6a63740995ef2601c679f67e241a631f1a8cd34f7885009edd050c90e1caacdb",
+    "candy-v7.3.14-rc2-browser-summary.png": "7cc3c35298a7f67a4bd92a38a5b3a0a054f971e0279a0873f51a9f6a5ce792ce",
+    "candy-v7.3.14-rc2-browser.json": "5b478be60ce060aadadabfaac3c0bb26d10e7960a52553a023ef4d9589e3a824",
+    "candy-v7.3.14-rc2-checksums.txt": "d4797d689c7f0447c89f5df73d4c5feb9ada8197eff7016f581df50c155f8849",
+    "candy-v7.3.14-rc2-extracted-audit-prod.log.txt": "4c50fa7d8851688b449be29f21d096c3d6d00af503500dcf0fbe06bea8eb66b7",
+    "candy-v7.3.14-rc2-extracted-build-github.log.txt": "6e4360c1dbcef2148164b8e144e64b24c77b84b459ee1e5c605a1d234925d429",
+    "candy-v7.3.14-rc2-extracted-build.log.txt": "ffdc3e0ea66da4eadfbdf77fd4ab6c77094ba86ae82356772a4fe40bd0b1c250",
+    "candy-v7.3.14-rc2-extracted-ci.log.txt": "7b28d068f4c947ecd088a891db9054c226915b8646912be4dba242842b602a30",
+    "candy-v7.3.14-rc2-extracted-runtime.json": "be321b73b32e56087573178bdcecce8ea3e037069ccfaad776c5e000cd9325f8",
+    "candy-v7.3.14-rc2-final-inventory.json": "c3714a327ecfd73091e1e735228bc05786892d84b5c7921a7eefb54fe90b8d0a",
+    "candy-v7.3.14-rc2-gates.json": "4659975a6315407201c0384258bb95bcc645022dccf7b7fbe1f9342d7e76d49a",
+    "candy-v7.3.14-rc2-native.json": "99e782a0b8f42a23960f19ee74d1ddcfd12746562794dc3c707f7d13aa6db1f1",
+    "candy-v7.3.14-rc2-package.json": "c42112853780c0e08d3187ea02eac75f60fdc02825f7e70fd307853a68b1a68d",
+    "candy-v7.3.14-rc2-qualification.json": "268ded1b3bb0015ae8d56aced507aa192c0187c4eb1564506d7a225e597aeb53",
+    "candy-v7.3.14-rc2-receipt-freeze.py.txt": "dcd81c665fcc8f7ef0d243e3278b133587a65d748115b43cee4cba2e8e865174",
+    "candy-v7.3.14-rc2-receipt-native.mjs.txt": "7f7575991678bdc481be540ca702803685ab87cd92f57b47f608f7733222912e",
+    "candy-v7.3.14-rc2-receipt-review.py.txt": "f5256fb20a0e0d9e3c8f5dd08aebe603b0b09e39966d1b35bb358088e93b3e7e",
+    "candy-v7.3.14-rc2-release-manifest.json": "08ef6ac9e98dc048adc61a5919ebae117bd17aaa22911c5020f77a4ed87aeeab",
+    "candy-v7.3.14-rc2-report.md": "d4284fbcd5a11f8dcf4b57d72bc11aa8a841beb056048fd6137b3aafba99060d",
+    "candy-v7.3.14-rc2-repository-run-build-github.log.txt": "15f8951da665a2178765b507be4a64c77a11b814402d3d928acfaaab2da67a5c",
+    "candy-v7.3.14-rc2-repository-run-build.log.txt": "e09395b24f78a984803b34a29f5e5b191742a3014c0de5b87301c517b8f6adba",
+    "candy-v7.3.14-rc2-repository-run-lint.log.txt": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c",
+    "candy-v7.3.14-rc2-repository-test.log.txt": "1d74f99f1aff75cb3711fe274f9e7955127f28827089a66ab92549797de1b9dc",
+    "candy-v7.3.14-rc2-security-review.json": "3b2f22224e0c76b5aef9f8e1214cbdc8aa383ced1c4c62fc0dd5111746decd39",
+    "candy-v7.3.14-rc2-security.md": "83f0de4350dcd6f8653633ee84798500d849dec7a1b08f63a44ceb7e898262d0",
+    "candy-v7.3.14-rc2-workflow-package.json": "0b68a81e976f255b82a46842172c7cd2c77f09fd7c4c8a91bf2da9849ad4a182"
+  },
+  "priorEvidenceBackup": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc2-closure-ca8924360f264fe5b8fd20d474a82764\\prior-evidence",
+  "updatedEvidence": [
+    "artifacts/candy-v7.3.14-rc2-archive-members.json",
+    "artifacts/candy-v7.3.14-rc2-browser-assistant.txt",
+    "artifacts/candy-v7.3.14-rc2-browser-converted.txt",
+    "artifacts/candy-v7.3.14-rc2-browser-dynamic-after.txt",
+    "artifacts/candy-v7.3.14-rc2-browser-dynamic-before.txt",
+    "artifacts/candy-v7.3.14-rc2-browser-dynamic.png",
+    "artifacts/candy-v7.3.14-rc2-browser-statistics.txt",
+    "artifacts/candy-v7.3.14-rc2-browser.json",
+    "artifacts/candy-v7.3.14-rc2-checksums.txt",
+    "artifacts/candy-v7.3.14-rc2-extracted-build-github.log.txt",
+    "artifacts/candy-v7.3.14-rc2-extracted-build.log.txt",
+    "artifacts/candy-v7.3.14-rc2-extracted-ci.log.txt",
+    "artifacts/candy-v7.3.14-rc2-extracted-runtime.json",
+    "artifacts/candy-v7.3.14-rc2-final-inventory.json",
+    "artifacts/candy-v7.3.14-rc2-gates.json",
+    "artifacts/candy-v7.3.14-rc2-native.json",
+    "artifacts/candy-v7.3.14-rc2-package.json",
+    "artifacts/candy-v7.3.14-rc2-qualification.json",
+    "artifacts/candy-v7.3.14-rc2-release-manifest.json",
+    "artifacts/candy-v7.3.14-rc2-report.md",
+    "artifacts/candy-v7.3.14-rc2-security-review.json",
+    "artifacts/candy-v7.3.14-rc2-security.md"
+  ],
+  "newEvidence": [
+    "artifacts/candy-v7.3.14-rc2-closure-ci.json",
+    "artifacts/candy-v7.3.14-rc2-closure.json",
+    "artifacts/candy-v7.3.14-rc2-receipt-closure-ci.py.txt",
+    "artifacts/candy-v7.3.14-rc2-receipt-closure-package.py.txt"
+  ],
+  "concurrentCheckoutObservation": {
+    "firstNativeReceiptCommit": "9b6a87a2e904a86d8934498e352dcfe02295c84a",
+    "firstNativeReceiptTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+    "sourceDifferenceFromRc2": [],
+    "reflog": "9d79d9f HEAD@{2026-10-10 12:04:39 -0500}: reset: moving to origin/release-v7.3.14-rc2\n9b6a87a HEAD@{2026-10-10 12:04:33 -0500}: checkout: moving from s2-development to release-v7.3.14-rc2\n9b6a87a HEAD@{2026-10-10 12:02:50 -0500}: checkout: moving from release-v7.3.14-rc2 to s2-development\n9b6a87a HEAD@{2026-10-10 12:02:42 -0500}: commit (amend): fix: correct v7.3.14 RC2 packaging and release docs\n9d79d9f HEAD@{2026-10-10 11:52:57 -0500}: commit: fix: correct v7.3.14 RC2 packaging and release docs\n117ed4b HEAD@{2026-10-10 11:10:36 -0500}: checkout: moving from release-v7.3.14-rc1-evidence to release-v7.3.14-rc2\n987c19f HEAD@{2026-10-10 11:10:02 -0500}: commit: docs: record v7.3.14 RC1 non-pass qualification\n117ed4b HEAD@{2026-10-10 11:09:02 -0500}: checkout: moving from release-v7.3.14-rc1 to release-v7.3.14-rc1-evidence",
+    "resolution": "Checkout was externally restored to the expected SHA. Bounded native probe repeated successfully at exact RC2 SHA; first transient receipt is not used as final native evidence.",
+    "finalNativeReceiptCommit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "refChangesByThisAgent": false
+  },
+  "noProductChange": true,
+  "noCommitTagPushMerge": true
+}

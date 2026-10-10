@@ -1,0 +1,517 @@
+Browser tab: 1307747513, Title: "hypergraph-converter", URL: "http://127.0.0.1:4178/hypergraph-converter/".
+0 AXWebArea hypergraph-converter, URL: 127.0.0.1:4178/hypergraph-converter/
+	1 container
+		2 container root
+			3 link Description: Skip to content, Value: 127.0.0.1:4178/hypergraph-converter/#main-content
+			4 container
+				5 text ⬡ Hypergraph Converter Studio h2v · v2h · h2h
+			6 container main-content
+				7 text INPUT FORMAT
+				8 button H2V / Simple h0: A, B @time=2024
+					9 text H2V / Simple
+					10 text h0: A, B @time=2024
+				11 button Cornell / SNAP nverts + simplices + times
+					12 text Cornell / SNAP
+					13 text nverts + simplices + times
+				14 button Incidence Edge List hid, vid, time, weight per row
+					15 text Incidence Edge List
+					16 text hid, vid, time, weight per row
+				17 button CSV each row = one hyperedge
+					18 text CSV
+					19 text each row = one hyperedge
+				20 button Edge List v1 v2 per row
+					21 text Edge List
+					22 text v1 v2 per row
+				23 button JSON [{id, vertices}] or canonical object
+					24 text JSON
+					25 text [{id, vertices}] or canonical object
+				26 button V2H A: h0, h2
+					27 text V2H
+					28 text A: h0, h2
+				29 button H2H h0: h1[shared: A,B]
+					30 text H2H
+					31 text h0: h1[shared: A,B]
+				32 button CSR JSON {vertexIds, h2vCSR:{offsets,indices}}
+					33 text CSR JSON
+					34 text {vertexIds, h2vCSR:{offsets,indices}}
+				35 button CSR / CSC CSV vertexIds, rowOffsets, columnIndices…
+					36 text CSR / CSC CSV
+					37 text vertexIds, rowOffsets, columnIndices…
+				38 button Adjacency List node: neighbor neighbor …
+					39 text Adjacency List
+					40 text node: neighbor neighbor …
+				41 text ADVANCED
+				42 button Custom Parser write your own JS parser
+					43 text Custom Parser
+					44 text write your own JS parser
+				45 text H2V / Simple
+				46 button Load Example
+				47 button Auto-detect
+				48 button ↑ upload file
+				49 text entry area (settable) h0: A, B
+h1: B, C
+h2: B, D
+				50 button Convert →
+				115 text HYPEREDGES
+				116 text 3
+				117 text VERTICES
+				118 text 4
+				119 text MIN CARD
+				120 text 2
+				121 text MAX CARD
+				122 text 2
+				123 text AVG CARD
+				124 text 2.0
+				125 text TIMESTAMPS
+				126 text no
+				127 text WEIGHTS
+				128 text no
+				129 text COMMITTED GRAPH
+				130 container
+					131 text version  2  ·  gfp-15fa9085-288
+				132 container
+					133 text GRAPH TYPE
+					134 pop up button (collapsed, settable) Description: Committed graph type, Value: DynamicHypergraph, Secondary Actions: Expand
+						135 menu
+							136 Hypergraph
+							137 (selected) DynamicHypergraph
+				138 text SELECTION
+				139 text none
+				140 text MUTATION HISTORY
+				141 container
+					142 text 2  committed change s
+				143 text Type changes are versioned authority transitions. They do not run analysis or apply graph edits.
+				144 button Mappings
+				145 button Statistics
+				146 button Export
+				243 text CARDINALITY DISTRIBUTION
+				244 text 2 2
+				245 text Vertices per hyperedge
+				246 text DEGREE DISTRIBUTION
+				247 text 1 3
+				248 text Hyperedges per vertex
+				249 text LINE-GRAPH TRIANGLES
+				250 text 1
+				251 text Triangles in the line graph
+				252 container
+					253 text VALIDATION  ✓ CLEAN
+				254 text No duplicate, singleton, or empty hyperedge warnings found.
+				255 text INCIDENCE DENSITY
+				256 text 50.000%
+				257 text Incidences / (V × H)
+				258 text MAX DEGREE
+				259 text 3
+				260 text Most-connected vertex
+				261 text AVG DEGREE
+				262 text 1.50
+				263 text Average vertex degree
+				264 text V2V PROJECTION DENSITY
+				265 text 50.000%
+				266 text Observed pairs / possible pairs
+				267 container Hypergraph 3-Edge Motifs
+					268 heading Hypergraph 3-Edge Motifs, Value: 3, ID: hypergraph-motif-statistics-title
+						269 text Hypergraph 3-Edge Motifs
+					270 text Independent CANDY product: 30 structural motif classes, grouped into 6 OPEN_WEDGE and 24 CLOSED_TRIANGLE classes.
+					271 container
+						272 text Distinct from Line-Graph Triangles.  This section uses the qualified authenticated Runtime and never projects the graph, selects CPU fallback, or applies an update.
+					273 button (disabled) Compute 3-edge motifs
+					274 container
+						275 text RUNTIME_UNAVAILABLE:  Discover an authenticated Runtime session first.
+				200 text Graph Preview view
+				201 button Hypergraph
+				202 button Line Graph
+				203 text layout
+				204 button Force
+				205 button Circular
+				206 button Grid
+				207 text show
+				208 button 10
+				209 button 25
+				210 button 50
+				211 button 100
+				212 button 200
+				213 container Custom preview size
+					214 text Custom:
+					215 text field (settable) Description: Custom preview size value, ID: custom-preview-size
+					216 button Apply
+				217 text of  3 100 %
+				218 button reset
+				219 button reheat, Help: Restart exact Force simulation
+				220 button ↓ PNG
+				221 text field (settable) Search vertex
+				222 text field (settable) Search hyperedge
+				223 text scroll=zoom · drag canvas=pan · drag node=move · click=select
+				224 container
+					225 text Force:  exact  repulsion · incidence-centroid topology rings=hyperedges · dots=vertices
+				226 container
+					227 text Click a node or
+					228 text ring to inspect
+				229 container
+					230 text HYPEREDGES ( 3 )
+				231 container
+					232 text h0 2 v
+				233 container
+					234 text h1 2 v
+				235 container
+					236 text h2 2 v
+				237 text A
+				238 text B
+				239 text C
+				240 text D
+				51 tab group Tools sections
+					52 tab (selectable, settable, boolean) Batch Updates, Value: 0, ID: tools-tab-advanced
+					53 tab (selectable, settable, boolean) Algorithms, Value: 0, ID: tools-tab-algorithms
+					54 tab (selected, settable, boolean) Hypergraph Assistant, Value: 1, ID: tools-tab-assistant
+				276 container Description: Hypergraph Assistant, ID: tools-panel-assistant
+					277 container Hypergraph Assistant
+						278 text LOCAL ASSISTANT DISCONNECTED · DETERMINISTIC CONTROLS AVAILABLE
+						279 heading Hypergraph Assistant, Value: 2
+							280 text Hypergraph Assistant
+						281 text Conversational guidance with deterministic execution.
+						282 button Clear chat
+						283 container Hypergraph Assistant conversation
+							284 container
+								285 text HYPERGRAPH ASSISTANT Hello! I’m the Hypergraph Assistant. I can explain formats, help you understand uploaded datasets, guide mapping and Custom Parser workflows, and safely carry out supported dashboard actions through the deterministic controller.
+							286 container
+								287 text HYPERGRAPH ASSISTANT Conversion complete.
+								288 content list
+									289 container
+										290 AXListMarker • 
+										291 text Input format: H2V / Simple
+									292 container
+										293 AXListMarker • 
+										294 text Hyperedges: 3
+									295 container
+										296 AXListMarker • 
+										297 text Vertices: 4
+									298 container
+										299 AXListMarker • 
+										300 text Incidences: 6
+									301 container
+										302 AXListMarker • 
+										303 text Min cardinality: 2
+									304 container
+										305 AXListMarker • 
+										306 text Max cardinality: 2
+									307 container
+										308 AXListMarker • 
+										309 text Average cardinality: 2.0
+									310 container
+										311 AXListMarker • 
+										312 text Max degree: 3
+									313 container
+										314 AXListMarker • 
+										315 text Average degree: 1.50
+									316 container
+										317 AXListMarker • 
+										318 text Incidence density: 50.000%
+									319 container
+										320 AXListMarker • 
+										321 text V2V projection density: 50.000%
+									322 container
+										323 AXListMarker • 
+										324 text Line-graph triangles: 1
+									325 container
+										326 AXListMarker • 
+										327 text Duplicate hyperedges: no duplicate hyperedges
+									328 container
+										329 AXListMarker • 
+										330 text Singleton hyperedges: no singleton hyperedges
+									331 container
+										332 AXListMarker • 
+										333 text Validation: Clean
+								334 text Mappings available now: H2V, V2H, H2H, and V2V. You can also open Statistics, choose an Export preview, or view Graph Preview.
+							335 container
+								336 text HYPERGRAPH ASSISTANT Graph updated.
+								337 content list
+									338 container
+										339 AXListMarker • 
+										340 text Input format: H2V / Simple
+									341 container
+										342 AXListMarker • 
+										343 text Hyperedges: 3
+									344 container
+										345 AXListMarker • 
+										346 text Vertices: 4
+									347 container
+										348 AXListMarker • 
+										349 text Incidences: 6
+									350 container
+										351 AXListMarker • 
+										352 text Min cardinality: 2
+									353 container
+										354 AXListMarker • 
+										355 text Max cardinality: 2
+									356 container
+										357 AXListMarker • 
+										358 text Average cardinality: 2.0
+									359 container
+										360 AXListMarker • 
+										361 text Max degree: 3
+									362 container
+										363 AXListMarker • 
+										364 text Average degree: 1.50
+									365 container
+										366 AXListMarker • 
+										367 text Incidence density: 50.000%
+									368 container
+										369 AXListMarker • 
+										370 text V2V projection density: 50.000%
+									371 container
+										372 AXListMarker • 
+										373 text Line-graph triangles: 1
+									374 container
+										375 AXListMarker • 
+										376 text Duplicate hyperedges: no duplicate hyperedges
+									377 container
+										378 AXListMarker • 
+										379 text Singleton hyperedges: no singleton hyperedges
+									380 container
+										381 AXListMarker • 
+										382 text Validation: Clean
+								383 text Mappings available now: H2V, V2H, H2H, and V2V. You can also open Statistics, choose an Export preview, or view Graph Preview.
+							384 container
+								385 text HYPERGRAPH ASSISTANT Conversion complete.
+								386 content list
+									387 container
+										388 AXListMarker • 
+										389 text Input format: H2V / Simple
+									390 container
+										391 AXListMarker • 
+										392 text Hyperedges: 3
+									393 container
+										394 AXListMarker • 
+										395 text Vertices: 4
+									396 container
+										397 AXListMarker • 
+										398 text Incidences: 6
+									399 container
+										400 AXListMarker • 
+										401 text Min cardinality: 2
+									402 container
+										403 AXListMarker • 
+										404 text Max cardinality: 2
+									405 container
+										406 AXListMarker • 
+										407 text Average cardinality: 2.0
+									408 container
+										409 AXListMarker • 
+										410 text Max degree: 3
+									411 container
+										412 AXListMarker • 
+										413 text Average degree: 1.50
+									414 container
+										415 AXListMarker • 
+										416 text Incidence density: 50.000%
+									417 container
+										418 AXListMarker • 
+										419 text V2V projection density: 50.000%
+									420 container
+										421 AXListMarker • 
+										422 text Line-graph triangles: 1
+									423 container
+										424 AXListMarker • 
+										425 text Duplicate hyperedges: no duplicate hyperedges
+									426 container
+										427 AXListMarker • 
+										428 text Singleton hyperedges: no singleton hyperedges
+									429 container
+										430 AXListMarker • 
+										431 text Validation: Clean
+								432 text Mappings available now: H2V, V2H, H2H, and V2V. You can also open Statistics, choose an Export preview, or view Graph Preview.
+							433 container
+								434 text HYPERGRAPH ASSISTANT Graph updated.
+								435 content list
+									436 container
+										437 AXListMarker • 
+										438 text Input format: H2V / Simple
+									439 container
+										440 AXListMarker • 
+										441 text Hyperedges: 3
+									442 container
+										443 AXListMarker • 
+										444 text Vertices: 4
+									445 container
+										446 AXListMarker • 
+										447 text Incidences: 6
+									448 container
+										449 AXListMarker • 
+										450 text Min cardinality: 2
+									451 container
+										452 AXListMarker • 
+										453 text Max cardinality: 2
+									454 container
+										455 AXListMarker • 
+										456 text Average cardinality: 2.0
+									457 container
+										458 AXListMarker • 
+										459 text Max degree: 3
+									460 container
+										461 AXListMarker • 
+										462 text Average degree: 1.50
+									463 container
+										464 AXListMarker • 
+										465 text Incidence density: 50.000%
+									466 container
+										467 AXListMarker • 
+										468 text V2V projection density: 50.000%
+									469 container
+										470 AXListMarker • 
+										471 text Line-graph triangles: 1
+									472 container
+										473 AXListMarker • 
+										474 text Duplicate hyperedges: no duplicate hyperedges
+									475 container
+										476 AXListMarker • 
+										477 text Singleton hyperedges: no singleton hyperedges
+									478 container
+										479 AXListMarker • 
+										480 text Validation: Clean
+								481 text Mappings available now: H2V, V2H, H2H, and V2V. You can also open Statistics, choose an Export preview, or view Graph Preview.
+							482 container
+								483 text HYPERGRAPH ASSISTANT Conversion complete.
+								484 content list
+									485 container
+										486 AXListMarker • 
+										487 text Input format: H2V / Simple
+									488 container
+										489 AXListMarker • 
+										490 text Hyperedges: 3
+									491 container
+										492 AXListMarker • 
+										493 text Vertices: 4
+									494 container
+										495 AXListMarker • 
+										496 text Incidences: 6
+									497 container
+										498 AXListMarker • 
+										499 text Min cardinality: 2
+									500 container
+										501 AXListMarker • 
+										502 text Max cardinality: 2
+									503 container
+										504 AXListMarker • 
+										505 text Average cardinality: 2.0
+									506 container
+										507 AXListMarker • 
+										508 text Max degree: 3
+									509 container
+										510 AXListMarker • 
+										511 text Average degree: 1.50
+									512 container
+										513 AXListMarker • 
+										514 text Incidence density: 50.000%
+									515 container
+										516 AXListMarker • 
+										517 text V2V projection density: 50.000%
+									518 container
+										519 AXListMarker • 
+										520 text Line-graph triangles: 1
+									521 container
+										522 AXListMarker • 
+										523 text Duplicate hyperedges: no duplicate hyperedges
+									524 container
+										525 AXListMarker • 
+										526 text Singleton hyperedges: no singleton hyperedges
+									527 container
+										528 AXListMarker • 
+										529 text Validation: Clean
+								530 text Mappings available now: H2V, V2H, H2H, and V2V. You can also open Statistics, choose an Export preview, or view Graph Preview.
+								531 button Mappings
+								532 button Statistics
+								533 button Export
+								534 button Graph Preview
+							535 container
+								536 text HYPERGRAPH ASSISTANT Graph updated.
+								537 content list
+									538 container
+										539 AXListMarker • 
+										540 text Input format: H2V / Simple
+									541 container
+										542 AXListMarker • 
+										543 text Hyperedges: 3
+									544 container
+										545 AXListMarker • 
+										546 text Vertices: 4
+									547 container
+										548 AXListMarker • 
+										549 text Incidences: 6
+									550 container
+										551 AXListMarker • 
+										552 text Min cardinality: 2
+									553 container
+										554 AXListMarker • 
+										555 text Max cardinality: 2
+									556 container
+										557 AXListMarker • 
+										558 text Average cardinality: 2.0
+									559 container
+										560 AXListMarker • 
+										561 text Max degree: 3
+									562 container
+										563 AXListMarker • 
+										564 text Average degree: 1.50
+									565 container
+										566 AXListMarker • 
+										567 text Incidence density: 50.000%
+									568 container
+										569 AXListMarker • 
+										570 text V2V projection density: 50.000%
+									571 container
+										572 AXListMarker • 
+										573 text Line-graph triangles: 1
+									574 container
+										575 AXListMarker • 
+										576 text Duplicate hyperedges: no duplicate hyperedges
+									577 container
+										578 AXListMarker • 
+										579 text Singleton hyperedges: no singleton hyperedges
+									580 container
+										581 AXListMarker • 
+										582 text Validation: Clean
+								583 text Mappings available now: H2V, V2H, H2H, and V2V. You can also open Statistics, choose an Export preview, or view Graph Preview.
+								584 button Mappings
+								585 button Statistics
+								586 button Export
+								587 button Graph Preview
+						588 container Current assistant context
+							589 text Route 
+							590 text H2V / Simple
+							591 text Section 
+							592 text stats
+							593 text Graph 
+							594 text 3 H · 4 V
+							595 text Selection 
+							596 text none
+							597 text Mapping 
+							598 text none
+						599 text Chat saved on this browser. Workspace references never grant execution permission.
+						600 text Restored messages are historical context. No graph, pending update, confirmation, Runtime job or current result was restored. Reload the graph and review any requested change again.
+						601 container
+							602 text No active batch MESSAGE HYPERGRAPH ASSISTANT
+							603 text entry area (settable) MESSAGE HYPERGRAPH ASSISTANT, ID: hypergraph-agent-composer
+							604 button (disabled) Send
+							605 text Enter sends · Shift+Enter adds a newline
+						606 container Quick Links
+							607 text QUICK LINKS
+							608 button Explain H2V
+							609 button Graph stats
+							610 button Diagnostics
+							611 button Assistant help
+							612 button Pending update
+						613 container Assistant workspace and advanced tools
+							614 tab group Assistant secondary panels
+								615 tab (selected, settable, boolean) Workspace, Value: 1, ID: agent-workspace-tab-workspace
+								616 tab (selectable, settable, boolean) Mapping, Value: 0, ID: agent-workspace-tab-mapping
+								617 tab (selectable, settable, boolean) Assistant Settings, Value: 0, ID: agent-workspace-tab-settings
+								618 tab (selectable, settable, boolean) Advanced, Value: 0, ID: agent-workspace-tab-advanced
+								619 tab (selectable, settable, boolean) Help, Value: 0, ID: agent-workspace-tab-help
+							620 container Description: Workspace, ID: agent-workspace-panel-workspace
+								621 text UPLOAD BATCHES
+								622 text none
+								623 button Upload files
+								624 text Use Upload files here, or choose/drop files in Batch Updates. Each accepted upload creates a new active batch, and nothing leaves your browser.
+	241 container grammarly-integration
+		242 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 54 tab (selected, settable, boolean) Hypergraph Assistant, Value: 1, ID: tools-tab-assistant

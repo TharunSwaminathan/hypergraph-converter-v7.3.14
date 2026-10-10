@@ -1,0 +1,48 @@
+import os,pathlib,subprocess,json,hashlib,importlib.util,shutil,zipfile
+W=pathlib.Path(__file__).parent
+R=pathlib.Path(r'C:\Users\tharu\OneDrive\Documents\Candi\hypergraph-converter-v7.3.14')
+changes=['scripts/package-portable-source.py','scripts/verify-portable-archive.py','candy-runtime/README.md','docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md','docs/RELEASE_v7.3.14.md','tests/candy-rc2-package.test.mjs']
+env=dict(os.environ,GIT_INDEX_FILE=str(W/'candidate.index'),PYTHONDONTWRITEBYTECODE='1')
+def git(*args):return subprocess.check_output(['git',*args],cwd=R,env=env)
+git('read-tree','HEAD');git('add','--',*changes);tree=git('write-tree').decode().strip()
+records=[]
+for item in git('ls-tree','-r','-z',tree).split(b'\0'):
+ if not item:continue
+ meta,path=item.split(b'\t');mode,kind,oid=meta.decode().split();assert kind=='blob' and mode!='120000'
+ records.append({'path':path.decode(),'gitMode':mode,'gitBlob':oid})
+proc=subprocess.Popen(['git','cat-file','--batch'],cwd=R,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+clean=W/'clean'/R.name
+for rec in records:
+ proc.stdin.write((rec['gitBlob']+'\n').encode());proc.stdin.flush()
+ header=proc.stdout.readline().decode().split();b=proc.stdout.read(int(header[2]));assert proc.stdout.read(1)==b'\n'
+ target=clean/rec['path'];target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(b)
+ rec.update(bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+proc.stdin.close();assert proc.wait()==0
+def load(path,name):
+ s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+pack=load(clean/'scripts/package-portable-source.py','pack');verify=load(clean/'scripts/verify-portable-archive.py','verify')
+pop=W/'populated'/R.name;shutil.copytree(clean,pop)
+markers=['artifacts/qualification.json','ARTIFACTS/extra.json','candy-runtime/.local/cuda_static-qualified-build.json','candy-runtime/.local/cuda_incremental-qualified-build.json','candy-runtime/native/hypergraph-motif-cuda/build/native-local','candy-runtime/native/hypergraph-motif-cuda-incremental/build/native-local','.git/config','node_modules/local.txt','dist/local.txt','coverage/local.txt','tmp/local.txt','.env.local','pairing-token.txt','credentials.json','.secrets/state.json','candy-runtime/src/artifacts/.env.local','candy-runtime/src/artifacts/pairing-token.json','scratch.tmp']
+for rel in markers:
+ target=pop/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_text('SYNTHETIC_NON_SECRET\n',encoding='utf8')
+cases=[]
+for label,root in [('clean',clean),('populated',pop)]:
+ output=W/(label+'.zip');counts=pack.create_zip(root,output);report,manifest=verify.verify(output,R.name);assert report['ok']
+ with zipfile.ZipFile(output) as z:
+  names=z.namelist();assert all(R.name+'/'+rel not in names for rel in markers)
+  inventory={rec['path']:rec for rec in records}
+  for entry in z.infolist():
+   assert entry.orig_filename==entry.filename and '\\' not in entry.orig_filename
+   if not entry.is_dir():
+    rel=entry.filename[len(R.name)+1:];b=z.read(entry);rec=inventory[rel]
+    assert hashlib.sha256(b).hexdigest()==rec['sha256']
+    assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==rec['gitBlob']
+    rec['packaged']=True
+ (W/(label+'-manifest.json')).write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf8')
+ cases.append({'case':label,'archive':str(output),'counts':counts,'integrity':report})
+assert (W/'clean.zip').read_bytes()==(W/'populated.zip').read_bytes()
+archive=W/'hypergraph-converter-v7.3.14-rc2-source.zip';shutil.copyfile(W/'clean.zip',archive)
+with zipfile.ZipFile(archive) as z:z.extractall(W/'extracted')
+result={'baseHead':git('rev-parse','HEAD').decode().strip(),'candidateGitTree':tree,'candidateCommitted':False,'byteBasis':'Raw Git blobs of a temporary index containing HEAD plus only six corrective files. No commit or ref created; repository index untouched.','correctiveFiles':changes,'sourceInventory':records,'cases':cases,'reproducible':True,'excludedSyntheticMarkers':markers,'archive':str(archive),'extractedRoot':str(W/'extracted'/R.name),'allArchivePayloadsMatchGitBlobs':True}
+(W/'package.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf8')
+print(json.dumps({k:result[k] for k in ['candidateGitTree','reproducible','archive','extractedRoot']}));print(json.dumps(cases[0]['integrity']))

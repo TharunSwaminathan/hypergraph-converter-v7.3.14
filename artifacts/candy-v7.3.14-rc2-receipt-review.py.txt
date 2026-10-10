@@ -1,0 +1,34 @@
+import pathlib,json,zipfile,stat,importlib.util,re
+W=pathlib.Path(__file__).parent;P=json.loads((W/'package.json').read_text());E=pathlib.Path(P['extractedRoot'])
+s=importlib.util.spec_from_file_location('review_verify',E/'scripts/verify-portable-archive.py');v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
+checks=[]
+cases=[('traversal','root/../outside.txt',stat.S_IFREG|0o644,'traversalMembers'),('absolute','/outside.txt',stat.S_IFREG|0o644,'absoluteMembers'),('drive','C:/outside.txt',stat.S_IFREG|0o644,'absoluteMembers'),('backslash','root\\outside.txt',stat.S_IFREG|0o644,'backslashMembers'),('symlink','root/link',stat.S_IFLNK|0o777,'symlinkMembers'),('special','root/fifo',stat.S_IFIFO|0o644,'specialMembers'),('writable','root/file.txt',stat.S_IFREG|0o666,'worldOrGroupWritable'),('unexpectedExecutable','root/file.js',stat.S_IFREG|0o755,'unexpectedExecutableFiles'),('localState','root/.local/record.json',stat.S_IFREG|0o644,'forbiddenMembers'),('credential','root/pairing-token.txt',stat.S_IFREG|0o644,'forbiddenMembers'),('rootEvidence','root/artifacts/evidence.json',stat.S_IFREG|0o644,'forbiddenMembers'),('nestedSecret','root/src/artifacts/credentials.json',stat.S_IFREG|0o644,'forbiddenMembers'),('nestedBuild','root/src/artifacts/build/native',stat.S_IFREG|0o644,'forbiddenMembers')]
+for name,path,mode,issue in cases:
+ p=W/('adversarial-'+name+'.zip');i=zipfile.ZipInfo(path);i.filename=path;i.create_system=3;i.external_attr=mode<<16
+ with zipfile.ZipFile(p,'w') as z:z.writestr(i,b'SYNTHETIC_NON_SECRET')
+ report,_=v.verify(p,None);rejected=bool(report['issues'][issue]) and not report['ok']
+ if name!='backslash':assert rejected,(name,report)
+ checks.append({'case':name,'rejected':rejected,'issue':issue,'neverExtracted':True})
+for name,names,issue in [('duplicate',['root/a.txt','root/a.txt'],'duplicateMembers'),('caseCollision',['root/a.txt','root/A.txt'],'caseCollisions')]:
+ p=W/('adversarial-'+name+'.zip')
+ with zipfile.ZipFile(p,'w') as z:
+  for path in names:
+   i=zipfile.ZipInfo(path);i.create_system=3;i.external_attr=(stat.S_IFREG|0o644)<<16;z.writestr(i,b'SYNTHETIC_NON_SECRET')
+ report,_=v.verify(p,None);assert report['issues'][issue] and not report['ok'];checks.append({'case':name,'rejected':True,'issue':issue,'neverExtracted':True})
+missing=[]
+for p in (E/'candy-runtime/src').rglob('*.js'):
+ for rel in re.findall(r'(?:from\s*|import\s*)[\"\'](\.[^\"\']+)[\"\']',p.read_text(encoding='utf8')):
+  target=(p.parent/rel).resolve()
+  if not target.is_file():missing.append({'importer':p.relative_to(E).as_posix(),'specifier':rel})
+assert not missing
+secretHits=[]
+patterns=[rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----',rb'gh[pousr]_[A-Za-z0-9]{36,}',rb'github_pat_[A-Za-z0-9_]{70,}',rb'AKIA[A-Z0-9]{16}',rb'sk-proj-[A-Za-z0-9_-]{60,}']
+with zipfile.ZipFile(P['archive']) as z:
+ assert all('\\' not in i.orig_filename and i.orig_filename==i.filename for i in z.infolist())
+ for i in z.infolist():
+  if not i.is_dir():
+   for idx,pat in enumerate(patterns):
+    if re.search(pat,z.read(i)):secretHits.append({'path':i.filename,'patternIndex':idx})
+assert not secretHits
+result={'status':'PASS_FOR_REVIEWED_ACTUAL_RC2_BYTES','reviewKind':'Manual release-focused source and actual archive review with adversarial verifier probes; not a sealed Codex Security scan','archiveSha256':P['cases'][0]['integrity']['sha256'],'archiveIntegrity':P['cases'][0]['integrity'],'actualRawOriginalEntryNamesNormalized':True,'adversarialChecks':checks,'verifierLimitation':'Unchanged Windows zipfile filename normalization accepts the backslash probe. Actual RC2 orig_filename strings are independently verified canonical. Per requested scope this is not a new blocker and ZIP parsing was not redesigned.','highConfidenceSecretPatternHits':secretHits,'secretScanLimit':'Known patterns, exact raw Git blob payload inventory, producer/verifier symmetry and excluded synthetic marker checks; not universal detection of arbitrary secrets.','runtimeProductionImportClosure':{'status':'PASS','missing':missing},'policyReview':{'rootEvidenceExcluded':True,'nestedProductionArtifactsAllowed':True,'remainingExcludesUnchanged':True,'qualificationVerifierUnchanged':True,'runtimeAuthAndSessionCodeUnchanged':True,'modeAndTraversalLogicUnchanged':True},'documentationTruthfulness':'PASS','ciTrust':{'readOnlyPermissions':True,'persistCredentials':False,'immutableActionPins':True,'githubHostedCpu':True,'ciArtifactsGrantNoNativeAuthority':True},'reportableReleaseSecurityCriticalHigh':0,'developmentAudit':'Four known development-only advisories (three high, one moderate); zero production vulnerabilities. Not treated as new release-critical issues; manifests unchanged.'}
+(W/'review.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf8');print(json.dumps({'status':result['status'],'secretHits':secretHits,'missingProductionImports':missing,'adversarialChecks':len(checks),'rejected':sum(c['rejected'] for c in checks)}))

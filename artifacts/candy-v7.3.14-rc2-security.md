@@ -1,0 +1,19 @@
+# RC2 actual-byte release security review
+
+PASS for the reviewed actual RC2 source snapshot and archive. Zero unresolved reportable Critical/High release issues identified. This is a manual release-focused review, not a sealed Codex Security scan or universal hostile-ZIP certification.
+
+The producer now excludes only project-root artifacts evidence. The verifier uses the equivalent second ZIP component rule. Nested production artifacts source is included; .local, native build, credentials, token patterns and every other exclusion remain enforced at their former scope. The required Runtime module and production-imported contract modules are present. Source payloads match frozen raw Git blobs exactly; no symlink Git modes were materialized.
+
+Actual archive CRC, expected single root, mode policy, no traversal/absolute names, duplicates, case collisions, original raw path spelling, evidence/local/native exclusion, and high-confidence secret patterns passed. Fourteen of fifteen adversarial verifier probes rejected their intended defect, including root evidence, nested secret/build, traversal, absolute/drive, symlink/special files, writable/executable modes, duplicates and case collisions. The unchanged Windows backslash-name normalization probe is the documented exception. Actual RC2 orig_filename names independently contain no backslashes and equal canonical filename values. Per requested scope this is not a new blocker; ZIP parsing was not redesigned.
+
+Real extracted npm Runtime startup and health passed. Discovery remains authenticated (401 without bearer, 200 with session credential kept only in memory). Both motif backends remain UNAVAILABLE with motif_qualification_unavailable_or_stale. No Git, ignored local state, native binary or historical qualification record was copied. Temporary pairing credential disappeared and listener closed after Ctrl+C. Runtime/auth/qualification/authority production source is unchanged.
+
+Documentation correctly describes current graph types, qualified CUDA modes, delta-only results, separate Analyze/Apply confirmations, no result-derived authority, no CPU/STATIC fallback or implicit projection, and no public-CPU GPU/large-native-scale qualification. Browser navigation was inert; source-mode native integration is disabled by default. The trusted repository's genuine STATIC smoke passed and qualification inputs did not change.
+
+Production audit is zero. Full audit has three High development-tooling packages (brace-expansion, browserslist, source-map-js) and one Moderate (baseline-browser-mapping). They are absent from the production dependency tree and production source imports; disclosed in the full audit receipt, not claimed fixed. Their build/lint DoS advisories do not establish a release-runtime High finding in this scoped review. Dependencies remain unchanged as requested.
+
+CI remains GitHub-hosted CPU-only, read-only permissions, immutable action pins and persist-credentials:false. It grants no native authority. Exact committed RC2 SHA 9d79d9f9027b338096d7cf62d67c2a22e9cab247 has successful GitHub-hosted CPU run 38069470191; committed-byte package identity and refreshed extracted/browser/native gates passed.
+
+Known-pattern scanning cannot detect arbitrary undisclosed secrets; inspectable inventory and exact hash receipts bound this review. See candy-v7.3.14-rc2-security-review.json for archive identity and individual probe outcomes.
+
+Final closure binding: commit `9d79d9f9027b338096d7cf62d67c2a22e9cab247`, Git tree `86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3`, archive SHA-256 `fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b`. No production source changed during closure. Current docs were re-read and matched the committed package; prospective capture-time wording remains frozen and final status is carried by additive evidence. RC2 is PASS and eligible for separately authorized final release tagging; no tag was created.

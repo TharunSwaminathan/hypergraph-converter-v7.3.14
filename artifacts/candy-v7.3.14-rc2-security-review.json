@@ -1,0 +1,165 @@
+{
+  "status": "PASS_FOR_REVIEWED_ACTUAL_RC2_BYTES",
+  "reviewKind": "Manual release-focused source and actual archive review with adversarial verifier probes; not a sealed Codex Security scan",
+  "archiveSha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b",
+  "archiveIntegrity": {
+    "archive": "clean.zip",
+    "bytes": 1670542,
+    "sha256": "fb784545fe1fc0ed5460bf6e592b178252c7a9fcd0089b05a99eaa74f8c2827b",
+    "memberCount": 890,
+    "root": "hypergraph-converter-v7.3.14",
+    "testzip": "ok",
+    "modeCounts": {
+      "0644": 813,
+      "0755": 77
+    },
+    "issues": {
+      "backslashMembers": [],
+      "absoluteMembers": [],
+      "traversalMembers": [],
+      "duplicateMembers": [],
+      "caseCollisions": [],
+      "forbiddenMembers": [],
+      "symlinkMembers": [],
+      "specialMembers": [],
+      "unexpectedExecutableFiles": [],
+      "missingExecutableBits": [],
+      "incorrectOrdinaryModes": [],
+      "incorrectDirectoryModes": [],
+      "worldOrGroupWritable": [],
+      "nonUnixCreateSystem": [],
+      "rootLayout": [],
+      "crcFailures": []
+    },
+    "issueCount": 0,
+    "ok": true
+  },
+  "actualRawOriginalEntryNamesNormalized": true,
+  "adversarialChecks": [
+    {
+      "case": "traversal",
+      "rejected": true,
+      "issue": "traversalMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "absolute",
+      "rejected": true,
+      "issue": "absoluteMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "drive",
+      "rejected": true,
+      "issue": "absoluteMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "backslash",
+      "rejected": false,
+      "issue": "backslashMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "symlink",
+      "rejected": true,
+      "issue": "symlinkMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "special",
+      "rejected": true,
+      "issue": "specialMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "writable",
+      "rejected": true,
+      "issue": "worldOrGroupWritable",
+      "neverExtracted": true
+    },
+    {
+      "case": "unexpectedExecutable",
+      "rejected": true,
+      "issue": "unexpectedExecutableFiles",
+      "neverExtracted": true
+    },
+    {
+      "case": "localState",
+      "rejected": true,
+      "issue": "forbiddenMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "credential",
+      "rejected": true,
+      "issue": "forbiddenMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "rootEvidence",
+      "rejected": true,
+      "issue": "forbiddenMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "nestedSecret",
+      "rejected": true,
+      "issue": "forbiddenMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "nestedBuild",
+      "rejected": true,
+      "issue": "forbiddenMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "duplicate",
+      "rejected": true,
+      "issue": "duplicateMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "caseCollision",
+      "rejected": true,
+      "issue": "caseCollisions",
+      "neverExtracted": true
+    }
+  ],
+  "verifierLimitation": "Unchanged Windows zipfile filename normalization accepts the backslash probe. Actual RC2 orig_filename strings are independently verified canonical. Per requested scope this is not a new blocker and ZIP parsing was not redesigned.",
+  "highConfidenceSecretPatternHits": [],
+  "secretScanLimit": "Known patterns, exact raw Git blob payload inventory, producer/verifier symmetry and excluded synthetic marker checks; not universal detection of arbitrary secrets.",
+  "runtimeProductionImportClosure": {
+    "status": "PASS",
+    "missing": []
+  },
+  "policyReview": {
+    "rootEvidenceExcluded": true,
+    "nestedProductionArtifactsAllowed": true,
+    "remainingExcludesUnchanged": true,
+    "qualificationVerifierUnchanged": true,
+    "runtimeAuthAndSessionCodeUnchanged": true,
+    "modeAndTraversalLogicUnchanged": true
+  },
+  "documentationTruthfulness": "PASS",
+  "ciTrust": {
+    "readOnlyPermissions": true,
+    "persistCredentials": false,
+    "immutableActionPins": true,
+    "githubHostedCpu": true,
+    "ciArtifactsGrantNoNativeAuthority": true
+  },
+  "reportableReleaseSecurityCriticalHigh": 0,
+  "developmentAudit": "Four known development-only advisories (three high, one moderate); zero production vulnerabilities. Not treated as new release-critical issues; manifests unchanged.",
+  "rc2Commit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+  "candidateGitTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+  "reviewedAt": "2026-10-10T17:10:00.126274+00:00",
+  "remoteCpuCI": {
+    "status": "PASS",
+    "runId": 38069470191,
+    "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/38069470191",
+    "sha": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+  },
+  "noProductionChangesAfterCommittedSha": true
+}
