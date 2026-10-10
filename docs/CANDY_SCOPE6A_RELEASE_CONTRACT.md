@@ -1,8 +1,10 @@
 # Scope 6A source release and provenance contract
 
-This additive contract describes the uncommitted 6A candidate; it does not qualify
-a new native build. Its machine-readable provenance is recorded separately in
-`artifacts/candy-scope6a-release-manifest.json`.
+This current source-release contract preserves the qualified Scope 6A runtime
+behavior and describes the RC2 packaging correction; it does not qualify a new
+native build. Historical Scope 6A capture-time provenance remains unchanged in
+`artifacts/candy-scope6a-release-manifest.json`. Additive RC2 evidence records the
+corrected candidate separately; it remains uncommitted until reviewed.
 
 | Identity | Commit / meaning |
 | --- | --- |
@@ -24,8 +26,11 @@ candidate, not a signed publisher release or executable grant.
 
 ## Browser-only source archive
 
-The ZIP contains browser/Runtime source and production-imported contract modules
-under `candy-runtime/test`. It excludes Git, generated/historical `artifacts`,
+The ZIP contains browser/Runtime source, including
+`candy-runtime/src/artifacts/artifactStore.js`, and production-imported contract
+modules under `candy-runtime/test`. It excludes Git and generated/historical
+evidence at the repository-root `artifacts/` directory, while nested source
+directories named `artifacts` remain subject to the other exclusion rules. It excludes
 native `build`, Runtime `.local`, dependencies, caches, uploads, temporary files,
 common key/token/secret files and executables. Intended uncommitted source files
 are included. This filesystem exclusion policy cannot detect arbitrary secrets
@@ -38,9 +43,13 @@ before extraction. ZIP output must be outside the source tree. Qualified native
 binaries and local records are never included.
 
 Extracted source runs the browser with lockfile-defined `npm ci` and `npm run
-build`/`npm run dev`. Runtime health can work; qualified CUDA stays unavailable
+build`/`npm run dev`. The optional extracted Runtime starts with
+`npm run candy:runtime`; health and authenticated discovery work, while qualified
+CUDA stays unavailable
 without exact local records/native bytes, protected Git tags, historical evidence
-and matching device/toolchain. The verifier is unchanged. Regressions inspecting
+and matching device/toolchain. The CUDA qualification verifier is unchanged.
+The archive producer/verifier apply the same root-evidence exclusion policy.
+Regressions inspecting
 historical evidence/Git require a full checkout; extracted qualification separately
 checks browser build/usability and genuine unavailable CUDA.
 
@@ -65,6 +74,13 @@ STATIC stays CUDA_STATIC, INCREMENTAL stays CUDA_INCREMENTAL, with 30 bins,
 REJECT_EXCEPT_EXACT_DELETE_REINSERT and DELTA_ONLY_NO_PRIOR_COUNTS. No fallback,
 projection or large-browser-fixture native support is implied.
 
+The current Studio supports both Hypergraph and DynamicHypergraph. Qualified
+CUDA_STATIC provides current-count analysis; qualified CUDA_INCREMENTAL provides
+delta-only analysis of a validated DynamicHypergraph pending update. Analyze and
+Apply remain separate actions and confirmations. Apply never derives authority
+from an analysis result. There is no CPU fallback, STATIC fallback for incremental
+analysis, or implicit projection.
+
 Git blobs may use LF while a Windows checkout uses CRLF. Source/ZIP digests bind
 exact observed bytes; semantic newline equivalence is distinct from byte equality.
 Deployed native binary/source/Makefile qualification still binds exact bytes
@@ -76,8 +92,9 @@ The workflow runs install, full current regressions, lint, production/GitHub
 builds, deterministic bounds, package integrity, extracted build and production
 audit. Public Ubuntu CI is a CPU lane: GPU live is UNAVAILABLE/SKIPPED. Simulated
 contract tests are never native qualification evidence. Node 24.19.0 is observed
-and tested, not a minimum support policy. Locally npm 11.6.2 runs from a temporary
-pnpm tool cache because this host lacks npm; manifests/lockfile remain unchanged.
+and tested in Scope 6A, not a minimum support policy. The historical Scope 6A
+capture used temporary npm 11.6.2 because that host then lacked npm; current
+candidate evidence records its actual tools. Manifests/lockfile remain unchanged.
 
 Immutable pins bind checkout v7.0.1 and setup-node v7.1.0, checked against upstream
 tags: [checkout](https://github.com/actions/checkout/releases),

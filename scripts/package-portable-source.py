@@ -27,7 +27,6 @@ EXCLUDED_DIRS = {
     ".vite",
     "tmp",
     "temp",
-    "artifacts",
     "upload",
     "uploads",
     "__pycache__",
@@ -95,6 +94,7 @@ def entry_mode(path: Path) -> int:
     return EXECUTABLE_FILE_MODE if path.suffix.lower() in EXECUTABLE_EXTENSIONS else REGULAR_FILE_MODE
 
 REQUIRED_FILES = [
+    "candy-runtime/src/artifacts/artifactStore.js",
     "src/agent/liveMessageHistory.js",
     "src/utils/downloadLifecycle.js",
     "candy-runtime/test/hypergraph-motif-cuda-contract.mjs",
@@ -436,6 +436,10 @@ def project_root_from_script() -> Path:
 
 def is_excluded(path: Path, root: Path) -> bool:
     rel = path.relative_to(root)
+    # Release evidence is rooted at artifacts/. Nested production source
+    # directories with this name (such as Runtime's artifact store) are source.
+    if rel.parts[0].casefold() == "artifacts":
+        return True
     parts = {part.casefold() for part in rel.parts}
     if parts & {part.casefold() for part in EXCLUDED_DIRS}:
         return True
@@ -550,7 +554,10 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
             "node_modules_entries": sum("/node_modules/" in name for name in names),
             "dist_entries": sum("/dist/" in name for name in names),
             "git_entries": sum("/.git/" in name for name in names),
-            "artifacts_entries": sum("/artifacts/" in name for name in names),
+            "artifacts_entries": sum(
+                name.casefold().startswith(f"{root.name}/artifacts/".casefold())
+                for name in names
+            ),
             "coverage_entries": sum("/coverage/" in name for name in names),
             "macos_entries": sum("__MACOSX" in name for name in names),
             "ds_store_entries": sum(name.endswith("/.DS_Store") or name.endswith(".DS_Store") for name in names),

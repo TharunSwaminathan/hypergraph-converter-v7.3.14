@@ -11,6 +11,21 @@ The portable source archive is **browser-only**: native build outputs and local
 qualification state are excluded; extracted CUDA must fail closed. The Stage 9
 description is historical and does not qualify later CANDY native deployment.
 
+RC2 corrects the source-package exclusion policy: repository-root `artifacts/`
+evidence stays excluded, while nested production Runtime source under
+`candy-runtime/src/artifacts/` is included. The optional extracted Runtime can
+start with `npm run candy:runtime`, serve health and expose authenticated
+discovery. CUDA_STATIC and CUDA_INCREMENTAL remain unavailable without the exact
+trusted qualification context. RC1 remains NON-PASS; additive RC2 evidence binds
+the corrective snapshot, and remote CPU CI must pass on the future exact RC2
+commit before release closure. Public CPU CI does not establish GPU qualification.
+
+Current Studio supports Hypergraph and DynamicHypergraph, qualified STATIC
+current-count analysis and validated pending-update INCREMENTAL delta-only
+analysis. Analyze and Apply are separate; analysis results grant no Apply
+authority. There is no CPU or STATIC fallback for incremental analysis, implicit
+projection, or large native-scale qualification claim.
+
 The authoritative release producer is `scripts/package-portable-source.py`. It creates one project-rooted ZIP with normalized POSIX member paths, deterministic timestamps and ordering, explicit Unix metadata, and a narrow executable allowlist. It excludes dependencies, builds, Git data, coverage, transient validation evidence, review handoffs, uploads, caches, and other non-source material.
 
 Shell, PowerShell, and Windows batch launchers are assigned mode `0755` in the ZIP. Ordinary files, including Python utilities invoked through a Python interpreter, are assigned mode `0644`. No archive entry may be group- or world-writable.

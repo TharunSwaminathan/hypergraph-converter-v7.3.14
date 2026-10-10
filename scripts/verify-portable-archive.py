@@ -21,7 +21,6 @@ FORBIDDEN_PARTS = {
     "node_modules",
     "dist",
     "coverage",
-    "artifacts",
     "__MACOSX",
     "upload",
     "uploads",
@@ -115,6 +114,10 @@ def verify(archive: Path, expected_root: str | None) -> tuple[dict[str, object],
                 issues["absoluteMembers"].append(name)
             if ".." in parts:
                 issues["traversalMembers"].append(name)
+            # The first component is the project root. Only its immediate
+            # artifacts/ directory is release evidence; nested source is valid.
+            if len(parts) > 1 and parts[1].casefold() == "artifacts":
+                issues["forbiddenMembers"].append(name)
             if any(part.casefold() in {item.casefold() for item in FORBIDDEN_PARTS} for part in parts):
                 issues["forbiddenMembers"].append(name)
             basename = parts[-1] if parts else ""

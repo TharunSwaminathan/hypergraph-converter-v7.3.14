@@ -7,7 +7,10 @@ CUDA availability requires an exact ignored local qualification record, matching
 ## Trust boundary
 
 Portable source is browser-only: native `build`, Runtime `.local`, Git and
-qualification evidence are excluded. Extracted qualified CUDA must be unavailable;
+repository-root qualification evidence are excluded. Production source under
+`candy-runtime/src/artifacts` is included. The extracted Runtime can start with
+`npm run candy:runtime`; health and authenticated capability discovery work
+without granting native qualification. Extracted qualified CUDA must be unavailable;
 the qualification verifier remains unchanged. See the additive
 [Scope 6A release contract](../docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md) for actual
 bounds, provenance, exact-byte policy and future standalone-release work.
@@ -28,4 +31,19 @@ Unknown routes, schemas, algorithms, backends, graph types, and IDs fail closed.
 
 Run from the repository root with `npm run candy:runtime`. Stop with Ctrl+C so the temporary credential and companion-owned artifact directory are removed.
 
-Motif STATIC accepts Hypergraph/DynamicHypergraph. INCREMENTAL requires an immutable OLD DynamicHypergraph and qualified DELETE_THEN_INSERT update artifact; the unchanged trusted transport derives NEW and candidates. Results are read-only; incremental output is delta-only. The current Studio provides a committed Hypergraph and therefore enables STATIC only. Before conversion, Runtime readiness may be ready while active-graph eligibility is unavailable. Browser discovery preserves session pairing and updates graph eligibility after conversion.
+The current Studio supports committed Hypergraph and DynamicHypergraph graphs.
+STATIC current-count analysis uses CUDA_STATIC when qualified. Validated
+DynamicHypergraph pending-update delta analysis uses CUDA_INCREMENTAL when
+qualified, with an immutable OLD graph and DELETE_THEN_INSERT update; the trusted
+transport derives NEW and candidates. Incremental results are read-only and
+delta-only. Analyze and Apply require separate actions and confirmations; Apply
+never derives authority from an analysis result. There is no CPU fallback,
+STATIC fallback for incremental analysis, or implicit projection. Before
+conversion, Runtime readiness may be ready while active-graph eligibility is
+unavailable. Browser discovery preserves session pairing and updates graph
+eligibility after conversion.
+
+Public GitHub Actions exercise CPU release gates and do not establish GPU
+qualification. Live GPU qualification requires the matching trusted local
+environment. Current motif limits remain those in the Scope 6A release contract;
+this source release makes no large native-scale claim.
