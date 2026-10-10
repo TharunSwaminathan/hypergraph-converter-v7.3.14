@@ -1,4 +1,5 @@
 export function motifStatisticsAvailability(candy = {}) {
+  if (candy.staticAvailability) return candy.staticAvailability;
   if (!candy.featureEnabled) return { ready: false, capability: null, message: "The optional CANDY Runtime is disabled. Browser statistics remain available; no CPU fallback is used." };
   if (!candy.graphType) return { ready: false, capability: null, message: "Convert a Hypergraph before computing Runtime motifs." };
   if (!["Hypergraph", "DynamicHypergraph"].includes(candy.graphType)) return { ready: false, capability: null, message: `Hypergraph 3-edge motifs require a Hypergraph or DynamicHypergraph, not ${candy.graphType}. No implicit projection is performed.` };

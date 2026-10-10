@@ -105,6 +105,16 @@ function parseOperation(text, sourceClauseId) {
   if (!value) return [];
   const descriptor = operation => [{ ...operation, sourceClauseId }];
 
+  const replacement = value.match(/^replace\s+(?:hyperedge\s+|edge\s+)?(h[A-Za-z0-9_.:-]+)\s+with\s+(?:vertices\s+)?(.+)$/i);
+  if (replacement) {
+    const hyperedgeId = entity(replacement[1], "hyperedge");
+    const vertices = canonicalList(splitGraphEntityList(replacement[2], { kind: "vertex" }));
+    return vertices.length ? [
+      { type: GRAPH_MUTATION_OPS.REMOVE_HYPEREDGE, hyperedgeId, sourceClauseId },
+      { type: GRAPH_MUTATION_OPS.ADD_HYPEREDGE, hyperedgeId, vertices, sourceClauseId },
+    ] : [];
+  }
+
   const pendingFieldChange = value.match(/^(?:change|update|correct|fix|revise)\s+(?:the\s+)?pending\s+(vertex|hyperedge|edge)\s+from\s+(.+?)\s+to\s+(.+)$/i);
   if (pendingFieldChange) {
     const field = /^vertex$/i.test(pendingFieldChange[1]) ? "vertex" : "hyperedge";
@@ -347,7 +357,7 @@ function splitCompoundActions(text) {
 
 function stripDirectivePreamble(text) {
   return String(text ?? "").trim()
-    .replace(/^(?:please\s+|actually\s*,?\s*|no\s*,?\s*|i\s+meant\s+|now\s*,?\s*|then\s+|after\s+that\s+|for\s+(?:the\s+)?(?:current\s+task|pending\s+correction)\s*,?\s*|go\s+ahead\s+and\s+|i\s+want\s+you\s+to\s+|(?:can|could|would|will)\s+you\s+(?:please\s+)?)/i, "")
+    .replace(/^(?:instead\s*,?\s*|please\s+|actually\s*,?\s*|no\s*,?\s*|i\s+meant\s+|now\s*,?\s*|then\s+|after\s+that\s+|for\s+(?:the\s+)?(?:current\s+task|pending\s+correction)\s*,?\s*|go\s+ahead\s+and\s+|i\s+want\s+you\s+to\s+|(?:can|could|would|will)\s+you\s+(?:please\s+)?)/i, "")
     .replace(/\s+now\s*[.?!]?$/i, "")
     .trim();
 }

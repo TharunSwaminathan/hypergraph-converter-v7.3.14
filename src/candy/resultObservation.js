@@ -1,5 +1,7 @@
 const text = (value, limit = 240) => String(value ?? "").replace(/\s+/g, " ").trim().slice(0, limit);
 
+export const signedMotifValue = value => value > 0 ? `+${value}` : String(value);
+
 export function boundedCandyJobObservation(value) {
   if (!value) return null;
   const summary = value.modelSummary ?? {};

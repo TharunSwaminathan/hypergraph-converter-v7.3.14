@@ -1,0 +1,72 @@
+{
+  "scope": "CANDY Scope 5B",
+  "decision": "PASS",
+  "branch": "candy-integration-scope5b-pending-update",
+  "startingSha": "eb829fb627de349be99d440ebfed11990f76837e",
+  "qualifiedScope5ATag": {
+    "name": "candy-integration-scope5a-graph-state-qualified",
+    "peeledSha": "eb829fb627de349be99d440ebfed11990f76837e"
+  },
+  "exitCriteria": {
+    "oneAuthoritativePendingUpdate": true,
+    "dynamicHypergraphOnly": true,
+    "graphMutationPlanIsApplicationAuthority": true,
+    "motifUpdateIsDerivedTransportOnly": true,
+    "freshIdentityForMaterialEdits": true,
+    "exactBaseAndProposedBindings": true,
+    "deleteThenInsertSemanticsPreserved": true,
+    "metadataOnlyHasNoFabricatedDelta": true,
+    "fullNoOpHasNoAuthorityOrVersionTransition": true,
+    "applySeparateFromAnalysis": true,
+    "applyCommitsExactProposalOnce": true,
+    "replayAndRevivalRejected": true,
+    "noAutomaticRuntimeExecution": true,
+    "noCpuFallback": true,
+    "noImplicitProjection": true,
+    "scope5ARegressionGreen": true,
+    "fullApplicationGatesPass": true,
+    "securityHasNoUnresolvedHigh": true,
+    "frozenCudaDirectoriesUnchanged": true,
+    "historicalEvidenceAndTagsUnchanged": true
+  },
+  "gates": {
+    "focusedTests": "PASS",
+    "fullTests": "PASS 257/257",
+    "lint": "PASS",
+    "productionBuild": "PASS",
+    "githubPagesBuild": "PASS",
+    "productionDependencyAudit": "PASS 0 vulnerabilities",
+    "gitDiffCheck": "PASS",
+    "securityReview": "PASS 0 findings"
+  },
+  "securityScan": {
+    "scanId": "5067809b-dcdc-4fab-9363-7cb7fd63ac02",
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:508592fe3e44fdf410aa61e3db4509126a48325dfafc073a2a39d37147228431",
+    "coverage": "complete",
+    "findings": 0,
+    "unresolvedHigh": 0
+  },
+  "protectedDeltas": {
+    "nativeCudaFiles": 0,
+    "dependencyManifestFiles": 0
+  },
+  "auditExecution": {
+    "outsideCodexSandbox": true,
+    "reason": "Sandbox registry socket policy and no bundled npm executable",
+    "temporaryClient": "npm 11.4.2",
+    "packageJsonChanged": false,
+    "packageLockJsonChanged": false
+  },
+  "repositoryState": {
+    "committed": false,
+    "tagged": false,
+    "pushed": false,
+    "merged": false
+  },
+  "deferred": [
+    "Scope 5C Runtime/result registry and incremental submission/result bindings",
+    "Scope 5D Assistant and UI lifecycle",
+    "Scope 5E persistence and broader concurrency hardening",
+    "Scope 5F final qualification"
+  ]
+}

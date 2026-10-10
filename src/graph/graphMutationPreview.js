@@ -1,4 +1,5 @@
 import { applyGraphMutationPlan } from "./graphMutationEngine.js";
+import { canonicalizeGraph, stableStringify } from "./graphFingerprint.js";
 
 export function graphCounts(hyperedges = []) {
   const vertices = new Set();
@@ -27,7 +28,10 @@ export function previewGraphMutation(baseHyperedges = [], plan, graphIdentity = 
       vertices: after.vertices - before.vertices,
       incidences: after.incidences - before.incidences,
     },
-    graphChanged: result.ok ? result.beforeFingerprint !== result.afterFingerprint : false,
+    graphChanged: result.ok
+      ? result.beforeFingerprint !== result.afterFingerprint || result.graphType !== graphIdentity.graphType
+        || stableStringify(canonicalizeGraph(baseHyperedges)) !== stableStringify(canonicalizeGraph(result.hyperedges))
+      : false,
     operationCount: plan?.operations?.length ?? 0,
     summary: plan?.summary ?? "Graph mutation preview",
   };

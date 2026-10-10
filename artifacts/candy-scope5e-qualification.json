@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "scope": "5E",
+  "date": "2026-09-30",
+  "verdict": "PASS",
+  "branch": "candy-integration-scope5e-hardening",
+  "head": "18fa9aebd7c91b22c7415519a56ec160a88d2956",
+  "baselineTag": "candy-integration-scope5d-ui-assistant-qualified",
+  "baselineCommit": "18fa9aebd7c91b22c7415519a56ec160a88d2956",
+  "worktreeDisposition": "UNCOMMITTED",
+  "stagedFiles": [],
+  "commitCreated": false,
+  "tagCreated": false,
+  "pushed": false,
+  "merged": false,
+  "files": {
+    "modified": [
+      "src/App.jsx",
+      "src/candy/motifAnalysisController.js",
+      "src/candy/motifResultRegistry.js",
+      "src/candy/useCandyRuntime.js",
+      "src/components/AgentChatPanel.jsx",
+      "src/components/DynamicHypergraphUpdatePanel.jsx",
+      "src/graph/dynamicUpdateControls.js",
+      "src/graph/pendingHypergraphUpdate.js",
+      "src/persistence/threadStateSchema.js",
+      "src/persistence/threadStore.js",
+      "src/persistence/usePersistentThread.js"
+    ],
+    "added": [
+      "src/persistence/threadSaveQueue.js",
+      "tests/candy-scope5-concurrency.test.mjs",
+      "tests/candy-scope5-multitab.test.mjs",
+      "tests/candy-scope5-persistence.test.mjs",
+      "tests/candy-scope5-recovery.test.mjs",
+      "tests/fixtures/candy-scope5e-storage.mjs",
+      "artifacts/candy-scope5e-implementation-report.md",
+      "artifacts/candy-scope5e-test-results.json",
+      "artifacts/candy-scope5e-security-review.md",
+      "artifacts/candy-scope5e-qualification.json"
+    ],
+    "modifiedCount": 11,
+    "addedCount": 10,
+    "total": 21
+  },
+  "policy": {
+    "persistence": "Inert bounded conversation/references only; no executable pending update or optional pending summary retained.",
+    "reload": "Fresh owners; graph unavailable until explicit current graph load; no approval/job/result/session restoration.",
+    "multiTab": "Independent tab-local authoritative workspaces. No shared graph/update object, BroadcastChannel, or storage-event authority receiver.",
+    "runtimePairing": "Existing sessionStorage pairing credential retained only as an authentication hint; every owner starts unauthorized and requires explicit fresh capability discovery.",
+    "session": "Fresh nonpersistent controller/WeakMap ledgers, owner identity and epoch guards; Runtime session bound separately.",
+    "apply": "Separate explicit confirmation, consume-before-await, exact rederivation and final live graph/session checks.",
+    "analysis": "One current owner/binding; stale work may finish remotely but cannot publish current authority.",
+    "recovery": "Synchronous local revocation and best-effort remote cancellation; fresh relevant authorization for retries."
+  },
+  "bounds": {
+    "threadRecords": 80,
+    "messagesPerThread": 80,
+    "messageChars": 6000,
+    "summaryChars": 2000,
+    "recordChars": 1000000,
+    "pendingRevisionLedger": 256,
+    "consumedAssistantConfirmationIds": 256,
+    "graphHistory": 25,
+    "currentResultRegistry": 1,
+    "currentJobBinding": 1,
+    "currentOrTerminalJobObservation": 1,
+    "threadSaveSnapshots": 2,
+    "crossTabSignalHistory": 0
+  },
+  "criteria": [
+    {
+      "id": 1,
+      "criterion": "Reload restores no executable authority",
+      "status": "PASS"
+    },
+    {
+      "id": 2,
+      "criterion": "Old confirmations cannot replay after reload/restart",
+      "status": "PASS"
+    },
+    {
+      "id": 3,
+      "criterion": "Old results cannot become current after reload/restart",
+      "status": "PASS"
+    },
+    {
+      "id": 4,
+      "criterion": "Cross-tab information cannot grant authority",
+      "status": "PASS"
+    },
+    {
+      "id": 5,
+      "criterion": "Multi-tab behavior fails closed under independent workspace policy",
+      "status": "PASS"
+    },
+    {
+      "id": 6,
+      "criterion": "Concurrent Apply commits at most once",
+      "status": "PASS"
+    },
+    {
+      "id": 7,
+      "criterion": "Concurrent analysis has one current owner",
+      "status": "PASS"
+    },
+    {
+      "id": 8,
+      "criterion": "Late async results cannot resurrect stale state",
+      "status": "PASS"
+    },
+    {
+      "id": 9,
+      "criterion": "Runtime reconnect invalidates old analysis/result authority",
+      "status": "PASS"
+    },
+    {
+      "id": 10,
+      "criterion": "Pending Apply remains independently governed",
+      "status": "PASS"
+    },
+    {
+      "id": 11,
+      "criterion": "No automatic lifecycle actions on restore/reconnect",
+      "status": "PASS"
+    },
+    {
+      "id": 12,
+      "criterion": "Assistant old messages cannot substitute for current authority",
+      "status": "PASS"
+    },
+    {
+      "id": 13,
+      "criterion": "Histories/ledgers remain bounded",
+      "status": "PASS"
+    },
+    {
+      "id": 14,
+      "criterion": "Scope 5A/B/C/D remain green",
+      "status": "PASS"
+    },
+    {
+      "id": 15,
+      "criterion": "Full test/build/audit gates pass",
+      "status": "PASS"
+    },
+    {
+      "id": 16,
+      "criterion": "Security review has no unresolved High",
+      "status": "PASS"
+    },
+    {
+      "id": 17,
+      "criterion": "Runtime/native protected source remains unchanged",
+      "status": "PASS"
+    }
+  ],
+  "gates": [
+    {
+      "command": "node scripts/run-node-tests.mjs --match=candy-scope5",
+      "status": "PASS",
+      "exitCode": 0,
+      "filesPassed": 14,
+      "filesTotal": 14,
+      "durationSeconds": 8
+    },
+    {
+      "command": "npm run test",
+      "status": "PASS",
+      "exitCode": 0,
+      "filesPassed": 267,
+      "filesTotal": 267,
+      "durationSeconds": 115.4,
+      "log": "artifacts/candy-scope5e-full-test.log",
+      "logGitIgnored": true
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build:github",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "command": "npm audit --omit=dev --json",
+      "status": "PASS",
+      "exitCode": 0,
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "network": "Read-only approved network execution after sandbox network failure."
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "security": {
+    "scanId": "13ce71de-772e-46c3-8944-ef2c8bb567c4",
+    "status": "completed",
+    "sealedAt": "2026-09-30T15:42:43.876246Z",
+    "coverage": "complete",
+    "productionSurfaces": 12,
+    "deferred": [],
+    "findings": [],
+    "unresolvedHigh": 0,
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:9d379d5cf8c614fe591774ad9c161e7776a070df32860fbfe8bad1c9407188f1",
+    "canonicalArtifacts": [
+      {
+        "mediaType": "application/json",
+        "path": "findings.json",
+        "sha256": "d67557677e737034fc793575b899c522bac0ad0ced336f78eba30b371357b6f2"
+      },
+      {
+        "mediaType": "application/json",
+        "path": "coverage.json",
+        "sha256": "af2fb4f4df0a2cda08e84812603ef07416f2087d52626fd2178973c4d178c15f"
+      },
+      {
+        "mediaType": "application/octet-stream",
+        "path": "artifacts/02_discovery/final-source-hashes.json",
+        "sha256": "81bc7b4c3e00e9234cb1feed71060c1a5beb031346c3eac23fb28fabf50de298"
+      },
+      {
+        "mediaType": "application/octet-stream",
+        "path": "artifacts/02_discovery/review-receipts.md",
+        "sha256": "155465bb901f562489f65c6b8e7dcf3d004ede765ead7868429102fde7856c04"
+      }
+    ],
+    "scanDirectory": "C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14\\18fa9aebd7c91b22c7415519a56ec160a88d2956_20260930T153447Z_xzero9b7",
+    "priorScan": {
+      "scanId": "b4ae9aaa-3ce3-4769-96e8-8d2717c8455d",
+      "status": "completed",
+      "coverage": "partial",
+      "reason": "Sealed record retained an interim pending-worker marker. Preserved immutable; follow-up reverified unchanged source and sealed complete coverage."
+    }
+  },
+  "protected": {
+    "runtimeProductionDelta": [],
+    "nativeStaticDelta": [],
+    "nativeIncrementalDelta": [],
+    "packageJsonDelta": [],
+    "packageLockJsonDelta": [],
+    "historicalEvidenceDelta": [],
+    "scope5DesignDelta": [],
+    "qualifiedTagTargets": {
+      "candy-integration-scope5a-graph-state-qualified": "eb829fb627de349be99d440ebfed11990f76837e",
+      "candy-integration-scope5b-pending-update-qualified": "3379e0102704521960a5ccc1185a14a2beb2725d",
+      "candy-integration-scope5c-runtime-binding-qualified": "adad84847dac54261f3036dc488c35ed4caef3e7",
+      "candy-integration-scope5d-ui-assistant-qualified": "18fa9aebd7c91b22c7415519a56ec160a88d2956"
+    }
+  },
+  "remainingScope5F": [
+    "Final live application + real qualified CUDA_INCREMENTAL end-to-end qualification.",
+    "Visible real-browser reload/restart and two-tab storage/durability smoke checks alongside the live application.",
+    "Reconfirm current graph/update/result binding, cancellation/reconnect, separate Apply and no fallback using real Runtime."
+  ],
+  "limitations": [
+    "IndexedDB and independent tab contexts are exercised using transactional storage/controller test doubles, not two visible real browser windows.",
+    "Actual React persistence and Runtime hooks mount/remount under happy-dom and Vite; this is not a real browser crash/durability test.",
+    "New direct transition tests cover replacement/clear/type/normal mutation. Parser/custom parser/undo/pending Apply are supported by the common App commit trace and passing earlier Scope 5A/5B/5D/full regressions; no new mounted App matrix is claimed.",
+    "No real CUDA job or final live application qualification was performed in Scope 5E."
+  ],
+  "evidence": [
+    "artifacts/candy-scope5e-implementation-report.md",
+    "artifacts/candy-scope5e-test-results.json",
+    "artifacts/candy-scope5e-security-review.md",
+    "artifacts/candy-scope5e-qualification.json"
+  ],
+  "hardStop": "Scope 5E report only; no Scope 5F execution.",
+  "sourceAndTestHashes": [
+    {
+      "path": "src/App.jsx",
+      "sha256": "d151501fb831fbe41854e63e4dcb07fd30c0382ded3e25e4f68806020e4855f9"
+    },
+    {
+      "path": "src/candy/motifAnalysisController.js",
+      "sha256": "9bf5b10bb5894e4c12eade587c032cb62a4d346073739ba59c27f39f50dbacc1"
+    },
+    {
+      "path": "src/candy/motifResultRegistry.js",
+      "sha256": "6548b3708692b07bdbae4c8f2c589905445449721b33a517ad0a0dd74bdef0e3"
+    },
+    {
+      "path": "src/candy/useCandyRuntime.js",
+      "sha256": "247e6840bf7e4a04b3f2260cbc05278584525c59b9d5f67cf07dbc940c03574c"
+    },
+    {
+      "path": "src/components/AgentChatPanel.jsx",
+      "sha256": "b8ee7c9b6fc0054a9502cc0c45a50980b07d04f4d23913167eb5041c36ea8248"
+    },
+    {
+      "path": "src/components/DynamicHypergraphUpdatePanel.jsx",
+      "sha256": "71ef4bdcf980f1cf5affbc825a5607e5224f7a5e918c219e40f98886fa80a791"
+    },
+    {
+      "path": "src/graph/dynamicUpdateControls.js",
+      "sha256": "cee1876751135e71a69bc5df8906bcfdf92aedb2de18a9b7191c5ff31bf7ae00"
+    },
+    {
+      "path": "src/graph/pendingHypergraphUpdate.js",
+      "sha256": "7afa7c7dcae153fb2db57f001810156fa61b98998f69d3a907a9c9198854d8c9"
+    },
+    {
+      "path": "src/persistence/threadStateSchema.js",
+      "sha256": "f19f59def780a3b0cf556e1c13cdf8b4cc5204bcdc7b3f499c39dbd714f4d3d5"
+    },
+    {
+      "path": "src/persistence/threadStore.js",
+      "sha256": "bef2b93c656b7ab1dbfbd1126237e5c0da900ddc9d8fb44d7121c1eb8d90d31c"
+    },
+    {
+      "path": "src/persistence/usePersistentThread.js",
+      "sha256": "cbd8d4e06bb5ddf6b46c306a67feb0f8b6e71ecd0b883f6b258d92a835357bd5"
+    },
+    {
+      "path": "src/persistence/threadSaveQueue.js",
+      "sha256": "af1d0ee7269ad108d0f1e11d352013a5103cbb0278971f6a6d94423df2afd321"
+    },
+    {
+      "path": "tests/candy-scope5-concurrency.test.mjs",
+      "sha256": "c36fbe0be18e4fd1356d155bf0b7a866fba3c50f575ec0634204063f2c6c3960"
+    },
+    {
+      "path": "tests/candy-scope5-multitab.test.mjs",
+      "sha256": "890ab52a9502f9d109749c9d98e80796c7bbb33cd4bcb60086de3b43ec145dd7"
+    },
+    {
+      "path": "tests/candy-scope5-persistence.test.mjs",
+      "sha256": "05bf8d31e1dd2b4a3acd60b01a41416d0183249b2f6aa48cd7034bdf4839449c"
+    },
+    {
+      "path": "tests/candy-scope5-recovery.test.mjs",
+      "sha256": "781ca2c9ac75683e0d8627c278638f3295b4532bdd0c22cb695843abab95f6c7"
+    },
+    {
+      "path": "tests/fixtures/candy-scope5e-storage.mjs",
+      "sha256": "d2d39fe1fb350caee0105ff212dc44b14fba9ad9754e91817268aa881ce10747"
+    }
+  ]
+}

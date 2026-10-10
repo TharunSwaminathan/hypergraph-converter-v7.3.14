@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "candy.scope5f-assistant/1",
+  "evidenceKind": "INSTALLED_MODEL_PRODUCTION_ORCHESTRATOR_CONTROLLER_REAL_RUNTIME",
+  "visibleBrowser": false,
+  "cases": [
+    {
+      "id": "model-incremental",
+      "query": "Run incremental motif analysis.",
+      "result": {
+        "ok": false,
+        "outcome": "model_unavailable",
+        "stopReason": "model_failure",
+        "error": "The local model was unavailable; no motif job or workspace action was performed.",
+        "metrics": {
+          "modelCalls": 1,
+          "actionsExecuted": 0,
+          "confirmationsStaged": 0,
+          "fallbackCount": 0,
+          "iterations": 1,
+          "observationChars": [
+            4139
+          ],
+          "promptChars": []
+        }
+      },
+      "outputs": [],
+      "graphUnchanged": true,
+      "newJobs": 0,
+      "commits": 0
+    }
+  ],
+  "model": {
+    "name": "qwen3:8b",
+    "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+    "version": "0.34.0",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "8.2B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 4096
+    }
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: {\"id\":\"model-incremental\",\"query\":\"Run incremental motif analysis.\",\"result\":{\"ok\":false,\"outcome\":\"model_unavailable\",\"stopReason\":\"model_failure\",\"error\":\"The local model was unavailable; no motif job or workspace action was performed.\",\"metrics\":{\"modelCalls\":1,\"actionsExecuted\":0,\"confirmationsStaged\":0,\"fallbackCount\":0,\"iterations\":1,\"observationChars\":[4139],\"promptChars\":[]}},\"outputs\":[],\"graphUnchanged\":true,\"newJobs\":0,\"commits\":0}\n    at ask (file:///C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/candy-runtime/test/run-scope5f-assistant-qualification.mjs:56:109)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/candy-runtime/test/run-scope5f-assistant-qualification.mjs:60:29",
+  "finishedAt": "2026-10-09T14:55:05.659Z"
+}

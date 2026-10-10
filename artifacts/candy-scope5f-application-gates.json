@@ -1,0 +1,99 @@
+{
+  "finalTestFilesTotal": 268,
+  "head": "1e8f7fa2eac97f9cadf72224ae9e99febdea85df",
+  "audit": {
+    "auditReportVersion": 2,
+    "vulnerabilities": {},
+    "metadata": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 5,
+        "dev": 171,
+        "optional": 33,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 175
+      }
+    }
+  },
+  "testInfrastructureReview": "Production owners/authenticated real Runtime; no motif implementation; independently reviewed",
+  "status": "PASS",
+  "capturedAt": "2026-10-09T15:07:39.4403174Z",
+  "productionCorrectionFiles": [
+    "src/App.jsx",
+    "src/components/AgentChatPanel.jsx",
+    "src/graph/graphIdentity.js",
+    "src/graph/graphMutationPreview.js",
+    "src/graph/graphState.js"
+  ],
+  "branch": "candy-integration-scope5f-final-qualification",
+  "fullTest": {
+    "seconds": 116.0378361,
+    "command": "npm run test",
+    "finishedAt": "2026-10-09T15:03:30.0378988Z",
+    "exitCode": 0,
+    "log": "artifacts/candy-scope5f-tests.log"
+  },
+  "tags": [
+    "eb829fb627de349be99d440ebfed11990f76837e refs/tags/candy-integration-scope5a-graph-state-qualified",
+    "3379e0102704521960a5ccc1185a14a2beb2725d refs/tags/candy-integration-scope5b-pending-update-qualified",
+    "adad84847dac54261f3036dc488c35ed4caef3e7 refs/tags/candy-integration-scope5c-runtime-binding-qualified",
+    "18fa9aebd7c91b22c7415519a56ec160a88d2956 refs/tags/candy-integration-scope5d-ui-assistant-qualified",
+    "1e8f7fa2eac97f9cadf72224ae9e99febdea85df refs/tags/candy-integration-scope5e-hardening-qualified"
+  ],
+  "protectedDeltas": {
+    "allEmpty": true,
+    "nativePaths": [],
+    "manifests": [],
+    "trackedHistoricalArtifacts": []
+  },
+  "warnings": [
+    "Both builds retain existing large-chunk advisory; builds exited 0",
+    "Initial damaged temporary npm installation repaired outside repository; final manifests unchanged"
+  ],
+  "worktreeDisposition": "UNCOMMITTED",
+  "focusedScope5": {
+    "evidenceKind": "AUTOMATED_CONTROLLER_AND_MOUNTED_HAPPY_DOM",
+    "passed": 15,
+    "total": 15,
+    "log": "artifacts/candy-scope5f-focused-tests.log"
+  },
+  "schemaVersion": "candy.scope5f-application-gates/1",
+  "finalTestFilesPassed": 268,
+  "integrity": {
+    "auditExitCode": 0,
+    "finishedAt": "2026-10-09T15:01:44.3357623Z",
+    "diffCheckExitCode": 0
+  },
+  "baseline": "1e8f7fa2eac97f9cadf72224ae9e99febdea85df",
+  "buildGates": [
+    {
+      "log": "artifacts/candy-scope5f-lint.log",
+      "finishedAt": "2026-10-09T15:01:41.982079Z",
+      "exitCode": 0,
+      "seconds": 9.3674003,
+      "gate": "lint"
+    },
+    {
+      "log": "artifacts/candy-scope5f-build.log",
+      "finishedAt": "2026-10-09T15:01:42.6564381Z",
+      "exitCode": 0,
+      "seconds": 0.6581829,
+      "gate": "build"
+    },
+    {
+      "log": "artifacts/candy-scope5f-build-github.log",
+      "finishedAt": "2026-10-09T15:01:43.2826567Z",
+      "exitCode": 0,
+      "seconds": 0.6186277,
+      "gate": "build:github"
+    }
+  ]
+}

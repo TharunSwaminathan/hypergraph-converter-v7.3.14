@@ -1,4 +1,17 @@
-import { normalizeThreadRecord, THREAD_SCHEMA_VERSION } from "./threadStateSchema.js";
+import { normalizeThreadRecord, THREAD_SCHEMA_VERSION, THREAD_LIMITS } from "./threadStateSchema.js";
+
+// Deterministic quota in the same write transaction; preserve the main chat
+// and the record being saved. No graph/job/update authority is stored here.
+function trimThreads(objectStore, currentId) {
+  const keys = objectStore.getAllKeys();
+  keys.onsuccess = () => {
+    let excess = keys.result.length - THREAD_LIMITS.threads;
+    for (const id of keys.result) {
+      if (excess <= 0) break;
+      if (id !== "main" && id !== currentId) { objectStore.delete(id); excess--; }
+    }
+  };
+}
 
 export function createThreadStore(indexedDB = globalThis.indexedDB, databaseName = "hypergraph-chat-threads") {
   let opening;
@@ -41,7 +54,7 @@ export function createThreadStore(indexedDB = globalThis.indexedDB, databaseName
     async listThreads() { return (await operation("readonly", s => s.getAll())).map(normalizeThreadRecord).map(({ id, updatedAt }) => ({ id, updatedAt })); },
     async saveThreadState(value) {
       const safe = normalizeThreadRecord({ ...value, schemaVersion: THREAD_SCHEMA_VERSION, updatedAt: new Date().toISOString() });
-      await operation("readwrite", s => s.put(safe)); return safe;
+      await operation("readwrite", s => { const request = s.put(safe); trimThreads(s, safe.id); return request; }); return safe;
     },
     async saveMessage(id, message) {
       const db = await database();
@@ -55,6 +68,7 @@ export function createThreadStore(indexedDB = globalThis.indexedDB, databaseName
             const current = get.result ? normalizeThreadRecord(get.result) : { id, schemaVersion: THREAD_SCHEMA_VERSION, messages: [] };
             safe = normalizeThreadRecord({ ...current, messages: [...current.messages, message], updatedAt: new Date().toISOString() });
             objectStore.put(safe);
+            trimThreads(objectStore, safe.id);
           } catch { tx.abort(); }
         };
         tx.oncomplete = () => resolve(safe);

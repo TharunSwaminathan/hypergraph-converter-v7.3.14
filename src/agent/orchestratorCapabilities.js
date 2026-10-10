@@ -8,6 +8,7 @@ import {
 } from "./capabilityRegistry.js";
 import { isOrdinaryGraphType } from "../candy/contracts/graphTypes.js";
 import { motifSelectorErrors } from "../candy/motifWorkflow.js";
+import { pendingSelectorErrors, DYNAMIC_UPDATE_ACTIONS } from "./dynamicUpdatePolicy.js";
 
 export const START_CUSTOM_PARSER_WORKFLOW = "START_CUSTOM_PARSER_WORKFLOW";
 
@@ -37,6 +38,11 @@ const validCandySubmission = value => {
 };
 
 export const REACT_CAPABILITY_DEFINITIONS = Object.freeze({
+  STAGE_DYNAMIC_HYPERGRAPH_UPDATE: { keys: [], validate: noArguments, stopAfterResult: true,
+    modelArgumentContract: { intent: "No arguments. The application plans and authorizes the original user request. Never supply operations, graph/update bodies, plans or Runtime fields." } },
+  DISCARD_DYNAMIC_HYPERGRAPH_UPDATE: { keys: ["updateId", "revision"], validate: pendingSelectorErrors, stopAfterResult: true },
+  ANALYZE_DYNAMIC_HYPERGRAPH_UPDATE: { keys: ["updateId", "revision"], validate: pendingSelectorErrors, confirmation: true, stopAfterResult: true },
+  APPLY_DYNAMIC_HYPERGRAPH_UPDATE: { keys: ["updateId", "revision"], validate: pendingSelectorErrors, confirmation: true, stopAfterResult: true },
   [START_CUSTOM_PARSER_WORKFLOW]: { keys: [], validate: noArguments, stopAfterResult: true },
   AUTO_DETECT_ACTIVE_BATCH: { keys: ["exportId"], validate: optionalExport },
   SELECT_INPUT_ROUTE: { keys: ["inputRoute"], validate: value => requiredEnum(value, "inputRoute", INPUT_ROUTE_SET) },
@@ -109,6 +115,7 @@ export function validateReactActionArguments(action, argumentsValue) {
 }
 
 export function reactActionRequiresConfirmation(action, state = {}, argumentsValue = {}) {
+  if (["ANALYZE_DYNAMIC_HYPERGRAPH_UPDATE", "APPLY_DYNAMIC_HYPERGRAPH_UPDATE"].includes(action)) return true;
   if (action === "SUBMIT_CANDY_MOTIF_JOB") return true;
   if (["RUN_CUSTOM_PARSER", "APPLY_CUSTOM_RESULT", "CLEAR_GRAPH", "DOWNLOAD_EXPORT", "EXPORT_GRAPH_PNG"].includes(action)) return true;
   if (action === "SUBMIT_CANDY_JOB") {
@@ -129,6 +136,12 @@ export function actionStopsAfterResult(action) {
 export function availableReactActions(state = {}) {
   if (state.pendingConfirmation) return [];
   const actions = new Set(REACT_ACTION_TYPES);
+  if (!state.graph?.available || state.graph.graphType !== "DynamicHypergraph") DYNAMIC_UPDATE_ACTIONS.forEach(action => actions.delete(action));
+  else {
+    if (!state.pendingDynamicUpdate) DYNAMIC_UPDATE_ACTIONS.slice(1).forEach(action => actions.delete(action));
+    if (state.pendingDynamicUpdate?.status !== "VALIDATED") [DYNAMIC_UPDATE_ACTIONS[2], DYNAMIC_UPDATE_ACTIONS[3]].forEach(action => actions.delete(action));
+    if (!state.candy?.incrementalReady) actions.delete(DYNAMIC_UPDATE_ACTIONS[2]);
+  }
   if (!state.upload?.fileCount || state.upload?.requiresReupload) {
     [START_CUSTOM_PARSER_WORKFLOW, "AUTO_DETECT_ACTIVE_BATCH", "PARSE_ACTIVE_BATCH", "REQUEST_PARSE_MODE", "GENERATE_MAPPING_SPEC", "OPEN_CUSTOM_PARSER"].forEach(action => actions.delete(action));
   }

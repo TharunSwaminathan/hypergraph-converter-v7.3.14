@@ -1,0 +1,55 @@
+{
+  "scope": "CANDY Scope 5B",
+  "decision": "PASS",
+  "branch": "candy-integration-scope5b-pending-update",
+  "startingSha": "eb829fb627de349be99d440ebfed11990f76837e",
+  "testFileCount": 257,
+  "focused": {
+    "tests/candy-scope5-pending-update.test.mjs": "PASS",
+    "tests/candy-scope5-update-adapter.test.mjs": "PASS",
+    "tests/candy-scope5-confirmation.test.mjs": "PASS",
+    "tests/candy-scope5a-graph-state.test.mjs": "PASS",
+    "graphMutationRegressions": "PASS",
+    "confirmationRegressions": "PASS"
+  },
+  "gates": {
+    "npm run test": {
+      "status": "PASS",
+      "result": "257/257 files",
+      "durationSeconds": 102.0,
+      "environment": "Bundled Python directory explicitly added to PATH for portable ZIP coverage"
+    },
+    "npm run lint": {
+      "status": "PASS"
+    },
+    "npm run build": {
+      "status": "PASS",
+      "warning": "Existing non-blocking Vite chunk-size advisory"
+    },
+    "npm run build:github": {
+      "status": "PASS",
+      "warning": "Existing non-blocking Vite chunk-size advisory"
+    },
+    "npm audit --omit=dev": {
+      "status": "PASS",
+      "productionVulnerabilities": 0,
+      "execution": "Outside Codex sandbox with isolated temporary npm 11.4.2 client",
+      "manifestChanged": false
+    },
+    "git diff --check": {
+      "status": "PASS"
+    }
+  },
+  "transientEnvironmentObservation": {
+    "command": "npm run test",
+    "firstWrapperAttempt": "Stopped at 158/257 because Python was absent from PATH",
+    "classification": "Environment-only; no product discrepancy",
+    "closure": "Exact npm command rerun with bundled Python on PATH and passed 257/257"
+  },
+  "protectedDeltas": {
+    "candy-runtime/native/hypergraph-motif-cuda": [],
+    "candy-runtime/native/hypergraph-motif-cuda-incremental": [],
+    "package.json": [],
+    "package-lock.json": []
+  }
+}

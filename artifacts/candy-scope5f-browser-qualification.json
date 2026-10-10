@@ -1,0 +1,925 @@
+{
+  "schemaVersion": "candy.scope5f-browser/1",
+  "status": "PASS",
+  "visibleBrowserEvidence": true,
+  "helperFailure": "trusted Node process exited unexpectedly; kernel reset, rerun your request",
+  "recoveryAttempts": [
+    {
+      "operation": "Initial browser-helper entry point",
+      "outcome": "Helper failed before returning browser state"
+    },
+    {
+      "operation": "Documentation refresh and helper reset",
+      "outcome": "Same trusted Node process failure"
+    },
+    {
+      "operation": "Fresh cua.getState retry on 2026-10-09",
+      "outcome": "Same trusted Node process failure"
+    },
+    {
+      "operation": "Fresh supported visible Chrome launch and real UI closure",
+      "outcome": "Browser helper functional; gates executed successfully. Actual product presentation defect corrected and requalified."
+    }
+  ],
+  "gates": [
+    {
+      "id": "visible-application-stage-analyze-result-apply",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        26,
+        30
+      ]
+    },
+    {
+      "id": "visible-assistant-deterministic-and-installed-model-workflow",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    {
+      "id": "reload-validated-pending",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        17
+      ]
+    },
+    {
+      "id": "reload-analysis-confirmation",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        18
+      ]
+    },
+    {
+      "id": "reload-result-ready",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        19
+      ]
+    },
+    {
+      "id": "reload-apply-confirmation",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        20
+      ]
+    },
+    {
+      "id": "two-tab-independent-workspaces-and-no-shared-authority",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "inert-render-navigation-panels-statistics-runtime-assistant-quicklinks-preview",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        9
+      ]
+    },
+    {
+      "id": "browser-runtime-discovery-reconnect-cors-enforcement",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        3,
+        4,
+        13,
+        14,
+        28
+      ]
+    },
+    {
+      "id": "visible-metadata-only-and-full-no-op",
+      "status": "PASS",
+      "priorStatus": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+      "observationSteps": [
+        15,
+        16
+      ]
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "kind": "Real authenticated Runtime/CUDA with production application controllers",
+      "path": "artifacts/candy-scope5f-live-runtime-qualification.json",
+      "replacesVisibleBrowserGate": false
+    },
+    {
+      "kind": "Mounted happy-dom UI/Assistant and persistence/concurrency automated regressions",
+      "path": "artifacts/candy-scope5f-focused-tests.log",
+      "replacesVisibleBrowserGate": false
+    },
+    {
+      "kind": "Installed-model production orchestrator/controller qualification",
+      "path": "artifacts/candy-scope5f-assistant-qualification.json",
+      "replacesVisibleBrowserGate": false
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "artifacts/candy-scope5f-browser-assistant-confirmation.png",
+      "sha256": "eae35f887395492d275d156f1c9b7577e8afa7e8967f08991cba9ef69f473e18"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-defect-after.png",
+      "sha256": "da8efcb498f2719400e251a571bc15cace0c132d596a75655a49061d4675b4b3"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-defect-before.png",
+      "sha256": "2879849905ddfb9c29747ba9763d7d34a9ca5b19dadc3a955756b7541f731cd0"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-delta.png",
+      "sha256": "5e6a5adf384d4499c6eee22b46915aba347af3cddc78d9cab86d4431fe5f2d5b"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-panel-apply.png",
+      "sha256": "c14f3bd54e2c97f04d8f724ac4d712e9a735bc2531f562186ecff1f851227f6c"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-reconnect-stale.png",
+      "sha256": "c9d86f0d1e18dc6bf52583c6538a727c2ef05de09ff92f7d1331e933d44ea388"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-reload-analysis.png",
+      "sha256": "28078a1a3c6380f2026ce264f07ff38afeb90326a968579ed13ce4ac6b7d1212"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-reload-apply.png",
+      "sha256": "28078a1a3c6380f2026ce264f07ff38afeb90326a968579ed13ce4ac6b7d1212"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-reload-result.png",
+      "sha256": "28078a1a3c6380f2026ce264f07ff38afeb90326a968579ed13ce4ac6b7d1212"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-reload-validated.png",
+      "sha256": "28078a1a3c6380f2026ce264f07ff38afeb90326a968579ed13ce4ac6b7d1212"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-replacement.png",
+      "sha256": "672c99e2a4e621e009bffc05651ff044db01eaf477355778bdbf17e453c0c916"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-tab-a.png",
+      "sha256": "3e9591a7d56e855bea0d46b536410b088fe3198768dc8711491f8d16748476a2"
+    },
+    {
+      "path": "artifacts/candy-scope5f-browser-tab-b.png",
+      "sha256": "0945de989b89917fb8ceac813d3d2bbdf92cdde6637a104a8077836421eac3d9"
+    }
+  ],
+  "plainPassEligible": true,
+  "historicalBlockedAttempt": {
+    "schemaVersion": "candy.scope5f-browser/1",
+    "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER",
+    "visibleBrowserEvidence": false,
+    "helperFailure": "trusted Node process exited unexpectedly; kernel reset, rerun your request",
+    "recoveryAttempts": [
+      {
+        "operation": "Initial browser-helper entry point",
+        "outcome": "Helper failed before returning browser state"
+      },
+      {
+        "operation": "Documentation refresh and helper reset",
+        "outcome": "Same trusted Node process failure"
+      },
+      {
+        "operation": "Fresh cua.getState retry on 2026-10-09",
+        "outcome": "Same trusted Node process failure"
+      }
+    ],
+    "gates": [
+      {
+        "id": "visible-application-stage-analyze-result-apply",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "visible-assistant-deterministic-and-installed-model-workflow",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "reload-validated-pending",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "reload-analysis-confirmation",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "reload-result-ready",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "reload-apply-confirmation",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "two-tab-independent-workspaces-and-no-shared-authority",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "inert-render-navigation-panels-statistics-runtime-assistant-quicklinks-preview",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "browser-runtime-discovery-reconnect-cors-enforcement",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      },
+      {
+        "id": "visible-metadata-only-and-full-no-op",
+        "status": "BLOCKED_ENVIRONMENT_BROWSER_HELPER"
+      }
+    ],
+    "supportingEvidence": [
+      {
+        "kind": "Real authenticated Runtime/CUDA with production application controllers",
+        "path": "artifacts/candy-scope5f-live-runtime-qualification.json",
+        "replacesVisibleBrowserGate": false
+      },
+      {
+        "kind": "Mounted happy-dom UI/Assistant and persistence/concurrency automated regressions",
+        "path": "artifacts/candy-scope5f-focused-tests.log",
+        "replacesVisibleBrowserGate": false
+      },
+      {
+        "kind": "Installed-model production orchestrator/controller qualification",
+        "path": "artifacts/candy-scope5f-assistant-qualification.json",
+        "replacesVisibleBrowserGate": false
+      }
+    ],
+    "screenshots": [],
+    "plainPassEligible": false,
+    "frozenFileSha256": "9035e716c675988f43bad1f4158c38aadfc02fd0f9457411798d79e3dc958505"
+  },
+  "qualifiedSourceKind": "corrected_uncommitted_working_tree",
+  "qualifiedCommit": null,
+  "frozenCheckpoint": "bf0240a54fb6ac8284bd9ac371306511158a1a2e",
+  "frozenCheckpointQualified": false,
+  "releaseEligible": false,
+  "closureCapturedAt": "2026-10-09T15:59:33.060207+00:00",
+  "browser": "Chrome, supported cua browser extension, visible tabs on the same origin",
+  "applicationOrigin": "http://127.0.0.1:5173",
+  "runtimeEndpoint": "http://127.0.0.1:8791",
+  "runtime": "Real authenticated local companion; qualified RTX 5060 CUDA_INCREMENTAL",
+  "sourceInventory": [
+    {
+      "path": "src/components/DynamicHypergraphUpdatePanel.jsx",
+      "sha256": "8f07e5df8b114a0f9bb57bb2ffd040ea66a5869e2bf07b7a18a816bb3d8b78aa",
+      "kind": "browser-presentation-correction"
+    },
+    {
+      "path": "tests/candy-scope5d-ui.test.mjs",
+      "sha256": "2a87e5254a801794cf690edf09377961cbca8e8c42bd7157b6e535f8a4bd6299",
+      "kind": "corrective-regression"
+    }
+  ],
+  "sourceChangesDuringClosure": true,
+  "observations": [
+    {
+      "step": 1,
+      "visibleBefore": "Manual base, DynamicHypergraph v2, no pending",
+      "userAction": "Author REMOVE h1, ADD h4:A,D, UPDATE h2:A,C,D; Stage",
+      "visibleAfter": "Revision 1 VALIDATED, proposed 2→3, four net operations. Committed contents/version/history unchanged.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 2,
+      "visibleBefore": "Staged revision 1",
+      "userAction": "Inspect pending preview",
+      "visibleAfter": "Gray unchanged, green inserted, red dashed deleted and amber replacement legend/overlays; comparison remains non-authoritative.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 3,
+      "visibleBefore": "Unpaired Runtime, staged local update",
+      "userAction": "Open Dynamic workflow / request analysis",
+      "visibleAfter": "RUNTIME_UNAVAILABLE with “Discover an authenticated Runtime session first”; Analyze disabled, no selected fallback or mutation. Apply separately available.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 4,
+      "visibleBefore": "Unpaired UI",
+      "userAction": "Enter credential in the ordinary masked field; Pair and discover",
+      "visibleAfter": "Same loopback endpoint, paired/ready, CUDA_INCREMENTAL and CUDA_STATIC qualified on RTX 5060, sm_120. CPU is not a motif fallback.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 5,
+      "visibleBefore": "v2 / revision 1 VALIDATED",
+      "userAction": "Analyze motif delta",
+      "visibleAfter": "Distinct “Confirm analysis only”, exact revision 1 / 2→3; no job or Apply yet.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 6,
+      "visibleBefore": "Analysis approval",
+      "userAction": "Confirm analysis only, then explicit refresh/open",
+      "visibleAfter": "Real job RUNNING→completed→RESULT_READY. Pending remains VALIDATED, current=yes, committed v2 and content unchanged. Example job: `5ea99cca-99a0-4d54-b950-c7f4f8b527fc`.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 7,
+      "visibleBefore": "Current mixed-update delta",
+      "userAction": "Inspect title, signs and expand taxonomy",
+      "visibleAfter": "MOTIF CHANGE (DELTA ONLY); total 0; classes 2,19,21 show +1; 5,7,14 show -1; others 0. All stable classes 1–30 available. Graph-not-applied copy visible.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 8,
+      "visibleBefore": "Current delta / pending revision 1",
+      "userAction": "Apply pending update, then distinct Confirm Apply only",
+      "visibleAfter": "v2→3 exactly once, history 2→3, h1 removed/h4 added/h2 replaced. Pending NONE, old result non-current/STALE; no additional Runtime analysis job.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 9,
+      "visibleBefore": "Local staged revision 1, v2, unpaired",
+      "userAction": "Open Statistics, Runtime, Assistant, Quick Links, Dynamic panel and Preview",
+      "visibleAfter": "Same graph version/pending revision/status; no automatic Stage, Analyze or Apply. Statistics shows Line-Graph Triangles=2 separately from the independent 30-class motif section.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 10,
+      "visibleBefore": "A has its own graph v3/revision 2 and analysis approval",
+      "userAction": "Open same origin in B; independently load DynamicHypergraph v2",
+      "visibleAfter": "B starts empty, then owns its own graph and NONE pending. No A confirmation/result/pending authority appears in B.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 11,
+      "visibleBefore": "A confirms its own analysis and holds current delta -3; B stages revision 1",
+      "userAction": "B separately requests/confirms Apply",
+      "visibleAfter": "Only B v2→3. A stays v3/revision 2/current=yes. A cannot see/use B Apply approval; B cannot see/use A analysis/result/Apply approval. No shared-storage execution was observed.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 12,
+      "visibleBefore": "Independent tabs",
+      "userAction": "Close B and reopen same origin",
+      "visibleAfter": "Empty v0/NONE/no approvals/current=no despite descriptive saved chat. Explicit load/stage required. This behavior tests policy; it is not a general proof of absence of all possible cross-tab mechanisms.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 13,
+      "visibleBefore": "A current result with retained analysis approval",
+      "userAction": "Restart actual companion; Pair/discover with prior session",
+      "visibleAfter": "Unauthorized/unpaired at the same endpoint; result STALE/current=no. Old confirmation visibly stale and its Confirm disabled. Pending remains separately VALIDATED.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 14,
+      "visibleBefore": "Stale session/approval",
+      "userAction": "Cancel old confirmation, normal fresh pairing, fresh Analyze request/confirm",
+      "visibleAfter": "Ready at same endpoint; fresh authorization required and real incremental result opens. No external/untrusted endpoint was tested. Browser fetch from app origin succeeded, auth failure was truthful; frozen auth/origin negatives remain supporting CORS evidence.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 15,
+      "visibleBefore": "B2 DynamicHypergraph v2/unpaired",
+      "userAction": "Stage UPDATE_WEIGHT h0:2.5",
+      "visibleAfter": "Metadata-only VALIDATED, motifImpact NONE, NO_MOTIF_RELEVANT_CHANGE; Analyze unavailable, Apply independent. Apply produces v3 without compute.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 16,
+      "visibleBefore": "B2 v3 with weight 2.5",
+      "userAction": "Stage identical UPDATE_WEIGHT h0:2.5 again",
+      "visibleAfter": "Full no-op: NONE, no pending authority created, version unchanged.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 17,
+      "visibleBefore": "A VALIDATED v6/revision 6 (corrected source)",
+      "userAction": "Real browser reload (A)",
+      "visibleAfter": "Empty v0, pending NONE, analysis STALE/current=no; no Apply/analysis approval, no automatic action.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 18,
+      "visibleBefore": "A v2/revision 1 with analysis confirmation pending",
+      "userAction": "Real browser reload (B)",
+      "visibleAfter": "Confirmation gone, empty v0/NONE/STALE/current=no; no job submitted by unconfirmed approval.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 19,
+      "visibleBefore": "A v3/revision 2 with real RESULT_READY",
+      "userAction": "Real browser reload (C)",
+      "visibleAfter": "Empty v0/NONE/STALE/current=no; job/result/Apply authority not restored.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 20,
+      "visibleBefore": "B2 v3/revision 3 with Apply confirmation pending",
+      "userAction": "Real browser reload (D)",
+      "visibleAfter": "Confirmation gone; empty v0/NONE/STALE/current=no. Proposed change was never applied; graph must be explicitly reloaded/re-staged.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 21,
+      "visibleBefore": "Assistant, DynamicHypergraph v2",
+      "userAction": "“delete hyperedge h1”",
+      "visibleAfter": "Staged revision 1 only; v2/content unchanged.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 22,
+      "visibleBefore": "Assistant staged revision 1",
+      "userAction": "Quoted “Explain \\\"delete hyperedge h1\\\" without executing it.”; negated “Do not delete hyperedge h1.”; hypothetical question",
+      "visibleAfter": "Read-only responses, same revision 1 and graph v2. Hypothetical response was generic/no active upload batch, but created no authority or mutation.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 23,
+      "visibleBefore": "Assistant pending revision 1",
+      "userAction": "“instead delete hyperedge h2”",
+      "visibleAfter": "Fresh revision 2/update ID; graph v2 unchanged. One earlier rapid tool fill/Send did not submit; that attempt is labelled separately in raw evidence. Actual subsequent conversation explicitly records revision 2.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 24,
+      "visibleBefore": "Assistant Apply approval for revision 2",
+      "userAction": "Re-stage h3 through normal Batch UI to revision 3, then click old Assistant Confirm",
+      "visibleAfter": "Truthful outdated-confirmation rejection; no commit or analysis. An attempted correction while an approval was open was also blocked until resolving that approval.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 25,
+      "visibleBefore": "Assistant v2/revision 3",
+      "userAction": "“show how motifs would change”; separate Confirm",
+      "visibleAfter": "Exact costly analysis approval; real job `6c014827-87a8-465f-94ad-c23638921121`; no Apply. Explicit refresh/open yields current delta.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 26,
+      "visibleBefore": "Assistant current delta/revision 3",
+      "userAction": "“apply the pending update”; separate Confirm",
+      "visibleAfter": "Commit v2→3, pending NONE, result STALE/current=no, no CUDA job caused by Apply. Panel retained an incorrect old local graph-not-applied notice: reproduced defect below.",
+      "status": "FAIL at frozen checkpoint; corrected rerun PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 27,
+      "visibleBefore": "Corrected source, A v3/revision 4 with current real delta -1",
+      "userAction": "Assistant separate Apply request/Confirm",
+      "visibleAfter": "Commit v3→4; pending NONE/current=no/STALE. Old local “Graph has not been applied” notice disappears.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 28,
+      "visibleBefore": "Corrected A v6/revision 6; model normally reconnected to Qwen3:8b",
+      "userAction": "Send simulated model-provided Runtime body with forged update/artifact/job IDs, then an invented CANDY result UUID",
+      "visibleAfter": "Body message rejected as ambiguous; invented selector got a read-only no-implicit-projection response. Graph v6/revision 6 unchanged; no result/currentness/approval/job authority installed. Messages used deterministic visible routing; no malicious model output was injected. Frozen installed-model/schema negatives support the broader boundary.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 29,
+      "visibleBefore": "Corrected A v4/revision 5, real current +1 delta",
+      "userAction": "Normal H2V Convert with X,Y,Z replacement graph",
+      "visibleAfter": "Committed v5/new contents, pending STALE, old result current=no, Analyze/Apply disabled; subsequent explicit DynamicHypergraph selection advances v6. Small replacement smoke only; collision investigation not repeated.",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    },
+    {
+      "step": 30,
+      "visibleBefore": "Corrected B2 v2, unpaired, local revision 1",
+      "userAction": "Separate panel Apply/Confirm",
+      "visibleAfter": "Commit v3 exactly once; NONE/current=no/STALE. Own success notice remains visible: “Applied once. Committed graph version 3. No Runtime job was created.”",
+      "status": "PASS",
+      "observationMethod": "Real visible Chrome UI; transcribed computer-use observations",
+      "stateFields": "Graph version, pending revision/status, analysis/currentness and Runtime state are recorded inline where visible."
+    }
+  ],
+  "rawObservations": "artifacts/candy-scope5f-browser-observations.json",
+  "closureReport": "artifacts/candy-scope5f-browser-closure.md",
+  "checksAfterCorrection": [
+    {
+      "gate": "fullTests",
+      "command": "node scripts/run-node-tests.mjs",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope5f-browser-corrective-tests.log",
+      "sha256": "56c291240a522c4bd3aed5278a9af76ee2f462ede987297c44388c3a0c5766a8",
+      "gitIgnoredLog": true,
+      "passed": 268,
+      "total": 268,
+      "seconds": 113.3
+    },
+    {
+      "gate": "lint",
+      "command": "node node_modules/eslint/bin/eslint.js .",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope5f-browser-corrective-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitIgnoredLog": true
+    },
+    {
+      "gate": "build",
+      "command": "node node_modules/vite/bin/vite.js build",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope5f-browser-corrective-build.log",
+      "sha256": "ccccfd63dff317da05f0f27326faf58b70569b16b0e693b96b70d24da1fc698e",
+      "gitIgnoredLog": true
+    },
+    {
+      "gate": "buildGithub",
+      "command": "node node_modules/vite/bin/vite.js build --base=/hypergraph-converter/",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope5f-browser-corrective-build-github.log",
+      "sha256": "aade9443b5d5817eebb8e5a1f78d55117fa16770b8e83b19214850ff5582db41",
+      "gitIgnoredLog": true
+    },
+    {
+      "gate": "existingProductionAudit",
+      "command": "npm 11.4.2 audit --omit=dev --json",
+      "status": "PASS",
+      "exitCode": 0,
+      "vulnerabilities": 0,
+      "evidence": "artifacts/candy-scope5f-browser-corrective-audit-production.json",
+      "sha256": "4c50fa7d8851688b449be29f21d096c3d6d00af503500dcf0fbe06bea8eb66b7"
+    },
+    {
+      "gate": "diffCheck",
+      "command": "git diff --check",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "correctiveSecurity": {
+    "scanId": "6edd9569-6fb9-4cf0-8e69-263a8e077455",
+    "status": "complete",
+    "findings": 0,
+    "scope": "Corrective presentation production diff and supporting regression, not whole repository",
+    "canonicalReport": "C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14\\bf0240a54fb6ac8284bd9ac371306511158a1a2e_20261009T154206Z_suqlae8j\\report.md",
+    "warning": [
+      "Working-tree contents changed while the scan was running; results were saved for the original snapshot."
+    ],
+    "contentDigest": "codex-security-snapshot/v1:sha256:a74c07713e2cf70c257571d07fb3e6603b892b6fdb963de6ee865b75f9af0e09",
+    "usage": {
+      "cacheWriteInputTokens": 0,
+      "cachedInputTokens": 6806528,
+      "coverage": "complete",
+      "inputTokens": 6999792,
+      "outputTokens": 18647,
+      "reasoningOutputTokens": 2214,
+      "source": "codex_rollout",
+      "threadCount": 3,
+      "totalTokens": 7018439
+    },
+    "coverage": "complete for corrective diff",
+    "repositoryCoverage": "partial",
+    "finalSourceInventory": [
+      {
+        "path": "src/components/DynamicHypergraphUpdatePanel.jsx",
+        "sha256": "8f07e5df8b114a0f9bb57bb2ffd040ea66a5869e2bf07b7a18a816bb3d8b78aa",
+        "kind": "browser-presentation-correction"
+      },
+      {
+        "path": "tests/candy-scope5d-ui.test.mjs",
+        "sha256": "2a87e5254a801794cf690edf09377961cbca8e8c42bd7157b6e535f8a4bd6299",
+        "kind": "corrective-regression"
+      }
+    ],
+    "finalBytesChangedSinceReview": false,
+    "assurances": {
+      "mutationAnalysisAndApplyAuthority": "Notice contains only message and graphVersion; existing shared owners enforce all actions. No authority in notice state.",
+      "confirmationAndStaleBindings": "Unchanged controls and pending owner token/expiry/exact content/base/session checks; no weakening.",
+      "runtimeExecutionAndResultRegistry": "No changed Runtime execution or result registry bytes/calls.",
+      "persistence": "React component-local volatile state only; no storage/event/channel added.",
+      "secretExposure": "No credential reads added; browser evidence contains no bearer credential.",
+      "xssOutputInjection": "Notice is rendered as a React text child, not raw HTML; no dangerouslySetInnerHTML or new markup interpretation.",
+      "unresolvedCorrectnessImpactingMediumHighCritical": 0
+    }
+  },
+  "remainingBrowserBlockers": [],
+  "additionalGates": [
+    {
+      "id": "truthful-signed-30-bin-delta-and-separate-line-graph-triangles",
+      "status": "PASS",
+      "observationSteps": [
+        7,
+        9
+      ]
+    },
+    {
+      "id": "runtime-unavailable-local-staging-and-independent-apply",
+      "status": "PASS",
+      "observationSteps": [
+        3,
+        15,
+        30
+      ]
+    },
+    {
+      "id": "normal-graph-replacement-currentness-smoke",
+      "status": "PASS",
+      "observationSteps": [
+        29
+      ]
+    }
+  ],
+  "defect": {
+    "status": "CORRECTED_AND_REQUALIFIED",
+    "observedAtFrozenCheckpoint": true,
+    "rootCause": "Panel local notice text was not bound to committed graph version; shared Assistant Apply advanced graph but retained prior graph-not-applied text.",
+    "correction": "Version-keyed local notice, with returned committed version for panel Apply success. No authority or Runtime changes.",
+    "regression": "Existing mounted UI test extended; intended assertion failed before fix and passes after.",
+    "requalificationSteps": [
+      27,
+      29,
+      30
+    ],
+    "beforeScreenshot": "artifacts/candy-scope5f-browser-defect-before.png",
+    "afterScreenshot": "artifacts/candy-scope5f-browser-defect-after.png"
+  },
+  "limitations": [
+    "PASS binds corrected working-tree source hashes, not frozen HEAD. A future final commit must be explicitly qualified; no release/tag created.",
+    "Browser CORS evidence covers trusted app origin success and truthful auth/session failure. No unsafe external endpoint exercised; frozen origin negatives retained.",
+    "Cross-tab gate observes independent workspaces and absent transferred execution; it does not exhaustively prove absence of all conceivable shared-channel routes.",
+    "Visible forged text messages used deterministic routing with normally connected local Qwen. No malicious model output injection; frozen installed-model/controller/schema negatives remain supporting evidence.",
+    "Four reloads intentionally clear the volatile graph as well as pending/job/result authority; no persisted graph was promised.",
+    "Supplementary broad audit records four dev vulnerabilities in unchanged lock; existing production audit is zero.",
+    "Security canonical snapshot warning is retained; final production/test hashes separately bind final reviewed bytes."
+  ],
+  "finalizationGates": [
+    {
+      "number": 1,
+      "gate": "visible stage / preview",
+      "status": "PASS",
+      "observationSteps": [
+        1,
+        2
+      ]
+    },
+    {
+      "number": 2,
+      "gate": "visible disconnected Runtime behavior",
+      "status": "PASS",
+      "observationSteps": [
+        3,
+        30
+      ]
+    },
+    {
+      "number": 3,
+      "gate": "visible real analysis confirmation",
+      "status": "PASS",
+      "observationSteps": [
+        5
+      ]
+    },
+    {
+      "number": 4,
+      "gate": "visible real CUDA_INCREMENTAL result",
+      "status": "PASS",
+      "observationSteps": [
+        6
+      ]
+    },
+    {
+      "number": 5,
+      "gate": "visible signed delta-only presentation",
+      "status": "PASS",
+      "observationSteps": [
+        7,
+        9
+      ]
+    },
+    {
+      "number": 6,
+      "gate": "visible separate Apply",
+      "status": "PASS",
+      "observationSteps": [
+        8,
+        26,
+        27,
+        30
+      ]
+    },
+    {
+      "number": 7,
+      "gate": "no Runtime job caused by Apply",
+      "status": "PASS",
+      "observationSteps": [
+        8,
+        26,
+        27,
+        30
+      ]
+    },
+    {
+      "number": 8,
+      "gate": "result becomes stale/non-current after Apply/replacement",
+      "status": "PASS",
+      "observationSteps": [
+        8,
+        27,
+        29
+      ]
+    },
+    {
+      "number": 9,
+      "gate": "no automatic Stage/Analyze/Apply on navigation/rendering",
+      "status": "PASS",
+      "observationSteps": [
+        9
+      ]
+    },
+    {
+      "number": 10,
+      "gate": "Runtime reconnect/restart invalidation",
+      "status": "PASS",
+      "observationSteps": [
+        13,
+        14
+      ]
+    },
+    {
+      "number": 11,
+      "gate": "reload from VALIDATED",
+      "status": "PASS",
+      "observationSteps": [
+        17
+      ]
+    },
+    {
+      "number": 12,
+      "gate": "reload with analysis confirmation pending",
+      "status": "PASS",
+      "observationSteps": [
+        18
+      ]
+    },
+    {
+      "number": 13,
+      "gate": "reload from RESULT_READY",
+      "status": "PASS",
+      "observationSteps": [
+        19
+      ]
+    },
+    {
+      "number": 14,
+      "gate": "reload with Apply confirmation pending",
+      "status": "PASS",
+      "observationSteps": [
+        20
+      ]
+    },
+    {
+      "number": 15,
+      "gate": "two-tab independent workspace policy",
+      "status": "PASS",
+      "observationSteps": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "number": 16,
+      "gate": "visible Assistant staging",
+      "status": "PASS",
+      "observationSteps": [
+        21
+      ]
+    },
+    {
+      "number": 17,
+      "gate": "quoted/negated/hypothetical Assistant requests inert",
+      "status": "PASS",
+      "observationSteps": [
+        22
+      ]
+    },
+    {
+      "number": 18,
+      "gate": "Assistant correction creates fresh revision",
+      "status": "PASS",
+      "observationSteps": [
+        23
+      ]
+    },
+    {
+      "number": 19,
+      "gate": "stale Assistant approval rejection",
+      "status": "PASS",
+      "observationSteps": [
+        24
+      ]
+    },
+    {
+      "number": 20,
+      "gate": "forged trusted Runtime/job text grants no authority",
+      "status": "PASS",
+      "observationSteps": [
+        28
+      ]
+    },
+    {
+      "number": 21,
+      "gate": "visible graph replacement stale-result behavior",
+      "status": "PASS",
+      "observationSteps": [
+        29
+      ]
+    },
+    {
+      "number": 22,
+      "gate": "corrected panel notice after Apply",
+      "status": "PASS",
+      "observationSteps": [
+        27,
+        30
+      ]
+    }
+  ],
+  "frozenCheckpointPermanentlyUnqualified": true,
+  "frozenCheckpointNonQualificationReason": "Frozen bf0240a contains the browser-observed stale-notice defect; it must never receive qualified status."
+}

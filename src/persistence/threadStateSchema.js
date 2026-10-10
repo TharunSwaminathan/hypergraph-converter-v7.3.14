@@ -1,5 +1,5 @@
 export const THREAD_SCHEMA_VERSION = 1;
-export const THREAD_LIMITS = Object.freeze({ messages: 80, messageChars: 6000, summaryChars: 2000, recordChars: 1000000 });
+export const THREAD_LIMITS = Object.freeze({ threads: 80, messages: 80, messageChars: 6000, summaryChars: 2000, recordChars: 1000000 });
 const text = (v, n = 200) => typeof v === "string" ? v.slice(0, n) : "";
 
 // Explicit projections prevent persisted objects from reviving executable UI

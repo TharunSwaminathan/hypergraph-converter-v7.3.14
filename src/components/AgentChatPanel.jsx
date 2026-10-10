@@ -69,6 +69,8 @@ import { reactOrchestratorEnabled } from "../agent/reactOrchestratorConfig.js";
 import { candyRequestConfirmationBinding, candyRequestNeedsConfirmation } from "../candy/requestPolicy.js";
 import { routeDeterministicCandyRequest } from "../candy/deterministicRouting.js";
 import { authorizeCandyReactAction } from "../agent/candyActionAuthorization.js";
+import { DYNAMIC_UPDATE_ACTIONS, dynamicUpdateRequest, authorizeDynamicUpdateAction } from "../agent/dynamicUpdatePolicy.js";
+import { validateReactActionArguments } from "../agent/orchestratorCapabilities.js";
 import { UPLOAD_ACCEPT_ATTRIBUTE } from "../agent/uploadPolicy.js";
 import { isTransportSelectingConnectionPlan } from "../agent/runtimeControlPolicy.js";
 
@@ -273,6 +275,20 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   const resumingContinuationRef = useRef(false);
   const reactContinuationRef = useRef(null);
   const handledExternalMotifRequestRef = useRef(null);
+  const confirmedActionIdsRef = useRef(new Set());
+  const mountedRef = useRef(true);
+  const pendingOwnerRef = useRef(null);
+  useEffect(() => { pendingOwnerRef.current = { action: pendingAction, actions: agentActions }; }, [pendingAction, agentActions]);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      abortControllerRef.current?.abort();
+      const owned = pendingOwnerRef.current;
+      if (owned?.action?.applyConfirmation) owned.actions.cancelDynamicUpdateApply?.(owned.action.applyConfirmation);
+      if (owned?.action?.motifConfirmation) owned.actions.cancelCandyMotifConfirmation?.(owned.action.motifConfirmation);
+    };
+  }, []);
   const externalMotifRequestHandlerRef = useRef(null);
   const activeBatchSignature = activeBatchFileSignature(agentState);
   const hasSpecialist = Boolean(agentState.specialist);
@@ -1466,6 +1482,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   }
 
   function authorizeReactAction({ action, arguments: argumentsValue, userQuery }) {
+    if (DYNAMIC_UPDATE_ACTIONS.includes(action)) return authorizeDynamicUpdateAction(action, userQuery);
     if (action === "SUBMIT_CANDY_MOTIF_JOB") return authorizeCandyReactAction(action,userQuery,currentReactObservation());
     const semantics = analyzeRequestSemantics(userQuery);
     if (requestMustRemainReadOnly(userQuery, semantics)) {
@@ -1488,7 +1505,34 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     return decision.allowed ? { allowed: true } : { allowed: false, reason: "The exact positive request did not authorize the proposed capability." };
   }
 
-  async function executeReactCapability({ action, arguments: argumentsValue }, query) {
+  async function executeReactCapability(step, query) {
+    if (!mountedRef.current) return executionOutcome({ ok: false, outcome: "unmounted", stop: true });
+    let { action, arguments: argumentsValue } = step;
+    let preparedAnalysis = null;
+    const argumentErrors = validateReactActionArguments(action, argumentsValue);
+    if (argumentErrors.length) return executionOutcome({ ok: false, outcome: "schema_rejected", error: argumentErrors.join(" "), stop: true });
+    if (DYNAMIC_UPDATE_ACTIONS.includes(action)) {
+      const authorization = authorizeDynamicUpdateAction(action, query);
+      if (!authorization.allowed) return executionOutcome({ ok: false, outcome: "authorization_blocked", error: authorization.reason, stop: true });
+      if (action === "STAGE_DYNAMIC_HYPERGRAPH_UPDATE") return stageGraphMutationDetailed(query, { deterministicFirst: true });
+      if (action === "DISCARD_DYNAMIC_HYPERGRAPH_UPDATE") {
+        const result = agentActions.discardDynamicUpdate(argumentsValue);
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        append("agent", "Pending update discarded. Committed graph and version are unchanged.", "status");
+        return executionOutcome({ ok: result.ok, outcome: "pending_update_discarded", changedState: true, stop: true });
+      }
+      if (action === "APPLY_DYNAMIC_HYPERGRAPH_UPDATE") {
+        const result = agentActions.requestDynamicUpdateApply(argumentsValue);
+        setPendingAction({ ...getConfirmationCopy("apply_pending_hypergraph_update"), kind: "confirmation",
+          actionType: "apply_pending_hypergraph_update", applyConfirmation: result.confirmation,
+          confirmationToken: createConfirmationSnapshot("apply_pending_hypergraph_update", latestStateRef.current) });
+        append("agent", "Apply is staged for separate confirmation. It commits this exact pending revision once and creates no Runtime job.", "warning");
+        return executionOutcome({ ok: true, outcome: "confirmation_required", confirmationStaged: true, stop: true });
+      }
+      preparedAnalysis = agentActions.requestDynamicUpdateAnalysis(argumentsValue);
+      if (!preparedAnalysis.ok) return executionOutcome({ ok: false, outcome: "analysis_rejected", error: preparedAnalysis.error, stop: true });
+      action = "SUBMIT_CANDY_MOTIF_JOB"; argumentsValue = preparedAnalysis.argumentsValue;
+    }
     if (action === START_CUSTOM_PARSER_WORKFLOW) {
       const result = await agentActions.requestParserSpecialist("Generate custom parser");
       append("agent", result.message ?? result.error ?? "The Custom Parser Specialist stopped without a result.", result.ok ? "status" : "error");
@@ -1508,11 +1552,14 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       return executionOutcome({ ok: result.ok, outcome: result.ok ? "candy_discovery_completed" : "candy_unavailable", error: result.error, stop: true });
     }
     if (["SUBMIT_CANDY_JOB","SUBMIT_CANDY_MOTIF_JOB"].includes(action)) {
-      const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
+      const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, graphFingerprint: latestStateRef.current.graphFingerprint, applicationBinding: latestStateRef.current.candy?.applicationBinding, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
       if (candyRequestNeedsConfirmation(argumentsValue, graph)) {
         const binding = candyRequestConfirmationBinding({ argumentsValue, graph });
+        const motif = ["CUDA_STATIC", "CUDA_INCREMENTAL"].includes(argumentsValue.backend);
+        const staged = motif ? preparedAnalysis ?? agentActions.stageCandyMotifAnalysis(argumentsValue) : null;
+        if (motif && !staged.ok) return executionOutcome({ ok: false, outcome: "candy_job_rejected", error: staged.error, details: staged, stop: true });
         const copy = getConfirmationCopy("run_candy_expensive_compute");
-        setPendingAction({ actionType: "run_candy_expensive_compute", ...copy, candyArguments: argumentsValue, candyBinding: binding, confirmationToken: createConfirmationSnapshot("run_candy_expensive_compute", latestStateRef.current) });
+        setPendingAction({ actionType: "run_candy_expensive_compute", ...copy, candyArguments: argumentsValue, candyBinding: binding, motifConfirmation: staged?.confirmation, confirmationToken: createConfirmationSnapshot("run_candy_expensive_compute", latestStateRef.current) });
         append("agent", "I staged the exact high-cost CANDY request for confirmation. No job has been created.", "warning");
         return executionOutcome({ ok: true, outcome: "confirmation_required", changedState: false, stop: true });
       }
@@ -1660,7 +1707,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     const delta = preview.delta ?? {};
     const signed = value => Number(value) >= 0 ? `+${value}` : String(value);
     const ops = result.plan?.operations?.length ?? preview.operationCount ?? 0;
-    const changed = preview.beforeFingerprint !== preview.afterFingerprint;
+  const changed = preview.graphChanged;
     const leading = result.pendingPlanReplaced
       ? "Understood — I discarded the earlier plan and prepared the revised change instead."
       : (result.acknowledgement || result.summary || preview.summary || "Graph mutation preview");
@@ -2289,6 +2336,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       deterministicFirst: options.deterministicFirst === true,
       conversation: buildPanelSessionContext(query, pending).conversation,
     });
+    if (!mountedRef.current) return { handled: true, outcome: "unmounted", tracePatch: {} };
     const tracePatch = graphTracePatchFromResult(result);
     if (result.noMatch) return { handled: false, outcome: "not_handled", result, tracePatch };
     if (result.needsClarification) {
@@ -2339,6 +2387,13 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
         tracePatch,
         stateMutationCommitted: false,
       };
+    }
+    if (latestStateRef.current.graphType === "DynamicHypergraph" && !(result.plan?.operations?.length === 1 && result.plan.operations[0].type === "UNDO_LAST_MUTATION")) {
+      const staged = await agentActions.stageDynamicUpdatePlan(result.plan);
+      setPendingAction(null);
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      append("agent", staged.noOp ? "No change; no pending authority created." : `Staged pending revision ${staged.pending?.revision}. Committed graph is unchanged. Inspect the Dynamic Update panel, optionally analyze, or separately request Apply.`, "status");
+      return { handled: true, ok: true, outcome: "pending_update_staged", changedState: true, stop: true, result: staged, tracePatch };
     }
     const copy = getConfirmationCopy(result.plan?.operations?.[0]?.type === "UNDO_LAST_MUTATION" ? "undo_graph_mutation" : "apply_graph_mutation");
     setPendingAction({
@@ -2409,6 +2464,22 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     append("user", query);
     setInput("");
     const current = latestStateRef.current;
+
+    if (!pendingAction) {
+      const lifecycle = dynamicUpdateRequest(query);
+      if (lifecycle) {
+        const pending = current.pendingDynamicUpdate;
+        if (!pending) { append("agent", "No pending update is available. Stage a DynamicHypergraph update first.", "warning"); return; }
+        try { await executeReactCapability({ action: lifecycle.action, arguments: { updateId: pending.updateId, revision: pending.revision } }, query); }
+        catch (error) { append("agent", `Pending action rejected: ${error.message}. Re-observe and request again.`, "warning"); }
+        return;
+      }
+      if (current.graphType === "DynamicHypergraph" && (isPlausibleGraphMutationText(query) || /^(?:instead,?\s*)?replace\s+(?:hyperedge\s+)?h[\w.:-]+\s+with\b/i.test(query))
+        && !requestMustRemainReadOnly(query) && !/\bundo\b|\brevert\b/i.test(query)) {
+        const staged = await stageGraphMutationDetailed(query, { deterministicFirst: true });
+        if (staged.handled) return;
+      }
+    }
 
     if (pendingAction) {
       const mappingCandidate = isPlausibleDatasetMappingText(query, datasetMappingIntentContext(current, pendingAction));
@@ -2540,8 +2611,12 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   }
 
   async function confirmPending({ allowWhileRouting = false } = {}) {
+    if (!mountedRef.current) return executionOutcome({ ok: false, outcome: "unmounted", stop: true });
     if (!pendingAction || (busy && !allowWhileRouting)) return executionOutcome({ ok: false, outcome: "not_confirmed" });
     const action = pendingAction;
+    if (confirmedActionIdsRef.current.has(action.confirmationToken?.id)) return executionOutcome({ ok: false, outcome: "confirmation_consumed" });
+    confirmedActionIdsRef.current.add(action.confirmationToken?.id);
+    if (confirmedActionIdsRef.current.size > 256) confirmedActionIdsRef.current.delete(confirmedActionIdsRef.current.values().next().value);
     let confirmed = false;
     let stateMutationCommitted = false;
     let confirmationOutcome = "failed";
@@ -2557,7 +2632,13 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     }
     setBusy(true);
     try {
-      if (action.actionType === "run_custom_parser") {
+      if (action.actionType === "apply_pending_hypergraph_update") {
+        const result = await agentActions.confirmDynamicUpdateApply(action.applyConfirmation);
+        confirmed = Boolean(result.ok); stateMutationCommitted = Boolean(result.ok);
+        confirmationOutcome = result.ok ? "pending_update_applied" : "pending_update_rejected";
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        append("agent", result.ok ? `Applied pending update once. Committed graph version ${result.graphState.graphVersion}. No Runtime job created.` : result.error, result.ok ? "status" : "warning");
+      } else if (action.actionType === "run_custom_parser") {
         const result = await agentActions.runCustomParser();
         if (result.ok) {
           const verified = await verify({ type: "custom_result_id", expected: result.resultId });
@@ -2678,13 +2759,13 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
           ? `Exported a mapping fine-tuning example with full text from ${result.fileCount} active-batch file${result.fileCount === 1 ? "" : "s"}.`
           : `Mapping fine-tuning export failed: ${result.error}`, result.ok ? "status" : "error");
       } else if (action.actionType === "run_candy_expensive_compute") {
-        const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
+        const graph = { id: latestStateRef.current.graphId, version: latestStateRef.current.graphVersion, graphType: latestStateRef.current.candy?.graphType, graphFingerprint: latestStateRef.current.graphFingerprint, applicationBinding: latestStateRef.current.candy?.applicationBinding, vertexCount: latestStateRef.current.vertexCount, edgeCount: latestStateRef.current.candy?.edgeCount ?? 0, motifContextVersion:latestStateRef.current.candy?.motifContextVersion,runtimeSessionId:latestStateRef.current.candy?.runtimeSessionId };
         const currentBinding = candyRequestConfirmationBinding({ argumentsValue: action.candyArguments, graph });
-        if (currentBinding.requestHash !== action.candyBinding?.requestHash) {
+        if (currentBinding.authorityKey !== action.candyBinding?.authorityKey) {
           append("agent", "The staged CANDY request no longer matches the active graph or resource envelope. Request it again.", "warning");
           confirmationOutcome = "stale_confirmation";
         } else {
-          const result = await agentActions.submitCandyJob(action.candyArguments);
+          const result = await agentActions.submitCandyJob(action.candyArguments, action.motifConfirmation);
           confirmed = Boolean(result.ok);
           confirmationOutcome = result.ok ? "candy_job_submitted" : "candy_job_rejected";
           append("agent", result.ok ? `CANDY job submitted as ${result.job?.jobId}. Ask for status later; this loop will not poll it.` : `CANDY job was not submitted: ${result.classification ?? "ERROR"} — ${result.error}`, result.ok ? "status" : "warning");
@@ -2707,6 +2788,8 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
 
   function cancelPending() {
     if (busy) return;
+    if (pendingAction?.applyConfirmation) agentActions.cancelDynamicUpdateApply?.(pendingAction.applyConfirmation);
+    if (pendingAction?.motifConfirmation) agentActions.cancelCandyMotifConfirmation?.(pendingAction.motifConfirmation);
     setPendingAction(null);
     append("agent", "Action cancelled. No changes were made.", "status");
   }
@@ -2904,6 +2987,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
             <div role="status" className="agent-status">
               {persistence.error || (persistence.status === "loading" ? "Restoring saved thread…" : "Chat saved on this browser. Workspace references never grant execution permission.")}
             </div>
+            {persistence.restoredWorkspace && <p role="status">Restored messages are historical context. No graph, pending update, confirmation, Runtime job or current result was restored. Reload the graph and review any requested change again.</p>}
             {persistence.restoredWorkspace?.requiresReupload && !agentState.agentFileCount && <details className="agent-upload">
               <summary>Saved workspace requires re-upload</summary>
               <p>Re-upload {persistence.restoredWorkspace.files.map(file => file.name).join(", ")}. Saved parser and graph references are historical; no files or approvals were restored.</p>
@@ -2950,6 +3034,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
                     {link.label}
                   </button>
                 ))}
+                <button type="button" onClick={() => agentActions.openDynamicUpdatePanel?.()}>Pending update</button>
               </div>
             </nav>
           </div>

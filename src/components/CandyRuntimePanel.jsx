@@ -5,8 +5,7 @@ import CandyMotifResult from "./CandyMotifResult.jsx";
 export default function CandyRuntimePanel({ candy, actions, busy = false, onNotice = () => {}, onSubmitMotif = () => {} }) {
   const [credential, setCredential] = useState("");
   const presentation = presentCandyCapabilities(candy);
-  const staticCapability=candy?.capabilities?.find(cap=>cap.backend === "CUDA_STATIC");
-  const incrementalCapability=candy?.graphType === "DynamicHypergraph" && candy?.pendingUpdateContext && candy?.capabilities?.find(cap=>cap.backend === "CUDA_INCREMENTAL");
+  const staticCapability=candy?.staticAvailability?.ready ? candy.staticAvailability.capability : null;
   const selected=candy?.selectedJob;
   const result=candy?.selectedMotifResult;
   const observe=async operation=>{const response=await operation();onNotice(response.ok?"CANDY job observation updated.":response.error,response.ok?"status":"warning");};
@@ -48,12 +47,13 @@ export default function CandyRuntimePanel({ candy, actions, busy = false, onNoti
       {candy.authorized && candy.capabilityReason && <p role="status">{candy.capabilityReason}</p>}
       {candy.graphType === "Hypergraph" && <p>No SSSP tool is exposed for this graph. The companion will not implicitly project a hypergraph.</p>}
       <p>CUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.</p>
-      <p>Motif analysis uses the committed graph. Batch previews require a separate commit before they become analysis input.</p>
+      <p>Current counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.</p>
+      <p role="status">Analysis: {candy.analysisStatus ?? "NONE"}</p>
       <div className="agent-file-actions">
         <button type="button" disabled={busy || !staticCapability || !candy.authorized} onClick={()=>onSubmitMotif({mode:"STATIC",backend:"CUDA_STATIC",deviceId:staticCapability.devices[0].id,timeoutMs:5000})}>Count 3-edge motifs with CUDA</button>
-        <button type="button" disabled={busy || !incrementalCapability || !candy.authorized} onClick={()=>onSubmitMotif({mode:"INCREMENTAL",backend:"CUDA_INCREMENTAL",deviceId:incrementalCapability.devices[0].id,timeoutMs:5000,updateContextId:candy.pendingUpdateContext.updateId})}>Analyze pending motif delta</button>
+        <button type="button" onClick={() => actions.openDynamicUpdatePanel?.()}>Open pending update panel</button>
       </div>
-      {!incrementalCapability && <p>Incremental motif analysis is unavailable for this workspace: an authoritative DynamicHypergraph and qualified pending update are required.</p>}
+      {!candy.incrementalAvailability?.ready && <p role="status">{candy.incrementalAvailability?.reason ?? "NO_VALIDATED_PENDING_UPDATE"}: {candy.incrementalAvailability?.message ?? "An authoritative DynamicHypergraph and qualified pending update are required."}</p>}
       {selected && <div className="agent-file-actions">
         <button type="button" disabled={busy} onClick={()=>observe(()=>actions.getCandyJobStatus(selected.jobId))}>Refresh job status</button>
         <button type="button" disabled={busy || ["completed","failed","cancelled"].includes(selected.status)} onClick={()=>observe(()=>actions.cancelCandyJob(selected.jobId))}>Cancel job</button>

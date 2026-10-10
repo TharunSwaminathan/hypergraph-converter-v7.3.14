@@ -323,7 +323,7 @@ try {
   assert.ok(quickLinks, "persistent Quick Links must render in the Assistant");
   assert.deepEqual(
     [...quickLinks.querySelectorAll("button")].map(button => button.textContent.trim()),
-    ["Explain H2V", "Graph stats", "Diagnostics", "Assistant help"],
+    ["Explain H2V", "Graph stats", "Diagnostics", "Assistant help", "Pending update"],
   );
   assert.equal(document.querySelector(".agent-composer__attach"), null, "Assistant composer must not expose Attach");
   assert.equal([...document.querySelectorAll("button")].some(button => /new batch/i.test(button.textContent)), false, "Assistant must not expose New batch");

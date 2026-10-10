@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "candy.scope5c-tests/1",
+  "scope": "CANDY Scope 5C",
+  "decision": "PASS",
+  "branch": "candy-integration-scope5c-runtime-binding",
+  "startingSha": "3379e0102704521960a5ccc1185a14a2beb2725d",
+  "finalHead": "3379e0102704521960a5ccc1185a14a2beb2725d",
+  "testFileCount": 260,
+  "focused": {
+    "candyAndConfirmationFiles": {
+      "status": "PASS",
+      "passed": 28,
+      "total": 28
+    },
+    "scope5Files": {
+      "status": "PASS",
+      "passed": 7,
+      "total": 7
+    },
+    "scope4cContracts": {
+      "status": "PASS",
+      "subtestsPassed": 12,
+      "subtestsTotal": 12
+    },
+    "staticMotifContracts": "PASS",
+    "scope5aGraphState": "PASS",
+    "scope5bPendingAdapterConfirmation": "PASS",
+    "confirmationOrchestratorDirectBridge": "PASS in complete final suite"
+  },
+  "newTests": [
+    "tests/candy-scope5-races.test.mjs",
+    "tests/candy-scope5-result-binding.test.mjs",
+    "tests/candy-scope5-runtime-integration.test.mjs"
+  ],
+  "fixture": "tests/fixtures/candy-scope5-runtime.mjs",
+  "modifiedTest": "tests/candy-scope5-graph-state.test.mjs",
+  "gates": {
+    "npm run test": {
+      "status": "PASS",
+      "passedFiles": 260,
+      "totalFiles": 260,
+      "durationSeconds": 106
+    },
+    "npm run lint": {
+      "status": "PASS",
+      "warnings": 0
+    },
+    "npm run build": {
+      "status": "PASS",
+      "warning": "Existing non-blocking Vite chunk-size advisory"
+    },
+    "npm run build:github": {
+      "status": "PASS",
+      "warning": "Existing non-blocking Vite chunk-size advisory"
+    },
+    "npm audit --omit=dev": {
+      "status": "PASS",
+      "productionVulnerabilities": 0,
+      "output": "found 0 vulnerabilities",
+      "outsideCodexSandbox": true,
+      "execution": "Approved read-only external execution, isolated temporary npm 11.4.2 client; repeated after continuation",
+      "priorBlock": "Environment/network-policy-specific; not product failure",
+      "manifestChanged": false
+    },
+    "git diff --check": {
+      "status": "PASS",
+      "note": "Non-blocking LF-to-CRLF advisory"
+    }
+  },
+  "environment": {
+    "npmClient": "Isolated temporary npm 11.4.2",
+    "python": "Bundled Python directory explicitly added to PATH for portable ZIP tests"
+  },
+  "integrationProof": {
+    "actualReactHookMounted": true,
+    "authenticatedHttpInjected": true,
+    "qualifiedCapabilityDiscovered": true,
+    "frozenRuntimeAcceptanceUsed": true,
+    "noNewLiveCudaExecution": true,
+    "committedGraphUnchanged": true,
+    "pendingRemainsValidated": true,
+    "commitCountAfterAnalysis": 0,
+    "independentApplyCommits": 1,
+    "applyAddsRuntimeJobs": 0,
+    "noPriorStaticRequired": true,
+    "deltaOnly": true,
+    "bins": 30,
+    "signedFormatting": [
+      "+N",
+      "-N",
+      "0"
+    ],
+    "lineGraphTrianglesSeparate": true
+  },
+  "raceCoverage": [
+    "Graph upload graph transition",
+    "Update upload pending edit",
+    "Job creation stale plus cancellation unavailable",
+    "Polling graph transition",
+    "Download graph transition",
+    "Pending edit while job runs",
+    "Second revision supersession",
+    "Expired/copied/cross-action approval",
+    "Cancellation failure plus late result",
+    "Timeout plus late completed response",
+    "Runtime reconnect/session replacement",
+    "Discard",
+    "Unmount/abandoned upload",
+    "Late pending validation cannot revive discarded revision"
+  ],
+  "protectedDeltas": {
+    "runtimeFiles": [],
+    "cudaStaticNativeFiles": [],
+    "cudaIncrementalNativeFiles": [],
+    "dependencyManifestFiles": [],
+    "earlierEvidenceFiles": []
+  },
+  "noProductSourceChangesAfterFinalGreenRun": true,
+  "security": {
+    "scanId": "06b37d23-5c5c-4afb-b016-c156a500519d",
+    "status": "complete",
+    "findings": 0,
+    "unresolvedHigh": 0
+  }
+}

@@ -8,6 +8,8 @@ export function createGraphHistoryEvent({
   preview,
   source = "manual",
   timestamp = new Date().toISOString(),
+  beforeGraphType = graphIdentity?.graphType ?? "Hypergraph",
+  afterGraphType = graphIdentity?.graphType ?? "Hypergraph",
 }) {
   return {
     id: `history-${graphIdentity?.graphVersion ?? 0}`,
@@ -18,6 +20,8 @@ export function createGraphHistoryEvent({
     summary: plan?.summary ?? preview?.summary ?? "Graph mutation",
     planId: plan?.planId ?? null,
     planHash: plan?.planHash ?? null,
+    beforeGraphType,
+    afterGraphType,
     beforeHyperedges: clone(beforeHyperedges ?? []),
     afterHyperedges: clone(afterHyperedges ?? []),
     before: preview?.before ?? null,

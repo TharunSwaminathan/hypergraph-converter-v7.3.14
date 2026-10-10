@@ -1,0 +1,46 @@
+{
+  "scanId": "6edd9569-6fb9-4cf0-8e69-263a8e077455",
+  "status": "complete",
+  "findings": 0,
+  "scope": "Corrective presentation production diff and supporting regression, not whole repository",
+  "canonicalReport": "C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14\\bf0240a54fb6ac8284bd9ac371306511158a1a2e_20261009T154206Z_suqlae8j\\report.md",
+  "warning": [
+    "Working-tree contents changed while the scan was running; results were saved for the original snapshot."
+  ],
+  "contentDigest": "codex-security-snapshot/v1:sha256:a74c07713e2cf70c257571d07fb3e6603b892b6fdb963de6ee865b75f9af0e09",
+  "usage": {
+    "cacheWriteInputTokens": 0,
+    "cachedInputTokens": 6806528,
+    "coverage": "complete",
+    "inputTokens": 6999792,
+    "outputTokens": 18647,
+    "reasoningOutputTokens": 2214,
+    "source": "codex_rollout",
+    "threadCount": 3,
+    "totalTokens": 7018439
+  },
+  "coverage": "complete for corrective diff",
+  "repositoryCoverage": "partial",
+  "finalSourceInventory": [
+    {
+      "path": "src/components/DynamicHypergraphUpdatePanel.jsx",
+      "sha256": "8f07e5df8b114a0f9bb57bb2ffd040ea66a5869e2bf07b7a18a816bb3d8b78aa",
+      "kind": "browser-presentation-correction"
+    },
+    {
+      "path": "tests/candy-scope5d-ui.test.mjs",
+      "sha256": "2a87e5254a801794cf690edf09377961cbca8e8c42bd7157b6e535f8a4bd6299",
+      "kind": "corrective-regression"
+    }
+  ],
+  "finalBytesChangedSinceReview": false,
+  "assurances": {
+    "mutationAnalysisAndApplyAuthority": "Notice contains only message and graphVersion; existing shared owners enforce all actions. No authority in notice state.",
+    "confirmationAndStaleBindings": "Unchanged controls and pending owner token/expiry/exact content/base/session checks; no weakening.",
+    "runtimeExecutionAndResultRegistry": "No changed Runtime execution or result registry bytes/calls.",
+    "persistence": "React component-local volatile state only; no storage/event/channel added.",
+    "secretExposure": "No credential reads added; browser evidence contains no bearer credential.",
+    "xssOutputInjection": "Notice is rendered as a React text child, not raw HTML; no dangerouslySetInnerHTML or new markup interpretation.",
+    "unresolvedCorrectnessImpactingMediumHighCritical": 0
+  }
+}

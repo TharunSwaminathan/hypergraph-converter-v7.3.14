@@ -36,6 +36,7 @@ import { useAlgorithms } from "./hooks/useAlgorithms.js";
 import AgentChatPanel from "./components/AgentChatPanel.jsx";
 import CandyMotifStatistics from "./components/CandyMotifStatistics.jsx";
 import { useCandyRuntime } from "./candy/useCandyRuntime.js";
+import { useSyncExternalStore } from "react";
 import { useCustomParserSpecialist } from "./hooks/useCustomParserSpecialist.js";
 import {
   analyzeUploadBatch,
@@ -135,10 +136,19 @@ import { compileDeterministicAction } from "./agent/deterministicNlu/compileDete
 import { prepareDeterministicTurn } from "./agent/deterministicNlu/prepareDeterministicTurn.js";
 import { upsertRuntimeTrace } from "./agent/deterministicNlu/runtimeInstrumentation.js";
 import { createDeterministicContextBinding, bindingMismatch } from "./agent/deterministicNlu/contextBinding.js";
-import { createGraphIdentity, nextCommittedGraphIdentity } from "./graph/graphIdentity.js";
+import {
+  APPLICATION_GRAPH_TYPES,
+  commitGraphState,
+  createGraphState,
+  graphIdentityFromState,
+} from "./graph/graphState.js";
 import { createMutationPlan } from "./graph/graphMutationValidator.js";
 import { previewGraphMutation } from "./graph/graphMutationPreview.js";
 import { createGraphHistoryEvent, appendGraphHistory } from "./graph/graphHistory.js";
+import { createPendingHypergraphUpdateController } from "./graph/pendingHypergraphUpdate.js";
+import { createDynamicUpdateControls } from "./graph/dynamicUpdateControls.js";
+import { dynamicUpdatePreview } from "./visualization/dynamicUpdatePreview.js";
+import DynamicHypergraphUpdatePanel from "./components/DynamicHypergraphUpdatePanel.jsx";
 import { compileGraphMutationGrammar } from "./agent/deterministicNlu/domains/graphMutationGrammar.js";
 import {
   isPlausibleGraphMutationText,
@@ -252,7 +262,39 @@ function AppCore() {
   const [applyBatch, setApplyBatch] = useState(false);
   // (batchWarnings is derived below, together with finalHes)
   // Output state
-  const [hes, setHes] = useState(null); const [warnings, setWarnings] = useState([]); const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
+  const [graphState, setGraphState] = useState(() => createGraphState()); const [warnings, setWarnings] = useState([]); const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
+  const [graphHistory, setGraphHistory] = useState([]);
+  const graphStateRef = useRef(graphState);
+  graphStateRef.current = graphState;
+  const graphHistoryRef = useRef(graphHistory);
+  graphHistoryRef.current = graphHistory;
+  const commitGraphControllerRef = useRef(null);
+  const pendingHypergraphUpdateControllerRef = useRef(null);
+  if (!pendingHypergraphUpdateControllerRef.current) {
+    // UI and Assistant share the single Scope 5B browser-session authority.
+    pendingHypergraphUpdateControllerRef.current = createPendingHypergraphUpdateController({
+      getGraphState: () => graphStateRef.current,
+      getHistory: () => graphHistoryRef.current,
+      commit: (hyperedges, options) => commitGraphControllerRef.current(hyperedges, options),
+    });
+  }
+  const pendingHypergraphUpdate = useSyncExternalStore(
+    pendingHypergraphUpdateControllerRef.current.subscribe,
+    pendingHypergraphUpdateControllerRef.current.getCurrent,
+    pendingHypergraphUpdateControllerRef.current.getCurrent,
+  );
+  const candyRuntimeRef = useRef({ state: {}, actions: {} });
+  const [dynamicUpdateControls] = useState(() => createDynamicUpdateControls({
+    pendingController: pendingHypergraphUpdateControllerRef.current,
+    getGraphState: () => graphStateRef.current,
+    getCandy: () => candyRuntimeRef.current,
+  }));
+  useEffect(() => {
+    const owner = pendingHypergraphUpdateControllerRef.current;
+    owner.activate();
+    return () => { dynamicUpdateControls.invalidateApply(); owner.dispose(); };
+  }, [dynamicUpdateControls]);
+  const [pendingPreviewRequested, setPendingPreviewRequested] = useState(false);
   const [vizLimit, setVizLimit] = useState(50); const [activeSection, setActiveSection] = useState("mappings");
   const [selectedMappingId, setSelectedMappingId] = useState("h2v");
   const [expId, setExpId] = useState("h2v_txt");
@@ -266,13 +308,13 @@ function AppCore() {
   const [graphPngNonce, setGraphPngNonce] = useState(0);
   const [statsMotifRequest, setStatsMotifRequest] = useState(null);
   const statsMotifRequestCounterRef = useRef(0);
-  const [graphIdentity, setGraphIdentity] = useState(() => createGraphIdentity([]));
-  const [graphHistory, setGraphHistory] = useState([]);
   const [selectedGraphEntity, setSelectedGraphEntity] = useState(null);
   const [selectionNotice, setSelectionNotice] = useState("");
   const [graphConversationReferences, setGraphConversationReferences] = useState(() => createGraphConversationReferences());
   const [deterministicTurnTraces, setDeterministicTurnTraces] = useState([]);
-  const graphVersion = graphIdentity.graphVersion;
+  const hes = graphState.hyperedges;
+  const graphIdentity = useMemo(() => graphIdentityFromState(graphState), [graphState]);
+  const graphVersion = graphState.graphVersion;
   const [notice, setNotice] = useState("");
   const vizRef = useRef(null);
   const dashboardSectionRef = useRef(null);
@@ -326,17 +368,25 @@ function AppCore() {
     plan = null,
     preview = null,
     warnings: nextWarnings = null,
+    graphType = undefined,
   } = {}) => {
-    const previousHyperedges = hes ?? [];
+    const previousHyperedges = graphState.hyperedges ?? [];
     const normalizedNext = nextHyperedges?.length ? nextHyperedges : null;
-    const nextIdentity = nextCommittedGraphIdentity(graphIdentity, normalizedNext ?? [], { replacement: replacement || clear });
-    const graphChanged = nextIdentity.graphFingerprint !== graphIdentity.graphFingerprint;
-    setHes(normalizedNext);
+    const nextState = commitGraphState(graphState, normalizedNext, { replacement, clear, graphType });
+    const graphChanged = nextState.graphVersion !== graphState.graphVersion
+      || nextState.graphFingerprint !== graphState.graphFingerprint;
+    const graphAuthorityChanged = nextState.graphId !== graphState.graphId
+      || nextState.graphVersion !== graphState.graphVersion
+      || nextState.graphFingerprint !== graphState.graphFingerprint
+      || nextState.graphType !== graphState.graphType;
+    graphStateRef.current = nextState;
+    setGraphState(nextState);
     if (Array.isArray(nextWarnings)) setWarnings(nextWarnings);
-    setGraphIdentity(nextIdentity);
     if (graphChanged) {
       setGraphHistory(current => appendGraphHistory(current, createGraphHistoryEvent({
-        graphIdentity: nextIdentity,
+        graphIdentity: nextState,
+        beforeGraphType: graphState.graphType,
+        afterGraphType: nextState.graphType,
         beforeHyperedges: previousHyperedges,
         afterHyperedges: normalizedNext ?? [],
         plan: plan ?? { summary },
@@ -346,15 +396,20 @@ function AppCore() {
       setSelectedGraphEntity(null);
       setSelectionNotice("Selection cleared because the graph changed.");
     }
+    if (graphAuthorityChanged && source !== "pending_dynamic_hypergraph_update") {
+      pendingHypergraphUpdateControllerRef.current.onGraphTransition(nextState, "COMMITTED_GRAPH_AUTHORITY_CHANGED");
+    }
     return {
       ok: true,
-      graphId: nextIdentity.graphId,
-      graphVersion: nextIdentity.graphVersion,
-      graphFingerprint: nextIdentity.graphFingerprint,
+      graphId: nextState.graphId,
+      graphVersion: nextState.graphVersion,
+      graphFingerprint: nextState.graphFingerprint,
+      graphType: nextState.graphType,
       graphChanged,
       hyperedgeCount: normalizedNext?.length ?? 0,
     };
-  }, [graphIdentity, hes]);
+  }, [graphState]);
+  commitGraphControllerRef.current = commitGraph;
 
   const setTxt = useCallback(v => {
     setTexts(previous => ({ ...previous, [fmt]: v }));
@@ -417,7 +472,7 @@ function AppCore() {
 
   const parseAndCommit = useCallback((targetFormat, payload, { preserveOnError = false } = {}) => {
     setErr(""); setLoading(true);
-    if (!preserveOnError) { setHes(null); setWarnings([]); }
+    if (!preserveOnError) setWarnings([]);
     return new Promise(resolve => setTimeout(() => {
       try {
         const raw = parseInputFormat(targetFormat, payload);
@@ -2272,7 +2327,7 @@ function AppCore() {
       return { ok: false, error: "Connect Ollama before running the full graph-planner readiness test." };
     }
     const testHyperedges = [{ id: "h0", vertices: ["4", "5"] }];
-    const testIdentity = createGraphIdentity(testHyperedges);
+    const testIdentity = graphIdentityFromState(createGraphState(testHyperedges));
     const result = await runExclusiveLocalModelTask({
       task: "graph_mutation_planner_diagnostic",
       message: "Testing full graph mutation planner readiness…",
@@ -3119,6 +3174,19 @@ function AppCore() {
     return { ok: true, ...commit };
   }
 
+  function changeCommittedGraphType(nextGraphType) {
+    if (!hes?.length) return { ok: false, error: "Load a graph before selecting its application graph type." };
+    if (nextGraphType === graphState.graphType) return { ok: true, graphChanged: false, graphType: graphState.graphType };
+    const commit = commitGraph(hes, {
+      source: "graph_type",
+      summary: `Changed committed graph type from ${graphState.graphType} to ${nextGraphType}.`,
+      graphType: nextGraphType,
+    });
+    setApplyBatch(false);
+    showNotice(`Committed graph type changed to ${commit.graphType}. No CANDY job was started.`);
+    return commit;
+  }
+
   function scrollToVisualization() {
     if (!vizRef.current) return false;
     vizRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3170,6 +3238,9 @@ function AppCore() {
   }, [finalHes, graphIdentity.graphId]);
 
   function applyBatchUpdatesForAgent() {
+    if (graphStateRef.current.graphType === "DynamicHypergraph") {
+      return { ok: false, error: "Stage dynamic Batch Updates in the pending update panel, then request its separate Apply confirmation." };
+    }
     if (!hes?.length) return { ok: false, error: "Load a base graph before applying batch updates." };
     if (!batchUpdates.length) return { ok: false, error: "No batch update operations are available." };
     const parseWarnings = [];
@@ -3207,6 +3278,7 @@ function AppCore() {
   }
 
   function previewBatchUpdatesForAgent() {
+    if (graphStateRef.current.graphType === "DynamicHypergraph") return dynamicUpdateControls.stageBatch(batchText);
     if (!hes?.length) return { ok: false, error: "Load a base graph before previewing batch updates." };
     if (!batchUpdates.length) return { ok: false, error: "No batch update operations are available to preview." };
     setApplyBatch(true);
@@ -3243,7 +3315,7 @@ function AppCore() {
       plan: interpretation.plan,
       preview,
       summary: interpretation.plan.summary,
-      graphChanged: preview.beforeFingerprint !== preview.afterFingerprint,
+      graphChanged: preview.graphChanged,
       ...extras,
     };
   }
@@ -3599,6 +3671,9 @@ function AppCore() {
   }
 
   function commitGraphMutationForAgent(plan) {
+    if (graphStateRef.current.graphType === "DynamicHypergraph" && !(plan?.operations?.length === 1 && plan.operations[0].type === "UNDO_LAST_MUTATION")) {
+      return { ok: false, error: "Dynamic graph edits must be staged and separately applied through the pending update controller." };
+    }
     if (!plan) return { ok: false, error: "No graph mutation plan is staged." };
     if (batchPreviewActive) {
       return { ok: false, error: "A batch-update preview is active. Commit or discard that preview before committing conversational graph edits.", blockedByBatchPreview: true };
@@ -3612,7 +3687,7 @@ function AppCore() {
         preview,
       };
     }
-    if (preview.beforeFingerprint === preview.afterFingerprint) {
+    if (!preview.graphChanged) {
       return {
         ok: true,
         graphChanged: false,
@@ -3628,6 +3703,7 @@ function AppCore() {
       summary: plan.summary ?? "Graph mutation",
       plan,
       preview,
+      graphType: preview.graphType,
       warnings: [...warnings, ...preview.warnings],
     });
     setApplyBatch(false);
@@ -3696,22 +3772,28 @@ function AppCore() {
   const h2h = useMemo(() => h2hResult.status === DERIVED_STATUS.COMPUTED ? h2hResult.value : [], [h2hResult]);
   const v2v = useMemo(() => v2vResult.status === DERIVED_STATUS.COMPUTED ? v2vResult.edges : [], [v2vResult]);
   const st = useMemo(() => finalHes ? computeStats(finalHes) : null, [finalHes]);
-  // The Studio's committed canonical object is a hypergraph. CANDY must not
-  // reinterpret pair-sized hyperedges as an ordinary graph or project them.
-  const candyGraphValue = useMemo(() => hes?.length ? {
-    schemaVersion: "candy.hypergraph-incidence/1", graphId: graphIdentity.graphId,
-    graphVersion, graphType: "Hypergraph",
-    vertices: [...new Set(hes.flatMap(edge => edge.vertices))],
-    hyperedges: hes.map(edge => ({ id: edge.id, vertices: [...edge.vertices] })),
-  } : null, [hes, graphIdentity.graphId, graphVersion]);
+  // The committed application graph type is explicit authority. CANDY must
+  // not infer it from edge cardinality or implicitly project it.
   const candyRuntime = useCandyRuntime({
-    graphType: candyGraphValue ? "Hypergraph" : null,
     graphId: graphIdentity.graphId,
-    graphVersion,
-    vertexCount: candyGraphValue?.vertices.length ?? 0,
-    edgeCount: candyGraphValue?.hyperedges.length ?? 0,
-    graphValue: candyGraphValue,
+    graphVersion, graphType: graphState.graphType,
+    graphFingerprint: graphState.graphFingerprint,
+    graphState,
+    getGraphState: () => graphStateRef.current,
+    pendingController: pendingHypergraphUpdateControllerRef.current,
+    pendingUpdate: pendingHypergraphUpdate,
+    edgeCount: hes?.length ?? 0,
   });
+  candyRuntimeRef.current = candyRuntime;
+  const pendingDynamicUpdate = dynamicUpdateControls.observe();
+  const pendingPreview = useMemo(() => pendingPreviewRequested
+    ? dynamicUpdatePreview(graphState, pendingHypergraphUpdate) : null,
+  [pendingPreviewRequested, graphState, pendingHypergraphUpdate]);
+  function openDynamicUpdatePanel() {
+    setActiveToolsSection("advanced");
+    window.requestAnimationFrame?.(() => document.getElementById("dynamic-update-panel")?.scrollIntoView?.({ behavior: "smooth", block: "start" }));
+    return { ok: true };
+  }
 
   function requestStaticMotifFromStatistics(argumentsValue) {
     statsMotifRequestCounterRef.current += 1;
@@ -4113,7 +4195,9 @@ function AppCore() {
     graphHyperedges: finalHes ?? [],
     graphId: graphIdentity.graphId,
     graphVersion,
+    graphType: graphState.graphType,
     graphFingerprint: graphIdentity.graphFingerprint,
+    pendingDynamicUpdate,
     committedHyperedgeCount: hes?.length ?? 0,
     batchPreviewActive,
     batchPreviewHyperedgeCount: batchPreviewActive ? finalHes?.length ?? 0 : 0,
@@ -4301,6 +4385,7 @@ function AppCore() {
       graph: {
         graphId: graphIdentity.graphId,
         graphVersion: graphIdentity.graphVersion,
+        graphType: graphState.graphType,
         selectedEntity: selectedGraphEntity,
         recentVerifiedReferences: recentReferenceContext(graphConversationReferences),
       },
@@ -4332,6 +4417,7 @@ function AppCore() {
         hasGraph: Boolean(finalHes?.length),
         graphId: graphIdentity.graphId,
         graphVersion: graphIdentity.graphVersion,
+        graphType: graphState.graphType,
         graphFingerprint: graphIdentity.graphFingerprint,
         selectedGraphEntity,
         activeBatch,
@@ -4847,8 +4933,10 @@ function AppCore() {
     pairCandyRuntime: candyRuntime.actions.pair,
     discoverCandyRuntime: candyRuntime.actions.discover,
     submitCandyJob: candyRuntime.actions.submitFromAssistant,
+    stageCandyMotifAnalysis: argumentsValue => { dynamicUpdateControls.invalidateApply(); return candyRuntime.actions.stageMotifAnalysis(argumentsValue); },
+    cancelCandyMotifConfirmation: candyRuntime.actions.cancelMotifConfirmation,
     getCandyJobStatus: candyRuntime.actions.getJobStatus,
-    cancelCandyJob: candyRuntime.actions.cancelJob,
+    cancelCandyJob: dynamicUpdateControls.cancelAnalysis,
     openCandyResult: candyRuntime.actions.openResult,
     requestParserSpecialist: specialist.generate,
     adoptSpecialistDraft: specialist.adopt,
@@ -4930,6 +5018,13 @@ function AppCore() {
     applyBatchUpdates: applyBatchUpdatesForAgent,
     discardBatchPreview: discardBatchPreviewForAgent,
     prepareGraphMutation: prepareGraphMutationForAgent,
+    stageDynamicUpdatePlan: dynamicUpdateControls.stagePlan,
+    discardDynamicUpdate: dynamicUpdateControls.discard,
+    requestDynamicUpdateApply: dynamicUpdateControls.requestApply,
+    confirmDynamicUpdateApply: dynamicUpdateControls.confirmApply,
+    cancelDynamicUpdateApply: dynamicUpdateControls.cancelApply,
+    requestDynamicUpdateAnalysis: dynamicUpdateControls.requestAnalysis,
+    openDynamicUpdatePanel,
     commitGraphMutation: commitGraphMutationForAgent,
     clearGraph,
     scrollToVisualization,
@@ -5161,6 +5256,17 @@ function AppCore() {
               <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Committed graph</div>
               <div style={{ fontFamily: "monospace", color: T.textDim, fontSize: 12 }}>version {graphIdentity.graphVersion} · {graphIdentity.graphFingerprint}</div>
             </div>
+            <label style={{ display: "grid", gap: 4, fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>
+              Graph type
+              <select
+                aria-label="Committed graph type"
+                value={graphState.graphType}
+                onChange={event => changeCommittedGraphType(event.target.value)}
+                style={{ border: "1px solid " + T.border, borderRadius: 7, background: T.bg, color: T.text, padding: "5px 8px", fontSize: 12, fontWeight: 600, textTransform: "none", letterSpacing: 0 }}
+              >
+                {APPLICATION_GRAPH_TYPES.map(graphType => <option key={graphType} value={graphType}>{graphType}</option>)}
+              </select>
+            </label>
             <div>
               <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Selection</div>
               <div style={{ fontFamily: "monospace", color: selectedGraphEntity ? T.accent : T.textFaint, fontSize: 12 }}>{selectedGraphEntity ? `${selectedGraphEntity.type}:${selectedGraphEntity.id}` : "none"}</div>
@@ -5169,7 +5275,7 @@ function AppCore() {
               <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Mutation history</div>
               <div style={{ fontFamily: "monospace", color: T.textDim, fontSize: 12 }}>{graphHistory.length} committed change{graphHistory.length === 1 ? "" : "s"}</div>
             </div>
-            <div style={{ marginLeft: "auto", color: T.textFaint, fontSize: 12 }}>Route switches and preview toggles do not change this version.</div>
+            <div style={{ marginLeft: "auto", color: T.textFaint, fontSize: 12 }}>Type changes are versioned authority transitions. They do not run analysis or apply graph edits.</div>
           </div>
         )}
 
@@ -5291,10 +5397,11 @@ function AppCore() {
         )}
 
         {/* Visualization */}
-        {finalHes && finalHes.length > 0 && (
+        {(pendingPreview?.hyperedges.length > 0 || finalHes?.length > 0) && (
           <div ref={vizRef} style={{ marginTop: 40, scrollMarginTop: 20 }}>
             <Viz
-              hyperedges={finalHes}
+              hyperedges={pendingPreview?.hyperedges ?? finalHes}
+              updateSemantics={pendingPreview?.semantics}
               vizLimit={vizLimit}
               setVizLimit={setVizLimit}
               algoHighlight={algo.highlight}
@@ -5330,6 +5437,7 @@ function AppCore() {
               Preview is a temporary overlay, while commit writes changes back to the committed graph. */}
           <div id="tools-panel-advanced" role="tabpanel" aria-labelledby="tools-tab-advanced" hidden={activeToolsSection !== "advanced"} style={{ display: activeToolsSection === "advanced" ? "block" : "none" }}>
             <AdvancedOptionsPanel
+              dynamicUpdateMode={graphState.graphType === "DynamicHypergraph"}
               batchText={batchText}
               setBatchText={setBatchText}
               batchPreviewActive={batchPreviewActive}
@@ -5348,6 +5456,15 @@ function AppCore() {
                 detectedLabel: activeAgentBatch.detectedFormat?.label ?? "Unknown",
               } : null}
             />
+            <div id="dynamic-update-panel">
+              <DynamicHypergraphUpdatePanel
+                graphType={graphState.graphType} graphVersion={graphVersion}
+                pending={pendingDynamicUpdate} controls={dynamicUpdateControls} candy={candyRuntime.state}
+                batchText={batchText} previewActive={Boolean(pendingPreview)}
+                onPreview={value => { setPendingPreviewRequested(value); if (value) scrollToVisualization(); }}
+                onEdit={() => document.getElementById("batch-update-commands")?.focus()}
+              />
+            </div>
           </div>
 
           {/* Algorithms */}
