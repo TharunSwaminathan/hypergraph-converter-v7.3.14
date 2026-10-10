@@ -6,6 +6,12 @@ CUDA availability requires an exact ignored local qualification record, matching
 
 ## Trust boundary
 
+Portable source is browser-only: native `build`, Runtime `.local`, Git and
+qualification evidence are excluded. Extracted qualified CUDA must be unavailable;
+the qualification verifier remains unchanged. See the additive
+[Scope 6A release contract](../docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md) for actual
+bounds, provenance, exact-byte policy and future standalone-release work.
+
 - Default and only permitted bind host: `127.0.0.1`; default port: `8791`.
 - `GET /v1/health` is non-sensitive and unauthenticated.
 - All capability, artifact, job, cancellation, and result routes require `Authorization: Bearer <session token>`.

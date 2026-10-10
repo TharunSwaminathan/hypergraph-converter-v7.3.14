@@ -20,10 +20,12 @@ function pairingStorage(value) {
 
 function createLiveContext(initial) {
   let value=initial, declaration=null, generation=0, mounted=true;
+  let discovery = new AbortController();
   return Object.freeze({get:()=>value,update:patch=>{value={...value,...patch};},
     getDeclaration:()=>declaration,setDeclaration:next=>{declaration=next;},
-    nextDiscovery:()=>++generation,isCurrent:expected=>mounted && expected===generation,
-    mount:()=>{mounted=true;},unmount:()=>{mounted=false;generation++;}});
+    nextDiscovery:()=>{discovery.abort();discovery=new AbortController();return ++generation;},
+    discoverySignal:()=>discovery.signal,isCurrent:expected=>mounted && expected===generation,
+    mount:()=>{mounted=true;},unmount:()=>{mounted=false;generation++;discovery.abort();}});
 }
 
 export function useCandyRuntime({ graphState = null, getGraphState = null, pendingController = null,
@@ -41,7 +43,7 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
       const graph=current.getGraphState?.() ?? current.graphState ?? {...current.graphValue,graphFingerprint:current.graphFingerprint};
       return {graph,pendingUpdate:current.pendingController?.getCurrent() ?? (current.pendingController ? null : current.pendingUpdate),runtime:current.state};
     },
-    getClient:()=>createCandyClient({baseUrl:live.get().state.baseUrl,token:live.get().token}),
+    getClient:({signal}={})=>createCandyClient({baseUrl:live.get().state.baseUrl,token:live.get().token,signal}),
   }));
   useLayoutEffect(() => {
     live.update({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state});
@@ -78,7 +80,7 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
     const check=()=>{if(!live.isCurrent(generation)) throw Object.assign(new Error("Runtime discovery was superseded or unmounted."),{classification:"STALE_GRAPH_VERSION"});};
     try {
       check();
-      const client=createCandyClient({baseUrl:initial.baseUrl,token:live.get().token});
+      const client=createCandyClient({baseUrl:initial.baseUrl,token:live.get().token,signal:live.discoverySignal()});
       const health=await client.health(); check();
       if(health.schemaVersion!=="candy.runtime-api/1") throw Object.assign(new Error("The companion API schema is incompatible."),{classification:"incompatible"});
       const declaration=await client.capabilities(); check();

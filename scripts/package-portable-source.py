@@ -31,6 +31,10 @@ EXCLUDED_DIRS = {
     "upload",
     "uploads",
     "__pycache__",
+    "build",
+    ".local",
+    ".codex",
+    ".secrets",
 }
 
 EXCLUDED_FILES = {
@@ -51,6 +55,14 @@ EXCLUDED_PATTERNS = [
     "*.pem",
     "*.key",
     "id_rsa*",
+    "*token*.txt",
+    "*token*.json",
+    "*credential*.json",
+    "*secret*.json",
+    "*.zip",
+    "*.exe",
+    "*.dll",
+    "*.so",
     "*.gguf",
     "*.safetensors",
     "*.onnx",
@@ -83,6 +95,10 @@ def entry_mode(path: Path) -> int:
     return EXECUTABLE_FILE_MODE if path.suffix.lower() in EXECUTABLE_EXTENSIONS else REGULAR_FILE_MODE
 
 REQUIRED_FILES = [
+    "src/agent/liveMessageHistory.js",
+    "src/utils/downloadLifecycle.js",
+    "candy-runtime/test/hypergraph-motif-cuda-contract.mjs",
+    "candy-runtime/test/hypergraph-motif-cuda-incremental-contract.mjs",
     "package.json",
     "package-lock.json",
     "README.md",
@@ -420,10 +436,10 @@ def project_root_from_script() -> Path:
 
 def is_excluded(path: Path, root: Path) -> bool:
     rel = path.relative_to(root)
-    parts = set(rel.parts)
-    if parts & EXCLUDED_DIRS:
+    parts = {part.casefold() for part in rel.parts}
+    if parts & {part.casefold() for part in EXCLUDED_DIRS}:
         return True
-    if path.name in EXCLUDED_FILES:
+    if path.name.casefold() in {item.casefold() for item in EXCLUDED_FILES}:
         return True
     lowered_name = path.name.lower()
     return any(fnmatch.fnmatch(lowered_name, pattern.lower()) for pattern in EXCLUDED_PATTERNS)
@@ -449,6 +465,8 @@ def iter_source_files(root: Path) -> list[Path]:
 
 
 def create_zip(root: Path, output: Path) -> dict[str, int]:
+    if output.resolve().is_relative_to(root.resolve()):
+        raise RuntimeError("Package output must be outside the source tree.")
     files = iter_source_files(root)
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():

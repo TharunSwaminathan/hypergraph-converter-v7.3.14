@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "candy.scope6a-test-results/1",
+  "capturedAt": "2026-10-10T03:49:22.097011+00:00",
+  "status": "PASS",
+  "authority": false,
+  "repoSha": "f8343ae195e37885726c396733dd6f5b9468f0fb",
+  "node": "v24.19.0",
+  "npm": "11.6.2",
+  "python": "3.13",
+  "gates": [
+    {
+      "command": "npm ci",
+      "status": "PASS",
+      "note": "Pinned transient npm@11.6.2 used because host lacks npm; existing lockfile, zero manifest change."
+    },
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "filesPassed": 271,
+      "filesTotal": 271,
+      "durationSeconds": 125.6,
+      "log": "artifacts/candy-scope6a-node-tests.log"
+    },
+    {
+      "command": "node --test tests/candy-scope6a-hook.test.mjs tests/candy-scope6a-lifecycle.test.mjs tests/candy-scope6a-release.test.mjs",
+      "status": "PASS",
+      "note": "Focused mounted hook, lifecycle and real package contract checks."
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "warning": "Existing chunk >500kB"
+    },
+    {
+      "command": "npm run build:github",
+      "status": "PASS",
+      "warning": "Existing chunk >500kB"
+    },
+    {
+      "command": "npm audit --omit=dev --json",
+      "status": "PASS",
+      "vulnerabilities": 0,
+      "evidence": "artifacts/candy-scope6a-production-audit.json"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS"
+    },
+    {
+      "command": "python scripts/qualify-scope6a-package.py --output artifacts/candy-scope6a-package-qualification.json",
+      "status": "PASS",
+      "cases": [
+        "actual",
+        "clean",
+        "populated"
+      ]
+    },
+    {
+      "command": "Final extracted candidate npm ci && npm run build",
+      "status": "PASS"
+    },
+    {
+      "command": "node scripts/measure-scope6a-baseline.mjs --output=artifacts/candy-scope6a-benchmark-baseline.json",
+      "status": "PASS",
+      "kind": "BOUNDED_SMOKE",
+      "native": "REAL_NATIVE_SUCCESS"
+    },
+    {
+      "command": "node scripts/write-scope6a-provenance.mjs",
+      "status": "PASS",
+      "sourceFiles": 20
+    },
+    {
+      "command": "CPU CI static definition/immutable action contract checks",
+      "status": "PASS",
+      "yamlParser": "No independent YAML parser installed; static tests only",
+      "remoteExecution": "NOT_RUN",
+      "gpu": "UNAVAILABLE/SKIPPED"
+    }
+  ],
+  "addedTests": [
+    "tests/candy-scope6a-hook.test.mjs",
+    "tests/candy-scope6a-lifecycle.test.mjs",
+    "tests/candy-scope6a-release.test.mjs"
+  ],
+  "focusedCoverage": [
+    "all seven client operations abort/deadline",
+    "disconnect during upload",
+    "reconnect and fresh authorization",
+    "unmount during health/discovery",
+    "held contract-valid late result rejection",
+    "status/result read abort",
+    "10000 append bound",
+    "1000 download URL/timer release and StrictMode remount",
+    "seed determinism/known Q packing",
+    "B/N rejection before native",
+    "clean/populated archive equality/exclusions",
+    "extracted CUDA fail-closed",
+    "four anchors and newline policy",
+    "CPU CI pinned actions/no secrets/explicit GPU skipped"
+  ],
+  "qualificationKinds": {
+    "heldAsyncTests": "FIXTURE_HTTP_AND_CONTRACT_FIXTURES",
+    "messageAndUrlStress": "APPEND_EQUIVALENTS_AND_INJECTED_COUNTERS",
+    "browserWorkflow": "REAL_CHROME",
+    "localStaticSmoke": "REAL_CUDA_STATIC",
+    "localBrowserDelta": "REAL_CUDA_INCREMENTAL",
+    "cpuCiGpu": "UNAVAILABLE/SKIPPED"
+  },
+  "limitations": [
+    "Performance evidence is a single descriptive smoke: zero warmups, one replicate, one session. No speed, crossover or large-native-capacity claim.",
+    "S1/S2/S3/B1 seeded generator subset is implemented. Remaining benchmark families, five warmups/30 warm repeats, 20 cold starts and three sessions belong to a dedicated measurement run.",
+    "STATIC S1 ran genuinely on the qualified local CUDA backend. INCREMENTAL genuinely ran in the browser fixture flow; no paired incremental timing distribution was captured.",
+    "Queue, H2D, D2H, allocation and CUDA context decomposition, peak heap/VRAM, thermals, power and storage were not measured.",
+    "CPU CI contract checks and equivalent local gates passed. GitHub-hosted workflow execution is not yet observed; GPU live qualification is UNAVAILABLE/SKIPPED on that lane.",
+    "npm ci reports four development-tree advisories (one moderate, three high). Required production-only audit reports zero. Dependency files were intentionally unchanged.",
+    "Existing large production chunk warning remains (about 1.66 MB, 465.61 KB gzip). No bundle optimization was in Scope 6A.",
+    "Message retention stress uses 10,000 append equivalents and source-path assertions; it does not claim a mounted 500-message paint/heap stress test. Current selectors were checked in the genuine Assistant flow and existing regression suite.",
+    "Download retention counters use injected URL/timer APIs; a genuine Chrome download independently matched exact bytes. The Chrome automation download event timed out, but the completed file appeared and was verified.",
+    "Old panel analysis confirmation can remain visibly rendered after reconnect, while analysis is STALE/current result no. Clicking it was rejected with fresh exact confirmation required and created no job.",
+    "Local abort cannot remotely cancel an accepted job if its response and job ID are lost. Native jobs remain subject to unchanged limits; no stale result becomes current.",
+    "500 messages is a count bound, not a byte budget. URL cleanup bounds lifetime after dispatch, not simultaneous peak count.",
+    "Packaging excludes known local/build/secret/temp patterns. Arbitrarily named undisclosed secret files are outside that proof; the actual reviewed package and synthetic marker checks passed.",
+    "The sealed security scan retains its original snapshot and explicitly warns that working-tree contents changed during review. Frozen 20-file source hashes match both workers and the release manifest; only descriptive evidence changed afterward.",
+    "Browser-only source distribution cannot enable qualified CUDA without separately verified exact Git/evidence/source/binary/environment prerequisites. Local unsigned manifests are not publisher attestation."
+  ]
+}

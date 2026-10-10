@@ -14,6 +14,11 @@ export function createMotifAnalysisController({ getContext, getClient }) {
   const registry = createMotifResultRegistry(), listeners = new Set();
   let state=Object.freeze({status:"NONE",job:null,resultEvidence:null,lastError:null});
   let epoch=0, resultReadEpoch=0, active=true, approval=null, jobBinding=null, currentKey=null;
+  let transport = new AbortController(), resultTransport = null;
+  const abortTransport = () => {
+    transport.abort(); transport = new AbortController();
+    resultTransport?.abort(); resultTransport = null; resultReadEpoch++;
+  };
   const emit = patch => { state=Object.freeze({...state,...patch}); for (const listener of listeners) listener(); };
   const context = () => {
     const value=getContext();
@@ -27,7 +32,7 @@ export function createMotifAnalysisController({ getContext, getClient }) {
     if (binding?.jobId) void Promise.resolve().then(()=>binding.client.cancelJob(binding.jobId)).catch(()=>{});
   };
   const invalidate = (status="STALE") => {
-    epoch++; approval=null; registry.clear(); cancelBestEffort(jobBinding); jobBinding=null; currentKey=null;
+    epoch++; approval=null; registry.clear(); abortTransport(); cancelBestEffort(jobBinding); jobBinding=null; currentKey=null;
     emit({status,job:null,resultEvidence:null,lastError:null});
   };
   const requireJob = jobId => {
@@ -82,7 +87,15 @@ export function createMotifAnalysisController({ getContext, getClient }) {
         const preflight=controller.availability(argumentsValue);
         if (!preflight.ok) fail(preflight.classification,preflight.message);
         emit({status:"STAGED",lastError:null});
-        const client=getClient();
+        const ownedClient=getClient({signal:transport.signal}), cleanupClient=getClient();
+        // Remote cancellation has its own bounded lifetime after local revocation.
+        const client=Object.freeze({
+          uploadArtifact:(...args)=>ownedClient.uploadArtifact(...args),
+          submitJob:(...args)=>ownedClient.submitJob(...args),
+          getJob:(...args)=>ownedClient.getJob(...args),
+          getResult:(...args)=>ownedClient.getResult(...args),
+          cancelJob:id=>cleanupClient.cancelJob(id),
+        });
         const accepted=await submitMotifWorkflow({client,graphValue:motifGraphValue(captured.graph),pendingUpdate:captured.pendingUpdate?.motifUpdate,
           argumentsValue,runtimeSessionId:captured.runtime.runtimeSessionId,applicationBinding:captured.applicationBinding,isCurrent:()=>isCurrent(captured,generation)});
         if (!isCurrent(captured,generation)) { cancelBestEffort({...accepted.binding,client}); fail("STALE_GRAPH_VERSION","Analysis changed before job attachment."); }
@@ -120,7 +133,7 @@ export function createMotifAnalysisController({ getContext, getClient }) {
       try {
         const binding=requireJob(jobId);
         // Revoke locally before awaiting the companion; late success is inert.
-        epoch++; jobBinding=null; approval=null; registry.clear();
+        epoch++; jobBinding=null; approval=null; registry.clear(); abortTransport();
         const generation=epoch;
         emit({status:"CANCELLED",resultEvidence:null,job:state.job?{...state.job,status:"cancelled"}:null});
         await binding.client.cancelJob(jobId);
@@ -129,11 +142,13 @@ export function createMotifAnalysisController({ getContext, getClient }) {
     },
     async openResult(jobId) {
       let binding;
+      resultTransport?.abort();
+      const readTransport = new AbortController(); resultTransport = readTransport;
       const readGeneration = ++resultReadEpoch;
       const checkRead = () => { if (readGeneration !== resultReadEpoch) fail("STALE_GRAPH_VERSION", "Result read was superseded."); };
       try {
         binding=requireJob(jobId);
-        const job=await binding.client.getJob(jobId); requireJob(jobId); checkRead(); checkJob(job,binding);
+        const job=await binding.client.getJob(jobId,{signal:readTransport.signal}); requireJob(jobId); checkRead(); checkJob(job,binding);
         if (job.status!=="completed") {
           if (["failed","cancelled"].includes(job.status)) {
             jobBinding=null; approval=null; registry.clear();
@@ -141,7 +156,7 @@ export function createMotifAnalysisController({ getContext, getClient }) {
           }
           fail(job.error?.classification ?? "RESULT_VALIDATION_FAILURE","Only a completed current job can supply a result.");
         }
-        const result=await binding.client.getResult(jobId); requireJob(jobId); checkRead();
+        const result=await binding.client.getResult(jobId,{signal:readTransport.signal}); requireJob(jobId); checkRead();
         const evidence=await registry.accept(result,binding.binding,()=>readGeneration===resultReadEpoch && isCurrent(binding.context,binding.epoch) && jobBinding===binding);
         requireJob(jobId); checkRead();
         emit({status:"RESULT_READY",resultEvidence:evidence,job:boundedCandyJobObservation(evidence.result)});
@@ -149,7 +164,7 @@ export function createMotifAnalysisController({ getContext, getClient }) {
       } catch(error) {
         if (readGeneration===resultReadEpoch && binding && jobBinding===binding) { registry.clear(); jobBinding=null; emit({status:"FAILED",resultEvidence:null,lastError:{classification:error.code ?? error.classification,message:error.message}}); }
         return rejected(error);
-      }
+      } finally { if (resultTransport===readTransport) resultTransport=null; }
     },
     currentResult(authority = null) { return active ? registry.getCurrent(authority ?? {applicationBinding:context().applicationBinding,runtimeSessionId:context().runtime.runtimeSessionId}) : null; },
   };

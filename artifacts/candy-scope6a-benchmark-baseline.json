@@ -1,0 +1,434 @@
+{
+  "schemaVersion": "candy.scope6a-baseline/1",
+  "capturedAt": "2026-10-10T03:32:24.687Z",
+  "runKind": "BOUNDED_SMOKE",
+  "warmups": 0,
+  "replicates": 1,
+  "sessions": 1,
+  "authority": false,
+  "descriptiveOnly": true,
+  "repoSha": "f8343ae195e37885726c396733dd6f5b9468f0fb",
+  "dirty": true,
+  "trackedDiffSha256": "d957a0a68cb12083e96fd57f00fab94828c194466c7e4f6170f41640f988f8c5",
+  "lockfileSha256": "53fb9226f7b511cb55db2455e331a03bc6e57161375ef3cdca2d4038fbddd22b",
+  "software": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "osRelease": "10.0.26300",
+    "npm": "11.6.2 (qualification host)"
+  },
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 5 225F",
+    "logicalCores": 10,
+    "ramBytes": 33847996416,
+    "gpu": "Only real discovered qualified execution; no sampled thermals/load/VRAM peaks",
+    "storage": "Not sampled",
+    "powerState": "Not sampled"
+  },
+  "measurements": [
+    {
+      "fixture": {
+        "schemaVersion": "candy.benchmark-fixture/1",
+        "generatorVersion": "scope6a-disjoint-xorshift32/1",
+        "generatorSha256": "122a00d68610dea841980c97367ad30d2a0d4874ec1dc28ffd25e56cb6cc1f41",
+        "family": "S1",
+        "seed": 731406,
+        "lane": "Q",
+        "graphId": "fixture-S1-731406",
+        "graphVersion": 1,
+        "graphType": "DynamicHypergraph",
+        "E": 16,
+        "V": 64,
+        "I": 64,
+        "explicitIsolatedVertices": 0,
+        "construction": "disjoint; seeded label permutation",
+        "rowCardinalities": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "cardinality": {
+          "min": 4,
+          "max": 4,
+          "mean": 4,
+          "p50": 4,
+          "p95": 4
+        },
+        "degreeHistogram": {
+          "1": 64
+        },
+        "maxDegree": 1,
+        "idTypes": {
+          "string": 80
+        },
+        "idLengths": {
+          "8": 80
+        },
+        "membershipWork": 6720,
+        "jsonBytes": 2059,
+        "jsonSha256": "213c0aafc3feea9b5f12b436dce0ba4d0f74fa8d3e92d8f2c0aed9865bbbdc09",
+        "nativeBytes": 601,
+        "nativeSha256": "e59787898fd10222c14dbedbe969792e04d40868de0b57ea2f08ab18de33a596",
+        "admission": "WITHIN_COUNTS_WORK",
+        "rejection": null,
+        "expectedConnectedTriples": 0,
+        "descriptiveOnly": true,
+        "authority": false
+      },
+      "samples": [
+        {
+          "boundary": "B1 JSON parse + production committed graph creation",
+          "ms": 5.777799999999999,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 Stage through production pending controller",
+          "ms": 5.294499999999999,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 Edit/restage fresh revision",
+          "ms": 1.0807000000000073,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 derived preview (no paint)",
+          "ms": 0.13750000000000284,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B3 production graph projection + JSON serialization",
+          "ms": 0.22499999999999432,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B3 SHA256 exact serialized bytes",
+          "ms": 0.02549999999999386,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B3 base64 + actual upload envelope serialization",
+          "ms": 0.030400000000000205,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 separate explicit fixture Apply confirmation to commit",
+          "ms": 1.8693000000000097,
+          "status": "SUCCESS"
+        }
+      ],
+      "artifactJsonBytes": 2084,
+      "artifactSha256": "592c26d2b7c6d9a93653f1bc7006295b6b9c7da4693f3645e8295247e4506e18",
+      "uploadEnvelopeBytes": 2910,
+      "packedIncrementalBytes": 1552,
+      "commits": 1,
+      "historyEntries": 1,
+      "nativeJobs": 0
+    },
+    {
+      "fixture": {
+        "schemaVersion": "candy.benchmark-fixture/1",
+        "generatorVersion": "scope6a-disjoint-xorshift32/1",
+        "generatorSha256": "122a00d68610dea841980c97367ad30d2a0d4874ec1dc28ffd25e56cb6cc1f41",
+        "family": "S2",
+        "seed": 731406,
+        "lane": "Q",
+        "graphId": "fixture-S2-731406",
+        "graphVersion": 1,
+        "graphType": "DynamicHypergraph",
+        "E": 64,
+        "V": 512,
+        "I": 512,
+        "explicitIsolatedVertices": 0,
+        "construction": "disjoint; seeded label permutation",
+        "rowCardinalities": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "cardinality": {
+          "min": 8,
+          "max": 8,
+          "mean": 8,
+          "p50": 8,
+          "p95": 8
+        },
+        "degreeHistogram": {
+          "1": 512
+        },
+        "maxDegree": 1,
+        "idTypes": {
+          "string": 576
+        },
+        "idLengths": {
+          "8": 576
+        },
+        "membershipWork": 999936,
+        "jsonBytes": 13403,
+        "jsonSha256": "a9ebb3e8dec403abb1b982c6e53c8a2d174b671f351751bad21f0b6f3c95c7b9",
+        "nativeBytes": 2557,
+        "nativeSha256": "f379e7474ccbb8b57ffdc5fa241db56a157255d1ae9121faf9a92bc567393793",
+        "admission": "WITHIN_COUNTS_WORK",
+        "rejection": null,
+        "expectedConnectedTriples": 0,
+        "descriptiveOnly": true,
+        "authority": false
+      },
+      "samples": [
+        {
+          "boundary": "B1 JSON parse + production committed graph creation",
+          "ms": 0.4257000000000062,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 Stage through production pending controller",
+          "ms": 3.833500000000001,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 Edit/restage fresh revision",
+          "ms": 3.8870000000000005,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 derived preview (no paint)",
+          "ms": 0.09470000000000312,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B3 production graph projection + JSON serialization",
+          "ms": 0.5123999999999995,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B3 SHA256 exact serialized bytes",
+          "ms": 0.02410000000000423,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B3 base64 + actual upload envelope serialization",
+          "ms": 0.05929999999999325,
+          "status": "SUCCESS"
+        },
+        {
+          "boundary": "B2 separate explicit fixture Apply confirmation to commit",
+          "ms": 4.073400000000007,
+          "status": "SUCCESS"
+        }
+      ],
+      "artifactJsonBytes": 13428,
+      "artifactSha256": "fc26973ea24b2199cc916d237ad30f5159c61de1944904b31946e7d41bc45455",
+      "uploadEnvelopeBytes": 18034,
+      "packedIncrementalBytes": 5756,
+      "commits": 1,
+      "historyEntries": 1,
+      "nativeJobs": 0
+    }
+  ],
+  "runtime": {
+    "status": "REAL_NATIVE_SUCCESS",
+    "samples": [
+      {
+        "boundary": "B4 real HTTP health roundtrip",
+        "ms": 12.260400000000118,
+        "status": "SUCCESS"
+      },
+      {
+        "boundary": "B4 real authenticated discovery roundtrip",
+        "ms": 316.7501000000002,
+        "status": "SUCCESS"
+      },
+      {
+        "boundary": "B3 real small artifact upload roundtrip",
+        "ms": 9.575399999999718,
+        "status": "SUCCESS"
+      },
+      {
+        "boundary": "B5 real S1 STATIC submit through browser workflow",
+        "ms": 209.97800000000007,
+        "status": "SUCCESS"
+      },
+      {
+        "boundary": "B5 real result download",
+        "ms": 15.121299999999792,
+        "status": "SUCCESS"
+      }
+    ],
+    "native": [
+      {
+        "mode": "STATIC",
+        "status": "REAL_NATIVE_SUCCESS",
+        "endToEndMs": 807.9700999999995,
+        "kernelMilliseconds": 0.8664,
+        "truthCountsSha256": "aad6018fa2dc2d1955827beaf8b80fcc8193ed2617d1ca733f4eccca40957f15",
+        "observation": {
+          "jobId": "325cadcb-99ae-4483-ac4b-e3decbb06127",
+          "status": "completed",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "graphRef": {
+            "graphId": "fixture-S1-731406",
+            "graphVersion": 1
+          },
+          "sourceVertexId": "",
+          "reachableCount": 0,
+          "unreachableCount": 0,
+          "affectedCount": 0,
+          "runtimeMs": 0,
+          "validationStatus": "passed",
+          "resultRef": "sha256:a92127b144d2afb51f0e58f344236300acd2859c44afba246ff0b8bbde5dcd86",
+          "errorClassification": null,
+          "warnings": [],
+          "lifecycle": [],
+          "interpretation": "absolute_counts",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "total": 0,
+          "outputGraphRef": null,
+          "updateId": null,
+          "oldAffectedEdgeCount": null,
+          "newAffectedEdgeCount": null,
+          "oldCandidateCount": null,
+          "newCandidateCount": null
+        },
+        "resultSha256": "e0bcfa6fd115e27742c409863a8a47c1a62b5d93c59aafe1500ad5c433364915",
+        "expectedConnectedTriples": 0
+      }
+    ],
+    "incremental": "Timing hook is submitMotifWorkflow with Q guard; paired incremental distribution not run",
+    "unobservableStages": [
+      "queue decomposition",
+      "H2D",
+      "D2H",
+      "allocation",
+      "CUDA context"
+    ]
+  },
+  "retention": {
+    "messageAppends": 10000,
+    "peakMessages": 500,
+    "retainedMessages": 500,
+    "urlDownloads": 1000,
+    "peakUrls": 1000,
+    "retainedUrls": 0,
+    "retainedTimers": 0,
+    "kind": "Injected counter smoke; real browser checked separately"
+  },
+  "assistantSupport": {
+    "observation": "boundedCandyJobObservation production projection",
+    "modelInvocations": 0,
+    "uiPaint": "Separate real browser evidence; Node spans exclude paint"
+  },
+  "limitations": [
+    "Single descriptive smoke; no speed/crossover/capacity claims",
+    "Full five warmups/30 warm repetitions,20 cold starts,three sessions deferred",
+    "Only S1/S2/S3/B1 generator subset implemented; remaining fixture families documented future measurement",
+    "No executable authority, sessions or approvals serialized"
+  ]
+}

@@ -6,6 +6,11 @@ v7.3.14 is the Stage 9 packaging, versioning, and clean-extraction release built
 
 ## Portable-source contract
 
+Current CANDY policy is the additive [Scope 6A release contract](CANDY_SCOPE6A_RELEASE_CONTRACT.md).
+The portable source archive is **browser-only**: native build outputs and local
+qualification state are excluded; extracted CUDA must fail closed. The Stage 9
+description is historical and does not qualify later CANDY native deployment.
+
 The authoritative release producer is `scripts/package-portable-source.py`. It creates one project-rooted ZIP with normalized POSIX member paths, deterministic timestamps and ordering, explicit Unix metadata, and a narrow executable allowlist. It excludes dependencies, builds, Git data, coverage, transient validation evidence, review handoffs, uploads, caches, and other non-source material.
 
 Shell, PowerShell, and Windows batch launchers are assigned mode `0755` in the ZIP. Ordinary files, including Python utilities invoked through a Python interpreter, are assigned mode `0644`. No archive entry may be group- or world-writable.

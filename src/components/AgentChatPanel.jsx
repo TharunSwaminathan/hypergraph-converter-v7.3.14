@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { appendLiveMessage } from "../agent/liveMessageHistory.js";
 import {
   capabilityRequiresConfirmation,
   confirmationActionTypeForCapability,
@@ -156,7 +157,6 @@ function workspacePanelId(id) {
   return `agent-workspace-panel-${id}`;
 }
 
-const MAX_CHAT_MESSAGES = 500;
 const STATUS_ACTIONS = Object.freeze({
   openSettings: { id: "open-settings", label: "Open Assistant Settings", local: "settings" },
   openDiagnostics: { id: "open-diagnostics", label: "Open diagnostics", local: "diagnostics" },
@@ -355,7 +355,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
 
   const append = (role, text, tone = "", actions = []) => {
     const message = nextMessage(role, text, tone, actions);
-    setMessages(previous => [...previous, message].slice(-MAX_CHAT_MESSAGES));
+    setMessages(previous => appendLiveMessage(previous, message));
     return message;
   };
 
@@ -424,11 +424,11 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       if (!rebased) {
         expectedContinuationTransitionRef.current = null;
         setContinuation(null);
-        setMessages(current => [...current, nextMessage(
+        setMessages(current => appendLiveMessage(current, nextMessage(
           "agent",
           "Pending conversion target discarded because the active dataset changed.",
           "warning",
-        )]);
+        )));
       } else {
         pendingContinuationRef.current = rebased;
         setPendingContinuation(rebased);
@@ -443,11 +443,11 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     const timer = setTimeout(() => {
       const batch = latestStateRef.current.agentBatches.find(item => item.id === activeId);
       if (batch) {
-        setMessages(current => [...current, nextMessage(
+        setMessages(current => appendLiveMessage(current, nextMessage(
           "agent",
           `Active batch changed to ${batch.label}: ${batch.fileNames.join(", ")}.`,
           "status",
-        )]);
+        )));
       }
     }, 0);
     return () => clearTimeout(timer);
@@ -461,9 +461,9 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
         const summary = buildGraphResultSummaryMessage(currentState, {
           title: previous.hasGraph ? "Graph updated." : "Conversion complete.",
         });
-        setMessages(current => [...current, nextMessage("agent", summary.text, "status", summary.actions)]);
+        setMessages(current => appendLiveMessage(current, nextMessage("agent", summary.text, "status", summary.actions)));
       } else {
-        setMessages(current => [...current, nextMessage("agent", "Graph cleared. Earlier graph statistics in this chat are now outdated.", "status")]);
+        setMessages(current => appendLiveMessage(current, nextMessage("agent", "Graph cleared. Earlier graph statistics in this chat are now outdated.", "status")));
       }
       previousGraphRef.current = { version: currentState.graphVersion, hasGraph: currentState.hasGraph };
     }

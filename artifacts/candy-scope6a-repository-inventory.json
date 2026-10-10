@@ -1,0 +1,278 @@
+{
+  "schemaVersion": "candy.scope6a-repository-inventory/1",
+  "capturedAt": "2026-10-10T03:49:22.097011+00:00",
+  "workspaceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+  "branch": "candy-integration-scope6a-release-hardening",
+  "head": "f8343ae195e37885726c396733dd6f5b9468f0fb",
+  "commands": {
+    "git status --short": " M candy-runtime/README.md\n M docs/RELEASE_v7.3.14.md\n M scripts/package-portable-source.py\n M scripts/verify-portable-archive.py\n M src/App.jsx\n M src/candy/client.js\n M src/candy/motifAnalysisController.js\n M src/candy/useCandyRuntime.js\n M src/components/AgentChatPanel.jsx\n?? .github/\n?? artifacts/candy-scope6a-benchmark-baseline.json\n?? artifacts/candy-scope6a-browser-apply.png\n?? artifacts/candy-scope6a-browser-extracted.png\n?? artifacts/candy-scope6a-browser-final.png\n?? artifacts/candy-scope6a-browser-qualification.json\n?? artifacts/candy-scope6a-implementation-report.md\n?? artifacts/candy-scope6a-package-qualification.json\n?? artifacts/candy-scope6a-production-audit.json\n?? artifacts/candy-scope6a-qualification.json\n?? artifacts/candy-scope6a-release-manifest.json\n?? artifacts/candy-scope6a-repository-inventory.json\n?? artifacts/candy-scope6a-security-review.md\n?? artifacts/candy-scope6a-test-results.json\n?? docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md\n?? scripts/benchmarks/\n?? scripts/measure-scope6a-baseline.mjs\n?? scripts/qualify-scope6a-package.py\n?? scripts/write-scope6a-provenance.mjs\n?? src/agent/liveMessageHistory.js\n?? src/utils/downloadLifecycle.js\n?? tests/candy-scope6a-hook.test.mjs\n?? tests/candy-scope6a-lifecycle.test.mjs\n?? tests/candy-scope6a-release.test.mjs",
+    "git branch --show-current": "candy-integration-scope6a-release-hardening",
+    "git rev-parse HEAD": "f8343ae195e37885726c396733dd6f5b9468f0fb",
+    "git diff --check": "",
+    "git diff --name-status f8343ae195e37885726c396733dd6f5b9468f0fb": "M\tcandy-runtime/README.md\nM\tdocs/RELEASE_v7.3.14.md\nM\tscripts/package-portable-source.py\nM\tscripts/verify-portable-archive.py\nM\tsrc/App.jsx\nM\tsrc/candy/client.js\nM\tsrc/candy/motifAnalysisController.js\nM\tsrc/candy/useCandyRuntime.js\nM\tsrc/components/AgentChatPanel.jsx",
+    "git ls-files --others --exclude-standard": ".github/workflows/cpu-release-gates.yml\nartifacts/candy-scope6a-benchmark-baseline.json\nartifacts/candy-scope6a-browser-apply.png\nartifacts/candy-scope6a-browser-extracted.png\nartifacts/candy-scope6a-browser-final.png\nartifacts/candy-scope6a-browser-qualification.json\nartifacts/candy-scope6a-implementation-report.md\nartifacts/candy-scope6a-package-qualification.json\nartifacts/candy-scope6a-production-audit.json\nartifacts/candy-scope6a-qualification.json\nartifacts/candy-scope6a-release-manifest.json\nartifacts/candy-scope6a-repository-inventory.json\nartifacts/candy-scope6a-security-review.md\nartifacts/candy-scope6a-test-results.json\ndocs/CANDY_SCOPE6A_RELEASE_CONTRACT.md\nscripts/benchmarks/scope6a-fixtures.mjs\nscripts/measure-scope6a-baseline.mjs\nscripts/qualify-scope6a-package.py\nscripts/write-scope6a-provenance.mjs\nsrc/agent/liveMessageHistory.js\nsrc/utils/downloadLifecycle.js\ntests/candy-scope6a-hook.test.mjs\ntests/candy-scope6a-lifecycle.test.mjs\ntests/candy-scope6a-release.test.mjs",
+    "protected native delta": "",
+    "manifest delta": "",
+    "historical evidence delta": "",
+    "staged": ""
+  },
+  "sourceInventory": [
+    {
+      "path": ".github/workflows/cpu-release-gates.yml",
+      "sha256": "019a953c73459c66f9ecfaffbc4f1cac878af4d6cff0c440da0e4e45f3125351"
+    },
+    {
+      "path": "candy-runtime/README.md",
+      "sha256": "4f55b29c621da7001bd077684fa0e8024f1c5591b8de88d7407c820b389e5596"
+    },
+    {
+      "path": "docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md",
+      "sha256": "b45b093478cc031f181a7e89146780b30cb841fb894f5dc54044839fb99e4249"
+    },
+    {
+      "path": "docs/RELEASE_v7.3.14.md",
+      "sha256": "cd3701da4c00dbd21c4ed490cf2db2f4566f79d4b1820177dd4d232572b47ed1"
+    },
+    {
+      "path": "scripts/benchmarks/scope6a-fixtures.mjs",
+      "sha256": "122a00d68610dea841980c97367ad30d2a0d4874ec1dc28ffd25e56cb6cc1f41"
+    },
+    {
+      "path": "scripts/measure-scope6a-baseline.mjs",
+      "sha256": "4041c741efe9eb74f2f8589a2d390f7f75d550ee36ce7b4844973009320a1521"
+    },
+    {
+      "path": "scripts/package-portable-source.py",
+      "sha256": "50c73f7518beea827f9b604bf5cc5dd9cd7e2a367e412df9ada6cfed5bb29af0"
+    },
+    {
+      "path": "scripts/qualify-scope6a-package.py",
+      "sha256": "b4fe2db434c77b61dd82d29dc9fd83eb44929fbce01edccc2cdaa531ddc3d4bc"
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "sha256": "9649090c21d4173238b08014c3f446cf24412ab9f9c1127e76d7226aa71a0ecc"
+    },
+    {
+      "path": "scripts/write-scope6a-provenance.mjs",
+      "sha256": "8aaf14973fc5999f50ff076177e7ea4e888e14a80302ba323c9ceabef00c2f13"
+    },
+    {
+      "path": "src/App.jsx",
+      "sha256": "bdec3c1fb1127417fc1eae77c45ff5e8e16df59e1bbe52555e408830a4b19f85"
+    },
+    {
+      "path": "src/agent/liveMessageHistory.js",
+      "sha256": "1c1354899fb3fa96a74e982b21d6a9d27fa4acf885cf9befc7a88f17c23d21ed"
+    },
+    {
+      "path": "src/candy/client.js",
+      "sha256": "bbfe516af51abb5b423e4e400a42434bbcbfdf2b5bbb2ebd443c8cf3b9abf88a"
+    },
+    {
+      "path": "src/candy/motifAnalysisController.js",
+      "sha256": "c52c818745d46ce172a2c6e7b136973a27dc33369c479fccd49b0c5adc56a134"
+    },
+    {
+      "path": "src/candy/useCandyRuntime.js",
+      "sha256": "cf0570390947643900f09aefc1357d2e3c57e5531085a820ab8b8a4cb008bbbb"
+    },
+    {
+      "path": "src/components/AgentChatPanel.jsx",
+      "sha256": "64c009c432a8ae4fba6fd8e936db7125e78e21d541866a4d83479028eee6382a"
+    },
+    {
+      "path": "src/utils/downloadLifecycle.js",
+      "sha256": "f74122ced7bf5a6838369655f5494a616f9a374f3c762827b2a7ad6daff42e5a"
+    },
+    {
+      "path": "tests/candy-scope6a-hook.test.mjs",
+      "sha256": "4b6341e7056ffe13f1db588edc0ea04a95830bcba67f945d498b82825fee9384"
+    },
+    {
+      "path": "tests/candy-scope6a-lifecycle.test.mjs",
+      "sha256": "eba8f26d8faccbc0e31591bb8ffb2a3c181492ea37bed5d94b521e47ab636bbf"
+    },
+    {
+      "path": "tests/candy-scope6a-release.test.mjs",
+      "sha256": "06864231d3012802ba25c0086470c22dc36ae84164454e0220ac4412dc5ee195"
+    }
+  ],
+  "sourceInventorySha256": "d939cf867916e666160e7e4909df146610c4c21a3ca05ccbc521183258cba97e",
+  "ignoredGeneratedOutputs": [
+    "node_modules/",
+    "dist/",
+    "artifacts/candy-scope6a-node-tests.log"
+  ],
+  "noCommitTagPushMergeMainChange": true,
+  "files": [
+    {
+      "status": "M",
+      "path": "candy-runtime/README.md",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\README.md"
+    },
+    {
+      "status": "M",
+      "path": "docs/RELEASE_v7.3.14.md",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\docs\\RELEASE_v7.3.14.md"
+    },
+    {
+      "status": "M",
+      "path": "scripts/package-portable-source.py",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\package-portable-source.py"
+    },
+    {
+      "status": "M",
+      "path": "scripts/verify-portable-archive.py",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\verify-portable-archive.py"
+    },
+    {
+      "status": "M",
+      "path": "src/App.jsx",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\src\\App.jsx"
+    },
+    {
+      "status": "M",
+      "path": "src/candy/client.js",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\src\\candy\\client.js"
+    },
+    {
+      "status": "M",
+      "path": "src/candy/motifAnalysisController.js",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\src\\candy\\motifAnalysisController.js"
+    },
+    {
+      "status": "M",
+      "path": "src/candy/useCandyRuntime.js",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\src\\candy\\useCandyRuntime.js"
+    },
+    {
+      "status": "M",
+      "path": "src/components/AgentChatPanel.jsx",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\src\\components\\AgentChatPanel.jsx"
+    },
+    {
+      "status": "??",
+      "path": ".github/workflows/cpu-release-gates.yml",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\.github\\workflows\\cpu-release-gates.yml"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-benchmark-baseline.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-benchmark-baseline.json"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-browser-apply.png",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-browser-apply.png"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-browser-extracted.png",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-browser-extracted.png"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-browser-final.png",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-browser-final.png"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-browser-qualification.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-browser-qualification.json"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-implementation-report.md",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-implementation-report.md"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-package-qualification.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-package-qualification.json"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-production-audit.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-production-audit.json"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-qualification.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-qualification.json"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-release-manifest.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-release-manifest.json"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-repository-inventory.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-repository-inventory.json"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-security-review.md",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-security-review.md"
+    },
+    {
+      "status": "??",
+      "path": "artifacts/candy-scope6a-test-results.json",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6a-test-results.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\docs\\CANDY_SCOPE6A_RELEASE_CONTRACT.md"
+    },
+    {
+      "status": "??",
+      "path": "scripts/benchmarks/scope6a-fixtures.mjs",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\benchmarks\\scope6a-fixtures.mjs"
+    },
+    {
+      "status": "??",
+      "path": "scripts/measure-scope6a-baseline.mjs",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\measure-scope6a-baseline.mjs"
+    },
+    {
+      "status": "??",
+      "path": "scripts/qualify-scope6a-package.py",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\qualify-scope6a-package.py"
+    },
+    {
+      "status": "??",
+      "path": "scripts/write-scope6a-provenance.mjs",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\write-scope6a-provenance.mjs"
+    },
+    {
+      "status": "??",
+      "path": "src/agent/liveMessageHistory.js",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\src\\agent\\liveMessageHistory.js"
+    },
+    {
+      "status": "??",
+      "path": "src/utils/downloadLifecycle.js",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\src\\utils\\downloadLifecycle.js"
+    },
+    {
+      "status": "??",
+      "path": "tests/candy-scope6a-hook.test.mjs",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\tests\\candy-scope6a-hook.test.mjs"
+    },
+    {
+      "status": "??",
+      "path": "tests/candy-scope6a-lifecycle.test.mjs",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\tests\\candy-scope6a-lifecycle.test.mjs"
+    },
+    {
+      "status": "??",
+      "path": "tests/candy-scope6a-release.test.mjs",
+      "absolutePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\tests\\candy-scope6a-release.test.mjs"
+    }
+  ],
+  "changedFilesTotal": 33,
+  "modifiedTrackedFiles": 9,
+  "untrackedFiles": 24
+}

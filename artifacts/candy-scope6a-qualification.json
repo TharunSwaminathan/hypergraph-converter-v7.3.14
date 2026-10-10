@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "candy.scope6a-qualification/1",
+  "capturedAt": "2026-10-10T03:49:22.097011+00:00",
+  "verdict": "PASS",
+  "authority": false,
+  "descriptiveOnly": true,
+  "publisherAttestation": false,
+  "branch": "candy-integration-scope6a-release-hardening",
+  "head": "f8343ae195e37885726c396733dd6f5b9468f0fb",
+  "uncommitted": true,
+  "resolvedGapIds": [
+    "S6-01",
+    "S6-13",
+    "S6-14",
+    "S6-15",
+    "S6-20",
+    "S6-21",
+    "S6-22"
+  ],
+  "deferredGapIds": [
+    "S6-02",
+    "S6-03",
+    "S6-04",
+    "S6-05",
+    "S6-06",
+    "S6-07",
+    "S6-08",
+    "S6-09",
+    "S6-10",
+    "S6-11",
+    "S6-12",
+    "S6-16",
+    "S6-17",
+    "S6-18",
+    "S6-19",
+    "S6-23",
+    "S6-24"
+  ],
+  "resolvedMeaning": "S6-01 is infrastructure plus user-permitted bounded baseline smoke; full distributions deferred, not claimed completed.",
+  "gates": [
+    {
+      "command": "npm ci",
+      "status": "PASS",
+      "note": "Pinned transient npm@11.6.2 used because host lacks npm; existing lockfile, zero manifest change."
+    },
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "filesPassed": 271,
+      "filesTotal": 271,
+      "durationSeconds": 125.6,
+      "log": "artifacts/candy-scope6a-node-tests.log"
+    },
+    {
+      "command": "node --test tests/candy-scope6a-hook.test.mjs tests/candy-scope6a-lifecycle.test.mjs tests/candy-scope6a-release.test.mjs",
+      "status": "PASS",
+      "note": "Focused mounted hook, lifecycle and real package contract checks."
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "warning": "Existing chunk >500kB"
+    },
+    {
+      "command": "npm run build:github",
+      "status": "PASS",
+      "warning": "Existing chunk >500kB"
+    },
+    {
+      "command": "npm audit --omit=dev --json",
+      "status": "PASS",
+      "vulnerabilities": 0,
+      "evidence": "artifacts/candy-scope6a-production-audit.json"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS"
+    },
+    {
+      "command": "python scripts/qualify-scope6a-package.py --output artifacts/candy-scope6a-package-qualification.json",
+      "status": "PASS",
+      "cases": [
+        "actual",
+        "clean",
+        "populated"
+      ]
+    },
+    {
+      "command": "Final extracted candidate npm ci && npm run build",
+      "status": "PASS"
+    },
+    {
+      "command": "node scripts/measure-scope6a-baseline.mjs --output=artifacts/candy-scope6a-benchmark-baseline.json",
+      "status": "PASS",
+      "kind": "BOUNDED_SMOKE",
+      "native": "REAL_NATIVE_SUCCESS"
+    },
+    {
+      "command": "node scripts/write-scope6a-provenance.mjs",
+      "status": "PASS",
+      "sourceFiles": 20
+    },
+    {
+      "command": "CPU CI static definition/immutable action contract checks",
+      "status": "PASS",
+      "yamlParser": "No independent YAML parser installed; static tests only",
+      "remoteExecution": "NOT_RUN",
+      "gpu": "UNAVAILABLE/SKIPPED"
+    }
+  ],
+  "browserEvidence": "artifacts/candy-scope6a-browser-qualification.json",
+  "packageEvidence": "artifacts/candy-scope6a-package-qualification.json",
+  "benchmarkEvidence": "artifacts/candy-scope6a-benchmark-baseline.json",
+  "releaseManifest": "artifacts/candy-scope6a-release-manifest.json",
+  "security": {
+    "scanId": "8e5c51a0-903e-4ad5-b13a-8ceb568021c3",
+    "status": "COMPLETED",
+    "reportableFindings": 0,
+    "reviewedSurfaces": 23,
+    "canonicalReport": "C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14\\f8343ae195e37885726c396733dd6f5b9468f0fb_20261010T032741Z_g9641u5w\\report.md",
+    "repoSupplementalExport": "artifacts/candy-scope6a-security-review.md",
+    "snapshotDigest": "codex-security-snapshot/v1:sha256:3a29da0d5fb1266d33d3f4d416e2bced40f112b4e9fa52f6ffeac12cea201454",
+    "warning": "Working-tree contents changed while the scan was running; results were saved for the original snapshot.",
+    "sourceHashesStillMatch": true,
+    "sourceInventorySha256": "d939cf867916e666160e7e4909df146610c4c21a3ca05ccbc521183258cba97e",
+    "measuredUsage": {
+      "coverage": "complete",
+      "source": "codex_rollout",
+      "totalTokens": 6782256,
+      "inputTokens": 6764207,
+      "cachedInputTokens": 6479104
+    }
+  },
+  "protectedDelta": {
+    "native": [],
+    "dependencyManifests": [],
+    "historicalEvidence": [],
+    "staged": [],
+    "tagsUnchanged": true
+  },
+  "sourceFiles": [
+    {
+      "path": ".github/workflows/cpu-release-gates.yml",
+      "sha256": "019a953c73459c66f9ecfaffbc4f1cac878af4d6cff0c440da0e4e45f3125351"
+    },
+    {
+      "path": "candy-runtime/README.md",
+      "sha256": "4f55b29c621da7001bd077684fa0e8024f1c5591b8de88d7407c820b389e5596"
+    },
+    {
+      "path": "docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md",
+      "sha256": "b45b093478cc031f181a7e89146780b30cb841fb894f5dc54044839fb99e4249"
+    },
+    {
+      "path": "docs/RELEASE_v7.3.14.md",
+      "sha256": "cd3701da4c00dbd21c4ed490cf2db2f4566f79d4b1820177dd4d232572b47ed1"
+    },
+    {
+      "path": "scripts/benchmarks/scope6a-fixtures.mjs",
+      "sha256": "122a00d68610dea841980c97367ad30d2a0d4874ec1dc28ffd25e56cb6cc1f41"
+    },
+    {
+      "path": "scripts/measure-scope6a-baseline.mjs",
+      "sha256": "4041c741efe9eb74f2f8589a2d390f7f75d550ee36ce7b4844973009320a1521"
+    },
+    {
+      "path": "scripts/package-portable-source.py",
+      "sha256": "50c73f7518beea827f9b604bf5cc5dd9cd7e2a367e412df9ada6cfed5bb29af0"
+    },
+    {
+      "path": "scripts/qualify-scope6a-package.py",
+      "sha256": "b4fe2db434c77b61dd82d29dc9fd83eb44929fbce01edccc2cdaa531ddc3d4bc"
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "sha256": "9649090c21d4173238b08014c3f446cf24412ab9f9c1127e76d7226aa71a0ecc"
+    },
+    {
+      "path": "scripts/write-scope6a-provenance.mjs",
+      "sha256": "8aaf14973fc5999f50ff076177e7ea4e888e14a80302ba323c9ceabef00c2f13"
+    },
+    {
+      "path": "src/App.jsx",
+      "sha256": "bdec3c1fb1127417fc1eae77c45ff5e8e16df59e1bbe52555e408830a4b19f85"
+    },
+    {
+      "path": "src/agent/liveMessageHistory.js",
+      "sha256": "1c1354899fb3fa96a74e982b21d6a9d27fa4acf885cf9befc7a88f17c23d21ed"
+    },
+    {
+      "path": "src/candy/client.js",
+      "sha256": "bbfe516af51abb5b423e4e400a42434bbcbfdf2b5bbb2ebd443c8cf3b9abf88a"
+    },
+    {
+      "path": "src/candy/motifAnalysisController.js",
+      "sha256": "c52c818745d46ce172a2c6e7b136973a27dc33369c479fccd49b0c5adc56a134"
+    },
+    {
+      "path": "src/candy/useCandyRuntime.js",
+      "sha256": "cf0570390947643900f09aefc1357d2e3c57e5531085a820ab8b8a4cb008bbbb"
+    },
+    {
+      "path": "src/components/AgentChatPanel.jsx",
+      "sha256": "64c009c432a8ae4fba6fd8e936db7125e78e21d541866a4d83479028eee6382a"
+    },
+    {
+      "path": "src/utils/downloadLifecycle.js",
+      "sha256": "f74122ced7bf5a6838369655f5494a616f9a374f3c762827b2a7ad6daff42e5a"
+    },
+    {
+      "path": "tests/candy-scope6a-hook.test.mjs",
+      "sha256": "4b6341e7056ffe13f1db588edc0ea04a95830bcba67f945d498b82825fee9384"
+    },
+    {
+      "path": "tests/candy-scope6a-lifecycle.test.mjs",
+      "sha256": "eba8f26d8faccbc0e31591bb8ffb2a3c181492ea37bed5d94b521e47ab636bbf"
+    },
+    {
+      "path": "tests/candy-scope6a-release.test.mjs",
+      "sha256": "06864231d3012802ba25c0086470c22dc36ae84164454e0220ac4412dc5ee195"
+    }
+  ],
+  "repositoryInventory": "artifacts/candy-scope6a-repository-inventory.json",
+  "limitations": [
+    "Performance evidence is a single descriptive smoke: zero warmups, one replicate, one session. No speed, crossover or large-native-capacity claim.",
+    "S1/S2/S3/B1 seeded generator subset is implemented. Remaining benchmark families, five warmups/30 warm repeats, 20 cold starts and three sessions belong to a dedicated measurement run.",
+    "STATIC S1 ran genuinely on the qualified local CUDA backend. INCREMENTAL genuinely ran in the browser fixture flow; no paired incremental timing distribution was captured.",
+    "Queue, H2D, D2H, allocation and CUDA context decomposition, peak heap/VRAM, thermals, power and storage were not measured.",
+    "CPU CI contract checks and equivalent local gates passed. GitHub-hosted workflow execution is not yet observed; GPU live qualification is UNAVAILABLE/SKIPPED on that lane.",
+    "npm ci reports four development-tree advisories (one moderate, three high). Required production-only audit reports zero. Dependency files were intentionally unchanged.",
+    "Existing large production chunk warning remains (about 1.66 MB, 465.61 KB gzip). No bundle optimization was in Scope 6A.",
+    "Message retention stress uses 10,000 append equivalents and source-path assertions; it does not claim a mounted 500-message paint/heap stress test. Current selectors were checked in the genuine Assistant flow and existing regression suite.",
+    "Download retention counters use injected URL/timer APIs; a genuine Chrome download independently matched exact bytes. The Chrome automation download event timed out, but the completed file appeared and was verified.",
+    "Old panel analysis confirmation can remain visibly rendered after reconnect, while analysis is STALE/current result no. Clicking it was rejected with fresh exact confirmation required and created no job.",
+    "Local abort cannot remotely cancel an accepted job if its response and job ID are lost. Native jobs remain subject to unchanged limits; no stale result becomes current.",
+    "500 messages is a count bound, not a byte budget. URL cleanup bounds lifetime after dispatch, not simultaneous peak count.",
+    "Packaging excludes known local/build/secret/temp patterns. Arbitrarily named undisclosed secret files are outside that proof; the actual reviewed package and synthetic marker checks passed.",
+    "The sealed security scan retains its original snapshot and explicitly warns that working-tree contents changed during review. Frozen 20-file source hashes match both workers and the release manifest; only descriptive evidence changed afterward.",
+    "Browser-only source distribution cannot enable qualified CUDA without separately verified exact Git/evidence/source/binary/environment prerequisites. Local unsigned manifests are not publisher attestation."
+  ],
+  "recommendedNextAction": "Review the uncommitted Scope6A diff and evidence. Separately authorize any commit/release or later scope. No 6B/6C/6D/6E/6F work was started.",
+  "hardStop": "Qualification report only: no commit, tag, push, merge or main change."
+}

@@ -1,5 +1,6 @@
 ﻿import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { T, inputSt } from "./theme.js";
+import { createDownloadLifecycle } from "./utils/downloadLifecycle.js";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import BarChart from "./components/BarChart.jsx";
 import Viz from "./components/Viz.jsx";
@@ -205,6 +206,8 @@ const EMPTY_DERIVED_ROWS = Object.freeze([]);
 
 // App
 function AppCore() {
+  const [downloads] = useState(createDownloadLifecycle);
+  useEffect(() => () => downloads.dispose(), [downloads]);
   const [fmt, setFmt] = useState("simple");
   const [texts, setTexts] = useState({});
   const [nv, setNv] = useState(""); const [sv, setSv] = useState(""); const [tv, setTv] = useState("");
@@ -2993,13 +2996,7 @@ function AppCore() {
       },
       ...modelDebug,
     };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = `hypergraph-model-debug-${exportedAt.replace(/[.:]/g, "-")}.json`;
-    anchor.click();
-    setTimeout(() => URL.revokeObjectURL(url), 0);
+    downloads.download(`hypergraph-model-debug-${exportedAt.replace(/[.:]/g, "-")}.json`, JSON.stringify(payload, null, 2), "application/json");
     return { ok: true };
   }
 
@@ -3852,7 +3849,7 @@ function AppCore() {
     };
   }, [batchWarnings.length, finalHes, fmt, st, v2v.length, v2vResult, warnings.length]);
 
-  function dl(name, content) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([content], { type: "text/plain" })); a.download = name; a.click(); }
+  function dl(name, content) { downloads.download(name, content); }
 
   function saveCurrentParserProfile() {
     if (!customCode.trim()) {

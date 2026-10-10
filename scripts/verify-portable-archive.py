@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import hashlib
 import json
 import re
@@ -25,6 +26,8 @@ FORBIDDEN_PARTS = {
     "upload",
     "uploads",
     "__pycache__",
+    "build", ".local", ".codex", ".secrets", "tmp", "temp",
+    ".cache", ".pytest_cache", ".vite",
 }
 FORBIDDEN_NAMES = {".DS_Store", "Thumbs.db", ".env"}
 FORBIDDEN_SUFFIXES = {
@@ -36,6 +39,7 @@ FORBIDDEN_SUFFIXES = {
     ".ckpt",
     ".pem",
     ".key",
+    ".zip", ".exe", ".dll", ".so", ".log", ".tmp", ".temp",
 }
 
 
@@ -111,16 +115,17 @@ def verify(archive: Path, expected_root: str | None) -> tuple[dict[str, object],
                 issues["absoluteMembers"].append(name)
             if ".." in parts:
                 issues["traversalMembers"].append(name)
-            if any(part in FORBIDDEN_PARTS for part in parts):
+            if any(part.casefold() in {item.casefold() for item in FORBIDDEN_PARTS} for part in parts):
                 issues["forbiddenMembers"].append(name)
             basename = parts[-1] if parts else ""
             if (
-                basename in FORBIDDEN_NAMES
-                or basename.startswith(".env.")
+                basename.casefold() in {item.casefold() for item in FORBIDDEN_NAMES}
+                or basename.lower().startswith(".env.")
                 or basename.lower().startswith("id_rsa")
                 or suffix in FORBIDDEN_SUFFIXES
                 or basename.lower().endswith("-independent-review-handoff.txt")
                 or re.fullmatch(r"stage.*-review\.txt", basename, re.IGNORECASE)
+                or any(fnmatch.fnmatch(basename.lower(), pattern) for pattern in ["*token*.txt", "*token*.json", "*credential*.json", "*secret*.json", "core", "core.*"])
             ):
                 issues["forbiddenMembers"].append(name)
             if stat.S_ISLNK(type_bits):
