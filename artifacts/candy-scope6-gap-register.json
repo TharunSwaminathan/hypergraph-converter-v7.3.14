@@ -1,0 +1,750 @@
+{
+  "schema_version": "candy.scope6-gap-register/1",
+  "audit_date": "2026-10-09",
+  "baseline": "b24c4e32100d2e7c05b13df3c8f6f9e279fd8828",
+  "verdict": "READY FOR PHASED IMPLEMENTATION",
+  "scope": "Documentation-only readiness audit; source-backed risks and opportunities, not a new vulnerability certification or performance qualification.",
+  "severity_policy": {
+    "Critical": "Established catastrophic authority/correctness failure requiring stop; none found in scoped audit.",
+    "High": "Blocks stated large-workload, sustained-operation or reproducible release goals.",
+    "Medium": "Material optimization, lifecycle or release-maintenance gap; no established authority bypass.",
+    "Low": "Conditional future improvement or visibility gap."
+  },
+  "gaps": [
+    {
+      "id": "S6-01",
+      "title": "No reproducible end-to-end performance baseline",
+      "severity": "High",
+      "category": "benchmark",
+      "current_behavior": "Scope 5 qualifies correctness and authority, not performance distributions or incremental crossover.",
+      "evidence": [
+        "artifacts/candy-scope5f-live-runtime-qualification.json",
+        "candy-runtime/native/hypergraph-motif-cuda/src/main.cu:230"
+      ],
+      "risk": "Optimizations and large-workload claims cannot be evaluated objectively.",
+      "recommended_change": "Establish seeded fixtures, stage timings, cold/warm paired runs and machine-readable manifests before optimization.",
+      "affected_files_components": [
+        "candy-runtime/test/run-scope5f-live-qualification.mjs",
+        "scripts/run-node-tests.mjs"
+      ],
+      "dependencies": [],
+      "security_impact": "Timing must remain descriptive and cannot authorize actions.",
+      "performance_impact": "Makes CPU/transfer/queue/context/kernel costs separately measurable.",
+      "proposed_phase": "6A",
+      "acceptance_criteria": [
+        "Reproduce B1-B7 with fixture/environment/source digests and per-run samples.",
+        "Publish paired crossover confidence intervals; no kernel-only speed claim."
+      ]
+    },
+    {
+      "id": "S6-02",
+      "title": "Qualified motif scale is far below requested large-graph targets",
+      "severity": "High",
+      "category": "native-scale",
+      "current_behavior": "256-edge/100000-incidence limits coexist with I*(E-1)*(E-2)/2<=5000000; nonempty rows imply E<=216. STATIC launches E^3 slots; incremental host enumerates all triples.",
+      "evidence": [
+        "src/candy/motifPreflight.js:27",
+        "candy-runtime/native/hypergraph-motif-cuda/src/main.cu:215",
+        "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu:215"
+      ],
+      "risk": "10k/100k edges and 1M incidences cannot be claimed as qualified motif inputs; increasing limits would expose combinatorial work.",
+      "recommended_change": "Keep current ceilings. Prototype scalable candidate/work algorithms only in a separately qualified native phase.",
+      "affected_files_components": [
+        "src/candy/motifPreflight.js",
+        "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+        "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "Preserve independent safe arithmetic, allocation bounds, exact taxonomy and delta semantics.",
+      "performance_impact": "Main barrier to large motif workloads; speedups inside current envelope alone do not establish scale.",
+      "proposed_phase": "6D",
+      "acceptance_criteria": [
+        "Current boundaries still reject at browser, Runtime and native layers.",
+        "Any new envelope has independent work/memory bounds, 30-bin parity and live device qualification."
+      ]
+    },
+    {
+      "id": "S6-03",
+      "title": "Large DynamicHypergraph staging depends on a bounded motif projection",
+      "severity": "High",
+      "category": "browser-scale",
+      "current_behavior": "Pending validation computes full graph preview then always canonicalizes OLD/proposed with 256-edge/100000-incidence limits, even before deciding motifImpact NONE.",
+      "evidence": [
+        "src/graph/pendingHypergraphUpdate.js:284",
+        "src/candy/adapters/graphMutationToHypergraphUpdate.js:36",
+        "src/candy/adapters/graphMutationToHypergraphUpdate.js:89"
+      ],
+      "risk": "Generic representation capacity is not large DynamicHypergraph Stage/Apply capacity; rejection occurs after expensive preview.",
+      "recommended_change": "First reject oversized pending work cheaply and document the product envelope. Separately design explicit unavailable-analysis state if larger editing is needed; no implicit projection.",
+      "affected_files_components": [
+        "src/graph/pendingHypergraphUpdate.js",
+        "src/candy/adapters/graphMutationToHypergraphUpdate.js",
+        "src/graph/dynamicUpdateControls.js"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "GraphMutationPlan stays sole Apply authority. New unavailable transport state needs explicit schema/currentness review.",
+      "performance_impact": "Avoids full preview before known resource rejection; larger editing remains a separately gated contract change.",
+      "proposed_phase": "6B",
+      "acceptance_criteria": [
+        "Oversized Stage rejects before full proposed-state clone/hash work.",
+        "No-op, metadata-only, replay and Apply-without-analysis regressions pass.",
+        "Larger editing is not advertised unless explicit state semantics are qualified."
+      ]
+    },
+    {
+      "id": "S6-04",
+      "title": "Undo history retains up to fifty full graph snapshots",
+      "severity": "Medium",
+      "category": "browser-memory",
+      "current_behavior": "25 rolling history events each independently JSON-clone before and after graphs.",
+      "evidence": [
+        "src/graph/graphHistory.js:1",
+        "src/graph/graphHistory.js:25",
+        "src/App.jsx:387"
+      ],
+      "risk": "Bounded event count still multiplies large-graph heap and per-commit GC cost.",
+      "recommended_change": "Add byte-aware retention and immutable sharing/checkpoints where justified; retain exact undo identity/type behavior.",
+      "affected_files_components": [
+        "src/graph/graphHistory.js",
+        "src/graph/graphMutationEngine.js",
+        "src/App.jsx"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "Undo remains a fresh committed transition, never a revival of prior executable authority.",
+      "performance_impact": "Reduces O(25*I) retained snapshots and repeated stringify/parse.",
+      "proposed_phase": "6B",
+      "acceptance_criteria": [
+        "History obeys count and byte budgets after 1000/10000 commits.",
+        "Undo content/type parity and replacement/currentness tests pass."
+      ]
+    },
+    {
+      "id": "S6-05",
+      "title": "Repeated whole-graph cloning, canonicalization and hashing",
+      "severity": "Medium",
+      "category": "browser-data-path",
+      "current_behavior": "Mutation engine clones all rows; preview counts both graphs; pending digest/freezing copy proposed state; analysis Stage and submit independently prepare OLD/NEW; Apply rederives.",
+      "evidence": [
+        "src/graph/graphMutationEngine.js:6",
+        "src/graph/pendingHypergraphUpdate.js:275",
+        "src/candy/motifAnalysisController.js:66",
+        "src/graph/graphIdentity.js:57"
+      ],
+      "risk": "Main-thread work and transient duplicate data increase despite small edits.",
+      "recommended_change": "Measure then share immutable revision-bound products, reuse exact canonical bytes and skip demonstrably unnecessary comparison work while preserving collision-safe checks.",
+      "affected_files_components": [
+        "src/graph/graphMutationEngine.js",
+        "src/graph/graphIdentity.js",
+        "src/graph/pendingHypergraphUpdate.js",
+        "src/candy/motifWorkflow.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-03"
+      ],
+      "security_impact": "Never replace exact content comparison with the short FNV marker; no cache may bypass live base/revision/session checks.",
+      "performance_impact": "Reduces repeated O(I+E log E+sum k log k) work and allocation.",
+      "proposed_phase": "6B",
+      "acceptance_criteria": [
+        "Stage/Apply p95 and peak heap measured against unchanged fixtures.",
+        "Same-marker/different-content collision and late async tests pass.",
+        "Cache ownership and invalidation are explicit and bounded."
+      ]
+    },
+    {
+      "id": "S6-06",
+      "title": "Preview edge budgets do not bound vertices or membership processing",
+      "severity": "High",
+      "category": "browser-ui",
+      "current_behavior": "Viz slices edges, then builds topology from all selected memberships; overlay copies all rows before sampling. Vertex list renders every selected vertex and hyperedge list uses indexOf inside map.",
+      "evidence": [
+        "src/components/Viz.jsx:88",
+        "src/components/Viz.jsx:223",
+        "src/components/Viz.jsx:496",
+        "src/visualization/previewRenderBudget.js:9"
+      ],
+      "risk": "One huge edge can allocate and render enormous vertex sets despite the 3000-relation overlay budget; high-edge display can create quadratic lookup work.",
+      "recommended_change": "Bound visual vertices/incidences before materialization; virtualize lists; hoist selection membership work; keep sampled visualization separate from exact analytical data.",
+      "affected_files_components": [
+        "src/components/Viz.jsx",
+        "src/visualization/previewRenderBudget.js",
+        "src/visualization/hypergraphLayout.js"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "Sampling never changes graph, motifs or Apply; explicit incomplete presentation required.",
+      "performance_impact": "Highest browser rendering risk for skewed inputs.",
+      "proposed_phase": "6B",
+      "acceptance_criteria": [
+        "Huge-single-edge preview obeys explicit vertex/incidence/DOM budgets.",
+        "Search/selection/accessibility and exact analytical export remain correct.",
+        "Manual browser responsive interaction gate passes."
+      ]
+    },
+    {
+      "id": "S6-07",
+      "title": "Artifact bytes are serialized twice and base64 expanded",
+      "severity": "Medium",
+      "category": "transport",
+      "current_behavior": "Workflow stringifies/hashes artifacts but uploads original objects; client stringifies again, creates UTF-8 bytes, a binary string, base64 and a JSON envelope.",
+      "evidence": [
+        "src/candy/motifWorkflow.js:30",
+        "src/candy/client.js:51",
+        "src/candy/client.js:59",
+        "candy-runtime/src/config.js:17"
+      ],
+      "risk": "Transient strings and ~4/3 transfer amplification; nominal 6MiB artifact exceeds 8MiB request after envelope overhead.",
+      "recommended_change": "Reuse exact hashed bytes first; calculate encoded envelope limit. Consider versioned raw-byte upload only after measured justification.",
+      "affected_files_components": [
+        "src/candy/motifWorkflow.js",
+        "src/candy/client.js",
+        "candy-runtime/src/server.js"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "Digest covers exact bytes; streamed protocol must retain admission and hash-before-publication.",
+      "performance_impact": "Reduces duplicate serialization and upload cost without changing native semantics.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "Measured HTTP bytes match deterministic base64/envelope arithmetic.",
+        "Near-limit artifacts reject before large duplicate construction.",
+        "Protocol compatibility and exact digest substitutions are tested."
+      ]
+    },
+    {
+      "id": "S6-08",
+      "title": "Safe artifact reuse is absent at the browser boundary",
+      "severity": "Medium",
+      "category": "cache",
+      "current_behavior": "Exact artifacts deduplicate retained Runtime storage, but workflow rehashes/reuploads the same OLD graph and exact revision; client exposes no artifact metadata lookup.",
+      "evidence": [
+        "src/candy/motifWorkflow.js:31",
+        "src/candy/client.js:47",
+        "candy-runtime/src/artifacts/artifactStore.js:50",
+        "candy-runtime/src/server.js:78"
+      ],
+      "risk": "Repeated analysis wastes CPU, transfer and disk verification.",
+      "recommended_change": "Use bounded tab-local exact-byte cache and Runtime-session-scoped presence handles; verify digest/media/length and upload on cache miss.",
+      "affected_files_components": [
+        "src/candy/motifWorkflow.js",
+        "src/candy/client.js",
+        "candy-runtime/src/artifacts/artifactStore.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-10"
+      ],
+      "security_impact": "Rebind every analysis to fresh request/confirmation/current graph/revision/session; cached data grants no authority.",
+      "performance_impact": "Saves repeated serialization/upload on unchanged committed graph or exact pending revision.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "Repeat analysis avoids graph upload when exact artifact is verified present.",
+        "Restart, eviction, media mismatch, cross-tab and stale revision cannot reuse authority.",
+        "No transparent result-authority replay."
+      ]
+    },
+    {
+      "id": "S6-09",
+      "title": "Runtime job quota is a lifetime session limit",
+      "severity": "High",
+      "category": "runtime-durability",
+      "current_behavior": "jobs Map retains all terminal and active records; maxJobs=256 is checked before dedup and no terminal eviction exists.",
+      "evidence": [
+        "candy-runtime/src/jobs/jobManager.js:99",
+        "candy-runtime/src/jobs/jobManager.js:105",
+        "candy-runtime/src/config.js:26"
+      ],
+      "risk": "Analyzed 1000/10000-update sessions cannot complete without Runtime restart; terminal cancellation also consumes quota.",
+      "recommended_change": "Separate active/backlog admission from bounded terminal diagnostics; define expiry/eviction responses and retain artifacts pinned by active/current jobs.",
+      "affected_files_components": [
+        "candy-runtime/src/jobs/jobManager.js",
+        "candy-runtime/src/server.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-10"
+      ],
+      "security_impact": "Unknown/expired job IDs fail closed; eviction cannot resurrect results or approvals.",
+      "performance_impact": "Restores sustained throughput while bounding retained memory.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "At least 1000 sequential jobs complete in one session under retention budget.",
+        "Active/current jobs are not evicted and expired result requests reject.",
+        "Cancelled/failed jobs release active capacity."
+      ]
+    },
+    {
+      "id": "S6-10",
+      "title": "Artifact retention has quotas but no reclamation policy",
+      "severity": "Medium",
+      "category": "runtime-storage",
+      "current_behavior": "512 artifacts/64MiB default retained quotas have no eviction. Auto temp roots dispose on graceful close; override roots persist and metadata is not reconstructed.",
+      "evidence": [
+        "candy-runtime/src/artifacts/artifactStore.js:10",
+        "candy-runtime/src/artifacts/artifactStore.js:54",
+        "candy-runtime/src/server.js:104"
+      ],
+      "risk": "Store may fill before job limit; persistent roots accumulate files outside current metadata accounting across restarts.",
+      "recommended_change": "Introduce pin-aware byte/count LRU or TTL, accurate persisted-root accounting, explicit cleanup and privacy policy.",
+      "affected_files_components": [
+        "candy-runtime/src/artifacts/artifactStore.js",
+        "candy-runtime/src/server.js",
+        "candy-runtime/src/jobs/jobManager.js"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "No unvalidated cross-session presence; pin through result acceptance; hash every reused artifact as required.",
+      "performance_impact": "Prevents quota exhaustion and orphan disk growth; enables reliable reuse.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "Long runs keep stored bytes/items within declared budgets.",
+        "Pinned artifacts survive; corrupted/unregistered files never become authorized.",
+        "Restart and graceful/abrupt cleanup policies are tested."
+      ]
+    },
+    {
+      "id": "S6-11",
+      "title": "Per-item bounds leave aggregate admission work unbounded",
+      "severity": "High",
+      "category": "resource-security",
+      "current_behavior": "HTTP buffers each body; artifact put copies before queued quota checks; qualified backend verification precedes job quota admission. No explicit total in-flight byte/request budget found.",
+      "evidence": [
+        "candy-runtime/src/http/httpUtils.js:34",
+        "candy-runtime/src/artifacts/artifactStore.js:40",
+        "candy-runtime/src/jobs/jobManager.js:99"
+      ],
+      "risk": "Authenticated flooding may amplify concurrent heap, queued copies and qualification work; harmful impact has not been runtime demonstrated.",
+      "recommended_change": "Reserve aggregate bytes/work before decoding/copy/verification; bound concurrent admission and release reservations on every abort/error.",
+      "affected_files_components": [
+        "candy-runtime/src/server.js",
+        "candy-runtime/src/http/httpUtils.js",
+        "candy-runtime/src/artifacts/artifactStore.js",
+        "candy-runtime/src/jobs/jobManager.js"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "Keep loopback/auth/origin boundary and individual limits; do not label this unauthenticated remote access.",
+      "performance_impact": "Protects host responsiveness and predictable throughput under burst load.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "Authenticated concurrent uploads/submits stay within explicit aggregate limits.",
+        "Partial bodies/abort/cancel release reservations.",
+        "Unauthenticated requests cannot allocate protected upload buffers."
+      ]
+    },
+    {
+      "id": "S6-12",
+      "title": "Queue residence and shared GPU scheduling lack explicit budgets",
+      "severity": "Medium",
+      "category": "runtime-scheduling",
+      "current_behavior": "Motif jobs serialize on one Promise chain; SSSP bypasses it. Native timeout begins after queue wait and preparation.",
+      "evidence": [
+        "candy-runtime/src/jobs/jobManager.js:112",
+        "candy-runtime/src/jobs/jobManager.js:158",
+        "candy-runtime/src/backends/nativeProcessRunner.js:89"
+      ],
+      "risk": "Native timeout is not user-latency SLA; cross-backend or external GPU contention remains possible.",
+      "recommended_change": "Bound backlog and queue wait, define end-to-end deadlines and device ownership before adding concurrency.",
+      "affected_files_components": [
+        "candy-runtime/src/jobs/jobManager.js",
+        "candy-runtime/src/backends/nativeProcessRunner.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-11"
+      ],
+      "security_impact": "Expired/cancelled queued jobs never launch or publish results; concurrency cannot defeat fixed device authority.",
+      "performance_impact": "Predictable queue latency; parallel motif execution is not recommended initially.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "Queued expiry/cancellation prevents native launch.",
+        "Device scheduler tests include motif and SSSP coexistence.",
+        "Queue and native timing boundaries are separately reported."
+      ]
+    },
+    {
+      "id": "S6-13",
+      "title": "Browser Runtime requests lack timeout and transport abort",
+      "severity": "Medium",
+      "category": "recovery",
+      "current_behavior": "Candy client fetch uses no AbortSignal or timeout; logical invalidation safely blocks late acceptance but does not release the outstanding HTTP work.",
+      "evidence": [
+        "src/candy/client.js:29",
+        "src/candy/motifAnalysisController.js:29"
+      ],
+      "risk": "Interrupted uploads/discovery/result reads can remain pending and retain captured context.",
+      "recommended_change": "Add per-operation bounded deadlines and generation-owned AbortControllers while preserving synchronous local revocation.",
+      "affected_files_components": [
+        "src/candy/client.js",
+        "src/candy/useCandyRuntime.js",
+        "src/candy/motifAnalysisController.js"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "Abort is transport cleanup; every async result still needs exact currentness checks.",
+      "performance_impact": "Releases hanging requests and captured large data earlier.",
+      "proposed_phase": "6A",
+      "acceptance_criteria": [
+        "Loopback interruption/reconnect/unmount aborts old requests.",
+        "Held genuine late result stays rejected.",
+        "Retry requires fresh discovery/confirmation as applicable."
+      ]
+    },
+    {
+      "id": "S6-14",
+      "title": "Graph-status chat appends bypass the live message bound",
+      "severity": "Medium",
+      "category": "long-session-ui",
+      "current_behavior": "Normal append slices to 500; graph changes and some batch/continuation notices append without slicing. Message render maps the full live array.",
+      "evidence": [
+        "src/components/AgentChatPanel.jsx:159",
+        "src/components/AgentChatPanel.jsx:358",
+        "src/components/AgentChatPanel.jsx:427",
+        "src/components/AgentChatPanel.jsx:464"
+      ],
+      "risk": "Many commits can exceed live chat cap and grow DOM/serialization cost; persisted 80-message cap does not bound live state.",
+      "recommended_change": "Route all appends through one bounded helper and virtualize if 500 rendered messages remain costly.",
+      "affected_files_components": [
+        "src/components/AgentChatPanel.jsx"
+      ],
+      "dependencies": [
+        "S6-01"
+      ],
+      "security_impact": "Pruning historical messages must not create executable action restoration or weaken current approval owner.",
+      "performance_impact": "Bounds long-session UI and persistence input cost.",
+      "proposed_phase": "6A",
+      "acceptance_criteria": [
+        "10000 graph-status transitions keep live messages at or below 500.",
+        "Reload remains inert and fresh confirmation ownership unchanged."
+      ]
+    },
+    {
+      "id": "S6-15",
+      "title": "Repeated exports leave Blob Object URLs retained",
+      "severity": "Medium",
+      "category": "browser-leak",
+      "current_behavior": "App dl helper creates an Object URL but never revokes it; parser profile and resolved export downloads call this helper.",
+      "evidence": [
+        "src/App.jsx:3855",
+        "src/App.jsx:3894",
+        "src/App.jsx:4055"
+      ],
+      "risk": "Repeated large exports retain Blob backing storage for the document lifetime.",
+      "recommended_change": "Revoke URLs after safe download dispatch and on teardown using a shared bounded helper.",
+      "affected_files_components": [
+        "src/App.jsx"
+      ],
+      "dependencies": [],
+      "security_impact": "Do not log exported content or mix cleanup with graph authority.",
+      "performance_impact": "Eliminates a concrete lifecycle leak for repeated exports.",
+      "proposed_phase": "6A",
+      "acceptance_criteria": [
+        "Repeated downloads leave no retained Object URLs after completion.",
+        "Downloaded bytes are unchanged and browser smoke passes."
+      ]
+    },
+    {
+      "id": "S6-16",
+      "title": "Thread storage and derived products need byte observability",
+      "severity": "Low",
+      "category": "persistence",
+      "current_behavior": "Storage is bounded to 80 records of at most 1M serialized characters; two save snapshots; current-graph derived cache clears on transition but has no internal byte budget.",
+      "evidence": [
+        "src/persistence/threadStateSchema.js:1",
+        "src/persistence/threadSaveQueue.js:1",
+        "src/persistence/threadStore.js:54",
+        "src/derived/derivedProductCache.js:1"
+      ],
+      "risk": "Count bounds can still consume meaningful quota/heap; no proven unbounded current call-site cache growth.",
+      "recommended_change": "Measure persisted bytes/current derived bytes; add budgets only where measured; normalize/project before oversized raw serialization when possible.",
+      "affected_files_components": [
+        "src/persistence/threadStateSchema.js",
+        "src/persistence/threadStore.js",
+        "src/derived/derivedProductCache.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-14"
+      ],
+      "security_impact": "Persist only inert descriptions; eviction must not restore graph/update/result authority.",
+      "performance_impact": "Improves quota failure handling and visibility; avoids unnecessary cache complexity.",
+      "proposed_phase": "6B",
+      "acceptance_criteria": [
+        "Quota/storage errors remain recoverable and live graph independent.",
+        "Save backlog never exceeds one in-flight plus one latest.",
+        "Derived products clear on graph transition."
+      ]
+    },
+    {
+      "id": "S6-17",
+      "title": "Bounded model prompts still require full local indexes and unbounded response reads",
+      "severity": "Medium",
+      "category": "assistant-scale",
+      "current_behavior": "Mutation planner builds entity index/counts and arrays of all keys before sampling; observations are bounded, but localModelClient response.text reads the entire configured endpoint response.",
+      "evidence": [
+        "src/agent/prompts/graphMutationPlannerPrompt.js:82",
+        "src/graph/entityResolver.js:3",
+        "src/agent/orchestratorObservation.js:3",
+        "src/agent/localModelClient.js:106"
+      ],
+      "risk": "Large graphs cost O(I) context preparation; faulty paired private model can cause response memory pressure without gaining action authority.",
+      "recommended_change": "Reuse bounded current-graph index/count products; slice iterators before materializing full samples; bound model response bytes independently of timeout.",
+      "affected_files_components": [
+        "src/agent/prompts/graphMutationPlannerPrompt.js",
+        "src/graph/entityResolver.js",
+        "src/agent/localModelClient.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-05"
+      ],
+      "security_impact": "Never send full graph/plan/result taxonomy; strict selectors and independent approvals stay authoritative.",
+      "performance_impact": "Reduces deterministic preparation and caps response memory.",
+      "proposed_phase": "6B",
+      "acceptance_criteria": [
+        "Prompt limits and bounded selectors unchanged across large fixtures.",
+        "Oversized model response aborts before full body parsing.",
+        "Graph transition invalidates index reuse."
+      ]
+    },
+    {
+      "id": "S6-18",
+      "title": "Every analysis repeats qualification, parsing and process/CUDA startup",
+      "severity": "Medium",
+      "category": "runtime-throughput",
+      "current_behavior": "Submission verifies backend; launch verifies again; artifacts reread/rehashed/parsed and native process launched per job; native initializes device each process.",
+      "evidence": [
+        "candy-runtime/src/jobs/jobManager.js:99",
+        "candy-runtime/src/backends/motifJobAdapter.js:15",
+        "candy-runtime/src/backends/nativeProcessRunner.js:45",
+        "candy-runtime/native/hypergraph-motif-cuda/src/main.cu:205"
+      ],
+      "risk": "Small kernels may be dominated by host and WSL/process startup, but no measured breakdown establishes dominance yet.",
+      "recommended_change": "Measure first; cache integrity-bound prepared immutable host data with bounded ownership. Treat persistent native worker as separate protocol/security project.",
+      "affected_files_components": [
+        "candy-runtime/src/jobs/jobManager.js",
+        "candy-runtime/src/capabilities/motifQualification.js",
+        "candy-runtime/src/backends/motifJobAdapter.js",
+        "candy-runtime/src/backends/nativeProcessRunner.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-08",
+        "S6-11"
+      ],
+      "security_impact": "Any verification cache must detect binary/source/qualification replacement; fixed argv and cleanup remain enforced.",
+      "performance_impact": "Potential repeated-work savings; persistent device state is deferred until launch overhead is proven.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "Breakdown reports verification/read/parse/pack/launch/process costs.",
+        "Changed binary/evidence disables cached qualification.",
+        "No persistent worker introduced without new qualification boundary."
+      ]
+    },
+    {
+      "id": "S6-19",
+      "title": "Incremental candidate vectors and fresh device buffers add overhead",
+      "severity": "Medium",
+      "category": "cuda-efficiency",
+      "current_behavior": "Both OLD/NEW host candidate vectors coexist; OLD and NEW launch sequentially with fresh allocations and synchronous transfers. Kernel timer excludes preparation, allocations and transfers.",
+      "evidence": [
+        "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu:215",
+        "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu:300",
+        "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu:353"
+      ],
+      "risk": "Affected-only GPU work does not guarantee faster end-to-end execution; all-affected updates can duplicate substantial work.",
+      "recommended_change": "Profile host enumeration and device lifecycle; test direct affected enumeration, sequential host-vector lifetime and reusable per-process workspace before pools/pinned memory/streams.",
+      "affected_files_components": [
+        "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+        "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-02"
+      ],
+      "security_impact": "Maintain safe products, counts, digest and cleanup; no STATIC fallback or prior-count delta reconstruction.",
+      "performance_impact": "Reduces host peak memory and overhead if validated; streams are not yet justified.",
+      "proposed_phase": "6D",
+      "acceptance_criteria": [
+        "Per-class old STATIC plus incremental delta equals new STATIC.",
+        "Host/device peak allocations and whole-process time improve under paired tests.",
+        "Failure/cancel/driver-reset paths free all workspaces."
+      ]
+    },
+    {
+      "id": "S6-20",
+      "title": "Portable packaging policy predates Runtime qualification assets",
+      "severity": "High",
+      "category": "release-packaging",
+      "current_behavior": "Packager scans filesystem files; exclusions omit build/.local although Git ignores them. It excludes .git and artifacts, but production motifQualification reads historical qualification artifacts and runs git rev-parse on fixed tags. Existing local build records are present.",
+      "evidence": [
+        "scripts/package-portable-source.py:19",
+        "scripts/package-portable-source.py:421",
+        "scripts/package-portable-source.py:443",
+        ".gitignore:14",
+        "candy-runtime/src/capabilities/motifQualification.js:49",
+        "candy-runtime/src/capabilities/motifQualification.js:61"
+      ],
+      "risk": "Dirty-workstation source ZIP can include machine-specific binaries/records, while clean extracted source ZIP lacks required Git tags/evidence and cannot enable qualified motif CUDA merely by rebuilding. No contaminated shipped ZIP or authority bypass is claimed.",
+      "recommended_change": "Choose an explicit source/browser-only or independently qualified CUDA distribution. Exclude machine-local assets, retain production-imported test contracts, and define verified release qualification bundle/identity or documented Git/evidence prerequisites for CUDA.",
+      "affected_files_components": [
+        "scripts/package-portable-source.py",
+        "scripts/verify-portable-archive.py",
+        "docs/RELEASE_v7.3.14.md",
+        "candy-runtime/README.md",
+        "candy-runtime/src/capabilities/motifQualification.js"
+      ],
+      "dependencies": [],
+      "security_impact": "Local records are consistency evidence, not publisher authenticity. No secret disclosure or shipped contaminated ZIP is claimed.",
+      "performance_impact": "Predictable portable payload and fail-closed backend availability.",
+      "proposed_phase": "6A",
+      "acceptance_criteria": [
+        "Clean and populated-workspace source packages exclude local/build assets and preserve contract imports.",
+        "Extraction proves browser-only/unavailable mode without Git/evidence; documentation is truthful.",
+        "CUDA-enabled distribution verifies exact release source/binary/environment/evidence without weakening qualification or depending accidentally on excluded Git/artifacts."
+      ]
+    },
+    {
+      "id": "S6-21",
+      "title": "Release documentation and qualification provenance need additive reconciliation",
+      "severity": "Medium",
+      "category": "release-provenance",
+      "current_behavior": "Final JSON/browser records say PASS but qualifiedCommit=null/releaseEligible=false for historical working tree. Current authoritatively qualified tag and merge exist; README/release notes predate dynamic support. Source inventory mixes CRLF checkout and LF Git-blob hashes.",
+      "evidence": [
+        "artifacts/candy-scope5-final-qualification.json",
+        "artifacts/candy-scope5f-source-inventory.json",
+        "docs/RELEASE_v7.3.14.md",
+        "candy-runtime/README.md:25"
+      ],
+      "risk": "Consumers may misread current qualification or fail reproducibility byte checks. This does not invalidate the user-authoritative baseline.",
+      "recommended_change": "Add release manifest binding b24c4e3 and 54dd4d3, archive bytes, source byte policy and evidence ancestry; update release docs without rewriting Scope 5 history.",
+      "affected_files_components": [
+        "README.md",
+        "candy-runtime/README.md",
+        "docs/RELEASE_v7.3.14.md",
+        "scripts/package-portable-source.py"
+      ],
+      "dependencies": [
+        "S6-20"
+      ],
+      "security_impact": "Never mark blocked bf0240a qualified, move tags or silently normalize executable qualification hashes.",
+      "performance_impact": "Makes clean extraction and deployment claims verifiable.",
+      "proposed_phase": "6A",
+      "acceptance_criteria": [
+        "Manifest distinguishes historical blocked checkpoint, final qualified tag and integration merge.",
+        "LF/CRLF source-byte policy documented; exact deployed native hashes qualify separately.",
+        "Public docs state real limits and supported environment."
+      ]
+    },
+    {
+      "id": "S6-22",
+      "title": "Reproducible scripts exist without tracked CI orchestration",
+      "severity": "Medium",
+      "category": "ci",
+      "current_behavior": "Full Node runner, lint/build/package checks and live qualification harnesses exist; no tracked .github workflow. GPU/browser evidence is workstation-specific.",
+      "evidence": [
+        "scripts/run-node-tests.mjs:1",
+        "package.json",
+        "candy-runtime/test/run-scope5f-live-qualification.mjs",
+        "artifacts/candy-scope5f-environment.json"
+      ],
+      "risk": "Repeatability relies on manual execution; public runners cannot substantiate RTX5060 sm120 qualification.",
+      "recommended_change": "Add CPU CI for regressions/build/package contracts; protected matching GPU runner or manual signed release evidence for real native/browser/model paths.",
+      "affected_files_components": [
+        "scripts/run-node-tests.mjs",
+        "tests/portable-zip-paths.test.mjs",
+        "candy-runtime/test/run-scope5f-live-qualification.mjs"
+      ],
+      "dependencies": [
+        "S6-20",
+        "S6-21"
+      ],
+      "security_impact": "Never execute untrusted PR native code on a credentialed GPU release host; artifact identity and source revision required.",
+      "performance_impact": "Continuous regression signals and stable benchmark provenance.",
+      "proposed_phase": "6A",
+      "acceptance_criteria": [
+        "CPU CI reproducibly runs lockfile tests/lint/both builds/package integrity.",
+        "GPU gates explicitly skip as unavailable on public CPU runners.",
+        "Release cannot pass on fixtures labelled as real CUDA."
+      ]
+    },
+    {
+      "id": "S6-23",
+      "title": "Abrupt crash and deployment recovery remain incompletely qualified",
+      "severity": "Medium",
+      "category": "operations",
+      "current_behavior": "Graceful cancellation/close/group cleanup and integrity rechecks exist. Crash orphan/temp cleanup, active-kernel driver reset/OOM and Windows effective ACLs are not established by current live cases.",
+      "evidence": [
+        "candy-runtime/src/jobs/jobManager.js:244",
+        "candy-runtime/src/backends/nativeProcessRunner.js:71",
+        "candy-runtime/src/cli.js:14",
+        "artifacts/candy-scope5f-live-runtime-qualification.json"
+      ],
+      "risk": "Multi-hour operation can leave temp/process state or fail recovery unpredictably; current cancellation evidence was immediate, not confirmed active kernel interruption.",
+      "recommended_change": "Specify crash/restart cleanup and observable failure classes; run controlled recovery qualification on dedicated hardware and Windows/WSL deployment.",
+      "affected_files_components": [
+        "candy-runtime/src/jobs/jobManager.js",
+        "candy-runtime/src/backends/nativeProcessRunner.js",
+        "candy-runtime/src/server.js",
+        "candy-runtime/src/cli.js"
+      ],
+      "dependencies": [
+        "S6-09",
+        "S6-10",
+        "S6-13"
+      ],
+      "security_impact": "New session invalidates old handles/approval/results; cleanup must only affect owned files/processes.",
+      "performance_impact": "Operational reliability under failure; no unlimited automatic retry.",
+      "proposed_phase": "6C",
+      "acceptance_criteria": [
+        "Crash/restart requires fresh discovery and exact reauthorization.",
+        "Controlled native failure/OOM/reset yields no accepted result or Apply mutation.",
+        "Owned orphan cleanup and Windows ACL policy are verified/documented."
+      ]
+    },
+    {
+      "id": "S6-24",
+      "title": "Batching has plausible value but unqualified composition semantics",
+      "severity": "Low",
+      "category": "future-batching",
+      "current_behavior": "Only one pending GraphMutationPlan/revision is authoritative; no general multi-revision composition interface. Existing multi-operation plan is already analyzed as one transition.",
+      "evidence": [
+        "src/graph/pendingHypergraphUpdate.js:17",
+        "src/candy/adapters/graphMutationToHypergraphUpdate.js:24",
+        "src/candy/contracts/hypergraphMotifSchemas.js:1"
+      ],
+      "risk": "Combining revisions or already applied updates can confuse base/proposed lineage, approvals and delta authority.",
+      "recommended_change": "Defer automatic batching. If measured user need exists, explicitly compose draft plans against one unchanged exact base into a fresh revision, derive final-state diff and request new confirmations.",
+      "affected_files_components": [
+        "src/graph/pendingHypergraphUpdate.js",
+        "src/graph/dynamicUpdateControls.js",
+        "src/candy/adapters/graphMutationToHypergraphUpdate.js"
+      ],
+      "dependencies": [
+        "S6-01",
+        "S6-05",
+        "S6-08",
+        "S6-19"
+      ],
+      "security_impact": "No multi-current pending state, replay, reused approval or summed cross-base delta; DELETE_THEN_INSERT and collision policy unchanged.",
+      "performance_impact": "Can amortize process/transfer only if update bursts dominate and final affected work stays favorable.",
+      "proposed_phase": "6F-optional",
+      "acceptance_criteria": [
+        "Proceed only after measured burst amortization justifies complexity.",
+        "Composition matches sequential pure preview final state against same base.",
+        "Superseded approvals/results reject; one separate Apply commits exactly once."
+      ]
+    }
+  ]
+}
