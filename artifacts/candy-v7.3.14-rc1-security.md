@@ -1,0 +1,15 @@
+# RC1 release-focused security and completeness review
+
+Exact candidate: `117ed4b9d8caa929ead5df3d6af59ad70a878cb2`.
+
+Manual review of the actual release payload, producer/verifier, qualification verifier, CI definition and additive evidence found no unresolved reportable release Critical/High security issue. This is not a new sealed Codex Security scan. Historical Scope6A security evidence is referenced unchanged.
+
+Actual ZIP has 887 entries, zero reported path/duplicate/collision/symlink/special/mode/CRC issues. Raw `ZipInfo.orig_filename` spellings were independently checked: all normalized, no backslashes, and equal to parsed filenames. Modes are 811 ordinary 0644 files and 76 entries at 0755 (56 directories plus 20 approved launchers); no group/world-write permission. Every one of 831 payload files matches its exact committed Git blob. No Git symlink modes are selected. Excluded synthetic build/.local/temp/credential/dependency/Git markers are absent. Required production-imported motif contract modules under candy-runtime/test remain present. High-confidence private-key/GitHub-token/AWS-key/OpenAI-key pattern scan found zero hits. Arbitrary undisclosed secrets with innocuous names are outside this proof.
+
+Twelve adversarial verifier probes were never extracted. Eleven were rejected: traversal, absolute, drive-root, symlink, special file, writable, unexpected executable, local state, credential filename, duplicate and case collision. The backslash probe was accepted on Windows because Python zipfile normalizes `filename` on reading; `orig_filename` retains the raw spelling. Actual RC1 passes the independent raw-spelling check. This limitation is recorded, without claiming certification of all hostile ZIPs or modifying the candidate.
+
+Qualification discovery uses no injected availability, fabricated record or native mock. External extraction lacks Git, historical evidence, native outputs and .local, and both motif backends fail closed. GitHub-hosted CPU success was read directly through GitHub REST with existing Git credentials held only in memory. No CI artifact was copied or used as trusted GPU evidence. CPU workflow uses immutable actions, read-only contents and no persisted checkout credentials. Public GPU status stays UNAVAILABLE/SKIPPED.
+
+Release completeness is NON-PASS: global artifacts-directory exclusion drops candy-runtime/src/artifacts/artifactStore.js, imported by server.js:5. The extracted server and CLI fail import. Direct capability verification is still possible and fails closed; HTTP capability/health execution is blocked. This is a packaging correctness defect, not an observed CUDA authorization bypass. Current Runtime documentation also contains a stale STATIC-only claim and a now-disproved extraction-health claim. See release-review.json and extracted-cuda.json.
+
+Production/native/manifests/packaging/verifier bytes and all historical evidence/tags are unchanged. Only additive RC1 evidence is written. No proposed remediation was applied.

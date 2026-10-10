@@ -1,0 +1,109 @@
+[
+  {
+    "location": "extracted",
+    "command": "npm ci",
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted-ci.log",
+    "logSha256": "cfbfaaad70838d2d674e782de778c6020d02779ed8c73c494a29ba0aae952290",
+    "manifestHashesUnchanged": true,
+    "output": "\nadded 144 packages, and audited 145 packages in 11s\n\n32 packages are looking for funding\n  run `npm fund` for details\n\n4 vulnerabilities (1 moderate, 3 high)\n\nTo address all issues, run:\n  npm audit fix\n\nRun `npm audit` for details.\n"
+  },
+  {
+    "location": "extracted",
+    "command": "npm run build",
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted-run-build.log",
+    "logSha256": "95bfd3f2aa1f5404a41e37002680d308dcfb9079ddb02f5ace9caff124160f5e",
+    "manifestHashesUnchanged": true,
+    "output": "\n> hypergraph-converter-studio@7.3.14 build\n> vite build\n\nvite v8.0.16 building client environment for production...\n\u001b[2K\ntransforming...\u2713 270 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                            0.47 kB \u2502 gzip:   0.30 kB\ndist/assets/derivedWorker-Kuj0BIwW.js     11.88 kB\ndist/assets/index-CmwRa2Hx.css            35.26 kB \u2502 gzip:   6.98 kB\ndist/assets/index-a7JO_un_.js          1,661.87 kB \u2502 gzip: 465.61 kB\n\n\u2713 built in 650ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+  },
+  {
+    "location": "extracted",
+    "command": "npm run build:github",
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted-run-build:github.log",
+    "logSha256": "20b69deb21b40aed102d8081cdaa25fbfb75ee44ba34d65bac2bb87501b719af",
+    "manifestHashesUnchanged": true,
+    "output": "\n> hypergraph-converter-studio@7.3.14 build:github\n> vite build --base=/hypergraph-converter/\n\nvite v8.0.16 building client environment for production...\n\u001b[2K\ntransforming...\u2713 270 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                            0.53 kB \u2502 gzip:   0.31 kB\ndist/assets/derivedWorker-Kuj0BIwW.js     11.88 kB\ndist/assets/index-CmwRa2Hx.css            35.26 kB \u2502 gzip:   6.98 kB\ndist/assets/index-ijkEzYGz.js          1,661.95 kB \u2502 gzip: 465.62 kB\n\n\u2713 built in 263ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+  },
+  {
+    "location": "extracted",
+    "command": "npm audit --omit=dev --json",
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted-audit-omit=dev-json.log",
+    "logSha256": "b134bfe628044cd8e285a53d626730513342be5be207babfef988113a466508c",
+    "manifestHashesUnchanged": true,
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "audit": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted-audit-omit=dev-json.json",
+    "output": "{\n  \"auditReportVersion\": 2,\n  \"vulnerabilities\": {},\n  \"metadata\": {\n    \"vulnerabilities\": {\n      \"info\": 0,\n      \"low\": 0,\n      \"moderate\": 0,\n      \"high\": 0,\n      \"critical\": 0,\n      \"total\": 0\n    },\n    \"dependencies\": {\n      \"prod\": 5,\n      \"dev\": 171,\n      \"optional\": 33,\n      \"peer\": 0,\n      \"peerOptional\": 0,\n      \"total\": 175\n    }\n  }\n}\n"
+  },
+  {
+    "location": "extracted",
+    "command": "npm audit --json",
+    "exitCode": 1,
+    "status": "NONZERO_DEV_ONLY_ADVISORIES",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted-audit-json.log",
+    "logSha256": "2be62bcec144d0a3d3897527dff6c65447269122ae4c61ad8ac5b347aab91760",
+    "manifestHashesUnchanged": true,
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 1,
+      "high": 3,
+      "critical": 0,
+      "total": 4
+    },
+    "audit": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted-audit-json.json",
+    "output": "{\n  \"auditReportVersion\": 2,\n  \"vulnerabilities\": {\n    \"baseline-browser-mapping\": {\n      \"name\": \"baseline-browser-mapping\",\n      \"severity\": \"moderate\",\n      \"isDirect\": false,\n      \"via\": [\n        {\n          \"source\": 1193686,\n          \"name\": \"baseline-browser-mapping\",\n          \"dependency\": \"baseline-browser-mapping\",\n          \"title\": \"baseline-browser-mapping process termination on invalid input causes denial of service\",\n          \"url\": \"https://github.com/advisories/GHSA-w5vr-8v7q-w6rv\",\n          \"severity\": \"moderate\",\n          \"cwe\": [\n            \"CWE-705\"\n          ],\n          \"cvss\": {\n            \"score\": 0,\n            \"vectorString\": null\n          },\n          \"range\": \">=2.0.0 <2.11.0\"\n        }\n      ],\n      \"effects\": [],\n      \"range\": \">=2.0.0 <2.11.0\",\n      \"nodes\": [\n        \"node_modules/baseline-browser-mapping\"\n      ],\n      \"fixAvailable\": true\n    },\n    \"brace-expansion\": {\n      \"name\": \"brace-expansion\",\n      \"severity\": \"high\",\n      \"isDirect\": false,\n      \"via\": [\n        {\n          \"source\": 1240103,\n          \"name\": \"brace-expansion\",\n          \"dependency\": \"brace-expansion\",\n          \"title\": \"brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service\",\n          \"url\": \"https://github.com/advisories/GHSA-q2hr-2g5m-vwhr\",\n          \"severity\": \"moderate\",\n          \"cwe\": [\n            \"CWE-400\",\n            \"CWE-407\"\n          ],\n          \"cvss\": {\n            \"score\": 5.3,\n            \"vectorString\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L\"\n          },\n          \"range\": \">=4.0.0 <5.0.12\"\n        },\n        {\n          \"source\": 1240107,\n          \"name\": \"brace-expansion\",\n          \"dependency\": \"brace-expansion\",\n          \"title\": \"brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion\",\n          \"url\": \"https://github.com/advisories/GHSA-qhr7-859c-m2p7\",\n          \"severity\": \"high\",\n          \"cwe\": [\n            \"CWE-400\",\n            \"CWE-674\"\n          ],\n          \"cvss\": {\n            \"score\": 7.5,\n            \"vectorString\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H\"\n          },\n          \"range\": \">=4.0.0 <5.0.11\"\n        },\n        {\n          \"source\": 1240111,\n          \"name\": \"brace-expansion\",\n          \"dependency\": \"brace-expansion\",\n          \"title\": \"brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion\",\n          \"url\": \"https://github.com/advisories/GHSA-6j4f-fj2g-mc7p\",\n          \"severity\": \"high\",\n          \"cwe\": [\n            \"CWE-400\",\n            \"CWE-674\"\n          ],\n          \"cvss\": {\n            \"score\": 7.5,\n            \"vectorString\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H\"\n          },\n          \"range\": \">=4.0.0 <5.0.10\"\n        }\n      ],\n      \"effects\": [],\n      \"range\": \"4.0.0 - 5.0.11\",\n      \"nodes\": [\n        \"node_modules/brace-expansion\"\n      ],\n      \"fixAvailable\": true\n    },\n    \"browserslist\": {\n      \"name\": \"browserslist\",\n      \"severity\": \"high\",\n      \"isDirect\": false,\n      \"via\": [\n        {\n          \"source\": 1153171,\n          \"name\": \"browserslist\",\n          \"dependency\": \"browserslist\",\n          \"title\": \"Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM\",\n          \"url\": \"https://github.com/advisories/GHSA-c83g-rgw3-j3cx\",\n          \"severity\": \"high\",\n          \"cwe\": [\n            \"CWE-770\"\n          ],\n          \"cvss\": {\n            \"score\": 7.5,\n            \"vectorString\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H\"\n          },\n          \"range\": \"<=4.28.6\"\n        },\n        {\n          \"source\": 1153172,\n          \"name\": \"browserslist\",\n          \"dependency\": \"browserslist\",\n          \"title\": \"Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats)\",\n          \"url\": \"https://github.com/advisories/GHSA-73wf-gq98-2v4g\",\n          \"severity\": \"high\",\n          \"cwe\": [\n            \"CWE-248\",\n            \"CWE-1321\"\n          ],\n          \"cvss\": {\n            \"score\": 7.5,\n            \"vectorString\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H\"\n          },\n          \"range\": \"<=4.28.6\"\n        }\n      ],\n      \"effects\": [],\n      \"range\": \"<=4.28.6\",\n      \"nodes\": [\n        \"node_modules/browserslist\"\n      ],\n      \"fixAvailable\": true\n    },\n    \"source-map-js\": {\n      \"name\": \"source-map-js\",\n      \"severity\": \"high\",\n      \"isDirect\": false,\n      \"via\": [\n        {\n          \"source\": 1241209,\n          \"name\": \"source-map-js\",\n          \"dependency\": \"source-map-js\",\n          \"title\": \"source-map-js allows event-loop denial of service through indexed source-map section offsets\",\n          \"url\": \"https://github.com/advisories/GHSA-68fv-2mgg-jv7q\",\n          \"severity\": \"high\",\n          \"cwe\": [\n            \"CWE-1284\"\n          ],\n          \"cvss\": {\n            \"score\": 7.5,\n            \"vectorString\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H\"\n          },\n          \"range\": \">=1.0.0 <1.2.2\"\n        }\n      ],\n      \"effects\": [],\n      \"range\": \"1.0.0 - 1.2.1\",\n      \"nodes\": [\n        \"node_modules/source-map-js\"\n      ],\n      \"fixAvailable\": true\n    }\n  },\n  \"metadata\": {\n    \"vulnerabilities\": {\n      \"info\": 0,\n      \"low\": 0,\n      \"moderate\": 1,\n      \"high\": 3,\n      \"critical\": 0,\n      \"total\": 4\n    },\n    \"dependencies\": {\n      \"prod\": 5,\n      \"dev\": 171,\n      \"optional\": 33,\n      \"peer\": 0,\n      \"peerOptional\": 0,\n      \"total\": 175\n    }\n  }\n}\n"
+  },
+  {
+    "location": "repository",
+    "command": "npm run build",
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\repository-run-build.log",
+    "logSha256": "b595df68e72cedd5158453db948fadcbf9dca9ccf39dd7a5a3dff54ffbdc9466",
+    "manifestHashesUnchanged": true,
+    "output": "\n> hypergraph-converter-studio@7.3.14 build\n> vite build\n\nvite v8.0.16 building client environment for production...\n\u001b[2K\ntransforming...\u2713 270 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                            0.47 kB \u2502 gzip:   0.30 kB\ndist/assets/derivedWorker-Kuj0BIwW.js     11.88 kB\ndist/assets/index-CmwRa2Hx.css            35.26 kB \u2502 gzip:   6.98 kB\ndist/assets/index-a7JO_un_.js          1,661.87 kB \u2502 gzip: 465.61 kB\n\n\u2713 built in 371ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+  },
+  {
+    "location": "repository",
+    "command": "npm run build:github",
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\repository-run-build:github.log",
+    "logSha256": "eebca09e3669894212b40ff30c4ee5292fbc35840580d3d158b7d8ff4e556b61",
+    "manifestHashesUnchanged": true,
+    "output": "\n> hypergraph-converter-studio@7.3.14 build:github\n> vite build --base=/hypergraph-converter/\n\nvite v8.0.16 building client environment for production...\n\u001b[2K\ntransforming...\u2713 270 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                            0.53 kB \u2502 gzip:   0.31 kB\ndist/assets/derivedWorker-Kuj0BIwW.js     11.88 kB\ndist/assets/index-CmwRa2Hx.css            35.26 kB \u2502 gzip:   6.98 kB\ndist/assets/index-ijkEzYGz.js          1,661.95 kB \u2502 gzip: 465.62 kB\n\n\u2713 built in 276ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+  },
+  {
+    "location": "repository",
+    "command": "npm audit --omit=dev --json",
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\repository-audit-omit=dev-json.log",
+    "logSha256": "b134bfe628044cd8e285a53d626730513342be5be207babfef988113a466508c",
+    "manifestHashesUnchanged": true,
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "audit": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\repository-audit-omit=dev-json.json",
+    "output": "{\n  \"auditReportVersion\": 2,\n  \"vulnerabilities\": {},\n  \"metadata\": {\n    \"vulnerabilities\": {\n      \"info\": 0,\n      \"low\": 0,\n      \"moderate\": 0,\n      \"high\": 0,\n      \"critical\": 0,\n      \"total\": 0\n    },\n    \"dependencies\": {\n      \"prod\": 5,\n      \"dev\": 171,\n      \"optional\": 33,\n      \"peer\": 0,\n      \"peerOptional\": 0,\n      \"total\": 175\n    }\n  }\n}\n"
+  }
+]

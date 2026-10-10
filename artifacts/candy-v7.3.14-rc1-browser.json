@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "candy.rc1-browser/1",
+  "status": "PASS",
+  "browser": "Real Chrome",
+  "applicationSource": "Exact committed-byte extracted GitHub production build",
+  "url": "http://127.0.0.1:4178/hypergraph-converter/",
+  "previewCommand": "node node_modules/vite/bin/vite.js preview --base=/hypergraph-converter/ --host 127.0.0.1 --port 4178 --strictPort",
+  "fixture": "h0: A, B\nh1: B, C\nh2: B, D",
+  "expected": {
+    "hyperedges": 3,
+    "vertices": 4,
+    "incidences": 6,
+    "minCardinality": 2,
+    "maxCardinality": 2,
+    "averageCardinality": 2,
+    "maxDegree": 3,
+    "averageDegree": 1.5,
+    "incidenceDensityPercent": 50,
+    "lineGraphTriangles": 1
+  },
+  "observedMatchesExpected": true,
+  "mappings": "PASS exact three rows",
+  "statistics": "PASS",
+  "export": "PASS controls and exact text preview; download not exercised",
+  "graphPreview": "PASS visually rendered three rings and four labeled vertices",
+  "dynamicHypergraph": "PASS type selected explicitly, version 1 -> 2; cardinalities unchanged",
+  "navigation": "Algorithms -> Assistant -> Advanced -> Batch Updates; pending NONE, operations 0, analysis NONE, current result no, committed version stays 2",
+  "automaticStage": false,
+  "automaticAnalyze": false,
+  "automaticApply": false,
+  "assistant": "PASS disconnected with deterministic controls available",
+  "sourcePackageMode": "browser-only mode; native integration disabled; VITE_CANDY_RUNTIME_ENABLED=true required at build time",
+  "appConsoleErrors": 0,
+  "consoleNotes": "Only third-party Chrome extension AssignmentCache warnings observed",
+  "screenshots": [
+    {
+      "path": "artifacts/candy-v7.3.14-rc1-browser-statistics.png",
+      "sha256": "9b8ed1b4c488cc4ae46d9df13a4242d82069d16b0d0ae72780d6f27cf0f32274"
+    },
+    {
+      "path": "artifacts/candy-v7.3.14-rc1-browser-source-mode.png",
+      "sha256": "f37632982c4d51dc8281641a6ef1682949d919590a2f2b38aacb7ef7a4101708"
+    },
+    {
+      "path": "artifacts/candy-v7.3.14-rc1-browser-dynamic.png",
+      "sha256": "9d2c2d842673ffff320b2586a9ba8f931ab9770d33feb2d6863c175265af3aab"
+    }
+  ],
+  "snapshots": "artifacts/candy-v7.3.14-rc1-browser-snapshots.json",
+  "previewSetupNote": "Initial preview used root base against GitHub-base output and served HTML for JS path; corrected preview CLI base and reloaded. No product/source changes."
+}

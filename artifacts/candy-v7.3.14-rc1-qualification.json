@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "candy.rc1-qualification/1",
+  "capturedAt": "2026-10-10T15:38:28.956280+00:00",
+  "verdict": "NON-PASS",
+  "commit": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+  "branch": "release-v7.3.14-rc1",
+  "descriptiveOnly": true,
+  "authority": false,
+  "publisherAttestation": false,
+  "baseline": {
+    "status": "On branch release-v7.3.14-rc1\nYour branch is up to date with 'origin/release-v7.3.14-rc1'.\n\nnothing to commit, working tree clean\n",
+    "branch": "release-v7.3.14-rc1\n",
+    "head": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2\n",
+    "remote": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2\n",
+    "qualifiedTag": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2\n",
+    "diffCheck": "",
+    "log": "117ed4b (HEAD -> release-v7.3.14-rc1, tag: candy-integration-scope6a-release-hardening-qualified, origin/release-v7.3.14-rc1, origin/candy-integration-scope6a-release-hardening, candy-integration-scope6a-release-hardening) feat: qualify CANDY Scope 6A release hardening\nf8343ae (origin/candy-integration-scope6-readiness, candy-integration-scope6-readiness) docs: record CANDY Scope 6 readiness audit\nb24c4e3 (origin/main, origin/candy-integration-scope5-main-promotion, origin/HEAD, main, candy-integration-scope5-main-promotion) merge: promote qualified CANDY Scope 5 to main\n54dd4d3 (tag: candy-integration-scope5f-final-qualified, origin/candy-integration-scope5f-final-qualification, origin/candy-integration-scope5-dynamic-hypergraph, candy-integration-scope5f-final-qualification, candy-integration-scope5-dynamic-hypergraph) feat: qualify CANDY Scope 5 dynamic hypergraph workflow\nbf0240a (tag: candy-integration-scope5f-browser-blocked) fix: harden Scope 5 graph lineage and record blocked final qualification\n1e8f7fa (tag: candy-integration-scope5e-hardening-qualified, origin/candy-integration-scope5e-hardening, candy-integration-scope5e-hardening) feat: qualify CANDY Scope 5E hardening\n18fa9ae (tag: candy-integration-scope5d-ui-assistant-qualified, origin/candy-integration-scope5d-ui-assistant, candy-integration-scope5d-ui-assistant) feat: qualify CANDY Scope 5D UI assistant\nadad848 (tag: candy-integration-scope5c-runtime-binding-qualified, origin/candy-integration-scope5c-runtime-binding, candy-integration-scope5c-runtime-binding) feat: qualify CANDY Scope 5C runtime binding\n3379e01 (tag: candy-integration-scope5b-pending-update-qualified, origin/candy-integration-scope5b-pending-update, candy-integration-scope5b-pending-update) feat: qualify CANDY Scope 5B pending update\neb829fb (tag: candy-integration-scope5a-graph-state-qualified, origin/candy-integration-scope5a-graph-state, candy-integration-scope5a-graph-state) feat: qualify CANDY Scope 5A graph state\n9ac8e18 Merge pull request #1 from TharunSwaminathan/candy-integration-scope5a-graph-state\n215d6d1 docs: record CANDY Scope 5 readiness audit\n"
+  },
+  "gates": {
+    "exactCommit": "PASS",
+    "remoteCpuCi": "PASS",
+    "packageReproducibility": "PASS_BYTE_IDENTICAL_WITHIN_EACH_BYTE_POLICY",
+    "allArchiveFilesMatchCommittedBlobs": "PASS",
+    "archiveIntegrity": "PASS",
+    "extractedNpmCi": "PASS",
+    "extractedBuild": "PASS",
+    "extractedBuildGithub": "PASS",
+    "browser": "PASS",
+    "extractedCudaFailClosed": "PASS_DIRECT_DISCOVERY",
+    "extractedRuntimeStartup": "FAIL_MISSING_PRODUCTION_MODULE",
+    "repositoryBuilds": "PASS",
+    "localQualifiedBackendSmoke": "PASS",
+    "productionAudit": "PASS_ZERO",
+    "releaseSecurity": "PASS_ACTUAL_ARCHIVE_WITH_VERIFIER_LIMITATION",
+    "documentation": "NON-PASS",
+    "provenance": "PASS",
+    "protectedSourceDelta": "NONE",
+    "historicalTags": "UNCHANGED"
+  },
+  "software": {
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "python": "Python 3.13.15",
+    "remoteNode": "24.19.0 from workflow configuration; successful setup step observed"
+  },
+  "blockers": [
+    {
+      "id": "RC1-01",
+      "kind": "RELEASE_COMPLETENESS",
+      "status": "UNRESOLVED",
+      "summary": "Portable packager excludes production candy-runtime/src/artifacts/artifactStore.js because artifacts is excluded at every path depth. Extracted Runtime server/CLI cannot import (ERR_MODULE_NOT_FOUND).",
+      "evidence": "artifacts/candy-v7.3.14-rc1-extracted-cuda.json",
+      "sourceLocations": [
+        "scripts/package-portable-source.py:30",
+        "scripts/package-portable-source.py:437",
+        "scripts/verify-portable-archive.py:24",
+        "candy-runtime/src/server.js:5"
+      ],
+      "remediationScope": "A producer/verifier policy change would change protected RC1 packaging source and needs a separately authorized new candidate/requalification."
+    },
+    {
+      "id": "RC1-02",
+      "kind": "DOCUMENTATION_TRUTHFULNESS",
+      "status": "UNRESOLVED",
+      "summary": "Runtime README line 31 says current Studio enables STATIC only, but committed Studio exposes DynamicHypergraph pending update controls. Scope6A release contract line 41 says extracted Runtime health can work, while the module omission prevents startup.",
+      "sourceLocations": [
+        "candy-runtime/README.md:31",
+        "docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md:41"
+      ],
+      "remediationScope": "Historical Scope5/6A evidence must stay unchanged; additive release docs or corrected current docs need review for a subsequent candidate."
+    }
+  ],
+  "limitations": [
+    "Public GitHub CPU PASS establishes no live GPU qualification.",
+    "Genuine local smoke is one known small STATIC S1 case; no full matrix, timing distribution or large-scale qualification.",
+    "Production audit zero; optional full audit reports one moderate and three high development-only advisories; no dependency change.",
+    "Existing production chunk-size warning persists.",
+    "Windows/WSL matching trusted GPU environment is locally observed; other deployments not established.",
+    "Unsigned additive records are descriptive evidence, not publisher attestation.",
+    "Actual ZIP raw names are normalized; Windows zipfile hides backslash raw spelling from verifier filename inspection. Adversarial backslash probe accepted; no broad untrusted-archive certification."
+  ],
+  "recommendation": "Not eligible for final v7.3.14 tagging. Stop after evidence report; changes/requalification need a new instruction.",
+  "actionsNotPerformed": [
+    "commit",
+    "tag",
+    "push",
+    "merge",
+    "Scope6B"
+  ]
+}

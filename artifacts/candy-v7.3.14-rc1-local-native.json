@@ -1,0 +1,240 @@
+{
+  "commit": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+  "before": [
+    {
+      "backend": "CUDA_STATIC",
+      "qualifiedCommit": "a27eb1246e342097de448408ffa0a4775545c4ae",
+      "tag": "candy-integration-scope4b1-cuda-static-qualified",
+      "peeled": "a27eb1246e342097de448408ffa0a4775545c4ae",
+      "files": [
+        {
+          "path": "candy-runtime/.local/cuda_static-qualified-build.json",
+          "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+          "sha256": "74a9210e8872cf845d7c4c958732615c6f1eb81e4225a823542567aa837ac797"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+          "sha256": "695d82ec5c51ddf157bb1e4163ab9212711f72024797a190e3202a72038036a6"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda/build/candy-hypergraph-motif-cuda",
+          "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+        }
+      ]
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "qualifiedCommit": "febf3ec1aa97917f7fc989511078ec8013817bf8",
+      "tag": "candy-integration-scope4b2-cuda-incremental-qualified",
+      "peeled": "febf3ec1aa97917f7fc989511078ec8013817bf8",
+      "files": [
+        {
+          "path": "candy-runtime/.local/cuda_incremental-qualified-build.json",
+          "sha256": "4c97507376d580fe858397384119f50173ca3259a7f60d900fe956d2feec7a50"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+          "sha256": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+          "sha256": "8ff4f5400378974f4b394a9cae59fa47e703a84dbf6d9f98e9ccd5ef9f90f88d"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/build/candy-hypergraph-motif-cuda-incremental",
+          "sha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758"
+        }
+      ]
+    }
+  ],
+  "discovery": [
+    {
+      "backend": "CUDA_STATIC",
+      "available": true,
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+      "fingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "device": {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 5060",
+        "memoryMiB": 8151,
+        "computeCapability": "12.0",
+        "qualifiedArchitecture": "sm_120"
+      }
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "available": true,
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\native\\hypergraph-motif-cuda-incremental\\build\\candy-hypergraph-motif-cuda-incremental",
+      "fingerprint": "sha256:f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "device": {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 5060",
+        "memoryMiB": 8151,
+        "computeCapability": "12.0",
+        "qualifiedArchitecture": "sm_120"
+      }
+    }
+  ],
+  "injectedDiscovery": false,
+  "nativeRunnerMock": false,
+  "capabilities": [
+    {
+      "backend": "LOCAL_OPENMP",
+      "modes": [
+        "STATIC",
+        "INCREMENTAL",
+        "COMPARE"
+      ],
+      "nativeBuildFingerprint": "sha256:f5561eede6a06a8110e62b76ba1ffd7b6f53a091ada4ca23b8325c4800a85e7f"
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "modes": [
+        "STATIC"
+      ],
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "modes": [
+        "INCREMENTAL"
+      ],
+      "nativeBuildFingerprint": "sha256:f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758"
+    }
+  ],
+  "motifReadiness": [
+    {
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "status": "AVAILABLE",
+      "reason": null
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "status": "AVAILABLE",
+      "reason": null
+    }
+  ],
+  "static": {
+    "status": "REAL_NATIVE_SUCCESS",
+    "fixture": "S1 disjoint 16 hyperedges / 64 vertices / 64 incidences",
+    "counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "totalConnectedTriples": 0,
+    "resultSha256": "b49f06bbd3c91c833ce77d6730971290207e8993ac84b05e097bb04a504b3553",
+    "cuda": {
+      "deviceIndex": 0,
+      "deviceName": "NVIDIA GeForce RTX 5060",
+      "computeMajor": 12,
+      "computeMinor": 0,
+      "compiledArchitecture": "sm_120",
+      "compilerVersion": "13.4.59",
+      "runtimeVersion": 13040,
+      "driverVersion": 13040,
+      "kernelLaunchSucceeded": true,
+      "synchronizationSucceeded": true,
+      "kernelMilliseconds": 1.57366
+    },
+    "execution": {
+      "status": "completed",
+      "exitCode": 0,
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+    }
+  },
+  "status": "PASS",
+  "after": [
+    {
+      "backend": "CUDA_STATIC",
+      "qualifiedCommit": "a27eb1246e342097de448408ffa0a4775545c4ae",
+      "tag": "candy-integration-scope4b1-cuda-static-qualified",
+      "peeled": "a27eb1246e342097de448408ffa0a4775545c4ae",
+      "files": [
+        {
+          "path": "candy-runtime/.local/cuda_static-qualified-build.json",
+          "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+          "sha256": "74a9210e8872cf845d7c4c958732615c6f1eb81e4225a823542567aa837ac797"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+          "sha256": "695d82ec5c51ddf157bb1e4163ab9212711f72024797a190e3202a72038036a6"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda/build/candy-hypergraph-motif-cuda",
+          "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+        }
+      ]
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "qualifiedCommit": "febf3ec1aa97917f7fc989511078ec8013817bf8",
+      "tag": "candy-integration-scope4b2-cuda-incremental-qualified",
+      "peeled": "febf3ec1aa97917f7fc989511078ec8013817bf8",
+      "files": [
+        {
+          "path": "candy-runtime/.local/cuda_incremental-qualified-build.json",
+          "sha256": "4c97507376d580fe858397384119f50173ca3259a7f60d900fe956d2feec7a50"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+          "sha256": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+          "sha256": "8ff4f5400378974f4b394a9cae59fa47e703a84dbf6d9f98e9ccd5ef9f90f88d"
+        },
+        {
+          "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/build/candy-hypergraph-motif-cuda-incremental",
+          "sha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758"
+        }
+      ]
+    }
+  ],
+  "nativeHashesAndTagsUnchanged": true
+}

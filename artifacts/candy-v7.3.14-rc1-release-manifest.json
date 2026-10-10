@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "candy.rc1-release-manifest/1",
+  "capturedAt": "2026-10-10T15:38:28.956280+00:00",
+  "descriptiveOnly": true,
+  "authority": false,
+  "publisherAttestation": false,
+  "distribution": "SOURCE_BROWSER_FIRST",
+  "branch": "release-v7.3.14-rc1",
+  "commit": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+  "anchors": {
+    "rc1": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+    "scope6aQualified": "117ed4b9d8caa929ead5df3d6af59ad70a878cb2",
+    "scope6Readiness": "f8343ae195e37885726c396733dd6f5b9468f0fb",
+    "preScope6Main": "b24c4e32100d2e7c05b13df3c8f6f9e279fd8828",
+    "scope5Qualified": "54dd4d3edb73681f51bf8bb69b9708778a46a502",
+    "historicalBrowserBlocked": "bf0240a54fb6ac8284bd9ac371306511158a1a2e"
+  },
+  "protectedTagsUnchanged": true,
+  "ancestryVerified": true,
+  "archive": {
+    "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\hypergraph-converter-v7.3.14-rc1-source.zip",
+    "sha256": "007cac9c9a183d70a5289687f44346c4e57bdf19bca1ccfd80929bb2730b7457",
+    "bytes": 1664327,
+    "entryCount": 887,
+    "payloadFiles": 831,
+    "directories": 56
+  },
+  "sourceInventorySha256": "f52a9fbe7a4f93a912457cef5492968000e7fdecd9f25f7aded559709fd838b2",
+  "sourceInventoryDigestDefinition": "SHA256 of Python json.dumps(sourceInventory,sort_keys=True,separators=(comma,colon)).encode(UTF8); file list binds path, raw Git blob ID/mode and SHA256",
+  "lockfileSha256": "53fb9226f7b511cb55db2455e331a03bc6e57161375ef3cdca2d4038fbddd22b",
+  "packagingScriptSha256": "50c73f7518beea827f9b604bf5cc5dd9cd7e2a367e412df9ada6cfed5bb29af0",
+  "verifierScriptSha256": "9649090c21d4173238b08014c3f446cf24412ab9f9c1127e76d7226aa71a0ecc",
+  "remoteCpuCi": "OBSERVED_PASS",
+  "gpuCi": "UNAVAILABLE/SKIPPED",
+  "productionAudit": {
+    "status": "PASS",
+    "vulnerabilities": 0,
+    "evidence": "artifacts/candy-v7.3.14-rc1-production-audit.json"
+  },
+  "localNative": {
+    "status": "PASS",
+    "evidence": "artifacts/candy-v7.3.14-rc1-local-native.json"
+  },
+  "extractedCuda": {
+    "status": "PASS_FAIL_CLOSED",
+    "discoveryMethod": "Unmodified production verifier and direct production capability registry; HTTP unavailable because Runtime import fails",
+    "evidence": "artifacts/candy-v7.3.14-rc1-extracted-cuda.json"
+  },
+  "browserSmoke": "PASS",
+  "reproducibility": {
+    "committedCleanVsPopulated": "BYTE_IDENTICAL",
+    "checkoutCleanVsPopulated": "BYTE_IDENTICAL",
+    "checkoutVsGitBlob": "236 files differ only in LF/CRLF; checkout archive is historical ba30c6, not committed-byte release archive"
+  },
+  "productionSourceDelta": [],
+  "nativeSourceDelta": [],
+  "dependencyManifestDelta": [],
+  "historicalEvidenceDelta": [],
+  "historicalEvidenceReferences": [
+    "artifacts/candy-scope6a-implementation-report.md",
+    "artifacts/candy-scope6a-qualification.json",
+    "artifacts/candy-scope6a-release-manifest.json",
+    "artifacts/candy-scope6a-package-qualification.json",
+    "artifacts/candy-scope6a-security-review.md"
+  ],
+  "historicalContext": "Prior records are precommit checkout-byte observations; old remote CI NOT_RUN is capture-time status, superseded only in this additive RC1 receipt. No old record rewritten.",
+  "qualificationWriter": "External RC1 evidence collector; write-scope6a-provenance.mjs intentionally not run because it requires readiness HEAD and would rewrite historical Scope6A evidence.",
+  "releaseVerdict": "NON-PASS",
+  "eligibleForFinalReleaseTag": false,
+  "blockers": [
+    {
+      "id": "RC1-01",
+      "kind": "RELEASE_COMPLETENESS",
+      "status": "UNRESOLVED",
+      "summary": "Portable packager excludes production candy-runtime/src/artifacts/artifactStore.js because artifacts is excluded at every path depth. Extracted Runtime server/CLI cannot import (ERR_MODULE_NOT_FOUND).",
+      "evidence": "artifacts/candy-v7.3.14-rc1-extracted-cuda.json",
+      "sourceLocations": [
+        "scripts/package-portable-source.py:30",
+        "scripts/package-portable-source.py:437",
+        "scripts/verify-portable-archive.py:24",
+        "candy-runtime/src/server.js:5"
+      ],
+      "remediationScope": "A producer/verifier policy change would change protected RC1 packaging source and needs a separately authorized new candidate/requalification."
+    },
+    {
+      "id": "RC1-02",
+      "kind": "DOCUMENTATION_TRUTHFULNESS",
+      "status": "UNRESOLVED",
+      "summary": "Runtime README line 31 says current Studio enables STATIC only, but committed Studio exposes DynamicHypergraph pending update controls. Scope6A release contract line 41 says extracted Runtime health can work, while the module omission prevents startup.",
+      "sourceLocations": [
+        "candy-runtime/README.md:31",
+        "docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md:41"
+      ],
+      "remediationScope": "Historical Scope5/6A evidence must stay unchanged; additive release docs or corrected current docs need review for a subsequent candidate."
+    }
+  ]
+}

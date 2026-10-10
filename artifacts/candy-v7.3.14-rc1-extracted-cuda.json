@@ -1,0 +1,48 @@
+{
+  "status": "PASS_FAIL_CLOSED",
+  "noGitEvidenceOrLocalState": true,
+  "injectedDiscovery": false,
+  "nativeRunnerMock": false,
+  "verifier": [
+    {
+      "backend": "CUDA_STATIC",
+      "available": false,
+      "reason": "motif_qualification_unavailable_or_stale"
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "available": false,
+      "reason": "motif_qualification_unavailable_or_stale"
+    }
+  ],
+  "directProductionCapabilityDiscovery": {
+    "capabilities": [],
+    "motifReadiness": [
+      {
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      },
+      {
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      }
+    ]
+  },
+  "runtimeServerImport": {
+    "status": "FAIL",
+    "code": "ERR_MODULE_NOT_FOUND",
+    "message": "Cannot find module 'C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted\\hypergraph-converter-v7.3.14\\candy-runtime\\src\\artifacts\\artifactStore.js' imported from C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted\\hypergraph-converter-v7.3.14\\candy-runtime\\src\\server.js"
+  },
+  "authenticatedHttpDiscovery": "BLOCKED_BY_MISSING_PRODUCTION_ARTIFACTSTORE_MODULE",
+  "reasonInterpretation": "Required exact local qualification records, binaries, Git tags and historical evidence are excluded from the portable source release; direct verifier/discovery fails closed. Runtime server itself cannot import because source packager excludes candy-runtime/src/artifacts.",
+  "runtimeCliAttempt": {
+    "command": "npm run candy:runtime",
+    "exitCode": 1,
+    "output": "\n> hypergraph-converter-studio@7.3.14 candy:runtime\n> node candy-runtime/src/cli.js\n\nnode:internal/modules/esm/resolve:272\r\n    throw new ERR_MODULE_NOT_FOUND(\r\n          ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted\\hypergraph-converter-v7.3.14\\candy-runtime\\src\\artifacts\\artifactStore.js' imported from C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-rc1-a81c6409d57c4ec7a622719b1b054dbc\\extracted\\hypergraph-converter-v7.3.14\\candy-runtime\\src\\server.js\r\n    at finalizeResolution (node:internal/modules/esm/resolve:272:11)\r\n    at moduleResolve (node:internal/modules/esm/resolve:879:10)\r\n    at defaultResolve (node:internal/modules/esm/resolve:1006:11)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)\r\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)\r\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)\r\n    at #resolve (node:internal/modules/esm/loader:687:17)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)\r\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33)\r\n    at ModuleJob.link (node:internal/modules/esm/module_job:381:17) {\r\n  code: 'ERR_MODULE_NOT_FOUND',\r\n  url: 'file:///C:/Users/tharu/AppData/Local/Temp/candy-rc1-a81c6409d57c4ec7a622719b1b054dbc/extracted/hypergraph-converter-v7.3.14/candy-runtime/src/artifacts/artifactStore.js'\r\n}\r\n\r\nNode.js v24.20.0\r\n",
+    "status": "FAIL_ERR_MODULE_NOT_FOUND"
+  }
+}

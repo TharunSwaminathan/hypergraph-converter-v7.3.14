@@ -1,0 +1,136 @@
+{
+  "reviewKind": "Manual RC1 release/package review with adversarial verifier probes; not a new sealed Codex Security scan",
+  "archiveIntegrity": {
+    "archive": "committed-clean.zip",
+    "bytes": 1664327,
+    "sha256": "007cac9c9a183d70a5289687f44346c4e57bdf19bca1ccfd80929bb2730b7457",
+    "memberCount": 887,
+    "root": "hypergraph-converter-v7.3.14",
+    "testzip": "ok",
+    "modeCounts": {
+      "0644": 811,
+      "0755": 76
+    },
+    "issues": {
+      "backslashMembers": [],
+      "absoluteMembers": [],
+      "traversalMembers": [],
+      "duplicateMembers": [],
+      "caseCollisions": [],
+      "forbiddenMembers": [],
+      "symlinkMembers": [],
+      "specialMembers": [],
+      "unexpectedExecutableFiles": [],
+      "missingExecutableBits": [],
+      "incorrectOrdinaryModes": [],
+      "incorrectDirectoryModes": [],
+      "worldOrGroupWritable": [],
+      "nonUnixCreateSystem": [],
+      "rootLayout": [],
+      "crcFailures": []
+    },
+    "issueCount": 0,
+    "ok": true
+  },
+  "actualRawOriginalEntryNamesNormalized": true,
+  "adversarialChecks": [
+    {
+      "case": "traversal",
+      "rejected": true,
+      "issue": "traversalMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "absolute",
+      "rejected": true,
+      "issue": "absoluteMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "drive",
+      "rejected": true,
+      "issue": "absoluteMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "backslash",
+      "rejected": false,
+      "issue": "backslashMembers",
+      "neverExtracted": true,
+      "limitation": "On Windows zipfile normalizes backslashes in ZipInfo.filename before verifier inspection; orig_filename retains raw spelling. Actual RC1 original entry names are independently checked below."
+    },
+    {
+      "case": "symlink",
+      "rejected": true,
+      "issue": "symlinkMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "special",
+      "rejected": true,
+      "issue": "specialMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "writable",
+      "rejected": true,
+      "issue": "worldOrGroupWritable",
+      "neverExtracted": true
+    },
+    {
+      "case": "unexpectedExecutable",
+      "rejected": true,
+      "issue": "unexpectedExecutableFiles",
+      "neverExtracted": true
+    },
+    {
+      "case": "localState",
+      "rejected": true,
+      "issue": "forbiddenMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "credential",
+      "rejected": true,
+      "issue": "forbiddenMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "duplicate",
+      "rejected": true,
+      "issue": "duplicateMembers",
+      "neverExtracted": true
+    },
+    {
+      "case": "caseCollision",
+      "rejected": true,
+      "issue": "caseCollisions",
+      "neverExtracted": true
+    }
+  ],
+  "verifierLimitation": "Backslash probe accepted on Windows because zipfile normalizes filename; independent orig_filename check passes for actual RC1. No general hostile ZIP safety certification is claimed.",
+  "highConfidenceSecretPatternHits": [],
+  "secretScanLimit": "Known patterns plus exact committed file inventory and excluded marker checks; no universal proof against arbitrarily named undisclosed secrets",
+  "runtimeProductionImportClosure": {
+    "status": "FAIL",
+    "missing": [
+      {
+        "importer": "candy-runtime/src/server.js",
+        "specifier": "./artifacts/artifactStore.js",
+        "missing": "candy-runtime/src/artifacts/artifactStore.js"
+      }
+    ]
+  },
+  "ciTrust": {
+    "readOnlyPermissions": true,
+    "persistCredentials": false,
+    "immutableActionPins": true,
+    "githubHostedCpu": true,
+    "untrustedCiArtifactsUsedAsNativeAuthority": false
+  },
+  "qualifiedDiscoveryBypass": false,
+  "reportableReleaseSecurityCriticalHigh": 0,
+  "securityStatus": "PASS_FOR_REVIEWED_ACTUAL_RC1_ARCHIVE_WITH_VERIFIER_LIMITATION",
+  "releaseCompletenessStatus": "FAIL_MISSING_PRODUCTION_RUNTIME_MODULE",
+  "sourceSymlinkGitModes": []
+}
