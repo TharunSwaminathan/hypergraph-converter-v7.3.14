@@ -84,7 +84,7 @@ DIRECTORY_MODE = 0o755
 # Only these extensions are ever marked executable — deliberately narrow, so
 # adding a new file type to the release requires an explicit decision here
 # rather than silently inheriting whatever bit happened to be set on disk.
-EXECUTABLE_EXTENSIONS = {".sh", ".bat", ".ps1"}
+EXECUTABLE_EXTENSIONS = {".sh", ".bat", ".ps1", ".command"}
 
 
 def entry_mode(path: Path) -> int:
@@ -115,7 +115,9 @@ REQUIRED_FILES = [
     "run-with-ollama.sh",
     "setup-ollama-model.bat",
     "setup-ollama-model.sh",
+    "candy-runtime/src/artifacts/artifactStore.js",
     "src/App.jsx",
+    "src/agent/assistantContextSnapshot.js",
     "src/agent/canonicalIntentResolver.js",
     "src/agent/conversationIntentResolver.js",
     "src/agent/conversationMemory.js",

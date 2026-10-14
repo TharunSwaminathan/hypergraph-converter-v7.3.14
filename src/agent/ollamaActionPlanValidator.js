@@ -796,7 +796,7 @@ export function buildRuleBasedActionPlan(userQuery, state = {}) {
   }
 
   if (resolvedIntent.freeform) {
-    const message = "Conversational Freeform/NLP conversion is reserved for a future integration. The existing manual Freeform route remains available.";
+    const message = "Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use a visible structured format or the reviewed Custom Parser workflow.";
     return actionPlan({
       intent: "freeform_placeholder",
       target: { kind: "placeholder" },

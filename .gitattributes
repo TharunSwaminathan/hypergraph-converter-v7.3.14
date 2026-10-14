@@ -1,1 +1,13 @@
+# Shell launchers must keep LF endings or macOS/Linux fail with "bad interpreter" / "$'\r': command not found".
+*.sh       text eol=lf
+*.command  text eol=lf
+# Windows launchers must keep CRLF so cmd.exe / PowerShell parse them reliably.
+*.bat      text eol=crlf
+*.cmd      text eol=crlf
+*.ps1      text eol=crlf
+# Existing rule (kept).
 candy-runtime/src/backends/nativeSupervisor.sh text eol=lf
+# Binary assets.
+*.png binary
+*.ico binary
+*.woff2 binary

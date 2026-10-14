@@ -19,6 +19,7 @@ export default function CustomParserSpecialistPanel({ specialist, actions, submi
     {specialist.jobs.map(job => <article key={job.id} className="agent-batch">
       <strong>{job.fileNames.join(", ")}</strong><div>{job.status} · {job.attempts}/3 attempts</div>
       {job.error && <p role="alert">{job.error}</p>}
+      {job.trace?.at(-1)?.errors?.slice(0, 4).map((error, index) => <p key={`validation-${index}`} role="alert">Draft validation: {error}</p>)}
       {job.data?.questionsForUser?.map(q => <p key={q}>{q}</p>)}
       {job.code && <details><summary>Review generated source</summary><pre style={{ maxHeight: 240, overflow: "auto", whiteSpace: "pre-wrap" }}>{job.code}</pre></details>}
       {job.status === "ready_for_review" && <div className="agent-file-actions">

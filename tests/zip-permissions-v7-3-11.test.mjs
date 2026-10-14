@@ -77,7 +77,7 @@ with zipfile.ZipFile(sys.argv[1]) as zf:
   const modeKeys = Object.keys(report.modes);
   assert.ok(modeKeys.every(m => m === "0o644" || m === "0o755"), `only 0644 (regular files) and 0755 (executable scripts) should appear; found: ${modeKeys.join(", ")}`);
   assert.ok(report.executableFiles.some(f => f.endsWith(".sh")), "at least one .sh launcher script must be marked executable (0755)");
-  assert.ok(report.executableFiles.every(f => f.endsWith(".sh") || f.endsWith(".bat") || f.endsWith(".ps1")), "only .sh/.bat/.ps1 launcher scripts should be marked executable");
+  assert.ok(report.executableFiles.every(f => f.endsWith(".sh") || f.endsWith(".bat") || f.endsWith(".ps1") || f.endsWith(".command")), "only .sh/.bat/.ps1/.command launcher scripts should be marked executable");
   assert.ok(report.entryCount > 100, "the release archive should contain the full project, not a truncated subset");
 
   console.log(`v7.3.14 ZIP permission normalization passed (${report.entryCount} entries, modes: ${modeKeys.join(", ")}).`);

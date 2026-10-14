@@ -216,7 +216,7 @@ export function planFromCapabilityAction(action, state = {}) {
     if (formatId === "freeform") {
       return {
         kind: "respond",
-        message: "Conversational Freeform/NLP conversion is reserved for a future integration. The existing manual Freeform route remains available.",
+        message: "Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use a visible structured format or the reviewed Custom Parser workflow.",
       };
     }
     if (formatId === "custom") {
@@ -254,7 +254,7 @@ export function planFromCapabilityAction(action, state = {}) {
     if (formatId === "freeform") {
       return {
         kind: "respond",
-        message: "Conversational Freeform/NLP conversion is reserved for a future integration. Use the manual Freeform route if you want the deterministic extractor.",
+        message: "Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use a visible structured format or the reviewed Custom Parser workflow.",
       };
     }
     if (state.agentFileCount) {
@@ -402,7 +402,7 @@ export function planFromCapabilityAction(action, state = {}) {
         action.placeholder === "batch"
           ? "Batch Updates conversational support is reserved for a future integration. The existing Batch Updates interface remains available for manual use."
           : action.placeholder === "freeform"
-            ? "Conversational Freeform/NLP conversion is reserved for a future integration. The existing manual Freeform route remains available."
+            ? "Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use a visible structured format or the reviewed Custom Parser workflow."
             : "That dashboard capability is not available through the conversational assistant yet. Use the matching manual dashboard control when available.",
       ),
     };

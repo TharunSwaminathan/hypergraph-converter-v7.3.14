@@ -31,6 +31,8 @@ export function deriveAuthorizedGraphOperations(clauses = []) {
 export function deriveClauseGraphOperations(text = "", sourceClauseId = null) {
   const active = stripDirectivePreamble(text);
   if (!active) return [];
+  // In an Undo command, "change" is the object, not a second action verb.
+  if (/^(?:undo|revert)\s+(?:the\s+)?(?:last|previous)?\s*(?:graph\s+)?(?:mutation|change|edit)?[.?!]*$/i.test(active)) return parseOperation(active, sourceClauseId);
   const parts = splitCompoundActions(active);
   return parts.flatMap(part => parseOperation(part, sourceClauseId));
 }
@@ -219,6 +221,7 @@ function parseOperation(text, sourceClauseId) {
   }
 
   const weight = value.match(/^(?:set|change)\s+(?:the\s+)?weight\s+(?:of|for|on)\s+(?:the\s+)?(?:hyperedge|edge)?\s*(.+?)\s+(?:to|=)\s*([-+]?\d+(?:\.\d+)?)\b/i)
+    ?? value.match(/^(?:set|change)\s+(?:the\s+)?(?:hyperedge|edge)\s+(.+?)\s+weight\s+(?:to|=)\s*([-+]?\d+(?:\.\d+)?)\b/i)
     ?? value.match(/^(?:set|change|make)\s+(?:the\s+)?(.+?)['’]s\s+weight\s+(?:to\s+)?([-+]?\d+(?:\.\d+)?)\b/i);
   if (weight) {
     const hyperedgeId = entity(weight[1], "hyperedge");

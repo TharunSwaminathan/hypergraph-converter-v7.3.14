@@ -1919,6 +1919,7 @@ Opens the Mappings section for the current graph, including H2V/V2H/H2H views an
 Patterns:
 - `view h2v mapping`
 - `show v2h mapping`
+- `use v2h mapping`
 - `show h2h mapping`
 - `show v2v mapping`
 - `view v2v mapping`
@@ -2718,27 +2719,6 @@ Format example:
 ```text
 1: 2 3
 2: 1 4
-```
-
-### Freeform / NLP
-
-Uses local deterministic extraction only; it does not call an online model. Route: Freeform / NLP.
-
-- ID: `format.freeform`
-- Availability: `format_reference`
-- Side effect: `read_only`
-- Confirmation: `none`
-- Required context: `none`
-- Works offline: yes
-- Model policy: `always_deterministic`
-
-Ambiguity/safety notes:
-- Auto Detect: not advertised as automatic for this format.
-
-Format example:
-
-```text
-Paper 1 has Alice, Bob, and Charlie as co-authors.
 ```
 
 ### Custom Parser

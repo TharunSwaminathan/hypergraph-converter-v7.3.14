@@ -75,9 +75,8 @@ export default function AdvancedOptionsPanel({
   }
 
   return (
-    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 14, padding: 28, boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 6, padding: 28, boxShadow: T.shadowSm }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-        <div style={{ width: 4, height: 22, background: T.amber, borderRadius: 2 }} />
         <span style={{ fontSize: 17, fontWeight: 700, color: T.text }}>Batch Updates</span>
       </div>
       <div style={{ fontSize: 13, color: T.textDim, marginBottom: 16, lineHeight: 1.6 }}>
@@ -127,7 +126,7 @@ export default function AdvancedOptionsPanel({
         )}
       </div>
 
-      <div style={{ fontSize: 13, color: T.textDim, marginBottom: 10, padding: "10px 14px", background: T.card, borderRadius: 8, border: "1px solid " + T.border, lineHeight: 1.8 }}>
+      <div style={{ fontSize: 13, color: T.textDim, marginBottom: 10, padding: "10px 14px", background: T.card, borderRadius: 4, border: "1px solid " + T.border, lineHeight: 1.8 }}>
         <strong>Supported commands</strong><br />
         <code>ADD_HYPEREDGE h5: A, B, C</code> · <code>REMOVE_HYPEREDGE h2</code><br />
         <code>ADD_VERTEX h1: D</code> · <code>REMOVE_VERTEX h3: A</code><br />
@@ -150,7 +149,7 @@ export default function AdvancedOptionsPanel({
           type="button"
           onClick={onPreviewBatch}
           disabled={disabled || batchPreviewActive}
-          style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.border, background: batchPreviewActive ? T.card : T.accent, color: batchPreviewActive ? T.textFaint : "#fff", fontWeight: 700, fontSize: 13, cursor: disabled || batchPreviewActive ? "not-allowed" : "pointer" }}
+          style={{ padding: "8px 16px", borderRadius: 4, border: "1px solid " + T.border, background: batchPreviewActive ? T.card : T.accent, color: batchPreviewActive ? T.textFaint : "#fff", fontWeight: 700, fontSize: 13, cursor: disabled || batchPreviewActive ? "not-allowed" : "pointer" }}
         >
           Preview Batch Changes
         </button>
@@ -158,7 +157,7 @@ export default function AdvancedOptionsPanel({
           type="button"
           onClick={onCommitBatch}
           disabled={disabled}
-          style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.amber + "55", background: T.amberLt, color: T.amber, fontWeight: 700, fontSize: 13, cursor: disabled ? "not-allowed" : "pointer" }}
+          style={{ padding: "8px 16px", borderRadius: 4, border: "1px solid " + T.amber + "55", background: T.amberLt, color: T.amber, fontWeight: 700, fontSize: 13, cursor: disabled ? "not-allowed" : "pointer" }}
         >
           Commit Batch Changes
         </button>
@@ -166,7 +165,7 @@ export default function AdvancedOptionsPanel({
           type="button"
           onClick={onDiscardBatch}
           disabled={!batchPreviewActive}
-          style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.border, background: "transparent", color: batchPreviewActive ? T.textDim : T.textFaint, fontWeight: 600, fontSize: 13, cursor: batchPreviewActive ? "pointer" : "not-allowed" }}
+          style={{ padding: "8px 16px", borderRadius: 4, border: "1px solid " + T.border, background: "transparent", color: batchPreviewActive ? T.textDim : T.textFaint, fontWeight: 600, fontSize: 13, cursor: batchPreviewActive ? "pointer" : "not-allowed" }}
         >
           Discard Preview
         </button>
@@ -183,7 +182,7 @@ export default function AdvancedOptionsPanel({
       {dynamicUpdateMode && <p style={{ color: T.textDim }}>Stage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing <code>UPDATE h2: A, B</code> command. Committed graph stays unchanged until separate Apply confirmation.</p>}
 
       {batchWarnings.length > 0 && batchPreviewActive && (
-        <div style={{ marginTop: 12, padding: "10px 14px", background: T.amberLt, border: "1px solid " + T.amber + "55", borderRadius: 8 }}>
+        <div style={{ marginTop: 12, padding: "10px 14px", background: T.amberLt, border: "1px solid " + T.amber + "55", borderRadius: 4 }}>
           <div style={{ fontSize: 12, color: T.amber, fontWeight: 600, marginBottom: 6 }}>Batch preview warnings</div>
           {batchWarnings.map((w, i) => <div key={i} style={{ fontSize: 12, color: T.amber, lineHeight: 1.6 }}>⚠ {w}</div>)}
         </div>

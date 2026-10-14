@@ -295,7 +295,7 @@ export function planAgentAction(classification, state) {
     case "freeform_placeholder":
       return {
         kind: "respond",
-        message: "Conversational Freeform/NLP conversion is reserved for a future integration. The existing manual Freeform route remains available.",
+        message: "Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use a visible structured format or the reviewed Custom Parser workflow.",
       };
 
     case "external_ai_prompt":
@@ -397,7 +397,7 @@ export function planAgentAction(classification, state) {
           return { kind: "respond", message: "Batch Updates conversational support is reserved for a future integration. The existing Batch Updates interface remains available for manual use." };
         }
         if (route.formatId === "freeform") {
-          return { kind: "respond", message: "Conversational Freeform/NLP conversion is reserved for a future integration. The existing manual Freeform route remains available." };
+          return { kind: "respond", message: "Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use a visible structured format or the reviewed Custom Parser workflow." };
         }
         if (state.agentFileCount && route.formatId === "custom" && needsBatchMode(state)) {
           return { kind: "respond", message: batchModeQuestion(state) };

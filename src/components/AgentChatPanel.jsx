@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { explainRoute } from "../agent/agentResponses.js";
 import { appendLiveMessage } from "../agent/liveMessageHistory.js";
 import {
   capabilityRequiresConfirmation,
@@ -64,6 +65,12 @@ import { usePersistentThread } from "../persistence/usePersistentThread.js";
 import { isExplicitParserRequest, specialistConfirmationRequest } from "../agent/customParserTriggerPolicy.js";
 import CustomParserSpecialistPanel from "./CustomParserSpecialistPanel.jsx";
 import { buildAuthoritativeOrchestratorObservation } from "../agent/orchestratorObservation.js";
+import { buildAssistantApplicationSnapshot } from "../agent/assistantContextSnapshot.js";
+import {
+  composeAuthoritativeAlgorithmAnswer,
+  composeHypotheticalHyperedgeDeletion,
+  composeReadOnlyWorkflowExplanation,
+} from "../agent/assistantReadOnlyGrounding.js";
 import { requestMustRemainReadOnly, runBoundedOrchestrator } from "../agent/orchestratorLoop.js";
 import { START_CUSTOM_PARSER_WORKFLOW } from "../agent/orchestratorCapabilities.js";
 import { reactOrchestratorEnabled } from "../agent/reactOrchestratorConfig.js";
@@ -256,6 +263,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   const [lastNluDiagnostic, setLastNluDiagnostic] = useState(null);
   const [streaming, setStreamingState] = useState(false);
   const [transientStatus, setTransientStatus] = useState("");
+  const [stoppingRequestId, setStoppingRequestId] = useState(null);
   const [workspaceUploadBusy, setWorkspaceUploadBusy] = useState(false);
   const [showJumpToLatest, setShowJumpToLatest] = useState(false);
   const historyRef = useRef(null);
@@ -1326,6 +1334,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
         current.customResultCount ? `validated preview: ${current.customResultCount} hyperedges` : "",
         current.customCodeExists ? `code source: ${current.customCodeSource}` : "no parser code",
       ].filter(Boolean).join("; "),
+      applicationSnapshot: buildAssistantApplicationSnapshot(current),
       modelStatus: {
         runtime: "ollama",
         transport: current.localModel?.config?.activeTransport ?? null,
@@ -1707,7 +1716,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     const delta = preview.delta ?? {};
     const signed = value => Number(value) >= 0 ? `+${value}` : String(value);
     const ops = result.plan?.operations?.length ?? preview.operationCount ?? 0;
-  const changed = preview.graphChanged;
+    const changed = preview.graphChanged;
     const leading = result.pendingPlanReplaced
       ? "Understood — I discarded the earlier plan and prepared the revised change instead."
       : (result.acknowledgement || result.summary || preview.summary || "Graph mutation preview");
@@ -1902,6 +1911,12 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       append("agent", "Cancel or complete the pending parser action before changing the mapping.", "warning");
       return { handled: true, outcome: "clarification" };
     }
+    if (prepared.compilation.domain === "dataset_grouping" && draft.operations?.length === 1 && draft.operations[0].type === "SET_PARSE_MODE") {
+      const result = agentActions.setAgentBatchParseMode(draft.operations[0].value, { contextBinding: prepared.contextBinding });
+      const verified = result.ok && await verify({ type: "batch_version", previous: state.batchVersion });
+      append("agent", verified ? `Files are now parsed ${draft.operations[0].value}. Grouping revision advanced; no graph was changed.` : result.error ?? "Grouping could not be verified.", verified ? "status" : "warning");
+      return { handled: true, outcome: verified ? "applied_reversible_edit" : "clarification", stateMutationCommitted: Boolean(verified), tracePatch: { modelCalls: [] } };
+    }
     if (!state.activeBatch || !mappingWorkflowIsAvailable(state)) {
       return { handled: false, outcome: "not_handled" };
     }
@@ -1946,7 +1961,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     return { handled: true, outcome: result.clarification ? "clarification" : "responded", tracePatch: { mappingRecompileCount: 0, modelCalls: [] } };
   }
 
-  async function handleCompiledGroundedQuestion(prepared) {
+  async function handleCompiledGroundedQuestion(prepared, query) {
     const compiled = prepared.compilation?.compiled ?? {};
     const typed = prepared.compilation?.typedValue ?? {};
     rememberNluDiagnostic(prepared.nlu, {
@@ -1959,9 +1974,32 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       append("agent", composeInterpretationTraceResponse(prepared.nlu, latestMappingDiagnostic ?? lastNluDiagnostic), "status");
       return { handled: true, outcome: "responded" };
     }
+    const current = latestStateRef.current;
     if (compiled.intent === "workflow_status" || typed.intent === "workflow_status") {
-      append("agent", composeParserWorkflowStatus(latestStateRef.current), "status");
+      if (current.activeBatch) {
+        append("agent", composeParserWorkflowStatus(current), "status");
+      } else {
+        const graphStatus = current.hasGraph
+          ? `Current graph: ${current.graphType ?? "Hypergraph"} version ${current.graphVersion ?? 0}, ${current.hyperedgeCount ?? 0} hyperedges, ${current.vertexCount ?? 0} vertices.`
+          : "No graph is currently loaded.";
+        append("agent", `${graphStatus} Active section: ${current.activeSection ?? "unknown"}. Input route: ${current.formatLabel ?? current.fmt ?? "unknown"}.`, "status");
+      }
       return { handled: true, outcome: "responded" };
+    }
+    const workflowExplanation = composeReadOnlyWorkflowExplanation(query ?? prepared.nlu?.rawText ?? "");
+    if (workflowExplanation) {
+      append("agent", workflowExplanation, "status");
+      return { handled: true, outcome: "responded", tracePatch: { modelCalls: [] } };
+    }
+    const algorithmAnswer = composeAuthoritativeAlgorithmAnswer(query ?? prepared.nlu?.rawText ?? "", current.algorithmSummary);
+    if (algorithmAnswer) {
+      append("agent", algorithmAnswer, "status");
+      return { handled: true, outcome: "responded", tracePatch: { modelCalls: [] } };
+    }
+    const hypotheticalDeletion = composeHypotheticalHyperedgeDeletion(query ?? prepared.nlu?.rawText ?? "", current.graphHyperedges);
+    if (hypotheticalDeletion) {
+      append("agent", hypotheticalDeletion, "status");
+      return { handled: true, outcome: "responded", tracePatch: { modelCalls: [] } };
     }
     if (compiled.blockedCompilation || typed.blockedSideEffect) {
       const topic = typed.topicDomain ?? compiled.diagnostics?.sourceDomain ?? prepared.compilation?.domain;
@@ -1971,11 +2009,15 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       return {
         handled: true,
         outcome: "responded",
-        tracePatch: { blockedSideEffect: typed.blockedSideEffect ?? compiled.blockedSideEffect ?? null },
+        tracePatch: { blockedSideEffect: typed.blockedSideEffect ?? compiled.blockedSideEffect ?? compiled.blockedCompilation ?? null },
       };
     }
-    append("agent", composeParserWorkflowStatus(latestStateRef.current), "status");
-    return { handled: true, outcome: "responded" };
+    // Read-only grounded questions should be answered from the bounded live
+    // application snapshot. They must not fall through to parser-workflow
+    // status merely because no upload batch is active. runConversationPath
+    // has no mutation authority; deterministic execution remains separate.
+    await runConversationPath(query ?? prepared.nlu?.rawText ?? "");
+    return { handled: true, outcome: "responded", tracePatch: { modelCalls: [{ task: "conversation", readOnly: true }] } };
   }
 
   async function handleCompiledHelpQuery(prepared, response) {
@@ -2464,6 +2506,15 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
     append("user", query);
     setInput("");
     const current = latestStateRef.current;
+    // A named format quick link is independent of uploaded-file interpretation.
+    if (/^\s*explain\s+h2v[.!?]?\s*$/i.test(query)) {
+      append("agent", explainRoute("h2v"), "status");
+      return;
+    }
+    if (!analyzeRequestSemantics(query).stateChangingActionAuthorized) {
+      const algorithmAnswer = composeAuthoritativeAlgorithmAnswer(query, current.algorithmSummary);
+      if (algorithmAnswer) { append("agent", algorithmAnswer, "status"); return; }
+    }
 
     if (!pendingAction) {
       const lifecycle = dynamicUpdateRequest(query);
@@ -2569,6 +2620,10 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       return;
     }
 
+    if (/^\s*parse\s+(?:(?:all|these|the)\s+files\s+)?(?:together(?:\s+as\s+(?:one|a single)\s+dataset)?|separately)[.!]?\s*$/i.test(query) && await maybeHandleDeterministicNlu(query)) {
+      await resumeReactContinuationIfReady();
+      return;
+    }
     if (shouldEnterReactBeforeBroadRouting(query, current)) {
       await runReactActionPath(query);
       return;
@@ -2910,9 +2965,11 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
   }
 
   function stopStreaming() {
+    const requestId = latestStateRef.current.localModel?.request?.active?.requestId;
+    if (!requestId || !latestStateRef.current.localModel?.request?.busy) return;
+    setStoppingRequestId(requestId);
     abortControllerRef.current?.abort();
     agentActions.stopLocalModelRequest?.();
-    setTransientStatus("Stopping…");
   }
 
   const displayedFiles = agentState.agentFiles.slice(0, 10);
@@ -2974,7 +3031,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
               </button>
             )}
             <div className="agent-status" role="status" aria-live="polite">
-              {transientStatus || (busy ? "Working…" : "")}
+              {localModelRequestActive && agentState.localModel.request.active?.requestId === stoppingRequestId ? "Stopping…" : transientStatus || (busy ? "Working…" : "")}
             </div>
             <div className="agent-context-bar" aria-label="Current assistant context">
               <span>Route <strong>{agentState.formatLabel}</strong></span>

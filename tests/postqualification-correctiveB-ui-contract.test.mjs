@@ -12,10 +12,8 @@ const appSource = readFileSync(new URL("../src/App.jsx", import.meta.url), "utf8
 const panelSource = readFileSync(new URL("../src/components/AgentChatPanel.jsx", import.meta.url), "utf8");
 const composerSource = readFileSync(new URL("../src/components/agent/AgentComposer.jsx", import.meta.url), "utf8");
 const batchPanelSource = readFileSync(new URL("../src/components/AdvancedOptionsPanel.jsx", import.meta.url), "utf8");
-const prechange = JSON.parse(readFileSync(new URL("../artifacts/v7.3.14-postqualification-correctiveB-prechange.json", import.meta.url), "utf8"));
-
-assert.equal(prechange.capturedAgainstCommit, "cfbe3e1da1b7050a2cc72cd00d08a49128a1562b");
-assert.equal(prechange.workingTreeAtCapture, "clean");
+// Qualify the current source and mounted controls below. Historical release
+// provenance belongs to repository evidence, which portable source excludes.
 
 // B01: internal compatibility routes remain, but the normal selector excludes
 // them from its authoritative visible projection.

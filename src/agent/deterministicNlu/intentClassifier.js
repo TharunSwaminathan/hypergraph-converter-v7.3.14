@@ -74,6 +74,10 @@ export function classifyDeterministicIntent({ text = "", entities = [], clauses 
   if (legacyAction) {
     candidates.push(candidate("legacy_action", exactLegacyAction ? 3.1 : 1.4, [`legacy action registry:${legacyAction.intent}`]));
   }
+  if (/^\s*(?:parse|treat|use)\s+(?:(?:all|these|the)\s+files\s+)?(?:together(?:\s+as\s+(?:one|a single)\s+dataset)?|separately)[.!]?\s*$/i.test(raw)) candidates.push(candidate("dataset_grouping", 3.3, ["explicit batch parse mode"]));
+  if (/^\s*(?:undo|revert)\s+(?:the\s+)?(?:(?:last|previous)\s+)?(?:graph\s+)?(?:change|edit|mutation)[.!]?\s*$/i.test(raw)) candidates.push(candidate("graph_mutation", 3.3, ["explicit undo alias"]));
+  if (/^\s*(?:run|execute|test)\s+(?:(?:the|my)\s+)?custom\s+parser[.!]?\s*$/i.test(raw)) candidates.push(candidate("parser_workflow", 3.3, ["explicit parser run"]));
+  if (/^\s*(?:set|change)\s+(?:the\s+)?(?:hyperedge|edge)\s+.+?\s+weight\s+(?:to|=)\s*[-+]?\d+(?:\.\d+)?[.!]?\s*$/i.test(raw)) candidates.push(candidate("graph_mutation", 3.3, ["explicit hyperedge weight alias"]));
 
   const mappingStructurePhrase = /\b(?:vertex|node|author|hyperedge|paper)\s+(?:key|id|identifier|table|file|column)|\b(?:key|identifier|id\s+column|join|relationship|membership|incidence|mapping|hyperedge\s+time|time\s+(?:column|field|metadata)|validation[- ]only|empty\s+hyperedges?)\b/i.test(raw);
   const mappingEditVerb = /\b(use|set|make|treat|mark|map|connect|join|link|keep|retain|preserve|ignore|skip|exclude|drop|deduplicate|fail|warn|separate|group)\b/i.test(raw);

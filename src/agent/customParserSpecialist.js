@@ -53,7 +53,7 @@ export async function generateSpecialistDraft({ files, batch, userIntent, previo
     onState({ status: code ? "repairing" : "generating", attempts });
     let raw;
     try { raw = await generate(request, signal); }
-    catch (error) { return { ok: false, status: "failed", attempts, error: error.message, trace }; }
+    catch (error) { return { ok: false, status: "failed", attempts, error: /timed out|timeout/i.test(error.message) ? `${error.message} Check Ollama is responsive and the selected model is loaded, narrow the dataset if needed, then explicitly generate a new draft. No parser was installed or run.` : error.message, trace }; }
     if (signal?.aborted || !isCurrent()) return { ok: false, status: "stale", attempts, error: "Stopped or dataset changed. Draft was not installed.", trace };
     onState({ status: "static_validation", attempts });
     const validation = validateSpecialistDraft(raw, request, files, batch.parseMode);

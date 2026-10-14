@@ -59,7 +59,7 @@ export const ROUTE_REGISTRY = {
     id: "freeform",
     label: "Freeform / NLP",
     formatId: "freeform",
-    guidance: "Freeform input uses the local deterministic sentence and proper-noun extractor; it does not call an online model.",
+    guidance: "Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use a supported structured input or the reviewed Custom Parser workflow.",
   },
   json: {
     id: "json",

@@ -1,4 +1,36 @@
-# Hypergraph Converter Studio v7.3.14
+# Hypergraph Converter Studio
+
+<!-- xplat-quickstart -->
+A browser-based workspace for parsing, validating, visualizing, mapping and exporting hypergraphs (H2V, V2H, H2H, V2V, CSR and more), with graph algorithms and an optional offline AI assistant. It runs entirely in the browser; the assistant talks only to a local Ollama runtime that you start yourself.
+
+Freeform / NLP is reserved for internal compatibility and is not a supported input route in this build. Use the visible structured formats or the reviewed Custom Parser workflow. See [`docs/V7_4_CORRECTIVE_NOTES.md`](docs/V7_4_CORRECTIVE_NOTES.md) for the product decision.
+
+**Live site:** `https://<owner>.github.io/<repo>/` (see *Hosting on GitHub Pages* below)
+
+## Run it locally (macOS, Linux, Windows)
+
+Requires Node.js 20.19+ or 22.12+.
+
+| | macOS / Linux | Windows |
+| --- | --- | --- |
+| Run the app | `./run-dev.sh` | `run-dev.bat` |
+| Run with the local Ollama assistant | `./run-with-ollama.sh` | `run-with-ollama.bat` |
+| macOS double-click | `run-dev.command`, `run-with-ollama.command` | – |
+| Any OS | `npm install && npm run dev` | same |
+
+Other helpers: `npm run build`, `npm run preview`, `npm test`, `npm run start:ollama`, `npm run setup:model`, `npm run check:runtime`. Full platform matrix, macOS notes (Gatekeeper, Ollama origins) and troubleshooting: [`docs/CROSS_PLATFORM.md`](docs/CROSS_PLATFORM.md). Local model setup: [`MODEL_SETUP.md`](MODEL_SETUP.md).
+
+## Hosting on GitHub Pages
+
+1. Push this project to a GitHub repository (default branch `main`).
+2. Settings → Pages → Source: **GitHub Actions**.
+3. Push to `main`; `.github/workflows/deploy-pages.yml` builds with the right base path and publishes the site.
+
+GitHub Pages is static hosting and cannot run Ollama or the bridge; the hosted page can only use a runtime you start locally.
+
+---
+
+Release: **v7.3.14** (cross-platform build)
 
 ## CANDY Scope 3 — CUDA candidate (not runtime-qualified)
 

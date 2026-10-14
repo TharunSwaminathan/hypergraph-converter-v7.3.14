@@ -40,7 +40,7 @@ export function badgeText(entry) {
   if ((entry.requiredContext ?? []).includes("parser_result_ready")) badges.push("Requires parser result");
   if ((entry.requiredContext ?? []).includes("existing_batch")) badges.push("Requires existing batch");
   if (entry.worksOffline) badges.push("Offline");
-  return badges;
+  return [...new Set(badges)];
 }
 
 export function catalogExampleActions(entries, limit = 4) {

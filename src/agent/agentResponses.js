@@ -52,7 +52,7 @@ export function diagnosticsResponse(state) {
   return parts.join(" ");
 }
 
-export const EXPORT_GUIDANCE = "Load and convert a graph first, then open Export to preview H2V, V2H, H2H, canonical JSON, incidence CSV, CSR JSON/CSV, and other generated formats. Selecting a preview is safe; starting a download remains a separate manual action.";
+export const EXPORT_GUIDANCE = "Open Export to preview H2V, V2H, H2H, canonical JSON, incidence CSV, CSR JSON/CSV, and other generated formats for the current graph. Selecting a preview is safe; starting a download remains a separate manual action.";
 
 export const VISUALIZATION_GUIDANCE = "The graph preview appears after a successful conversion. Use fixed or bounded custom limit controls to cap visible hyperedges, choose force/circular/grid layout, search vertices, filter hyperedges in Hypergraph view, scroll to zoom, and drag to pan.";
 

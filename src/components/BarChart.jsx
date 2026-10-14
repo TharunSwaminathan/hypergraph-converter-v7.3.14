@@ -11,8 +11,8 @@ export default function BarChart({ data, color, label }) {
   return (
     <div>
       <div style={{ fontSize: 11, color: T.textFaint, marginBottom: 6, textTransform: "uppercase", letterSpacing: .6, fontWeight: 600 }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "flex-end", gap: 2, height: 72 }}>
-        {buckets.map((v, i) => (<div key={i} title={(mn + i * bw) + (bw > 1 ? "–" + (mn + i * bw + bw - 1) : "") + " : " + v} style={{ flex: 1, background: color + "BB", borderRadius: "2px 2px 0 0", height: Math.max(2, (v / maxV) * 72) }} />))}
+      <div style={{ display: "flex", alignItems: "flex-end", gap: 5, height: 72, borderBottom: "1px solid " + T.borderStrong, padding: "0 2px" }}>
+        {buckets.map((v, i) => (<div key={i} title={(mn + i * bw) + (bw > 1 ? "–" + (mn + i * bw + bw - 1) : "") + " : " + v} style={{ flex: 1, background: color + "CC", borderRadius: "2px 2px 0 0", maxWidth: 44, margin: "0 auto", height: Math.max(2, (v / maxV) * 72) }} />))}
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: T.textFaint, marginTop: 2 }}><span>{mn}</span><span>{mx}</span></div>
     </div>

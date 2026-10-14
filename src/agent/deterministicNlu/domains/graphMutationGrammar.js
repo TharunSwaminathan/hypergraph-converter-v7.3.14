@@ -41,7 +41,7 @@ export function looksLikeGraphMutationRequest(text = "") {
   if (/\b(?:add|include|put|insert)\b[\s\S]{1,120}\b(?:to|in|into|inside|within)\b/.test(q)) return true;
   if (/\b(?:take|remove|delete|detach)\b[\s\S]{1,120}\b(?:from|out of)\b/.test(q)) return true;
   return /\b(add|create|remove|delete|replace|rename|undo|clear|set|change|include|put|insert|detach|connect|needs|belongs|belong|should|make|call|take)\b/.test(q)
-    && (/\b(graph|hyperedge|edge|group|vertex|incidence|weight|time|attribute|attr|everywhere|last mutation|previous mutation|mutation|that|selected)\b/.test(q)
+    && (/\b(graph|hyperedge|edge|group|vertex|incidence|weight|time|attribute|attr|everywhere|last mutation|previous mutation|mutation|change|edit|that|selected)\b/.test(q)
       || /\b(?:to|from|of|in|into|inside|within)\s+h[\w.-]*\b/.test(q)
       || /\b(?:to|from|of|in|into|inside|within)\s+["'`]/.test(q)
       || /\bh[\w.-]*\s+(?:to|as|needs|should|include|contain|have)\b/.test(q));
@@ -438,6 +438,7 @@ function compileRename(raw, common) {
 
 function compileWeight(raw, common) {
   const match = raw.match(/\b(?:set|change)\s+(?:the\s+)?weight\s+(?:of|for|on)\s+(?:the\s+)?(?:selected\s+)?(?:hyperedge|edge)?\s*(.+?)\s+(?:to|=)\s+([-+]?\d+(?:\.\d+)?)\b/i)
+    ?? raw.match(/\b(?:set|change)\s+(?:the\s+)?(?:hyperedge|edge)\s+(.+?)\s+weight\s+(?:to|=)\s*([-+]?\d+(?:\.\d+)?)\b/i)
     ?? raw.match(/\b(?:set|change|make)\s+(?:the\s+)?(?:weight\s+of\s+(.+?)|(.+?)['’]s\s+weight)\s+(?:to\s+)?([-+]?\d+(?:\.\d+)?)\b/i);
   if (!match) return null;
   const ref = match[1] ?? match[2];

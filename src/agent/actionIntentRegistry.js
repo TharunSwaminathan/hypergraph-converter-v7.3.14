@@ -761,7 +761,7 @@ export const ACTION_INTENT_REGISTRY = Object.freeze([
     confirmation: CONFIRMATION.NAVIGATION_ONLY,
     requiredContext: [REQUIRED_CONTEXT.LOADED_GRAPH],
     examples: ["Show mappings", "Open mappings", "Show V2V mapping"],
-    aliases: ["view h2v mapping", "show v2h mapping", "show h2h mapping", "show v2v mapping", "view v2v mapping", "open v2v", "display vertex-to-vertex mapping", "show projected graph mapping"],
+    aliases: ["view h2v mapping", "show v2h mapping", "use v2h mapping", "show h2h mapping", "show v2v mapping", "view v2v mapping", "open v2v", "display vertex-to-vertex mapping", "show projected graph mapping"],
     relatedCommandIds: ["navigation.show-exports"],
   }),
   publicAction({

@@ -3,16 +3,27 @@
   "private": true,
   "version": "7.3.14",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:github": "vite build --base=/hypergraph-converter/",
+    "build:relative": "vite build --base=./",
     "lint": "eslint .",
     "test": "node scripts/run-node-tests.mjs",
     "preview": "vite preview",
+    "start:ollama": "node scripts/launch.mjs ollama",
+    "setup:model": "node scripts/launch.mjs setup-model",
+    "check:runtime": "node scripts/launch.mjs check-runtime",
+    "bridge": "node scripts/launch.mjs bridge",
     "candy:runtime": "node candy-runtime/src/cli.js"
   },
   "dependencies": {
+    "@fontsource/source-code-pro": "^5.3.0",
+    "@fontsource/source-sans-3": "^5.3.0",
+    "@fontsource/source-serif-4": "^5.3.0",
     "acorn": "^8.18.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

@@ -397,6 +397,14 @@ sudo systemctl daemon-reload
 sudo systemctl restart ollama
 ```
 
+macOS flow (Ollama menu-bar app):
+
+```bash
+launchctl setenv OLLAMA_ORIGINS "https://hypergraphproject.github.io,http://127.0.0.1:<actual-vite-port>"
+```
+
+Then quit Ollama from its menu-bar icon and open it again. If you start Ollama yourself with `ollama serve`, set the variable inline instead: `OLLAMA_ORIGINS="..." ollama serve`. Install options: `brew install ollama` or the app from ollama.com. See `docs/CROSS_PLATFORM.md`.
+
 Windows flow:
 
 ```powershell

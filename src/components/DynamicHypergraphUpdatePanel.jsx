@@ -47,8 +47,8 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
     announce("No action has run. Review the separate confirmation below.");
   }
   const copy = getConfirmationCopy(approval?.kind === "apply" ? "apply_pending_hypergraph_update" : "run_candy_expensive_compute");
-  return <section aria-label="Dynamic Hypergraph pending update" style={{ marginTop: 18, padding: 20, border: `1px solid ${T.border}`, borderRadius: 12, background: T.card }}>
-    <h3 style={{ marginTop: 0 }}>Dynamic Hypergraph Update</h3>
+  return <section aria-label="Dynamic Hypergraph pending update" className="hg-card hg-update-panel">
+    <h3>Dynamic Hypergraph Update</h3>
     <p>Author Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.</p>
     <p>Workspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.</p>
     <dl className="agent-model__details">
@@ -76,7 +76,7 @@ export default function DynamicHypergraphUpdatePanel({ graphType, graphVersion, 
       <button type="button" disabled={busy || !validated || !available?.ready || analysisBusy} onClick={() => run(() => request("analysis"))}>Analyze motif delta</button>
       <button type="button" disabled={busy || !validated} onClick={() => run(() => request("apply"))}>Apply pending update</button>
     </div>
-    <p style={{ fontSize: 12 }}>Preview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.</p>
+    <p style={{ fontSize: 12, color: T.textFaint }}>Preview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.</p>
     {approval && <div role="group" aria-label="Pending update confirmation" style={{ padding: 14, border: `1px solid ${T.amber}` }}>
       <strong>{approval.kind === "analysis" ? "Analyze motif delta?" : copy.title}</strong>
       <p>{approval.kind === "analysis" ? "Run the exact CUDA_INCREMENTAL computational action for this pending revision. The graph will not be changed or applied." : copy.message}</p>

@@ -31,6 +31,13 @@ Then run:
   sudo systemctl daemon-reload
   sudo systemctl restart ollama
 
+macOS (Ollama menu-bar app):
+  launchctl setenv OLLAMA_ORIGINS "${ORIGINS}"
+
+Then quit Ollama from its menu-bar icon and open it again.
+(If you run "ollama serve" yourself in a terminal instead of the app:
+  OLLAMA_ORIGINS="${ORIGINS}" ollama serve )
+
 Windows Ollama:
   Set the OLLAMA_ORIGINS user environment variable to:
   ${ORIGINS}

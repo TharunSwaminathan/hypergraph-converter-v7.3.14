@@ -35,6 +35,7 @@ import TriadStatistic from "./components/TriadStatistic.jsx";
 import AdvancedOptionsPanel from "./components/AdvancedOptionsPanel.jsx";
 import { useAlgorithms } from "./hooks/useAlgorithms.js";
 import AgentChatPanel from "./components/AgentChatPanel.jsx";
+import { summarizeAlgorithmState } from "./agent/assistantContextSnapshot.js";
 import CandyMotifStatistics from "./components/CandyMotifStatistics.jsx";
 import { useCandyRuntime } from "./candy/useCandyRuntime.js";
 import { useSyncExternalStore } from "react";
@@ -1840,7 +1841,9 @@ function AppCore() {
     return { ok: true, batch: merged };
   }
 
-  function setAgentBatchParseMode(mode) {
+  function setAgentBatchParseMode(mode, { contextBinding = null } = {}) {
+    const binding = bindingIsStaleForScope(contextBinding, "mapping");
+    if (binding.stale) return { ok: false, stale: true, error: "Grouping request is stale for the current batch. Choose the grouping again." };
     if (!activeAgentBatch) return { ok: false, error: "There is no active upload batch." };
     if (!["unknown", "together", "separate", "grouped"].includes(mode)) return { ok: false, error: "Unsupported parse mode." };
     const updated = {
@@ -4185,6 +4188,17 @@ function AppCore() {
     graphSearch,
     stats: st,
     resultSummary: graphResultSummary,
+    selectedMappingId,
+    selectedMappingSummary: {
+      id: selectedMappingId,
+      title: selectedMappingConfig?.title ?? selectedMappingId,
+      status: ({ h2v: h2vRequested ? DERIVED_STATUS.COMPUTED : DERIVED_STATUS.NOT_REQUESTED, v2h: v2hRequested ? DERIVED_STATUS.COMPUTED : DERIVED_STATUS.NOT_REQUESTED, h2h: h2hResult.status, v2v: v2vResult.status })[selectedMappingId] ?? DERIVED_STATUS.NOT_REQUESTED,
+      reason: ({ h2v: h2vRequested ? null : "not requested", v2h: v2hRequested ? null : "not requested", h2h: h2hResult.reason, v2v: v2vResult.reason })[selectedMappingId] ?? null,
+      totalRows: selectedMappingPresentation?.totalRows ?? 0,
+      visibleRows: selectedMappingPresentation?.rows?.length ?? 0,
+      complete: Boolean(selectedMappingPresentation?.complete),
+    },
+    algorithmSummary: summarizeAlgorithmState(algo),
     hasGraph: Boolean(finalHes?.length),
     hyperedgeCount: finalHes?.length ?? 0,
     vertexCount: st?.V ?? 0,
@@ -4202,6 +4216,16 @@ function AppCore() {
     batchUnknownCount,
     graphHistoryCount: graphHistory.length,
     lastGraphMutation: graphHistory.at(-1) ?? null,
+    recentGraphHistory: graphHistory.slice(-5).map(event => ({
+      id: event.id ?? null,
+      graphId: event.graphId ?? null,
+      graphVersion: event.graphVersion ?? 0,
+      timestamp: event.timestamp ?? null,
+      source: event.source ?? null,
+      summary: event.summary ?? "Graph mutation",
+      beforeGraphType: event.beforeGraphType ?? null,
+      afterGraphType: event.afterGraphType ?? null,
+    })),
     selectedGraphEntity,
     selectionLabel: selectedGraphEntity ? `${selectedGraphEntity.type} ${selectedGraphEntity.id}` : "none",
     selectionNotice,
@@ -4545,8 +4569,10 @@ function AppCore() {
             : result?.ok === false
               ? "error"
               : "success";
-      localModelCoordinatorRef.current.finish(requestId, outcome);
+      const finished = localModelCoordinatorRef.current.finish(requestId, outcome);
+      if (!finished.ok) return { ok: false, aborted: true, classification: "request_aborted", requestId, error: "This local model request is no longer current." };
       refreshLocalModelCoordinatorSnapshot();
+      setLocalModelMessage(outcome === "aborted" ? "Stopped. Deterministic controls are ready; the graph was unchanged by this request." : outcome === "success" ? "Local model request completed." : result?.error || "Local model request finished. Review its diagnostics before retrying.");
       pushLocalModelDiagnostic(createLocalModelRequestDiagnostic({
         requestId,
         task,
@@ -4592,8 +4618,10 @@ function AppCore() {
     } catch (error) {
       const classification = error?.classification || formatActionableRuntimeError(error, effectiveLocalModelConfig()).classification;
       const outcome = classification === "request_aborted" ? "aborted" : classification === "model_generation_timeout" ? "timeout" : "error";
-      localModelCoordinatorRef.current.finish(requestId, outcome);
+      const finished = localModelCoordinatorRef.current.finish(requestId, outcome);
+      if (!finished.ok) throw error;
       refreshLocalModelCoordinatorSnapshot();
+      setLocalModelMessage(outcome === "aborted" ? "Stopped. Deterministic controls are ready; the graph was unchanged by this request." : error instanceof Error ? error.message : String(error));
       pushLocalModelDiagnostic(createLocalModelRequestDiagnostic({
         requestId,
         task,
@@ -5049,29 +5077,33 @@ function AppCore() {
 
   return (
     <div style={{ background: T.bg, minHeight: "100vh", width: "100%", color: T.text, fontFamily: T.fontSans }}>
-      <a href="#main-content" style={{ position: "absolute", left: -9999, top: "auto", zIndex: 999, padding: "10px 16px", background: T.accent, color: "#fff", borderRadius: 8, fontWeight: 700, fontSize: 13 }} onFocus={e => { e.currentTarget.style.left = "16px"; e.currentTarget.style.top = "10px"; }} onBlur={e => { e.currentTarget.style.left = "-9999px"; }}>Skip to content</a>
+      <a href="#main-content" style={{ position: "absolute", left: -9999, top: "auto", zIndex: 999, padding: "10px 16px", background: T.accent, color: "#fff", borderRadius: 4, fontWeight: 700, fontSize: 13 }} onFocus={e => { e.currentTarget.style.left = "16px"; e.currentTarget.style.top = "10px"; }} onBlur={e => { e.currentTarget.style.left = "-9999px"; }}>Skip to content</a>
       {fEl}{nvEl}{svEl}{tvEl}{cfEl}
 
       {/* Nav */}
-      <div style={{ background: T.surface, borderBottom: "1px solid " + T.border, display: "flex", alignItems: "center", gap: 16, height: 64, padding: "0 40px", boxSizing: "border-box", boxShadow: T.shadowSm, position: "sticky", top: 0, zIndex: 20 }}>
-        <div style={{ width: 36, height: 36, background: "linear-gradient(135deg, " + T.accent + ", " + T.purple + ")", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 19, flexShrink: 0, boxShadow: "0 2px 8px " + T.accent + "55" }}>⬡</div>
-        <span style={{ fontWeight: 800, fontSize: 20, letterSpacing: -.5, color: T.text }}>Hypergraph Converter Studio</span>
-        <div style={{ flex: 1 }} />
-        {notice && <span style={{ fontSize: 13, color: T.green, fontWeight: 500, padding: "4px 12px", background: T.greenLt, borderRadius: 6, border: "1px solid " + T.green + "44" }}>{notice}</span>}
-        <span style={{ fontSize: 13, color: T.textFaint, fontFamily: T.fontMono }}>h2v · v2h · h2h</span>
-      </div>
+      <header className="hg-topbar">
+        <div className="hg-topbar__inner">
+          <div className="hg-brand" aria-hidden="true">⬡</div>
+          <div className="hg-title">
+            <span className="hg-title__name">Hypergraph Converter Studio</span>
+            <span className="hg-title__sub">Parse, validate, map and visualize hypergraphs</span>
+          </div>
+          <div style={{ flex: 1 }} />
+          {notice && <span className="hg-notice">{notice}</span>}
+          <span className="hg-topbar__tag">h2v · v2h · h2h · v2v</span>
+        </div>
+      </header>
 
-      <div id="main-content" style={{ padding: "24px 40px 80px", width: "100%", boxSizing: "border-box" }}>
+      <div id="main-content" className="hg-shell">
 
         {/* Format pills — grouped */}
-        <div style={{ marginBottom: 14, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 18 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: 1.2, fontWeight: 700 }}>Input Format</span>
+        <div className="hg-formats">
+          <div className="hg-formats__group">
+            <span className="hg-label hg-formats__label">Input format</span>
             {FMTS.filter(f => f.group === "core").map(f => <Pill key={f.id} label={f.label} sub={f.sub} active={fmt === f.id} onClick={() => sw(f.id)} />)}
           </div>
-          <div style={{ width: 1, height: 20, background: T.border }} />
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>Advanced</span>
+          <div className="hg-formats__group">
+            <span className="hg-label hg-formats__label">Advanced</span>
             {FMTS.filter(f => f.group === "advanced" && !["freeform", "ai_prompt"].includes(f.id)).map(f => {
               const colorMap = { custom: T.teal, batch: T.amber };
               return <Pill key={f.id} label={f.label} sub={f.sub} active={fmt === f.id} onClick={() => sw(f.id)} color={colorMap[f.id]} />;
@@ -5080,12 +5112,12 @@ function AppCore() {
         </div>
 
         {/* Input card */}
-        <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 14, padding: 20, marginBottom: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
-            <span style={{ fontSize: 16, fontWeight: 700, color: T.text }}>{FMTS.find(f => f.id === fmt)?.label}</span>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {!isCustom && !isAiPrompt && <button onClick={loadEx} style={{ padding: "6px 14px", borderRadius: 8, border: "1px solid " + T.border, background: T.card, color: T.textDim, fontSize: 13, cursor: "pointer", fontWeight: 500 }}>Load Example</button>}
-              {!isCustom && !isCornell && !isAiPrompt && <button onClick={autoDetectFmt} style={{ padding: "6px 14px", borderRadius: 8, border: "1px solid " + T.teal, background: T.tealLt, color: T.teal, fontSize: 13, cursor: "pointer", fontWeight: 600 }}>Auto-detect</button>}
+        <div className="hg-card hg-input-card">
+          <div className="hg-card__head">
+            <span className="hg-card__title">{FMTS.find(f => f.id === fmt)?.label}</span>
+            <div className="hg-card__actions">
+              {!isCustom && !isAiPrompt && <button onClick={loadEx} className="hg-btn">Load Example</button>}
+              {!isCustom && !isCornell && !isAiPrompt && <button onClick={autoDetectFmt} className="hg-btn hg-btn--info">Auto-detect</button>}
             </div>
           </div>
 
@@ -5104,7 +5136,7 @@ function AppCore() {
           {/* AI Prompt panel */}
           {isAiPrompt && (
             <div>
-              <div style={{ fontSize: 13, color: T.purple, marginBottom: 12, padding: "10px 14px", background: T.purpleLt, borderRadius: 8, border: "1px solid " + T.purple + "33", lineHeight: 1.7 }}>
+              <div style={{ fontSize: 13, color: T.purple, marginBottom: 12, padding: "10px 14px", background: T.purpleLt, borderRadius: 4, border: "1px solid " + T.purple + "33", lineHeight: 1.7 }}>
                 <strong>How it works:</strong> Paste messy or natural-language graph data below, choose a target output, then click <strong>Copy AI Prompt</strong>. Paste the prompt into an external AI tool yourself. The dashboard does not call cloud APIs, and the target may be canonical JSON, CSR JSON, V2H text, H2V text, or another export-oriented format.
               </div>
               <textarea
@@ -5117,7 +5149,7 @@ function AppCore() {
               <div style={{ display: "flex", gap: 10, marginTop: 14, alignItems: "center", flexWrap: "wrap" }}>
                 <button
                   onClick={copyAiPrompt}
-                  style={{ padding: "10px 24px", borderRadius: 9, background: T.purple, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: "0 3px 10px rgba(109,40,217,0.3)" }}
+                  style={{ padding: "10px 24px", borderRadius: 4, background: T.purple, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: T.shadowSm }}
                 >
                   ⬡ Copy AI Prompt
                 </button>
@@ -5126,7 +5158,7 @@ function AppCore() {
               {txt.trim() && (
                 <div style={{ marginTop: 16 }}>
                   <div style={{ fontSize: 12, color: T.textFaint, textTransform: "uppercase", letterSpacing: .7, fontWeight: 600, marginBottom: 8 }}>Generated prompt preview</div>
-                  <div style={{ background: "#1E1E2E", borderRadius: 10, padding: 14, maxHeight: 200, overflowY: "auto", border: "1px solid " + T.border }}>
+                  <div style={{ background: "#24282E", borderRadius: 6, padding: 14, maxHeight: 200, overflowY: "auto", border: "1px solid " + T.border }}>
                     <pre style={{ margin: 0, fontSize: 11, fontFamily: "monospace", color: "#A0C0FF", whiteSpace: "pre-wrap", lineHeight: 1.7 }}>{aiPromptText}</pre>
                   </div>
                 </div>
@@ -5137,31 +5169,31 @@ function AppCore() {
           {/* Custom Parser panel */}
           {isCustom && (
             <div>
-              <div style={{ fontSize: 13, color: T.textDim, marginBottom: 10, padding: "8px 12px", background: T.card, borderRadius: 8, border: "1px solid " + T.border, lineHeight: 1.7 }}>
+              <div style={{ fontSize: 13, color: T.textDim, marginBottom: 10, padding: "8px 12px", background: T.card, borderRadius: 4, border: "1px solid " + T.border, lineHeight: 1.7 }}>
                 Define <code>async function parseHypergraph(files, helpers)</code>. Return an array, <code>{"{ canonicalHyperedges }"}</code>, <code>{"{ h2v }"}</code>, or <code>{"{ incidences }"}</code>.
                 <br />Helpers available: <code>splitLines</code> · <code>parseCSV</code> · <code>unique</code> · <code>groupBy</code> · <code>toCanonical</code> · <code>buildFromIncidence</code>
               </div>
               <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
-                <button onClick={cfGo} style={{ padding: "6px 14px", borderRadius: 8, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 13, cursor: "pointer", fontWeight: 600 }}>↑ Upload files</button>
+                <button onClick={cfGo} style={{ padding: "6px 14px", borderRadius: 4, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 13, cursor: "pointer", fontWeight: 600 }}>↑ Upload files</button>
                 {customFiles.length > 0 && <span style={{ fontSize: 13, color: T.textDim }}>{customFiles.length} file(s): {customFiles.map(f => f.name).join(", ")}</span>}
                 {customFiles.length > 0 && <button onClick={() => { setCustomFiles([]); setCustomResult(null); setCustomResultId(null); }} style={{ fontSize: 12, color: T.textDim, background: "none", border: "none", cursor: "pointer" }}>clear</button>}
               </div>
-              <div style={{ marginBottom: 12, padding: 12, background: T.surface, border: "1px solid " + T.border, borderRadius: 10 }}>
+              <div style={{ marginBottom: 12, padding: 12, background: T.surface, border: "1px solid " + T.border, borderRadius: 6 }}>
                 <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", marginBottom: parserProfiles.length ? 8 : 0 }}>
                   <strong style={{ fontSize: 13, color: T.text }}>Parser profiles</strong>
                   <span style={{ fontSize: 12, color: T.textFaint }}>Save deterministic mapping/parser choices for reuse.</span>
-                  <button onClick={saveCurrentParserProfile} style={{ marginLeft: "auto", padding: "5px 10px", borderRadius: 7, border: "1px solid " + T.teal, background: T.tealLt, color: T.teal, fontSize: 12, cursor: "pointer", fontWeight: 700 }}>Save current</button>
-                  <button onClick={downloadParserProfiles} disabled={!parserProfiles.length} style={{ padding: "5px 10px", borderRadius: 7, border: "1px solid " + T.border, background: "transparent", color: parserProfiles.length ? T.textDim : T.textFaint, fontSize: 12, cursor: parserProfiles.length ? "pointer" : "not-allowed" }}>Export profiles</button>
+                  <button onClick={saveCurrentParserProfile} style={{ marginLeft: "auto", padding: "5px 10px", borderRadius: 4, border: "1px solid " + T.teal, background: T.tealLt, color: T.teal, fontSize: 12, cursor: "pointer", fontWeight: 700 }}>Save current</button>
+                  <button onClick={downloadParserProfiles} disabled={!parserProfiles.length} style={{ padding: "5px 10px", borderRadius: 4, border: "1px solid " + T.border, background: "transparent", color: parserProfiles.length ? T.textDim : T.textFaint, fontSize: 12, cursor: parserProfiles.length ? "pointer" : "not-allowed" }}>Export profiles</button>
                 </div>
                 {parserProfileNotice && <div style={{ fontSize: 12, color: T.teal, marginBottom: 8 }}>{parserProfileNotice}</div>}
                 {parserProfileMatches.length > 0 && (
                   <div style={{ display: "grid", gap: 6 }}>
                     {parserProfileMatches.map(({ profile, reason }) => (
-                      <div key={profile.id} style={{ display: "flex", gap: 8, alignItems: "center", padding: "7px 8px", background: T.card, border: "1px solid " + T.border, borderRadius: 8 }}>
+                      <div key={profile.id} style={{ display: "flex", gap: 8, alignItems: "center", padding: "7px 8px", background: T.card, border: "1px solid " + T.border, borderRadius: 4 }}>
                         <span style={{ fontSize: 12, color: T.text, fontWeight: 700 }}>{profile.name}</span>
                         <span style={{ fontSize: 11, color: T.textFaint }}>{reason}</span>
-                        <button onClick={() => loadParserProfileIntoEditor(profile.id)} style={{ marginLeft: "auto", padding: "4px 8px", borderRadius: 6, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 11, cursor: "pointer", fontWeight: 700 }}>Use</button>
-                        <button onClick={() => removeParserProfile(profile.id)} style={{ padding: "4px 8px", borderRadius: 6, border: "1px solid " + T.border, background: "transparent", color: T.textDim, fontSize: 11, cursor: "pointer" }}>Delete</button>
+                        <button onClick={() => loadParserProfileIntoEditor(profile.id)} style={{ marginLeft: "auto", padding: "4px 8px", borderRadius: 4, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 11, cursor: "pointer", fontWeight: 700 }}>Use</button>
+                        <button onClick={() => removeParserProfile(profile.id)} style={{ padding: "4px 8px", borderRadius: 4, border: "1px solid " + T.border, background: "transparent", color: T.textDim, fontSize: 11, cursor: "pointer" }}>Delete</button>
                       </div>
                     ))}
                   </div>
@@ -5169,26 +5201,26 @@ function AppCore() {
               </div>
               <textarea rows={14} value={customCode} onChange={e => updateCustomCode(e.target.value, "user")} style={{ ...inputSt, fontFamily: "monospace", fontSize: 12 }} />
               <div style={{ display: "flex", gap: 10, marginTop: 12, alignItems: "center", flexWrap: "wrap" }}>
-                <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Run custom parser in Assistant to review its confirmation.")) : runCustom()} disabled={customRunning} style={{ padding: "9px 24px", borderRadius: 8, background: customRunning ? T.textFaint : T.teal, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: customRunning ? "not-allowed" : "pointer" }}>
+                <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Run custom parser in Assistant to review its confirmation.")) : runCustom()} disabled={customRunning} style={{ padding: "9px 24px", borderRadius: 4, background: customRunning ? T.textFaint : T.teal, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: customRunning ? "not-allowed" : "pointer" }}>
                   {customRunning ? "Running…" : "▶ Run Parser"}
                 </button>
                 <button
                   onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Apply parser result in Assistant to review its confirmation.")) : applyCustomResult()}
                   disabled={!hasNonEmptyCustomParserResult(customResult)}
-                  style={{ padding: "9px 20px", borderRadius: 8, background: hasNonEmptyCustomParserResult(customResult) ? T.green : T.textFaint, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: hasNonEmptyCustomParserResult(customResult) ? "pointer" : "not-allowed" }}
+                  style={{ padding: "9px 20px", borderRadius: 4, background: hasNonEmptyCustomParserResult(customResult) ? T.green : T.textFaint, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: hasNonEmptyCustomParserResult(customResult) ? "pointer" : "not-allowed" }}
                 >
                   Apply to graph →
                 </button>
                 {customErr && <span style={{ fontSize: 13, color: T.rose }}>⚠ {customErr}</span>}
               </div>
               {customLogs.length > 0 && (
-                <div style={{ marginTop: 12, background: "#1E1E2E", borderRadius: 8, padding: 12, maxHeight: 140, overflowY: "auto" }}>
+                <div style={{ marginTop: 12, background: "#24282E", borderRadius: 4, padding: 12, maxHeight: 140, overflowY: "auto" }}>
                   <div style={{ fontSize: 10, color: "#888", textTransform: "uppercase", letterSpacing: .6, marginBottom: 6 }}>Console output</div>
                   {customLogs.map((l, i) => <div key={i} style={{ fontSize: 12, fontFamily: "monospace", color: l.startsWith("⚠") ? "#FFB347" : l.startsWith("✓") ? "#7CFC00" : "#A0C0FF", lineHeight: 1.6 }}>{l}</div>)}
                 </div>
               )}
               {customResult && (
-                <div style={{ marginTop: 12, background: T.greenLt, border: "1px solid " + T.green + "44", borderRadius: 8, padding: 12 }}>
+                <div style={{ marginTop: 12, background: T.greenLt, border: "1px solid " + T.green + "44", borderRadius: 4, padding: 12 }}>
                   <div style={{ fontSize: 12, color: T.green, fontWeight: 600, marginBottom: 4 }}>
                     Preview — {customResult.hyperedges.length} hyperedges · source: {customResult.source}
                   </div>
@@ -5204,7 +5236,7 @@ function AppCore() {
           {/* Freeform panel */}
           {isFreeform && (
             <div>
-              <div style={{ fontSize: 13, color: T.purple, marginBottom: 10, padding: "10px 14px", background: T.purpleLt, borderRadius: 8, border: "1px solid " + T.purple + "33", lineHeight: 1.7 }}>
+              <div style={{ fontSize: 13, color: T.purple, marginBottom: 10, padding: "10px 14px", background: T.purpleLt, borderRadius: 4, border: "1px solid " + T.purple + "33", lineHeight: 1.7 }}>
                 <strong>How it works:</strong> Paste natural language text. Each sentence becomes a hyperedge; capitalized proper nouns become vertices.
                 <br />For better accuracy, use the <strong>AI Prompt</strong> tab instead — it prepares a copyable prompt for an external AI tool, but this dashboard does not send your text to any cloud API.
               </div>
@@ -5216,7 +5248,7 @@ function AppCore() {
           {isNormalInput && (
             <div>
               <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
-                <button onClick={fGo} style={{ fontSize: 13, color: T.accent, background: "none", border: "none", cursor: "pointer", padding: 0, fontWeight: 600 }}>↑ upload file</button>
+                <button onClick={fGo} className="hg-btn hg-btn--link">↑ upload file</button>
               </div>
               <textarea rows={fmt === "json" || fmt === "csr_json" ? 9 : 6} value={txt} onChange={e => setTxt(e.target.value)} placeholder={typeof EX[fmt] === "string" ? EX[fmt] : ""} style={inputSt} />
             </div>
@@ -5224,19 +5256,19 @@ function AppCore() {
 
           {/* Convert button — not shown for custom/ai_prompt */}
           {!isCustom && !isAiPrompt && (
-            <div style={{ marginTop: 14, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-              <button onClick={parse} disabled={loading} style={{ padding: "12px 36px", borderRadius: 10, background: loading ? T.textFaint : T.accent, border: "none", color: "#fff", fontWeight: 700, fontSize: 16, cursor: loading ? "not-allowed" : "pointer", boxShadow: loading ? "none" : "0 3px 12px rgba(79,62,232,0.4)", transition: "all .2s" }}>
+            <div className="hg-convert-row">
+              <button onClick={parse} disabled={loading} className="hg-btn hg-btn--primary hg-btn--lg">
                 {loading ? "Converting…" : "Convert →"}
               </button>
-              {err && <span style={{ fontSize: 14, color: T.rose, fontWeight: 500 }}>⚠ {err}</span>}
-              {warnings.length > 0 && <span style={{ fontSize: 13, color: T.amber }}>⚠ {warnings.length} warning{warnings.length !== 1 ? "s" : ""}: {warnings[0]}{warnings.length > 1 ? " …" : ""}</span>}
+              {err && <span className="hg-msg hg-msg--error">⚠ {err}</span>}
+              {warnings.length > 0 && <span className="hg-msg hg-msg--warn">⚠ {warnings.length} warning{warnings.length !== 1 ? "s" : ""}: {warnings[0]}{warnings.length > 1 ? " …" : ""}</span>}
             </div>
           )}
         </div>
 
         {/* Stats bar */}
         {st && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 10, marginBottom: 16 }}>
+          <div className="hg-stats">
             <StatCard label="Hyperedges" value={st.E} color={T.accent} />
             <StatCard label="Vertices" value={st.V} color={T.teal} />
             <StatCard label="Min card" value={st.min} color={T.textDim} />
@@ -5248,40 +5280,40 @@ function AppCore() {
         )}
 
         {finalHes && (
-          <div style={{ marginBottom: 20, background: T.surface, border: "1px solid " + T.border, borderRadius: 12, padding: 14, display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
+          <div className="hg-card hg-meta">
             <div>
-              <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Committed graph</div>
-              <div style={{ fontFamily: "monospace", color: T.textDim, fontSize: 12 }}>version {graphIdentity.graphVersion} · {graphIdentity.graphFingerprint}</div>
+              <div className="hg-label">Committed graph</div>
+              <div className="hg-meta__value">version {graphIdentity.graphVersion} · {graphIdentity.graphFingerprint}</div>
             </div>
-            <label style={{ display: "grid", gap: 4, fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>
+            <label className="hg-label hg-label--field">
               Graph type
               <select
                 aria-label="Committed graph type"
                 value={graphState.graphType}
                 onChange={event => changeCommittedGraphType(event.target.value)}
-                style={{ border: "1px solid " + T.border, borderRadius: 7, background: T.bg, color: T.text, padding: "5px 8px", fontSize: 12, fontWeight: 600, textTransform: "none", letterSpacing: 0 }}
+                className="hg-select"
               >
                 {APPLICATION_GRAPH_TYPES.map(graphType => <option key={graphType} value={graphType}>{graphType}</option>)}
               </select>
             </label>
             <div>
-              <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Selection</div>
-              <div style={{ fontFamily: "monospace", color: selectedGraphEntity ? T.accent : T.textFaint, fontSize: 12 }}>{selectedGraphEntity ? `${selectedGraphEntity.type}:${selectedGraphEntity.id}` : "none"}</div>
+              <div className="hg-label">Selection</div>
+              <div className={"hg-meta__value" + (selectedGraphEntity ? " hg-meta__value--active" : " hg-meta__value--muted")}>{selectedGraphEntity ? `${selectedGraphEntity.type}:${selectedGraphEntity.id}` : "none"}</div>
             </div>
             <div>
-              <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, fontWeight: 700 }}>Mutation history</div>
-              <div style={{ fontFamily: "monospace", color: T.textDim, fontSize: 12 }}>{graphHistory.length} committed change{graphHistory.length === 1 ? "" : "s"}</div>
+              <div className="hg-label">Mutation history</div>
+              <div className="hg-meta__value">{graphHistory.length} committed change{graphHistory.length === 1 ? "" : "s"}</div>
             </div>
-            <div style={{ marginLeft: "auto", color: T.textFaint, fontSize: 12 }}>Type changes are versioned authority transitions. They do not run analysis or apply graph edits.</div>
+            <div className="hg-meta__note">Type changes are versioned authority transitions. They do not run analysis or apply graph edits.</div>
           </div>
         )}
 
         {/* Section tabs */}
         {finalHes && (
           <>
-            <div ref={dashboardSectionRef} style={{ display: "flex", gap: 4, marginBottom: 20, borderBottom: "1px solid " + T.border, scrollMarginTop: 16 }}>
+            <div ref={dashboardSectionRef} className="hg-tabs" style={{ scrollMarginTop: 16 }}>
               {SECTIONS.map(sec => (
-                <button key={sec.id} onClick={() => navigateToDashboardSection(sec.id)} style={{ padding: "10px 24px", border: "none", cursor: "pointer", background: "transparent", borderBottom: "3px solid " + (activeSection === sec.id ? sec.color : "transparent"), color: activeSection === sec.id ? sec.color : T.textDim, fontSize: 15, fontWeight: activeSection === sec.id ? 700 : 500, transition: "all .15s", marginBottom: -1 }}>
+                <button key={sec.id} onClick={() => navigateToDashboardSection(sec.id)} className={"hg-tab" + (activeSection === sec.id ? " is-active" : "")}>
                   {sec.label}
                 </button>
               ))}
@@ -5290,8 +5322,8 @@ function AppCore() {
             {/* Mappings tab — 2x2 grid: h2v/v2h on top, h2h/v2v on bottom */}
             {activeSection === "mappings" && (
               <div>
-                <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 12, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 12, color: T.textDim }}>Derived view:</span>
+                <div className="hg-chiprow">
+                  <span className="hg-chiprow__label">Derived view</span>
                   {[
                     ["h2v", "H2V"],
                     ["v2h", "V2H"],
@@ -5301,12 +5333,12 @@ function AppCore() {
                     <button
                       key={id}
                       onClick={() => setSelectedMappingId(id)}
-                      style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid " + (selectedMappingId === id ? T.accent : T.border), background: selectedMappingId === id ? T.accentLt : "transparent", color: selectedMappingId === id ? T.accent : T.textDim, fontSize: 12, fontWeight: selectedMappingId === id ? 700 : 500, cursor: "pointer" }}
+                      className={"hg-chip" + (selectedMappingId === id ? " is-active" : "")}
                     >
                       {label}
                     </button>
                   ))}
-                  <span style={{ fontSize: 11, color: T.textFaint }}>H2H/V2V are computed only when selected or exported.</span>
+                  <span className="hg-chiprow__note">H2H/V2V are computed only when selected or exported.</span>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 16, marginBottom: 16 }}>
                   <MappingBox
@@ -5328,15 +5360,15 @@ function AppCore() {
               return (
                 <div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
-                    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 12, padding: 18, boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}>
+                    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 6, padding: 18, boxShadow: T.shadowSm }}>
                       <BarChart data={st.cards} color={T.accent} label="Cardinality Distribution" />
                       <div style={{ marginTop: 8, fontSize: 12, color: T.textDim }}>Vertices per hyperedge</div>
                     </div>
-                    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 12, padding: 18, boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}>
+                    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 6, padding: 18, boxShadow: T.shadowSm }}>
                       <BarChart data={st.degs} color={T.teal} label="Degree Distribution" />
                       <div style={{ marginTop: 8, fontSize: 12, color: T.textDim }}>Hyperedges per vertex</div>
                     </div>
-                    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 12, padding: 18, boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}>
+                    <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 6, padding: 18, boxShadow: T.shadowSm }}>
                       <div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: .6, fontWeight: 600, marginBottom: 8 }}>Line-Graph Triangles</div>
                       <TriadStatistic result={triadResult} />
                       <div style={{ fontSize: 12, color: T.textDim, marginBottom: 14 }}>Triangles in the line graph</div>
@@ -5354,7 +5386,7 @@ function AppCore() {
                       { label: "Avg Degree", value: (st.degs.reduce((a, b) => a + b, 0) / Math.max(1, st.degs.length)).toFixed(2), color: T.amber, desc: "Average vertex degree" },
                       { label: "V2V Projection Density", value: st.v2vProjectionDensity == null ? "Not computed" : (st.v2vProjectionDensity * 100).toFixed(3) + "%", color: T.purple, desc: st.v2vProjectionDensity == null ? "Projection exceeds eager stats budget" : "Observed pairs / possible pairs" },
                     ].map(({ label, value, desc, color }) => (
-                      <div key={label} style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 10, padding: "14px 16px", boxShadow: "0 2px 4px rgba(0,0,0,0.04)" }}>
+                      <div key={label} style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 6, padding: "14px 16px", boxShadow: T.shadowSm }}>
                         <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, marginBottom: 4, fontWeight: 600 }}>{label}</div>
                         <div style={{ fontSize: 22, fontWeight: 800, color, fontFamily: "monospace", lineHeight: 1, marginBottom: 4 }}>{value}</div>
                         <div style={{ fontSize: 11, color: T.textFaint }}>{desc}</div>
@@ -5372,18 +5404,18 @@ function AppCore() {
 
             {/* Export tab */}
             {activeSection === "export" && (
-              <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+              <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 6, overflow: "hidden", boxShadow: T.shadowSm }}>
                 <div style={{ display: "flex", borderBottom: "1px solid " + T.border, overflowX: "auto" }}>
                   {EXPORTS.map(ex => (<button key={ex.id} onClick={() => setExpId(ex.id)} style={{ padding: "10px 16px", border: "none", cursor: "pointer", background: expId === ex.id ? T.card : "transparent", borderBottom: "2px solid " + (expId === ex.id ? T.accent : "transparent"), color: expId === ex.id ? T.accent : T.textDim, fontSize: 13, fontWeight: expId === ex.id ? 700 : 400, whiteSpace: "nowrap", transition: "all .15s" }}>{ex.label}</button>))}
                 </div>
                 <div style={{ padding: 20 }}>
                   <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
-                    <button disabled={!exportResolution.ok} onClick={downloadCurrentExport} style={{ padding: "8px 20px", borderRadius: 8, background: exportResolution.ok ? T.accent : T.textFaint, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: exportResolution.ok ? "pointer" : "not-allowed" }}>↓ Download {curExp.fn}</button>
-                    <button disabled={!exportResolution.ok} onClick={() => { navigator.clipboard.writeText(exportContent); showNotice("Copied " + curExp.fn); }} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.border, background: "transparent", color: exportResolution.ok ? T.textDim : T.textFaint, fontSize: 13, cursor: exportResolution.ok ? "pointer" : "not-allowed" }}>Copy</button>
-                    {exportResolution.pending && <button onClick={cancelCurrentDerivedExport} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.amber, background: T.amberLt, color: T.amber, fontSize: 13, cursor: "pointer" }}>Cancel computation</button>}
-                    {!exportResolution.ok && !exportResolution.pending && <button onClick={retryCurrentDerivedExport} style={{ padding: "8px 16px", borderRadius: 8, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 13, cursor: "pointer" }}>Retry computation</button>}
+                    <button disabled={!exportResolution.ok} onClick={downloadCurrentExport} style={{ padding: "8px 20px", borderRadius: 4, background: exportResolution.ok ? T.accent : T.textFaint, border: "none", color: "#fff", fontWeight: 700, fontSize: 13, cursor: exportResolution.ok ? "pointer" : "not-allowed" }}>↓ Download {curExp.fn}</button>
+                    <button disabled={!exportResolution.ok} onClick={() => { navigator.clipboard.writeText(exportContent); showNotice("Copied " + curExp.fn); }} style={{ padding: "8px 16px", borderRadius: 4, border: "1px solid " + T.border, background: "transparent", color: exportResolution.ok ? T.textDim : T.textFaint, fontSize: 13, cursor: exportResolution.ok ? "pointer" : "not-allowed" }}>Copy</button>
+                    {exportResolution.pending && <button onClick={cancelCurrentDerivedExport} style={{ padding: "8px 16px", borderRadius: 4, border: "1px solid " + T.amber, background: T.amberLt, color: T.amber, fontSize: 13, cursor: "pointer" }}>Cancel computation</button>}
+                    {!exportResolution.ok && !exportResolution.pending && <button onClick={retryCurrentDerivedExport} style={{ padding: "8px 16px", borderRadius: 4, border: "1px solid " + T.accent, background: T.accentLt, color: T.accent, fontSize: 13, cursor: "pointer" }}>Retry computation</button>}
                   </div>
-                  <div style={{ background: T.card, borderRadius: 8, padding: 14, border: "1px solid " + T.border }}>
+                  <div style={{ background: T.card, borderRadius: 4, padding: 14, border: "1px solid " + T.border }}>
                     <div style={{ fontSize: 10, color: T.textFaint, textTransform: "uppercase", letterSpacing: .7, marginBottom: 6, fontWeight: 600 }}>Preview</div>
                     <pre style={{ margin: 0, fontSize: 12, fontFamily: "monospace", color: T.accent, whiteSpace: "pre-wrap", maxHeight: 200, overflowY: "auto", lineHeight: 1.6 }}>{exportContent.slice(0, 800)}{exportContent.length > 800 ? "\n..." : ""}</pre>
                   </div>
@@ -5421,10 +5453,10 @@ function AppCore() {
         {/* Tools — Batch Updates / Algorithms / Hypergraph Assistant, tabbed like Mappings/Statistics/Export.
             All three stay mounted (hidden via display:none) so in-progress input — batch text, chat drafts —
             isn't lost when switching tabs. */}
-        <div style={{ marginTop: 40 }}>
-          <div role="tablist" aria-label="Tools sections" style={{ display: "flex", gap: 4, marginBottom: 20, borderBottom: "1px solid " + T.border }}>
+        <div className="hg-tools">
+          <div role="tablist" aria-label="Tools sections" className="hg-tabs">
             {TOOLS_SECTIONS.map((sec, index) => (
-              <button id={`tools-tab-${sec.id}`} role="tab" aria-selected={activeToolsSection === sec.id} aria-controls={`tools-panel-${sec.id}`} tabIndex={activeToolsSection === sec.id ? 0 : -1} key={sec.id} onClick={() => setActiveToolsSection(sec.id)} onKeyDown={event => handleToolsTabKeyDown(event, index)} style={{ padding: "10px 24px", border: "none", cursor: "pointer", background: "transparent", borderBottom: "3px solid " + (activeToolsSection === sec.id ? sec.color : "transparent"), color: activeToolsSection === sec.id ? sec.color : T.textDim, fontSize: 15, fontWeight: activeToolsSection === sec.id ? 700 : 500, transition: "all .15s", marginBottom: -1 }}>
+              <button id={`tools-tab-${sec.id}`} role="tab" aria-selected={activeToolsSection === sec.id} aria-controls={`tools-panel-${sec.id}`} tabIndex={activeToolsSection === sec.id ? 0 : -1} key={sec.id} onClick={() => setActiveToolsSection(sec.id)} onKeyDown={event => handleToolsTabKeyDown(event, index)} className={"hg-tab" + (activeToolsSection === sec.id ? " is-active" : "")}>
                 {sec.label}
               </button>
             ))}
@@ -5469,7 +5501,7 @@ function AppCore() {
             {finalHes && finalHes.length > 0 ? (
               <AlgorithmsPanel algo={algo} />
             ) : (
-              <div style={{ padding: 24, textAlign: "center", color: T.textFaint, fontSize: 13, background: T.surface, border: "1px solid " + T.border, borderRadius: 12 }}>
+              <div style={{ padding: 24, textAlign: "center", color: T.textFaint, fontSize: 13, background: T.surface, border: "1px solid " + T.border, borderRadius: 6 }}>
                 Convert a dataset to run graph algorithms.
               </div>
             )}

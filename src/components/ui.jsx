@@ -1,19 +1,23 @@
 import { T } from "../theme.js";
 
+// Presentation only: styling lives in src/studio.css (.hg-pill, .hg-stat, .hg-mapping, .hg-table).
+
 export function Pill({ label, sub, active, onClick, color }) {
   const c = color ?? T.accent;
   return (
-    <button onClick={onClick} style={{ padding: "8px 16px", borderRadius: 10, border: "1px solid", textAlign: "left", borderColor: active ? c : T.border, background: active ? c + "18" : "transparent", color: active ? c : T.textDim, fontSize: 14, fontWeight: active ? 700 : 400, cursor: "pointer", transition: "all .15s" }}>
-      <div style={{ fontWeight: 600 }}>{label}</div>
-      {sub && <div style={{ fontSize: 11, color: active ? c + "99" : T.textFaint, marginTop: 2 }}>{sub}</div>}
+    <button type="button" onClick={onClick} aria-pressed={Boolean(active)} className={"hg-pill" + (active ? " is-active" : "")} style={{ "--pill-color": c }}>
+      <span className="hg-pill__label">{label}</span>
+      {sub && <span className="hg-pill__sub">{sub}</span>}
     </button>
   );
 }
 export function StatCard({ label, value, color }) {
+  // Numbers stay neutral; only yes/no flags carry the semantic colour passed by the caller.
+  const flag = value === "yes" || value === "no";
   return (
-    <div style={{ padding: "16px 20px", background: T.surface, border: "1px solid " + T.border, borderRadius: 12, boxShadow: "0 2px 6px rgba(0,0,0,0.05)" }}>
-      <div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: .8, marginBottom: 6, fontWeight: 600 }}>{label}</div>
-      <div style={{ fontSize: 28, fontWeight: 800, color, fontFamily: "monospace", lineHeight: 1 }}>{value}</div>
+    <div className="hg-stat">
+      <div className="hg-stat__label">{label}</div>
+      <div className="hg-stat__value" style={flag ? { color } : undefined}>{value}</div>
     </div>
   );
 }
@@ -21,21 +25,19 @@ export function MappingBox({ title, color, text, rows, totalRows = rows.length, 
   const visibleRows = rows;
   const hiddenCount = Math.max(0, totalRows - visibleRows.length);
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color, marginBottom: 8, fontFamily: "monospace" }}>{title}</div>
-      <div style={{ border: "1px solid " + T.border, borderRadius: 10, overflow: "hidden", flex: 1 }}>
-        <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: 220 }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, fontFamily: "monospace" }}>
-            <thead style={{ position: "sticky", top: 0, zIndex: 1 }}>
-              <tr>{cols.map(c => (<th key={c} style={{ textAlign: "left", padding: "8px 12px", background: T.card, color: T.textDim, fontWeight: 600, fontSize: 11, letterSpacing: .5, textTransform: "uppercase", borderBottom: "1px solid " + T.border, whiteSpace: "nowrap" }}>{c}</th>))}</tr>
+    <div className="hg-mapping">
+      <div className="hg-mapping__title" style={{ color }}>{title}</div>
+      <div className="hg-mapping__frame">
+        <div className="hg-mapping__scroll">
+          <table className="hg-table">
+            <thead>
+              <tr>{cols.map(c => (<th key={c}>{c}</th>))}</tr>
             </thead>
-            <tbody>{visibleRows.map((row, i) => (<tr key={i} style={{ background: i % 2 ? T.card : T.surface }}>{row.map((cell, j) => (<td key={j} style={{ padding: "7px 12px", color: j === 0 ? color : T.text, fontWeight: j === 0 ? 700 : 400, borderBottom: "1px solid " + T.border + "44", maxWidth: 300, wordBreak: "break-all", lineHeight: 1.5 }}>{cell}</td>))}</tr>))}</tbody>
+            <tbody>{visibleRows.map((row, i) => (<tr key={i}>{row.map((cell, j) => (<td key={j} className={j === 0 ? "hg-table__key" : undefined} style={j === 0 ? { color } : undefined}>{cell}</td>))}</tr>))}</tbody>
           </table>
-          {hiddenCount > 0 && <div style={{ padding: "8px 12px", fontSize: 12, color: T.textFaint, background: T.surface }}>Showing first {visibleRows.length.toLocaleString()} rows. {hiddenCount.toLocaleString()} additional rows are available via export.</div>}
+          {hiddenCount > 0 && <div className="hg-mapping__more">Showing first {visibleRows.length.toLocaleString()} rows. {hiddenCount.toLocaleString()} additional rows are available via export.</div>}
         </div>
-        <div style={{ borderTop: "1px solid " + T.border, padding: "10px 12px", background: T.card }}>
-          <pre style={{ margin: 0, fontSize: 12, fontFamily: "monospace", color, whiteSpace: "pre-wrap", maxHeight: 60, overflowY: "auto", lineHeight: 1.6 }}>{text.slice(0, 300)}{text.length > 300 ? "\n..." : ""}</pre>
-        </div>
+        <pre className="hg-mapping__text">{text.slice(0, 300)}{text.length > 300 ? "\n..." : ""}</pre>
       </div>
     </div>
   );

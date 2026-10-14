@@ -267,16 +267,6 @@ export const INPUT_FORMAT_REFERENCES = Object.freeze([
     relatedCommand: "Use adjacency list input",
   },
   {
-    id: "format.freeform",
-    name: "Freeform / NLP",
-    routeLabel: ROUTE_REGISTRY.freeform.label,
-    formatId: ROUTE_REGISTRY.freeform.formatId,
-    example: "Paper 1 has Alice, Bob, and Charlie as co-authors.",
-    expectations: "Uses local deterministic extraction only; it does not call an online model.",
-    autoDetect: false,
-    relatedCommand: "Use Freeform input",
-  },
-  {
     id: "format.custom-parser",
     name: "Custom Parser",
     routeLabel: ROUTE_REGISTRY.custom_parser.label,

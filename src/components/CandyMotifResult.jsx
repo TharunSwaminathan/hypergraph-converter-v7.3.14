@@ -14,7 +14,7 @@ export default function CandyMotifResult({ result, compact = false }) {
   const cuda = result.native.cuda ?? {};
 
   return (
-    <div aria-label={incremental ? "Validated hypergraph motif delta" : "Validated hypergraph motif result"} style={{ marginTop: 14, border: "1px solid " + T.border, borderRadius: 10, padding: compact ? 12 : 16, background: T.surface }}>
+    <div aria-label={incremental ? "Validated hypergraph motif delta" : "Validated hypergraph motif result"} style={{ marginTop: 14, border: "1px solid " + T.border, borderRadius: 6, padding: compact ? 12 : 16, background: T.surface }}>
       <div style={{ fontSize: 12, color: T.textFaint, textTransform: "uppercase", letterSpacing: .7, fontWeight: 700 }}>{incremental ? "Motif change (delta only)" : "Validated static result"}</div>
       <p style={{ margin: "8px 0", color: T.text }}>
         {incremental ? "Signed total connected 3-edge motif delta" : "Total connected 3-edge motifs"}: <strong>{incremental ? signedMotifValue(total) : Number(total ?? 0).toLocaleString()}</strong>

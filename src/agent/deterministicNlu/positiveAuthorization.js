@@ -95,7 +95,7 @@ const SIDE_EFFECT_SCOPE_RULES = Object.freeze([
   ["reversible_mapping_edit", /\b(?:mapping|map\b|(?:vertex|node|hyperedge|group)\s+(?:table|key|id|time|weight)|membership\s+table|attribute|column|source\s+column|target\s+column|preserve\s+empty|links?\s+to|connect\w*\b|\b(?:paper|author|researcher)_?id\b|\bkey\b|\bid\b|instead\s+of|no\s+authors?|deduplicate|memberships?|deterministic\s+draft)\b/i],
   ["graph_edit_preview", /\b(?:hyperedges?|vertices?|vertex(?:es)?|incidences?|graph\s+(?:edit|mutation)|undo\s+(?:the\s+)?(?:last\s+)?(?:graph\s+)?(?:change|edit)|clear\s+(?:the\s+)?graph|new\s+group|put\b|take\b|time\b|weight\b|attribute|color)\b/i],
   ["destructive_batch_state", /\b(?:clear|delete|remove)\b[\s\S]{0,60}\b(?:batch|batches|uploaded\s+files?)\b/i],
-  ["batch_state_edit", /\b(?:batch|previous\s+batch|active\s+batch|parse\s+files?|files?\s+(?:together|separately)|one\s+dataset|separate\s+datasets)\b/i],
+  ["batch_state_edit", /\b(?:batch|previous\s+batch|active\s+batch|parse\s+(?:files?|together|separately)|files?\s+(?:together|separately)|one\s+dataset|separate\s+datasets)\b/i],
   ["file_picker", /\b(?:upload|attach|file\s+picker|add\s+files?)\b/i],
   ["download_or_copy", /\b(?:download|export|copy)\b/i],
   ["navigation", /\b(?:open|switch|navigate|go\s+to|set\s+(?:the\s+)?(?:visual|export)|show(?:\s+only)?|use\s+(?:h2v|v2h|csr|csc|json)|view\s+(?:previous|the\s+previous)|statistics|visualization|route|section|preview|runtime\s+diagnostics|custom\s+parser|edit\s+the\s+mapping|export\s+as)\b/i],

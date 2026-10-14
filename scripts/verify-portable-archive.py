@@ -15,7 +15,7 @@ from collections import Counter
 from pathlib import Path, PurePosixPath
 
 
-EXECUTABLE_SUFFIXES = {".sh", ".bat", ".ps1"}
+EXECUTABLE_SUFFIXES = {".sh", ".bat", ".ps1", ".command"}
 FORBIDDEN_PARTS = {
     ".git",
     "node_modules",
