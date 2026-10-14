@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "qualifiedArchive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-qualification-20261012\\hypergraph-converter-v7_4-corrected-source.zip",
+  "qualifiedIdentity": {
+    "sha256": "04b80210705cd5be0395760bdf1f5833da3505a2ef668d0eba0cf5feec7a2f0c",
+    "bytes": 1652855,
+    "entries": 909,
+    "files": 853,
+    "directories": 56
+  },
+  "gitSourceFiles": 853,
+  "rootNormalization": "Actual producer derives ZIP root from source directory basename. Exact Git-worktree portable domain copied byte-for-byte into fresh final/ roots to preserve qualified archive layout; no source transformation, no alternate producer, no candidate edit.",
+  "exclusionPolicyASTEqualToRC2": true,
+  "sourceManifestEqualQualifiedArchive": true,
+  "witnesses": [
+    {
+      "state": "clean",
+      "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\v7_4-git-package-clean-ekm3tbum\\final",
+      "archive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-git-adoption-20261014\\git-clean-qualified-source.zip",
+      "producerCommand": [
+        "C:\\Users\\tharu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\package-portable-source.py",
+        "--root",
+        "C:\\Users\\tharu\\AppData\\Local\\Temp\\v7_4-git-package-clean-ekm3tbum\\final",
+        "--output",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-git-adoption-20261014\\git-clean-qualified-source.zip"
+      ],
+      "identity": {
+        "sha256": "04b80210705cd5be0395760bdf1f5833da3505a2ef668d0eba0cf5feec7a2f0c",
+        "bytes": 1652855,
+        "entries": 909,
+        "files": 853,
+        "directories": 56
+      },
+      "sourceFilesCopiedFromGitWorktree": 853,
+      "allSourceBytesEqualGitWorktree": true,
+      "allSourceBytesEqualQualifiedArchive": true,
+      "intentionalFixtureFilesIncluded": 47,
+      "excludedContaminationWitnesses": [],
+      "archiveVerification": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-git-adoption-archive-clean.json",
+      "status": "PASS"
+    },
+    {
+      "state": "populated",
+      "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\v7_4-git-package-populated-39ewga9c\\final",
+      "archive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-git-adoption-20261014\\git-populated-qualified-source.zip",
+      "producerCommand": [
+        "C:\\Users\\tharu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\scripts\\package-portable-source.py",
+        "--root",
+        "C:\\Users\\tharu\\AppData\\Local\\Temp\\v7_4-git-package-populated-39ewga9c\\final",
+        "--output",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-git-adoption-20261014\\git-populated-qualified-source.zip"
+      ],
+      "identity": {
+        "sha256": "04b80210705cd5be0395760bdf1f5833da3505a2ef668d0eba0cf5feec7a2f0c",
+        "bytes": 1652855,
+        "entries": 909,
+        "files": 853,
+        "directories": 56
+      },
+      "sourceFilesCopiedFromGitWorktree": 853,
+      "allSourceBytesEqualGitWorktree": true,
+      "allSourceBytesEqualQualifiedArchive": true,
+      "intentionalFixtureFilesIncluded": 47,
+      "excludedContaminationWitnesses": [
+        "artifacts/adoption-witness.json",
+        ".git/adoption-witness",
+        "node_modules/adoption-witness.txt",
+        "dist/adoption-witness.js",
+        "coverage/adoption-witness.json",
+        "candy-runtime/.local/adoption-witness.json",
+        "candy-runtime/native/hypergraph-motif-cuda/build/adoption-witness",
+        ".env",
+        "temporary-helper.tmp"
+      ],
+      "archiveVerification": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-git-adoption-archive-populated.json",
+      "status": "PASS"
+    }
+  ],
+  "byteIdenticalCleanAndPopulated": true
+}
