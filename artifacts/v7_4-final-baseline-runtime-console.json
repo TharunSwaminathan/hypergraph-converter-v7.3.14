@@ -1,0 +1,24 @@
+{
+  "freshStartCommand": "npm.cmd run candy:runtime",
+  "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\extracted\\hypergraph-converter-v7.3.14",
+  "observedStartupOutput": [
+    "CANDY Runtime Companion listening on http://127.0.0.1:8791.",
+    "Pairing credential written to the current user's temporary directory as candy-runtime-pairing-16156.txt.",
+    "The credential is session-only; it is not logged by the service."
+  ],
+  "stop": {
+    "chunk_id": "0e62f2",
+    "wall_time_seconds": 1.0146218,
+    "session_id": 70546,
+    "original_token_count": 7,
+    "output": "Terminate batch job (Y/N)? "
+  },
+  "wrapperExit": {
+    "chunk_id": "5e64ee",
+    "wall_time_seconds": 0.0000304,
+    "exit_code": 1,
+    "original_token_count": 31,
+    "output": "Y\r\n\u001b[?9001l\u001b[?1004l\u001b]0;C:\\Users\\tharu\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\u0007"
+  },
+  "wrapperExitExplanation": "npm.cmd prompts to terminate its batch after Ctrl+C. Confirming Y exits the wrapper with code 1; this is the requested interruption, not a failed Runtime gate. CLI graceful cleanup is independently verified by pairing-file removal, process exit and listener closure."
+}

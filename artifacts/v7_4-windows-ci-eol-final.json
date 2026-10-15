@@ -1,0 +1,44 @@
+{
+  "verdict": "PASS \u2014 Windows EOL corrective ready for review",
+  "baseline": "c07ce6b261e02f4fcc1c8a000dc1a7f18f771d23",
+  "changedFiles": [
+    "tests/deterministic-command-reference-doc.test.mjs"
+  ],
+  "unchangedOtherTrackedFiles": 1254,
+  "unchangedByPrefix": {
+    "src/": 266,
+    "candy-runtime/": 55,
+    ".github/": 3,
+    "docs/": 83,
+    "scripts/": 69
+  },
+  "unchangedHistoricalArtifactFiles": 590,
+  "refsUnchanged": true,
+  "freshCheckoutDocStillCRLF": true,
+  "freshCheckoutDocSha256": "ff8b7dde00d383083b89a77759f17bdf22284c9d5ab1bbd4be349f7a8579ed4f",
+  "mainLfFocused": {
+    "label": "main-lf-focused-node22",
+    "command": [
+      "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\node.exe",
+      "tests/deterministic-command-reference-doc.test.mjs"
+    ],
+    "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+    "exitCode": 0,
+    "seconds": 0.188,
+    "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-eol-logs\\main-lf-focused-node22.log"
+  },
+  "focusedRepetitions": "10/10",
+  "suite": "274/274",
+  "productionVulnerabilities": 0,
+  "manualSecurityReliabilityReview": {
+    "unresolvedCritical": 0,
+    "unresolvedHigh": 0,
+    "scope": "one test file; reviewed both-side normalization, mutation checks and unchanged generator contract",
+    "assessment": "Only CRLF pairs become LF. Whitespace, lone CR, final newline and all other characters remain significant. No platform branch, skips, runtime changes, new dependencies or production execution."
+  },
+  "remoteCiRerun": false,
+  "commitsCreated": false,
+  "pushes": false,
+  "merges": false,
+  "tagsChanged": false
+}

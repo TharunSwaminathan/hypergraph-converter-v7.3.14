@@ -1,0 +1,52 @@
+{
+  "baseline": "c07ce6b261e02f4fcc1c8a000dc1a7f18f771d23",
+  "config": "file:C:/Program Files/Git/etc/gitconfig\ttrue",
+  "attributes": "",
+  "gitattributes": "# Shell launchers must keep LF endings or macOS/Linux fail with \"bad interpreter\" / \"$'\\r': command not found\".\n*.sh       text eol=lf\n*.command  text eol=lf\n# Windows launchers must keep CRLF so cmd.exe / PowerShell parse them reliably.\n*.bat      text eol=crlf\n*.cmd      text eol=crlf\n*.ps1      text eol=crlf\n# Existing rule (kept).\ncandy-runtime/src/backends/nativeSupervisor.sh text eol=lf\n# Binary assets.\n*.png binary\n*.ico binary\n*.woff2 binary\n",
+  "node": "v22.23.3",
+  "mainWorkingTree": {
+    "bytes": 81369,
+    "sha256": "5cd93b48d76366a486930ecef55f49de0199642090061241493b000e3be094de",
+    "CRLF": 0,
+    "LF": 2764,
+    "loneCR": 0,
+    "normalizedEqualsGenerated": true
+  },
+  "freshWorkingTree": {
+    "bytes": 84133,
+    "sha256": "ff8b7dde00d383083b89a77759f17bdf22284c9d5ab1bbd4be349f7a8579ed4f",
+    "CRLF": 2764,
+    "LF": 2764,
+    "loneCR": 0,
+    "normalizedEqualsGenerated": true
+  },
+  "gitBlob": {
+    "bytes": 81369,
+    "sha256": "5cd93b48d76366a486930ecef55f49de0199642090061241493b000e3be094de",
+    "CRLF": 0,
+    "LF": 2764,
+    "loneCR": 0,
+    "normalizedEqualsGenerated": true
+  },
+  "generated": {
+    "bytes": 81369,
+    "sha256": "5cd93b48d76366a486930ecef55f49de0199642090061241493b000e3be094de",
+    "CRLF": 0,
+    "LF": 2764,
+    "loneCR": 0,
+    "normalizedEqualsGenerated": true
+  },
+  "beforeFocused": {
+    "label": "before-focused-node22",
+    "command": [
+      "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\node.exe",
+      "tests/deterministic-command-reference-doc.test.mjs"
+    ],
+    "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-eol-corrective-20261014\\fresh-checkout",
+    "exitCode": 1,
+    "seconds": 0.204,
+    "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-eol-logs\\before-focused-node22.log"
+  },
+  "beforeFailureIsStaleAssertion": true,
+  "freshStatusBeforeCorrection": ""
+}

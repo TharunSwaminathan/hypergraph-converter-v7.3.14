@@ -1,0 +1,48 @@
+{
+  "method": "Focused manual reliability/security review of two test-only files and their production call path; no repository-wide automated security scan claimed.",
+  "changedSource": [
+    "tests/candy-scope2-job-engine.test.mjs",
+    "tests/helpers/waitForJobStatus.mjs"
+  ],
+  "checks": [
+    {
+      "area": "Success/currentness",
+      "evidence": "Real production JobManager and authenticated HTTP API; full success lifecycle, reachability, graph version, immutable artifacts and idempotent replay assertions retained.",
+      "status": "PASS"
+    },
+    {
+      "area": "Slow preparation",
+      "evidence": "A2.5-second mapping-write delay reproduces legacy Node22 false timeout and is now exercised on every focused run; completion still reflects the real fake-runner return and validation.",
+      "status": "PASS"
+    },
+    {
+      "area": "Failure truth",
+      "evidence": "Success-shaped stdout plus nonzero exit must fail PROCESS_CRASH. BACKEND_UNAVAILABLE and PROCESS_TIMEOUT propagate to failed jobs; result endpoint cannot publish success.",
+      "status": "PASS"
+    },
+    {
+      "area": "Cancellation/cleanup",
+      "evidence": "Waits for actual running before cancelling, asserts cancelled/idempotent cancellation, closes jobs, checks every request path removed, disposes owned artifact root even if an assertion fails.",
+      "status": "PASS"
+    },
+    {
+      "area": "Bounded polling/stalled reads",
+      "evidence": "Single finite deadline, per-read AbortSignal, Promise.race for nonresponsive reads and delays, monotonic checks, timer cleared on all exits; tests stuck preparing and a never-resolving status reader.",
+      "status": "PASS"
+    },
+    {
+      "area": "Shell/process portability",
+      "evidence": "No new spawn, shell:true, quoting, process-group, executable or signal code. Spaces are exercised in the actual artifact-root path. NativeProcessRunner remains byte-identical and is not used by this injected-runner job.",
+      "status": "PASS"
+    },
+    {
+      "area": "No hidden platform bypass",
+      "evidence": "Identical helper and regression run on all platforms; no process.platform branch or Windows skip. Original success/failure assertions retained and extended.",
+      "status": "PASS"
+    }
+  ],
+  "criticalHighUnresolved": 0,
+  "productionDelta": [],
+  "nativeSpawnOrdering": "Out of scope for regression because no native child is spawned in this test. Existing NativeProcessRunner waits for close and remains unchanged.",
+  "securityRecommendation": "Ready for review and a new corrective commit; rerun remote CI after human commit/push."
+}

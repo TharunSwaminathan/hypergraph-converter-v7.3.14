@@ -1,0 +1,564 @@
+{
+  "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "baseline": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+  "fileCount": 91,
+  "prefixes": [
+    "candy-runtime/src/",
+    "candy-runtime/native/",
+    "src/graph/",
+    "src/candy/",
+    "src/persistence/",
+    "src/visualization/",
+    "src/utils/"
+  ],
+  "delta": [],
+  "files": [
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+      "bytes": 779,
+      "sha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b",
+      "gitBlob": "207dde0d40eefb1b584ba5a2adbf8cd46e86a51d"
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/README.md",
+      "bytes": 7445,
+      "sha256": "f7de1030c27c32620e9c1c931c35a6dce0d7d997778efac67ac5e8d371ad8f18",
+      "gitBlob": "8bdfdbc698de33e1d251bd995f16d425697f897f"
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+      "bytes": 23730,
+      "sha256": "b92bf79bc4d7d76b86fb3e28f77222c94931fc6e2342a7e1084d195dd15420da",
+      "gitBlob": "70b99a5ec0981c7fec7524f2619ae3241c662700"
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+      "bytes": 743,
+      "sha256": "1fc3276f6254c55f48d541d57e671dc8f5a0e9a9928f2dec1b270592bbe63ed6",
+      "gitBlob": "5f708703b4a4e3445940e690c9545cabdb706f36"
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda/README.md",
+      "bytes": 6286,
+      "sha256": "5c3bfd268e1f40243a9873d41a0f2a8a7e969e71d4d39e0c0a3d46e4d3186987",
+      "gitBlob": "3520565945cd4857fc6a7bf2ccb431552efc01b7"
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+      "bytes": 15635,
+      "sha256": "00558907950ce0f1fc507a80e20ea4e8bd0958586c5f154baec0a98c611789fe",
+      "gitBlob": "8d6a73435208795581a2603dc93e9167098bd802"
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/Makefile",
+      "bytes": 2142,
+      "sha256": "3eadaff386e8c579f53ea7bf0f0a394135c2b455de771cb221594dfe32e29f62",
+      "gitBlob": "6168df1ea6dbad7b53d4691107a91c33ba3802ba"
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/QUALIFICATION.md",
+      "bytes": 1061,
+      "sha256": "041fbcb6860125460c11494c32daf7de53ce65e3507e11704de61e0b11cdcf49",
+      "gitBlob": "067b3862904cd07a8e22be5f1a8101c3bcbb3abb"
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/README.md",
+      "bytes": 2412,
+      "sha256": "b564e9cf2baff740fcbca967d066cc5823f14450a133740ea0c97f1d7d5788d3",
+      "gitBlob": "d1e2df79173fb92d963a0b5b6b6a94ee581fd1fa"
+    },
+    {
+      "path": "candy-runtime/native/sssp-cuda/src/main.cu",
+      "bytes": 26593,
+      "sha256": "e854c2643a27292267ae84a19ebf325ccd7cca47d2d2ef319c8cd32d4a042086",
+      "gitBlob": "5183b0f7f434658aea18a33ffcbad142d90892bf"
+    },
+    {
+      "path": "candy-runtime/native/sssp-openmp/Makefile",
+      "bytes": 888,
+      "sha256": "682486b993f4566e30378d1d17052630aa0d67242b2cd6f0561306f464f8381f",
+      "gitBlob": "73962de0f30a46e3f55bd9b6595b4d0a327d92b3"
+    },
+    {
+      "path": "candy-runtime/native/sssp-openmp/README.md",
+      "bytes": 2342,
+      "sha256": "e1c425fcb79cbac19fd1f09ce54da30201da9974fa2b77b357a8d9ba24282f16",
+      "gitBlob": "b8938f175b2c0b1c67abf5ea6c7eaeec4bcd36c9"
+    },
+    {
+      "path": "candy-runtime/native/sssp-openmp/src/main.cpp",
+      "bytes": 26041,
+      "sha256": "9e68146847148e5c6d491eb2d662f395b0212288246af1606421ef37500d9963",
+      "gitBlob": "7b55449a9285f87c0e6cd392e5e2dfe7bca8ee0c"
+    },
+    {
+      "path": "candy-runtime/native/upstream/ESCHER-GPU-PROVENANCE.md",
+      "bytes": 2824,
+      "sha256": "c56a1492ef9993adfceba85bfac6a3fa8b6ba583be5d8d5fe56bf505eefeb847",
+      "gitBlob": "2c8fbd70de367eebb6fe2af8b649a7e1e0b7110c"
+    },
+    {
+      "path": "candy-runtime/native/upstream/MOSP-CUDA-PROVENANCE.md",
+      "bytes": 2591,
+      "sha256": "bcbc4b21b328b884ca68a1be8d7ec95d4c1545702d910c5f04139fc9b825f3f6",
+      "gitBlob": "bc94031705cf79874aa396daccaff1a3f8d56d67"
+    },
+    {
+      "path": "candy-runtime/native/upstream/MOSP-OpenMP-PROVENANCE.md",
+      "bytes": 1277,
+      "sha256": "b3e60b7f9c8d27d541e30cca30743a72b7cb214b57d104c81176c776f0f77d05",
+      "gitBlob": "c841347474908cd0312930c6a4052cf91610c099"
+    },
+    {
+      "path": "candy-runtime/src/artifacts/artifactStore.js",
+      "bytes": 5123,
+      "sha256": "b839e47f0a74c9c77ba2d3b0143e7797c860d87077aae00d8f5745dffa907b83",
+      "gitBlob": "0e1637d50753cea808c7d91601aff9c04eb925f3"
+    },
+    {
+      "path": "candy-runtime/src/auth/sessionAuth.js",
+      "bytes": 707,
+      "sha256": "151ed3df8ad7d111c2eff78d950964b4b626dca8651d6c48246bef925751160a",
+      "gitBlob": "3a4210f181a7ae6d4a7c656a6749e4e078bd6dd4"
+    },
+    {
+      "path": "candy-runtime/src/backends/motifJobAdapter.js",
+      "bytes": 4564,
+      "sha256": "b0ae5f493e527f97285ea712c9b1e7d7401b77ee44fde887ba4c0b9976c66f63",
+      "gitBlob": "639250b42077ab7b20fd05e2edcc1eedb2cfbff7"
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeProcessRunner.js",
+      "bytes": 8155,
+      "sha256": "825fa81d73158df5e0014a1a20e07b9c0eea6906eb87452227c283308ff29fa6",
+      "gitBlob": "7c0293765ba985802b5500df3c4611e61d76982a"
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeRequestAdapter.js",
+      "bytes": 4309,
+      "sha256": "7631ab8b0de93c0032d571de6ae6b3535973d6f8d275a7fc9f0c9f8d07f6e0e5",
+      "gitBlob": "9a03014329f83fbd0c77a405af3958fc1ccb056f"
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeSupervisor.sh",
+      "bytes": 308,
+      "sha256": "a757bbf3188be5fb72cf33ab084510d6ddbe96d9e1a2061bc7f0b513115bd331",
+      "gitBlob": "6a946d0d47624248fe6ba14233683f5917eeb4cf"
+    },
+    {
+      "path": "candy-runtime/src/capabilities/capabilityRegistry.js",
+      "bytes": 4965,
+      "sha256": "eb77f5d531752b660528a49f65457b462d6027134985c7fbcfa5a9e55e75913e",
+      "gitBlob": "a3d7df250d0f271d7e3a9fb3783e5f6049ecd4fd"
+    },
+    {
+      "path": "candy-runtime/src/capabilities/cudaQualification.js",
+      "bytes": 6459,
+      "sha256": "2e7bdaf257ca209cca040575141bf8223618613321fd5f998c94255a2a067c8b",
+      "gitBlob": "cd576c521fda5d7631f734ba7429d0b99bb4a86a"
+    },
+    {
+      "path": "candy-runtime/src/capabilities/motifQualification.js",
+      "bytes": 6909,
+      "sha256": "ddaa972ae29df0ee8f1159038198280eabfda5632e71e111c99021e65a02ac96",
+      "gitBlob": "fdd29e4947f6e98ccd0cf4c291d3c5e74a71d2e3"
+    },
+    {
+      "path": "candy-runtime/src/cli.js",
+      "bytes": 863,
+      "sha256": "c914ded37966149f6a920853bade6f434af4a864e443f9db72eda3d87a58552d",
+      "gitBlob": "255e2198de246fba29578724dccfe2d5287ef3d5"
+    },
+    {
+      "path": "candy-runtime/src/config.js",
+      "bytes": 1685,
+      "sha256": "a27c8a75892babb4072190470c6ba32e3a69be256ad48aa5a99af4c3afd8343c",
+      "gitBlob": "66d8baeb970d349a424a5fc1cc93929bd696a98c"
+    },
+    {
+      "path": "candy-runtime/src/http/httpUtils.js",
+      "bytes": 2240,
+      "sha256": "bbe57e1ea33ef10f7df4ede683bd672b94f7ee4d9be7801536758391062b5945",
+      "gitBlob": "a80d3f3e79b628ff39cce8b949f44abe19468c75"
+    },
+    {
+      "path": "candy-runtime/src/jobs/jobManager.js",
+      "bytes": 20345,
+      "sha256": "4b54976926f034cb9a1f6f506ed9447ba83ad2c6649c7116c21401ee33d5b91c",
+      "gitBlob": "fbeeeebbebeaafbeb0c5885b8c5427ef3f62740a"
+    },
+    {
+      "path": "candy-runtime/src/server.js",
+      "bytes": 6729,
+      "sha256": "aea87dcfd366bacab2fb65f7d3b19c4c85f96fc90985d47288a161a9210f6b51",
+      "gitBlob": "e0c9035bdfe955566f0cff906f2594ce105f05d8"
+    },
+    {
+      "path": "src/candy/adapters/csrAdapter.js",
+      "bytes": 4350,
+      "sha256": "a6191280cc4a9ddda40a11adf03e7029c294f738ada4de00e5fcb8a94c91258f",
+      "gitBlob": "b00b929c6bb64c91309db2b69f57ee4a3a2c86a4"
+    },
+    {
+      "path": "src/candy/adapters/graphMutationToHypergraphUpdate.js",
+      "bytes": 6427,
+      "sha256": "42fe70a10b4a4474dd3f42c2c074f60a9aa6c24171b5e2cce8ab1496b6b59bea",
+      "gitBlob": "bdb91c1ec1c5c3362febdff833ae4d2bf0be9dc7"
+    },
+    {
+      "path": "src/candy/adapters/hypergraphIncidenceAdapter.js",
+      "bytes": 7132,
+      "sha256": "aac1d79fd96c7d0edc57fc987e92abed7688c29e705dc00175b3aae935c56273",
+      "gitBlob": "43b96c73c3d04621092d1b418edd0b5e64273b93"
+    },
+    {
+      "path": "src/candy/adapters/hypergraphUpdateAdapter.js",
+      "bytes": 2140,
+      "sha256": "0dd4204d6ee7a2973a107d8b53cdb881284e7cb0bd0a1ee29abfee536d144ff4",
+      "gitBlob": "a50d0233445c9707febb01004d52e53b0f9eb500"
+    },
+    {
+      "path": "src/candy/adapters/identifierMapping.js",
+      "bytes": 2329,
+      "sha256": "594fbe88d60efb7c3fada5da927b7ad2db2dd7a59a6609a7d0d691b2f267996c",
+      "gitBlob": "ee6bd0225ff8be2b228a4cf76e7883d2e6b61fc9"
+    },
+    {
+      "path": "src/candy/adapters/vertexMapping.js",
+      "bytes": 2104,
+      "sha256": "de6f05abb9f66a41945f9388ed01635047f57aa53feaab82181e00eb10d27efe",
+      "gitBlob": "8f763526f92a91ca6c7130f641a4cedf6191611f"
+    },
+    {
+      "path": "src/candy/capabilityDiscovery.js",
+      "bytes": 5023,
+      "sha256": "21b55c11b55e86665d3cf3b7a00af5ad6ff957cdc445ec2df51f631562f49489",
+      "gitBlob": "b06a1c0bb7e29da5054c8d8842183d7a381cd4c2"
+    },
+    {
+      "path": "src/candy/client.js",
+      "bytes": 5540,
+      "sha256": "d167ba3caea0aadf1c851a3fcd04e0ded0f276a1f71f134f32e3141793d101c0",
+      "gitBlob": "9936a72577f4cba97e4b8014b4f152637171eeec"
+    },
+    {
+      "path": "src/candy/contracts/algorithmSchemas.js",
+      "bytes": 17412,
+      "sha256": "b0eb52d2d37408d7494d2ae65dbc3acec6c84039a7dd06b1eadd1eaae39fc925",
+      "gitBlob": "50db656d3d67bdc7b5aad8a10ecf765f3378c9b8"
+    },
+    {
+      "path": "src/candy/contracts/contractValidation.js",
+      "bytes": 2715,
+      "sha256": "9a2720f6b7739595b8ecad644b5145c7482e4ac87ddf9c52d972b97b7668f97f",
+      "gitBlob": "f05c0143ddd549ed20492119c3374ba9b50d00c9"
+    },
+    {
+      "path": "src/candy/contracts/errorClasses.js",
+      "bytes": 2381,
+      "sha256": "e6e5af3aed158d5c38e5ba4aa06e53f12c0c8cdb702a55874ac5d28c302c0fc6",
+      "gitBlob": "51fe7807556748c1223e0b4fa850ba4941c4e95d"
+    },
+    {
+      "path": "src/candy/contracts/graphTypes.js",
+      "bytes": 2773,
+      "sha256": "3b5f54a6ef6a7d141d74a401d5d518d2d5873fc80782c3d2e78a9aa4a382bd04",
+      "gitBlob": "d6f6cc9c17256719dccd206b6be7dc556ccd4afa"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifLimits.js",
+      "bytes": 868,
+      "sha256": "279b7cd588d8add5ee53192fe3ea158e76ebe3ef4d6bb32fa6c1dd534b75124a",
+      "gitBlob": "296ed052a20a1f2845708917402f7f0103d7daa8"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifMetadata.js",
+      "bytes": 1992,
+      "sha256": "db466d55a80e7a8b354e49d24a825a1dd959388d8872165c62b85f7cfe3f9a7e",
+      "gitBlob": "fb8fbf52dccd639670cb07217ccb52313ea477ab"
+    },
+    {
+      "path": "src/candy/contracts/hypergraphMotifSchemas.js",
+      "bytes": 15773,
+      "sha256": "7fbd46704b1afe28098750fcdb9beb002005a010b92a9cc1d994b458524a59d7",
+      "gitBlob": "cd1711acc437abea393dd9d60922f0b52d88ab35"
+    },
+    {
+      "path": "src/candy/contracts/runtimeMotif.js",
+      "bytes": 3499,
+      "sha256": "853bc0687006c68313840fe3b7c04abc7edf028093814fd9ef2c21dffd92a690",
+      "gitBlob": "176f17e071c6e14adda99ded60bf2f7e799cf20a"
+    },
+    {
+      "path": "src/candy/contracts/schemaVersions.js",
+      "bytes": 927,
+      "sha256": "181937291aa41893765544bd5ac1d077d0389f73fcfaace80db2a3ea16246698",
+      "gitBlob": "d36c2cf26f93c9d58a983e9c299b5df85c28b070"
+    },
+    {
+      "path": "src/candy/deterministicRouting.js",
+      "bytes": 4661,
+      "sha256": "e2c4ec983ab0134a30cb4faa603e5569eb7bdfdb1451db3e9425d8784f0831a2",
+      "gitBlob": "04d42f9de4102335352841acb3f46b3069830c8c"
+    },
+    {
+      "path": "src/candy/featureFlag.js",
+      "bytes": 218,
+      "sha256": "1d9b9e63ee0be1bb321044c27547bdccc22372da559324fc90c76c758320b1c6",
+      "gitBlob": "3b98d5ab0fccc118843fb7749d0c3e71bbabc4e4"
+    },
+    {
+      "path": "src/candy/hypergraphMotifs/referenceOracle.js",
+      "bytes": 7934,
+      "sha256": "18af43fe7ead46e1c11323c11e72035434827404497cd7b15753cddf99daa780",
+      "gitBlob": "73ae382d187dd56ee3da83dec8f347c2dd5ba2fb"
+    },
+    {
+      "path": "src/candy/hypergraphMotifs/taxonomy.js",
+      "bytes": 5486,
+      "sha256": "8d1342f9b4e57b9e6fc32a5c851db0b9b54fb76d00b5f5cde33fa76e37dd490c",
+      "gitBlob": "d2af3b16c707b769c19f2f468889da07c6bd6aa6"
+    },
+    {
+      "path": "src/candy/motifAnalysisController.js",
+      "bytes": 11392,
+      "sha256": "ad6cd3a066a141996a14049a612ce7fe44a4f66ee24542e4897f7295b6cd8b90",
+      "gitBlob": "09783eea9094a1a07aa76d6ba42fff8f0ec74846"
+    },
+    {
+      "path": "src/candy/motifPreflight.js",
+      "bytes": 8037,
+      "sha256": "512fbec1673375417429148dfa1374639a8dbb1b9cea90dc1ec170050088618d",
+      "gitBlob": "f9f303659b16632080e7484bc54f4789bf4fdf06"
+    },
+    {
+      "path": "src/candy/motifResultRegistry.js",
+      "bytes": 2224,
+      "sha256": "feb75308573fe50a28630648fa7b8eef6be649e80492f59d0a6a6d207957ddf5",
+      "gitBlob": "4622e1f2d79588909f5cf73171ecebd4ab58033f"
+    },
+    {
+      "path": "src/candy/motifStatisticsAvailability.js",
+      "bytes": 1340,
+      "sha256": "e880365526a82272a4ad442318c99873f65157da9c4bd87ca0425c03d4d1aded",
+      "gitBlob": "a848f64fc670c36bf0c8658c3f2c48d88c171e91"
+    },
+    {
+      "path": "src/candy/motifWorkflow.js",
+      "bytes": 15177,
+      "sha256": "211c468a1e63a18e919aaf069bc4eb82f77906de15737a52c220ba3b30e7992d",
+      "gitBlob": "17dbd2332437699d7ff09a799aa424f07bb480cc"
+    },
+    {
+      "path": "src/candy/requestPolicy.js",
+      "bytes": 3246,
+      "sha256": "eadc6c60af64a1ea61629fd5041a719e426fd816828c0a559dde4f2520a62a0c",
+      "gitBlob": "85e01a4b2b26617b674579abe4f628979df21be0"
+    },
+    {
+      "path": "src/candy/resultObservation.js",
+      "bytes": 2115,
+      "sha256": "6f603c19199098f4a7f0d7946211141b292a1a35e590ae3175a18e5d6688cdca",
+      "gitBlob": "4aae14e341a99914a9c1c1e35b92309a5c8b4257"
+    },
+    {
+      "path": "src/candy/runtimeCapabilityPresentation.js",
+      "bytes": 978,
+      "sha256": "641db531c29fcb583f5cf49a4d708cb766c66f331e158ebdf66071d4e99104a8",
+      "gitBlob": "af52385a1b745d3181573e0fb2055935c4cfd34b"
+    },
+    {
+      "path": "src/candy/useCandyRuntime.js",
+      "bytes": 9890,
+      "sha256": "9481158f0fefc5f331980e2de3ece8178f0cfdc18d7aa44171b549fcd3738df6",
+      "gitBlob": "73f48d7852cb4004919564849cb00a7c2bb2fbf8"
+    },
+    {
+      "path": "src/graph/dynamicUpdateControls.js",
+      "bytes": 7913,
+      "sha256": "7e0b6c0fc9ce5057eb65cdac4c9152d4a08e15e7b34fb456aa1b55034da7ef4d",
+      "gitBlob": "ec9c195cf19b4a4e5b680d167b6eb0ddfd3a2c94"
+    },
+    {
+      "path": "src/graph/entityResolver.js",
+      "bytes": 2916,
+      "sha256": "ab5e84482421578104640ddb81baa2e6996a8396b389fd1f58c3c8db14f66063",
+      "gitBlob": "98de882283e8920201c0196c89dc602fe57f11d2"
+    },
+    {
+      "path": "src/graph/graphFingerprint.js",
+      "bytes": 1957,
+      "sha256": "987efafac206fa0bc805a586e532071552917f54ad3c18f8372125cb59f79c8a",
+      "gitBlob": "94e21573a42cc4ab7f91a8750aa9627300678f3f"
+    },
+    {
+      "path": "src/graph/graphHistory.js",
+      "bytes": 1328,
+      "sha256": "4bb1cdd178f433bb2e3a647e47af6d3ef6600de0f0ccae504fab596af3baf57d",
+      "gitBlob": "5b0d526d188e293fe58e036c74d36c1916d932e8"
+    },
+    {
+      "path": "src/graph/graphIdentity.js",
+      "bytes": 2904,
+      "sha256": "41b77d4cfaf448951f673f2368de0bf220212861778909c89637e0e66f1d6af2",
+      "gitBlob": "19d2342f661d300d085033f9a007c971707fe295"
+    },
+    {
+      "path": "src/graph/graphMutationEngine.js",
+      "bytes": 10516,
+      "sha256": "963457da3d35815611d38b74d5f0fa5dfbc6e94cbd07c19340581ca6aa6a450f",
+      "gitBlob": "14e3058be8c94dd9e0d5591001e500d3c040bd80"
+    },
+    {
+      "path": "src/graph/graphMutationPreview.js",
+      "bytes": 1980,
+      "sha256": "f764e7d0838ea096eb70b6bfb3174b319906655eb823695022ff673525e56575",
+      "gitBlob": "ce7a3a08537c192c18c9312ede6caae389be116d"
+    },
+    {
+      "path": "src/graph/graphMutationSchema.js",
+      "bytes": 1043,
+      "sha256": "1999eaaff80ef1b7d912b8ebab85250c9c4335f12f0fd61508dda0b33a135a55",
+      "gitBlob": "d4aaf35143ac0c3c6220694501f36ef2f057e68e"
+    },
+    {
+      "path": "src/graph/graphMutationValidator.js",
+      "bytes": 5962,
+      "sha256": "a3887ba8d60eb6b00779b739b7d7086f5bf68d744780c0773f709c4e6b0caf7c",
+      "gitBlob": "e845c237a4d209ba7e1450adad087568d960133d"
+    },
+    {
+      "path": "src/graph/graphState.js",
+      "bytes": 3277,
+      "sha256": "b0068cff1794385c3251a4ad1f2328ad9fb766265e0466ba74568a605599190d",
+      "gitBlob": "2c0ad187f38f25ce6e4a58db20087f3e99c5a47f"
+    },
+    {
+      "path": "src/graph/incidenceIndex.js",
+      "bytes": 6255,
+      "sha256": "36d69073b8814085c08b1a01816c8c31637ea5c897762e8b1c339381fb8f1c90",
+      "gitBlob": "37e474568ce565476d437a7bfa2e2e8ec345c1b4"
+    },
+    {
+      "path": "src/graph/pendingHypergraphUpdate.js",
+      "bytes": 17814,
+      "sha256": "afa9a87212926968a171ea6ca9bc320c393c2a289e3002db5998a104a46bb525",
+      "gitBlob": "168dde598cb744db760560b36fb03bfd1acf69d8"
+    },
+    {
+      "path": "src/persistence/threadSaveQueue.js",
+      "bytes": 919,
+      "sha256": "af1d0ee7269ad108d0f1e11d352013a5103cbb0278971f6a6d94423df2afd321",
+      "gitBlob": "d86427d458ad6c20430712975a3ab8be24c2635f"
+    },
+    {
+      "path": "src/persistence/threadStateSchema.js",
+      "bytes": 3461,
+      "sha256": "f19f59def780a3b0cf556e1c13cdf8b4cc5204bcdc7b3f499c39dbd714f4d3d5",
+      "gitBlob": "c807ce0e83a097743fc116e3f950675a6d2d7779"
+    },
+    {
+      "path": "src/persistence/threadStore.js",
+      "bytes": 4077,
+      "sha256": "bef2b93c656b7ab1dbfbd1126237e5c0da900ddc9d8fb44d7121c1eb8d90d31c",
+      "gitBlob": "d714c34561f06635705d955ade24a46d0958b7e3"
+    },
+    {
+      "path": "src/persistence/usePersistentThread.js",
+      "bytes": 2177,
+      "sha256": "cbd8d4e06bb5ddf6b46c306a67feb0f8b6e71ecd0b883f6b258d92a835357bd5",
+      "gitBlob": "73b03671c6110da8c54b18bbef842e6186ffc3da"
+    },
+    {
+      "path": "src/utils/batchUpdates.js",
+      "bytes": 6448,
+      "sha256": "1c1598812bf171154bf7c3e3f384c48198e92fe630691d44937289fc1a389a23",
+      "gitBlob": "7bb9541ab1824bed3085d59065fe0588bb658315"
+    },
+    {
+      "path": "src/utils/customParser.js",
+      "bytes": 37821,
+      "sha256": "68d4efc4efc7af66ff51db8c227e71a7fbcd5e72934a92ffa005bfc073bd99a6",
+      "gitBlob": "40e7046b6752a3c7899efd165f23805b624e3860"
+    },
+    {
+      "path": "src/utils/delimitedText.js",
+      "bytes": 4666,
+      "sha256": "28dee5fae67ae4c5d61ceb9e14e12d6b3b83ccfb275687ccc6b4753c79646096",
+      "gitBlob": "e9cf93c8c7dd71ca18cb3038740dd6ee8a44bdb2"
+    },
+    {
+      "path": "src/utils/derivedRequests.js",
+      "bytes": 1639,
+      "sha256": "8bb01f4520edf81f33f29138690e72ba3adc9cc332390fb528361f134e08b0bb",
+      "gitBlob": "ff62b672f9836e8d2a0f5f7a4156a814f270dbde"
+    },
+    {
+      "path": "src/utils/derivedResults.js",
+      "bytes": 2771,
+      "sha256": "06d8f0c8b88dcdb9950890d9a3fb5c4b68c059d80e0d5c3d86207d0f04a1726e",
+      "gitBlob": "765ca092dd53e3411452eb9d9b8b1e84000e7a3d"
+    },
+    {
+      "path": "src/utils/downloadLifecycle.js",
+      "bytes": 1191,
+      "sha256": "f74122ced7bf5a6838369655f5494a616f9a374f3c762827b2a7ad6daff42e5a",
+      "gitBlob": "933f8a3ef6003548d4e9a56b3b37c33f087ab406"
+    },
+    {
+      "path": "src/utils/graphIdentifiers.js",
+      "bytes": 2689,
+      "sha256": "8e887c186a3d5ffe94bb64ee62cfc2aeaa026b2526fdbc1b2450af8e103bac65",
+      "gitBlob": "79a52e7b9f1552ea7d56d714c03226264bce5339"
+    },
+    {
+      "path": "src/utils/mappings.js",
+      "bytes": 24941,
+      "sha256": "eb9758b23fce673b2a52d1fceffb24e422446ca4ccec4cb22aadc6581e5e3c02",
+      "gitBlob": "26d78f05b9f47def3359437d9997c110d1f0ee82"
+    },
+    {
+      "path": "src/utils/numeric.js",
+      "bytes": 1739,
+      "sha256": "62e2e0d544e54fd5c1e40adbca925b1615e1d52559cac7dc135504cf6ceb4f6a",
+      "gitBlob": "c7f08df4907023da1161056ec75960e02e5958dc"
+    },
+    {
+      "path": "src/utils/parsers.js",
+      "bytes": 44298,
+      "sha256": "9d9d69261fc427691e3d1184e1cd59ead887ce28a1321d67c1f7b3a0cef2e17a",
+      "gitBlob": "e3b01b08abee5c4e4194ff1b0abf84bc931359ab"
+    },
+    {
+      "path": "src/visualization/dynamicUpdatePreview.js",
+      "bytes": 1009,
+      "sha256": "9695c1f14efaae917c1415548099cbddd5916d713a08c212da2a4f71c088474f",
+      "gitBlob": "9dab942114024d3ae02158f04ca5f5a8abae3a98"
+    },
+    {
+      "path": "src/visualization/hypergraphLayout.js",
+      "bytes": 7878,
+      "sha256": "125388100c7c029300edcd6dc98ae09dc5d8058daf84d5bf5f91a735f9dbbfd7",
+      "gitBlob": "bce0e16d773ae21c5227a23a6fb44489356ac3df"
+    },
+    {
+      "path": "src/visualization/previewGeometry.js",
+      "bytes": 2069,
+      "sha256": "866aade1ebc95e1717ca8b5c1866417b3a5b0ae8b36212cd3cb37c67e930ef89",
+      "gitBlob": "ecb021fdf3366b745779c06777dbc87f6c6b646f"
+    },
+    {
+      "path": "src/visualization/previewRenderBudget.js",
+      "bytes": 4121,
+      "sha256": "d34b9cb741d2ad16824532e5947d7adcf0e2a783d9564dc0b69230e589433cce",
+      "gitBlob": "825e7217269b1da674d234755c4e5aaf1f3e2566"
+    },
+    {
+      "path": "src/visualization/previewRuntime.js",
+      "bytes": 3474,
+      "sha256": "e7ea478193e766c56636df2af50ad7b864df3d7e8db8b038f30130dedada4407",
+      "gitBlob": "044bc5b55e63cb21f16f72e55156c29c1381c4e6"
+    }
+  ],
+  "protectedNativeSchemaTaxonomyQualificationLogicUnchanged": true
+}

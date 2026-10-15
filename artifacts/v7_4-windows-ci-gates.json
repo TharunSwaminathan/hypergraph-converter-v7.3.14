@@ -1,0 +1,117 @@
+{
+  "platform": "Windows",
+  "baseline": "0fb1e9d0e0f7af2d37d34ca90a65a887693f7f25",
+  "node22": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\node.exe",
+  "node22Version": "v22.23.3",
+  "node24Version": "v24.20.0",
+  "CI": true,
+  "noninteractive": true,
+  "gates": [
+    {
+      "label": "node22-focused-runner",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\node.exe",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope2-job-engine"
+      ],
+      "exitCode": 0,
+      "seconds": 2.86,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-focused-runner.log"
+    },
+    {
+      "label": "node22-related-scope2",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\node.exe",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope2"
+      ],
+      "exitCode": 0,
+      "seconds": 3.52,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-related-scope2.log"
+    },
+    {
+      "label": "node22-npm-ci",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 21.52,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-npm-ci.log"
+    },
+    {
+      "label": "node22-npm-test",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 149.25,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-npm-test.log"
+    },
+    {
+      "label": "node22-lint",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 9.48,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-lint.log"
+    },
+    {
+      "label": "node22-build",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.84,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-build.log"
+    },
+    {
+      "label": "node22-build-github",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.87,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-build-github.log"
+    },
+    {
+      "label": "node22-audit",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "exitCode": 0,
+      "seconds": 0.92,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node22-audit.log"
+    },
+    {
+      "label": "node24-npm-test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 148.01,
+      "status": "PASS",
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-windows-ci-logs\\node24-npm-test.log"
+    }
+  ]
+}

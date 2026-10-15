@@ -1,0 +1,3259 @@
+{
+  "node": "v22.23.3",
+  "platform": "win32",
+  "pid": 17776,
+  "processExitCode": 0,
+  "elapsedMs": 2765.767,
+  "polling": {
+    "originalMaximumPolls": 100,
+    "originalDelayMs": 10,
+    "originalNominalWindowMs": 1000
+  },
+  "artificialDelayMs": 0,
+  "events": [
+    {
+      "ms": 135.878,
+      "type": "artifact_begin",
+      "id": 0,
+      "method": "putOwned",
+      "mediaType": "application/vnd.candy.graph+json"
+    },
+    {
+      "ms": 137.421,
+      "type": "artifact_end",
+      "id": 0,
+      "method": "putOwned"
+    },
+    {
+      "ms": 146.102,
+      "type": "execute_begin",
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "requestId": "request-static-1"
+    },
+    {
+      "ms": 146.384,
+      "type": "transition",
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "requestId": "request-static-1",
+      "before": "queued",
+      "status": "preparing"
+    },
+    {
+      "ms": 146.41,
+      "type": "artifact_begin",
+      "id": 4,
+      "method": "read"
+    },
+    {
+      "ms": 147.452,
+      "type": "http_job",
+      "path": "/v1/jobs",
+      "method": "POST",
+      "httpStatus": 202,
+      "requestMs": 4.613,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "queued",
+      "lifecycle": [
+        "queued"
+      ],
+      "error": null
+    },
+    {
+      "ms": 149.787,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 2.137,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 150.18,
+      "type": "artifact_end",
+      "id": 4,
+      "method": "read"
+    },
+    {
+      "ms": 174.051,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.641,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 189.143,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.433,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 203.88,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.062,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 226.353,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.098,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 241.57,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.318,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 258.415,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 2.311,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 272.705,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.095,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 288.244,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.393,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 302.931,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.767,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 318.64,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.052,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 333.55,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.726,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 348.965,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.768,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 364.813,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.691,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 380.547,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.083,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 395.555,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.872,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 410.562,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.873,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 426.632,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.854,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 442.65,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.843,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 457.878,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.019,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 473.166,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.709,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 490.331,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.889,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 508.297,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.958,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 524.077,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.105,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 538.564,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.63,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 556.278,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.804,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 571.534,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.734,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 586.574,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.742,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 602.517,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.715,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 618.965,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.031,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 633.814,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.855,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 645.316,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.881,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 661.07,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.922,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 676.152,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.931,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 691.639,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.917,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 707.05,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.899,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 724.688,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.168,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 740.634,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.074,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 758.363,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.092,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 782.29,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.854,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 807.385,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.229,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 824.066,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.098,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 840.21,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.866,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 856.284,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.737,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 871.416,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.683,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 887.284,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.673,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 903.313,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.744,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 918.236,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.689,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 933.578,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.694,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 949.626,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.836,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 966.509,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.712,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 981.593,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.706,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 997.818,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.804,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1013.069,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.74,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1028.884,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.154,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1043.601,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.769,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1059.384,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.692,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1074.642,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.064,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1090.907,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.266,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1107.056,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.402,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1131.436,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.847,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1146.401,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.781,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1162.183,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.806,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1178.629,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.887,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1193.897,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.816,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1210.631,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.599,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1225.618,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.89,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1241.112,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.765,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1256.648,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.764,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1271.635,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.731,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1286.871,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.68,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1302.055,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.702,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1317.293,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.767,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1332.224,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.536,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1347.766,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.846,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1363.265,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.652,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1376.123,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.77,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1395.004,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.8,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1410.528,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.794,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1425.537,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.723,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1441.412,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.68,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1460.343,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.269,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1475.035,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.854,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1492.665,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.81,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1507.521,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.792,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1526.116,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.755,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1541.987,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.692,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1557.534,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.663,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1573.607,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.729,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1589.252,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.718,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1604.377,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.699,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1626.367,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.806,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1641.073,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.61,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1657.069,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.833,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1672.697,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.525,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1687.967,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.77,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1703.856,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.584,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1719.198,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.76,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1734.239,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.596,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1750.587,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.786,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1766.407,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.612,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1779.215,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.835,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1794.437,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.702,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1810.62,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.067,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1828.536,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.791,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1842.218,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.016,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1857.119,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.773,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1873.026,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.762,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1893.752,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.748,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1908.755,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.899,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1926.905,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.74,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1942.079,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.757,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1957.821,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.812,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1972.536,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.597,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 1988.736,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.702,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2004.452,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.603,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2019.931,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.713,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2035.583,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.605,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2051.242,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.715,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2066.861,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.654,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2082.058,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.688,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2100.417,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.74,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2123.032,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.737,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2139.052,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.65,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2155.001,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.885,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2169.745,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.578,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2185.807,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.655,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2200.622,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.54,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2216.64,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.266,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2231.152,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.584,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2246.257,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.73,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2261.495,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.638,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2277.508,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.663,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2292.276,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.515,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2308.167,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 1.197,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2325.148,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.718,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2341.123,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.857,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2358.654,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.744,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2375.031,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.751,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2390.085,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.791,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2405.92,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.576,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2422.082,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.732,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2437.94,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.602,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2454.106,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.785,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2469.523,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.719,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2484.812,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.656,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2500.851,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.619,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2516.103,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.688,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2531.229,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.666,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2546.344,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.623,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2561.55,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.522,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2577.851,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.76,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2600.924,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.718,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2615.846,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.707,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2630.7,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.61,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2646.905,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.669,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2662.066,
+      "type": "artifact_begin",
+      "id": 163,
+      "method": "putOwned",
+      "mediaType": "application/json"
+    },
+    {
+      "ms": 2663.231,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.928,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2663.742,
+      "type": "artifact_end",
+      "id": 163,
+      "method": "putOwned"
+    },
+    {
+      "ms": 2664.839,
+      "type": "transition",
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "requestId": "request-static-1",
+      "before": "preparing",
+      "status": "running"
+    },
+    {
+      "ms": 2664.921,
+      "type": "in_process_runner_begin",
+      "backend": "LOCAL_OPENMP",
+      "requestPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-WDupBO\\request.txt",
+      "timeoutMs": 5000,
+      "pid": null
+    },
+    {
+      "ms": 2665.164,
+      "type": "in_process_runner_end",
+      "exitCode": 0,
+      "stdout": "{\"schemaVersion\":\"candy.native-sssp-result/1\",\"ok\":true,\"algorithm\":\"SSSP\",\"backend\":\"LOCAL_OPENMP\",\"mode\":\"STATIC\",\"graphId\":\"ordinary-1\",\"graphVersion\":1,\"source\":0,\"vertexCount\":3,\"reachableCount\":3,\"unreachableCount\":0,\"affectedVertices\":0,\"execution\":{\"status\":\"completed\",\"exitCode\":0},\"validation\":{\"status\":\"not_requested\"},\"metrics\":{\"preparationMs\":0.1,\"computeMs\":0.2,\"validationMs\":0.1},\"distances\":[0,1,3],\"parents\":[-1,0,1]}",
+      "stderr": ""
+    },
+    {
+      "ms": 2665.227,
+      "type": "request_path_before_job_cleanup",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-WDupBO\\request.txt",
+      "exists": true
+    },
+    {
+      "ms": 2665.234,
+      "type": "transition",
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "requestId": "request-static-1",
+      "before": "running",
+      "status": "validating"
+    },
+    {
+      "ms": 2665.339,
+      "type": "artifact_begin",
+      "id": 171,
+      "method": "putOwned",
+      "mediaType": "application/vnd.candy.result+json"
+    },
+    {
+      "ms": 2665.822,
+      "type": "artifact_end",
+      "id": 171,
+      "method": "putOwned"
+    },
+    {
+      "ms": 2666.021,
+      "type": "transition",
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "requestId": "request-static-1",
+      "before": "validating",
+      "status": "completed"
+    },
+    {
+      "ms": 2667.265,
+      "type": "execute_end",
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "completed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ]
+    },
+    {
+      "ms": 2675.164,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.77,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "completed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2678.213,
+      "type": "http_job",
+      "path": "/v1/jobs/9e0ad82f-1534-4d70-9873-2f8f5bd85f13/result",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.952,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13"
+    },
+    {
+      "ms": 2679.354,
+      "type": "http_job",
+      "path": "/v1/jobs",
+      "method": "POST",
+      "httpStatus": 202,
+      "requestMs": 1.084,
+      "jobId": "9e0ad82f-1534-4d70-9873-2f8f5bd85f13",
+      "status": "completed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "completed"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2679.762,
+      "type": "artifact_begin",
+      "id": 178,
+      "method": "putOwned",
+      "mediaType": "application/vnd.candy.graph+json"
+    },
+    {
+      "ms": 2680.405,
+      "type": "artifact_end",
+      "id": 178,
+      "method": "putOwned"
+    },
+    {
+      "ms": 2681.864,
+      "type": "http_job",
+      "path": "/v1/jobs",
+      "method": "POST",
+      "httpStatus": 400,
+      "requestMs": 1.029
+    },
+    {
+      "ms": 2683.312,
+      "type": "execute_begin",
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "requestId": "request-static-2"
+    },
+    {
+      "ms": 2683.321,
+      "type": "transition",
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "requestId": "request-static-2",
+      "before": "queued",
+      "status": "preparing"
+    },
+    {
+      "ms": 2683.327,
+      "type": "artifact_begin",
+      "id": 183,
+      "method": "read"
+    },
+    {
+      "ms": 2683.625,
+      "type": "http_job",
+      "path": "/v1/jobs",
+      "method": "POST",
+      "httpStatus": 202,
+      "requestMs": 0.826,
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "status": "queued",
+      "lifecycle": [
+        "queued"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2684.166,
+      "type": "http_job",
+      "path": "/v1/jobs/4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.5,
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2684.561,
+      "type": "artifact_end",
+      "id": 183,
+      "method": "read"
+    },
+    {
+      "ms": 2684.658,
+      "type": "artifact_begin",
+      "id": 187,
+      "method": "putOwned",
+      "mediaType": "application/json"
+    },
+    {
+      "ms": 2685.295,
+      "type": "artifact_end",
+      "id": 187,
+      "method": "putOwned"
+    },
+    {
+      "ms": 2686.149,
+      "type": "transition",
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "requestId": "request-static-2",
+      "before": "preparing",
+      "status": "running"
+    },
+    {
+      "ms": 2686.172,
+      "type": "in_process_runner_begin",
+      "backend": "LOCAL_OPENMP",
+      "requestPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-a9Si28\\request.txt",
+      "timeoutMs": 5000,
+      "pid": null
+    },
+    {
+      "ms": 2707.715,
+      "type": "http_job",
+      "path": "/v1/jobs/4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.945,
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "status": "running",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2708.735,
+      "type": "transition",
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "requestId": "request-static-2",
+      "before": "running",
+      "status": "cancelling"
+    },
+    {
+      "ms": 2708.831,
+      "type": "transition",
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "requestId": "request-static-2",
+      "before": "cancelling",
+      "status": "cancelled"
+    },
+    {
+      "ms": 2708.959,
+      "type": "in_process_runner_error",
+      "code": "JOB_CANCELLED",
+      "message": "cancelled"
+    },
+    {
+      "ms": 2709.144,
+      "type": "request_path_before_job_cleanup",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-a9Si28\\request.txt",
+      "exists": true
+    },
+    {
+      "ms": 2709.175,
+      "type": "transition",
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "requestId": "request-static-2",
+      "before": "cancelled",
+      "status": "cancelled"
+    },
+    {
+      "ms": 2709.48,
+      "type": "http_job",
+      "path": "/v1/jobs/4e0ac806-9bc2-4f7a-bd96-96ba666b5bca/cancel",
+      "method": "POST",
+      "httpStatus": 200,
+      "requestMs": 1.552,
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "status": "cancelled",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "cancelling",
+        "cancelled"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2710.032,
+      "type": "http_job",
+      "path": "/v1/jobs/4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.504,
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "status": "cancelled",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "cancelling",
+        "cancelled"
+      ],
+      "error": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "JOB_CANCELLED",
+        "message": "CANDY job was cancelled.",
+        "userCorrectable": true,
+        "retryable": true,
+        "details": {}
+      }
+    },
+    {
+      "ms": 2711.253,
+      "type": "http_job",
+      "path": "/v1/jobs/4e0ac806-9bc2-4f7a-bd96-96ba666b5bca/cancel",
+      "method": "POST",
+      "httpStatus": 200,
+      "requestMs": 1.064,
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "status": "cancelled",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "cancelling",
+        "cancelled"
+      ],
+      "error": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "JOB_CANCELLED",
+        "message": "CANDY job was cancelled.",
+        "userCorrectable": true,
+        "retryable": true,
+        "details": {}
+      }
+    },
+    {
+      "ms": 2712.673,
+      "type": "execute_begin",
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "requestId": "request-nonzero_exit"
+    },
+    {
+      "ms": 2712.685,
+      "type": "transition",
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "requestId": "request-nonzero_exit",
+      "before": "queued",
+      "status": "preparing"
+    },
+    {
+      "ms": 2712.694,
+      "type": "artifact_begin",
+      "id": 202,
+      "method": "read"
+    },
+    {
+      "ms": 2713.295,
+      "type": "http_job",
+      "path": "/v1/jobs",
+      "method": "POST",
+      "httpStatus": 202,
+      "requestMs": 1.999,
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "status": "queued",
+      "lifecycle": [
+        "queued"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2713.574,
+      "type": "execute_end",
+      "jobId": "4e0ac806-9bc2-4f7a-bd96-96ba666b5bca",
+      "status": "cancelled",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "cancelling",
+        "cancelled"
+      ]
+    },
+    {
+      "ms": 2714.008,
+      "type": "http_job",
+      "path": "/v1/jobs/62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.658,
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2714.29,
+      "type": "artifact_end",
+      "id": 202,
+      "method": "read"
+    },
+    {
+      "ms": 2714.383,
+      "type": "artifact_begin",
+      "id": 207,
+      "method": "putOwned",
+      "mediaType": "application/json"
+    },
+    {
+      "ms": 2715.01,
+      "type": "artifact_end",
+      "id": 207,
+      "method": "putOwned"
+    },
+    {
+      "ms": 2715.723,
+      "type": "transition",
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "requestId": "request-nonzero_exit",
+      "before": "preparing",
+      "status": "running"
+    },
+    {
+      "ms": 2715.742,
+      "type": "in_process_runner_begin",
+      "backend": "LOCAL_OPENMP",
+      "requestPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-Wvc42x\\request.txt",
+      "timeoutMs": 5000,
+      "pid": null
+    },
+    {
+      "ms": 2715.867,
+      "type": "in_process_runner_end",
+      "exitCode": 1,
+      "stdout": "{\"schemaVersion\":\"candy.native-sssp-result/1\",\"ok\":true,\"algorithm\":\"SSSP\",\"backend\":\"LOCAL_OPENMP\",\"mode\":\"STATIC\",\"graphId\":\"ordinary-1\",\"graphVersion\":1,\"source\":0,\"vertexCount\":3,\"reachableCount\":3,\"unreachableCount\":0,\"affectedVertices\":0,\"execution\":{\"status\":\"completed\",\"exitCode\":0},\"validation\":{\"status\":\"not_requested\"},\"metrics\":{\"preparationMs\":0.1,\"computeMs\":0.2,\"validationMs\":0.1},\"distances\":[0,1,3],\"parents\":[-1,0,1]}",
+      "stderr": ""
+    },
+    {
+      "ms": 2715.934,
+      "type": "request_path_before_job_cleanup",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-Wvc42x\\request.txt",
+      "exists": true
+    },
+    {
+      "ms": 2715.938,
+      "type": "transition",
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "requestId": "request-nonzero_exit",
+      "before": "running",
+      "status": "validating"
+    },
+    {
+      "ms": 2715.986,
+      "type": "transition",
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "requestId": "request-nonzero_exit",
+      "before": "validating",
+      "status": "failed"
+    },
+    {
+      "ms": 2716.721,
+      "type": "execute_end",
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "status": "failed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "failed"
+      ]
+    },
+    {
+      "ms": 2729.002,
+      "type": "http_job",
+      "path": "/v1/jobs/62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.823,
+      "jobId": "62e113d9-973e-48b8-ad22-1028fcb9bc5b",
+      "status": "failed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "validating",
+        "failed"
+      ],
+      "error": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "PROCESS_CRASH",
+        "message": "Native SSSP returned success content with a non-zero exit status.",
+        "userCorrectable": false,
+        "retryable": true,
+        "details": {
+          "exitCode": 1
+        }
+      }
+    },
+    {
+      "ms": 2729.569,
+      "type": "http_job",
+      "path": "/v1/jobs/62e113d9-973e-48b8-ad22-1028fcb9bc5b/result",
+      "method": "GET",
+      "httpStatus": 400,
+      "requestMs": 0.475
+    },
+    {
+      "ms": 2730.252,
+      "type": "execute_begin",
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "requestId": "request-BACKEND_UNAVAILABLE"
+    },
+    {
+      "ms": 2730.259,
+      "type": "transition",
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "requestId": "request-BACKEND_UNAVAILABLE",
+      "before": "queued",
+      "status": "preparing"
+    },
+    {
+      "ms": 2730.265,
+      "type": "artifact_begin",
+      "id": 220,
+      "method": "read"
+    },
+    {
+      "ms": 2730.557,
+      "type": "http_job",
+      "path": "/v1/jobs",
+      "method": "POST",
+      "httpStatus": 202,
+      "requestMs": 0.88,
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "status": "queued",
+      "lifecycle": [
+        "queued"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2731.044,
+      "type": "http_job",
+      "path": "/v1/jobs/311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.451,
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2731.418,
+      "type": "artifact_end",
+      "id": 220,
+      "method": "read"
+    },
+    {
+      "ms": 2731.611,
+      "type": "artifact_begin",
+      "id": 224,
+      "method": "putOwned",
+      "mediaType": "application/json"
+    },
+    {
+      "ms": 2732.252,
+      "type": "artifact_end",
+      "id": 224,
+      "method": "putOwned"
+    },
+    {
+      "ms": 2733.041,
+      "type": "transition",
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "requestId": "request-BACKEND_UNAVAILABLE",
+      "before": "preparing",
+      "status": "running"
+    },
+    {
+      "ms": 2733.061,
+      "type": "in_process_runner_begin",
+      "backend": "LOCAL_OPENMP",
+      "requestPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-dX3J1g\\request.txt",
+      "timeoutMs": 5000,
+      "pid": null
+    },
+    {
+      "ms": 2733.192,
+      "type": "in_process_runner_error",
+      "code": "BACKEND_UNAVAILABLE",
+      "message": "controlled runner failure"
+    },
+    {
+      "ms": 2733.251,
+      "type": "request_path_before_job_cleanup",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-dX3J1g\\request.txt",
+      "exists": true
+    },
+    {
+      "ms": 2733.26,
+      "type": "transition",
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "requestId": "request-BACKEND_UNAVAILABLE",
+      "before": "running",
+      "status": "failed"
+    },
+    {
+      "ms": 2733.894,
+      "type": "execute_end",
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "status": "failed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "failed"
+      ]
+    },
+    {
+      "ms": 2745.508,
+      "type": "http_job",
+      "path": "/v1/jobs/311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.752,
+      "jobId": "311f22d9-38a9-4535-a96d-cb5caa3b91cc",
+      "status": "failed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "failed"
+      ],
+      "error": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "BACKEND_UNAVAILABLE",
+        "message": "controlled runner failure",
+        "userCorrectable": false,
+        "retryable": true,
+        "details": {}
+      }
+    },
+    {
+      "ms": 2746.092,
+      "type": "http_job",
+      "path": "/v1/jobs/311f22d9-38a9-4535-a96d-cb5caa3b91cc/result",
+      "method": "GET",
+      "httpStatus": 400,
+      "requestMs": 0.479
+    },
+    {
+      "ms": 2746.633,
+      "type": "execute_begin",
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "requestId": "request-PROCESS_TIMEOUT"
+    },
+    {
+      "ms": 2746.646,
+      "type": "transition",
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "requestId": "request-PROCESS_TIMEOUT",
+      "before": "queued",
+      "status": "preparing"
+    },
+    {
+      "ms": 2746.653,
+      "type": "artifact_begin",
+      "id": 236,
+      "method": "read"
+    },
+    {
+      "ms": 2746.944,
+      "type": "http_job",
+      "path": "/v1/jobs",
+      "method": "POST",
+      "httpStatus": 202,
+      "requestMs": 0.813,
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "status": "queued",
+      "lifecycle": [
+        "queued"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2747.613,
+      "type": "http_job",
+      "path": "/v1/jobs/a812cc8d-a815-409d-9129-265a16c76d26",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.57,
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "status": "preparing",
+      "lifecycle": [
+        "queued",
+        "preparing"
+      ],
+      "error": null
+    },
+    {
+      "ms": 2748.053,
+      "type": "artifact_end",
+      "id": 236,
+      "method": "read"
+    },
+    {
+      "ms": 2748.25,
+      "type": "artifact_begin",
+      "id": 240,
+      "method": "putOwned",
+      "mediaType": "application/json"
+    },
+    {
+      "ms": 2748.759,
+      "type": "artifact_end",
+      "id": 240,
+      "method": "putOwned"
+    },
+    {
+      "ms": 2749.548,
+      "type": "transition",
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "requestId": "request-PROCESS_TIMEOUT",
+      "before": "preparing",
+      "status": "running"
+    },
+    {
+      "ms": 2749.571,
+      "type": "in_process_runner_begin",
+      "backend": "LOCAL_OPENMP",
+      "requestPath": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-GiX7wi\\request.txt",
+      "timeoutMs": 5000,
+      "pid": null
+    },
+    {
+      "ms": 2749.711,
+      "type": "in_process_runner_error",
+      "code": "PROCESS_TIMEOUT",
+      "message": "controlled runner failure"
+    },
+    {
+      "ms": 2749.78,
+      "type": "request_path_before_job_cleanup",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-job-GiX7wi\\request.txt",
+      "exists": true
+    },
+    {
+      "ms": 2749.79,
+      "type": "transition",
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "requestId": "request-PROCESS_TIMEOUT",
+      "before": "running",
+      "status": "failed"
+    },
+    {
+      "ms": 2750.547,
+      "type": "execute_end",
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "status": "failed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "failed"
+      ]
+    },
+    {
+      "ms": 2760.935,
+      "type": "http_job",
+      "path": "/v1/jobs/a812cc8d-a815-409d-9129-265a16c76d26",
+      "method": "GET",
+      "httpStatus": 200,
+      "requestMs": 0.802,
+      "jobId": "a812cc8d-a815-409d-9129-265a16c76d26",
+      "status": "failed",
+      "lifecycle": [
+        "queued",
+        "preparing",
+        "running",
+        "failed"
+      ],
+      "error": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "PROCESS_TIMEOUT",
+        "message": "controlled runner failure",
+        "userCorrectable": true,
+        "retryable": true,
+        "details": {}
+      }
+    },
+    {
+      "ms": 2761.565,
+      "type": "http_job",
+      "path": "/v1/jobs/a812cc8d-a815-409d-9129-265a16c76d26/result",
+      "method": "GET",
+      "httpStatus": 400,
+      "requestMs": 0.519
+    },
+    {
+      "ms": 2762.5,
+      "type": "artifact_begin",
+      "id": 250,
+      "method": "dispose"
+    },
+    {
+      "ms": 2765.436,
+      "type": "artifact_end",
+      "id": 250,
+      "method": "dispose"
+    }
+  ]
+}

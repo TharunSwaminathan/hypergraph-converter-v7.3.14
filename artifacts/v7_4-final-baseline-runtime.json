@@ -1,0 +1,139 @@
+{
+  "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "packageSha256": "a27dfbd50d4fb7ebfa9c91f6a8190ac6b20d2d8cdc48877bf6c19c5962477e84",
+  "freshlyStartedThisSession": true,
+  "command": [
+    "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+    "run",
+    "candy:runtime"
+  ],
+  "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\extracted\\hypergraph-converter-v7.3.14",
+  "baseUrl": "http://127.0.0.1:8791",
+  "process": {
+    "pid": 16156,
+    "commandLine": "node  candy-runtime/src/cli.js",
+    "creationDate": "2026-10-15T17:14:14.2055940Z",
+    "listenerPid": 16156
+  },
+  "readinessPositivelyEstablished": true,
+  "health": {
+    "status": 200,
+    "body": {
+      "schemaVersion": "candy.runtime-api/1",
+      "serviceVersion": "candy-runtime-companion/1",
+      "schemaVersions": [
+        "candy.runtime-api/1",
+        "candy.capabilities/1",
+        "candy.artifact-upload/1",
+        "candy.job-submit/1",
+        "candy.graph-snapshot/1",
+        "candy.graph-update-batch/1",
+        "candy.algorithm-request/1",
+        "candy.algorithm-result/1",
+        "candy.algorithm-error/1",
+        "candy.vertex-mapping/1",
+        "candy.native-sssp-request/1",
+        "candy.native-sssp-result/1",
+        "candy.hypergraph-incidence/1",
+        "candy.hyperedge-mapping/1",
+        "candy.hypergraph-3edge-motif-request/1",
+        "candy.hypergraph-3edge-motif-update/1",
+        "candy.hypergraph-3edge-motif-state/1",
+        "candy.hypergraph-3edge-motif-result/1"
+      ],
+      "platform": "windows-wsl-boundary",
+      "runtimeStatus": "ready"
+    }
+  },
+  "unauthenticatedDiscovery": {
+    "status": 401,
+    "body": {
+      "schemaVersion": "candy.algorithm-error/1",
+      "classification": "ALGORITHM_FAILURE",
+      "message": "Pairing authentication is required.",
+      "userCorrectable": true,
+      "retryable": false,
+      "details": {}
+    }
+  },
+  "wrongAuthentication": {
+    "status": 401,
+    "body": {
+      "schemaVersion": "candy.algorithm-error/1",
+      "classification": "ALGORITHM_FAILURE",
+      "message": "Pairing authentication is required.",
+      "userCorrectable": true,
+      "retryable": false,
+      "details": {}
+    }
+  },
+  "disallowedOrigin": {
+    "status": 403,
+    "body": {
+      "schemaVersion": "candy.algorithm-error/1",
+      "classification": "ALGORITHM_FAILURE",
+      "message": "Browser origin is not allowed.",
+      "userCorrectable": true,
+      "retryable": false,
+      "details": {}
+    }
+  },
+  "authenticatedDiscovery": {
+    "status": 200,
+    "body": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        }
+      ],
+      "runtimeSessionId": "0f4858a9-3777-4db2-8ace-3b8096e5835b"
+    }
+  },
+  "freshSessionArtifactRoundtrip": {
+    "uploadStatus": 201,
+    "metadataStatus": 200,
+    "artifactId": "sha256:f661dee6376bd80a18533b2f03a5c7b58c62ded6261243184fb61de107cfa97d"
+  },
+  "cuda": [
+    {
+      "backend": "LOCAL_CUDA",
+      "available": false,
+      "reason": "cuda_qualification_unavailable",
+      "trustedExecutableRejected": true
+    },
+    {
+      "backend": "CUDA_STATIC",
+      "available": false,
+      "reason": "motif_qualification_unavailable_or_stale",
+      "trustedExecutableRejected": true
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "available": false,
+      "reason": "motif_qualification_unavailable_or_stale",
+      "trustedExecutableRejected": true
+    }
+  ],
+  "sourceSha256": {
+    "candy-runtime/src/cli.js": "c914ded37966149f6a920853bade6f434af4a864e443f9db72eda3d87a58552d",
+    "candy-runtime/src/server.js": "aea87dcfd366bacab2fb65f7d3b19c4c85f96fc90985d47288a161a9210f6b51",
+    "candy-runtime/src/config.js": "a27c8a75892babb4072190470c6ba32e3a69be256ad48aa5a99af4c3afd8343c",
+    "candy-runtime/src/artifacts/artifactStore.js": "b839e47f0a74c9c77ba2d3b0143e7797c860d87077aae00d8f5745dffa907b83"
+  },
+  "tokenPersistedToEvidence": false,
+  "shutdown": "PASS \u2014 SIGINT handled by CLI; pairing credential removed; PID exited; listener closed",
+  "pairingFileRemoved": true,
+  "listenerClosed": true,
+  "processExited": true
+}

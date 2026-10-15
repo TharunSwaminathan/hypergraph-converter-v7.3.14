@@ -1,0 +1,110 @@
+{
+  "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "nodeVersion": "v22.23.3",
+  "CI": true,
+  "dependencyState": "npm ci in separate exact committed-tree export; no prior node_modules",
+  "services": "Studio and Ollama not required or started. Test-created Runtime instances are fresh and owned by individual tests.",
+  "gates": [
+    {
+      "label": "committed-ci",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "ci"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 21.669,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-ci.log"
+    },
+    {
+      "label": "committed-test",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "test"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 159.755,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-test.log"
+    },
+    {
+      "label": "committed-lint",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 10.434,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-lint.log"
+    },
+    {
+      "label": "committed-build",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "run",
+        "build"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 0.891,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-build.log"
+    },
+    {
+      "label": "committed-build-github",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 0.773,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-build-github.log"
+    },
+    {
+      "label": "committed-audit",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\npm.cmd",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 0.885,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-audit.log"
+    },
+    {
+      "label": "committed-job-engine",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\node.exe",
+        "tests/candy-scope2-job-engine.test.mjs"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 2.811,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-job-engine.log"
+    },
+    {
+      "label": "committed-command-reference",
+      "command": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-windows-ci-corrective-20261014\\node-v22.23.3-win-x64\\node.exe",
+        "tests/deterministic-command-reference-doc.test.mjs"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\v7_4-final-baseline-closure-20261015\\committed-populated\\hypergraph-converter-v7.3.14",
+      "candidate": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "exitCode": 0,
+      "seconds": 0.175,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\v7_4-final-baseline-logs\\committed-command-reference.log"
+    }
+  ]
+}

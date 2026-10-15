@@ -1,0 +1,36 @@
+{
+  "recommendation": "READY FOR REVIEW \u2014 TEST-ONLY WINDOWS CI CORRECTION",
+  "baselineHEAD": "0fb1e9d0e0f7af2d37d34ca90a65a887693f7f25",
+  "HEAD": "0fb1e9d0e0f7af2d37d34ca90a65a887693f7f25",
+  "branch": "v7_4-merged-baseline-integration",
+  "rootCauseClassification": "test-only count-based polling window",
+  "productionChanged": false,
+  "sourceFilesChanged": [
+    "tests/candy-scope2-job-engine.test.mjs",
+    "tests/helpers/waitForJobStatus.mjs"
+  ],
+  "finalFocusedWindows": {
+    "Node22.23.3": "10/10 PASS",
+    "Node24.20.0": "10/10 PASS"
+  },
+  "fullWindows": {
+    "Node22.23.3": "274/274 PASS",
+    "Node24.20.0": "274/274 PASS"
+  },
+  "relatedScope2": "5/5 PASS",
+  "lint": "PASS",
+  "build": "PASS",
+  "buildGithub": "PASS",
+  "productionVulnerabilities": 0,
+  "protectedSourceUnchanged": true,
+  "historyUnchangedAtClosure": true,
+  "diffCheckExitCode": 0,
+  "remoteCI": "Await human commit/push and CI rerun; no new remote PASS claimed.",
+  "remoteRootCauseLimit": "Exact remote I/O/scheduling delay unobserved; supplied stack and matching-version controlled reproduction demonstrate the specific polling assumption.",
+  "committed": false,
+  "pushed": false,
+  "merged": false,
+  "tagged": false,
+  "scope6B": false,
+  "finalGitStatus": " M tests/candy-scope2-job-engine.test.mjs\n A tests/helpers/waitForJobStatus.mjs\n?? artifacts/v7_4-windows-ci-after-final-node22.json\n?? artifacts/v7_4-windows-ci-after-final-node24.json\n?? artifacts/v7_4-windows-ci-after-node22.json\n?? artifacts/v7_4-windows-ci-after-node24.json\n?? artifacts/v7_4-windows-ci-before-node22.json\n?? artifacts/v7_4-windows-ci-before-node24.json\n?? artifacts/v7_4-windows-ci-controlled-reproduction.json\n?? artifacts/v7_4-windows-ci-corrective-report.md\n?? artifacts/v7_4-windows-ci-corrective.diff\n?? artifacts/v7_4-windows-ci-environment.json\n?? artifacts/v7_4-windows-ci-gates.json\n?? artifacts/v7_4-windows-ci-generated-deterministic-nlu-compiler-quality-report.json\n?? artifacts/v7_4-windows-ci-generated-deterministic-nlu-integrated-routing-report.json\n?? artifacts/v7_4-windows-ci-generated-deterministic-nlu-quality-report.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-1-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-10-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-2-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-3-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-4-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-5-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-6-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-7-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-8-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node22-9-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-1-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-10-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-2-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-3-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-4-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-5-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-6-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-7-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-8-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-final-node24-9-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-1-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-10-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-2-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-3-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-4-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-5-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-6-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-7-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-8-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node22-9-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-1-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-10-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-2-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-3-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-4-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-5-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-6-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-7-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-8-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/after-node24-9-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-1-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-10-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-2-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-3-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-4-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-5-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-6-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-7-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-8-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node22-9-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-1-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-10-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-2-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-3-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-4-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-5-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-6-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-7-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-8-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/before-node24-9-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/controlled-window-node22-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/controlled-window-node24-lifecycle.json\n?? artifacts/v7_4-windows-ci-logs/legacy-slow-write-node24-lifecycle.json\n?? artifacts/v7_4-windows-ci-observer-setup-error.json\n?? artifacts/v7_4-windows-ci-protected-delta.json\n?? artifacts/v7_4-windows-ci-root-cause.json\n?? artifacts/v7_4-windows-ci-security-review.json\n?? artifacts/v7_4-windows-ci-timing-summary.json\n"
+}
