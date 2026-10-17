@@ -392,7 +392,7 @@ function AppCore() {
         beforeGraphType: graphState.graphType,
         afterGraphType: nextState.graphType,
         beforeHyperedges: previousHyperedges,
-        afterHyperedges: normalizedNext ?? [],
+        afterHyperedges: nextState.hyperedges ?? [],
         plan: plan ?? { summary },
         preview,
         source,
@@ -3818,20 +3818,24 @@ function AppCore() {
     v2v: { title: "v2v", color: T.purple, cols: ["Vertex A", "Vertex B", "Shared", "Weight"] },
   }[selectedMappingId];
 
+  const graphValidation = useMemo(() => finalHes ? validateHes(finalHes) : [], [finalHes]);
+  const graphTriads = useMemo(() => finalHes ? countTriadsBounded(finalHes) : null, [finalHes]);
+  const graphIncidences = useMemo(() => finalHes?.reduce((sum, edge) => sum + edge.vertices.length, 0) ?? 0, [finalHes]);
+
   const graphResultSummary = useMemo(() => {
     if (!finalHes?.length || !st) return null;
-    const issues = validateHes(finalHes);
+    const issues = graphValidation;
     const maxDegree = st.degs?.length ? arrayMax(st.degs) : 0;
     const avgDegree = st.degs?.length ? st.degs.reduce((a, b) => a + b, 0) / Math.max(1, st.degs.length) : 0;
     const incidenceDensityPercent = (st.incidenceDensity ?? 0) * 100;
     const v2vProjectionDensityPercent = st.v2vProjectionDensity == null ? null : st.v2vProjectionDensity * 100;
-    const triadResult = countTriadsBounded(finalHes);
+    const triadResult = graphTriads;
     return {
       inputFormat: fmt,
       inputFormatLabel: FMTS.find(f => f.id === fmt)?.label ?? fmt,
       hyperedges: finalHes.length,
       vertices: st.V,
-      incidences: finalHes.reduce((sum, hyperedge) => sum + hyperedge.vertices.length, 0),
+      incidences: graphIncidences,
       minCardinality: st.min,
       maxCardinality: st.max,
       averageCardinality: st.avg,
@@ -3850,7 +3854,7 @@ function AppCore() {
       singletonStatus: issues.some(issue => issue.type === "singleton") ? "singleton hyperedges found" : "no singleton hyperedges",
       warningCount: warnings.length + batchWarnings.length,
     };
-  }, [batchWarnings.length, finalHes, fmt, st, v2v.length, v2vResult, warnings.length]);
+  }, [batchWarnings.length, finalHes, fmt, st, v2v.length, v2vResult, warnings.length, graphValidation, graphTriads, graphIncidences]);
 
   function dl(name, content) { downloads.download(name, content); }
 
@@ -3895,9 +3899,10 @@ function AppCore() {
     setParserProfileNotice("Parser profiles exported locally.");
   }
 
-  const h2hExportResult = activeSection === "export" && expId === "h2h_txt" && h2hResult.status === DERIVED_STATUS.COMPUTED
+  const h2hExportResult = useMemo(() => activeSection === "export" && expId === "h2h_txt" && h2hResult.status === DERIVED_STATUS.COMPUTED
     ? derivedCache.getOrCompute("export_result:h2h", {}, () => ({ ...expH2HResult(h2h), status: h2hResult.status }))
-    : expH2HAvailabilityResult(h2h, { status: h2hResult.status, reason: h2hResult.reason });
+    : expH2HAvailabilityResult(h2h, { status: h2hResult.status, reason: h2hResult.reason }),
+  [activeSection, expId, h2hResult, h2h, derivedCache]);
 
   const EXPORTS = useMemo(() => [
     { id: "h2v_txt", label: "h2v text", fn: "h2v.txt" },
@@ -3914,11 +3919,7 @@ function AppCore() {
     { id: "all_txt", label: "All mappings", fn: "all_mappings.txt" },
   ], [h2hExportResult]);
   const curExp = EXPORTS.find(e => e.id === expId) ?? EXPORTS[0];
-  const exportResolution = activeSection === "export"
-    ? resolveExport(curExp.id)
-    : exportPending("Open Export to materialize the selected exact output.");
-  const exportContent = exportResolution.text;
-
+  const exportResolution = useMemo(() => {
   function resolveExport(exportId) {
     const pending = result => result.status === DERIVED_STATUS.COMPUTING
       || result.status === DERIVED_STATUS.NOT_REQUESTED;
@@ -3984,6 +3985,12 @@ function AppCore() {
         return { ok: false, text: "# Unknown export preview.", reason: "Unknown export preview." };
     }
   }
+
+    return activeSection === "export"
+      ? resolveExport(curExp.id)
+      : exportPending("Open Export to materialize the selected exact output.");
+  }, [activeSection, curExp.id, derivedCache, h2v, v2h, h2h, h2hResult, h2hExportResult, v2vResult, matrixResult, csr, finalHes, fmt, st]);
+  const exportContent = exportResolution.text;
 
   function exportReady(text) { return { ok: true, text, reason: null, pending: false }; }
   function exportPending(message) { return { ok: false, text: `# ${message}`, reason: message, pending: true }; }
@@ -4202,7 +4209,7 @@ function AppCore() {
     hasGraph: Boolean(finalHes?.length),
     hyperedgeCount: finalHes?.length ?? 0,
     vertexCount: st?.V ?? 0,
-    incidenceCount: finalHes?.reduce((sum, hyperedge) => sum + hyperedge.vertices.length, 0) ?? 0,
+    incidenceCount: graphIncidences,
     graphHyperedges: finalHes ?? [],
     graphId: graphIdentity.graphId,
     graphVersion,
@@ -5302,7 +5309,7 @@ function AppCore() {
             </div>
             <div>
               <div className="hg-label">Mutation history</div>
-              <div className="hg-meta__value">{graphHistory.length} committed change{graphHistory.length === 1 ? "" : "s"}</div>
+              <div className="hg-meta__value">{graphHistory.length} retained change{graphHistory.length === 1 ? "" : "s"} | up to 25 events / 32 MiB snapshot JSON accounting. Oldest events expire; changes exceeding this budget cannot be undone.</div>
             </div>
             <div className="hg-meta__note">Type changes are versioned authority transitions. They do not run analysis or apply graph edits.</div>
           </div>
@@ -5338,7 +5345,7 @@ function AppCore() {
                       {label}
                     </button>
                   ))}
-                  <span className="hg-chiprow__note">H2H/V2V are computed only when selected or exported.</span>
+                  <span className="hg-chiprow__note">H2H/V2V are computed only when selected or exported. Mapping display shows at most 500 rows, 40 items / 512 characters per cell; omission labels indicate shortened cells. Exports remain complete.</span>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 16, marginBottom: 16 }}>
                   <MappingBox
@@ -5355,8 +5362,8 @@ function AppCore() {
 
             {/* Stats tab */}
             {activeSection === "stats" && (() => {
-              const triadResult = countTriadsBounded(finalHes);
-              const issues = validateHes(finalHes);
+              const triadResult = graphTriads;
+              const issues = graphValidation;
               return (
                 <div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 16 }}>
@@ -5429,6 +5436,7 @@ function AppCore() {
         {(pendingPreview?.hyperedges.length > 0 || finalHes?.length > 0) && (
           <div ref={vizRef} style={{ marginTop: 40, scrollMarginTop: 20 }}>
             <Viz
+              totalVertexCount={pendingPreview ? null : st?.V}
               hyperedges={pendingPreview?.hyperedges ?? finalHes}
               updateSemantics={pendingPreview?.semantics}
               vizLimit={vizLimit}

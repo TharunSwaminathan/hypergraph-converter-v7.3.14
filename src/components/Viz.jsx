@@ -20,7 +20,7 @@ import {
   stepHypergraphForce,
 } from "../visualization/hypergraphLayout.js";
 import { computeHyperedgeBounds, hitHyperedgeRing, hitNode } from "../visualization/previewGeometry.js";
-import { buildVisualCoMembershipOverlay, selectLineGraphVisualEdges } from "../visualization/previewRenderBudget.js";
+import { buildVisualCoMembershipOverlay, selectLineGraphVisualEdges, prepareBoundedPreview } from "../visualization/previewRenderBudget.js";
 import {
   computeCanvasBackingSize,
   createPreviewRafScheduler,
@@ -62,6 +62,7 @@ export default function Viz({
   onSelectionChange,
   graphVersion = 0,
   updateSemantics = null,
+  totalVertexCount = null,
 }) {
   const canvasRef = useRef(null); const containerRef = useRef(null); const stateRef = useRef(null);
   const schedulerRef = useRef(null); const requestDrawRef = useRef(() => false);
@@ -95,7 +96,9 @@ export default function Viz({
     onViewModeChange?.(value);
   }, [controlledViewMode, onViewModeChange]);
 
-  const he = useMemo(() => hyperedges.slice(0, vizLimit), [hyperedges, vizLimit]);
+  const previewData = useMemo(() => prepareBoundedPreview(hyperedges, vizLimit), [hyperedges, vizLimit]);
+  const he = previewData.hyperedges;
+  const exactSelectedHyperedges = useMemo(() => hyperedges.slice(0, vizLimit), [hyperedges, vizLimit]);
   const topology = useMemo(() => buildPreviewTopology(he), [he]);
   const verts = topology.vertices;
   // Exact analytical projection belongs only to Line Graph mode.
@@ -103,9 +106,9 @@ export default function Viz({
   const lineGraphRequest = useAsyncDerivedProduct({
     enabled: viewMode === "linegraph",
     graphVersion,
-    graphIdentity: he,
+    graphIdentity: exactSelectedHyperedges,
     operationType: DERIVED_OPERATIONS.LINE_GRAPH,
-    hyperedges: he,
+    hyperedges: exactSelectedHyperedges,
     cache: lineGraphCache,
   });
   const v2vProjection = lineGraphRequest.result;
@@ -121,6 +124,11 @@ export default function Viz({
   );
   const filteredHyperedgeList = hyperedgeSearch.trim() ? hyperedgeSearchHits : he;
   const forceStrategy = useMemo(() => chooseForceStrategy(verts.length), [verts.length]);
+  const edgeOrdinals = useMemo(() => new Map(he.map((edge, index) => [edge, index])), [he]);
+  const sortedVertices = useMemo(() => [...verts].sort(vcmp), [verts]);
+  const selectedMembers = useMemo(() => new Set((he.find(h => graphIdentifiersEqual(h.id, selHE))?.vertices ?? []).map(String)), [he, selHE]);
+  const [vertexPage, setVertexPage] = useState(0);
+  const safeVertexPage = Math.min(vertexPage, Math.max(0, Math.ceil(sortedVertices.length / 100) - 1));
 
   useEffect(() => {
     if (viewMode === "hypergraph") return;
@@ -212,6 +220,14 @@ export default function Viz({
       forceDiagnostics: prev?.forceDiagnostics ?? { strategy: forceStrategy, repulsionWork: 0, attractionWork: 0 },
     };
 
+    const selHeObj = selHE != null ? he.find(h => graphIdentifiersEqual(h.id, selHE)) : null;
+    const searchedHyperedgeVertices = hyperedgeSearchHits.flatMap(hyperedge => hyperedge.vertices);
+    const hiVerts = new Set((selHeObj ? selHeObj.vertices : (selV != null ? [selV] : searchHit != null ? [searchHit] : searchedHyperedgeVertices)).map(String));
+    const hiHEs = selV != null ? new Set(he.filter(h => h.vertices.map(String).includes(String(selV))).map(h => String(h.id)))
+      : searchHit != null ? new Set(he.filter(h => h.vertices.map(String).includes(String(searchHit))).map(h => String(h.id)))
+        : selHE != null ? new Set([String(selHE)]) : new Set(hyperedgeSearchHits.map(h => String(h.id)));
+    const anySelect = selHE != null || selV != null || searchHit != null || hyperedgeSearch.trim().length > 0;
+
     function draw() {
       if (!stateRef.current) return false;
       const s = stateRef.current, t = s.transform, ns = s.nodes;
@@ -226,14 +242,6 @@ export default function Viz({
       ctx.setTransform(sizing.dpr, 0, 0, sizing.dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
       ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.s, t.s);
-
-      const selHeObj = selHE != null ? he.find(h => graphIdentifiersEqual(h.id, selHE)) : null;
-      const searchedHyperedgeVertices = hyperedgeSearchHits.flatMap(hyperedge => hyperedge.vertices);
-      const hiVerts = new Set((selHeObj ? selHeObj.vertices : (selV != null ? [selV] : searchHit != null ? [searchHit] : searchedHyperedgeVertices)).map(String));
-      const hiHEs = selV != null ? new Set(he.filter(h => h.vertices.map(String).includes(String(selV))).map(h => String(h.id)))
-        : searchHit != null ? new Set(he.filter(h => h.vertices.map(String).includes(String(searchHit))).map(h => String(h.id)))
-          : selHE != null ? new Set([String(selHE)]) : new Set(hyperedgeSearchHits.map(h => String(h.id)));
-      const anySelect = selHE != null || selV != null || searchHit != null || hyperedgeSearch.trim().length > 0;
 
       if (viewMode === "hypergraph") {
         he.forEach((h, i) => {
@@ -403,6 +411,13 @@ export default function Viz({
 
   return (
     <div>
+      {!previewData.complete && <div role="status" style={{ marginBottom: 10, color: T.textDim }}>
+        Bounded display: {previewData.renderedHyperedges.toLocaleString()} of {previewData.totalHyperedges.toLocaleString()} hyperedges;
+        {" "}{previewData.renderedVertices.toLocaleString()}{totalVertexCount == null ? " displayed vertices" : ` of ${totalVertexCount.toLocaleString()} vertices`};
+        {" "}{previewData.renderedIncidences.toLocaleString()} of {previewData.totalIncidences.toLocaleString()} memberships.
+        {" "}Canvas budgets: 200 hyperedges, 1,000 vertices, 3,000 memberships. {previewData.selectionPolicy}
+        {" "}Statistics and exports use the complete graph. Line Graph computes the exact requested hyperedge prefix; the canvas remains bounded.
+      </div>}
       {/* Toolbar row 1 */}
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8, flexWrap: "wrap" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -502,7 +517,7 @@ export default function Viz({
           </div>
           <div style={{ background: T.surface, border: "1px solid " + T.border, borderRadius: 6, padding: 10, flex: 1, overflowY: "auto", maxHeight: 380, boxShadow: T.shadowSm }}>
             <div style={{ fontSize: 11, color: T.textFaint, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, fontWeight: 600, padding: "0 4px" }}>Hyperedges ({filteredHyperedgeList.length}{hyperedgeSearch.trim() ? ` of ${he.length}` : ""})</div>
-            {filteredHyperedgeList.map(h => { const i = he.indexOf(h); const selected = graphIdentifiersEqual(selHE, h.id); return (<div key={h.id} onClick={() => { setSelHE(value => graphIdentifiersEqual(value, h.id) ? null : h.id); setSelV(null); }} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 10px", borderRadius: 4, cursor: "pointer", marginBottom: 3, background: selected ? T.accentLt : "transparent", border: "1px solid " + (selected ? T.accent + "55" : "transparent"), transition: "all .12s" }}><div style={{ width: 10, height: 10, borderRadius: 3, flexShrink: 0, background: PALETTE[i % PALETTE.length] }} /><span style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 700, color: selected ? T.accent : T.text }}>{h.id}</span>{h.time != null && <span style={{ fontSize: 10, color: T.teal }}>t{h.time}</span>}{shouldDisplayWeight(h.weight) && <span style={{ fontSize: 10, color: T.amber }}>w{h.weight}</span>}<span style={{ fontSize: 12, color: T.textDim, marginLeft: "auto", fontFamily: "monospace" }}>{h.vertices.length}v</span></div>); })}
+            {filteredHyperedgeList.map(h => { const i = edgeOrdinals.get(h); const selected = graphIdentifiersEqual(selHE, h.id); return (<div key={h.id} onClick={() => { setSelHE(value => graphIdentifiersEqual(value, h.id) ? null : h.id); setSelV(null); }} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 10px", borderRadius: 4, cursor: "pointer", marginBottom: 3, background: selected ? T.accentLt : "transparent", border: "1px solid " + (selected ? T.accent + "55" : "transparent"), transition: "all .12s" }}><div style={{ width: 10, height: 10, borderRadius: 3, flexShrink: 0, background: PALETTE[i % PALETTE.length] }} /><span style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 700, color: selected ? T.accent : T.text }}>{h.id}</span>{h.time != null && <span style={{ fontSize: 10, color: T.teal }}>t{h.time}</span>}{shouldDisplayWeight(h.weight) && <span style={{ fontSize: 10, color: T.amber }}>w{h.weight}</span>}<span style={{ fontSize: 12, color: T.textDim, marginLeft: "auto", fontFamily: "monospace" }}>{h.vertices.length}v</span></div>); })}
             {hyperedgeSearch.trim() && filteredHyperedgeList.length === 0 && <div style={{ padding: "12px 8px", fontSize: 12, color: T.textFaint }}>No hyperedges match this read-only filter.</div>}
           </div>
         </div>
@@ -512,8 +527,9 @@ export default function Viz({
         {hyperedges.length > he.length && ` Sampled view: ${he.length} of ${hyperedges.length} edges under the existing preview limit.`}
         {viewMode !== "hypergraph" && " Switch to Hypergraph view to inspect edge change rings."}
       </div>}
+      {sortedVertices.length > 100 && <div aria-label="Preview vertex pages"><button disabled={safeVertexPage === 0} onClick={() => setVertexPage(safeVertexPage - 1)}>Previous vertices</button> Page {safeVertexPage + 1} of {Math.ceil(sortedVertices.length / 100)} <button disabled={(safeVertexPage + 1) * 100 >= sortedVertices.length} onClick={() => setVertexPage(safeVertexPage + 1)}>Next vertices</button></div>}
       <div style={{ marginTop: 10, display: "flex", gap: 6, flexWrap: "wrap" }}>
-        {[...verts].sort(vcmp).map(v => { const active = graphIdentifiersEqual(selV, v) || (selHE != null && he.find(h => graphIdentifiersEqual(h.id, selHE))?.vertices.map(String).includes(String(v))) || graphIdentifiersEqual(searchHit, v); return (<div key={String(v)} onClick={() => { setSelV(x => graphIdentifiersEqual(x, v) ? null : v); setSelHE(null); }} style={{ padding: "4px 12px", borderRadius: 6, cursor: "pointer", border: "1px solid " + (active ? T.accent : T.border), background: active ? T.accentLt : "transparent", fontSize: 13, fontFamily: "monospace", color: active ? T.accent : T.textDim, transition: "all .12s", fontWeight: active ? 700 : 400 }}>{String(v)}</div>); })}
+        {sortedVertices.slice(safeVertexPage * 100, (safeVertexPage + 1) * 100).map(v => { const active = graphIdentifiersEqual(selV, v) || (selHE != null && selectedMembers.has(String(v))) || graphIdentifiersEqual(searchHit, v); return (<div key={String(v)} onClick={() => { setSelV(x => graphIdentifiersEqual(x, v) ? null : v); setSelHE(null); }} style={{ padding: "4px 12px", borderRadius: 6, cursor: "pointer", border: "1px solid " + (active ? T.accent : T.border), background: active ? T.accentLt : "transparent", fontSize: 13, fontFamily: "monospace", color: active ? T.accent : T.textDim, transition: "all .12s", fontWeight: active ? 700 : 400 }}>{String(v)}</div>); })}
       </div>
     </div>
   );

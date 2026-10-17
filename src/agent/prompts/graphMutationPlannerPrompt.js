@@ -1,4 +1,12 @@
 import { buildGraphEntityIndex } from "../../graph/entityResolver.js";
+import { isOwnedGraph } from "../../graph/immutableGraph.js";
+const plannerIndexes = new WeakMap();
+function plannerIndex(hyperedges) {
+  if (isOwnedGraph(hyperedges) && plannerIndexes.has(hyperedges)) return plannerIndexes.get(hyperedges);
+  const value = { index: buildGraphEntityIndex(hyperedges), counts: graphCounts(hyperedges) };
+  if (isOwnedGraph(hyperedges)) plannerIndexes.set(hyperedges, value);
+  return value;
+}
 import {
   GRAPH_MUTATION_DRAFT_LIMITS,
   GRAPH_MUTATION_DRAFT_SCHEMA,
@@ -76,12 +84,13 @@ function recentConversationContext(conversation = []) {
 }
 
 function entitySamples(index) {
-  const hyperedgeIds = [...index.hyperedgesById.keys()];
-  const vertexIds = [...index.verticesById.keys()];
+  const take = (map, limit) => { const values = []; for (const key of map.keys()) { if (values.length >= limit) break; values.push(key); } return values; };
+  const hyperedgeIds = take(index.hyperedgesById, MAX_CONTEXT_HYPEREDGE_IDS);
+  const vertexIds = take(index.verticesById, MAX_CONTEXT_VERTEX_IDS);
   return {
     hyperedgeIds: hyperedgeIds.slice(0, MAX_CONTEXT_HYPEREDGE_IDS),
     vertexIds: vertexIds.slice(0, MAX_CONTEXT_VERTEX_IDS),
-    truncated: hyperedgeIds.length > MAX_CONTEXT_HYPEREDGE_IDS || vertexIds.length > MAX_CONTEXT_VERTEX_IDS,
+    truncated: index.hyperedgesById.size > MAX_CONTEXT_HYPEREDGE_IDS || index.verticesById.size > MAX_CONTEXT_VERTEX_IDS,
   };
 }
 
@@ -93,8 +102,7 @@ export function buildGraphMutationPlannerContext({
   conversation = [],
   recentReferences = {},
 } = {}) {
-  const index = buildGraphEntityIndex(hyperedges);
-  const counts = graphCounts(hyperedges);
+  const { index, counts } = plannerIndex(hyperedges);
   return {
     graph: {
       hasGraph: (hyperedges ?? []).length > 0,

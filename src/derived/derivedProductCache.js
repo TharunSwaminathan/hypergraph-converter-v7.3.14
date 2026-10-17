@@ -1,4 +1,5 @@
 import { DERIVED_STATUS } from "../utils/derivedResults.js";
+export const DERIVED_CACHE_LIMITS = Object.freeze({ entries: 32, textBytes: 16 * 1024 * 1024 });
 
 export function createDerivedProductCache() {
   const entries = new Map();
@@ -11,6 +12,7 @@ export function createDerivedProductCache() {
     completeWrites: 0,
     refusedWrites: 0,
     contextRejectedWrites: 0,
+    budgetRejectedWrites: 0,
   };
 
   function activateGraph(graphVersion, graphIdentity) {
@@ -42,7 +44,16 @@ export function createDerivedProductCache() {
       counters.refusedWrites += 1;
       return false;
     }
-    entries.set(keyForGraph(graphVersion, operationType, options), value);
+    const key = keyForGraph(graphVersion, operationType, options);
+    if (typeof value === 'string' && value.length * 2 > DERIVED_CACHE_LIMITS.textBytes) {
+      counters.budgetRejectedWrites += 1;
+      return false;
+    }
+    entries.delete(key);
+    entries.set(key, value);
+    while (entries.size > DERIVED_CACHE_LIMITS.entries || retainedTextBytes() > DERIVED_CACHE_LIMITS.textBytes) {
+      entries.delete(entries.keys().next().value);
+    }
     counters.completeWrites += 1;
     return true;
   }
@@ -58,6 +69,12 @@ export function createDerivedProductCache() {
     return value;
   }
 
+  function retainedTextBytes() {
+    let bytes = 0;
+    for (const value of entries.values()) if (typeof value === 'string') bytes += value.length * 2;
+    return bytes;
+  }
+
   return Object.freeze({
     activateGraph,
     getOrCompute,
@@ -68,6 +85,7 @@ export function createDerivedProductCache() {
       return Object.freeze({
         activeGraphVersion,
         entryCount: entries.size,
+        retainedTextBytes: retainedTextBytes(),
         ...counters,
       });
     },

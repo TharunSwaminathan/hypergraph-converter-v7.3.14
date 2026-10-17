@@ -99,11 +99,41 @@ export function classifyLocalModelError(error) {
   return "unknown_network_error";
 }
 
+export const MAX_LOCAL_MODEL_RESPONSE_BYTES = 8 * 1024 * 1024;
+function responseLimitError() {
+  return Object.assign(new Error('Local model response exceeds the 8 MiB browser response budget.'), { classification: 'response_resource_limit' });
+}
+export async function readBoundedModelResponse(response) {
+  if (Number(response.headers?.get?.('content-length')) > MAX_LOCAL_MODEL_RESPONSE_BYTES) {
+    await response.body?.cancel?.();
+    throw responseLimitError();
+  }
+  if (!response.body?.getReader) {
+    const text = await response.text();
+    if (new TextEncoder().encode(text).byteLength > MAX_LOCAL_MODEL_RESPONSE_BYTES) throw responseLimitError();
+    return text;
+  }
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let bytes = 0;
+  let text = '';
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytes += value.byteLength;
+      if (bytes > MAX_LOCAL_MODEL_RESPONSE_BYTES) throw responseLimitError();
+      text += decoder.decode(value, { stream: true });
+    }
+    return text + decoder.decode();
+  } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
+}
+
 export async function fetchJson(url, options = {}, timeoutMs = DEFAULT_LOCAL_MODEL_TIMEOUT_MS) {
   const { signal, cleanup, timedOut } = timeoutSignal(timeoutMs, options.signal);
   try {
     const response = await fetch(url, { ...options, signal, redirect: "error" });
-    const text = await response.text();
+    const text = await readBoundedModelResponse(response);
     let data = {};
     try {
       data = text ? JSON.parse(text) : {};
@@ -359,7 +389,7 @@ export async function generateConversationWithLocalModel(config, payload, {
     if (!response.ok) {
       let detail = `HTTP ${response.status}`;
       try {
-        const data = JSON.parse(await response.text());
+        const data = JSON.parse(await readBoundedModelResponse(response));
         detail = data?.error?.message ?? data?.error ?? data?.message ?? detail;
       } catch {
         // Keep the HTTP status detail.
@@ -367,7 +397,7 @@ export async function generateConversationWithLocalModel(config, payload, {
       throw Object.assign(new Error(`Ollama conversational request failed: ${detail}`), { status: response.status, serverResponded: true });
     }
     if (!response.body?.getReader) {
-      const text = await response.text();
+      const text = await readBoundedModelResponse(response);
       const parsed = JSON.parse(text);
       const content = parsed?.message?.content;
       if (typeof content !== "string") throw new Error("Ollama returned no conversational message content.");
@@ -380,6 +410,7 @@ export async function generateConversationWithLocalModel(config, payload, {
     const decoder = new TextDecoder();
     let accumulated = "";
     let parserError = null;
+    let responseBytes = 0;
     const parser = createOllamaChatStreamParser({
       onContent(content) {
         accumulated += content;
@@ -392,13 +423,15 @@ export async function generateConversationWithLocalModel(config, payload, {
       },
     });
 
-    while (true) {
+    try { while (true) {
       if (requestSignal.aborted) throw abortError();
       const { value, done } = await reader.read();
       if (done) break;
+      responseBytes += value.byteLength;
+      if (responseBytes > MAX_LOCAL_MODEL_RESPONSE_BYTES) throw responseLimitError();
       parser.feed(decoder.decode(value, { stream: true }));
       if (parserError) throw parserError;
-    }
+    } } finally { await reader.cancel().catch(() => {}); reader.releaseLock?.(); }
     parser.feed(decoder.decode());
     parser.flush();
     if (parserError) throw parserError;

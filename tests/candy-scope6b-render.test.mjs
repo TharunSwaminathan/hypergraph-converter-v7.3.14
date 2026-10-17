@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import { Window } from 'happy-dom';
+import { createServer } from 'vite';
+const window=new Window({url:'http://localhost:5173/'});
+globalThis.window=window;globalThis.document=window.document;
+Object.defineProperty(globalThis,'navigator',{value:window.navigator,configurable:true});
+globalThis.HTMLElement=window.HTMLElement;globalThis.IS_REACT_ACT_ENVIRONMENT=true;
+globalThis.requestAnimationFrame=()=>1;globalThis.cancelAnimationFrame=()=>{};
+window.HTMLCanvasElement.prototype.getContext=()=>null;
+const vite=await createServer({server:{middlewareMode:true},appType:'custom',logLevel:'error'});
+try {
+  const React=await import('react');const {createRoot}=await import('react-dom/client');
+  const {default:Viz}=await vite.ssrLoadModule('/src/components/Viz.jsx');
+  const {previewPreparationMetrics}=await vite.ssrLoadModule('/src/visualization/previewRenderBudget.js');
+  const rows=[{id:'huge',vertices:Array.from({length:100000},(_,i)=>`v${i}`)}];
+  const div=document.createElement('div');document.body.append(div);const root=createRoot(div);
+  let props={hyperedges:rows,vizLimit:50,setVizLimit(){},graphVersion:1,controlledLayout:'circular',totalVertexCount:100000};
+  const render=async patch=>{props={...props,...patch};await React.act(async()=>root.render(React.createElement(Viz,props)));};
+  const before=previewPreparationMetrics().preparations;await render({});
+  assert.equal(previewPreparationMetrics().preparations,before+1);
+  for(let i=0;i<10;i++)await render({controlledSearch:`v${i}`});
+  assert.equal(previewPreparationMetrics().preparations,before+1,'same-version search rerenders do not rebuild graph topology inputs');
+  assert.match(div.textContent,/1,000 of 100,000 vertices/);
+  assert.match(div.textContent,/source order/);assert.match(div.textContent,/search filters this displayed subset/);
+  assert.ok(div.querySelectorAll('button').length<40,'paged vertex DOM stays bounded');
+  const page=[...div.querySelectorAll('button')].find(b=>b.textContent==='Next vertices');
+  await React.act(async()=>page.click());assert.match(div.textContent,/Page 2 of 10/);
+  await render({hyperedges:[{id:'replacement',vertices:['new']}],graphVersion:2,controlledSearch:''});
+  assert.equal(previewPreparationMetrics().preparations,before+2);
+  assert.equal(div.textContent.includes('100,000 vertices'),false,'new version cannot display old graph counts');
+  await React.act(async()=>root.unmount());
+} finally {await vite.close();await window.happyDOM.close();}
+console.log('Scope 6B mounted same-version rendering, new-version recomputation, visible budgets and pagination passed.');

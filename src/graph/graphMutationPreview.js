@@ -1,18 +1,23 @@
 import { applyGraphMutationPlan } from "./graphMutationEngine.js";
 import { canonicalizeGraph, stableStringify } from "./graphFingerprint.js";
+import { isOwnedGraph } from "./immutableGraph.js";
+const countCache = new WeakMap();
 
 export function graphCounts(hyperedges = []) {
+  if (isOwnedGraph(hyperedges) && countCache.has(hyperedges)) return countCache.get(hyperedges);
   const vertices = new Set();
   let incidences = 0;
   for (const hyperedge of hyperedges ?? []) {
     incidences += hyperedge.vertices?.length ?? 0;
     for (const vertex of hyperedge.vertices ?? []) vertices.add(String(vertex));
   }
-  return {
+  const result = Object.freeze({
     hyperedges: hyperedges?.length ?? 0,
     vertices: vertices.size,
     incidences,
-  };
+  });
+  if (isOwnedGraph(hyperedges)) countCache.set(hyperedges, result);
+  return result;
 }
 
 export function previewGraphMutation(baseHyperedges = [], plan, graphIdentity = {}, history = []) {

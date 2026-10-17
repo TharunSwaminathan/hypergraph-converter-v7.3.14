@@ -1,6 +1,7 @@
 import { GRAPH_TYPES } from "../candy/contracts/graphTypes.js";
 import { canonicalizeGraph, graphFingerprint, stableStringify } from "./graphFingerprint.js";
 import { createGraphIdentity, nextCommittedGraphIdentity } from "./graphIdentity.js";
+import { ownGraph } from "./immutableGraph.js";
 
 export const APPLICATION_GRAPH_TYPES = Object.freeze([
   GRAPH_TYPES.HYPERGRAPH,
@@ -58,7 +59,7 @@ export function createGraphState(hyperedges = null, {
     // Scope 5A preserves existing membership-derived vertex behavior. This
     // reserved field lets a later phase add explicit isolates without replacing
     // the graph envelope or its authority model.
-    explicitVertices: Array.isArray(explicitVertices) ? [...explicitVertices] : null,
+    explicitVertices: Array.isArray(explicitVertices) ? Object.freeze([...explicitVertices]) : null,
   });
 }
 
@@ -90,5 +91,5 @@ export function graphIdentityFromState(state = {}) {
 }
 
 function normalizeCommittedHyperedges(hyperedges) {
-  return Array.isArray(hyperedges) && hyperedges.length ? hyperedges : null;
+  return Array.isArray(hyperedges) && hyperedges.length ? ownGraph(hyperedges) : null;
 }

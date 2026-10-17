@@ -80,11 +80,12 @@ export function useAsyncDerivedProduct({
 
   const stateMatchesCurrentGraph = Object.is(state.graphVersion, graphVersion)
     && Object.is(state.graphIdentity, graphIdentity);
-  const result = !enabled
+  const result = useMemo(() => !enabled
     ? notRequestedDerived(operationType)
     : stateMatchesCurrentGraph
       ? state.result
-      : computingDerived(operationType, { graphVersion });
+      : computingDerived(operationType, { graphVersion }),
+  [enabled, stateMatchesCurrentGraph, state.result, operationType, graphVersion]);
 
   return Object.freeze({
     result,

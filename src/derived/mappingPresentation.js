@@ -1,6 +1,6 @@
 import { DERIVED_STATUS } from "../utils/derivedResults.js";
 
-export const MAPPING_DISPLAY_LIMITS = Object.freeze({ rows: 500, previewCharacters: 300 });
+export const MAPPING_DISPLAY_LIMITS = Object.freeze({ rows: 500, previewCharacters: 300, itemsPerCell: 40, cellCharacters: 512 });
 
 export function buildMappingPresentation(type, data, {
   status = DERIVED_STATUS.COMPUTED,
@@ -14,12 +14,24 @@ export function buildMappingPresentation(type, data, {
   }
   const source = data ?? [];
   const rows = [];
+  let cellsTruncated = false;
+  const cell = value => {
+    if (typeof value !== 'string' || value.length <= MAPPING_DISPLAY_LIMITS.cellCharacters) return value;
+    cellsTruncated = true;
+    return value.slice(0, MAPPING_DISPLAY_LIMITS.cellCharacters) + '... [display truncated]';
+  };
+  const join = (values, separator = ', ', format = String) => {
+    const chosen = values.slice(0, MAPPING_DISPLAY_LIMITS.itemsPerCell);
+    if (chosen.length < values.length) cellsTruncated = true;
+    return cell(chosen.map((value, index) => cell(format(value, index))).join(separator)
+      + (chosen.length < values.length ? `... [${values.length - chosen.length} more; export for all]` : ''));
+  };
   let text = "";
   for (let index = 0; index < source.length; index += 1) {
     const item = source[index];
-    if (index < rowLimit) rows.push(displayRow(type, item));
+    if (index < rowLimit) rows.push(displayRow(type, item, join).map(cell));
     if (text.length <= previewCharacters) {
-      const line = previewLine(type, item);
+      const line = previewLine(type, item, join);
       text += (text ? "\n" : "") + line;
     }
     if (index >= rowLimit && text.length > previewCharacters) break;
@@ -28,37 +40,38 @@ export function buildMappingPresentation(type, data, {
     rows,
     totalRows: source.length,
     text,
-    complete: rows.length === source.length,
+    complete: rows.length === source.length && !cellsTruncated,
+    cellsTruncated,
   };
 }
 
-function displayRow(type, row) {
+function displayRow(type, row, join) {
   switch (type) {
     case "h2v":
-      return [row.hid, row.time ?? "—", row.vertices.join(", "), row.weight != null && row.weight !== 1 ? row.weight : "1", String(row.vertices.length)];
+      return [row.hid, row.time ?? "—", join(row.vertices), row.weight != null && row.weight !== 1 ? row.weight : "1", String(row.vertices.length)];
     case "v2h":
-      return [String(row.vid), row.hyperedges.join(", "), String(row.hyperedges.length)];
+      return [String(row.vid), join(row.hyperedges), String(row.hyperedges.length)];
     case "h2h":
-      return [row.hid, row.neighbors.length ? row.neighbors.map((neighbor, index) => `${neighbor}[${row.sharedVertices[index].join(",")}]`).join("  ") : "—", String(row.neighbors.length)];
+      return [row.hid, row.neighbors.length ? join(row.neighbors, '  ', (neighbor,index) => `${neighbor}[${join(row.sharedVertices[index], ',')}]`) : "—", String(row.neighbors.length)];
     case "v2v":
-      return [String(row.src), String(row.dst), row.hyperedges.join(", "), String(row.weight)];
+      return [String(row.src), String(row.dst), join(row.hyperedges), String(row.weight)];
     default:
       throw new Error(`Unknown mapping presentation: ${type}`);
   }
 }
 
-function previewLine(type, row) {
+function previewLine(type, row, join) {
   switch (type) {
     case "h2v":
       return row.hid + (row.time != null ? ` [t=${row.time}]` : "")
         + (row.weight != null && row.weight !== 1 ? ` @weight=${row.weight}` : "")
-        + `: ${row.vertices.join(", ")}`;
+        + `: ${join(row.vertices)}`;
     case "v2h":
-      return `${String(row.vid)}: ${row.hyperedges.join(", ")}`;
+      return `${String(row.vid)}: ${join(row.hyperedges)}`;
     case "h2h":
-      return `${row.hid}: ${row.neighbors.length ? row.neighbors.map((neighbor, index) => `${neighbor}[shared: ${row.sharedVertices[index].join(",")}]`).join(", ") : "(none)"}`;
+      return `${row.hid}: ${row.neighbors.length ? join(row.neighbors, ', ', (neighbor,index) => `${neighbor}[shared: ${join(row.sharedVertices[index], ',')}]`) : "(none)"}`;
     case "v2v":
-      return `${row.src} -- ${row.dst} [shared: ${row.hyperedges.join(",")}, weight=${row.weight}]`;
+      return `${row.src} -- ${row.dst} [shared: ${join(row.hyperedges, ',')}, weight=${row.weight}]`;
     default:
       return "";
   }

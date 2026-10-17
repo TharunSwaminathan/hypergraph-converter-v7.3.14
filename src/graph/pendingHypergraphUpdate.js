@@ -1,6 +1,6 @@
 import { GRAPH_TYPES } from "../candy/contracts/graphTypes.js";
 import { CANDY_ERROR_CODES, failCandy } from "../candy/contracts/errorClasses.js";
-import { deriveHypergraphMotifUpdate } from "../candy/adapters/graphMutationToHypergraphUpdate.js";
+import { deriveHypergraphMotifUpdate, QUALIFIED_INCREMENTAL_UPDATE_LIMITS } from "../candy/adapters/graphMutationToHypergraphUpdate.js";
 import { graphFingerprint, stableStringify } from "./graphFingerprint.js";
 import { commitGraphState, graphIdentityFromState } from "./graphState.js";
 import { previewGraphMutation } from "./graphMutationPreview.js";
@@ -28,6 +28,7 @@ export function createPendingHypergraphUpdateSession() {
 
 export function createPendingHypergraphUpdateDraft({ session, graphState, plan, previousPending = null } = {}) {
   requireDynamicGraph(graphState);
+  requirePendingBaseBudget(graphState);
   const ledger = requireSession(session);
   if (ledger.records.get(ledger.currentUpdateId)?.lifecycle === "applying") {
     failCandy(CANDY_ERROR_CODES.INVALID_UPDATE_BATCH, "An Apply transition is already in progress.");
@@ -269,6 +270,7 @@ export function createPendingHypergraphUpdateController({ getGraphState, commit,
 async function deriveValidatedContent(pendingUpdate, graphState, history) {
   requireDynamicGraph(graphState);
   requireExactBase(pendingUpdate, graphState);
+  requirePendingBaseBudget(graphState);
   if (pendingUpdate.graphType !== GRAPH_TYPES.DYNAMIC_HYPERGRAPH
     || pendingUpdate.nextGraphVersion !== graphState.graphVersion + 1
     || pendingUpdate.planHash !== pendingUpdate.plan?.planHash
@@ -309,6 +311,20 @@ async function deriveValidatedContent(pendingUpdate, graphState, history) {
     ...content,
     updateDigest: await sha256(stableStringify(content)),
   };
+}
+
+function requirePendingBaseBudget(graphState) {
+  const rows = graphState.hyperedges ?? [];
+  if (rows.length > QUALIFIED_INCREMENTAL_UPDATE_LIMITS.maxHyperedges) {
+    failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "Pending updates require a base within 256 hyperedges and 100,000 incidences; no preview was prepared.");
+  }
+  let incidences = 0;
+  for (const row of rows) {
+    incidences += row.vertices?.length ?? 0;
+    if (!Number.isSafeInteger(incidences) || incidences > QUALIFIED_INCREMENTAL_UPDATE_LIMITS.maxIncidences) {
+      failCandy(CANDY_ERROR_CODES.RESOURCE_LIMIT, "Pending update base exceeds 100,000 incidences; no preview was prepared.");
+    }
+  }
 }
 
 function requireApplyConfirmation(confirmation, pendingUpdate) {

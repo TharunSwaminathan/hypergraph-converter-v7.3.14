@@ -46,11 +46,11 @@ function summarizeVerifiedReferences(value) {
   // canonical shape is { vertices: string[], hyperedges: string[] }. Keep this
   // bounded and read-only while preserving the entity type.
   if (value && typeof value === "object") {
-    const vertices = Array.isArray(value.vertices) ? value.vertices : [];
+    const vertices = Array.isArray(value.vertices) ? value.vertices.slice(-MAX_REFERENCES) : [];
     const hyperedges = Array.isArray(value.hyperedges) ? value.hyperedges : [];
     return [
       ...vertices.map(id => ({ kind: "vertex", id: text(id, 160) || null, graphVersion: null })),
-      ...hyperedges.map(id => ({ kind: "hyperedge", id: text(id, 160) || null, graphVersion: null })),
+      ...hyperedges.slice(-MAX_REFERENCES).map(id => ({ kind: "hyperedge", id: text(id, 160) || null, graphVersion: null })),
     ].filter(reference => reference.id).slice(-MAX_REFERENCES);
   }
 

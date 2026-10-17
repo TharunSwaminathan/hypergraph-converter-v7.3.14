@@ -1,9 +1,39 @@
 export const PREVIEW_RENDER_BUDGETS = Object.freeze({
+  maxVisualVertices: 1_000,
+  maxVisualHyperedges: 200,
+  maxPreparedIncidences: 3_000,
   maxDynamicLineEdges: 4_000,
   maxHypergraphVisualEdges: 3_000,
   maxPerHyperedgeVisualEdges: 64,
   maxVisualIncidences: 100_000,
 });
+
+const preparationMetrics = { preparations: 0 };
+export function previewPreparationMetrics() { return { ...preparationMetrics }; }
+export function prepareBoundedPreview(hyperedges = [], requested = 50) {
+  preparationMetrics.preparations += 1;
+  const limit = Number.isSafeInteger(requested) && requested > 0 ? Math.min(requested, PREVIEW_RENDER_BUDGETS.maxVisualHyperedges) : 50;
+  const selected = [];
+  const vertices = new Set();
+  let renderedIncidences = 0;
+  let totalIncidences = 0;
+  for (const edge of hyperedges) totalIncidences += edge.vertices?.length ?? 0;
+  for (const edge of hyperedges) {
+    if (selected.length >= limit || renderedIncidences >= PREVIEW_RENDER_BUDGETS.maxPreparedIncidences) break;
+    const members = [];
+    for (const vertex of edge.vertices ?? []) {
+      if (renderedIncidences >= PREVIEW_RENDER_BUDGETS.maxPreparedIncidences) break;
+      if (!vertices.has(vertex) && vertices.size >= PREVIEW_RENDER_BUDGETS.maxVisualVertices) break;
+      vertices.add(vertex); members.push(vertex); renderedIncidences += 1;
+    }
+    selected.push({ ...edge, vertices: members });
+    if (members.length < (edge.vertices?.length ?? 0)) break;
+  }
+  return { hyperedges: selected, totalHyperedges: hyperedges.length, totalIncidences,
+    renderedHyperedges: selected.length, renderedVertices: vertices.size, renderedIncidences,
+    complete: selected.length === hyperedges.length && renderedIncidences === totalIncidences,
+    selectionPolicy: 'First hyperedges and memberships in source order, before layout; search filters this displayed subset.' };
+}
 
 export function buildVisualCoMembershipOverlay(hyperedges = [], limits = PREVIEW_RENDER_BUDGETS) {
   const memberships = hyperedges.map(hyperedge => [...new Set((hyperedge.vertices ?? []).map(String))]);
