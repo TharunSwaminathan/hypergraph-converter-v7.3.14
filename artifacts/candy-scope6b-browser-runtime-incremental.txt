@@ -1,0 +1,190 @@
+ic: Avg card
+- generic: "3.0"
+- generic: Timestamps
+- generic: "yes"
+- generic: Weights
+- generic: "yes"
+- generic: Committed graph
+- generic: version 2 · gfp-7ac27750-300
+- text: Graph type
+- combobox "Committed graph type":
+  - option "Hypergraph"
+  - option "DynamicHypergraph" [selected]
+- generic: Selection
+- generic: none
+- generic: Mutation history
+- generic: 2 retained changes | up to 25 events / 32 MiB snapshot JSON accounting. Oldest events expire; changes exceeding this budget cannot be undone.
+- generic: Type changes are versioned authority transitions. They do not run analysis or apply graph edits.
+- button "Mappings"
+- button "Statistics"
+- button "Export"
+- generic: Derived view
+- button "H2V"
+- button "V2H"
+- button "H2H projection"
+- button "V2V projection"
+- generic: H2H/V2V are computed only when selected or exported. Mapping display shows at most 500 rows, 40 items / 512 characters per cell; omission labels indicate shortened cells. Exports remain complete.
+- generic: h2v
+- table:
+  - rowgroup:
+    - row "ID Time Vertices Weight Card.":
+      - columnheader "ID"
+      - columnheader "Time"
+      - columnheader "Vertices"
+      - columnheader "Weight"
+      - columnheader "Card."
+  - rowgroup:
+    - row "h0 10 1, 2, 3 1 3":
+      - cell "h0"
+      - cell "10"
+      - cell "1, 2, 3"
+      - cell "1"
+      - cell "3"
+    - row "h1 15 2, 4 2 2":
+      - cell "h1"
+      - cell "15"
+      - cell "2, 4"
+      - cell "2"
+      - cell "2"
+    - row "h2 21 1, 3, 4, 5 1 4":
+      - cell "h2"
+      - cell "21"
+      - cell "1, 3, 4, 5"
+      - cell "1"
+      - cell "4"
+- generic: "h0 [t=10]: 1, 2, 3 h1 [t=15] @weight=2: 2, 4 h2 [t=21]: 1, 3, 4, 5"
+- generic: Graph Preview
+- generic: view
+- button "Hypergraph"
+- button "Line Graph"
+- generic: layout
+- button "Force"
+- button "Circular"
+- button "Grid"
+- generic: show
+- button "10"
+- button "25"
+- button "50"
+- button "100"
+- button "200"
+- form "Custom preview size":
+  - generic: "Custom:"
+  - textbox "Custom preview size value":
+    - /placeholder: 1-10000
+  - button "Apply"
+- generic: of 3
+- generic: 100%
+- button "reset"
+- button "reheat"
+- button "↓ PNG"
+- textbox "Search vertex":
+  - /placeholder: Search vertex…
+- textbox "Search hyperedge":
+  - /placeholder: Search hyperedge…
+- generic: scroll=zoom · drag canvas=pan · drag node=move · click=select
+- generic: "Force: exact repulsion · incidence-centroid topology"
+- generic: rings=hyperedges · dots=vertices
+- text: Click a node or
+- text: ring to inspect
+- generic: Hyperedges (3)
+- generic: h0
+- generic: t10
+- generic: 3v
+- generic: h1
+- generic: t15
+- generic: w2
+- generic: 2v
+- generic: h2
+- generic: t21
+- generic: 4v
+- generic: "1"
+- generic: "2"
+- generic: "3"
+- generic: "4"
+- generic: "5"
+- tablist "Tools sections":
+  - tab "Batch Updates" [selected]
+  - tab "Algorithms"
+  - tab "Hypergraph Assistant"
+- tabpanel "Batch Updates":
+  - generic: Batch Updates
+  - generic: Add local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.
+  - button "Choose files for Batch Updates"
+  - button "Drop files here or choose files Local text datasets only · up to 50 files · 10 MiB each · 50 MiB total":
+    - strong: Drop files here or choose files
+    - generic: Local text datasets only · up to 50 files · 10 MiB each · 50 MiB total
+  - strong: Supported commands
+  - code: "ADD_HYPEREDGE h5: A, B, C"
+  - text: ·
+  - code: REMOVE_HYPEREDGE h2
+  - code: "ADD_VERTEX h1: D"
+  - text: ·
+  - code: "REMOVE_VERTEX h3: A"
+  - code: "UPDATE_WEIGHT h4: 2.5"
+  - text: ·
+  - code: "UPDATE_TIME h4: 2027"
+  - text: ·
+  - code: "SET_ATTR h1: priority=high"
+  - textbox "Batch update commands":
+    - /placeholder: "ADD_HYPEREDGE h5: A, B, C\nREMOVE_HYPEREDGE h1\nADD_VERTEX h0: D\nREMOVE_VERTEX h2: A\nUPDATE_WEIGHT h0: 2.5\nUPDATE_TIME h0: 2027\nSET_ATTR h0: priority=high"
+    - text: REMOVE_HYPEREDGE h1
+  - paragraph:
+    - text: Stage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing
+    - code: "UPDATE h2: A, B"
+    - text: command. Committed graph stays unchanged until separate Apply confirmation.
+  - region "Dynamic Hypergraph pending update":
+    - heading "Dynamic Hypergraph Update" [level=3]
+    - paragraph: Author Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.
+    - paragraph: Workspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.
+    - term: Graph type
+    - definition: DynamicHypergraph
+    - term: Pending status
+    - definition: VALIDATED
+    - term: Update
+    - definition: pending-2a05f58d-5d8… · revision 1
+    - term: Version
+    - definition: 2 → 3 (proposed)
+    - term: Operations
+    - definition: "1"
+    - term: Motif impact
+    - definition: CHANGED
+    - term: Validation / analysis preflight
+    - definition: VALIDATED · CUDA_INCREMENTAL available
+    - term: Analysis
+    - definition: RESULT_READY
+    - term: Current pending delta result
+    - definition: "yes"
+    - button "Re-stage edited commands"
+    - button "Inspect pending preview"
+    - button "Edit commands"
+    - button "Discard pending update"
+    - button "Analyze motif delta"
+    - button "Apply pending update"
+    - paragraph: Preview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.
+    - status: Validated delta describes the proposed pending transition. Graph has not been applied.
+    - button "Refresh analysis status"
+    - button "Open signed delta result"
+    - button "Cancel analysis" [disabled]
+    - generic "Validated hypergraph motif delta":
+      - generic: Motif change (delta only)
+      - paragraph:
+        - text: "Signed total connected 3-edge motif delta:"
+        - strong: "-1"
+      - paragraph:
+        - text: Backend
+        - strong: CUDA_INCREMENTAL
+        - text: · graph
+        - code: graph-050d6851-f8b6-4014-aece-720a72a48b11
+        - text: version
+        - strong: "2"
+      - paragraph: "Device 0: NVIDIA GeForce RTX 5060 · sm_120"
+      - paragraph:
+        - text: This is a signed delta for update
+        - code: pending-2a05f58d-5d8a-4333-aa60-8a766eaddba3
+        - text: . It is not a fabricated full count, and the update was not applied.
+      - generic "Affected motif classes":
+        - paragraph: This result describes the proposed pending transition. It becomes stale when graph, update or Runtime session authority changes. Graph has not been applied.
+        - strong: Affected / nonzero classes first
+        - text: "Class 8 · CLOSED_TRIANGLE:"
+        - strong: "-1"
+      - generic "All 30 stable motif signed deltas"

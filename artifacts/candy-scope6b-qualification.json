@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "verdict": "NON-PASS",
+  "baseline": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "branch": "candy-integration-scope6b-browser-scalability-v7_4",
+  "implementationPresent": true,
+  "committed": false,
+  "automatedGates": "PASS",
+  "securityReview": {
+    "scanId": "58ab8041-f9f2-423e-aecc-eaca5e5818f2",
+    "reportableFindings": 0,
+    "criticalHighUnresolved": 0,
+    "snapshotWarning": true
+  },
+  "browserQualification": "PARTIAL",
+  "performanceQualification": "NON-PASS",
+  "blockers": [
+    "B1 cold commit/history p95 regressed 49.7977 ->55.9943ms (12.44%), above the benchmark plan proposed10% threshold; no accepted tradeoff or randomized/noise study.",
+    "Full matched before/after browser interaction, paint and heap/retention qualification is incomplete. B5 search automation had unresolved selector timeouts.",
+    "Largest B4 file was truthfully rejected by current upload admission; large editing/native capacity is not qualified."
+  ],
+  "remainingLimits": [
+    "Initial import/normalization/owned snapshot and first index creation remain synchronous O(I); cold commits regressed.",
+    "Preview display capped to 200 hyperedges, 1000 vertices, 3000 memberships; vertex list paged at100; filters search the displayed subset; source order determines selection.",
+    "Mapping display capped to500 rows and40 items/512 nominal characters plus omission label per cell. Exact exports are unchanged.",
+    "History retains at most25 events and32MiB of unique snapshot UTF-16 JSON accounting; oldest evicted first; an event exceeding budget leaves no retained undo event. Metadata/engine overhead is outside that accounting.",
+    "Derived cache holds at most32 entries and16MiB top-level string accounting; nested objects and active demanded export are not total heap capped.",
+    "Raw input, parser results, large demanded exports and first planner index can be large. Full export is exact and may take whole-output work.",
+    "Pending DynamicHypergraph base remains within256 hyperedges/100000 incidences; no larger editing/analysis contract introduced; apply still rederives exact data.",
+    "Existing upload limit is10MiB per file; B4-2M fixture was rejected and capacity was not raised.",
+    "No native limits, taxonomy, Runtime job/artifact reuse or CUDA optimization changed. Browser fixture scale is not CUDA qualification.",
+    "Model response is limited to8MiB UTF-8; platforms without a streaming reader check after text acquisition; actual fetch streams are bounded during reading.",
+    "No browser p95/paint/heap/GC plateau qualification; Chrome/in-app automation errors are retained.",
+    "Existing production bundle-size warning remains."
+  ],
+  "protectedRuntimeNativeChanged": false,
+  "anchorsMoved": false,
+  "scopes6C6DStarted": false,
+  "cleanup": {
+    "ownedServersStopped": true,
+    "browserPairingCleared": true,
+    "temporaryPairingCredentialRemoved": false,
+    "temporaryPairingCredentialPath": "C:/Users/tharu/AppData/Local/Temp/candy-scope6b-runtime-pairing.txt",
+    "cleanupBlocker": "Automatic approval review rejected Remove-Item with blocked by policy; expired session credential file left in place. No workaround attempted.",
+    "syntheticFixturesRetainedInTaskTempDirectory": true,
+    "ephemeralBrowserTabs": "Will close with turn; no deliverable/handoff mark."
+  }
+}

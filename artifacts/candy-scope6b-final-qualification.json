@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-17T16:01:21.038Z",
+  "verdict": "PASS WITH EXPLICIT DEFERRED ITEMS",
+  "originalVerdict": "NON-PASS — implementation present, qualification incomplete",
+  "originalEvidencePreserved": true,
+  "branch": "candy-integration-scope6b-browser-scalability-v7_4",
+  "head": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "coldBlocker": {
+    "status": "RESOLVED",
+    "threshold": "Candidate B1 cold commit/history p95 <= baseline p95 * 1.10",
+    "baselineP95Ms": 47.814800000000105,
+    "candidateP95Ms": 28.396200000000135,
+    "deltaMs": -19.41859999999997,
+    "deltaPercent": -40.61211173109566,
+    "measuredPairs": 1200,
+    "sourceMatchesMeasuredCandidate": true
+  },
+  "gates": {
+    "testFiles": "279/279 PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "buildGithub": "PASS",
+    "productionVulnerabilities": 0,
+    "freshUninstrumentedProduction": "PASS",
+    "exactB5Export": "PASS: 10,000,002 bytes",
+    "dynamicStageInspectApplyUndo": "PASS",
+    "staleAuthority": "PASS",
+    "protectedBoundaries": "PASS",
+    "unresolvedCriticalHigh": 0
+  },
+  "deferred": [
+    {
+      "item": "HEAP TELEMETRY: DEFERRED",
+      "reason": "Precise trustworthy retained-heap lifecycle measurement / controlled GC unavailable; no engine heap plateau claimed."
+    },
+    {
+      "item": "B4 >10 MiB: OUTSIDE CURRENT ADMISSION CONTRACT / DEFERRED",
+      "reason": "20,688,889-byte fixture exceeds unchanged 10,485,760-byte single-file admission. Correct rejection preserved graph/input/search usability."
+    },
+    {
+      "item": "Automation-only hit-testing / broad text selector limitations",
+      "reason": "Observed on baseline and candidate; stable keyboard/narrow selectors complete real UI workflows. Not reported as application latency or search failure."
+    }
+  ],
+  "report": "artifacts/candy-scope6b-corrective-report.md",
+  "evidence": {
+    "profile": "artifacts/candy-scope6b-corrective-profile.json",
+    "postProfile": "artifacts/candy-scope6b-corrective-profile-after.json",
+    "cold": "artifacts/candy-scope6b-corrective-cold-abba.json",
+    "browser": "artifacts/candy-scope6b-corrective-browser.json",
+    "memory": "artifacts/candy-scope6b-corrective-memory.json",
+    "security": "artifacts/candy-scope6b-corrective-security-recheck.json",
+    "tests": "artifacts/candy-scope6b-corrective-test-results.json",
+    "recovery": "artifacts/candy-scope6b-corrective-recovery-precheck.json"
+  },
+  "cleanup": {
+    "candidateServerStopped": true,
+    "candidatePort": 5183,
+    "stalePairingFileExists": false,
+    "normalDeletionAttempt": "Policy-blocked before execution; independent read-only check found no file present. No workaround or credential reuse.",
+    "runtimeStarted": false,
+    "ollamaStarted": false
+  },
+  "committed": false,
+  "pushed": false,
+  "tagged": false,
+  "merged": false,
+  "nextScopeStarted": false
+}

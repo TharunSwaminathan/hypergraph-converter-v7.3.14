@@ -1,0 +1,46 @@
+{
+  "capturedAt": "2026-10-17T16:01:21.038Z",
+  "retainedCompletedRun": false,
+  "reason": "Final gates rerun after identifying that the browser-preparation evidence script changed after the prior full run. Production/source/test implementation unchanged during recovery; performance measurements retained by exact source hashes.",
+  "testFilesPassed": 279,
+  "testFilesTotal": 279,
+  "durationSeconds": 158,
+  "testLog": {
+    "path": "artifacts/candy-scope6b-corrective-recovery-test.log",
+    "sha256": "82e51c8de2f17c44e7c85b129f27f7418ee3a896eeb3ca8297b7e10856220466",
+    "mtime": "2026-10-17T16:00:49.812Z",
+    "result": "Node test suite passed: 279/279 files in 158.0s."
+  },
+  "gates": [
+    {
+      "command": "npm.cmd run lint",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6b-corrective-recovery-lint.log"
+    },
+    {
+      "command": "npm.cmd run build",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6b-corrective-recovery-build.log"
+    },
+    {
+      "command": "npm.cmd run build:github",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6b-corrective-recovery-build-github.log"
+    },
+    {
+      "command": "npm.cmd audit --omit=dev",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6b-corrective-recovery-audit.json"
+    }
+  ],
+  "productionVulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "postRestartTargetedCollationTest": "PASS",
+  "benchmarkAndBrowserScriptsSyntax": "PASS"
+}

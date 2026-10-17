@@ -1,0 +1,339 @@
+c: "4"
+- generic: "5"
+- tablist "Tools sections":
+  - tab "Batch Updates"
+  - tab "Algorithms"
+  - tab "Hypergraph Assistant" [selected]
+- tabpanel "Hypergraph Assistant":
+  - region "Hypergraph Assistant":
+    - generic: LOCAL ASSISTANT DISCONNECTED · DETERMINISTIC CONTROLS AVAILABLE
+    - heading "Hypergraph Assistant" [level=2]
+    - paragraph: Conversational guidance with deterministic execution.
+    - button "Clear chat"
+    - log "Hypergraph Assistant conversation":
+      - article:
+        - generic: Hypergraph Assistant
+        - paragraph: Hello! I’m the Hypergraph Assistant. I can explain formats, help you understand uploaded datasets, guide mapping and Custom Parser workflows, and safely carry out supported dashboard actions through the deterministic controller.
+      - article:
+        - generic: Hypergraph Assistant
+        - paragraph: Conversion complete.
+        - list:
+          - listitem: "Input format: H2V / Simple"
+          - listitem: "Hyperedges: 3"
+          - listitem: "Vertices: 5"
+          - listitem: "Incidences: 9"
+          - listitem: "Min cardinality: 2"
+          - listitem: "Max cardinality: 4"
+          - listitem: "Average cardinality: 3.0"
+          - listitem: "Max degree: 2"
+          - listitem: "Average degree: 1.80"
+          - listitem: "Incidence density: 60.000%"
+          - listitem: "V2V projection density: 90.000%"
+          - listitem: "Line-graph triangles: 1"
+          - listitem: "Duplicate hyperedges: no duplicate hyperedges"
+          - listitem: "Singleton hyperedges: no singleton hyperedges"
+          - listitem: "Validation: Clean"
+        - paragraph: "Mappings available now: H2V, V2H, H2H, and V2V. You can also open Statistics, choose an Export preview, or view Graph Preview."
+        - button "Mappings"
+        - button "Statistics"
+        - button "Export"
+        - button "Graph Preview"
+      - article:
+        - generic: Hypergraph Assistant
+        - paragraph: CANDY companion discovered (ready).
+      - article:
+        - generic: Hypergraph Assistant
+        - paragraph: I staged the exact high-cost CANDY request for confirmation. No job has been created.
+      - article:
+        - generic: Hypergraph Assistant
+        - paragraph: CANDY job submitted as 3b020631-9746-4213-b57b-40462d710444. Ask for status later; this loop will not poll it.
+      - article:
+        - generic: Hypergraph Assistant
+        - paragraph: CANDY job observation updated.
+      - article:
+        - generic: Hypergraph Assistant
+        - paragraph: CANDY job observation updated.
+    - status
+    - generic "Current assistant context":
+      - text: Route
+      - strong: H2V / Simple
+      - text: Section
+      - strong: mappings
+      - text: Graph
+      - strong: 3 H · 5 V
+      - text: Selection
+      - strong: none
+      - text: Mapping
+      - strong: none
+    - status: Chat saved on this browser. Workspace references never grant execution permission.
+    - generic: No active batch
+    - generic: Message Hypergraph Assistant
+    - textbox "Message Hypergraph Assistant":
+      - /placeholder: Ask about your files, formats, mappings, parser, graph, or request an action…
+    - button "Send" [disabled]
+    - generic: Enter sends · Shift+Enter adds a newline
+    - navigation "Quick Links":
+      - generic: Quick Links
+      - button "Explain H2V"
+      - button "Graph stats"
+      - button "Diagnostics"
+      - button "Assistant help"
+      - button "Pending update"
+    - complementary "Assistant workspace and advanced tools":
+      - tablist "Assistant secondary panels":
+        - tab "Workspace"
+        - tab "Mapping"
+        - tab "Assistant Settings"
+        - tab "Advanced" [selected]
+        - tab "Help"
+      - tabpanel "Advanced":
+        - generic: Advanced diagnostics
+        - generic: disconnected
+        - generic: developer tools
+        - generic "Local Runtime Diagnostics":
+          - generic: Local Runtime Diagnostics
+          - generic: not tested
+          - generic: not run yet
+          - generic: Runtime
+          - strong: Ollama
+          - generic: Model
+          - strong: qwen3:8b
+          - generic: Status
+          - strong: disconnected
+          - generic: Connection method
+          - strong: None
+          - generic: Active endpoint
+          - strong: None
+          - generic: Current page origin
+          - strong: http://127.0.0.1:5176
+          - generic: Protocol
+          - strong: "http:"
+          - generic: Hostname
+          - strong: 127.0.0.1
+          - generic: Deployment mode
+          - strong: local_dev
+          - generic: Direct Ollama
+          - strong: not tested
+          - emphasis: Run diagnostics to test direct Ollama.
+          - generic: Local bridge
+          - strong: not tested
+          - emphasis: Run diagnostics to test the local bridge.
+          - generic: Model listing
+          - strong: not tested
+          - emphasis: Run diagnostics to list Ollama models.
+          - generic: Structured generation
+          - strong: not tested
+          - emphasis: Run diagnostics to test tiny structured generation.
+          - generic: Graph planner
+          - strong: not tested
+          - emphasis: Run the graph planner readiness diagnostic for a full structured planner request.
+          - generic: Last connection error classification
+          - strong: —
+          - generic: Suggested fix
+          - paragraph: Enable the local assistant or use deterministic controls without a model.
+          - button "Run full diagnostics"
+          - button "Test current connection"
+          - button "Reconnect"
+          - button "Test direct Ollama"
+          - button "Test local bridge"
+          - button "Test simple generation" [disabled]
+          - button "Test graph planner" [disabled]
+          - button "Copy browser fetch test"
+          - button "Copy PowerShell curl test"
+          - button "Copy WSL curl test"
+          - button "Copy PowerShell origin command"
+          - button "Copy cmd.exe origin command"
+          - button "Copy POSIX/bash origin command"
+          - button "Copy diagnostic report"
+          - button "Show GitHub Pages setup help"
+        - generic "CANDY Runtime Companion ready"
+        - paragraph: Optional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.
+        - term: Endpoint
+        - definition: http://127.0.0.1:8791
+        - term: Runtime
+        - definition: candy-runtime-companion/1
+        - term: Pairing
+        - definition: paired for this browser session
+        - term: Runtime capability readiness
+        - definition: ready
+        - term: Active graph capability
+        - definition: ready
+        - term: Runtime-qualified backends
+        - definition: LOCAL_OPENMP, CUDA_STATIC, CUDA_INCREMENTAL
+        - term: Executable for active graph
+        - definition: CUDA_STATIC
+        - term: Runtime-qualified CUDA devices
+        - definition: "0: NVIDIA GeForce RTX 5060 (12.0, sm_120)"
+        - term: Active graph type
+        - definition: Hypergraph
+        - text: Session pairing credential
+        - textbox "Session pairing credential":
+          - /placeholder: Not saved to chat or persistent memory
+        - button "Pair and discover"
+        - button "Clear pairing"
+        - paragraph: No SSSP tool is exposed for this graph. The companion will not implicitly project a hypergraph.
+        - paragraph: CUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.
+        - paragraph: Current counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.
+        - status: "Analysis: RESULT_READY"
+        - button "Count 3-edge motifs with CUDA"
+        - button "Open pending update panel"
+        - status: "GRAPH_TYPE_UNSUPPORTED: This explicit analysis requires a compatible authoritative hypergraph. No projection is performed."
+        - button "Refresh job status"
+        - button "Cancel job" [disabled]
+        - button "Open validated result"
+        - generic "Validated hypergraph motif result":
+          - generic: Validated static result
+          - paragraph:
+            - text: "Total connected 3-edge motifs:"
+            - strong: "1"
+          - paragraph:
+            - text: Backend
+            - strong: CUDA_STATIC
+            - text: · graph
+            - code: graph-050d6851-f8b6-4014-aece-720a72a48b11
+            - text: version
+            - strong: "1"
+          - paragraph: "Device 0: NVIDIA GeForce RTX 5060 · sm_120"
+          - generic "All 30 stable motif class counts" [active]
+          - table:
+            - rowgroup:
+              - row "Class ID Structural group Count":
+                - columnheader "Class ID"
+                - columnheader "Structural group"
+                - columnheader "Count"
+            - rowgroup:
+              - row "OPEN_WEDGE":
+                - columnheader "OPEN_WEDGE"
+              - row "1 OPEN_WEDGE 0":
+                - cell "1"
+                - cell "OPEN_WEDGE"
+                - cell "0"
+              - row "2 OPEN_WEDGE 0":
+                - cell "2"
+                - cell "OPEN_WEDGE"
+                - cell "0"
+              - row "3 OPEN_WEDGE 0":
+                - cell "3"
+                - cell "OPEN_WEDGE"
+                - cell "0"
+              - row "4 OPEN_WEDGE 0":
+                - cell "4"
+                - cell "OPEN_WEDGE"
+                - cell "0"
+              - row "5 OPEN_WEDGE 0":
+                - cell "5"
+                - cell "OPEN_WEDGE"
+                - cell "0"
+              - row "6 OPEN_WEDGE 0":
+                - cell "6"
+                - cell "OPEN_WEDGE"
+                - cell "0"
+            - rowgroup:
+              - row "CLOSED_TRIANGLE":
+                - columnheader "CLOSED_TRIANGLE"
+              - row "7 CLOSED_TRIANGLE 0":
+                - cell "7"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "8 CLOSED_TRIANGLE 1":
+                - cell "8"
+                - cell "CLOSED_TRIANGLE"
+                - cell "1"
+              - row "9 CLOSED_TRIANGLE 0":
+                - cell "9"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "10 CLOSED_TRIANGLE 0":
+                - cell "10"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "11 CLOSED_TRIANGLE 0":
+                - cell "11"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "12 CLOSED_TRIANGLE 0":
+                - cell "12"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "13 CLOSED_TRIANGLE 0":
+                - cell "13"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "14 CLOSED_TRIANGLE 0":
+                - cell "14"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "15 CLOSED_TRIANGLE 0":
+                - cell "15"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "16 CLOSED_TRIANGLE 0":
+                - cell "16"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "17 CLOSED_TRIANGLE 0":
+                - cell "17"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "18 CLOSED_TRIANGLE 0":
+                - cell "18"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "19 CLOSED_TRIANGLE 0":
+                - cell "19"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "20 CLOSED_TRIANGLE 0":
+                - cell "20"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "21 CLOSED_TRIANGLE 0":
+                - cell "21"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "22 CLOSED_TRIANGLE 0":
+                - cell "22"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "23 CLOSED_TRIANGLE 0":
+                - cell "23"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "24 CLOSED_TRIANGLE 0":
+                - cell "24"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "25 CLOSED_TRIANGLE 0":
+                - cell "25"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "26 CLOSED_TRIANGLE 0":
+                - cell "26"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "27 CLOSED_TRIANGLE 0":
+                - cell "27"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "28 CLOSED_TRIANGLE 0":
+                - cell "28"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "29 CLOSED_TRIANGLE 0":
+                - cell "29"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+              - row "30 CLOSED_TRIANGLE 0":
+                - cell "30"
+                - cell "CLOSED_TRIANGLE"
+                - cell "0"
+        - term: Selected job
+        - definition: 3b020631-9746-4213-b57b-40462d710444
+        - term: Status
+        - definition: completed
+        - term: Validation
+        - definition: passed
+        - checkbox "Include full files in training export"
+        - text: Include full files in training export
+        - button "Export parser training example" [disabled]
+        - generic: Structured tasks remain non-streaming and schema-validated. Conversational chat may stream, but only deterministic app code can execute actions.

@@ -1,0 +1,73 @@
+{
+  "methodology": "Automation roundtrips, includes locator/transport overhead; not browser performance.now paint distributions. Failed large-input locators excluded from success timings and explicitly recorded separately.",
+  "samples": [
+    {
+      "fixture": "small",
+      "operation": "mapping_V2H",
+      "ms": 1274
+    },
+    {
+      "fixture": "small",
+      "operation": "dynamic_apply_roundtrip",
+      "ms": 878
+    },
+    {
+      "fixture": "S2",
+      "operation": "convert_to_visible_preview",
+      "ms": 1306
+    },
+    {
+      "fixture": "S2",
+      "operation": "H2V",
+      "ms": 1015
+    },
+    {
+      "fixture": "S2",
+      "operation": "H2H projection",
+      "ms": 1007
+    },
+    {
+      "fixture": "S2",
+      "operation": "V2V projection",
+      "ms": 1013
+    },
+    {
+      "fixture": "S2",
+      "operation": "Statistics",
+      "ms": 1018
+    },
+    {
+      "fixture": "S2",
+      "operation": "vertex_search",
+      "ms": 90
+    },
+    {
+      "fixture": "B5",
+      "operation": "search_input",
+      "ms": 102
+    },
+    {
+      "fixture": "B4",
+      "operation": "convert_click_dispatch_only",
+      "ms": 623
+    }
+  ],
+  "failures": [
+    {
+      "operation": "Chrome file chooser",
+      "reason": "Extension local-file permission unavailable; in-app browser chooser succeeded."
+    },
+    {
+      "operation": "Chrome B5 fill/clipboard",
+      "reason": "Automation connection interrupted; recovered on in-app browser."
+    },
+    {
+      "operation": "B1 completion wait",
+      "reason": "Expected of 10,000 but actual label was of 10000. Successful load independently verified."
+    },
+    {
+      "operation": "B5 getByText/search",
+      "reason": "Several three-second automation selector timeouts occurred; screenshot/direct DOM verified conversion and full export. Responsive-interaction SLO is not claimed."
+    }
+  ]
+}

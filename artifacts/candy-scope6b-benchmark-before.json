@@ -1,0 +1,2852 @@
+{
+  "schemaVersion": 1,
+  "phase": "before",
+  "capturedAt": "2026-10-15T17:43:58.280Z",
+  "baseline": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "methodology": "Node monotonic production-function measurements; UI paint excluded. Five warmups, 30 warm samples; B5 three warm samples for allocation safety; one cold session. Full three-session/20 cold distribution is not claimed.",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 5 225F",
+    "ram": 33847996416
+  },
+  "software": {
+    "node": "v24.20.0",
+    "os": "10.0.26300"
+  },
+  "fixtureGeneratorSha256": "52ed0729e7c7f3d57afcb30c1e756c0dfaa70b659f61f4cc6ac9fe1a89c38747",
+  "samples": [
+    {
+      "family": "S1",
+      "operation": "load_commit",
+      "run": "cold",
+      "ms": 6.3399
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.14679999999999893
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.060000000000002274
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.3825000000000074
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.26260000000000616
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.11370000000000857
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.009000000000000341
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.026699999999991064
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.026499999999998636
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.07670000000000243
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.0049999999999954525
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.02019999999998845
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.01859999999999218
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.0969000000000051
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.003900000000001569
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.026499999999998636
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.017899999999997362
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.06909999999999172
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.0037999999999982492
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.01630000000000109
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.01640000000000441
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 0,
+      "ms": 0.12390000000000612
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 0,
+      "ms": 0.003999999999990678
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 0,
+      "ms": 0.015900000000002024
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 0,
+      "ms": 0.01630000000000109
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 1,
+      "ms": 0.0712999999999937
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 1,
+      "ms": 0.003500000000002501
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 1,
+      "ms": 0.015600000000006276
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 1,
+      "ms": 0.016100000000008663
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 2,
+      "ms": 0.08859999999999957
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 2,
+      "ms": 0.0036999999999949296
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 2,
+      "ms": 0.015300000000010527
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 2,
+      "ms": 0.016099999999994452
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 3,
+      "ms": 0.077699999999993
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 3,
+      "ms": 0.0037000000000091404
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 3,
+      "ms": 0.024700000000009936
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 3,
+      "ms": 0.019099999999994566
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 4,
+      "ms": 0.06980000000000075
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 4,
+      "ms": 0.003900000000001569
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 4,
+      "ms": 0.03839999999999577
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 4,
+      "ms": 0.026399999999995316
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 5,
+      "ms": 0.0945999999999998
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 5,
+      "ms": 0.0037999999999982492
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 5,
+      "ms": 0.014299999999991542
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 5,
+      "ms": 0.015199999999992997
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 6,
+      "ms": 0.06669999999999732
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 6,
+      "ms": 0.008899999999997021
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 6,
+      "ms": 0.004500000000007276
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 6,
+      "ms": 0.013500000000007617
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 7,
+      "ms": 0.060000000000002274
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 7,
+      "ms": 0.0036000000000058208
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 7,
+      "ms": 0.0034999999999882903
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 7,
+      "ms": 0.01290000000000191
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 8,
+      "ms": 0.06620000000000914
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 8,
+      "ms": 0.0036000000000058208
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 8,
+      "ms": 0.0033000000000100727
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 8,
+      "ms": 0.012000000000000455
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 9,
+      "ms": 0.05729999999999791
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 9,
+      "ms": 0.0036000000000058208
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 9,
+      "ms": 0.0601999999999947
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 9,
+      "ms": 0.013200000000011869
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 10,
+      "ms": 0.26609999999999445
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 10,
+      "ms": 0.007000000000005002
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 10,
+      "ms": 0.00750000000000739
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 10,
+      "ms": 0.013800000000003365
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 11,
+      "ms": 0.06040000000000134
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 11,
+      "ms": 0.0037999999999982492
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 11,
+      "ms": 0.0033999999999991815
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 11,
+      "ms": 0.012199999999992883
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 12,
+      "ms": 0.06099999999999284
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 12,
+      "ms": 0.0034999999999882903
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 12,
+      "ms": 0.0030000000000001137
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 12,
+      "ms": 0.013599999999996726
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 13,
+      "ms": 0.054100000000005366
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 13,
+      "ms": 0.0037999999999982492
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 13,
+      "ms": 0.002600000000001046
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 13,
+      "ms": 0.030800000000013483
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 14,
+      "ms": 0.055999999999997385
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 14,
+      "ms": 0.0034999999999882903
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 14,
+      "ms": 0.002899999999996794
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 14,
+      "ms": 0.01279999999999859
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 15,
+      "ms": 0.11320000000000618
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 15,
+      "ms": 0.0033999999999991815
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 15,
+      "ms": 0.002899999999996794
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 15,
+      "ms": 0.012500000000002842
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 16,
+      "ms": 0.05460000000000775
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 16,
+      "ms": 0.0033999999999991815
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 16,
+      "ms": 0.002899999999996794
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 16,
+      "ms": 0.012399999999999523
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 17,
+      "ms": 0.05850000000000932
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 17,
+      "ms": 0.0033999999999991815
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 17,
+      "ms": 0.0030000000000001137
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 17,
+      "ms": 0.012299999999996203
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 18,
+      "ms": 0.05389999999999873
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 18,
+      "ms": 0.003500000000002501
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 18,
+      "ms": 0.0027999999999934744
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 18,
+      "ms": 0.013099999999994338
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 19,
+      "ms": 0.05539999999999168
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 19,
+      "ms": 0.004300000000000637
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 19,
+      "ms": 0.0030000000000001137
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 19,
+      "ms": 0.046800000000004616
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 20,
+      "ms": 0.06270000000000664
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 20,
+      "ms": 0.017200000000002547
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 20,
+      "ms": 0.0031000000000034333
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 20,
+      "ms": 0.013300000000000978
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 21,
+      "ms": 0.06210000000000093
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 21,
+      "ms": 0.0036999999999949296
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 21,
+      "ms": 0.0030000000000001137
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 21,
+      "ms": 0.009700000000009368
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 22,
+      "ms": 0.06090000000000373
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 22,
+      "ms": 0.0037000000000091404
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 22,
+      "ms": 0.0027000000000043656
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 22,
+      "ms": 0.00929999999999609
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 23,
+      "ms": 0.06359999999999388
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 23,
+      "ms": 0.00359999999999161
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 23,
+      "ms": 0.0027999999999934744
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 23,
+      "ms": 0.009600000000006048
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 24,
+      "ms": 0.06749999999999545
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 24,
+      "ms": 0.003500000000002501
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 24,
+      "ms": 0.002600000000001046
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 24,
+      "ms": 0.010400000000004184
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 25,
+      "ms": 0.0893000000000086
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 25,
+      "ms": 0.004800000000003024
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 25,
+      "ms": 0.0030000000000001137
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 25,
+      "ms": 0.008599999999987062
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 26,
+      "ms": 0.06340000000000146
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 26,
+      "ms": 0.0024999999999977263
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 26,
+      "ms": 0.0037999999999982492
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 26,
+      "ms": 0.016799999999989268
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 27,
+      "ms": 0.07810000000000628
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 27,
+      "ms": 0.002299999999991087
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 27,
+      "ms": 0.00359999999999161
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 27,
+      "ms": 0.008200000000002206
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 28,
+      "ms": 0.06749999999999545
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 28,
+      "ms": 0.00190000000000623
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 28,
+      "ms": 0.0028000000000076852
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 28,
+      "ms": 0.008800000000007913
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_fingerprint",
+      "run": 29,
+      "ms": 0.06329999999999814
+    },
+    {
+      "family": "S1",
+      "operation": "same_graph_counts",
+      "run": 29,
+      "ms": 0.001999999999995339
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_snapshot",
+      "run": 29,
+      "ms": 0.002899999999996794
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "run": 29,
+      "ms": 0.00740000000000407
+    },
+    {
+      "family": "S1",
+      "operation": "replacement",
+      "run": "new_version",
+      "ms": 0.30510000000001014
+    },
+    {
+      "family": "S1",
+      "operation": "history_commit",
+      "run": "cold",
+      "ms": 0.8649999999999949
+    },
+    {
+      "family": "S1",
+      "operation": "preview_prepare",
+      "run": "cold",
+      "ms": 0.016199999999997772
+    },
+    {
+      "family": "S1",
+      "operation": "preview_topology",
+      "run": "cold",
+      "ms": 0.6537000000000006
+    },
+    {
+      "family": "S1",
+      "operation": "export_h2v",
+      "run": "cold",
+      "ms": 0.05480000000000018
+    },
+    {
+      "family": "S1",
+      "operation": "retained_counts",
+      "historyEntries": 1,
+      "historySerializedChars": 2765,
+      "previewNodes": 64,
+      "previewHyperedges": 16
+    },
+    {
+      "family": "S2",
+      "operation": "load_commit",
+      "run": "cold",
+      "ms": 0.35379999999999256
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.31289999999999907
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.05010000000000048
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.011700000000004707
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.15149999999999864
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.7005000000000052
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.07930000000000348
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.01099999999999568
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.07899999999999352
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.2933999999999912
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.01480000000000814
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.0053000000000054115
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.054299999999997794
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.38759999999999195
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.02790000000000248
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.017799999999994043
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.08029999999999404
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 0.4461000000000013
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 0.01670000000000016
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.011599999999987176
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 0.059700000000006526
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 0,
+      "ms": 0.6135000000000019
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 0,
+      "ms": 0.014000000000010004
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 0,
+      "ms": 0.006699999999995043
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 0,
+      "ms": 0.05340000000001055
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 1,
+      "ms": 0.2406000000000006
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 1,
+      "ms": 0.013499999999993406
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 1,
+      "ms": 0.025000000000005684
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 1,
+      "ms": 0.04970000000000141
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 2,
+      "ms": 0.2609999999999957
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 2,
+      "ms": 0.013300000000000978
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 2,
+      "ms": 0.003500000000002501
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 2,
+      "ms": 0.050600000000002865
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 3,
+      "ms": 0.25369999999999493
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 3,
+      "ms": 0.012099999999989564
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 3,
+      "ms": 0.0027999999999934744
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 3,
+      "ms": 0.04940000000000566
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 4,
+      "ms": 0.2878000000000043
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 4,
+      "ms": 0.17040000000000077
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 4,
+      "ms": 0.004099999999993997
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 4,
+      "ms": 0.046599999999997976
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 5,
+      "ms": 0.23510000000000275
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 5,
+      "ms": 0.01300000000000523
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 5,
+      "ms": 0.003199999999992542
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 5,
+      "ms": 0.050499999999999545
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 6,
+      "ms": 0.22679999999999723
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 6,
+      "ms": 0.012600000000006162
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 6,
+      "ms": 0.002600000000001046
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 6,
+      "ms": 0.05100000000000193
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 7,
+      "ms": 0.22649999999998727
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 7,
+      "ms": 0.012199999999992883
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 7,
+      "ms": 0.0026999999999901547
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 7,
+      "ms": 0.04840000000000089
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 8,
+      "ms": 0.23140000000000782
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 8,
+      "ms": 0.01279999999999859
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 8,
+      "ms": 0.0030000000000001137
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 8,
+      "ms": 0.26830000000001064
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 9,
+      "ms": 0.2914999999999992
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 9,
+      "ms": 0.02559999999999718
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 9,
+      "ms": 0.005699999999990268
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 9,
+      "ms": 0.052099999999995816
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 10,
+      "ms": 0.27360000000000184
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 10,
+      "ms": 0.014099999999999113
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 10,
+      "ms": 0.0037000000000091404
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 10,
+      "ms": 0.04980000000000473
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 11,
+      "ms": 0.47160000000000935
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 11,
+      "ms": 0.015500000000002956
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 11,
+      "ms": 0.010599999999996612
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 11,
+      "ms": 0.05320000000000391
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 12,
+      "ms": 0.26139999999999475
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 12,
+      "ms": 0.013199999999997658
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 12,
+      "ms": 0.0037999999999982492
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 12,
+      "ms": 0.3686000000000007
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 13,
+      "ms": 0.4689999999999941
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 13,
+      "ms": 0.013300000000000978
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 13,
+      "ms": 0.005500000000012051
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 13,
+      "ms": 0.04649999999999466
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 14,
+      "ms": 0.3136999999999972
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 14,
+      "ms": 0.01279999999999859
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 14,
+      "ms": 0.004300000000000637
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 14,
+      "ms": 0.043400000000005434
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 15,
+      "ms": 0.23799999999999955
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 15,
+      "ms": 0.01300000000000523
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 15,
+      "ms": 0.0036000000000058208
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 15,
+      "ms": 0.04279999999999973
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 16,
+      "ms": 0.22740000000000293
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 16,
+      "ms": 0.012700000000009481
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 16,
+      "ms": 0.002900000000011005
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 16,
+      "ms": 0.20450000000001012
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 17,
+      "ms": 0.2312999999999903
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 17,
+      "ms": 0.012999999999991019
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 17,
+      "ms": 0.003200000000006753
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 17,
+      "ms": 0.04540000000000077
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 18,
+      "ms": 0.2254000000000076
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 18,
+      "ms": 0.012600000000006162
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 18,
+      "ms": 0.002500000000011937
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 18,
+      "ms": 0.03920000000000812
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 19,
+      "ms": 0.25719999999999743
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 19,
+      "ms": 0.011499999999998067
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 19,
+      "ms": 0.002600000000001046
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 19,
+      "ms": 0.039299999999997226
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 20,
+      "ms": 0.24559999999999604
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 20,
+      "ms": 0.013399999999990087
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 20,
+      "ms": 0.002600000000001046
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 20,
+      "ms": 0.047100000000000364
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 21,
+      "ms": 0.3305000000000007
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 21,
+      "ms": 0.011800000000008026
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 21,
+      "ms": 0.002900000000011005
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 21,
+      "ms": 0.0379999999999967
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 22,
+      "ms": 0.21429999999999438
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 22,
+      "ms": 0.011099999999999
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 22,
+      "ms": 0.002200000000001978
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 22,
+      "ms": 0.037499999999994316
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 23,
+      "ms": 0.29220000000000823
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 23,
+      "ms": 0.016099999999994452
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 23,
+      "ms": 0.00919999999999277
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 23,
+      "ms": 0.049100000000009913
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 24,
+      "ms": 0.25430000000000064
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 24,
+      "ms": 0.01649999999997931
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 24,
+      "ms": 0.004000000000019099
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 24,
+      "ms": 0.039900000000017144
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 25,
+      "ms": 0.39289999999999736
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 25,
+      "ms": 0.013199999999983447
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 25,
+      "ms": 0.003899999999987358
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 25,
+      "ms": 0.04189999999999827
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 26,
+      "ms": 0.2242999999999995
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 26,
+      "ms": 0.011799999999993815
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 26,
+      "ms": 0.002999999999985903
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 26,
+      "ms": 0.04019999999999868
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 27,
+      "ms": 0.2219000000000051
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 27,
+      "ms": 0.011500000000012278
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 27,
+      "ms": 0.0027000000000043656
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 27,
+      "ms": 0.04990000000000805
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 28,
+      "ms": 0.35360000000000014
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 28,
+      "ms": 0.011499999999983856
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 28,
+      "ms": 0.005699999999990268
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 28,
+      "ms": 0.04189999999999827
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_fingerprint",
+      "run": 29,
+      "ms": 0.24959999999998672
+    },
+    {
+      "family": "S2",
+      "operation": "same_graph_counts",
+      "run": 29,
+      "ms": 0.011099999999999
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_snapshot",
+      "run": 29,
+      "ms": 0.0023999999999944066
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "run": 29,
+      "ms": 0.17349999999999
+    },
+    {
+      "family": "S2",
+      "operation": "replacement",
+      "run": "new_version",
+      "ms": 0.8094000000000108
+    },
+    {
+      "family": "S2",
+      "operation": "history_commit",
+      "run": "cold",
+      "ms": 0.1671999999999798
+    },
+    {
+      "family": "S2",
+      "operation": "preview_prepare",
+      "run": "cold",
+      "ms": 0.0010000000000047748
+    },
+    {
+      "family": "S2",
+      "operation": "preview_topology",
+      "run": "cold",
+      "ms": 0.26189999999999714
+    },
+    {
+      "family": "S2",
+      "operation": "export_h2v",
+      "run": "cold",
+      "ms": 0.014799999999979718
+    },
+    {
+      "family": "S2",
+      "operation": "retained_counts",
+      "historyEntries": 1,
+      "historySerializedChars": 15597,
+      "previewNodes": 400,
+      "previewHyperedges": 50
+    },
+    {
+      "family": "B1",
+      "operation": "load_commit",
+      "run": "cold",
+      "ms": 44.14250000000001
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 50.025000000000006
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 2.9706999999999937
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.024499999999989086
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 9.277500000000003
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 39.67640000000003
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 2.7497000000000185
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.022600000000011278
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 10.336000000000013
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 44.865099999999984
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 2.203399999999988
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.019499999999993634
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 6.079600000000028
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 39.8999
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 2.085800000000006
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.02010000000001355
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 5.806700000000035
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 39.23410000000001
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 1.9833000000000425
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.019300000000043838
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": "warmup",
+      "ms": 10.287499999999966
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 0,
+      "ms": 35.93459999999999
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 0,
+      "ms": 1.9578000000000202
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 0,
+      "ms": 0.018400000000042382
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 0,
+      "ms": 7.277699999999982
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 1,
+      "ms": 45.14409999999998
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 1,
+      "ms": 1.9517999999999347
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 1,
+      "ms": 0.02039999999999509
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 1,
+      "ms": 5.803200000000061
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 2,
+      "ms": 35.634700000000066
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 2,
+      "ms": 1.9298000000000002
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 2,
+      "ms": 0.018899999999916872
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 2,
+      "ms": 7.187999999999988
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 3,
+      "ms": 46.11789999999996
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 3,
+      "ms": 2.767600000000016
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 3,
+      "ms": 0.021100000000046748
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 3,
+      "ms": 6.123900000000049
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 4,
+      "ms": 34.7029
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 4,
+      "ms": 1.9006999999999152
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 4,
+      "ms": 0.05119999999999436
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 4,
+      "ms": 5.83910000000003
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 5,
+      "ms": 43.512899999999945
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 5,
+      "ms": 1.9060000000000628
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 5,
+      "ms": 0.019000000000005457
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 5,
+      "ms": 6.2666000000000395
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 6,
+      "ms": 35.2183
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 6,
+      "ms": 1.988399999999956
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 6,
+      "ms": 0.017800000000079308
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 6,
+      "ms": 12.828199999999924
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 7,
+      "ms": 35.03240000000005
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 7,
+      "ms": 1.9519000000000233
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 7,
+      "ms": 0.01959999999996853
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 7,
+      "ms": 6.140999999999963
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 8,
+      "ms": 44.45489999999995
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 8,
+      "ms": 1.969500000000039
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 8,
+      "ms": 0.01890000000003056
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 8,
+      "ms": 5.698500000000081
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 9,
+      "ms": 34.01690000000008
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 9,
+      "ms": 1.929200000000037
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 9,
+      "ms": 0.0181999999999789
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 9,
+      "ms": 5.995900000000006
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 10,
+      "ms": 43.27290000000005
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 10,
+      "ms": 2.245400000000018
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 10,
+      "ms": 0.01920000000006894
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 10,
+      "ms": 6.342499999999973
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 11,
+      "ms": 37.056299999999965
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 11,
+      "ms": 2.2502999999999247
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 11,
+      "ms": 0.018700000000080763
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 11,
+      "ms": 6.138200000000097
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 12,
+      "ms": 44.66229999999996
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 12,
+      "ms": 2.292699999999968
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 12,
+      "ms": 0.01939999999990505
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 12,
+      "ms": 6.038199999999961
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 13,
+      "ms": 36.052400000000034
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 13,
+      "ms": 1.9100000000000819
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 13,
+      "ms": 0.019000000000005457
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 13,
+      "ms": 13.344500000000153
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 14,
+      "ms": 35.106199999999944
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 14,
+      "ms": 1.8442000000000007
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 14,
+      "ms": 0.01859999999987849
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 14,
+      "ms": 5.863500000000158
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 15,
+      "ms": 43.130499999999984
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 15,
+      "ms": 1.874900000000025
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 15,
+      "ms": 0.016599999999925785
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 15,
+      "ms": 6.248900000000049
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 16,
+      "ms": 34.03210000000013
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 16,
+      "ms": 1.848799999999983
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 16,
+      "ms": 0.018100000000004002
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 16,
+      "ms": 5.698799999999892
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 17,
+      "ms": 55.438500000000204
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 17,
+      "ms": 2.013099999999895
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 17,
+      "ms": 0.02719999999999345
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 17,
+      "ms": 6.078200000000152
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 18,
+      "ms": 36.083900000000085
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 18,
+      "ms": 1.8691999999998643
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 18,
+      "ms": 0.018499999999903594
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 18,
+      "ms": 6.8449999999998
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 19,
+      "ms": 40.205400000000054
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 19,
+      "ms": 1.866899999999987
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 19,
+      "ms": 0.01960000000008222
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 19,
+      "ms": 5.692700000000059
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 20,
+      "ms": 35.011600000000044
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 20,
+      "ms": 1.9051999999999225
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 20,
+      "ms": 0.01859999999987849
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 20,
+      "ms": 6.088999999999942
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 21,
+      "ms": 42.044200000000046
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 21,
+      "ms": 2.0833000000000084
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 21,
+      "ms": 0.019200000000182627
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 21,
+      "ms": 5.65949999999998
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 22,
+      "ms": 35.423499999999876
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 22,
+      "ms": 1.9512999999999465
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 22,
+      "ms": 0.018700000000080763
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 22,
+      "ms": 11.95959999999991
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 23,
+      "ms": 34.45640000000003
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 23,
+      "ms": 1.893100000000004
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 23,
+      "ms": 0.018499999999903594
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 23,
+      "ms": 5.725800000000163
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 24,
+      "ms": 44.66039999999998
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 24,
+      "ms": 1.9560999999998785
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 24,
+      "ms": 0.019000000000005457
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 24,
+      "ms": 5.73479999999995
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 25,
+      "ms": 33.90910000000008
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 25,
+      "ms": 1.8610999999998512
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 25,
+      "ms": 0.01749999999992724
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 25,
+      "ms": 5.729800000000068
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 26,
+      "ms": 44.677000000000135
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 26,
+      "ms": 1.8571999999999207
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 26,
+      "ms": 0.018700000000080763
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 26,
+      "ms": 5.952299999999923
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 27,
+      "ms": 34.03830000000016
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 27,
+      "ms": 2.0848000000000866
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 27,
+      "ms": 0.01859999999987849
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 27,
+      "ms": 5.788099999999986
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 28,
+      "ms": 42.092600000000175
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 28,
+      "ms": 2.151299999999992
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 28,
+      "ms": 0.0204999999998563
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 28,
+      "ms": 6.063599999999951
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_fingerprint",
+      "run": 29,
+      "ms": 36.51389999999992
+    },
+    {
+      "family": "B1",
+      "operation": "same_graph_counts",
+      "run": 29,
+      "ms": 1.921199999999999
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_snapshot",
+      "run": 29,
+      "ms": 0.01710000000002765
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "run": 29,
+      "ms": 12.228999999999814
+    },
+    {
+      "family": "B1",
+      "operation": "replacement",
+      "run": "new_version",
+      "ms": 109.26710000000003
+    },
+    {
+      "family": "B1",
+      "operation": "history_commit",
+      "run": "cold",
+      "ms": 10.35089999999991
+    },
+    {
+      "family": "B1",
+      "operation": "preview_prepare",
+      "run": "cold",
+      "ms": 0.009199999999964348
+    },
+    {
+      "family": "B1",
+      "operation": "preview_topology",
+      "run": "cold",
+      "ms": 0.2419999999999618
+    },
+    {
+      "family": "B1",
+      "operation": "export_h2v",
+      "run": "cold",
+      "ms": 1.069400000000087
+    },
+    {
+      "family": "B1",
+      "operation": "retained_counts",
+      "historyEntries": 1,
+      "historySerializedChars": 1500365,
+      "previewNodes": 200,
+      "previewHyperedges": 50
+    },
+    {
+      "family": "B5",
+      "operation": "load_commit",
+      "run": "cold",
+      "ms": 105.58210000000008
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 77.91180000000031
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 209.54660000000013
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.026299999999991996
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 56.41200000000026
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 166.17099999999982
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.021900000000186992
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 75.86650000000009
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 111.41640000000007
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.018800000000283035
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 56.48000000000002
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 121.04779999999982
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.019699999999829743
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": "warmup",
+      "ms": 53.54770000000008
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": "warmup",
+      "ms": 134.5306999999998
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": "warmup",
+      "ms": 0.01890000000003056
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": 0,
+      "ms": 54.08609999999999
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": 0,
+      "ms": 119.05740000000014
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": 0,
+      "ms": 0.020099999999729334
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": 1,
+      "ms": 58.503799999999956
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": 1,
+      "ms": 119.11329999999998
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": 1,
+      "ms": 0.01960000000008222
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_fingerprint",
+      "run": 2,
+      "ms": 57.26980000000003
+    },
+    {
+      "family": "B5",
+      "operation": "same_graph_counts",
+      "run": 2,
+      "ms": 114.25040000000035
+    },
+    {
+      "family": "B5",
+      "operation": "assistant_snapshot",
+      "run": 2,
+      "ms": 0.01890000000003056
+    },
+    {
+      "family": "B5",
+      "operation": "replacement",
+      "run": "new_version",
+      "ms": 150.2220000000002
+    },
+    {
+      "family": "B5",
+      "operation": "history_commit",
+      "run": "cold",
+      "ms": 334.65599999999995
+    },
+    {
+      "family": "B5",
+      "operation": "preview_prepare",
+      "run": "cold",
+      "ms": 0.01739999999972497
+    },
+    {
+      "family": "B5",
+      "operation": "preview_topology",
+      "run": "cold",
+      "ms": 1357.2367999999997
+    },
+    {
+      "family": "B5",
+      "operation": "retained_counts",
+      "historyEntries": 1,
+      "historySerializedChars": 22000415,
+      "previewNodes": 1000000,
+      "previewHyperedges": 1
+    }
+  ]
+}

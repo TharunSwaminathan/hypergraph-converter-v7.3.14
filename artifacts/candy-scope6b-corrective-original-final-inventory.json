@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-15T18:20:47.823Z",
+  "branch": "candy-integration-scope6b-browser-scalability-v7_4",
+  "anchors": {
+    "head": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+    "remote": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+    "qualified": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+    "released": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+  },
+  "committed": false,
+  "stagedFiles": [],
+  "protectedTrackedChanges": [],
+  "sourceFiles": [
+    {
+      "path": "scripts/measure-scope6b.mjs",
+      "sha256": "3bd8eb3532984886487cd2c829ed69973d35841c5029d93b91c064840b2df0c6",
+      "status": "new"
+    },
+    {
+      "path": "scripts/prepare-scope6b-browser-fixtures.mjs",
+      "sha256": "b9ba5ffc2a97b772b20cfb2cf0ded210997ed31d994cb3b0ea78cf0980d5e93c",
+      "status": "new"
+    },
+    {
+      "path": "src/App.jsx",
+      "sha256": "dc8f660111aeaa59bdc8bc1de633e78801c771c48ff95ffd496ec7a9ad3944df",
+      "status": "modified"
+    },
+    {
+      "path": "src/agent/assistantContextSnapshot.js",
+      "sha256": "22f0d618731d9ab29dc17d1fe013ffac0663c8c53198dbee6fdbba24e750d844",
+      "status": "modified"
+    },
+    {
+      "path": "src/agent/localModelClient.js",
+      "sha256": "f67332be81967c1baa01dd4054c99adbbfba7bc6fa18b3786e95c45db77d68cd",
+      "status": "modified"
+    },
+    {
+      "path": "src/agent/prompts/graphMutationPlannerPrompt.js",
+      "sha256": "da365d2a0baaa70ec919330e45fb5e31f5ea852688090d0ca9ef91c27a8cbe59",
+      "status": "modified"
+    },
+    {
+      "path": "src/components/Viz.jsx",
+      "sha256": "f0c1ccbc6de35a8cfe66f75c53a4241a413e7112c1eea1a118720cd3a66c8d7f",
+      "status": "modified"
+    },
+    {
+      "path": "src/derived/derivedProductCache.js",
+      "sha256": "0a61ef54b18a73a7873f5e04bb961ccf76f73610c1874563e72f975a7ec1800c",
+      "status": "modified"
+    },
+    {
+      "path": "src/derived/mappingPresentation.js",
+      "sha256": "4ec095cc6ec1091e7fbb518e9d4209c94de389a53db9f1cce07f2d259ac8aed8",
+      "status": "modified"
+    },
+    {
+      "path": "src/graph/graphFingerprint.js",
+      "sha256": "62dd83927ba10ddf39042e006903ebc5fe31a6e8bab2061e45ec7a433690b1e4",
+      "status": "modified"
+    },
+    {
+      "path": "src/graph/graphHistory.js",
+      "sha256": "58449c14691eac4528e73f88370582340f6ef1c2ae3966b57d2b0eb0c8fc36f0",
+      "status": "modified"
+    },
+    {
+      "path": "src/graph/graphIdentity.js",
+      "sha256": "edd06acd96444f14113ec9e908fab12673bc9e8380cc399509c3b12c9c1145a8",
+      "status": "modified"
+    },
+    {
+      "path": "src/graph/graphMutationPreview.js",
+      "sha256": "980040155c1ead3a5dc7aa79865c2d1bbcde40924c5b640c418160db766c9c7c",
+      "status": "modified"
+    },
+    {
+      "path": "src/graph/graphState.js",
+      "sha256": "dc2d1eb0a8954b5472e18b4158d58f058a27f3a2acc24cbcb973283781b98293",
+      "status": "modified"
+    },
+    {
+      "path": "src/graph/immutableGraph.js",
+      "sha256": "48337624bef95cf6a8a0109421a8d00f1ea40951bdfa81918600f08ceacaae8b",
+      "status": "new"
+    },
+    {
+      "path": "src/graph/pendingHypergraphUpdate.js",
+      "sha256": "c49ebd0cce378146e8f0efed34aadd306051caced13bd15ac557600bc8b2a957",
+      "status": "modified"
+    },
+    {
+      "path": "src/hooks/useAsyncDerivedProduct.js",
+      "sha256": "9d8de131f551d0739eefba32111ef122e0ce512ad112e88b899a771967c28264",
+      "status": "modified"
+    },
+    {
+      "path": "src/visualization/previewRenderBudget.js",
+      "sha256": "1592fa4003490f7b9adb6e92870adcab78f606c28af9320a9fd0f418215a6569",
+      "status": "modified"
+    },
+    {
+      "path": "tests/candy-scope6b-data-path.test.mjs",
+      "sha256": "119d112f08df4281be44dde170768be14546155f4a61c743782fd43d86de3c46",
+      "status": "new"
+    },
+    {
+      "path": "tests/candy-scope6b-preview-budget.test.mjs",
+      "sha256": "a87eda3d8aa4c4a5c2cecf2f9b0b6b77fbe89b9e18fb30ab0bf61855ecf88921",
+      "status": "new"
+    },
+    {
+      "path": "tests/candy-scope6b-render.test.mjs",
+      "sha256": "4d21971d2055a0d697fb1cfb483bff0513358e90b3b812cadcb89974d2b33c7d",
+      "status": "new"
+    },
+    {
+      "path": "tests/candy-scope6b-response-cache.test.mjs",
+      "sha256": "62c8f6556accc85b186ac5d758b7a55161ecd4a0ea9b34ea5bd5aefca36c849e",
+      "status": "new"
+    }
+  ],
+  "implementationAggregateSha256": "28ef226519b4424ec5f0dc8947be66294235f5cbd26297046d6967ba200d08de",
+  "evidence": [
+    {
+      "path": "artifacts/candy-scope6b-baseline-extraction.json",
+      "sha256": "a63c2680b946dccafae8cde81f132be6872f32090f29322c9791dbdd2295c116"
+    },
+    {
+      "path": "artifacts/candy-scope6b-benchmark-after.json",
+      "sha256": "4a0c9828e898d9efdf3341da0bfcbcb4f9a6cfa27d6a5e33b532115e41588adb"
+    },
+    {
+      "path": "artifacts/candy-scope6b-benchmark-before.json",
+      "sha256": "da88638e413ecab5b3b0fedf64fd2cd70533aa381e5ec8bd3746cf0e530cc35f"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-b1.jpg",
+      "sha256": "4cc729188a67964e8afe791d62a8f9df54cb09a251ed19dd86e7022cfe4892bb"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-b4-admission.jpg",
+      "sha256": "0c5f295d4c8f3c21782ce09d750a24403c06247c5fc2f0e9a3603a00357bd1f9"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-b5-final.jpg",
+      "sha256": "5197cb90e4ee0e23043787a0f302f810dd871b6d38666ec382e686f85c1214a7"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-b5.jpg",
+      "sha256": "7a98f319096cfbd48ffb0cc04fe5c921bbd8c0c4da175a7d0bc477bf0975b994"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-development-errors.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-fixtures.json",
+      "sha256": "725059df6b1241a6796c743d2125bf6b4d6a1bfa06b4cbe9534d200f096ebd19"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-medium.jpg",
+      "sha256": "a61d52ec5f4c28940e9776780da3e9aaabf2ec35a795c609519fd0a129facd15"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-qualification.json",
+      "sha256": "1e992f57931f616c80ce0b6df3187cddb29ad6df8202892e3fb27943dd71d178"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-runtime-applied.jpg",
+      "sha256": "49f67e7f921350793b334024345fd21ec272816b2683188d759749a999ce265b"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-runtime-errors.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-runtime-final.txt",
+      "sha256": "89325a13939015356bc323f27c6e7c7a666c9342a88ca3fc47b1bc97586e954a"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-runtime-incremental.jpg",
+      "sha256": "30d4d90e3d2e3ccccf3a8546913b6eae270a1dda58cb692d0000862dc875538e"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-runtime-incremental.txt",
+      "sha256": "46d00a9108c6e8372922eb0f5b0a9eab7c7ac707e9fdc799bcbf846225b2b235"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-runtime-static.jpg",
+      "sha256": "d704caaac9f3dd4cac6f9ff3d07bbb85ae82bc3d50ab8c21af90fa1ad80fefe0"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-runtime-static.txt",
+      "sha256": "6c0f8418b967e01cbf7f0e80a726f3bd9d6e841dd3e65832aea7e327baa42bb1"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-small.jpg",
+      "sha256": "15fefc223d2069cdfefad1a9692153a47c387468a13d2a61f4d908feff89611a"
+    },
+    {
+      "path": "artifacts/candy-scope6b-browser-timings.json",
+      "sha256": "da1e231cd680f878decdc8643cb791bd058a19ced9e40adfab6f2a2a2a406a87"
+    },
+    {
+      "path": "artifacts/candy-scope6b-dynamic-paired.json",
+      "sha256": "dc1d6cce20b6fdccda2ce45a07fe5203ba6469c7680c7851d87acce1c5bd8d1f"
+    },
+    {
+      "path": "artifacts/candy-scope6b-implementation-report.md",
+      "sha256": "9595b948967ce311b36860321440b2b3f068ecb07e6d375da2497c6785df6480"
+    },
+    {
+      "path": "artifacts/candy-scope6b-large-mapping-paired.json",
+      "sha256": "2492237af9c1af4d433db077cf96d50146b01aecccb0489b0a359ca0487a75bd"
+    },
+    {
+      "path": "artifacts/candy-scope6b-performance-comparison.json",
+      "sha256": "bd947f2e76f281fe28f5ecf153200b73c9d2151e4d23003e9581f3a0dfd5a837"
+    },
+    {
+      "path": "artifacts/candy-scope6b-performance-comparison.md",
+      "sha256": "d1df9e40d7404156f10fdf9868bc8ec02514265f4d835197d659f32ea7d84d9b"
+    },
+    {
+      "path": "artifacts/candy-scope6b-prechange-inventory.json",
+      "sha256": "7df2f1b5f251482b52492ded29fe249bbf6b6a54f0efa8ec1515a3a84951689e"
+    },
+    {
+      "path": "artifacts/candy-scope6b-prechange-map.md",
+      "sha256": "a3e94d68d5a2c0803922eb2cae48aeeb0e3e3ef143e34674405a77d81b946e2d"
+    },
+    {
+      "path": "artifacts/candy-scope6b-production-audit.json",
+      "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+    },
+    {
+      "path": "artifacts/candy-scope6b-qualification.json",
+      "sha256": "29ed0448a06af84985c67838f33bee4d5e62b5ce6492d2b207ede84d6a6652bb"
+    },
+    {
+      "path": "artifacts/candy-scope6b-runtime-static-observation.json",
+      "sha256": "759d23d35078e89e3a00e4d1b5d2b9bdb843928299f77784954d111ec0b3c1e5"
+    },
+    {
+      "path": "artifacts/candy-scope6b-security-review.md",
+      "sha256": "3ef4a04b7a9de87e41ece023cdf4f772e6cb046774668906f8cedb96f66c160a"
+    },
+    {
+      "path": "artifacts/candy-scope6b-supplementary-paired.json",
+      "sha256": "3c7a131b3bb168b2c39df48fe8a78a03b34bd0183dd0f116a7a11f6d7e809852"
+    },
+    {
+      "path": "artifacts/candy-scope6b-test-results.json",
+      "sha256": "0e6af4b6456ff1e0a8d58e6792698b7e232c5644ec9505f45a017d7c64576d8a"
+    }
+  ],
+  "ignoredGateLogs": [
+    {
+      "path": "artifacts/candy-scope6b-build-github.log",
+      "sha256": "e7cbbac0caa8d14e580eb9c14ef4030dbf688e34ff65a87408ee848e091ce458",
+      "note": "Present locally; repository ignore policy excludes .log files."
+    },
+    {
+      "path": "artifacts/candy-scope6b-build.log",
+      "sha256": "84dbafad074c96dd7aae88c26252af3689b79bfcdba1c5027d422a9fc9a68818",
+      "note": "Present locally; repository ignore policy excludes .log files."
+    },
+    {
+      "path": "artifacts/candy-scope6b-full-tests-final.log",
+      "sha256": "a30113928493052a7e56d619cc1f0e72711930172277356c4eae8df44757352b",
+      "note": "Present locally; repository ignore policy excludes .log files."
+    },
+    {
+      "path": "artifacts/candy-scope6b-full-tests.log",
+      "sha256": "299af4fa8f0ac4c8b86307c43c903044174a3691ff7ff96c24ec1b590cb968e7",
+      "note": "Present locally; repository ignore policy excludes .log files."
+    },
+    {
+      "path": "artifacts/candy-scope6b-lint.log",
+      "sha256": "778e34cba07294f43d3366d62f1a77062edd92272593d9c6d022be6b08fc9cec",
+      "note": "Present locally; repository ignore policy excludes .log files."
+    },
+    {
+      "path": "artifacts/candy-scope6b-model-tests.log",
+      "sha256": "8f7755e594157aed6586326b4e643d1f9094ac803b421ace287a4c385133d683",
+      "note": "Present locally; repository ignore policy excludes .log files."
+    },
+    {
+      "path": "artifacts/candy-scope6b-npm-ci.log",
+      "sha256": "539b57f4b00c1a67017be54f4f11f8e65b21e865fd0040a6f769557468d0fc83",
+      "note": "Present locally; repository ignore policy excludes .log files."
+    }
+  ],
+  "selfHashExcluded": true,
+  "cleanup": {
+    "ownedServersStopped": true,
+    "browserPairingCleared": true,
+    "temporaryPairingCredentialRemoved": false,
+    "temporaryPairingCredentialPath": "C:/Users/tharu/AppData/Local/Temp/candy-scope6b-runtime-pairing.txt",
+    "cleanupBlocker": "Automatic approval review rejected Remove-Item with blocked by policy; expired session credential file left in place. No workaround attempted.",
+    "syntheticFixturesRetainedInTaskTempDirectory": true,
+    "ephemeralBrowserTabs": "Will close with turn; no deliverable/handoff mark."
+  },
+  "securityScan": {
+    "scanId": "58ab8041-f9f2-423e-aecc-eaca5e5818f2",
+    "snapshotWarningRetained": true,
+    "postScanSourceChange": "graphHistory.js EOF whitespace only; targeted test/lint/both builds rerun."
+  }
+}

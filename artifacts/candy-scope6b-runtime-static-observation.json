@@ -1,0 +1,119 @@
+{
+  "job": {
+    "schemaVersion": "candy.job-status/1",
+    "jobId": "3b020631-9746-4213-b57b-40462d710444",
+    "requestHash": "sha256:5aa8343fb2d52973a12285f595147664227787dcbf3119dc4c2d42605726b34c",
+    "status": "completed",
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC",
+    "graphRef": {
+      "graphId": "graph-050d6851-f8b6-4014-aece-720a72a48b11",
+      "graphVersion": 1
+    },
+    "createdAt": "2026-10-15T18:11:19.095Z",
+    "updatedAt": "2026-10-15T18:11:19.631Z",
+    "resultRef": "sha256:81f21667063e05b2fa591ff099543c9ae8c124057a6cee6d37ea0411c1ccb29e",
+    "error": null,
+    "lifecycle": [
+      "queued",
+      "preparing",
+      "running",
+      "validating",
+      "completed"
+    ]
+  },
+  "result": {
+    "schemaVersion": "candy.runtime-motif-result/1",
+    "runtimeSessionId": "ce43f0ec-e74b-4003-adac-42b48fe1de60",
+    "jobId": "3b020631-9746-4213-b57b-40462d710444",
+    "requestId": "f8d0f148-fc38-4272-950d-8471d72b5667",
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC",
+    "inputGraphRef": {
+      "graphId": "graph-050d6851-f8b6-4014-aece-720a72a48b11",
+      "graphVersion": 1
+    },
+    "graphArtifactId": "sha256:865fd3740820e63ccf52c2271f4638dde8494496eae4e4aa91063f41053778a4",
+    "updateRef": null,
+    "requestDigest": "0d895d5747cb0e165efd2b2eaa1c8fe67b11d938be9de937614918a682c670b4",
+    "execution": {
+      "status": "completed",
+      "exitCode": 0,
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+    },
+    "validation": {
+      "status": "passed",
+      "method": "qualified_transport_identity_and_semantic_validation"
+    },
+    "resultType": "HypergraphMotifCounts",
+    "interpretation": "absolute_counts",
+    "native": {
+      "ok": true,
+      "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "inputGraphRef": {
+        "graphId": "graph-050d6851-f8b6-4014-aece-720a72a48b11",
+        "graphVersion": 1
+      },
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "totalConnectedTriples": 1,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.831488
+      }
+    },
+    "warnings": [],
+    "resultArtifactRef": {
+      "id": "sha256:81f21667063e05b2fa591ff099543c9ae8c124057a6cee6d37ea0411c1ccb29e",
+      "mediaType": "application/vnd.candy.result+json",
+      "byteLength": 1667
+    }
+  },
+  "source": "Fresh genuine Runtime; independent HTTP read of already explicitly authorized browser job; no new job submitted."
+}

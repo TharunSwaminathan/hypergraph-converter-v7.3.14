@@ -1,0 +1,19 @@
+{
+  "capturedAt": "2026-10-17T16:00:31.046Z",
+  "baseline": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "methodology": "Stored measured source SHA-256 values compared to exact committed git blobs through git cat-file --batch, allowing only LF/CRLF checkout representation. A stored SHA must exactly match the committed raw bytes or the deterministic line-ending-only transform. No benchmark rerun, checkout, reset or source edit. The initial raw-only comparison flagged CRLF representations; its output is retained in candy-scope6b-corrective-baseline-bytecheck.json.",
+  "sets": {
+    "cold": {
+      "files": 266,
+      "rawByteMatches": 0,
+      "lineEndingOnlyMatches": 266,
+      "mismatches": []
+    },
+    "browser": {
+      "files": 266,
+      "rawByteMatches": 0,
+      "lineEndingOnlyMatches": 266,
+      "mismatches": []
+    }
+  }
+}

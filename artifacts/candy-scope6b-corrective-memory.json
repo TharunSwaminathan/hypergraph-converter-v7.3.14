@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-17T16:01:21.038Z",
+  "status": "HEAP TELEMETRY: DEFERRED",
+  "interfacesObserved": {
+    "performanceMemory": true,
+    "measureUserAgentSpecificMemory": "undefined",
+    "crossOriginIsolated": false,
+    "forcedGC": "undefined"
+  },
+  "capabilityEvidence": "Available browser/tab tool capabilities expose page assets, WebMCP, visibility and viewport, without heap snapshots or controlled GC. Page probe found measureUserAgentSpecificMemory and gc undefined and crossOriginIsolated false. Legacy performance.memory exists, but this environment provides no established precise per-page retained-heap accounting; no numbers from it are asserted as reliable heap evidence.",
+  "directHeapMeasurements": [],
+  "heapPlateauProven": false,
+  "lifecycleCoverage": {
+    "idle": "No precise heap reading",
+    "afterLoad": "B5 admitted; counts and preview budgets observed",
+    "previewAndTabs": "Matched operation and render/paint proxy samples retained",
+    "repeatedSearch": "Eight post-restart B5 cycles; DOM 795–798",
+    "history": "Apply and byte-identical Undo under fresh versions",
+    "replacement": "B5 -> S2, exact new export and current 64 H / 512 V Assistant context; stale Apply disabled",
+    "idleGC": "Controlled GC interface unavailable; no GC/retained-heap claim"
+  },
+  "deterministicBounds": [
+    {
+      "owner": "graph history",
+      "bound": "At most 25 events / 33,554,432 bytes of unique snapshot UTF-16 JSON accounting; oldest-event expiry and over-budget undo unavailability are labelled",
+      "evidence": "src/graph/graphHistory.js, src/graph/immutableGraph.js, tests/candy-scope6b-data-path.test.mjs"
+    },
+    {
+      "owner": "derived cache",
+      "bound": "At most 32 entries / 16,777,216 bytes of top-level cached strings; oversized text is returned exactly but not retained in cache",
+      "limitation": "Nested object results have an entry-count bound, not a comprehensive byte bound",
+      "evidence": "src/derived/derivedProductCache.js, tests/candy-scope6b-response-cache.test.mjs"
+    },
+    {
+      "owner": "preview",
+      "bound": "Before layout: 200 hyperedges, 1,000 vertices, 3,000 memberships; vertex list 100 per page",
+      "evidence": "src/visualization/previewRenderBudget.js, src/components/Viz.jsx, tests/candy-scope6b-preview-budget.test.mjs"
+    },
+    {
+      "owner": "mapping presentation",
+      "bound": "500 rows, 40 items per cell, 512-character cell cap plus omission labels; exact exports unaffected",
+      "evidence": "src/derived/mappingPresentation.js"
+    },
+    {
+      "owner": "planner / identity / counts caches",
+      "bound": "Private weak-key caches tied to detached owned immutable graph snapshots; at most two recognized graph-type serialization/fingerprint entries per owned snapshot; no caller-owned graphs cached",
+      "limitation": "Weak references and bounded accounting are not proof of prompt GC or an engine heap cap"
+    },
+    {
+      "owner": "Assistant",
+      "bound": "Compact scalar context and bounded samples/recent references; full planner index only on demand and weak-keyed by graph",
+      "evidence": "src/agent/assistantContextSnapshot.js, src/agent/prompts/graphMutationPlannerPrompt.js"
+    }
+  ],
+  "observedProxies": {
+    "priorUninstrumentedB5": [
+      523,
+      520,
+      523,
+      520,
+      523,
+      520
+    ],
+    "recoveryB5": [
+      798,
+      795,
+      798,
+      795,
+      798,
+      795,
+      798,
+      795
+    ],
+    "replacement": {
+      "fixture": "S2",
+      "operation": "after_B5_replacement",
+      "counts": "Hyperedges64Vertices512Min card8Max card8Avg card8.0TimestampsnoWeightsno",
+      "identity": "Committed graphversion 8 · gfp-d92259fb-10177Graph typeHypergraphDynamicHypergraphSelectionnoneMutation history8 retained changes | up to 25 events / 32 MiB snapshot JSON accounting. Oldest events expire; changes exceeding this budget cannot be undone.Type changes are versioned authority transitions. They do not run analysis or apply graph edits.",
+      "context": "Route H2V / SimpleSection exportGraph 64 H · 512 VSelection noneMapping none",
+      "pending": "Dynamic Hypergraph UpdateAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.Workspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.Graph typeHypergraphPending statusSTALEUpdatepending-0dada4e7-2ce… · revision 2Version4 → 5 (proposed)Operations1Motif impactNONEValidation / analysis preflightSTALE · GRAPH_TYPE_UNSUPPORTEDAnalysisNONECurrent pending delta resultnoSelect DynamicHypergraph in the committed graph card to stage pending updates. Current motif counts still use STATIC.Graph changed, changed type, or was replaced (COMMITTED_GRAPH_AUTHORITY_CHANGED). This proposal cannot run or Apply. Discard it, or explicitly re-stage commands against the current graph to create fresh authority.No motif-relevant incidence change. Apply is available independently; no delta computation is needed.Re-stage edited commandsInspect pending previewEdit commandsDiscard pending updateAnalyze motif deltaApply pending updatePreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.",
+      "applyEnabled": false
+    }
+  },
+  "interpretation": "These are deterministic retention/presentation limits and observed DOM/context proxies. They are NOT direct JavaScript heap measurements or proof that retained heap plateaus. Precise heap lifecycle/GC qualification is explicitly deferred."
+}

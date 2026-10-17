@@ -1,0 +1,58 @@
+{
+  "capturedAt": "2026-10-17T16:01:21.038Z",
+  "scope": "Manual corrective collation and reliability closure, with retained prior complete Scope 6B security scan; not a new managed full scan.",
+  "productionDeltaSinceOriginalScope6B": "graphFingerprint.js: reuse private Intl.Collator with the same default locale, numeric:true, sensitivity:base for edge/explicit-vertex ordering.",
+  "collationReview": {
+    "equivalent": true,
+    "determinism": "Same fixed default locale/ICU context as legacy localeCompare; no new cross-locale determinism claim.",
+    "unicodeQualified": true,
+    "stableTies": true,
+    "stateless": true,
+    "userMutableState": false,
+    "authorityIndependent": true,
+    "collisionSafe": "Full canonical serialization equality remains required when short markers match; the cache remains a derivation, not execution authority.",
+    "test": "tests/candy-scope6b-corrective-collation.test.mjs: 100 seeded permutations, two graph types, numeric IDs, large numerals, case/accent/decomposed Unicode ties, non-Latin and emoji, legacy serialization and markers."
+  },
+  "checks": [
+    {
+      "item": "mutable reference escape",
+      "result": "No new escape introduced; detached clone / deep freeze / plain-data ownership gate unchanged; regression tests pass."
+    },
+    {
+      "item": "stale or cross-graph cache authority",
+      "result": "Version + owned graph-reference invalidation and late-write rejection unchanged. B5 -> S2 replacement produced exact S2 export/current Assistant counts."
+    },
+    {
+      "item": "history corruption",
+      "result": "Exact snapshot JSON accounting unchanged. Uninstrumented Apply version 3 and exact Undo version 4; 279-file suite retained."
+    },
+    {
+      "item": "unbounded cache growth",
+      "result": "Corrective collator is one private stateless instance, retaining no graph input. Existing count/text/history/preview bounds unchanged; direct heap still deferred."
+    },
+    {
+      "item": "stale pending / delta reuse",
+      "result": "Post-replacement proposal STALE, Apply and Analyze disabled, current pending delta result no."
+    },
+    {
+      "item": "Assistant authority",
+      "result": "Compact context follows current graph. Stored chat/context does not grant execution permission."
+    },
+    {
+      "item": "Runtime result authority",
+      "result": "Runtime session/base/revision/result binding code unchanged. No Runtime was started or old credential reused during recovery. Current result none/no. Prior genuine Runtime evidence retained unchanged."
+    },
+    {
+      "item": "denial-of-service amplification",
+      "result": "No input expansion or raised admission limits. Collation setup is reused rather than repeated per comparison. B5 preview remains bounded before layout."
+    }
+  ],
+  "protectedDiff": "",
+  "priorScan": {
+    "scanId": "58ab8041-f9f2-423e-aecc-eaca5e5818f2",
+    "findings": 0,
+    "evidence": "artifacts/candy-scope6b-security-review.md",
+    "snapshotWarningRetained": true
+  },
+  "unresolvedCriticalHigh": 0
+}

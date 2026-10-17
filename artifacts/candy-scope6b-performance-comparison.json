@@ -1,0 +1,583 @@
+{
+  "baseline": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "methodology": "Primary before data captured before production edits. Supplement uses archived exact baseline modules; 3 sequential sessions x 5 warmups + 30 measured calls; cold commit/history 20 independent state starts/session. All-before then all-after; not randomized, no confidence-interval or browser-paint claim. B5 primary topology is one cold sample.",
+  "failedSamples": 420,
+  "failedSampleExplanation": "The initial supplemental harness mistakenly used Batch command UPDATE_WEIGHT as a GraphMutationPlan type. All failed attempts remain in supplementary-paired.json. Corrected SET_HYPEREDGE_WEIGHT Stage/Inspect/Apply measurements are in dynamic-paired.json.",
+  "comparisons": [
+    {
+      "family": "S1",
+      "operation": "same_version_fingerprint",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.059399999999982356,
+        "p95Ms": 0.1622000000000412,
+        "minMs": 0.052099999999995816,
+        "maxMs": 0.20240000000001146
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.0004000000008090865,
+        "p95Ms": 0.0007999999997991836,
+        "minMs": 0.00029999999969732016,
+        "maxMs": 0.01479999999901338
+      },
+      "absoluteImprovementMs": 0.05899999999917327,
+      "relativeImprovementPercent": 99.32659932523703,
+      "p95RegressionPercent": -99.50678175104872,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "same_version_counts",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.0024999999999977263,
+        "p95Ms": 0.005599999999958527,
+        "minMs": 0.0019000000000346517,
+        "maxMs": 0.022299999999972897
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.0003999999989900971,
+        "p95Ms": 0.0006000000012136297,
+        "minMs": 0.00020000000040454324,
+        "maxMs": 0.0011999999987892807
+      },
+      "absoluteImprovementMs": 0.002100000001007629,
+      "relativeImprovementPercent": 84.00000004038156,
+      "p95RegressionPercent": -89.28571426396297,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "assistant_planner",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.009199999999964348,
+        "p95Ms": 0.026700000000005275,
+        "minMs": 0.006599999999991724,
+        "maxMs": 0.03520000000003165
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.002300000000104774,
+        "p95Ms": 0.009400000000823638,
+        "minMs": 0.0015000000003055902,
+        "maxMs": 0.027400000000852742
+      },
+      "absoluteImprovementMs": 0.006899999999859574,
+      "relativeImprovementPercent": 74.99999999876427,
+      "p95RegressionPercent": -64.79400748755887,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "mapping_presentation",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.004600000000039017,
+        "p95Ms": 0.009399999999970987,
+        "minMs": 0.0027000000000043656,
+        "maxMs": 0.024999999999977263
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.006600000000617001,
+        "p95Ms": 0.018600000001242734,
+        "minMs": 0.004599999998390558,
+        "maxMs": 0.025599999999030842
+      },
+      "absoluteImprovementMs": -0.002000000000577984,
+      "relativeImprovementPercent": -43.4782608817613,
+      "p95RegressionPercent": 97.87234043936321,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "statistics",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.06770000000000209,
+        "p95Ms": 0.20659999999998035,
+        "minMs": 0.05780000000004293,
+        "maxMs": 0.4863000000000284
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.06869999999980791,
+        "p95Ms": 0.15129999999953725,
+        "minMs": 0.06469999999899301,
+        "maxMs": 0.15430000000014843
+      },
+      "absoluteImprovementMs": -0.0009999999998058229,
+      "relativeImprovementPercent": -1.47710487415922,
+      "p95RegressionPercent": -26.76669893535739,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "cold_commit_plus_history",
+      "unit": "ms",
+      "before": {
+        "n": 60,
+        "medianMs": 0.06580000000002428,
+        "p95Ms": 0.2108000000000061,
+        "minMs": 0.05809999999996762,
+        "maxMs": 0.24979999999999336
+      },
+      "after": {
+        "n": 60,
+        "medianMs": 0.08660000000054424,
+        "p95Ms": 0.17439999999987776,
+        "minMs": 0.0797999999995227,
+        "maxMs": 0.3775999999998021
+      },
+      "absoluteImprovementMs": -0.020800000000519958,
+      "relativeImprovementPercent": -31.610942250018667,
+      "p95RegressionPercent": -17.267552182223564,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "same_version_fingerprint",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.2460999999999558,
+        "p95Ms": 0.3649000000000342,
+        "minMs": 0.22109999999997854,
+        "maxMs": 0.5472000000000321
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.0005999999993946403,
+        "p95Ms": 0.001299999999901047,
+        "minMs": 0.00029999999969732016,
+        "maxMs": 0.010500000000320142
+      },
+      "absoluteImprovementMs": 0.24550000000056116,
+      "relativeImprovementPercent": 99.75619666826707,
+      "p95RegressionPercent": -99.64373801044097,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "same_version_counts",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.015100000000018099,
+        "p95Ms": 0.02580000000000382,
+        "minMs": 0.012200000000007094,
+        "maxMs": 0.036200000000008004
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.0006999999986874172,
+        "p95Ms": 0.0019000000011146767,
+        "minMs": 0.0003999999989900971,
+        "maxMs": 0.007300000001123408
+      },
+      "absoluteImprovementMs": 0.014400000001330682,
+      "relativeImprovementPercent": 95.36423841929418,
+      "p95RegressionPercent": -92.63565891040932,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "assistant_planner",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.05160000000000764,
+        "p95Ms": 0.08710000000002083,
+        "minMs": 0.03770000000002938,
+        "maxMs": 0.42820000000006075
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.0036999999992985977,
+        "p95Ms": 0.008099999999103602,
+        "minMs": 0.0024999999986903276,
+        "maxMs": 0.015600000000631553
+      },
+      "absoluteImprovementMs": 0.04790000000070904,
+      "relativeImprovementPercent": 92.82945736570146,
+      "p95RegressionPercent": -90.70034443271909,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "mapping_presentation",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.011599999999987176,
+        "p95Ms": 0.023400000000037835,
+        "minMs": 0.00960000000003447,
+        "maxMs": 0.037299999999959255
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.01929999999993015,
+        "p95Ms": 0.029099999999743886,
+        "minMs": 0.01629999999931897,
+        "maxMs": 0.044499999999970896
+      },
+      "absoluteImprovementMs": -0.007699999999942975,
+      "relativeImprovementPercent": -66.37931034440938,
+      "p95RegressionPercent": 24.358974357678782,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "statistics",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 1.2794000000000096,
+        "p95Ms": 1.872000000000014,
+        "minMs": 1.144900000000007,
+        "maxMs": 2.1234000000000037
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 1.2604000000010274,
+        "p95Ms": 1.551900000000387,
+        "minMs": 1.1123000000006869,
+        "maxMs": 6.491100000001097
+      },
+      "absoluteImprovementMs": 0.018999999998982275,
+      "relativeImprovementPercent": 1.4850711270112655,
+      "p95RegressionPercent": -17.099358974338923,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "cold_commit_plus_history",
+      "unit": "ms",
+      "before": {
+        "n": 60,
+        "medianMs": 0.2756999999999721,
+        "p95Ms": 0.38999999999998636,
+        "minMs": 0.25039999999995644,
+        "maxMs": 0.8677000000000135
+      },
+      "after": {
+        "n": 60,
+        "medianMs": 0.3204999999998108,
+        "p95Ms": 0.4248999999999796,
+        "minMs": 0.30159999999887077,
+        "maxMs": 0.4536000000007334
+      },
+      "absoluteImprovementMs": -0.04479999999983875,
+      "relativeImprovementPercent": -16.249546608575727,
+      "p95RegressionPercent": 8.948717948716537,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "B1",
+      "operation": "same_version_fingerprint",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 35.282499999999345,
+        "p95Ms": 43.148499999999785,
+        "minMs": 32.478400000000875,
+        "maxMs": 45.47959999999989
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.002500000000509317,
+        "p95Ms": 0.0030999999999039574,
+        "minMs": 0.001699999998891144,
+        "maxMs": 0.0033999999996012775
+      },
+      "absoluteImprovementMs": 35.279999999998836,
+      "relativeImprovementPercent": 99.99291433430027,
+      "p95RegressionPercent": -99.99281550922997,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "B1",
+      "operation": "same_version_counts",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 1.9167999999999665,
+        "p95Ms": 2.0619000000001506,
+        "minMs": 1.7986000000000786,
+        "maxMs": 4.033400000000256
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.0019000000011146767,
+        "p95Ms": 0.0031999999991967343,
+        "minMs": 0.0011999999987892807,
+        "maxMs": 0.0036000000000058208
+      },
+      "absoluteImprovementMs": 1.9148999999988519,
+      "relativeImprovementPercent": 99.9008764607098,
+      "p95RegressionPercent": -99.84480333676723,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "B1",
+      "operation": "assistant_planner",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 5.809900000000198,
+        "p95Ms": 14.234199999999873,
+        "minMs": 5.470399999999927,
+        "maxMs": 15.174299999998766
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.014699999999720603,
+        "p95Ms": 0.018200000000433647,
+        "minMs": 0.0068000000010215444,
+        "maxMs": 0.03509999999914726
+      },
+      "absoluteImprovementMs": 5.795200000000477,
+      "relativeImprovementPercent": 99.74698359696862,
+      "p95RegressionPercent": -99.87213893298933,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "B1",
+      "operation": "mapping_presentation",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.19840000000021973,
+        "p95Ms": 6.87310000000025,
+        "minMs": 0.18049999999993815,
+        "maxMs": 8.362300000000005
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.234599999999773,
+        "p95Ms": 0.28259999999863794,
+        "minMs": 0.19909999999981665,
+        "maxMs": 0.575700000001234
+      },
+      "absoluteImprovementMs": -0.036199999999553256,
+      "relativeImprovementPercent": -18.2459677416901,
+      "p95RegressionPercent": -95.88831822614792,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "B1",
+      "operation": "statistics",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 8.593199999999342,
+        "p95Ms": 16.649900000000116,
+        "minMs": 8.176099999999678,
+        "maxMs": 18.060199999999895
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 10.750100000001112,
+        "p95Ms": 15.714399999998932,
+        "minMs": 10.150500000001557,
+        "maxMs": 21.414199999999255
+      },
+      "absoluteImprovementMs": -2.1569000000017695,
+      "relativeImprovementPercent": -25.10007913235971,
+      "p95RegressionPercent": -5.618652364285537,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "B1",
+      "operation": "cold_commit_plus_history",
+      "unit": "ms",
+      "before": {
+        "n": 60,
+        "medianMs": 41.27099999999973,
+        "p95Ms": 49.79770000000008,
+        "minMs": 37.72949999999946,
+        "maxMs": 53.35329999999976
+      },
+      "after": {
+        "n": 60,
+        "medianMs": 48.6903999999995,
+        "p95Ms": 55.994300000000294,
+        "minMs": 42.082900000001246,
+        "maxMs": 65.08809999999903
+      },
+      "absoluteImprovementMs": -7.419399999999769,
+      "relativeImprovementPercent": -17.977272176588446,
+      "p95RegressionPercent": 12.443546589501537,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "dynamic_stage",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.7831999999999937,
+        "p95Ms": 1.0038000000000125,
+        "minMs": 0.5527999999999906,
+        "maxMs": 1.1540999999999997
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.6789999999998599,
+        "p95Ms": 0.918100000000095,
+        "minMs": 0.5593000000001211,
+        "maxMs": 1.5199999999999818
+      },
+      "absoluteImprovementMs": 0.10420000000013374,
+      "relativeImprovementPercent": 13.30439223699369,
+      "p95RegressionPercent": -8.537557282318833,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "dynamic_inspect",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.023499999999998522,
+        "p95Ms": 0.03630000000001132,
+        "minMs": 0.017399999999952342,
+        "maxMs": 0.065400000000011
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.02719999999999345,
+        "p95Ms": 0.04320000000006985,
+        "minMs": 0.01869999999985339,
+        "maxMs": 0.0826999999999316
+      },
+      "absoluteImprovementMs": -0.0036999999999949296,
+      "relativeImprovementPercent": -15.744680851043244,
+      "p95RegressionPercent": 19.008264462965215,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S1",
+      "operation": "dynamic_apply",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.8462000000000103,
+        "p95Ms": 1.122799999999998,
+        "minMs": 0.7151000000000067,
+        "maxMs": 1.2935999999999979
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.7619999999999436,
+        "p95Ms": 1.1320000000000618,
+        "minMs": 0.5885000000000673,
+        "maxMs": 2.60329999999999
+      },
+      "absoluteImprovementMs": 0.08420000000006667,
+      "relativeImprovementPercent": 9.95036634366174,
+      "p95RegressionPercent": 0.8193801211314429,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "dynamic_stage",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 2.9536999999999125,
+        "p95Ms": 3.616700000000037,
+        "minMs": 2.485400000000027,
+        "maxMs": 4.030400000000043
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 2.6807000000003427,
+        "p95Ms": 3.2473999999999705,
+        "minMs": 2.4100000000003092,
+        "maxMs": 4.033400000000029
+      },
+      "absoluteImprovementMs": 0.2729999999995698,
+      "relativeImprovementPercent": 9.242644818349119,
+      "p95RegressionPercent": -10.210965797551989,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "dynamic_inspect",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 0.07889999999997599,
+        "p95Ms": 0.11400000000003274,
+        "minMs": 0.06930000000011205,
+        "maxMs": 0.17189999999993688
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.07940000000007785,
+        "p95Ms": 0.09820000000013351,
+        "minMs": 0.06880000000001019,
+        "maxMs": 0.18399999999996908
+      },
+      "absoluteImprovementMs": -0.0005000000001018634,
+      "relativeImprovementPercent": -0.6337135615995128,
+      "p95RegressionPercent": -13.859649122714641,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "S2",
+      "operation": "dynamic_apply",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 3.5114999999999554,
+        "p95Ms": 4.072499999999991,
+        "minMs": 3.102200000000039,
+        "maxMs": 5.784400000000005
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 2.8476000000000568,
+        "p95Ms": 3.3638999999998305,
+        "minMs": 2.5718000000001666,
+        "maxMs": 4.839899999999943
+      },
+      "absoluteImprovementMs": 0.6638999999998987,
+      "relativeImprovementPercent": 18.906450234939687,
+      "p95RegressionPercent": -17.399631675878748,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    },
+    {
+      "family": "B5",
+      "operation": "large_mapping_presentation",
+      "unit": "ms",
+      "before": {
+        "n": 90,
+        "medianMs": 36.26099999999997,
+        "p95Ms": 51.55150000000003,
+        "minMs": 33.02399999999989,
+        "maxMs": 54.79099999999994
+      },
+      "after": {
+        "n": 90,
+        "medianMs": 0.0021000000006097252,
+        "p95Ms": 0.009399999999914144,
+        "minMs": 0.0018999999992956873,
+        "maxMs": 0.037400000000161526
+      },
+      "absoluteImprovementMs": 36.25889999999936,
+      "relativeImprovementPercent": 99.99420865392402,
+      "p95RegressionPercent": -99.98176580700868,
+      "correctness": "278-file regression suite and focused invariants pass; timing is descriptive"
+    }
+  ]
+}

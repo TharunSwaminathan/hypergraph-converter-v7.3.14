@@ -1,0 +1,2145 @@
+{
+  "capturedAt": "2026-10-17T15:59:38.920Z",
+  "baseline": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "methodology": "Stored measured source SHA-256 values compared directly to exact committed git blobs through git cat-file --batch. No benchmark rerun, checkout, reset or source edit.",
+  "sets": {
+    "cold": {
+      "files": 266,
+      "mismatches": [
+        {
+          "file": "src\\agent\\actionContextPolicy.js",
+          "sha256": "9ad187c1486530fe594df82287b5804298dc1c11a73a46b62a1792e62cb12ae7"
+        },
+        {
+          "file": "src\\agent\\actionIntentRegistry.js",
+          "sha256": "5393c8ff82a48b136380f305d086f165d670ff77a76418593ddba3acb36f0449"
+        },
+        {
+          "file": "src\\agent\\actionPlanner.js",
+          "sha256": "9c67b8fbd55cc264573817d644746a096382dc00e21815e0d15c3162e3773e1f"
+        },
+        {
+          "file": "src\\agent\\agentResponses.js",
+          "sha256": "5485e557fd339ecb114babcc814dd504529f248da38084e75a5b90abf51926ad"
+        },
+        {
+          "file": "src\\agent\\assistantContextSnapshot.js",
+          "sha256": "8e8d1c334446c32759e30eb4b2fcedaf85933ee3ef030ceff246af854c5f3e0c"
+        },
+        {
+          "file": "src\\agent\\assistantReadOnlyGrounding.js",
+          "sha256": "4825689301c9af7fa00dc33bd2a3395ec5e8119c13d645a025a8d23286675c8c"
+        },
+        {
+          "file": "src\\agent\\candyActionAuthorization.js",
+          "sha256": "bcc6ad61d63ca841525f586279e38e50ff17f582a15b8e454b1bf1d77c384d1d"
+        },
+        {
+          "file": "src\\agent\\canonicalIntentResolver.js",
+          "sha256": "cb35f7d7ad86de695a3cfee3bd6d017833d68cd8d7fe6e0867c7d5ce334631ef"
+        },
+        {
+          "file": "src\\agent\\capabilityRegistry.js",
+          "sha256": "cc03b03580277ca369a09231c71c376f77963a514953cb56e225bffb546e1e78"
+        },
+        {
+          "file": "src\\agent\\confirmationPolicy.js",
+          "sha256": "65c4ab6ec310350ad0bf3ae46a2605c4c98bf2d27a20d5f9c8bc1c92e0e61b05"
+        },
+        {
+          "file": "src\\agent\\confirmationState.js",
+          "sha256": "8440e3ea364c386220969d55c21bcd977c970def08b36d559a10e7ee304b8e36"
+        },
+        {
+          "file": "src\\agent\\conversationIntentResolver.js",
+          "sha256": "b901a5847960ba76fa278ad39068a15994d15c6cae3d9f1023fcf7a0a2051a7c"
+        },
+        {
+          "file": "src\\agent\\conversationMemory.js",
+          "sha256": "84399083b846e3ce8cce78367a4a2a71f33eddb063a90ba48b6c830c25651d8e"
+        },
+        {
+          "file": "src\\agent\\customParserContinuation.js",
+          "sha256": "63f6efc677ee7f8d72d939a957f57e52eb0bbf5653af0ff22ebcbc541e098c2e"
+        },
+        {
+          "file": "src\\agent\\customParserConversation.js",
+          "sha256": "ccee0dfbd0d989939b22c153b37e483b2a8303b3e4a0cc85d26704361a566f3c"
+        },
+        {
+          "file": "src\\agent\\customParserSpecialist.js",
+          "sha256": "5d9edef327988d79e50c5cc1b1aff8c313a0afd6a0890f78bb9095a06ffe66e5"
+        },
+        {
+          "file": "src\\agent\\customParserTriggerPolicy.js",
+          "sha256": "e84e35e6f1fa4290bd8a6f8e5b3390231f97a4f448a603fdce9058354a037e9c"
+        },
+        {
+          "file": "src\\agent\\datasetGrouping.js",
+          "sha256": "9096a7f9e3193d71c467b241cc463b2237e04b6c192ea1b39aeb6a6f19c707d4"
+        },
+        {
+          "file": "src\\agent\\datasetInterpretationDraftSchema.js",
+          "sha256": "cd3ec092b85d644e890d074411465edd15b575956ec6a294ebd3938d85faff96"
+        },
+        {
+          "file": "src\\agent\\datasetInterpretationDraftValidator.js",
+          "sha256": "6f9988b6b5701e4ea9bee88bff069c2badad77de2d253bced6c801a2b6865c14"
+        },
+        {
+          "file": "src\\agent\\datasetInterpretationPlanner.js",
+          "sha256": "5c96f5c1fea3cc75beb98d596cf69bf2c23e73b547873a405610d9e8908d67bc"
+        },
+        {
+          "file": "src\\agent\\datasetMappingBootstrap.js",
+          "sha256": "e040578edeb1d77cc9f5e8dd2a43afde535ebcdf8352b771ac3dfaa1fef2f72e"
+        },
+        {
+          "file": "src\\agent\\datasetMappingIntent.js",
+          "sha256": "905e6b93aedc72f4dc645389a52ba34615d18bad2f8f87e0f25e17239ba5560e"
+        },
+        {
+          "file": "src\\agent\\datasetMappingMigration.js",
+          "sha256": "4248c54788212c7461bc25fc2e9d044b453b67ac8a4032d5c246eb3bcaec5de8"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchApplier.js",
+          "sha256": "0f0c4f2c6c4992c741686dd25cd1282a9d930aebcada6baf6a78a31e6b16990a"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchPlanner.js",
+          "sha256": "00f12e40fafb349b386a081cfeab0a49f2738807d1831558f5e53384d033a5f6"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchSchema.js",
+          "sha256": "e771a5f7aedb9c6cbd03590d21696a56fa8a53d5d28fdd4995f6f5c44c84f6f3"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchValidator.js",
+          "sha256": "990c1b15d28c2ed1a5a74cb7de597ed594c8c0f9e86a68b76421ec666aae8f45"
+        },
+        {
+          "file": "src\\agent\\datasetMappingReferenceResolver.js",
+          "sha256": "c240cd614148195c49452c8393bb4012454c174689f1165c78653fbc42a7dd7c"
+        },
+        {
+          "file": "src\\agent\\datasetMappingSpec.js",
+          "sha256": "8f80508bad82bcf074feaf51d4cb30cad19995fc859cd62b977f48871abe4e7d"
+        },
+        {
+          "file": "src\\agent\\datasetMappingSpecV2.js",
+          "sha256": "2cd507195f9682406dd26a960586360a8b9b58dddb4cdd69e48e137a2fc91feb"
+        },
+        {
+          "file": "src\\agent\\datasetMappingSpecV2Validator.js",
+          "sha256": "27f4f32d3fca3425aa8989fcba558e25fc1921d1b2eb5dea93c685d9ed257007"
+        },
+        {
+          "file": "src\\agent\\datasetProfiler.js",
+          "sha256": "b5b87fa0adcfa2e38d52fb87c386f6762b1a2cf3a47e0eb5d7afad24a36c6bda"
+        },
+        {
+          "file": "src\\agent\\datasetRelationshipProfiler.js",
+          "sha256": "5899e6ffa1cb01b26f20b051f12edb6ec0483156a55c65da9c63f4c7e4074323"
+        },
+        {
+          "file": "src\\agent\\deterministicControlPlanner.js",
+          "sha256": "2a6d13db8ee883e6fb1b3bb6eca43d14b7804ec17c56ef39aa212c385e403590"
+        },
+        {
+          "file": "src\\agent\\deterministicDatasetMappingPatch.js",
+          "sha256": "700242d7d9262a99c989ee25c14a6761f782f050bcbae8d281a1654d50f8f4c8"
+        },
+        {
+          "file": "src\\agent\\deterministicMappingV2.js",
+          "sha256": "0ae8382ee401b4c2c67d6f24c1460f9f0979abe4e9eea5e1ecbdf9c38867d11a"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\actionLexicon.js",
+          "sha256": "3678bada9036191e1e41058c492c49d58b73351f56ef80c3702833e711fc91d7"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\ambiguityBuilder.js",
+          "sha256": "9aa1e7fea4e0a13f7bef9694af65994ef5e24232a1b359070cfb7025d695f451"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\canonicalOperation.js",
+          "sha256": "d9e66f3fdb4b3275e4b9d28600b9639b96cf8ff4012dd4f932b1c1a9903304b8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\clauseParser.js",
+          "sha256": "f65a24f0737c7bffa9780f83e298a4b1718d87c402258da95e051d31673204c3"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalog.js",
+          "sha256": "21593a86903a32a35df005ccd47db44c20262a2c85dff66bbe054a47c89711c3"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalogFormatter.js",
+          "sha256": "a8a6ffb288b7f1c383ec094e58f9c4afecf63ae5b8523aae047187c28c2c013e"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalogSchema.js",
+          "sha256": "a8c95795d533a37319a0b45cb62e843f33230462d1f8b7f651e593d248b44674"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalogSearch.js",
+          "sha256": "dbd978b2590c45355d3a5baf3189d1aa4a991ebb43ee25706bfec52876bd26d2"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\compileDeterministicAction.js",
+          "sha256": "29202a8923545f006f39c4ee839b5207bef3cfe9c0774c67b7a2774be516707e"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\confidenceScorer.js",
+          "sha256": "efa284ce013b81cd4d843fe5736de78242461157c17aa887c4d2c7339aff547f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\contextBinding.js",
+          "sha256": "8600337675d7dfc989cd42bf5af77af78f00061c145d448e8a8f94eb340a520c"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\correctionResolver.js",
+          "sha256": "52d1ed5b460c726c98e86ac9d83c51b9c35a3ecb56d8b44359179908164008ba"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\deterministicNlu.js",
+          "sha256": "c4a8bde09ca7f6e5956a7c19297ba7259a061af01a2e3591fc5786dc379249c4"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\discourseReferences.js",
+          "sha256": "648f0dfd0e87693e7f36a3133af6357c9daadb73a3d55ad575b3df92abdca271"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\dispatchCompiledAction.js",
+          "sha256": "7158071370c9903aaed36a79c5d73bdeeb5b384d1a6615e88c4cf7836c9adff8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domainLexicon.js",
+          "sha256": "064bc2b32ba31f0c0d78d2221384182b34e5fc11ed48675b07f2fee956bf3c1d"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\dashboardActionGrammar.js",
+          "sha256": "67be220e6d2adf99062adf58877361438b4843770ed896f85263b4c23499d6ff"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\datasetGroupingGrammar.js",
+          "sha256": "b02b089fa39ee7b08f9ab8b77902381ef78bc8ec72adc33ff3ab23ad66395ede"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\datasetMappingGrammar.js",
+          "sha256": "40b3a31c9f7ae13f552fc5a7b0c88ab68055c80584f479f0d03625e66e29a8f9"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\graphIdentifierNormalizer.js",
+          "sha256": "69faddb01d0a79979035a8336079cffda8e7d87216dab2e967c6805cd0585584"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\graphMutationGrammar.js",
+          "sha256": "2bb4f601f47ac73892e605462b5f6e7f202f4a4a20f95ff113412170d8f47649"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\groundedQuestionGrammar.js",
+          "sha256": "5f407e951d8e5910e5f035ab14771ded5b85d253afc6d3d8517faa7d15f7f09c"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\helpGrammar.js",
+          "sha256": "40b958b231cfed7876827dbf64f9495662f8089d554ff2a6e600bf3df2b8011e"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\legacyActionGrammar.js",
+          "sha256": "8abaf8d59a2c484aca5382b8fd92b774976569f4f5e92cbd21bbb4c27db8bb42"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\parserWorkflowGrammar.js",
+          "sha256": "30e572f08a63491d7bb451b5fe2d86fb68f21542b64bfe87f0198be22dd49492"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\entityExtractor.js",
+          "sha256": "8f6ddb49535877b2ea128e737544e5923f82141202291553be594236e6b963cb"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\graphOperationAuthorization.js",
+          "sha256": "c8b93e0d064f15b68eec4d700fe63141f667b3d55e98a7033eec50722f22742b"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\helpSeekingGuards.js",
+          "sha256": "105cd36ceae15178c28aa39f5f36e9031f9997114b822faa89828833216bbceb"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\intentClassifier.js",
+          "sha256": "f83534ce0150bdbd971da38d2fc9726249203e0b2f9ae1ce575802795a134566"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\interpretationTrace.js",
+          "sha256": "7332ca81ebf7e40240d9f96b3b4d03965b95a6d45628a67fa48fcbab8e27da1f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\negationResolver.js",
+          "sha256": "cee8cfa01775d7ade5b80f6b5dc2bb9fb13a14b5bad7446c400e48db2f8c1dd4"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\nluTypes.js",
+          "sha256": "c9790ebc3021106dec1248bc2b0cc900e318f1fe7a290aa78ed44a64aad3c387"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\normalizeInput.js",
+          "sha256": "ba05d285f51b2739f34840f4228f214f65a0fa6bfd0f535162bec72489d3b423"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\positiveAuthorization.js",
+          "sha256": "b653556a5f1120108c72c47a15bcec6bc0b93f19725e3e525dc41793ed3fbbf7"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\prepareDeterministicTurn.js",
+          "sha256": "4975103815427b371dd7e6b1fd40ecc9aced571f41c601d137dccb3c822ec970"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\protectedText.js",
+          "sha256": "281749923c7d0e74302565f14652fc6f0ce1d9998a9c6802285ec9f3968df3d8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\requestSemantics.js",
+          "sha256": "e249c2078a280d221a9481db3bba39d6b788756b4f3385f21a33385ea6834860"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\responseComposer.js",
+          "sha256": "a0cd10e5d85175b306a5536127aa950aa3c769aa5f20a793ee223cbda8287135"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\createProductionDeterministicHandlers.js",
+          "sha256": "8778279bba0451db4987392afab59a76938392c951ebc0522ee9aadb6544bc05"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledDashboardControl.js",
+          "sha256": "969f8c1fe1d8a5c5087473d84b7d005bad1f7c27e070497df8b76ac456a96c9a"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledGraphMutation.js",
+          "sha256": "4141c9b3d3fe0e815c54b23c35fc80d67cb6d63fe134adcc35f941d7423637d2"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledGroundedQuestion.js",
+          "sha256": "50cd22738f3f95070e6f2aec619430a22fcb7e61a5b0877b38a5e455464fa106"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledHelpQuery.js",
+          "sha256": "24040c14201fd3bd8454ad69211a5b0528a7397288e499d01c2ff74c663f866f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledMapping.js",
+          "sha256": "af76aa4cfa91a6624dcdda148142aeca44b73b7cd50cbe8bee2e6d8b69d36834"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledParserWorkflow.js",
+          "sha256": "d2bb60334af418d354959315f76ee59d5e2a5f31dc3694c5cb91449b8c59e396"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtimeInstrumentation.js",
+          "sha256": "33475117625680b9cb7d5749d399e14f6014e246243148d5d0aa0e082ea895d6"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\semanticConfidence.js",
+          "sha256": "448290fbe0e0ce336de40b9a371bf291f54d1cdea3364a404d54862dfb3f3ff8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\sideEffectPolicy.js",
+          "sha256": "455464bd98c5507f9a499a54b0d406c4df959bcf87cd54991870122790380b73"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\speechActClassifier.js",
+          "sha256": "d346cd74f7a47506e9dd919a345833f8b37288fba6de003e4da1edf0f65c766f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\tokenizeInput.js",
+          "sha256": "830bde82a4198e862fb1634ab98604f4349618e308e1eeefbe193b37efdb0892"
+        },
+        {
+          "file": "src\\agent\\deterministicPreMapping.js",
+          "sha256": "c6fe363e3aca38a6f8cad9981199716fba6c133bb96792aaa53d43f3d60ae2b6"
+        },
+        {
+          "file": "src\\agent\\dynamicUpdatePolicy.js",
+          "sha256": "ad807634b2e17de2e050c844de6eafb23f5de991cf1a0badb01588c96ff7206e"
+        },
+        {
+          "file": "src\\agent\\expectedOutputComparison.js",
+          "sha256": "2137e45a53156c3cf5bc0a3253ca601671f5facaf377c9918f9462303ad7cb07"
+        },
+        {
+          "file": "src\\agent\\fileDetection.js",
+          "sha256": "4ae331044858e85dd5af9359ba24223d38c6b99295df7511d8a1594f42752119"
+        },
+        {
+          "file": "src\\agent\\graphConversationReferences.js",
+          "sha256": "dcdd1041420d1e9b17d1945e1375b52bbc3fd25bb9d1d814e4397436d71ee890"
+        },
+        {
+          "file": "src\\agent\\graphMutationConversation.js",
+          "sha256": "c8798dac65fd4be1fe77f271b295983453d0a0dac75e8c1b7c9e09ee721efd4e"
+        },
+        {
+          "file": "src\\agent\\graphMutationDraftSchema.js",
+          "sha256": "a96d4ea9754713090721f4ede5f9a247212f06cf55aa52e8cdbf0555bcb1a40a"
+        },
+        {
+          "file": "src\\agent\\graphMutationDraftValidator.js",
+          "sha256": "93ab9d5d8e01fc709f040ebcfc7a3bd134c6b50def67797d2a3a1870ffd7d0e6"
+        },
+        {
+          "file": "src\\agent\\graphMutationModelPlanner.js",
+          "sha256": "71d67f859a24f98fa99d5ac52025859823c3fc65b50fc3e86638123af0e3bc10"
+        },
+        {
+          "file": "src\\agent\\intentClassifier.js",
+          "sha256": "8016cbbe23134551236d6bc925bf9b5d1cbf9a0928136152a5cea83acf89f71c"
+        },
+        {
+          "file": "src\\agent\\liveMessageHistory.js",
+          "sha256": "7f82df91358937b86bd942be4e67b246cde8e04fc0ddc6041d75d6bbc61ff5d9"
+        },
+        {
+          "file": "src\\agent\\localModelClient.js",
+          "sha256": "cc322672a8923303681b0a33d5549211070c81ddefb34dcf835e44b6c271ed7c"
+        },
+        {
+          "file": "src\\agent\\localModelRequestCoordinator.js",
+          "sha256": "8be50e4b5d764a779741ad6c34da743d4a45d65d948941bbde8e3760069e15bf"
+        },
+        {
+          "file": "src\\agent\\localModelRuntimeState.js",
+          "sha256": "337f7be0c7eb4ac20ef8d7d13fcfdcafd57127c6a18f656c1aeac5080541995b"
+        },
+        {
+          "file": "src\\agent\\localModelSettings.js",
+          "sha256": "75a20b67825a63326a9c28b2e26dea54cea568446ba7b023972d85bd969c8fa2"
+        },
+        {
+          "file": "src\\agent\\localRuntimeDiagnostics.js",
+          "sha256": "fdbcf05b3f9f34efba544b5718e0cb2ec357990cd351c89dc72b3e3c47605622"
+        },
+        {
+          "file": "src\\agent\\mappingSpecAutoRepair.js",
+          "sha256": "f3cc979a7e068c507785719943561e0c7cbe1b797764b48205fa414098f1e90e"
+        },
+        {
+          "file": "src\\agent\\mappingSpecParserGenerator.js",
+          "sha256": "648465c11232c8181dd92c813eda900adedf153b477def4bb7b60be6ec9f46be"
+        },
+        {
+          "file": "src\\agent\\mappingSpecTrainingBuilder.js",
+          "sha256": "888cfd7562f757174be76976c9c2f8d07e8f86e42f28e9a3e261b469f10f1555"
+        },
+        {
+          "file": "src\\agent\\mappingSpecValidationSeverity.js",
+          "sha256": "660d77f93271eeaa28f09e14c4c575a82effa8cb6e4721b142ce7a012428fc01"
+        },
+        {
+          "file": "src\\agent\\mappingSpecValidator.js",
+          "sha256": "db0e0e37dd682b0328b97302fae101490482ad147043cb14e70f31ad971f678c"
+        },
+        {
+          "file": "src\\agent\\modelPromptBuilder.js",
+          "sha256": "4e89ce3474cbd425b8ebb5c9e7cfa6f89573d3f6b6bdaf4d7536b20c8ae13b63"
+        },
+        {
+          "file": "src\\agent\\modelReliability.js",
+          "sha256": "9d5f9d72be1e15670e124d4a29dd9525252844a3598b4538f5485826d6b14441"
+        },
+        {
+          "file": "src\\agent\\modelResponseValidator.js",
+          "sha256": "5c83a32594ceb86129d89ca6e5b24c9086c08094949ca7c20d5d0d0c2713741e"
+        },
+        {
+          "file": "src\\agent\\modelSchemas.js",
+          "sha256": "729617c8adb277558f22698aade70ed8be6c7095c944463f8a346add042b8d26"
+        },
+        {
+          "file": "src\\agent\\motifQueryPolicy.js",
+          "sha256": "62522bd2899f2cba62800361fe5825f7d953114e65c5c7f31e6778187eb5e80b"
+        },
+        {
+          "file": "src\\agent\\ollamaActionPlanSchema.js",
+          "sha256": "f4a297660ec1f2b815ae53048a29ec11e3f58b3f32a25e97ced86982d4311fdb"
+        },
+        {
+          "file": "src\\agent\\ollamaActionPlanValidator.js",
+          "sha256": "78b5747584ab8d89a250ffad9898267c88b4adbbc2e0c101c2fe2a2bdc5f5313"
+        },
+        {
+          "file": "src\\agent\\ollamaConnectionManager.js",
+          "sha256": "dbaba64ae950364cb7b3561a417bc838a12e653bab6b719a14276cde5db363f3"
+        },
+        {
+          "file": "src\\agent\\ollamaMetrics.js",
+          "sha256": "996e486e5e14f011aeb0db956f39106698e97ef273a79c5d3a5a09631171d737"
+        },
+        {
+          "file": "src\\agent\\ollamaOrchestrator.js",
+          "sha256": "8f502c563f9b483b097310bb07e879cc9b660bf092d71fa7d6e9c71a3629bd4b"
+        },
+        {
+          "file": "src\\agent\\orchestrationPlanner.js",
+          "sha256": "2d129df5d43b94253a3db2118c0da71a8d8d955c12736ae15971dd69becbf57b"
+        },
+        {
+          "file": "src\\agent\\orchestratorCapabilities.js",
+          "sha256": "d3b0df61ac096dea46b0de1834c1a5b040d11bfb09512a126a43e051a10b9892"
+        },
+        {
+          "file": "src\\agent\\orchestratorContext.js",
+          "sha256": "f3122b90e5fa4ebd8ba00e1b023761b70f10ad2da52823b3ffa2712c238bb871"
+        },
+        {
+          "file": "src\\agent\\orchestratorLoop.js",
+          "sha256": "c9fa1c917a9c06fa29d03c0266c8d2833c16bf934b6c94e57660b2e2d71119e6"
+        },
+        {
+          "file": "src\\agent\\orchestratorObservation.js",
+          "sha256": "63eaa032b87670cff9c08ba76ce8ce3843bae770d974738f47349687aa43382d"
+        },
+        {
+          "file": "src\\agent\\orchestratorStepSchema.js",
+          "sha256": "73cc381723db303d090fdfef77ccb2e6a6af638abdcd8e1453c831daf1d58317"
+        },
+        {
+          "file": "src\\agent\\orchestratorStepValidator.js",
+          "sha256": "d935e87f72f1323599fbd792448602e24a1adf6f0504e35f431cb5b41861a9d6"
+        },
+        {
+          "file": "src\\agent\\parameterizedCommandExecutor.js",
+          "sha256": "23aedc8e481e65723772458df73e2e372450337328752ea4eaa0f1dd488f68c6"
+        },
+        {
+          "file": "src\\agent\\parserBinding.js",
+          "sha256": "2abc069e203492c9235337594a5f00102eabbb7f442f246f9677d13c4fce3b3f"
+        },
+        {
+          "file": "src\\agent\\parserProfiles.js",
+          "sha256": "25a2dcd1f9aae940b8704b1867975169cad46eeef107842b0dab7e2f8ccd91c1"
+        },
+        {
+          "file": "src\\agent\\parserReconciliation.js",
+          "sha256": "b692f96aec8796e6c8784663f2ea9a644ccdeb7f6a55c1123a04798addc26a9e"
+        },
+        {
+          "file": "src\\agent\\pendingSubmissionRouter.js",
+          "sha256": "d749899da6f52885385c0debd2ce08e60807d5d1a9b0bdedcfa6191cdffdb649"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserFewShots.js",
+          "sha256": "9b6b08cbfda3b5c1757742dc0c8e5ba69434a21203f85701327ebf67c961d76f"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserPrompt.js",
+          "sha256": "8bda78420c700513c2e280ae9050f9718fb57e46db720a70adc4a554ed1a0dd3"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserSpecialistPrompt.js",
+          "sha256": "c8890ee85b849c1a61e76dad723233cd8724a7d0ea8a11936f8284311374095d"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserTemplate.js",
+          "sha256": "fbe8f2f4f69ba6697ab812cbbe67c7c90949a7060df813c10de5f72cebeecf0c"
+        },
+        {
+          "file": "src\\agent\\prompts\\datasetInterpretationPrompt.js",
+          "sha256": "ecc62eaa654cececd75adabe1ee34513a9db5ab28533cc94fd9108a509b3b340"
+        },
+        {
+          "file": "src\\agent\\prompts\\datasetMappingPatchPrompt.js",
+          "sha256": "63acacb8d5bbaaca3686ecac0dc087fc9de881a6ed33f94e062e5ae48158e327"
+        },
+        {
+          "file": "src\\agent\\prompts\\externalAiPromptPrompt.js",
+          "sha256": "7145e47a030335ac840c9e9456c5f4d44261bf664adab704606d652b48b8c7ec"
+        },
+        {
+          "file": "src\\agent\\prompts\\formatFewShots.js",
+          "sha256": "bcbf2e0b567ceb2a111033fa26a4abe22081db4cb53a18342f1bf393c76df3fc"
+        },
+        {
+          "file": "src\\agent\\prompts\\graphMutationPlannerPrompt.js",
+          "sha256": "e6e713758598a3b7d23b266216421237725a0c3a78292a1257e6e1a6f74f76b8"
+        },
+        {
+          "file": "src\\agent\\prompts\\ollamaOrchestratorPrompt.js",
+          "sha256": "e02e3ada3763eb1cb9603f0ece7e417a14e0121d00221dc7e1e06e9684a41df8"
+        },
+        {
+          "file": "src\\agent\\prompts\\orchestratorPolicyPrompt.js",
+          "sha256": "640e5006bd2cec8e8d52f6a4ae1c25b06f2047cb19a46823c24d8bb67946da35"
+        },
+        {
+          "file": "src\\agent\\prompts\\reactOrchestratorPrompt.js",
+          "sha256": "e0c697fa44d75f954c333ea03054b6440274784bbc05fc070f1e0053450b44be"
+        },
+        {
+          "file": "src\\agent\\prompts\\threadMemoryPrompt.js",
+          "sha256": "b80a523a9bfbdf0589bf4af14d306de01fe037df31001c6002ee304362a16214"
+        },
+        {
+          "file": "src\\agent\\reactOrchestrator.js",
+          "sha256": "4d672f7505155c7d0e79ef617cd3ae769f7851d849eb261be16f44406c74c2d5"
+        },
+        {
+          "file": "src\\agent\\reactOrchestratorConfig.js",
+          "sha256": "c5977541160ea21c9898b8f6b27e0121fd6386690732b7aeef259cbc07b9ed92"
+        },
+        {
+          "file": "src\\agent\\resultSummary.js",
+          "sha256": "1a4140c402a7fd0f6f49bf4a12a245c4c4079b1844f84b0ce575778bce76d7df"
+        },
+        {
+          "file": "src\\agent\\routeRegistry.js",
+          "sha256": "8d0d4af751cf09d1a660e55aabe04714d473b85889b8fcd2fb31217d8ab94ced"
+        },
+        {
+          "file": "src\\agent\\runtimeControlPolicy.js",
+          "sha256": "dc2cdb2ae3e9c658999bf69b294d576308acab197f18267ae0337251147d46dd"
+        },
+        {
+          "file": "src\\agent\\safetyGuards.js",
+          "sha256": "4f51573dfdc4d57ae1b4db971a6fcd35432ab73b05c9438a63067e796910cb07"
+        },
+        {
+          "file": "src\\agent\\strictJsonSchemaValidator.js",
+          "sha256": "0d0020f8eb840f93231e5ef9f886fd02189dcff4cbe65019f1000ca27065a5ba"
+        },
+        {
+          "file": "src\\agent\\submissionRequestCoordinator.js",
+          "sha256": "0cb7ef7d3999ddf8031bdaed34e3f0e61e6358059f66860bbfb9bd608f7ec935"
+        },
+        {
+          "file": "src\\agent\\trainingExampleBuilder.js",
+          "sha256": "3cf61c7f2e9b847ea6c5ced85124c868c7711cd36a8bd7ea0cf3da403a118098"
+        },
+        {
+          "file": "src\\agent\\transformationPlan.js",
+          "sha256": "2addac3b8cf0dbe3f6815d8025697fa39a598edf4b8c838d4911fb1b95290bbc"
+        },
+        {
+          "file": "src\\agent\\transformationPlanCompiler.js",
+          "sha256": "d29a5b3ece0fc064ce67ea3cdd006ff218a6745745899ab82b72c947b0a60acb"
+        },
+        {
+          "file": "src\\agent\\transformationPlanFingerprint.js",
+          "sha256": "30b1246cd2e8081f9de5f0119edd1b3452fe03ac960b6f03af7524aa04ae3283"
+        },
+        {
+          "file": "src\\agent\\transformationPlanValidator.js",
+          "sha256": "e180732ce532a8da134ac22617cc8f17a59584f225aa6756f66fffdddc8c73ee"
+        },
+        {
+          "file": "src\\agent\\uploadPolicy.js",
+          "sha256": "d19807d15b73985eeb112fdb161b753b6bd0f5090198af0301ca504cbe81106f"
+        },
+        {
+          "file": "src\\algorithms\\algorithmIncidence.js",
+          "sha256": "11996d6ccccc1a33d532e5605808c748805c4f3278f78a98d4cd42cb568ae7f5"
+        },
+        {
+          "file": "src\\algorithms\\bfs.js",
+          "sha256": "a67897f36970af19034bfa794e181ed37965666a075436bee39e8d7108853c77"
+        },
+        {
+          "file": "src\\algorithms\\compactTrace.js",
+          "sha256": "5fe4cb53121009f577eb900acc32b500b3779a80764743266e1fdb922028c8b5"
+        },
+        {
+          "file": "src\\algorithms\\connectedComponents.js",
+          "sha256": "51c269b165008182813560d1225bce1bf43dd66ed78723da9eb662a0517baa6d"
+        },
+        {
+          "file": "src\\algorithms\\degreeDistribution.js",
+          "sha256": "45d0f46a39c963e63d4038d1d1dbd6b3b5760b3acdbfa37db7dba3abca5b2c23"
+        },
+        {
+          "file": "src\\algorithms\\dfs.js",
+          "sha256": "7525916b52b9d700df9cf534fc9e1b395d0d89ec369005c413ae5945283782f3"
+        },
+        {
+          "file": "src\\algorithms\\graphModel.js",
+          "sha256": "09c756d7ae21f99ca33302ae28c4124184f2cd5850f953d085b9833e1b2d901f"
+        },
+        {
+          "file": "src\\algorithms\\kCore.js",
+          "sha256": "5b3c97529cf8cd30d9ed7fd6a4a61539fb08f7838e8f807babb9929f7ea907c0"
+        },
+        {
+          "file": "src\\algorithms\\projection.js",
+          "sha256": "522c0a477943a3e81933c903ce5b19c06c5f470416290854c847fc01a2649766"
+        },
+        {
+          "file": "src\\algorithms\\registry.js",
+          "sha256": "ffd645deaa9c531e9447e7b0c1108796b282ae94e1265227a0765a1940375164"
+        },
+        {
+          "file": "src\\algorithms\\shortestPath.js",
+          "sha256": "c6a53d48c1267de540e031f34ff2bb4f8a6d9762dd6e9accc0a57335240a3790"
+        },
+        {
+          "file": "src\\algorithms\\traversal.js",
+          "sha256": "1a186577e3e162cafd18bb4cb8e2d2bd689492215939eb4f991b5fa7d7a785c2"
+        },
+        {
+          "file": "src\\App.jsx",
+          "sha256": "4419bf297bc7b7ff9c5b98d9d03672d8a5c3b6ea82cd7dd3dba28a4bb678cb27"
+        },
+        {
+          "file": "src\\candy\\adapters\\csrAdapter.js",
+          "sha256": "93aa8db3f3501764d40bc500d30a25a3f904966f651381d3dac10fd4f569236f"
+        },
+        {
+          "file": "src\\candy\\adapters\\graphMutationToHypergraphUpdate.js",
+          "sha256": "04b4ee486bd735e7ba119125c5a75db732566b11d6d686d65c84984b6c059245"
+        },
+        {
+          "file": "src\\candy\\adapters\\hypergraphIncidenceAdapter.js",
+          "sha256": "820f9992830ed032eba304e8bf693de2e4dc8f5225ba5e285c089140908e5e77"
+        },
+        {
+          "file": "src\\candy\\adapters\\hypergraphUpdateAdapter.js",
+          "sha256": "4c8e23b5c9e18d7e99551e55b79ad52766530eff0fa73d5793e459b858f8f4d5"
+        },
+        {
+          "file": "src\\candy\\adapters\\identifierMapping.js",
+          "sha256": "084135ef09666e23e713edb5de39d1a29903af56fe91970870dbb895be29a55d"
+        },
+        {
+          "file": "src\\candy\\adapters\\vertexMapping.js",
+          "sha256": "a4aaaf3c74b5a42f0ea11e00e4d6bd44f4bb9001429146ca5ccb4a5f0d88b0d3"
+        },
+        {
+          "file": "src\\candy\\capabilityDiscovery.js",
+          "sha256": "788b4edc266b1350d9cc136584a6b3e90dbf00224c085cb878f354a8dc306bc0"
+        },
+        {
+          "file": "src\\candy\\client.js",
+          "sha256": "bbfe516af51abb5b423e4e400a42434bbcbfdf2b5bbb2ebd443c8cf3b9abf88a"
+        },
+        {
+          "file": "src\\candy\\contracts\\algorithmSchemas.js",
+          "sha256": "e0d49b711c4ee82667c3fc161bcbb9a969387a40729e0573ed6c7b6050f60eb7"
+        },
+        {
+          "file": "src\\candy\\contracts\\contractValidation.js",
+          "sha256": "dc00ca4def204af47057e963b122d95f15e8c931efbaad8080cca595d40876b8"
+        },
+        {
+          "file": "src\\candy\\contracts\\errorClasses.js",
+          "sha256": "e84f210a7dc879d6b8dd46c0cc3081a4b6ff0674d0c2121900c713f6b2deefb2"
+        },
+        {
+          "file": "src\\candy\\contracts\\graphTypes.js",
+          "sha256": "ff2b32eb542dac55b3627ebe8862126c55785543663bab622a56c82f6bc8f506"
+        },
+        {
+          "file": "src\\candy\\contracts\\hypergraphMotifLimits.js",
+          "sha256": "7ac0dbd8a1ac2abfd9ff1efe48925205ca7a305ca707d3be30f84d0ddb5060d7"
+        },
+        {
+          "file": "src\\candy\\contracts\\hypergraphMotifMetadata.js",
+          "sha256": "11c81799fec10487119ae5d9c2f02ceda1f992697fac620349a3fd940a0551d3"
+        },
+        {
+          "file": "src\\candy\\contracts\\hypergraphMotifSchemas.js",
+          "sha256": "b5cf8fcc83876571e375cea9ebfd3dd6ffb463baff664d64cca3f0b3e23f8172"
+        },
+        {
+          "file": "src\\candy\\contracts\\runtimeMotif.js",
+          "sha256": "3d1e4721132cfe9cc898936a51adaf3171b504c3ffddcb33aa029e638302e3a6"
+        },
+        {
+          "file": "src\\candy\\contracts\\schemaVersions.js",
+          "sha256": "c269aca22d61e17007da62e3ef52c8a73a8c87b8f8a3779bc54133f7317f5fa0"
+        },
+        {
+          "file": "src\\candy\\deterministicRouting.js",
+          "sha256": "decfa1247800335cbd00f218a9c0bfe7bda2368387917a0acfc35571093899d8"
+        },
+        {
+          "file": "src\\candy\\featureFlag.js",
+          "sha256": "1c786797a46af1438a3f6f3176c79445f3d44ceb05d017466dbd03aa3f1c2183"
+        },
+        {
+          "file": "src\\candy\\hypergraphMotifs\\referenceOracle.js",
+          "sha256": "33d5f30b077d72aa8c8606f707fa852a8231be55d2011fbf69570e4d885b4b76"
+        },
+        {
+          "file": "src\\candy\\hypergraphMotifs\\taxonomy.js",
+          "sha256": "880cc330aa23339fc93634bcf6a145bff5177db23edea1e363f6bc99427affb0"
+        },
+        {
+          "file": "src\\candy\\motifAnalysisController.js",
+          "sha256": "c52c818745d46ce172a2c6e7b136973a27dc33369c479fccd49b0c5adc56a134"
+        },
+        {
+          "file": "src\\candy\\motifPreflight.js",
+          "sha256": "eeef09b60a1e96b366b899469cbab066119d00e32209d04d6e8d15b593f0bfb5"
+        },
+        {
+          "file": "src\\candy\\motifResultRegistry.js",
+          "sha256": "6548b3708692b07bdbae4c8f2c589905445449721b33a517ad0a0dd74bdef0e3"
+        },
+        {
+          "file": "src\\candy\\motifStatisticsAvailability.js",
+          "sha256": "caaa3056755f3c9219b50f34fabcd3352c90d9f5139ea3c8c7277f2c7be8e9ea"
+        },
+        {
+          "file": "src\\candy\\motifWorkflow.js",
+          "sha256": "9734170528032586c669f66ced202f0d05d05ef6029f0a0b8629fb1e12fd4dfa"
+        },
+        {
+          "file": "src\\candy\\requestPolicy.js",
+          "sha256": "3de08255414549661e80e85d11fd9c6d5abc065982b8a76e43210d276100070b"
+        },
+        {
+          "file": "src\\candy\\resultObservation.js",
+          "sha256": "0d464abb6c62b01ac5058df6bcf4ed4e1a274d22f8272920ba57abe2431bc825"
+        },
+        {
+          "file": "src\\candy\\runtimeCapabilityPresentation.js",
+          "sha256": "2438c4842bd68cc42280ada68e53b2680e70e533ca99b92b1e1bab9af3df0269"
+        },
+        {
+          "file": "src\\candy\\useCandyRuntime.js",
+          "sha256": "cf0570390947643900f09aefc1357d2e3c57e5531085a820ab8b8a4cb008bbbb"
+        },
+        {
+          "file": "src\\components\\AdvancedOptionsPanel.css",
+          "sha256": "054541c30c0e0d24b4a9cb2f37147154aab302001d25147feabc3ef185f387e2"
+        },
+        {
+          "file": "src\\components\\AdvancedOptionsPanel.jsx",
+          "sha256": "0d94d0a844fd38f99882183b8d12cebcd010aaf418b0705a6bd731989c5db386"
+        },
+        {
+          "file": "src\\components\\agent\\AgentComposer.jsx",
+          "sha256": "dc4f62c25874fce723ca05ad126ff09be0c2975042d5dd39255da446ca8b1ba9"
+        },
+        {
+          "file": "src\\components\\agent\\AgentMessage.jsx",
+          "sha256": "3966897256ce825c1a3df2b0a5ec787a2db61c9f901e5d54c45d16af096cbd7c"
+        },
+        {
+          "file": "src\\components\\AgentActionCard.jsx",
+          "sha256": "edf0e42a1dd949c100d0cae2805dac6d282c65b28d5613b48e2bdba0141ba0f5"
+        },
+        {
+          "file": "src\\components\\AgentChatPanel.css",
+          "sha256": "2faff9914210edc0708e7081d3903ccb4042754bd9dcf59d946cc33658505eaa"
+        },
+        {
+          "file": "src\\components\\AgentChatPanel.jsx",
+          "sha256": "943e794bdf910e57b77a1a96ee1f2340fac74ef90c706c199b293e40cdcd5057"
+        },
+        {
+          "file": "src\\components\\AlgorithmsPanel.jsx",
+          "sha256": "8963e24fa9a3cf92cafde996e23f7505bb2fe90fe44ccaa5de87d6fc08cad097"
+        },
+        {
+          "file": "src\\components\\BarChart.jsx",
+          "sha256": "69341a2d2cbe5d9f33bc32639e9c10c2984aa8f9bb865373209cba489aec214a"
+        },
+        {
+          "file": "src\\components\\CandyMotifResult.jsx",
+          "sha256": "210e34a14346ca5393e213257ef184ce65152b8c083d18483ba4260bab801fa2"
+        },
+        {
+          "file": "src\\components\\CandyMotifStatistics.jsx",
+          "sha256": "42958571fcef4e9d9384fc9d979b568735c795f24769b5f67031c130f8b139e0"
+        },
+        {
+          "file": "src\\components\\CandyRuntimePanel.jsx",
+          "sha256": "ed40be31eb85d9bc25e67102513a10cec2eb9ff3fcd439354728a0171134a709"
+        },
+        {
+          "file": "src\\components\\CustomParserSpecialistPanel.jsx",
+          "sha256": "6b67b42e8a3943c3ec8d2ed1e8d8470fb7f31c36166c3c7db1f774185a1a8d37"
+        },
+        {
+          "file": "src\\components\\DeterministicCommandHelp.css",
+          "sha256": "5ca3f366c20948881286204f88449a26cea5cbd51c3b0ec6bd77c6dee521e5a1"
+        },
+        {
+          "file": "src\\components\\DeterministicCommandHelp.jsx",
+          "sha256": "667914a1732302e820c647c60adec0e2cc83e900d7164f1ecb5432e35d5b3cb2"
+        },
+        {
+          "file": "src\\components\\DynamicHypergraphUpdatePanel.jsx",
+          "sha256": "8ab24242c013ba2051655417e4f2f623021ac261626997063ac3f63f98b3ccce"
+        },
+        {
+          "file": "src\\components\\ErrorBoundary.jsx",
+          "sha256": "cbff99f6fbf8df8710e7f06dbd39230937ccd4ca05c127869c22498c99de3ed4"
+        },
+        {
+          "file": "src\\components\\LocalRuntimeDiagnosticsPanel.jsx",
+          "sha256": "d33b791f2fb0d5744dbac5832816755c87014ecfdb3cf742de958176dc993b30"
+        },
+        {
+          "file": "src\\components\\TriadStatistic.jsx",
+          "sha256": "55b8429ce683e453a7243ff1bcec68fbf55a71f5e8ec99950841d48f4c9b0b91"
+        },
+        {
+          "file": "src\\components\\ui.jsx",
+          "sha256": "a92e5caaacf6da7b014857e5c2379f740168d4dd17d5ee95a19d6c5ae6927d0a"
+        },
+        {
+          "file": "src\\components\\Viz.jsx",
+          "sha256": "5f38fd5b71ffe20c0a812072c3a9fec00e72b2bc354dc8a769057eaf686da914"
+        },
+        {
+          "file": "src\\derived\\derivedOperations.js",
+          "sha256": "e60b2b422215795adfd3898a59d75345fd09bf8d37f57b24de404897f1aef973"
+        },
+        {
+          "file": "src\\derived\\derivedProductCache.js",
+          "sha256": "9b8e5ecdc07bb8430b67c2d5fc36006a9a563d7ebb356e34dd108847106b15b8"
+        },
+        {
+          "file": "src\\derived\\derivedRequestCoordinator.js",
+          "sha256": "d132407f23fca68c5b63d58d42205d483394710dbf588e0efbb16b5be54de663"
+        },
+        {
+          "file": "src\\derived\\derivedWorkerClient.js",
+          "sha256": "910adf7d9793a4a27d8fb08b986023ae93e31212634c2332d474ecab39632969"
+        },
+        {
+          "file": "src\\derived\\mappingPresentation.js",
+          "sha256": "7e05aa948e34ad2787e9436cb35beb7a1f03874fe60474cec29802bc61d2f9b7"
+        },
+        {
+          "file": "src\\graph\\dynamicUpdateControls.js",
+          "sha256": "cee1876751135e71a69bc5df8906bcfdf92aedb2de18a9b7191c5ff31bf7ae00"
+        },
+        {
+          "file": "src\\graph\\entityResolver.js",
+          "sha256": "7169f30c6f943338f9df725aec3ab874092f23dd6f9ca724d8adc193755bd43e"
+        },
+        {
+          "file": "src\\graph\\graphFingerprint.js",
+          "sha256": "783d088c8acc5ccbb51697c6051f3c63b6d8bf4f935d2118e030d5202a673f5d"
+        },
+        {
+          "file": "src\\graph\\graphHistory.js",
+          "sha256": "8d473a22daf231cf44b1f2b9da632b0118813683f0f096c09cb531f09a5d93a0"
+        },
+        {
+          "file": "src\\graph\\graphIdentity.js",
+          "sha256": "3cb304e33ff2705398db08f68bf63478d722dfe01073324512cb91002f5ec75d"
+        },
+        {
+          "file": "src\\graph\\graphMutationEngine.js",
+          "sha256": "63e4f29a269ce40bd91f524da285db8014da03bf33ec75e25f4e604e32ca8920"
+        },
+        {
+          "file": "src\\graph\\graphMutationPreview.js",
+          "sha256": "fa6f8963e8fdd44ee4815a9305f725a33c6a08f3c8722e0ee35cb83af677372d"
+        },
+        {
+          "file": "src\\graph\\graphMutationSchema.js",
+          "sha256": "143b8308eff9175693e3b0bb4d3a6c431d1aee39d5e826aa3bf8c59893faa0ab"
+        },
+        {
+          "file": "src\\graph\\graphMutationValidator.js",
+          "sha256": "e94d7d4dc8ea797d2c25f866d6e54ce883f3749122644d4898734286a06f4196"
+        },
+        {
+          "file": "src\\graph\\graphState.js",
+          "sha256": "c8886ec1a54a64eef502ba2b01c8d87f37172ed955ec8e461b81f0c0c190c041"
+        },
+        {
+          "file": "src\\graph\\incidenceIndex.js",
+          "sha256": "14bacf37d25504c246372220bc3dd999e1872434374737ef463e9e480f042228"
+        },
+        {
+          "file": "src\\graph\\pendingHypergraphUpdate.js",
+          "sha256": "7afa7c7dcae153fb2db57f001810156fa61b98998f69d3a907a9c9198854d8c9"
+        },
+        {
+          "file": "src\\hooks\\useAlgorithms.js",
+          "sha256": "36df6e639d5fc69fdbc4174b41d94a7041cdc368f35090b89f91f98260c2899c"
+        },
+        {
+          "file": "src\\hooks\\useAsyncDerivedProduct.js",
+          "sha256": "f9f9ce0243acb31ce7c947de1de2befe965244eba420d12a1eedc5bb9b977fb4"
+        },
+        {
+          "file": "src\\hooks\\useCustomParserSpecialist.js",
+          "sha256": "4504a59e4dcc7a43e665030961cd84f4364f37df2e7dedec46c50ce59e5d959c"
+        },
+        {
+          "file": "src\\hooks\\useFileUpload.js",
+          "sha256": "bacbd2d32296f90d8418c93a9b714d6fd336a73e67a474209433f52d5b1cecbf"
+        },
+        {
+          "file": "src\\index.css",
+          "sha256": "d3c3f6dbf8da72a900367336bbc48ef9fe17a236b6983d5cfe26e5e2f0ead76a"
+        },
+        {
+          "file": "src\\main.jsx",
+          "sha256": "31b5470845020720975b81de520a6174ff6c2c1959bf99faaece65a2e998e05e"
+        },
+        {
+          "file": "src\\persistence\\threadSaveQueue.js",
+          "sha256": "60a759f559987195946c0fc7673b59e01a4f4aea502aa348ea578ebf6e35218d"
+        },
+        {
+          "file": "src\\persistence\\threadStateSchema.js",
+          "sha256": "1274e22608d88e50ecabd40c74cdb4d5529a8bed78eae7b9ce140755cbbf4069"
+        },
+        {
+          "file": "src\\persistence\\threadStore.js",
+          "sha256": "2bf5804a98da93dc4ab2edd299f6b28c0f40103d4728c4609b6a4b12b3943514"
+        },
+        {
+          "file": "src\\persistence\\usePersistentThread.js",
+          "sha256": "25fca7450558f169a1dd8daa29db1598a380d6abf2f558f6c5d7746a8c6f82e1"
+        },
+        {
+          "file": "src\\studio.css",
+          "sha256": "c8e63d116d74611881c44076194a4ac99d24adcec296099e432be6a0ad909c6a"
+        },
+        {
+          "file": "src\\theme.js",
+          "sha256": "7bb0049b2f06952c488498263a94ec72c6a23e9db42bc2f6576bf788dbf35215"
+        },
+        {
+          "file": "src\\utils\\batchUpdates.js",
+          "sha256": "d3c311bc2dd9672ede76117b604017a885b1103f721819da6b49aee183ea6192"
+        },
+        {
+          "file": "src\\utils\\customParser.js",
+          "sha256": "8515f0e2e89f4b4da504685f8b32c937a8a11732afb1393e3cef398d89d402d9"
+        },
+        {
+          "file": "src\\utils\\delimitedText.js",
+          "sha256": "1d72c0a32697e7da6ecb8435d6c2c740ef72e0364b32295747eb04d2ca6d4229"
+        },
+        {
+          "file": "src\\utils\\derivedRequests.js",
+          "sha256": "b6d1972f53761a707af183f2823c1f329d6bd5e903404c8fe5513e735d9db834"
+        },
+        {
+          "file": "src\\utils\\derivedResults.js",
+          "sha256": "bba1cc88f8ebd1dcd994a366f41a33dd77fb9589b3fbe136471a511d303c2d13"
+        },
+        {
+          "file": "src\\utils\\downloadLifecycle.js",
+          "sha256": "718a111d732d401c1b82e80fe404fb03f7346422d66c814245c9af8ee3571d93"
+        },
+        {
+          "file": "src\\utils\\graphIdentifiers.js",
+          "sha256": "747d63303009bd0b32302243a411f9f41adb5ccde518954c8b1e01dac568fc03"
+        },
+        {
+          "file": "src\\utils\\mappings.js",
+          "sha256": "27245e3971aa99456c0a9b506115b1438474342b35f874ee2b1ad60e00c7073c"
+        },
+        {
+          "file": "src\\utils\\numeric.js",
+          "sha256": "06eecef8fc0e0265ae3fc34f0fcbeb1fc3e205ddc605f6ff9300f52f87d69d01"
+        },
+        {
+          "file": "src\\utils\\parsers.js",
+          "sha256": "639e544558b49ea506e2d65bd986c3f82568a28b72d733db121ec3a671cefc57"
+        },
+        {
+          "file": "src\\visualization\\dynamicUpdatePreview.js",
+          "sha256": "42607dfc9befbbab14bd1e91ef685fbc409f76623088594a23fcff6c8361c40d"
+        },
+        {
+          "file": "src\\visualization\\hypergraphLayout.js",
+          "sha256": "85afdbc166ab1e224f28353745c17639b9407774084f31a71ce02e7742f428df"
+        },
+        {
+          "file": "src\\visualization\\previewGeometry.js",
+          "sha256": "ccaade98ce5f3a7da50f32e5d84b89d95d142df07c8b106cac70c76364270b7f"
+        },
+        {
+          "file": "src\\visualization\\previewRenderBudget.js",
+          "sha256": "dfefe657b570f16e270bed9bb3c0ffa1bbfcf254bb35e32b8e45d117813898f9"
+        },
+        {
+          "file": "src\\visualization\\previewRuntime.js",
+          "sha256": "9ec8788a793f6654cb3dbf9607a0c034cfecf1b8afe7c2806e0b4a2da6c86308"
+        },
+        {
+          "file": "src\\workers\\derivedWorker.js",
+          "sha256": "2e59380c5d217583b88ec91b30ef1ac5de4f6c7e35e59eb9db1cc7c14b94e3ba"
+        }
+      ]
+    },
+    "browser": {
+      "files": 266,
+      "mismatches": [
+        {
+          "file": "src\\agent\\actionContextPolicy.js",
+          "sha256": "9ad187c1486530fe594df82287b5804298dc1c11a73a46b62a1792e62cb12ae7"
+        },
+        {
+          "file": "src\\agent\\actionIntentRegistry.js",
+          "sha256": "5393c8ff82a48b136380f305d086f165d670ff77a76418593ddba3acb36f0449"
+        },
+        {
+          "file": "src\\agent\\actionPlanner.js",
+          "sha256": "9c67b8fbd55cc264573817d644746a096382dc00e21815e0d15c3162e3773e1f"
+        },
+        {
+          "file": "src\\agent\\agentResponses.js",
+          "sha256": "5485e557fd339ecb114babcc814dd504529f248da38084e75a5b90abf51926ad"
+        },
+        {
+          "file": "src\\agent\\assistantContextSnapshot.js",
+          "sha256": "8e8d1c334446c32759e30eb4b2fcedaf85933ee3ef030ceff246af854c5f3e0c"
+        },
+        {
+          "file": "src\\agent\\assistantReadOnlyGrounding.js",
+          "sha256": "4825689301c9af7fa00dc33bd2a3395ec5e8119c13d645a025a8d23286675c8c"
+        },
+        {
+          "file": "src\\agent\\candyActionAuthorization.js",
+          "sha256": "bcc6ad61d63ca841525f586279e38e50ff17f582a15b8e454b1bf1d77c384d1d"
+        },
+        {
+          "file": "src\\agent\\canonicalIntentResolver.js",
+          "sha256": "cb35f7d7ad86de695a3cfee3bd6d017833d68cd8d7fe6e0867c7d5ce334631ef"
+        },
+        {
+          "file": "src\\agent\\capabilityRegistry.js",
+          "sha256": "cc03b03580277ca369a09231c71c376f77963a514953cb56e225bffb546e1e78"
+        },
+        {
+          "file": "src\\agent\\confirmationPolicy.js",
+          "sha256": "65c4ab6ec310350ad0bf3ae46a2605c4c98bf2d27a20d5f9c8bc1c92e0e61b05"
+        },
+        {
+          "file": "src\\agent\\confirmationState.js",
+          "sha256": "8440e3ea364c386220969d55c21bcd977c970def08b36d559a10e7ee304b8e36"
+        },
+        {
+          "file": "src\\agent\\conversationIntentResolver.js",
+          "sha256": "b901a5847960ba76fa278ad39068a15994d15c6cae3d9f1023fcf7a0a2051a7c"
+        },
+        {
+          "file": "src\\agent\\conversationMemory.js",
+          "sha256": "84399083b846e3ce8cce78367a4a2a71f33eddb063a90ba48b6c830c25651d8e"
+        },
+        {
+          "file": "src\\agent\\customParserContinuation.js",
+          "sha256": "63f6efc677ee7f8d72d939a957f57e52eb0bbf5653af0ff22ebcbc541e098c2e"
+        },
+        {
+          "file": "src\\agent\\customParserConversation.js",
+          "sha256": "ccee0dfbd0d989939b22c153b37e483b2a8303b3e4a0cc85d26704361a566f3c"
+        },
+        {
+          "file": "src\\agent\\customParserSpecialist.js",
+          "sha256": "5d9edef327988d79e50c5cc1b1aff8c313a0afd6a0890f78bb9095a06ffe66e5"
+        },
+        {
+          "file": "src\\agent\\customParserTriggerPolicy.js",
+          "sha256": "e84e35e6f1fa4290bd8a6f8e5b3390231f97a4f448a603fdce9058354a037e9c"
+        },
+        {
+          "file": "src\\agent\\datasetGrouping.js",
+          "sha256": "9096a7f9e3193d71c467b241cc463b2237e04b6c192ea1b39aeb6a6f19c707d4"
+        },
+        {
+          "file": "src\\agent\\datasetInterpretationDraftSchema.js",
+          "sha256": "cd3ec092b85d644e890d074411465edd15b575956ec6a294ebd3938d85faff96"
+        },
+        {
+          "file": "src\\agent\\datasetInterpretationDraftValidator.js",
+          "sha256": "6f9988b6b5701e4ea9bee88bff069c2badad77de2d253bced6c801a2b6865c14"
+        },
+        {
+          "file": "src\\agent\\datasetInterpretationPlanner.js",
+          "sha256": "5c96f5c1fea3cc75beb98d596cf69bf2c23e73b547873a405610d9e8908d67bc"
+        },
+        {
+          "file": "src\\agent\\datasetMappingBootstrap.js",
+          "sha256": "e040578edeb1d77cc9f5e8dd2a43afde535ebcdf8352b771ac3dfaa1fef2f72e"
+        },
+        {
+          "file": "src\\agent\\datasetMappingIntent.js",
+          "sha256": "905e6b93aedc72f4dc645389a52ba34615d18bad2f8f87e0f25e17239ba5560e"
+        },
+        {
+          "file": "src\\agent\\datasetMappingMigration.js",
+          "sha256": "4248c54788212c7461bc25fc2e9d044b453b67ac8a4032d5c246eb3bcaec5de8"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchApplier.js",
+          "sha256": "0f0c4f2c6c4992c741686dd25cd1282a9d930aebcada6baf6a78a31e6b16990a"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchPlanner.js",
+          "sha256": "00f12e40fafb349b386a081cfeab0a49f2738807d1831558f5e53384d033a5f6"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchSchema.js",
+          "sha256": "e771a5f7aedb9c6cbd03590d21696a56fa8a53d5d28fdd4995f6f5c44c84f6f3"
+        },
+        {
+          "file": "src\\agent\\datasetMappingPatchValidator.js",
+          "sha256": "990c1b15d28c2ed1a5a74cb7de597ed594c8c0f9e86a68b76421ec666aae8f45"
+        },
+        {
+          "file": "src\\agent\\datasetMappingReferenceResolver.js",
+          "sha256": "c240cd614148195c49452c8393bb4012454c174689f1165c78653fbc42a7dd7c"
+        },
+        {
+          "file": "src\\agent\\datasetMappingSpec.js",
+          "sha256": "8f80508bad82bcf074feaf51d4cb30cad19995fc859cd62b977f48871abe4e7d"
+        },
+        {
+          "file": "src\\agent\\datasetMappingSpecV2.js",
+          "sha256": "2cd507195f9682406dd26a960586360a8b9b58dddb4cdd69e48e137a2fc91feb"
+        },
+        {
+          "file": "src\\agent\\datasetMappingSpecV2Validator.js",
+          "sha256": "27f4f32d3fca3425aa8989fcba558e25fc1921d1b2eb5dea93c685d9ed257007"
+        },
+        {
+          "file": "src\\agent\\datasetProfiler.js",
+          "sha256": "b5b87fa0adcfa2e38d52fb87c386f6762b1a2cf3a47e0eb5d7afad24a36c6bda"
+        },
+        {
+          "file": "src\\agent\\datasetRelationshipProfiler.js",
+          "sha256": "5899e6ffa1cb01b26f20b051f12edb6ec0483156a55c65da9c63f4c7e4074323"
+        },
+        {
+          "file": "src\\agent\\deterministicControlPlanner.js",
+          "sha256": "2a6d13db8ee883e6fb1b3bb6eca43d14b7804ec17c56ef39aa212c385e403590"
+        },
+        {
+          "file": "src\\agent\\deterministicDatasetMappingPatch.js",
+          "sha256": "700242d7d9262a99c989ee25c14a6761f782f050bcbae8d281a1654d50f8f4c8"
+        },
+        {
+          "file": "src\\agent\\deterministicMappingV2.js",
+          "sha256": "0ae8382ee401b4c2c67d6f24c1460f9f0979abe4e9eea5e1ecbdf9c38867d11a"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\actionLexicon.js",
+          "sha256": "3678bada9036191e1e41058c492c49d58b73351f56ef80c3702833e711fc91d7"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\ambiguityBuilder.js",
+          "sha256": "9aa1e7fea4e0a13f7bef9694af65994ef5e24232a1b359070cfb7025d695f451"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\canonicalOperation.js",
+          "sha256": "d9e66f3fdb4b3275e4b9d28600b9639b96cf8ff4012dd4f932b1c1a9903304b8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\clauseParser.js",
+          "sha256": "f65a24f0737c7bffa9780f83e298a4b1718d87c402258da95e051d31673204c3"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalog.js",
+          "sha256": "21593a86903a32a35df005ccd47db44c20262a2c85dff66bbe054a47c89711c3"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalogFormatter.js",
+          "sha256": "a8a6ffb288b7f1c383ec094e58f9c4afecf63ae5b8523aae047187c28c2c013e"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalogSchema.js",
+          "sha256": "a8c95795d533a37319a0b45cb62e843f33230462d1f8b7f651e593d248b44674"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\commandCatalogSearch.js",
+          "sha256": "dbd978b2590c45355d3a5baf3189d1aa4a991ebb43ee25706bfec52876bd26d2"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\compileDeterministicAction.js",
+          "sha256": "29202a8923545f006f39c4ee839b5207bef3cfe9c0774c67b7a2774be516707e"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\confidenceScorer.js",
+          "sha256": "efa284ce013b81cd4d843fe5736de78242461157c17aa887c4d2c7339aff547f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\contextBinding.js",
+          "sha256": "8600337675d7dfc989cd42bf5af77af78f00061c145d448e8a8f94eb340a520c"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\correctionResolver.js",
+          "sha256": "52d1ed5b460c726c98e86ac9d83c51b9c35a3ecb56d8b44359179908164008ba"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\deterministicNlu.js",
+          "sha256": "c4a8bde09ca7f6e5956a7c19297ba7259a061af01a2e3591fc5786dc379249c4"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\discourseReferences.js",
+          "sha256": "648f0dfd0e87693e7f36a3133af6357c9daadb73a3d55ad575b3df92abdca271"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\dispatchCompiledAction.js",
+          "sha256": "7158071370c9903aaed36a79c5d73bdeeb5b384d1a6615e88c4cf7836c9adff8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domainLexicon.js",
+          "sha256": "064bc2b32ba31f0c0d78d2221384182b34e5fc11ed48675b07f2fee956bf3c1d"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\dashboardActionGrammar.js",
+          "sha256": "67be220e6d2adf99062adf58877361438b4843770ed896f85263b4c23499d6ff"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\datasetGroupingGrammar.js",
+          "sha256": "b02b089fa39ee7b08f9ab8b77902381ef78bc8ec72adc33ff3ab23ad66395ede"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\datasetMappingGrammar.js",
+          "sha256": "40b3a31c9f7ae13f552fc5a7b0c88ab68055c80584f479f0d03625e66e29a8f9"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\graphIdentifierNormalizer.js",
+          "sha256": "69faddb01d0a79979035a8336079cffda8e7d87216dab2e967c6805cd0585584"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\graphMutationGrammar.js",
+          "sha256": "2bb4f601f47ac73892e605462b5f6e7f202f4a4a20f95ff113412170d8f47649"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\groundedQuestionGrammar.js",
+          "sha256": "5f407e951d8e5910e5f035ab14771ded5b85d253afc6d3d8517faa7d15f7f09c"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\helpGrammar.js",
+          "sha256": "40b958b231cfed7876827dbf64f9495662f8089d554ff2a6e600bf3df2b8011e"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\legacyActionGrammar.js",
+          "sha256": "8abaf8d59a2c484aca5382b8fd92b774976569f4f5e92cbd21bbb4c27db8bb42"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\domains\\parserWorkflowGrammar.js",
+          "sha256": "30e572f08a63491d7bb451b5fe2d86fb68f21542b64bfe87f0198be22dd49492"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\entityExtractor.js",
+          "sha256": "8f6ddb49535877b2ea128e737544e5923f82141202291553be594236e6b963cb"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\graphOperationAuthorization.js",
+          "sha256": "c8b93e0d064f15b68eec4d700fe63141f667b3d55e98a7033eec50722f22742b"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\helpSeekingGuards.js",
+          "sha256": "105cd36ceae15178c28aa39f5f36e9031f9997114b822faa89828833216bbceb"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\intentClassifier.js",
+          "sha256": "f83534ce0150bdbd971da38d2fc9726249203e0b2f9ae1ce575802795a134566"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\interpretationTrace.js",
+          "sha256": "7332ca81ebf7e40240d9f96b3b4d03965b95a6d45628a67fa48fcbab8e27da1f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\negationResolver.js",
+          "sha256": "cee8cfa01775d7ade5b80f6b5dc2bb9fb13a14b5bad7446c400e48db2f8c1dd4"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\nluTypes.js",
+          "sha256": "c9790ebc3021106dec1248bc2b0cc900e318f1fe7a290aa78ed44a64aad3c387"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\normalizeInput.js",
+          "sha256": "ba05d285f51b2739f34840f4228f214f65a0fa6bfd0f535162bec72489d3b423"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\positiveAuthorization.js",
+          "sha256": "b653556a5f1120108c72c47a15bcec6bc0b93f19725e3e525dc41793ed3fbbf7"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\prepareDeterministicTurn.js",
+          "sha256": "4975103815427b371dd7e6b1fd40ecc9aced571f41c601d137dccb3c822ec970"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\protectedText.js",
+          "sha256": "281749923c7d0e74302565f14652fc6f0ce1d9998a9c6802285ec9f3968df3d8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\requestSemantics.js",
+          "sha256": "e249c2078a280d221a9481db3bba39d6b788756b4f3385f21a33385ea6834860"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\responseComposer.js",
+          "sha256": "a0cd10e5d85175b306a5536127aa950aa3c769aa5f20a793ee223cbda8287135"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\createProductionDeterministicHandlers.js",
+          "sha256": "8778279bba0451db4987392afab59a76938392c951ebc0522ee9aadb6544bc05"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledDashboardControl.js",
+          "sha256": "969f8c1fe1d8a5c5087473d84b7d005bad1f7c27e070497df8b76ac456a96c9a"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledGraphMutation.js",
+          "sha256": "4141c9b3d3fe0e815c54b23c35fc80d67cb6d63fe134adcc35f941d7423637d2"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledGroundedQuestion.js",
+          "sha256": "50cd22738f3f95070e6f2aec619430a22fcb7e61a5b0877b38a5e455464fa106"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledHelpQuery.js",
+          "sha256": "24040c14201fd3bd8454ad69211a5b0528a7397288e499d01c2ff74c663f866f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledMapping.js",
+          "sha256": "af76aa4cfa91a6624dcdda148142aeca44b73b7cd50cbe8bee2e6d8b69d36834"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtime\\executeCompiledParserWorkflow.js",
+          "sha256": "d2bb60334af418d354959315f76ee59d5e2a5f31dc3694c5cb91449b8c59e396"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\runtimeInstrumentation.js",
+          "sha256": "33475117625680b9cb7d5749d399e14f6014e246243148d5d0aa0e082ea895d6"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\semanticConfidence.js",
+          "sha256": "448290fbe0e0ce336de40b9a371bf291f54d1cdea3364a404d54862dfb3f3ff8"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\sideEffectPolicy.js",
+          "sha256": "455464bd98c5507f9a499a54b0d406c4df959bcf87cd54991870122790380b73"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\speechActClassifier.js",
+          "sha256": "d346cd74f7a47506e9dd919a345833f8b37288fba6de003e4da1edf0f65c766f"
+        },
+        {
+          "file": "src\\agent\\deterministicNlu\\tokenizeInput.js",
+          "sha256": "830bde82a4198e862fb1634ab98604f4349618e308e1eeefbe193b37efdb0892"
+        },
+        {
+          "file": "src\\agent\\deterministicPreMapping.js",
+          "sha256": "c6fe363e3aca38a6f8cad9981199716fba6c133bb96792aaa53d43f3d60ae2b6"
+        },
+        {
+          "file": "src\\agent\\dynamicUpdatePolicy.js",
+          "sha256": "ad807634b2e17de2e050c844de6eafb23f5de991cf1a0badb01588c96ff7206e"
+        },
+        {
+          "file": "src\\agent\\expectedOutputComparison.js",
+          "sha256": "2137e45a53156c3cf5bc0a3253ca601671f5facaf377c9918f9462303ad7cb07"
+        },
+        {
+          "file": "src\\agent\\fileDetection.js",
+          "sha256": "4ae331044858e85dd5af9359ba24223d38c6b99295df7511d8a1594f42752119"
+        },
+        {
+          "file": "src\\agent\\graphConversationReferences.js",
+          "sha256": "dcdd1041420d1e9b17d1945e1375b52bbc3fd25bb9d1d814e4397436d71ee890"
+        },
+        {
+          "file": "src\\agent\\graphMutationConversation.js",
+          "sha256": "c8798dac65fd4be1fe77f271b295983453d0a0dac75e8c1b7c9e09ee721efd4e"
+        },
+        {
+          "file": "src\\agent\\graphMutationDraftSchema.js",
+          "sha256": "a96d4ea9754713090721f4ede5f9a247212f06cf55aa52e8cdbf0555bcb1a40a"
+        },
+        {
+          "file": "src\\agent\\graphMutationDraftValidator.js",
+          "sha256": "93ab9d5d8e01fc709f040ebcfc7a3bd134c6b50def67797d2a3a1870ffd7d0e6"
+        },
+        {
+          "file": "src\\agent\\graphMutationModelPlanner.js",
+          "sha256": "71d67f859a24f98fa99d5ac52025859823c3fc65b50fc3e86638123af0e3bc10"
+        },
+        {
+          "file": "src\\agent\\intentClassifier.js",
+          "sha256": "8016cbbe23134551236d6bc925bf9b5d1cbf9a0928136152a5cea83acf89f71c"
+        },
+        {
+          "file": "src\\agent\\liveMessageHistory.js",
+          "sha256": "7f82df91358937b86bd942be4e67b246cde8e04fc0ddc6041d75d6bbc61ff5d9"
+        },
+        {
+          "file": "src\\agent\\localModelClient.js",
+          "sha256": "cc322672a8923303681b0a33d5549211070c81ddefb34dcf835e44b6c271ed7c"
+        },
+        {
+          "file": "src\\agent\\localModelRequestCoordinator.js",
+          "sha256": "8be50e4b5d764a779741ad6c34da743d4a45d65d948941bbde8e3760069e15bf"
+        },
+        {
+          "file": "src\\agent\\localModelRuntimeState.js",
+          "sha256": "337f7be0c7eb4ac20ef8d7d13fcfdcafd57127c6a18f656c1aeac5080541995b"
+        },
+        {
+          "file": "src\\agent\\localModelSettings.js",
+          "sha256": "75a20b67825a63326a9c28b2e26dea54cea568446ba7b023972d85bd969c8fa2"
+        },
+        {
+          "file": "src\\agent\\localRuntimeDiagnostics.js",
+          "sha256": "fdbcf05b3f9f34efba544b5718e0cb2ec357990cd351c89dc72b3e3c47605622"
+        },
+        {
+          "file": "src\\agent\\mappingSpecAutoRepair.js",
+          "sha256": "f3cc979a7e068c507785719943561e0c7cbe1b797764b48205fa414098f1e90e"
+        },
+        {
+          "file": "src\\agent\\mappingSpecParserGenerator.js",
+          "sha256": "648465c11232c8181dd92c813eda900adedf153b477def4bb7b60be6ec9f46be"
+        },
+        {
+          "file": "src\\agent\\mappingSpecTrainingBuilder.js",
+          "sha256": "888cfd7562f757174be76976c9c2f8d07e8f86e42f28e9a3e261b469f10f1555"
+        },
+        {
+          "file": "src\\agent\\mappingSpecValidationSeverity.js",
+          "sha256": "660d77f93271eeaa28f09e14c4c575a82effa8cb6e4721b142ce7a012428fc01"
+        },
+        {
+          "file": "src\\agent\\mappingSpecValidator.js",
+          "sha256": "db0e0e37dd682b0328b97302fae101490482ad147043cb14e70f31ad971f678c"
+        },
+        {
+          "file": "src\\agent\\modelPromptBuilder.js",
+          "sha256": "4e89ce3474cbd425b8ebb5c9e7cfa6f89573d3f6b6bdaf4d7536b20c8ae13b63"
+        },
+        {
+          "file": "src\\agent\\modelReliability.js",
+          "sha256": "9d5f9d72be1e15670e124d4a29dd9525252844a3598b4538f5485826d6b14441"
+        },
+        {
+          "file": "src\\agent\\modelResponseValidator.js",
+          "sha256": "5c83a32594ceb86129d89ca6e5b24c9086c08094949ca7c20d5d0d0c2713741e"
+        },
+        {
+          "file": "src\\agent\\modelSchemas.js",
+          "sha256": "729617c8adb277558f22698aade70ed8be6c7095c944463f8a346add042b8d26"
+        },
+        {
+          "file": "src\\agent\\motifQueryPolicy.js",
+          "sha256": "62522bd2899f2cba62800361fe5825f7d953114e65c5c7f31e6778187eb5e80b"
+        },
+        {
+          "file": "src\\agent\\ollamaActionPlanSchema.js",
+          "sha256": "f4a297660ec1f2b815ae53048a29ec11e3f58b3f32a25e97ced86982d4311fdb"
+        },
+        {
+          "file": "src\\agent\\ollamaActionPlanValidator.js",
+          "sha256": "78b5747584ab8d89a250ffad9898267c88b4adbbc2e0c101c2fe2a2bdc5f5313"
+        },
+        {
+          "file": "src\\agent\\ollamaConnectionManager.js",
+          "sha256": "dbaba64ae950364cb7b3561a417bc838a12e653bab6b719a14276cde5db363f3"
+        },
+        {
+          "file": "src\\agent\\ollamaMetrics.js",
+          "sha256": "996e486e5e14f011aeb0db956f39106698e97ef273a79c5d3a5a09631171d737"
+        },
+        {
+          "file": "src\\agent\\ollamaOrchestrator.js",
+          "sha256": "8f502c563f9b483b097310bb07e879cc9b660bf092d71fa7d6e9c71a3629bd4b"
+        },
+        {
+          "file": "src\\agent\\orchestrationPlanner.js",
+          "sha256": "2d129df5d43b94253a3db2118c0da71a8d8d955c12736ae15971dd69becbf57b"
+        },
+        {
+          "file": "src\\agent\\orchestratorCapabilities.js",
+          "sha256": "d3b0df61ac096dea46b0de1834c1a5b040d11bfb09512a126a43e051a10b9892"
+        },
+        {
+          "file": "src\\agent\\orchestratorContext.js",
+          "sha256": "f3122b90e5fa4ebd8ba00e1b023761b70f10ad2da52823b3ffa2712c238bb871"
+        },
+        {
+          "file": "src\\agent\\orchestratorLoop.js",
+          "sha256": "c9fa1c917a9c06fa29d03c0266c8d2833c16bf934b6c94e57660b2e2d71119e6"
+        },
+        {
+          "file": "src\\agent\\orchestratorObservation.js",
+          "sha256": "63eaa032b87670cff9c08ba76ce8ce3843bae770d974738f47349687aa43382d"
+        },
+        {
+          "file": "src\\agent\\orchestratorStepSchema.js",
+          "sha256": "73cc381723db303d090fdfef77ccb2e6a6af638abdcd8e1453c831daf1d58317"
+        },
+        {
+          "file": "src\\agent\\orchestratorStepValidator.js",
+          "sha256": "d935e87f72f1323599fbd792448602e24a1adf6f0504e35f431cb5b41861a9d6"
+        },
+        {
+          "file": "src\\agent\\parameterizedCommandExecutor.js",
+          "sha256": "23aedc8e481e65723772458df73e2e372450337328752ea4eaa0f1dd488f68c6"
+        },
+        {
+          "file": "src\\agent\\parserBinding.js",
+          "sha256": "2abc069e203492c9235337594a5f00102eabbb7f442f246f9677d13c4fce3b3f"
+        },
+        {
+          "file": "src\\agent\\parserProfiles.js",
+          "sha256": "25a2dcd1f9aae940b8704b1867975169cad46eeef107842b0dab7e2f8ccd91c1"
+        },
+        {
+          "file": "src\\agent\\parserReconciliation.js",
+          "sha256": "b692f96aec8796e6c8784663f2ea9a644ccdeb7f6a55c1123a04798addc26a9e"
+        },
+        {
+          "file": "src\\agent\\pendingSubmissionRouter.js",
+          "sha256": "d749899da6f52885385c0debd2ce08e60807d5d1a9b0bdedcfa6191cdffdb649"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserFewShots.js",
+          "sha256": "9b6b08cbfda3b5c1757742dc0c8e5ba69434a21203f85701327ebf67c961d76f"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserPrompt.js",
+          "sha256": "8bda78420c700513c2e280ae9050f9718fb57e46db720a70adc4a554ed1a0dd3"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserSpecialistPrompt.js",
+          "sha256": "c8890ee85b849c1a61e76dad723233cd8724a7d0ea8a11936f8284311374095d"
+        },
+        {
+          "file": "src\\agent\\prompts\\customParserTemplate.js",
+          "sha256": "fbe8f2f4f69ba6697ab812cbbe67c7c90949a7060df813c10de5f72cebeecf0c"
+        },
+        {
+          "file": "src\\agent\\prompts\\datasetInterpretationPrompt.js",
+          "sha256": "ecc62eaa654cececd75adabe1ee34513a9db5ab28533cc94fd9108a509b3b340"
+        },
+        {
+          "file": "src\\agent\\prompts\\datasetMappingPatchPrompt.js",
+          "sha256": "63acacb8d5bbaaca3686ecac0dc087fc9de881a6ed33f94e062e5ae48158e327"
+        },
+        {
+          "file": "src\\agent\\prompts\\externalAiPromptPrompt.js",
+          "sha256": "7145e47a030335ac840c9e9456c5f4d44261bf664adab704606d652b48b8c7ec"
+        },
+        {
+          "file": "src\\agent\\prompts\\formatFewShots.js",
+          "sha256": "bcbf2e0b567ceb2a111033fa26a4abe22081db4cb53a18342f1bf393c76df3fc"
+        },
+        {
+          "file": "src\\agent\\prompts\\graphMutationPlannerPrompt.js",
+          "sha256": "e6e713758598a3b7d23b266216421237725a0c3a78292a1257e6e1a6f74f76b8"
+        },
+        {
+          "file": "src\\agent\\prompts\\ollamaOrchestratorPrompt.js",
+          "sha256": "e02e3ada3763eb1cb9603f0ece7e417a14e0121d00221dc7e1e06e9684a41df8"
+        },
+        {
+          "file": "src\\agent\\prompts\\orchestratorPolicyPrompt.js",
+          "sha256": "640e5006bd2cec8e8d52f6a4ae1c25b06f2047cb19a46823c24d8bb67946da35"
+        },
+        {
+          "file": "src\\agent\\prompts\\reactOrchestratorPrompt.js",
+          "sha256": "e0c697fa44d75f954c333ea03054b6440274784bbc05fc070f1e0053450b44be"
+        },
+        {
+          "file": "src\\agent\\prompts\\threadMemoryPrompt.js",
+          "sha256": "b80a523a9bfbdf0589bf4af14d306de01fe037df31001c6002ee304362a16214"
+        },
+        {
+          "file": "src\\agent\\reactOrchestrator.js",
+          "sha256": "4d672f7505155c7d0e79ef617cd3ae769f7851d849eb261be16f44406c74c2d5"
+        },
+        {
+          "file": "src\\agent\\reactOrchestratorConfig.js",
+          "sha256": "c5977541160ea21c9898b8f6b27e0121fd6386690732b7aeef259cbc07b9ed92"
+        },
+        {
+          "file": "src\\agent\\resultSummary.js",
+          "sha256": "1a4140c402a7fd0f6f49bf4a12a245c4c4079b1844f84b0ce575778bce76d7df"
+        },
+        {
+          "file": "src\\agent\\routeRegistry.js",
+          "sha256": "8d0d4af751cf09d1a660e55aabe04714d473b85889b8fcd2fb31217d8ab94ced"
+        },
+        {
+          "file": "src\\agent\\runtimeControlPolicy.js",
+          "sha256": "dc2cdb2ae3e9c658999bf69b294d576308acab197f18267ae0337251147d46dd"
+        },
+        {
+          "file": "src\\agent\\safetyGuards.js",
+          "sha256": "4f51573dfdc4d57ae1b4db971a6fcd35432ab73b05c9438a63067e796910cb07"
+        },
+        {
+          "file": "src\\agent\\strictJsonSchemaValidator.js",
+          "sha256": "0d0020f8eb840f93231e5ef9f886fd02189dcff4cbe65019f1000ca27065a5ba"
+        },
+        {
+          "file": "src\\agent\\submissionRequestCoordinator.js",
+          "sha256": "0cb7ef7d3999ddf8031bdaed34e3f0e61e6358059f66860bbfb9bd608f7ec935"
+        },
+        {
+          "file": "src\\agent\\trainingExampleBuilder.js",
+          "sha256": "3cf61c7f2e9b847ea6c5ced85124c868c7711cd36a8bd7ea0cf3da403a118098"
+        },
+        {
+          "file": "src\\agent\\transformationPlan.js",
+          "sha256": "2addac3b8cf0dbe3f6815d8025697fa39a598edf4b8c838d4911fb1b95290bbc"
+        },
+        {
+          "file": "src\\agent\\transformationPlanCompiler.js",
+          "sha256": "d29a5b3ece0fc064ce67ea3cdd006ff218a6745745899ab82b72c947b0a60acb"
+        },
+        {
+          "file": "src\\agent\\transformationPlanFingerprint.js",
+          "sha256": "30b1246cd2e8081f9de5f0119edd1b3452fe03ac960b6f03af7524aa04ae3283"
+        },
+        {
+          "file": "src\\agent\\transformationPlanValidator.js",
+          "sha256": "e180732ce532a8da134ac22617cc8f17a59584f225aa6756f66fffdddc8c73ee"
+        },
+        {
+          "file": "src\\agent\\uploadPolicy.js",
+          "sha256": "d19807d15b73985eeb112fdb161b753b6bd0f5090198af0301ca504cbe81106f"
+        },
+        {
+          "file": "src\\algorithms\\algorithmIncidence.js",
+          "sha256": "11996d6ccccc1a33d532e5605808c748805c4f3278f78a98d4cd42cb568ae7f5"
+        },
+        {
+          "file": "src\\algorithms\\bfs.js",
+          "sha256": "a67897f36970af19034bfa794e181ed37965666a075436bee39e8d7108853c77"
+        },
+        {
+          "file": "src\\algorithms\\compactTrace.js",
+          "sha256": "5fe4cb53121009f577eb900acc32b500b3779a80764743266e1fdb922028c8b5"
+        },
+        {
+          "file": "src\\algorithms\\connectedComponents.js",
+          "sha256": "51c269b165008182813560d1225bce1bf43dd66ed78723da9eb662a0517baa6d"
+        },
+        {
+          "file": "src\\algorithms\\degreeDistribution.js",
+          "sha256": "45d0f46a39c963e63d4038d1d1dbd6b3b5760b3acdbfa37db7dba3abca5b2c23"
+        },
+        {
+          "file": "src\\algorithms\\dfs.js",
+          "sha256": "7525916b52b9d700df9cf534fc9e1b395d0d89ec369005c413ae5945283782f3"
+        },
+        {
+          "file": "src\\algorithms\\graphModel.js",
+          "sha256": "09c756d7ae21f99ca33302ae28c4124184f2cd5850f953d085b9833e1b2d901f"
+        },
+        {
+          "file": "src\\algorithms\\kCore.js",
+          "sha256": "5b3c97529cf8cd30d9ed7fd6a4a61539fb08f7838e8f807babb9929f7ea907c0"
+        },
+        {
+          "file": "src\\algorithms\\projection.js",
+          "sha256": "522c0a477943a3e81933c903ce5b19c06c5f470416290854c847fc01a2649766"
+        },
+        {
+          "file": "src\\algorithms\\registry.js",
+          "sha256": "ffd645deaa9c531e9447e7b0c1108796b282ae94e1265227a0765a1940375164"
+        },
+        {
+          "file": "src\\algorithms\\shortestPath.js",
+          "sha256": "c6a53d48c1267de540e031f34ff2bb4f8a6d9762dd6e9accc0a57335240a3790"
+        },
+        {
+          "file": "src\\algorithms\\traversal.js",
+          "sha256": "1a186577e3e162cafd18bb4cb8e2d2bd689492215939eb4f991b5fa7d7a785c2"
+        },
+        {
+          "file": "src\\App.jsx",
+          "sha256": "4419bf297bc7b7ff9c5b98d9d03672d8a5c3b6ea82cd7dd3dba28a4bb678cb27"
+        },
+        {
+          "file": "src\\candy\\adapters\\csrAdapter.js",
+          "sha256": "93aa8db3f3501764d40bc500d30a25a3f904966f651381d3dac10fd4f569236f"
+        },
+        {
+          "file": "src\\candy\\adapters\\graphMutationToHypergraphUpdate.js",
+          "sha256": "04b4ee486bd735e7ba119125c5a75db732566b11d6d686d65c84984b6c059245"
+        },
+        {
+          "file": "src\\candy\\adapters\\hypergraphIncidenceAdapter.js",
+          "sha256": "820f9992830ed032eba304e8bf693de2e4dc8f5225ba5e285c089140908e5e77"
+        },
+        {
+          "file": "src\\candy\\adapters\\hypergraphUpdateAdapter.js",
+          "sha256": "4c8e23b5c9e18d7e99551e55b79ad52766530eff0fa73d5793e459b858f8f4d5"
+        },
+        {
+          "file": "src\\candy\\adapters\\identifierMapping.js",
+          "sha256": "084135ef09666e23e713edb5de39d1a29903af56fe91970870dbb895be29a55d"
+        },
+        {
+          "file": "src\\candy\\adapters\\vertexMapping.js",
+          "sha256": "a4aaaf3c74b5a42f0ea11e00e4d6bd44f4bb9001429146ca5ccb4a5f0d88b0d3"
+        },
+        {
+          "file": "src\\candy\\capabilityDiscovery.js",
+          "sha256": "788b4edc266b1350d9cc136584a6b3e90dbf00224c085cb878f354a8dc306bc0"
+        },
+        {
+          "file": "src\\candy\\client.js",
+          "sha256": "bbfe516af51abb5b423e4e400a42434bbcbfdf2b5bbb2ebd443c8cf3b9abf88a"
+        },
+        {
+          "file": "src\\candy\\contracts\\algorithmSchemas.js",
+          "sha256": "e0d49b711c4ee82667c3fc161bcbb9a969387a40729e0573ed6c7b6050f60eb7"
+        },
+        {
+          "file": "src\\candy\\contracts\\contractValidation.js",
+          "sha256": "dc00ca4def204af47057e963b122d95f15e8c931efbaad8080cca595d40876b8"
+        },
+        {
+          "file": "src\\candy\\contracts\\errorClasses.js",
+          "sha256": "e84f210a7dc879d6b8dd46c0cc3081a4b6ff0674d0c2121900c713f6b2deefb2"
+        },
+        {
+          "file": "src\\candy\\contracts\\graphTypes.js",
+          "sha256": "ff2b32eb542dac55b3627ebe8862126c55785543663bab622a56c82f6bc8f506"
+        },
+        {
+          "file": "src\\candy\\contracts\\hypergraphMotifLimits.js",
+          "sha256": "7ac0dbd8a1ac2abfd9ff1efe48925205ca7a305ca707d3be30f84d0ddb5060d7"
+        },
+        {
+          "file": "src\\candy\\contracts\\hypergraphMotifMetadata.js",
+          "sha256": "11c81799fec10487119ae5d9c2f02ceda1f992697fac620349a3fd940a0551d3"
+        },
+        {
+          "file": "src\\candy\\contracts\\hypergraphMotifSchemas.js",
+          "sha256": "b5cf8fcc83876571e375cea9ebfd3dd6ffb463baff664d64cca3f0b3e23f8172"
+        },
+        {
+          "file": "src\\candy\\contracts\\runtimeMotif.js",
+          "sha256": "3d1e4721132cfe9cc898936a51adaf3171b504c3ffddcb33aa029e638302e3a6"
+        },
+        {
+          "file": "src\\candy\\contracts\\schemaVersions.js",
+          "sha256": "c269aca22d61e17007da62e3ef52c8a73a8c87b8f8a3779bc54133f7317f5fa0"
+        },
+        {
+          "file": "src\\candy\\deterministicRouting.js",
+          "sha256": "decfa1247800335cbd00f218a9c0bfe7bda2368387917a0acfc35571093899d8"
+        },
+        {
+          "file": "src\\candy\\featureFlag.js",
+          "sha256": "1c786797a46af1438a3f6f3176c79445f3d44ceb05d017466dbd03aa3f1c2183"
+        },
+        {
+          "file": "src\\candy\\hypergraphMotifs\\referenceOracle.js",
+          "sha256": "33d5f30b077d72aa8c8606f707fa852a8231be55d2011fbf69570e4d885b4b76"
+        },
+        {
+          "file": "src\\candy\\hypergraphMotifs\\taxonomy.js",
+          "sha256": "880cc330aa23339fc93634bcf6a145bff5177db23edea1e363f6bc99427affb0"
+        },
+        {
+          "file": "src\\candy\\motifAnalysisController.js",
+          "sha256": "c52c818745d46ce172a2c6e7b136973a27dc33369c479fccd49b0c5adc56a134"
+        },
+        {
+          "file": "src\\candy\\motifPreflight.js",
+          "sha256": "eeef09b60a1e96b366b899469cbab066119d00e32209d04d6e8d15b593f0bfb5"
+        },
+        {
+          "file": "src\\candy\\motifResultRegistry.js",
+          "sha256": "6548b3708692b07bdbae4c8f2c589905445449721b33a517ad0a0dd74bdef0e3"
+        },
+        {
+          "file": "src\\candy\\motifStatisticsAvailability.js",
+          "sha256": "caaa3056755f3c9219b50f34fabcd3352c90d9f5139ea3c8c7277f2c7be8e9ea"
+        },
+        {
+          "file": "src\\candy\\motifWorkflow.js",
+          "sha256": "9734170528032586c669f66ced202f0d05d05ef6029f0a0b8629fb1e12fd4dfa"
+        },
+        {
+          "file": "src\\candy\\requestPolicy.js",
+          "sha256": "3de08255414549661e80e85d11fd9c6d5abc065982b8a76e43210d276100070b"
+        },
+        {
+          "file": "src\\candy\\resultObservation.js",
+          "sha256": "0d464abb6c62b01ac5058df6bcf4ed4e1a274d22f8272920ba57abe2431bc825"
+        },
+        {
+          "file": "src\\candy\\runtimeCapabilityPresentation.js",
+          "sha256": "2438c4842bd68cc42280ada68e53b2680e70e533ca99b92b1e1bab9af3df0269"
+        },
+        {
+          "file": "src\\candy\\useCandyRuntime.js",
+          "sha256": "cf0570390947643900f09aefc1357d2e3c57e5531085a820ab8b8a4cb008bbbb"
+        },
+        {
+          "file": "src\\components\\AdvancedOptionsPanel.css",
+          "sha256": "054541c30c0e0d24b4a9cb2f37147154aab302001d25147feabc3ef185f387e2"
+        },
+        {
+          "file": "src\\components\\AdvancedOptionsPanel.jsx",
+          "sha256": "0d94d0a844fd38f99882183b8d12cebcd010aaf418b0705a6bd731989c5db386"
+        },
+        {
+          "file": "src\\components\\agent\\AgentComposer.jsx",
+          "sha256": "dc4f62c25874fce723ca05ad126ff09be0c2975042d5dd39255da446ca8b1ba9"
+        },
+        {
+          "file": "src\\components\\agent\\AgentMessage.jsx",
+          "sha256": "3966897256ce825c1a3df2b0a5ec787a2db61c9f901e5d54c45d16af096cbd7c"
+        },
+        {
+          "file": "src\\components\\AgentActionCard.jsx",
+          "sha256": "edf0e42a1dd949c100d0cae2805dac6d282c65b28d5613b48e2bdba0141ba0f5"
+        },
+        {
+          "file": "src\\components\\AgentChatPanel.css",
+          "sha256": "2faff9914210edc0708e7081d3903ccb4042754bd9dcf59d946cc33658505eaa"
+        },
+        {
+          "file": "src\\components\\AgentChatPanel.jsx",
+          "sha256": "943e794bdf910e57b77a1a96ee1f2340fac74ef90c706c199b293e40cdcd5057"
+        },
+        {
+          "file": "src\\components\\AlgorithmsPanel.jsx",
+          "sha256": "8963e24fa9a3cf92cafde996e23f7505bb2fe90fe44ccaa5de87d6fc08cad097"
+        },
+        {
+          "file": "src\\components\\BarChart.jsx",
+          "sha256": "69341a2d2cbe5d9f33bc32639e9c10c2984aa8f9bb865373209cba489aec214a"
+        },
+        {
+          "file": "src\\components\\CandyMotifResult.jsx",
+          "sha256": "210e34a14346ca5393e213257ef184ce65152b8c083d18483ba4260bab801fa2"
+        },
+        {
+          "file": "src\\components\\CandyMotifStatistics.jsx",
+          "sha256": "42958571fcef4e9d9384fc9d979b568735c795f24769b5f67031c130f8b139e0"
+        },
+        {
+          "file": "src\\components\\CandyRuntimePanel.jsx",
+          "sha256": "ed40be31eb85d9bc25e67102513a10cec2eb9ff3fcd439354728a0171134a709"
+        },
+        {
+          "file": "src\\components\\CustomParserSpecialistPanel.jsx",
+          "sha256": "6b67b42e8a3943c3ec8d2ed1e8d8470fb7f31c36166c3c7db1f774185a1a8d37"
+        },
+        {
+          "file": "src\\components\\DeterministicCommandHelp.css",
+          "sha256": "5ca3f366c20948881286204f88449a26cea5cbd51c3b0ec6bd77c6dee521e5a1"
+        },
+        {
+          "file": "src\\components\\DeterministicCommandHelp.jsx",
+          "sha256": "667914a1732302e820c647c60adec0e2cc83e900d7164f1ecb5432e35d5b3cb2"
+        },
+        {
+          "file": "src\\components\\DynamicHypergraphUpdatePanel.jsx",
+          "sha256": "8ab24242c013ba2051655417e4f2f623021ac261626997063ac3f63f98b3ccce"
+        },
+        {
+          "file": "src\\components\\ErrorBoundary.jsx",
+          "sha256": "cbff99f6fbf8df8710e7f06dbd39230937ccd4ca05c127869c22498c99de3ed4"
+        },
+        {
+          "file": "src\\components\\LocalRuntimeDiagnosticsPanel.jsx",
+          "sha256": "d33b791f2fb0d5744dbac5832816755c87014ecfdb3cf742de958176dc993b30"
+        },
+        {
+          "file": "src\\components\\TriadStatistic.jsx",
+          "sha256": "55b8429ce683e453a7243ff1bcec68fbf55a71f5e8ec99950841d48f4c9b0b91"
+        },
+        {
+          "file": "src\\components\\ui.jsx",
+          "sha256": "a92e5caaacf6da7b014857e5c2379f740168d4dd17d5ee95a19d6c5ae6927d0a"
+        },
+        {
+          "file": "src\\components\\Viz.jsx",
+          "sha256": "5f38fd5b71ffe20c0a812072c3a9fec00e72b2bc354dc8a769057eaf686da914"
+        },
+        {
+          "file": "src\\derived\\derivedOperations.js",
+          "sha256": "e60b2b422215795adfd3898a59d75345fd09bf8d37f57b24de404897f1aef973"
+        },
+        {
+          "file": "src\\derived\\derivedProductCache.js",
+          "sha256": "9b8e5ecdc07bb8430b67c2d5fc36006a9a563d7ebb356e34dd108847106b15b8"
+        },
+        {
+          "file": "src\\derived\\derivedRequestCoordinator.js",
+          "sha256": "d132407f23fca68c5b63d58d42205d483394710dbf588e0efbb16b5be54de663"
+        },
+        {
+          "file": "src\\derived\\derivedWorkerClient.js",
+          "sha256": "910adf7d9793a4a27d8fb08b986023ae93e31212634c2332d474ecab39632969"
+        },
+        {
+          "file": "src\\derived\\mappingPresentation.js",
+          "sha256": "7e05aa948e34ad2787e9436cb35beb7a1f03874fe60474cec29802bc61d2f9b7"
+        },
+        {
+          "file": "src\\graph\\dynamicUpdateControls.js",
+          "sha256": "cee1876751135e71a69bc5df8906bcfdf92aedb2de18a9b7191c5ff31bf7ae00"
+        },
+        {
+          "file": "src\\graph\\entityResolver.js",
+          "sha256": "7169f30c6f943338f9df725aec3ab874092f23dd6f9ca724d8adc193755bd43e"
+        },
+        {
+          "file": "src\\graph\\graphFingerprint.js",
+          "sha256": "783d088c8acc5ccbb51697c6051f3c63b6d8bf4f935d2118e030d5202a673f5d"
+        },
+        {
+          "file": "src\\graph\\graphHistory.js",
+          "sha256": "8d473a22daf231cf44b1f2b9da632b0118813683f0f096c09cb531f09a5d93a0"
+        },
+        {
+          "file": "src\\graph\\graphIdentity.js",
+          "sha256": "3cb304e33ff2705398db08f68bf63478d722dfe01073324512cb91002f5ec75d"
+        },
+        {
+          "file": "src\\graph\\graphMutationEngine.js",
+          "sha256": "63e4f29a269ce40bd91f524da285db8014da03bf33ec75e25f4e604e32ca8920"
+        },
+        {
+          "file": "src\\graph\\graphMutationPreview.js",
+          "sha256": "fa6f8963e8fdd44ee4815a9305f725a33c6a08f3c8722e0ee35cb83af677372d"
+        },
+        {
+          "file": "src\\graph\\graphMutationSchema.js",
+          "sha256": "143b8308eff9175693e3b0bb4d3a6c431d1aee39d5e826aa3bf8c59893faa0ab"
+        },
+        {
+          "file": "src\\graph\\graphMutationValidator.js",
+          "sha256": "e94d7d4dc8ea797d2c25f866d6e54ce883f3749122644d4898734286a06f4196"
+        },
+        {
+          "file": "src\\graph\\graphState.js",
+          "sha256": "c8886ec1a54a64eef502ba2b01c8d87f37172ed955ec8e461b81f0c0c190c041"
+        },
+        {
+          "file": "src\\graph\\incidenceIndex.js",
+          "sha256": "14bacf37d25504c246372220bc3dd999e1872434374737ef463e9e480f042228"
+        },
+        {
+          "file": "src\\graph\\pendingHypergraphUpdate.js",
+          "sha256": "7afa7c7dcae153fb2db57f001810156fa61b98998f69d3a907a9c9198854d8c9"
+        },
+        {
+          "file": "src\\hooks\\useAlgorithms.js",
+          "sha256": "36df6e639d5fc69fdbc4174b41d94a7041cdc368f35090b89f91f98260c2899c"
+        },
+        {
+          "file": "src\\hooks\\useAsyncDerivedProduct.js",
+          "sha256": "f9f9ce0243acb31ce7c947de1de2befe965244eba420d12a1eedc5bb9b977fb4"
+        },
+        {
+          "file": "src\\hooks\\useCustomParserSpecialist.js",
+          "sha256": "4504a59e4dcc7a43e665030961cd84f4364f37df2e7dedec46c50ce59e5d959c"
+        },
+        {
+          "file": "src\\hooks\\useFileUpload.js",
+          "sha256": "bacbd2d32296f90d8418c93a9b714d6fd336a73e67a474209433f52d5b1cecbf"
+        },
+        {
+          "file": "src\\index.css",
+          "sha256": "d3c3f6dbf8da72a900367336bbc48ef9fe17a236b6983d5cfe26e5e2f0ead76a"
+        },
+        {
+          "file": "src\\main.jsx",
+          "sha256": "31b5470845020720975b81de520a6174ff6c2c1959bf99faaece65a2e998e05e"
+        },
+        {
+          "file": "src\\persistence\\threadSaveQueue.js",
+          "sha256": "60a759f559987195946c0fc7673b59e01a4f4aea502aa348ea578ebf6e35218d"
+        },
+        {
+          "file": "src\\persistence\\threadStateSchema.js",
+          "sha256": "1274e22608d88e50ecabd40c74cdb4d5529a8bed78eae7b9ce140755cbbf4069"
+        },
+        {
+          "file": "src\\persistence\\threadStore.js",
+          "sha256": "2bf5804a98da93dc4ab2edd299f6b28c0f40103d4728c4609b6a4b12b3943514"
+        },
+        {
+          "file": "src\\persistence\\usePersistentThread.js",
+          "sha256": "25fca7450558f169a1dd8daa29db1598a380d6abf2f558f6c5d7746a8c6f82e1"
+        },
+        {
+          "file": "src\\studio.css",
+          "sha256": "c8e63d116d74611881c44076194a4ac99d24adcec296099e432be6a0ad909c6a"
+        },
+        {
+          "file": "src\\theme.js",
+          "sha256": "7bb0049b2f06952c488498263a94ec72c6a23e9db42bc2f6576bf788dbf35215"
+        },
+        {
+          "file": "src\\utils\\batchUpdates.js",
+          "sha256": "d3c311bc2dd9672ede76117b604017a885b1103f721819da6b49aee183ea6192"
+        },
+        {
+          "file": "src\\utils\\customParser.js",
+          "sha256": "8515f0e2e89f4b4da504685f8b32c937a8a11732afb1393e3cef398d89d402d9"
+        },
+        {
+          "file": "src\\utils\\delimitedText.js",
+          "sha256": "1d72c0a32697e7da6ecb8435d6c2c740ef72e0364b32295747eb04d2ca6d4229"
+        },
+        {
+          "file": "src\\utils\\derivedRequests.js",
+          "sha256": "b6d1972f53761a707af183f2823c1f329d6bd5e903404c8fe5513e735d9db834"
+        },
+        {
+          "file": "src\\utils\\derivedResults.js",
+          "sha256": "bba1cc88f8ebd1dcd994a366f41a33dd77fb9589b3fbe136471a511d303c2d13"
+        },
+        {
+          "file": "src\\utils\\downloadLifecycle.js",
+          "sha256": "718a111d732d401c1b82e80fe404fb03f7346422d66c814245c9af8ee3571d93"
+        },
+        {
+          "file": "src\\utils\\graphIdentifiers.js",
+          "sha256": "747d63303009bd0b32302243a411f9f41adb5ccde518954c8b1e01dac568fc03"
+        },
+        {
+          "file": "src\\utils\\mappings.js",
+          "sha256": "27245e3971aa99456c0a9b506115b1438474342b35f874ee2b1ad60e00c7073c"
+        },
+        {
+          "file": "src\\utils\\numeric.js",
+          "sha256": "06eecef8fc0e0265ae3fc34f0fcbeb1fc3e205ddc605f6ff9300f52f87d69d01"
+        },
+        {
+          "file": "src\\utils\\parsers.js",
+          "sha256": "639e544558b49ea506e2d65bd986c3f82568a28b72d733db121ec3a671cefc57"
+        },
+        {
+          "file": "src\\visualization\\dynamicUpdatePreview.js",
+          "sha256": "42607dfc9befbbab14bd1e91ef685fbc409f76623088594a23fcff6c8361c40d"
+        },
+        {
+          "file": "src\\visualization\\hypergraphLayout.js",
+          "sha256": "85afdbc166ab1e224f28353745c17639b9407774084f31a71ce02e7742f428df"
+        },
+        {
+          "file": "src\\visualization\\previewGeometry.js",
+          "sha256": "ccaade98ce5f3a7da50f32e5d84b89d95d142df07c8b106cac70c76364270b7f"
+        },
+        {
+          "file": "src\\visualization\\previewRenderBudget.js",
+          "sha256": "dfefe657b570f16e270bed9bb3c0ffa1bbfcf254bb35e32b8e45d117813898f9"
+        },
+        {
+          "file": "src\\visualization\\previewRuntime.js",
+          "sha256": "9ec8788a793f6654cb3dbf9607a0c034cfecf1b8afe7c2806e0b4a2da6c86308"
+        },
+        {
+          "file": "src\\workers\\derivedWorker.js",
+          "sha256": "2e59380c5d217583b88ec91b30ef1ac5de4f6c7e35e59eb9db1cc7c14b94e3ba"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+lect
+- generic: "Force: exact repulsion · incidence-centroid topology"
+- generic: rings=hyperedges · dots=vertices
+- text: Click a node or
+- text: ring to inspect
+- generic: Hyperedges (2)
+- generic: h0
+- generic: t10
+- generic: 3v
+- generic: h2
+- generic: t21
+- generic: 4v
+- generic: "1"
+- generic: "2"
+- generic: "3"
+- generic: "4"
+- generic: "5"
+- tablist "Tools sections":
+  - tab "Batch Updates" [selected]
+  - tab "Algorithms"
+  - tab "Hypergraph Assistant"
+- tabpanel "Batch Updates":
+  - generic: Batch Updates
+  - generic: Add local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.
+  - button "Choose files for Batch Updates"
+  - button "Drop files here or choose files Local text datasets only · up to 50 files · 10 MiB each · 50 MiB total":
+    - strong: Drop files here or choose files
+    - generic: Local text datasets only · up to 50 files · 10 MiB each · 50 MiB total
+  - strong: Supported commands
+  - code: "ADD_HYPEREDGE h5: A, B, C"
+  - text: ·
+  - code: REMOVE_HYPEREDGE h2
+  - code: "ADD_VERTEX h1: D"
+  - text: ·
+  - code: "REMOVE_VERTEX h3: A"
+  - code: "UPDATE_WEIGHT h4: 2.5"
+  - text: ·
+  - code: "UPDATE_TIME h4: 2027"
+  - text: ·
+  - code: "SET_ATTR h1: priority=high"
+  - textbox "Batch update commands":
+    - /placeholder: "ADD_HYPEREDGE h5: A, B, C\nREMOVE_HYPEREDGE h1\nADD_VERTEX h0: D\nREMOVE_VERTEX h2: A\nUPDATE_WEIGHT h0: 2.5\nUPDATE_TIME h0: 2027\nSET_ATTR h0: priority=high"
+    - text: "UPDATE_WEIGHT h0: 2"
+  - paragraph:
+    - text: Stage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing
+    - code: "UPDATE h2: A, B"
+    - text: command. Committed graph stays unchanged until separate Apply confirmation.
+  - region "Dynamic Hypergraph pending update":
+    - heading "Dynamic Hypergraph Update" [level=3]
+    - paragraph: Author Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.
+    - paragraph: Workspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.
+    - term: Graph type
+    - definition: DynamicHypergraph
+    - term: Pending status
+    - definition: NONE
+    - term: Update
+    - definition: none
+    - term: Version
+    - definition: 3 (committed)
+    - term: Operations
+    - definition: "0"
+    - term: Motif impact
+    - definition: not validated
+    - term: Validation / analysis preflight
+    - definition: not staged · NO_VALIDATED_PENDING_UPDATE
+    - term: Analysis
+    - definition: STALE
+    - term: Current pending delta result
+    - definition: "no"
+    - button "Stage pending update"
+    - button "Inspect pending preview" [disabled]
+    - button "Edit commands" [disabled]
+    - button "Discard pending update" [disabled]
+    - button "Analyze motif delta" [disabled]
+    - button "Apply pending update" [disabled]
+    - paragraph: Preview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.
+    - status: Pending update discarded. Committed graph and version are unchanged.
+    - status: Analysis stale. Old results are not current. Request a fresh analysis when available.

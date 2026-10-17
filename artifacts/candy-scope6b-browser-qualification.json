@@ -1,0 +1,194 @@
+{
+  "baseline": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+  "capturedAt": "2026-10-15T18:18:17.918Z",
+  "status": "PARTIAL_NON_PASS_FOR_FULL_PERFORMANCE",
+  "servers": [
+    {
+      "command": "npm.cmd run dev -- --host 127.0.0.1 --port 5173 --strictPort",
+      "port": 5173,
+      "url": "http://127.0.0.1:5173/",
+      "httpStatus": 200,
+      "ready": true,
+      "mode": "source/browser-only"
+    },
+    {
+      "command": "VITE_CANDY_RUNTIME_ENABLED=true npm.cmd run dev -- --host 127.0.0.1 --port 5176 --strictPort",
+      "port": 5176,
+      "url": "http://127.0.0.1:5176/",
+      "httpStatus": 200,
+      "ready": true,
+      "mode": "Runtime-enabled"
+    },
+    {
+      "command": "Temporary task-owned launcher imports unchanged startCandyRuntime({port:8791,allowedOrigins:[http://127.0.0.1:5176]})",
+      "port": 8791,
+      "url": "http://127.0.0.1:8791/v1/health",
+      "httpStatus": 200,
+      "ready": true,
+      "mode": "fresh genuine Runtime"
+    }
+  ],
+  "browsers": [
+    "Chrome extension",
+    "Codex in-app Chromium"
+  ],
+  "fixtures": [
+    {
+      "family": "S2",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6b-fixtures-kH62ay\\S2.h2v.txt",
+      "E": 64,
+      "I": 512,
+      "bytes": 5695,
+      "sha256": "bb67d9a306237eb4135cc8167949fb23a81a60146b212d910703bf89867a8def"
+    },
+    {
+      "family": "B1",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6b-fixtures-kH62ay\\B1.h2v.txt",
+      "E": 10000,
+      "I": 40000,
+      "bytes": 489999,
+      "sha256": "5f8b9bbe7b0e11776a10bb34096b0ea4682da4e1ac071c25fd75d3f9f87e9afe"
+    },
+    {
+      "family": "B4",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6b-fixtures-kH62ay\\B4.h2v.txt",
+      "E": 100000,
+      "I": 2000000,
+      "bytes": 20688889,
+      "sha256": "abcdbf90a61c1ee9de12e9c662155b28ed66bf58b8a7aa9c293b9f4c2e153bf3"
+    },
+    {
+      "family": "B5",
+      "path": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6b-fixtures-kH62ay\\B5.h2v.txt",
+      "E": 1,
+      "I": 1000000,
+      "bytes": 10000002,
+      "sha256": "64f702ecd3b984c18f8e48078a5b8cc4cbf9f95fc4ed0f0f969d2d87bbd70113"
+    }
+  ],
+  "checks": [
+    {
+      "fixture": "small regression example",
+      "status": "PASS",
+      "observations": "Convert; V2H/Statistics; Line Graph/Hypergraph; vertex/hyperedge search; Dynamic type; Stage/Inspect; separate Apply; confirmed undo restored 3 edges/5 vertices/9 incidences as new version; Assistant current context truthful."
+    },
+    {
+      "fixture": "S2",
+      "status": "PASS_BOUNDED_SMOKE",
+      "observations": "Exact seeded fixture converted; H2V/H2H/V2V tab switches, Statistics and vertex search exercised."
+    },
+    {
+      "fixture": "B1",
+      "status": "PASS_BOUNDED_SMOKE",
+      "observations": "10k edges/40k vertices/40k incidences loaded; 50 edges/200 vertices displayed. Search e49xxxxx found. Copied H2V export exactly matched all 489999 characters."
+    },
+    {
+      "fixture": "B5",
+      "status": "PARTIAL",
+      "observations": "Final source imported 10000002-byte exact fixture; committed count 1 million vertices/incidences; bounded 1000 vertices/incidences prepared; exact full H2V export copied and matched. Several automation searches/waits timed out; no full interaction latency claim."
+    },
+    {
+      "fixture": "B4",
+      "status": "EXPECTED_EXISTING_ADMISSION_REJECTION",
+      "observations": "Exact 100k-edge/2M-incidence fixture, 20688889 bytes, attempted via actual file chooser. Existing 10485760-byte single-file limit rejected before parsing; screenshot captured. Graph remained unchanged."
+    },
+    {
+      "fixture": "fresh genuine Runtime small graph",
+      "status": "PASS",
+      "observations": "RTX5060 sm120 CUDA_STATIC absolute total 1; changed graph type; CUDA_INCREMENTAL signed delta -1 at base version2/proposed3; Analyze did not Apply; separate Apply committed3, pending NONE/result not current/analysis STALE; metadata edit revision3 motifImpact NONE, Analyze unavailable; Discard preserved version3."
+    }
+  ],
+  "staticJobId": "3b020631-9746-4213-b57b-40462d710444",
+  "incrementalUpdateId": "pending-2a05f58d-5d8a-4333-aa60-8a766eaddba3",
+  "gpuScaleQualification": false,
+  "ollamaStarted": false,
+  "timings": {
+    "methodology": "Automation roundtrips, includes locator/transport overhead; not browser performance.now paint distributions. Failed large-input locators excluded from success timings and explicitly recorded separately.",
+    "samples": [
+      {
+        "fixture": "small",
+        "operation": "mapping_V2H",
+        "ms": 1274
+      },
+      {
+        "fixture": "small",
+        "operation": "dynamic_apply_roundtrip",
+        "ms": 878
+      },
+      {
+        "fixture": "S2",
+        "operation": "convert_to_visible_preview",
+        "ms": 1306
+      },
+      {
+        "fixture": "S2",
+        "operation": "H2V",
+        "ms": 1015
+      },
+      {
+        "fixture": "S2",
+        "operation": "H2H projection",
+        "ms": 1007
+      },
+      {
+        "fixture": "S2",
+        "operation": "V2V projection",
+        "ms": 1013
+      },
+      {
+        "fixture": "S2",
+        "operation": "Statistics",
+        "ms": 1018
+      },
+      {
+        "fixture": "S2",
+        "operation": "vertex_search",
+        "ms": 90
+      },
+      {
+        "fixture": "B5",
+        "operation": "search_input",
+        "ms": 102
+      },
+      {
+        "fixture": "B4",
+        "operation": "convert_click_dispatch_only",
+        "ms": 623
+      }
+    ],
+    "failures": [
+      {
+        "operation": "Chrome file chooser",
+        "reason": "Extension local-file permission unavailable; in-app browser chooser succeeded."
+      },
+      {
+        "operation": "Chrome B5 fill/clipboard",
+        "reason": "Automation connection interrupted; recovered on in-app browser."
+      },
+      {
+        "operation": "B1 completion wait",
+        "reason": "Expected of 10,000 but actual label was of 10000. Successful load independently verified."
+      },
+      {
+        "operation": "B5 getByText/search",
+        "reason": "Several three-second automation selector timeouts occurred; screenshot/direct DOM verified conversion and full export. Responsive-interaction SLO is not claimed."
+      }
+    ]
+  },
+  "limitations": [
+    "Chrome extension local file access was unavailable; in-app browser chooser succeeded without changing permissions.",
+    "B4 file is outside current upload admission; not loaded or claimed responsive.",
+    "Automation roundtrips are not performance.now paint measurements.",
+    "No browser heap API/DevTools heap/long-task traces or three-session browser timing distribution captured.",
+    "Several screenshots precede final formatting/active-export memo fixes; final B5 and Runtime screenshots bind the final behavior."
+  ],
+  "cleanup": {
+    "ownedServersStopped": true,
+    "browserPairingCleared": true,
+    "temporaryPairingCredentialRemoved": false,
+    "temporaryPairingCredentialPath": "C:/Users/tharu/AppData/Local/Temp/candy-scope6b-runtime-pairing.txt",
+    "cleanupBlocker": "Automatic approval review rejected Remove-Item with blocked by policy; expired session credential file left in place. No workaround attempted.",
+    "syntheticFixturesRetainedInTaskTempDirectory": true,
+    "ephemeralBrowserTabs": "Will close with turn; no deliverable/handoff mark."
+  }
+}
