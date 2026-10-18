@@ -1,0 +1,289 @@
+{
+  "status": "PASS",
+  "before": "artifacts/candy-scope6c-benchmark-before.json",
+  "after": "artifacts/candy-scope6c-benchmark-after.json",
+  "comparison": [
+    {
+      "boundary": "cold-start",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 427.2443999999996,
+      "afterMedianMs": 158.76190000004135,
+      "absoluteDifferenceMs": -268.48249999995824,
+      "relativeDifferencePercent": -62.84049597840451,
+      "beforeSamples": 3,
+      "afterSamples": 3,
+      "beforeChildProcesses": [
+        8,
+        8,
+        8
+      ],
+      "afterChildProcesses": [
+        5,
+        5,
+        5
+      ],
+      "beforeQualificationReads": [
+        19,
+        19,
+        19
+      ],
+      "afterQualificationReads": [
+        19,
+        19,
+        19
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "first-discovery",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 355.07299999999987,
+      "afterMedianMs": 155.91790000000003,
+      "absoluteDifferenceMs": -199.15509999999983,
+      "relativeDifferencePercent": -56.08849447860015,
+      "beforeSamples": 1,
+      "afterSamples": 1,
+      "beforeChildProcesses": [
+        8
+      ],
+      "afterChildProcesses": [
+        5
+      ],
+      "beforeQualificationReads": [
+        19
+      ],
+      "afterQualificationReads": [
+        19
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "repeated-discovery",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 361.35180000000037,
+      "afterMedianMs": 157.3807999999999,
+      "absoluteDifferenceMs": -203.97100000000046,
+      "relativeDifferencePercent": -56.446653925620474,
+      "beforeSamples": 5,
+      "afterSamples": 5,
+      "beforeChildProcesses": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "afterChildProcesses": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "beforeQualificationReads": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ],
+      "afterQualificationReads": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "first-static",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 1029.0014,
+      "afterMedianMs": 705.4371000000001,
+      "absoluteDifferenceMs": -323.5643,
+      "relativeDifferencePercent": -31.444495605156607,
+      "beforeSamples": 1,
+      "afterSamples": 1,
+      "beforeChildProcesses": [
+        9
+      ],
+      "afterChildProcesses": [
+        9
+      ],
+      "beforeQualificationReads": [
+        18
+      ],
+      "afterQualificationReads": [
+        18
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "repeated-static",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 841.2267000000002,
+      "afterMedianMs": 662.6833000000001,
+      "absoluteDifferenceMs": -178.54340000000002,
+      "relativeDifferencePercent": -21.224171795783462,
+      "beforeSamples": 5,
+      "afterSamples": 5,
+      "beforeChildProcesses": [
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "afterChildProcesses": [
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "beforeQualificationReads": [
+        18,
+        18,
+        18,
+        18,
+        18
+      ],
+      "afterQualificationReads": [
+        18,
+        18,
+        18,
+        18,
+        18
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "first-incremental",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 806.0660000000007,
+      "afterMedianMs": 685.7011000000002,
+      "absoluteDifferenceMs": -120.36490000000049,
+      "relativeDifferencePercent": -14.932387670488566,
+      "beforeSamples": 1,
+      "afterSamples": 1,
+      "beforeChildProcesses": [
+        9
+      ],
+      "afterChildProcesses": [
+        9
+      ],
+      "beforeQualificationReads": [
+        18
+      ],
+      "afterQualificationReads": [
+        18
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "repeated-incremental",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 815.3802000000014,
+      "afterMedianMs": 713.0845000000008,
+      "absoluteDifferenceMs": -102.29570000000058,
+      "relativeDifferencePercent": -12.545766993115649,
+      "beforeSamples": 5,
+      "afterSamples": 5,
+      "beforeChildProcesses": [
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "afterChildProcesses": [
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "beforeQualificationReads": [
+        18,
+        18,
+        18,
+        18,
+        18
+      ],
+      "afterQualificationReads": [
+        18,
+        18,
+        18,
+        18,
+        18
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "shutdown",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 7.687600000001112,
+      "afterMedianMs": 220.66289999999572,
+      "absoluteDifferenceMs": 212.9752999999946,
+      "relativeDifferencePercent": 2770.374369113427,
+      "beforeSamples": 1,
+      "afterSamples": 1,
+      "beforeChildProcesses": [
+        0
+      ],
+      "afterChildProcesses": [
+        0
+      ],
+      "beforeQualificationReads": [
+        0
+      ],
+      "afterQualificationReads": [
+        0
+      ],
+      "correctness": "PASS"
+    },
+    {
+      "boundary": "restart-reconnect-discovery",
+      "fixture": "S2 disjoint hypergraph and bounded pending incidence",
+      "beforeMedianMs": 360.6715000000004,
+      "afterMedianMs": 147.71610000007786,
+      "absoluteDifferenceMs": -212.95539999992252,
+      "relativeDifferencePercent": -59.04414404795564,
+      "beforeSamples": 1,
+      "afterSamples": 1,
+      "beforeChildProcesses": [
+        8
+      ],
+      "afterChildProcesses": [
+        5
+      ],
+      "beforeQualificationReads": [
+        19
+      ],
+      "afterQualificationReads": [
+        19
+      ],
+      "correctness": "PASS"
+    }
+  ],
+  "firstStartup": {
+    "beforeMs": 2421.6297,
+    "afterMs": 707.8608
+  },
+  "methodology": "Single isolated Node observer/service process; monotonic HTTP/controller boundaries; wrappers count actual execFile/spawn and qualification-related readFile calls. RSS includes harness and service, not isolated heap. No browser timings. OS page cache not reset. Fresh native one-shot process per job.",
+  "limits": [
+    "Descriptive small samples, separate pre/post machine sessions; no randomized AB/BA or confidence interval.",
+    "Cold-start rows are fresh Runtime objects in one observer process, not repeated cold OS boots. OS/WSL page caches were not reset.",
+    "Before shutdown followed 12 ordinary jobs plus failure checks; after shutdown followed 1000 additional cycles and a much larger retained store. The +212.98 ms observed shutdown increase is reported, not a matched-workload causal estimate.",
+    "Only the final passing isolated after run is used. Earlier observer-invalid, concurrent-load unavailable, cleanup-failure and interrupted runs remain preserved and excluded."
+  ],
+  "qualificationParsing": {
+    "entries": 12,
+    "sourceBytes": 1163684,
+    "hits": 12402,
+    "parses": 12,
+    "maxEntries": 16,
+    "maxBytes": 4194304
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "candy.scope6c-retention/1",
+  "status": "PASS",
+  "configuredLimits": {
+    "requestBytes": 8388608,
+    "artifactBytes": 6291456,
+    "resultBytes": 8388608,
+    "stdoutBytes": 8388608,
+    "stderrBytes": 65536,
+    "maxVertices": 1000000,
+    "maxEdges": 10000000,
+    "maxUpdates": 1000000,
+    "maxJobs": 256,
+    "maxActiveJobs": 16,
+    "maxTerminalJobs": 32,
+    "terminalBytes": 16777216,
+    "maxArtifacts": 512,
+    "totalArtifactBytes": 67108864,
+    "maxHttpOperations": 4,
+    "queueWaitMs": 60000,
+    "jobDeadlineMs": 120000,
+    "maxCudaVertices": 10000
+  },
+  "soak": {
+    "cycles": 1000,
+    "staticCycles": 500,
+    "incrementalCycles": 500,
+    "checkpoints": 40,
+    "retainedJobs": {
+      "min": 32,
+      "max": 32
+    },
+    "retainedArtifacts": {
+      "min": 46,
+      "max": 511
+    },
+    "retainedArtifactBytes": {
+      "min": 85462,
+      "max": 310076
+    },
+    "rootEntries": {
+      "min": 49,
+      "max": 514
+    },
+    "rssBytes": {
+      "min": 144191488,
+      "max": 229883904
+    },
+    "lastCheckpoints": [
+      {
+        "label": "soak-950",
+        "retainedJobs": 32,
+        "retainedArtifacts": 509,
+        "retainedArtifactBytes": 309109,
+        "queueDepth": 0,
+        "files": 512,
+        "workspaces": 0,
+        "rssBytes": 227450880,
+        "processCounts": {
+          "supervisorHandles": 0,
+          "peakSupervisors": 1,
+          "observedGroups": 962,
+          "ownedLiveProcesses": 0,
+          "ownedZombieProcesses": 0
+        },
+        "counters": {
+          "childProcesses": 8693,
+          "qualificationReads": 17449,
+          "capabilityRequests": 6
+        }
+      },
+      {
+        "label": "soak-975",
+        "retainedJobs": 32,
+        "retainedArtifacts": 511,
+        "retainedArtifactBytes": 310073,
+        "queueDepth": 0,
+        "files": 514,
+        "workspaces": 0,
+        "rssBytes": 226066432,
+        "processCounts": {
+          "supervisorHandles": 0,
+          "peakSupervisors": 1,
+          "observedGroups": 987,
+          "ownedLiveProcesses": 0,
+          "ownedZombieProcesses": 0
+        },
+        "counters": {
+          "childProcesses": 8918,
+          "qualificationReads": 17899,
+          "capabilityRequests": 6
+        }
+      },
+      {
+        "label": "soak-1000",
+        "retainedJobs": 32,
+        "retainedArtifacts": 511,
+        "retainedArtifactBytes": 310076,
+        "queueDepth": 0,
+        "files": 514,
+        "workspaces": 0,
+        "rssBytes": 228868096,
+        "processCounts": {
+          "supervisorHandles": 0,
+          "peakSupervisors": 1,
+          "observedGroups": 1012,
+          "ownedLiveProcesses": 0,
+          "ownedZombieProcesses": 0
+        },
+        "counters": {
+          "childProcesses": 9143,
+          "qualificationReads": 18349,
+          "capabilityRequests": 6
+        }
+      }
+    ],
+    "maxSupervisorHandles": 1,
+    "drainedOwnedLiveProcesses": 0,
+    "drainedOwnedZombieProcesses": 0,
+    "drainedQueueDepth": 0,
+    "drainedWorkspaces": 0
+  },
+  "accounting": "files in raw checkpoints counts root directory entries, including marker, PID and empty workspaces directory. At the plateau 511 digest files + two regular marker/PID files + one empty directory = 514 root entries. RSS includes observer samples/counters and service; no isolated heap claim.",
+  "terminalPressure": {
+    "evidence": "tests/candy-scope6c-corrective-lifecycle.test.mjs",
+    "smallByteBudget": 2000,
+    "expiredOldJobAndResult404": true,
+    "activePinsProtected": true,
+    "subsequentJobCompleted": true
+  },
+  "smallJobBoundBefore": {
+    "configuredMaxJobs": 4,
+    "attempts": 8,
+    "accepted": 4,
+    "rejected": {
+      "classification": "ERR_ASSERTION",
+      "message": "{\"ok\":false,\"classification\":\"RESOURCE_LIMIT\",\"error\":\"Runtime job retention limit reached.\",\"workspaceMutated\":false,\"nativeJobCreated\":false}"
+    },
+    "notDefaultCapacityBenchmark": true
+  },
+  "smallJobBoundAfter": {
+    "configuredMaxJobs": 4,
+    "attempts": 8,
+    "accepted": 8,
+    "rejected": null,
+    "notDefaultCapacityBenchmark": true
+  },
+  "qualificationParsing": {
+    "entries": 12,
+    "sourceBytes": 1163684,
+    "hits": 12402,
+    "parses": 12,
+    "maxEntries": 16,
+    "maxBytes": 4194304
+  },
+  "cleanupEvidence": [
+    "artifacts/candy-scope6c-final-service-cleanup.json",
+    "artifacts/candy-scope6c-final-abrupt-cleanup.json",
+    "artifacts/candy-scope6c-intermediate-soak-cleanup.json"
+  ],
+  "notes": [
+    "Native process counts are scoped to observed owned process groups at drained checkpoints; peak concurrent supervisor handles was one.",
+    "Steady storage is bounded by deterministic item/byte policy, not just these observed sample sizes.",
+    "A failed/cancelled job is followed by successful genuine work in the final measurement.",
+    "Direct heap telemetry is not required to infer deterministic structural bounds and is not fabricated."
+  ]
+}

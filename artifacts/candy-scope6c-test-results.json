@@ -1,0 +1,49 @@
+{
+  "startedAt": "2026-10-18T18:23:02.012Z",
+  "gates": [
+    {
+      "name": "focused",
+      "command": "node tests/candy-scope6c-retention.test.mjs && node tests/candy-scope6c-recovery.test.mjs && node tests/candy-scope6c-qualification-reuse.test.mjs && node tests/candy-scope6c-browser-reconnect.test.mjs && node tests/candy-scope6c-corrective-lifecycle.test.mjs",
+      "exitCode": 0,
+      "elapsedMs": 20439.182500000003,
+      "log": "artifacts/candy-scope6c-final-focused-closure.log"
+    },
+    {
+      "name": "test",
+      "command": "npm.cmd test",
+      "exitCode": 0,
+      "elapsedMs": 160099.3774,
+      "log": "artifacts/candy-scope6c-final-test-closure.log"
+    },
+    {
+      "name": "lint",
+      "command": "npm.cmd run lint",
+      "exitCode": 0,
+      "elapsedMs": 16945.7929,
+      "log": "artifacts/candy-scope6c-final-lint-closure.log"
+    },
+    {
+      "name": "build",
+      "command": "npm.cmd run build",
+      "exitCode": 0,
+      "elapsedMs": 1448.6263000000035,
+      "log": "artifacts/candy-scope6c-final-build-closure.log"
+    },
+    {
+      "name": "build-github",
+      "command": "npm.cmd run build:github",
+      "exitCode": 0,
+      "elapsedMs": 748.5350999999791,
+      "log": "artifacts/candy-scope6c-final-build-github-closure.log"
+    },
+    {
+      "name": "audit",
+      "command": "npm.cmd audit --omit=dev",
+      "exitCode": 0,
+      "elapsedMs": 6003.205100000021,
+      "log": "artifacts/candy-scope6c-final-audit-closure.log"
+    }
+  ],
+  "status": "PASS",
+  "finishedAt": "2026-10-18T18:26:27.701Z"
+}

@@ -1,0 +1,614 @@
+{
+  "schemaVersion": "candy.scope6c-final-inventory/1",
+  "capturedAt": "2026-10-18T18:48:08.623Z",
+  "branch": "candy-integration-scope6c-runtime-reuse-recovery",
+  "head": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+  "baseline": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+  "anchors": {
+    "candy-integration-scope6b-browser-scalability-qualified": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+    "candy-v7_4-merged-baseline-qualified": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+    "v7.3.14": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+  },
+  "implementation": [
+    {
+      "path": "candy-runtime/src/artifacts/artifactStore.js",
+      "status": "modified tracked",
+      "sha256": "506a8a311f46aeab461cdab8329dbe2cba8f83201a53278755895d0dbdfb854b",
+      "bytes": 8628
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeProcessRunner.js",
+      "status": "modified tracked",
+      "sha256": "1042582bc0903af715c4096972a872e0c8ebdf08c037f19e4a5dd929999d82ff",
+      "bytes": 8365
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeSupervisor.sh",
+      "status": "modified tracked",
+      "sha256": "430f5115103ebd9966be74b9bd6c85b7593a98afebb2ac333f5a0a2fba94fa4e",
+      "bytes": 651
+    },
+    {
+      "path": "candy-runtime/src/capabilities/capabilityRegistry.js",
+      "status": "modified tracked",
+      "sha256": "5b2749063728ecb06ef1a15b2050d89303461147dd948aaff986d1cddae1c024",
+      "bytes": 5502
+    },
+    {
+      "path": "candy-runtime/src/capabilities/cudaQualification.js",
+      "status": "modified tracked",
+      "sha256": "45dac0ae839722c39619336e0e1c4b04f9faabbf60f109f4d488e21293ac7559",
+      "bytes": 6637
+    },
+    {
+      "path": "candy-runtime/src/capabilities/motifQualification.js",
+      "status": "modified tracked",
+      "sha256": "fd0fb6cbb4f1a0cc0329c0f82ebe74e9af5c8c4c10446ee3c4fd1da07cfc6faf",
+      "bytes": 7127
+    },
+    {
+      "path": "candy-runtime/src/cli.js",
+      "status": "modified tracked",
+      "sha256": "bdeebff058204313ed6103e71ac29d8078f121a3d60855e4fca0d9b16dff8571",
+      "bytes": 1405
+    },
+    {
+      "path": "candy-runtime/src/config.js",
+      "status": "modified tracked",
+      "sha256": "5ac1eb71557dc9b493383b6b3ecca63a787aa765d506aeb89236236784463d14",
+      "bytes": 2174
+    },
+    {
+      "path": "candy-runtime/src/http/httpUtils.js",
+      "status": "modified tracked",
+      "sha256": "8ea8d8cb7e6f9f2b0b1f4b9e81bb1fd8d57746f6006a581bcb0f94cb0f66521e",
+      "bytes": 2344
+    },
+    {
+      "path": "candy-runtime/src/jobs/jobManager.js",
+      "status": "modified tracked",
+      "sha256": "302998f99fa3159adbe75feb8ac5239510ea54d4f945b3c19f02bb979f088d14",
+      "bytes": 25245
+    },
+    {
+      "path": "candy-runtime/src/server.js",
+      "status": "modified tracked",
+      "sha256": "5f67dbcdc5ac5a9f8181d40fa39a29871dc38774900857f4b47b5868b921f116",
+      "bytes": 8765
+    },
+    {
+      "path": "src/candy/client.js",
+      "status": "modified tracked",
+      "sha256": "58d9406f3b7ae00e610df770b0dcad303f7b1fd8403a3c41b56267252d5ceddb",
+      "bytes": 6088
+    },
+    {
+      "path": "src/candy/motifAnalysisController.js",
+      "status": "modified tracked",
+      "sha256": "bbef5a95c5e262325048c4efa2c30876d64400819362661603c115a73ba245b7",
+      "bytes": 11900
+    },
+    {
+      "path": "src/candy/motifWorkflow.js",
+      "status": "modified tracked",
+      "sha256": "18b1f95c2d4bec5b3a18f033f642ef0807a3c7712ab5e68fa753a2e7d953f7a7",
+      "bytes": 15479
+    },
+    {
+      "path": "src/candy/useCandyRuntime.js",
+      "status": "modified tracked",
+      "sha256": "7191d212524a262d6f2b711f183ef38e2bfb72232abad15f9aaf92ad0fcc99bc",
+      "bytes": 12142
+    },
+    {
+      "path": "tests/candy-scope5-runtime-integration.test.mjs",
+      "status": "modified tracked",
+      "sha256": "c0ae2f4849fbeffd353e01c27a5842bde49d42dc7e35c71fdddaef0592d4488f",
+      "bytes": 12792
+    },
+    {
+      "path": "tests/candy-scope6a-hook.test.mjs",
+      "status": "modified tracked",
+      "sha256": "66832f0eee8fe25f6e384c990d328814cdee4dccc47f41c8bc09841a77708e03",
+      "bytes": 5514
+    },
+    {
+      "path": "tests/fixtures/candy-scope5-runtime.mjs",
+      "status": "modified tracked",
+      "sha256": "79cd867193556fb12aa7fe58aa84d47266cdb926195d9bf7398adb6e52f0eaea",
+      "bytes": 6443
+    },
+    {
+      "path": "candy-runtime/src/artifacts/ownedRoot.js",
+      "status": "new untracked",
+      "sha256": "08ef021fba63cc9a1e2675f8305855b7843109ddf3e8bdb6eb6907137780c4ca",
+      "bytes": 7134
+    },
+    {
+      "path": "candy-runtime/src/capabilities/qualificationJson.js",
+      "status": "new untracked",
+      "sha256": "84d6f87acf696447dc6ca511c1cb0c66cdf42640e2f243fc97a6cd05b1c7f8a4",
+      "bytes": 1459
+    },
+    {
+      "path": "docs/CANDY_SCOPE6C_RUNTIME_CONTRACT.md",
+      "status": "new untracked",
+      "sha256": "b27d249f2ff6d3d427a1e94c53449e8f56da0526d8aba8b82af83836800f9196",
+      "bytes": 4227
+    },
+    {
+      "path": "scripts/capture-scope6c-prechange.mjs",
+      "status": "new untracked",
+      "sha256": "a0c101dceaf82e50a9f3fc700faf1071c8aee754e8ca1aa36cf5073614bc65f0",
+      "bytes": 12778
+    },
+    {
+      "path": "scripts/measure-scope6c-runtime.mjs",
+      "status": "new untracked",
+      "sha256": "abd24ab333ac55a2d6126e0aca32208e4f1da6ce6e7c987b7b3523449a5f2e5a",
+      "bytes": 13247
+    },
+    {
+      "path": "scripts/qualify-scope6c-gates.mjs",
+      "status": "new untracked",
+      "sha256": "11d7b659ec3e0d77b5b541feadeff6a633af4d4cb0654e5bc0bfa446984a9af1",
+      "bytes": 1508
+    },
+    {
+      "path": "scripts/qualify-scope6c-parent-death.mjs",
+      "status": "new untracked",
+      "sha256": "8ffbfc0f15b8faf3a11b0e1a4ad4bbed8611d8ae1bb9e73d1f2af7ac53ea4ad8",
+      "bytes": 3608
+    },
+    {
+      "path": "scripts/qualify-scope6c-restart.mjs",
+      "status": "new untracked",
+      "sha256": "2b95e0bf216decda55b0d5453236bf7b65ecce8b5eba0eed386b59d68d1f8045",
+      "bytes": 3102
+    },
+    {
+      "path": "scripts/serve-scope6c-runtime.mjs",
+      "status": "new untracked",
+      "sha256": "5dab314b7fc54be8f72e9210dab7239a00c8d6f457ffe657b981a5fb6a25a166",
+      "bytes": 1783
+    },
+    {
+      "path": "src/candy/artifactPresence.js",
+      "status": "new untracked",
+      "sha256": "ad1d7c96516217619f9979e24d99383c691b1a27c9970694170047f6ceb19de3",
+      "bytes": 2052
+    },
+    {
+      "path": "tests/candy-scope6c-browser-reconnect.test.mjs",
+      "status": "new untracked",
+      "sha256": "dd22fe78d78082f099228623ea1d1648d0a14d1af8281d08e2e52dcf29518fcf",
+      "bytes": 6237
+    },
+    {
+      "path": "tests/candy-scope6c-corrective-lifecycle.test.mjs",
+      "status": "new untracked",
+      "sha256": "58999a4c4637d0b47fdd44dcfd1c9c964d27d145794286c3d2e51ecb3cc6a364",
+      "bytes": 4580
+    },
+    {
+      "path": "tests/candy-scope6c-qualification-reuse.test.mjs",
+      "status": "new untracked",
+      "sha256": "66ad26429e36cf077358318aedd85448b9d4c91d1fcb8e8699682832b03a3730",
+      "bytes": 1903
+    },
+    {
+      "path": "tests/candy-scope6c-recovery.test.mjs",
+      "status": "new untracked",
+      "sha256": "d9a0fa38beedad882dd1bd030755f5971f362d55344f477b6e8136f95a917c3b",
+      "bytes": 5355
+    },
+    {
+      "path": "tests/candy-scope6c-retention.test.mjs",
+      "status": "new untracked",
+      "sha256": "5ba8e30d095d8c471d6ecaaa369e43149c12670cd1381620ea96ef8ac1329c89",
+      "bytes": 4394
+    },
+    {
+      "path": "tests/fixtures/candy-scope6c-runtime.mjs",
+      "status": "new untracked",
+      "sha256": "22ca20df5d24d448e9a024c6eea6850ad742b10b26a87d76811e54611d76cc9f",
+      "bytes": 3104
+    }
+  ],
+  "trackedDiffStat": "candy-runtime/src/artifacts/artifactStore.js       | 114 +++++++++++++----\n candy-runtime/src/backends/nativeProcessRunner.js  |   3 +-\n candy-runtime/src/backends/nativeSupervisor.sh     |  13 +-\n .../src/capabilities/capabilityRegistry.js         |  12 +-\n .../src/capabilities/cudaQualification.js          |   3 +-\n .../src/capabilities/motifQualification.js         |   9 +-\n candy-runtime/src/cli.js                           |  21 ++--\n candy-runtime/src/config.js                        |   9 ++\n candy-runtime/src/http/httpUtils.js                |   1 +\n candy-runtime/src/jobs/jobManager.js               | 136 ++++++++++++++++-----\n candy-runtime/src/server.js                        |  39 ++++--\n src/candy/client.js                                |   9 +-\n src/candy/motifAnalysisController.js               |   8 +-\n src/candy/motifWorkflow.js                         |   7 +-\n src/candy/useCandyRuntime.js                       |  35 +++++-\n tests/candy-scope5-runtime-integration.test.mjs    |   1 +\n tests/candy-scope6a-hook.test.mjs                  |   2 +\n tests/fixtures/candy-scope5-runtime.mjs            |   5 +-\n 18 files changed, 337 insertions(+), 90 deletions(-)",
+  "trackedNumstat": "92\t22\tcandy-runtime/src/artifacts/artifactStore.js\n2\t1\tcandy-runtime/src/backends/nativeProcessRunner.js\n12\t1\tcandy-runtime/src/backends/nativeSupervisor.sh\n9\t3\tcandy-runtime/src/capabilities/capabilityRegistry.js\n2\t1\tcandy-runtime/src/capabilities/cudaQualification.js\n5\t4\tcandy-runtime/src/capabilities/motifQualification.js\n14\t7\tcandy-runtime/src/cli.js\n9\t0\tcandy-runtime/src/config.js\n1\t0\tcandy-runtime/src/http/httpUtils.js\n105\t31\tcandy-runtime/src/jobs/jobManager.js\n30\t9\tcandy-runtime/src/server.js\n7\t2\tsrc/candy/client.js\n6\t2\tsrc/candy/motifAnalysisController.js\n4\t3\tsrc/candy/motifWorkflow.js\n33\t2\tsrc/candy/useCandyRuntime.js\n1\t0\ttests/candy-scope5-runtime-integration.test.mjs\n2\t0\ttests/candy-scope6a-hook.test.mjs\n3\t2\ttests/fixtures/candy-scope5-runtime.mjs",
+  "protectedHistoricalFilesChecked": 420,
+  "preRestartScope6cFilesChecked": 23,
+  "testedSourceFilesChecked": 629,
+  "protectedBoundariesUnchanged": true,
+  "stagedFiles": [],
+  "evidence": [
+    {
+      "path": "artifacts/candy-scope6c-abrupt-recovery-final.json",
+      "sha256": "a337f0bed339d5e4f4235cb278aa618152d378dd4bd4e3a2539d789225c39db8",
+      "bytes": 1595,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-abrupt-runtime-fourth.json",
+      "sha256": "428ea739cf52529dbe4e50dbb8be0ef431f8c4faafd9caf36ec77ae863f4be6e",
+      "bytes": 818,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-abrupt-runtime-third.json",
+      "sha256": "b9a117ab9daa00b596fb4ad33ee4feb037cc00f526356f7470af87dd819299f3",
+      "bytes": 749,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-benchmark-after-initial.json",
+      "sha256": "5ec85f8090c4f401082044a4848f24b10bf15b4d12cc66fc53c4ae8b55c8d85b",
+      "bytes": 11406,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-benchmark-after.json",
+      "sha256": "0ed20f3a844f81ff63998aa6796ff35c1b35f16e4c220e9bff006d8895ab33dd",
+      "bytes": 196480,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-benchmark-before.json",
+      "sha256": "9a3f36d19eed619635c088f3d6367c15917497fedaaa0cc6a816e89bc73629d0",
+      "bytes": 11375,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-browser-clean-loss.png",
+      "sha256": "dc680b6cc65b5dfb5a70f250c27cef13dc6fff554f66b0085bb0a808ce71ea33",
+      "bytes": 57420,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-browser-disconnected-post-restart.png",
+      "sha256": "f97631f1820270e9d218e517538e09c3e76ac131550ea78d5a03ef80e659c333",
+      "bytes": 43482,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-browser-qualification.json",
+      "sha256": "d98238ad06b2da7fe9cdd4dc8d9e7b3c76778f513b43f981de441fba3d3e1f6f",
+      "bytes": 21137,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-browser-reconnected-result.png",
+      "sha256": "ce8be1c5008dae3df2d6748ad283130ea888a8e858b511ace81e55f8601a0034",
+      "bytes": 83364,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-browser-runtime-first.json",
+      "sha256": "2e0424381184ae4af41408ab8ec94093937bcbe8a87dd82873ee6ece91e9a7e1",
+      "bytes": 814,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-browser-runtime-second.json",
+      "sha256": "6389c62dc9fc5c30df47caa96c35e6d0a140f0a093a98bec0b576cdb23e18b24",
+      "bytes": 815,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-browser-stale.png",
+      "sha256": "c29bcb8a131e5011151bf7cb4402cb125fde9f3b52d24d46dcb1077dd3d03517",
+      "bytes": 78105,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-build.log",
+      "sha256": "532da547fc138eca32350e0fe1ee6d5123fddf51ff3faf3a949e75bfbb5bb30b",
+      "bytes": 2140,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-abrupt-cleanup.json",
+      "sha256": "a7ea5872d640c723aac16e5d423a83cc3e88809b708bc4b546e26b9f1072cbf7",
+      "bytes": 375,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-abrupt-observer.mjs",
+      "sha256": "7f63db418d62c8d6ceb035a01a12769fa27e09f65aa2555ff57975cdece39d5e",
+      "bytes": 3338,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-audit-closure.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "bytes": 24,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-build-closure.log",
+      "sha256": "f1bb87df81af319086536deb2dfe174ecd66ff6c2bf44c4e4c1471157ece42b5",
+      "bytes": 2104,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-build-github-closure.log",
+      "sha256": "98984980a096337aa8770bf0ac9210b7eb95415daa502ce9312adba215269e0a",
+      "bytes": 2141,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-focused-closure.log",
+      "sha256": "2c53ac54553f8967cfe774c748f75e85566c48ebaf64041722ebe16a4e382c05",
+      "bytes": 746,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-gate-binding.json",
+      "sha256": "67bc8e0b15ff9608efa30bbfdc0c36d942d1a9f385d8e86fcca905d697b7148f",
+      "bytes": 524,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-lint-closure.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c",
+      "bytes": 55,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-preservation-check.json",
+      "sha256": "5da176841320d4483a673d5abe3df279da328dabb7c8acb11e6cd9301d564a4d",
+      "bytes": 431,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-preview-error.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-preview-qualified-error.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-preview-qualified.log",
+      "sha256": "07edad05b658cfd85a87554787c731e75b3cc53ff62207a582f234f2877cdb01",
+      "bytes": 230,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-preview.log",
+      "sha256": "a8f97bdac09e89351e2a394b5b8593a1ea0a519ffcc191cb8e54abe8a501939a",
+      "bytes": 179,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-service-cleanup.json",
+      "sha256": "e311cbb30efd3e565b68388160d7709380c6ec16628b5ffb7289e560409338a4",
+      "bytes": 1115,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-soak-closure.log",
+      "sha256": "10aad547b4dc1135652b92513c841cc421f1419b80c57c19f1f7e0b087fb5389",
+      "bytes": 3245,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-test-closure.log",
+      "sha256": "a2ebf6d3766f8e9513f16d18d579c2a46e455808ab0bbdcaa612c4d06692136e",
+      "bytes": 28729,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-final-tested-source.json",
+      "sha256": "f697fa48138c9bac83150ca4bea94b2e070b8ba4b208f8bf331c28539e8105e3",
+      "bytes": 98340,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-implementation-report.md",
+      "sha256": "95ea7643d71e8866ba759cbf3370aba7ec1380326177fa3bf9c2e8e84a7a7f8f",
+      "bytes": 12126,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-intermediate-soak-cleanup.json",
+      "sha256": "95b269b1fbb4bf1087af9ba49468f3faea1359c69c58ac0f39c81a4daa4f8d32",
+      "bytes": 307,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-interrupted-measurement-cleanup.json",
+      "sha256": "e4df2a15c97858eb9a3b0592d5c020059d1d261a10774cd9a611452695eb0e34",
+      "bytes": 315,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-lint-post-restart.log",
+      "sha256": "778e34cba07294f43d3366d62f1a77062edd92272593d9c6d022be6b08fc9cec",
+      "bytes": 59,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-npm-ci.log",
+      "sha256": "9a8ef4feae7b3da4f6340ee3f5c3059a44e469b39820a6fe9fbfb1b076032095",
+      "bytes": 151,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-observer-invalid-attempt.json",
+      "sha256": "7f505b3b04f3e350746e4f5dbf4bf429b4083aea3ad9cfcf47bf272249e5ae79",
+      "bytes": 3766,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-parent-death.json",
+      "sha256": "010521abb79b2c30e2b4bca718d0fa0af0eda8672d374231fe71201a332f9cd3",
+      "bytes": 378,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-performance-comparison.json",
+      "sha256": "87603a110e33db754c8377e024f3dd379908694a49bc081c8569898ce4093f21",
+      "bytes": 7505,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-post-abrupt-valid-job.json",
+      "sha256": "b7ba49eb28b7aa3335e2568f58b56966241e828516408b8701f1fc63ee2c8e11",
+      "bytes": 3740,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-post-restart-recovery-checklist.json",
+      "sha256": "fb6e323cb99fb2af84f978895d57869482aee8a7ec17bfeab11049af577ef1d7",
+      "bytes": 7030,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-prechange-inventory.json",
+      "sha256": "cc7e15e9f579f84e9394c1adf638c7723435a9eb8e4cb1cd0aa45a357deb6497",
+      "bytes": 217013,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-prechange-map.md",
+      "sha256": "79073554f19e38f063465e73495ecb5790b7ebeed0df9d8913af392bc4f25e70",
+      "bytes": 15273,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-qualification.json",
+      "sha256": "108f9ce568aa90db61f1d7d6ce3e7cf6ec53ea71854ea4f038dafc4302ca938d",
+      "bytes": 3092,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-restart-recovery-post-restart.json",
+      "sha256": "514231b90090b5d53da60a1ef1641cdb8d49bcec506c87c2966bc1b0dc003258",
+      "bytes": 8852,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-restart-recovery.json",
+      "sha256": "05795d2be925efe5d9a5fc7f96cf07708853b2a257b1a79b5077eb2d0a252349",
+      "bytes": 1595,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-retention.json",
+      "sha256": "ef693a2186f61fb6592d635411652b312fba8e99c39c521543465ec54b210763",
+      "bytes": 4964,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-runtime-qualification.json",
+      "sha256": "0c9478a7882322c5c231329d5d5fde04f23c360150e3e2a0b3ccd1e398afafef",
+      "bytes": 13565,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-runtime-restart-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-runtime-restart-stdout.log",
+      "sha256": "6ced62fec4e6b1192cd6236c16325d7913ebf9db90694a191fc890dc03c3635c",
+      "bytes": 326,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-runtime-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-runtime-stdout.log",
+      "sha256": "6ced62fec4e6b1192cd6236c16325d7913ebf9db90694a191fc890dc03c3635c",
+      "bytes": 326,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-security-review.md",
+      "sha256": "e04270b6ab2d7d04b1646df9a5b443a04c699c32cb14a871a515f43b8a61090f",
+      "bytes": 5368,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-soak-cleanup-failure.log",
+      "sha256": "391110b1d7e87631118525ea157d19f91ec6d71d4d73ed04d454245edf84a21d",
+      "bytes": 1132,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-soak-post-restart.log",
+      "sha256": "b410949d7dc6c33a6d188a1f729c43f99d40bb52ad6954ae7dbff523806f1162",
+      "bytes": 1088,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-soak-unavailable-attempt.json",
+      "sha256": "ca73de0ac3ba2e2573ae9aaef00409285bf414e445995ca1500acb42e3b95f25",
+      "bytes": 20235,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-soak-unavailable-attempt.log",
+      "sha256": "8ca78fe9fd167bcbdd1baf331dbd1d46d93212f988a32b646983f18f5669a2cd",
+      "bytes": 1421,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-studio-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-studio-stdout.log",
+      "sha256": "a8f97bdac09e89351e2a394b5b8593a1ea0a519ffcc191cb8e54abe8a501939a",
+      "bytes": 179,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-test-results.json",
+      "sha256": "11bf35d86ec4fb273b0f34dd30b031675e5d89664b4deccce146cc12cc1102f4",
+      "bytes": 1556,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-tests-final.log",
+      "sha256": "24da8dc42cd72bdaf87bc1f8bd360381fa54daf9eeb13c5a9e57575249d0ad7f",
+      "bytes": 23160,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-tests-initial.log",
+      "sha256": "397c74be1e7134de0372be650551f6c76db5510b814a85fa433efe92eb2afd2d",
+      "bytes": 2597,
+      "ignoredOrUntracked": true
+    },
+    {
+      "path": "artifacts/candy-scope6c-tests-second.log",
+      "sha256": "c8aa5da8d70c20097356ebf7dc838f3cd160bfa0fcdebf389d3b258eb0257a85",
+      "bytes": 29037,
+      "ignoredOrUntracked": true
+    }
+  ],
+  "selfHashExcluded": true,
+  "hardStop": {
+    "committed": false,
+    "pushed": false,
+    "tagged": false,
+    "merged": false,
+    "mainModified": false,
+    "scope6dStarted": false
+  }
+}

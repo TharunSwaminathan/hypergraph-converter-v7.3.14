@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "candy.scope6c-restart-recovery/1",
+  "oldPid": 21828,
+  "oldSession": "46b1f053-70d0-4dc9-8e24-6835edefaed3",
+  "oldActiveJob": {
+    "schemaVersion": "candy.job-status/1",
+    "jobId": "6ab14357-6f00-4649-bb2b-e6b7ca63fe57",
+    "requestHash": "sha256:c1f6e98d7c0122d5a1e221ee2cc7049f2273e848fbdfeda00267f9f93e8fe03b",
+    "status": "running",
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC",
+    "graphRef": {
+      "graphId": "fixture-S2-731406",
+      "graphVersion": 1
+    },
+    "createdAt": "2026-10-17T18:19:42.173Z",
+    "updatedAt": "2026-10-17T18:19:42.178Z",
+    "resultRef": null,
+    "error": null,
+    "lifecycle": [
+      "queued",
+      "preparing",
+      "running"
+    ]
+  },
+  "qualification": "Actual production Runtime and authentic qualified job; running status observed before abrupt termination. Native process/kernel start is not asserted at the kill instant.",
+  "oldCredentialHash": "7a27707b65e11e79698f8c55c799480f9aa0eaa1998ac5736ea7b3f877eccba3",
+  "cases": [
+    {
+      "case": "request-during-absence",
+      "status": "PASS"
+    },
+    {
+      "case": "fresh-authenticated-discovery",
+      "status": "PASS"
+    },
+    {
+      "case": "stale-credential",
+      "httpStatus": 401,
+      "status": "PASS"
+    },
+    {
+      "case": "old-active-job-and-result",
+      "httpStatus": 404,
+      "status": "PASS"
+    }
+  ],
+  "newSession": "19066731-0950-4539-936d-fcd4c01cf937",
+  "newCredentialHash": "6e12dc9a5c27baa795b532514345782cc99ca1b25f03db39fa9044307366c724",
+  "status": "PASS"
+}

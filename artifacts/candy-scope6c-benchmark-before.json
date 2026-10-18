@@ -1,0 +1,433 @@
+{
+  "schemaVersion": "candy.scope6c-runtime-measurement/1",
+  "capturedAt": "2026-10-17T18:02:51.193Z",
+  "pid": 9508,
+  "node": "v24.20.0",
+  "os": "10.0.26300",
+  "cpu": "Intel(R) Core(TM) Ultra 5 225F",
+  "ramBytes": 33847996416,
+  "methodology": "Single isolated Node observer/service process; monotonic HTTP/controller boundaries; wrappers count actual execFile/spawn and qualification-related readFile calls. RSS includes harness and service, not isolated heap. No browser timings. OS page cache not reset. Fresh native one-shot process per job.",
+  "samples": [
+    {
+      "boundary": "cold-start",
+      "ms": 2421.6297,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "first-discovery",
+      "ms": 355.07299999999987,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 353.44280000000026,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 372.25599999999986,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 359.3273000000004,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 373.8633,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 361.35180000000037,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "first-static",
+      "ms": 1029.0014,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 841.2267000000002,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 764.9579000000003,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 733.5811999999996,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 855.3946000000005,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 882.2045999999991,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "first-incremental",
+      "ms": 806.0660000000007,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 815.3802000000014,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 730.0748000000003,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 811.6638000000003,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 1134.795,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 835.7389000000003,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "valid-job-after-failures",
+      "ms": 714.6646999999994,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "shutdown",
+      "ms": 7.687600000001112,
+      "status": "PASS",
+      "childProcesses": 0,
+      "qualificationReads": 0
+    },
+    {
+      "boundary": "cold-start",
+      "ms": 427.2443999999996,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "restart-reconnect-discovery",
+      "ms": 360.6715000000004,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "fresh-job-after-restart",
+      "ms": 700.1885999999977,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "cold-start",
+      "ms": 339.16349999999875,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "retention-probe-discovery",
+      "ms": 414.1467999999986,
+      "status": "PASS",
+      "childProcesses": 8,
+      "qualificationReads": 19
+    }
+  ],
+  "checkpoints": [
+    {
+      "label": "initial",
+      "retainedJobs": 0,
+      "retainedArtifacts": 0,
+      "retainedArtifactBytes": 0,
+      "queueDepth": 0,
+      "files": 0,
+      "rssBytes": 81195008,
+      "counters": {
+        "childProcesses": 56,
+        "qualificationReads": 133,
+        "capabilityRequests": 6
+      }
+    },
+    {
+      "label": "after-12-real-jobs",
+      "retainedJobs": 12,
+      "retainedArtifacts": 14,
+      "retainedArtifactBytes": 38042,
+      "queueDepth": 0,
+      "files": 14,
+      "rssBytes": 118947840,
+      "counters": {
+        "childProcesses": 164,
+        "qualificationReads": 349,
+        "capabilityRequests": 6
+      }
+    },
+    {
+      "label": "cancelled",
+      "retainedJobs": 13,
+      "retainedArtifacts": 14,
+      "retainedArtifactBytes": 38042,
+      "queueDepth": 0,
+      "files": 14,
+      "rssBytes": 111386624,
+      "counters": {
+        "childProcesses": 168,
+        "qualificationReads": 358,
+        "capabilityRequests": 6
+      }
+    },
+    {
+      "label": "failed-timeout",
+      "retainedJobs": 14,
+      "retainedArtifacts": 14,
+      "retainedArtifactBytes": 38042,
+      "queueDepth": 0,
+      "files": 14,
+      "rssBytes": 115294208,
+      "counters": {
+        "childProcesses": 177,
+        "qualificationReads": 376,
+        "capabilityRequests": 6
+      }
+    },
+    {
+      "label": "restarted",
+      "retainedJobs": 1,
+      "retainedArtifacts": 2,
+      "retainedArtifactBytes": 15095,
+      "queueDepth": 0,
+      "files": 2,
+      "rssBytes": 116129792,
+      "counters": {
+        "childProcesses": 211,
+        "qualificationReads": 450,
+        "capabilityRequests": 7
+      }
+    },
+    {
+      "label": "small-bound-retention-probe",
+      "retainedJobs": 4,
+      "retainedArtifacts": 5,
+      "retainedArtifactBytes": 20093,
+      "queueDepth": 0,
+      "files": 5,
+      "rssBytes": 116678656,
+      "counters": {
+        "childProcesses": 267,
+        "qualificationReads": 569,
+        "capabilityRequests": 8
+      }
+    }
+  ],
+  "failures": [],
+  "capabilities": [
+    {
+      "capability": "RUN_SSSP",
+      "algorithm": "SSSP",
+      "algorithmVersion": "scope1-openmp-sssp/1",
+      "backend": "LOCAL_OPENMP",
+      "graphTypes": [
+        "OrdinaryGraph",
+        "DynamicOrdinaryGraph",
+        "ProjectedOrdinaryGraph"
+      ],
+      "modes": [
+        "STATIC",
+        "INCREMENTAL",
+        "COMPARE"
+      ],
+      "weightModel": {
+        "kind": "nonnegative_integer",
+        "objectives": 1,
+        "nativeMax": 2147483647
+      },
+      "adapterVersion": "candy.csr-adapter/1",
+      "nativeBuildFingerprint": "sha256:f5561eede6a06a8110e62b76ba1ffd7b6f53a091ada4ca23b8325c4800a85e7f",
+      "executionEnvironment": "WSL2_LINUX",
+      "limits": {
+        "requestBytes": 8388608,
+        "artifactBytes": 6291456,
+        "resultBytes": 8388608,
+        "stdoutBytes": 8388608,
+        "stderrBytes": 65536,
+        "maxVertices": 1000000,
+        "maxEdges": 10000000,
+        "maxUpdates": 1000000,
+        "maxJobs": 256,
+        "maxCudaVertices": 10000
+      }
+    },
+    {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "graphTypes": [
+        "Hypergraph",
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "STATIC"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    },
+    {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_INCREMENTAL",
+      "graphTypes": [
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "INCREMENTAL"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    }
+  ],
+  "motifReadiness": [
+    {
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "status": "AVAILABLE",
+      "reason": null
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "status": "AVAILABLE",
+      "reason": null
+    }
+  ],
+  "lastJobId": "c61865a1-82d6-4192-a83b-3dda74e2afd4",
+  "restart": {
+    "freshSession": true,
+    "oldJobRejected": true,
+    "absenceRejected": true,
+    "wrongTokenStatus": 401,
+    "oldPort": 51353,
+    "newPort": 52920
+  },
+  "retentionProbe": {
+    "configuredMaxJobs": 4,
+    "attempts": 8,
+    "accepted": 4,
+    "rejected": {
+      "classification": "ERR_ASSERTION",
+      "message": "{\"ok\":false,\"classification\":\"RESOURCE_LIMIT\",\"error\":\"Runtime job retention limit reached.\",\"workspaceMutated\":false,\"nativeJobCreated\":false}"
+    },
+    "notDefaultCapacityBenchmark": true
+  },
+  "status": "PASS",
+  "finishedAt": "2026-10-17T18:03:13.612Z",
+  "counters": {
+    "childProcesses": 267,
+    "qualificationReads": 569,
+    "capabilityRequests": 8
+  },
+  "observedSourceDigest": "a333d67502f122d6b74983348b233411ce91700bfdb1cedfb3b85c2745c21305"
+}

@@ -1,0 +1,775 @@
+{
+  "schemaVersion": "candy.scope6c-runtime-measurement/1",
+  "capturedAt": "2026-10-17T18:16:43.266Z",
+  "pid": 8440,
+  "node": "v24.20.0",
+  "os": "10.0.26300",
+  "cpu": "Intel(R) Core(TM) Ultra 5 225F",
+  "ramBytes": 33847996416,
+  "methodology": "Single isolated Node observer/service process; monotonic HTTP/controller boundaries; wrappers count actual execFile/spawn and qualification-related readFile calls. RSS includes harness and service, not isolated heap. No browser timings. OS page cache not reset. Fresh native one-shot process per job.",
+  "samples": [
+    {
+      "boundary": "cold-start",
+      "ms": 630.1659,
+      "status": "PASS",
+      "childProcesses": 5,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "first-discovery",
+      "ms": 169.5317,
+      "status": "PASS",
+      "childProcesses": 5,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 167.6753000000001,
+      "status": "PASS",
+      "childProcesses": 5,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 186.32870000000003,
+      "status": "PASS",
+      "childProcesses": 5,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 165.10670000000005,
+      "status": "PASS",
+      "childProcesses": 5,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 178.0510999999999,
+      "status": "PASS",
+      "childProcesses": 5,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 173.6431,
+      "status": "PASS",
+      "childProcesses": 5,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "first-static",
+      "ms": 750.7319000000002,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 756.2321000000002,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 697.0342,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 733.3834999999999,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 713.116,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-static",
+      "ms": 744.3339999999998,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "first-incremental",
+      "ms": 820.2173000000003,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 869.2357999999995,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 796.2282999999998,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 775.7230999999992,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 777.9897999999994,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "repeated-incremental",
+      "ms": 784.0233000000007,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 735.5462000000007,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 749.1332999999995,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 713.0648000000001,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 754.0257999999994,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 782.3284999999996,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 779.5969999999998,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 729.9213,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 731.8829999999998,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 732.3087000000014,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 789.5216,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 735.3839000000007,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 776.8971999999994,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 710.645800000002,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 788.4745999999977,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 762.6556999999993,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 777.5385999999999,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 733.1643000000004,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 728.6542999999983,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 719.5795999999973,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 713.9945999999982,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 723.8128999999972,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 713.122199999998,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 701.665100000002,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 754.620600000002,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 717.9874999999993,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 728.0749000000033,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 731.3719999999994,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 748.0816000000013,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 801.4123,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 740.9667000000009,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 704.6724000000031,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 729.0034000000014,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 734.8704999999973,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 714.7791999999972,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 715.8249999999971,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 712.7754999999961,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 720.1930000000066,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 726.8136999999988,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 707.1747000000032,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 734.1425000000017,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 696.6511000000028,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 737.9798999999985,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 685.8694000000032,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 715.1300000000047,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 733.6835999999967,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 748.8030999999974,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 782.266300000003,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 766.7537000000011,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 690.8818000000028,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 744.755799999999,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 715.1139000000039,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 732.6633000000002,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 714.4052000000011,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 716.1342999999979,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 720.6771000000008,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 747.251400000001,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 733.9726999999984,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 745.9746000000014,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-static",
+      "ms": 718.703300000001,
+      "status": "PASS",
+      "childProcesses": 9,
+      "qualificationReads": 18
+    },
+    {
+      "boundary": "soak-incremental",
+      "ms": 232.07269999999698,
+      "status": "FAIL",
+      "classification": "ERR_ASSERTION",
+      "message": "{\"ok\":false,\"classification\":\"BACKEND_UNAVAILABLE\",\"error\":\"The exact requested qualified motif backend/device is unavailable.\",\"workspaceMutated\":false,\"nativeJobCreated\":false}"
+    }
+  ],
+  "checkpoints": [
+    {
+      "label": "initial",
+      "retainedJobs": 0,
+      "retainedArtifacts": 0,
+      "retainedArtifactBytes": 0,
+      "queueDepth": 0,
+      "files": 3,
+      "rssBytes": 88473600,
+      "counters": {
+        "childProcesses": 35,
+        "qualificationReads": 133,
+        "capabilityRequests": 6
+      }
+    },
+    {
+      "label": "after-12-real-jobs",
+      "retainedJobs": 12,
+      "retainedArtifacts": 14,
+      "retainedArtifactBytes": 38036,
+      "queueDepth": 0,
+      "files": 17,
+      "rssBytes": 115552256,
+      "counters": {
+        "childProcesses": 143,
+        "qualificationReads": 349,
+        "capabilityRequests": 6
+      }
+    },
+    {
+      "label": "soak-25",
+      "retainedJobs": 32,
+      "retainedArtifacts": 46,
+      "retainedArtifactBytes": 85460,
+      "queueDepth": 0,
+      "files": 49,
+      "rssBytes": 140611584,
+      "counters": {
+        "childProcesses": 368,
+        "qualificationReads": 799,
+        "capabilityRequests": 6
+      }
+    },
+    {
+      "label": "soak-50",
+      "retainedJobs": 32,
+      "retainedArtifacts": 59,
+      "retainedArtifactBytes": 90403,
+      "queueDepth": 0,
+      "files": 62,
+      "rssBytes": 148500480,
+      "counters": {
+        "childProcesses": 593,
+        "qualificationReads": 1249,
+        "capabilityRequests": 6
+      }
+    }
+  ],
+  "failures": [
+    {
+      "message": "{\"ok\":false,\"classification\":\"BACKEND_UNAVAILABLE\",\"error\":\"The exact requested qualified motif backend/device is unavailable.\",\"workspaceMutated\":false,\"nativeJobCreated\":false}",
+      "stack": "AssertionError [ERR_ASSERTION]: {\"ok\":false,\"classification\":\"BACKEND_UNAVAILABLE\",\"error\":\"The exact requested qualified motif backend/device is unavailable.\",\"workspaceMutated\":false,\"nativeJobCreated\":false}\n    at submit (file:///C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/scripts/measure-scope6c-runtime.mjs:41:369)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/scripts/measure-scope6c-runtime.mjs:57:14\n    at async timed (file:///C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/scripts/measure-scope6c-runtime.mjs:31:98)\n    at async file:///C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/scripts/measure-scope6c-runtime.mjs:56:4"
+    }
+  ],
+  "capabilities": [
+    {
+      "capability": "RUN_SSSP",
+      "algorithm": "SSSP",
+      "algorithmVersion": "scope1-openmp-sssp/1",
+      "backend": "LOCAL_OPENMP",
+      "graphTypes": [
+        "OrdinaryGraph",
+        "DynamicOrdinaryGraph",
+        "ProjectedOrdinaryGraph"
+      ],
+      "modes": [
+        "STATIC",
+        "INCREMENTAL",
+        "COMPARE"
+      ],
+      "weightModel": {
+        "kind": "nonnegative_integer",
+        "objectives": 1,
+        "nativeMax": 2147483647
+      },
+      "adapterVersion": "candy.csr-adapter/1",
+      "nativeBuildFingerprint": "sha256:f5561eede6a06a8110e62b76ba1ffd7b6f53a091ada4ca23b8325c4800a85e7f",
+      "executionEnvironment": "WSL2_LINUX",
+      "limits": {
+        "requestBytes": 8388608,
+        "artifactBytes": 6291456,
+        "resultBytes": 8388608,
+        "stdoutBytes": 8388608,
+        "stderrBytes": 65536,
+        "maxVertices": 1000000,
+        "maxEdges": 10000000,
+        "maxUpdates": 1000000,
+        "maxJobs": 256,
+        "maxActiveJobs": 16,
+        "maxTerminalJobs": 32,
+        "terminalBytes": 16777216,
+        "maxArtifacts": 512,
+        "totalArtifactBytes": 67108864,
+        "maxHttpOperations": 4,
+        "queueWaitMs": 60000,
+        "jobDeadlineMs": 120000,
+        "maxCudaVertices": 10000
+      }
+    },
+    {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "graphTypes": [
+        "Hypergraph",
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "STATIC"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    },
+    {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_INCREMENTAL",
+      "graphTypes": [
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "INCREMENTAL"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    }
+  ],
+  "motifReadiness": [
+    {
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "status": "AVAILABLE",
+      "reason": null
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "status": "AVAILABLE",
+      "reason": null
+    }
+  ],
+  "lastJobId": "0ad257eb-9a0d-44f6-9ace-e414eae71533",
+  "soak": {
+    "requestedCycles": 1000,
+    "completed": 59
+  },
+  "status": "FAIL",
+  "finishedAt": "2026-10-17T18:17:37.917Z",
+  "counters": {
+    "childProcesses": 678,
+    "qualificationReads": 1420,
+    "capabilityRequests": 6
+  },
+  "observedSourceDigest": "a81fd2696a64a798ff0b84534c5f59e0244a2de25fbd132be7ed32289a37772c"
+}

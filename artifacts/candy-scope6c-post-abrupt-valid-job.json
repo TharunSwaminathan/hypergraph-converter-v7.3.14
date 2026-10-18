@@ -1,0 +1,124 @@
+{
+  "status": "PASS",
+  "job": {
+    "schemaVersion": "candy.job-status/1",
+    "jobId": "3046152b-8180-48e5-85b4-4429a2525938",
+    "requestHash": "sha256:f924e57496ce3f203ee62c09aee2d0778ad9fc388a75c3658a3de831c7c989f1",
+    "status": "completed",
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC",
+    "graphRef": {
+      "graphId": "fixture-S2-731406",
+      "graphVersion": 1
+    },
+    "createdAt": "2026-10-18T18:46:09.445Z",
+    "updatedAt": "2026-10-18T18:46:09.884Z",
+    "resultRef": "sha256:1a5b9769c25932d114d15b6bb6198b471dcbb9b6a44772162e986c68bf7775ef",
+    "error": null,
+    "lifecycle": [
+      "queued",
+      "preparing",
+      "running",
+      "validating",
+      "completed"
+    ]
+  },
+  "result": {
+    "schemaVersion": "candy.runtime-motif-result/1",
+    "runtimeSessionId": "bc05b8cb-32df-481c-9753-958489aaf5f6",
+    "jobId": "3046152b-8180-48e5-85b4-4429a2525938",
+    "requestId": "4d2ee39e-d15c-49c2-83e0-c9753f2ee8fa",
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC",
+    "inputGraphRef": {
+      "graphId": "fixture-S2-731406",
+      "graphVersion": 1
+    },
+    "graphArtifactId": "sha256:a9ebb3e8dec403abb1b982c6e53c8a2d174b671f351751bad21f0b6f3c95c7b9",
+    "updateRef": null,
+    "requestDigest": "f379e7474ccbb8b57ffdc5fa241db56a157255d1ae9121faf9a92bc567393793",
+    "execution": {
+      "status": "completed",
+      "exitCode": 0,
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+    },
+    "validation": {
+      "status": "passed",
+      "method": "qualified_transport_identity_and_semantic_validation"
+    },
+    "resultType": "HypergraphMotifCounts",
+    "interpretation": "absolute_counts",
+    "native": {
+      "ok": true,
+      "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "inputGraphRef": {
+        "graphId": "fixture-S2-731406",
+        "graphVersion": 1
+      },
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "totalConnectedTriples": 0,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.643552
+      }
+    },
+    "warnings": [],
+    "resultArtifactRef": {
+      "id": "sha256:1a5b9769c25932d114d15b6bb6198b471dcbb9b6a44772162e986c68bf7775ef",
+      "mediaType": "application/vnd.candy.result+json",
+      "byteLength": 1617
+    }
+  },
+  "observerNotes": [
+    "Adapted original preserved restart observer to an additive output; first temporary copy had a missing relative fixture import and exited before any action. Corrected observer completed all current-byte abrupt restart checks.",
+    "Running job status is observed before termination; native kernel start at that kill instant is not asserted. Parent-death supervisor proof is separate."
+  ],
+  "stalePairingFileRemovedNormally": true
+}

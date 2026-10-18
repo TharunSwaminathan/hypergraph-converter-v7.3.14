@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "candy.scope6c-runtime-measurement/1",
+  "capturedAt": "2026-10-17T18:02:22.415Z",
+  "pid": 39552,
+  "node": "v24.20.0",
+  "os": "10.0.26300",
+  "cpu": "Intel(R) Core(TM) Ultra 5 225F",
+  "ramBytes": 33847996416,
+  "methodology": "Single isolated Node observer/service process; monotonic HTTP/controller boundaries; wrappers count actual execFile/spawn and qualification-related readFile calls. RSS includes harness and service, not isolated heap. No browser timings. OS page cache not reset. Fresh native one-shot process per job.",
+  "samples": [
+    {
+      "boundary": "cold-start",
+      "ms": 156.44779999999997,
+      "status": "PASS",
+      "childProcesses": 2,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "first-discovery",
+      "ms": 126.9882,
+      "status": "PASS",
+      "childProcesses": 2,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 129.4907,
+      "status": "PASS",
+      "childProcesses": 2,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 131.20090000000005,
+      "status": "PASS",
+      "childProcesses": 2,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 115.91409999999996,
+      "status": "PASS",
+      "childProcesses": 2,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 118.64120000000003,
+      "status": "PASS",
+      "childProcesses": 2,
+      "qualificationReads": 19
+    },
+    {
+      "boundary": "repeated-discovery",
+      "ms": 125.72880000000009,
+      "status": "PASS",
+      "childProcesses": 2,
+      "qualificationReads": 19
+    }
+  ],
+  "checkpoints": [],
+  "failures": [
+    {
+      "message": "Trusted STATIC unavailable",
+      "stack": "AssertionError [ERR_ASSERTION]: Trusted STATIC unavailable\n    at file:///C:/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/scripts/measure-scope6c-runtime.mjs:41:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+    }
+  ],
+  "capabilities": [
+    {
+      "capability": "RUN_SSSP",
+      "algorithm": "SSSP",
+      "algorithmVersion": "scope1-openmp-sssp/1",
+      "backend": "LOCAL_OPENMP",
+      "graphTypes": [
+        "OrdinaryGraph",
+        "DynamicOrdinaryGraph",
+        "ProjectedOrdinaryGraph"
+      ],
+      "modes": [
+        "STATIC",
+        "INCREMENTAL",
+        "COMPARE"
+      ],
+      "weightModel": {
+        "kind": "nonnegative_integer",
+        "objectives": 1,
+        "nativeMax": 2147483647
+      },
+      "adapterVersion": "candy.csr-adapter/1",
+      "nativeBuildFingerprint": "sha256:f5561eede6a06a8110e62b76ba1ffd7b6f53a091ada4ca23b8325c4800a85e7f",
+      "executionEnvironment": "WSL2_LINUX",
+      "limits": {
+        "requestBytes": 8388608,
+        "artifactBytes": 6291456,
+        "resultBytes": 8388608,
+        "stdoutBytes": 8388608,
+        "stderrBytes": 65536,
+        "maxVertices": 1000000,
+        "maxEdges": 10000000,
+        "maxUpdates": 1000000,
+        "maxJobs": 256,
+        "maxCudaVertices": 10000
+      }
+    }
+  ],
+  "motifReadiness": [
+    {
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "status": "UNAVAILABLE",
+      "reason": "motif_qualification_unavailable_or_stale"
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "status": "UNAVAILABLE",
+      "reason": "motif_qualification_unavailable_or_stale"
+    }
+  ],
+  "status": "FAIL",
+  "finishedAt": "2026-10-17T18:02:23.337Z",
+  "counters": {
+    "childProcesses": 14,
+    "qualificationReads": 133,
+    "capabilityRequests": 6
+  },
+  "observedSourceDigest": "a333d67502f122d6b74983348b233411ce91700bfdb1cedfb3b85c2745c21305"
+}

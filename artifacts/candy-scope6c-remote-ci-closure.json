@@ -1,0 +1,1182 @@
+{
+  "schemaVersion": "candy.scope6c-remote-ci-closure/1",
+  "verdict": "READY FOR SCOPE 6C QUALIFICATION TAG AND MAIN PROMOTION",
+  "capturedAt": "2026-10-18T20:30:25.842Z",
+  "repository": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+  "branch": "candy-integration-scope6c-runtime-reuse-recovery",
+  "candidateSha": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+  "qualifiedScope6bBaseline": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+  "identity": {
+    "head": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+    "originTracking": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+    "liveRemoteHead": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+    "trackedChanges": [],
+    "stagedChanges": [],
+    "untrackedQualificationEvidenceExpected": true,
+    "committedTree": "234fcc3a8bd66032649ac03dd67bd6483b72d2b7",
+    "coreAutocrlf": "true",
+    "qualificationBinding": {
+      "implementationFiles": 34,
+      "sourceTests": 629,
+      "implementationExact": 17,
+      "implementationGitNormalized": 17,
+      "sourceTestExact": 408,
+      "sourceTestGitNormalized": 221
+    },
+    "bindingEvidence": "artifacts/candy-scope6c-committed-identity-binding.json"
+  },
+  "remoteCi": {
+    "status": "PASS",
+    "exactSha": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+    "observedAt": "2026-10-18T20:27:14.950Z",
+    "requiredChecks": [
+      {
+        "requiredLabel": "CPU regression and browser source release / push",
+        "workflowName": "CPU regression and browser source release",
+        "workflowPath": ".github/workflows/cpu-release-gates.yml",
+        "event": "push",
+        "runId": 39162477035,
+        "runAttempt": 1,
+        "jobId": 117778484851,
+        "checkRunId": 117778484851,
+        "actualJobName": "cpu",
+        "headSha": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+        "status": "PASS",
+        "conclusion": "success",
+        "startedAt": "2026-10-18T20:15:31Z",
+        "completedAt": "2026-10-18T20:18:28Z",
+        "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162477035",
+        "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162477035/job/117778484851",
+        "steps": [
+          {
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+            "number": 3,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Observed tool versions",
+            "number": 4,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "number": 5,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "number": 6,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "number": 7,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "number": 8,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build:github",
+            "number": 9,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm audit --omit=dev",
+            "number": 10,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Deterministic fixture, packing and transport bounds",
+            "number": 11,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Clean and populated archive integrity; extracted CUDA fail closed",
+            "number": 12,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Extracted browser source build",
+            "number": 13,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "GPU live qualification status",
+            "number": 14,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run git diff --exit-code -- package.json package-lock.json",
+            "number": 15,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run git diff --check",
+            "number": 16,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+            "number": 31,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 32,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "number": 33,
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "requiredLabel": "CPU regression and browser source release / pull_request",
+        "workflowName": "CPU regression and browser source release",
+        "workflowPath": ".github/workflows/cpu-release-gates.yml",
+        "event": "pull_request",
+        "runId": 39162530735,
+        "runAttempt": 1,
+        "jobId": 117778648070,
+        "checkRunId": 117778648070,
+        "actualJobName": "cpu",
+        "headSha": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+        "status": "PASS",
+        "conclusion": "success",
+        "startedAt": "2026-10-18T20:16:15Z",
+        "completedAt": "2026-10-18T20:19:40Z",
+        "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530735",
+        "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530735/job/117778648070",
+        "steps": [
+          {
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 2,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+            "number": 3,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Observed tool versions",
+            "number": 4,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "number": 5,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "number": 6,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "number": 7,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "number": 8,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build:github",
+            "number": 9,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm audit --omit=dev",
+            "number": 10,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Deterministic fixture, packing and transport bounds",
+            "number": 11,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Clean and populated archive integrity; extracted CUDA fail closed",
+            "number": 12,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Extracted browser source build",
+            "number": 13,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "GPU live qualification status",
+            "number": 14,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run git diff --exit-code -- package.json package-lock.json",
+            "number": 15,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run git diff --check",
+            "number": 16,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+            "number": 31,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "number": 32,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "number": 33,
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "requiredLabel": "CI / Build, lint and test (Ubuntu)",
+        "workflowName": "CI",
+        "workflowPath": ".github/workflows/ci.yml",
+        "event": "pull_request",
+        "runId": 39162530741,
+        "runAttempt": 1,
+        "jobId": 117778648037,
+        "checkRunId": 117778648037,
+        "actualJobName": "Build, lint and test (Ubuntu)",
+        "headSha": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+        "status": "PASS",
+        "conclusion": "success",
+        "startedAt": "2026-10-18T20:16:14Z",
+        "completedAt": "2026-10-18T20:19:39Z",
+        "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530741",
+        "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530741/job/117778648037",
+        "steps": [
+          {
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "number": 5,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "number": 6,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "number": 7,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "number": 13,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "number": 14,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "number": 15,
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "requiredLabel": "CI / Build and test (macOS)",
+        "workflowName": "CI",
+        "workflowPath": ".github/workflows/ci.yml",
+        "event": "pull_request",
+        "runId": 39162530741,
+        "runAttempt": 1,
+        "jobId": 117778648348,
+        "checkRunId": 117778648348,
+        "actualJobName": "Build and test (macos-latest)",
+        "headSha": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+        "status": "PASS",
+        "conclusion": "success",
+        "startedAt": "2026-10-18T20:16:17Z",
+        "completedAt": "2026-10-18T20:18:16Z",
+        "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530741",
+        "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530741/job/117778648348",
+        "steps": [
+          {
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "number": 5,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "number": 6,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "number": 11,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "number": 12,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "number": 13,
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "requiredLabel": "CI / Build and test (Windows)",
+        "workflowName": "CI",
+        "workflowPath": ".github/workflows/ci.yml",
+        "event": "pull_request",
+        "runId": 39162530741,
+        "runAttempt": 1,
+        "jobId": 117778648323,
+        "checkRunId": 117778648323,
+        "actualJobName": "Build and test (windows-latest)",
+        "headSha": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+        "status": "PASS",
+        "conclusion": "success",
+        "startedAt": "2026-10-18T20:16:20Z",
+        "completedAt": "2026-10-18T20:22:21Z",
+        "runUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530741",
+        "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39162530741/job/117778648323",
+        "steps": [
+          {
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "number": 4,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "number": 5,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "number": 6,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "number": 11,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "number": 12,
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "number": 13,
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ],
+    "runCount": 3,
+    "checkCount": 5,
+    "legacyStatus": {
+      "state": "pending",
+      "contexts": 0,
+      "interpretation": "Legacy status API has no contexts (0); its aggregate pending value is not a pending required check. All five authoritative GitHub Actions check runs and their jobs/runs are completed/success on the exact candidate."
+    },
+    "rawEvidence": "artifacts/candy-scope6c-remote-ci-observation.json",
+    "accessNote": "Connected GitHub tools returned 404. Read-only GitHub REST calls succeeded using existing local repository authentication. No credential was printed or saved."
+  },
+  "committedDelta": {
+    "files": 34,
+    "insertions": 1118,
+    "deletions": 90,
+    "paths": [
+      {
+        "status": "M",
+        "path": "candy-runtime/src/artifacts/artifactStore.js",
+        "insertions": 92,
+        "deletions": 22
+      },
+      {
+        "status": "A",
+        "path": "candy-runtime/src/artifacts/ownedRoot.js",
+        "insertions": 125,
+        "deletions": 0
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/backends/nativeProcessRunner.js",
+        "insertions": 2,
+        "deletions": 1
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/backends/nativeSupervisor.sh",
+        "insertions": 12,
+        "deletions": 1
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/capabilities/capabilityRegistry.js",
+        "insertions": 9,
+        "deletions": 3
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/capabilities/cudaQualification.js",
+        "insertions": 2,
+        "deletions": 1
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/capabilities/motifQualification.js",
+        "insertions": 5,
+        "deletions": 4
+      },
+      {
+        "status": "A",
+        "path": "candy-runtime/src/capabilities/qualificationJson.js",
+        "insertions": 24,
+        "deletions": 0
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/cli.js",
+        "insertions": 14,
+        "deletions": 7
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/config.js",
+        "insertions": 9,
+        "deletions": 0
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/http/httpUtils.js",
+        "insertions": 1,
+        "deletions": 0
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/jobs/jobManager.js",
+        "insertions": 105,
+        "deletions": 31
+      },
+      {
+        "status": "M",
+        "path": "candy-runtime/src/server.js",
+        "insertions": 30,
+        "deletions": 9
+      },
+      {
+        "status": "A",
+        "path": "docs/CANDY_SCOPE6C_RUNTIME_CONTRACT.md",
+        "insertions": 64,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "scripts/capture-scope6c-prechange.mjs",
+        "insertions": 43,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "scripts/measure-scope6c-runtime.mjs",
+        "insertions": 101,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "scripts/qualify-scope6c-gates.mjs",
+        "insertions": 13,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "scripts/qualify-scope6c-parent-death.mjs",
+        "insertions": 41,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "scripts/qualify-scope6c-restart.mjs",
+        "insertions": 34,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "scripts/serve-scope6c-runtime.mjs",
+        "insertions": 18,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "src/candy/artifactPresence.js",
+        "insertions": 29,
+        "deletions": 0
+      },
+      {
+        "status": "M",
+        "path": "src/candy/client.js",
+        "insertions": 7,
+        "deletions": 2
+      },
+      {
+        "status": "M",
+        "path": "src/candy/motifAnalysisController.js",
+        "insertions": 6,
+        "deletions": 2
+      },
+      {
+        "status": "M",
+        "path": "src/candy/motifWorkflow.js",
+        "insertions": 4,
+        "deletions": 3
+      },
+      {
+        "status": "M",
+        "path": "src/candy/useCandyRuntime.js",
+        "insertions": 33,
+        "deletions": 2
+      },
+      {
+        "status": "M",
+        "path": "tests/candy-scope5-runtime-integration.test.mjs",
+        "insertions": 1,
+        "deletions": 0
+      },
+      {
+        "status": "M",
+        "path": "tests/candy-scope6a-hook.test.mjs",
+        "insertions": 2,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "tests/candy-scope6c-browser-reconnect.test.mjs",
+        "insertions": 61,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "tests/candy-scope6c-corrective-lifecycle.test.mjs",
+        "insertions": 68,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "tests/candy-scope6c-qualification-reuse.test.mjs",
+        "insertions": 19,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "tests/candy-scope6c-recovery.test.mjs",
+        "insertions": 54,
+        "deletions": 0
+      },
+      {
+        "status": "A",
+        "path": "tests/candy-scope6c-retention.test.mjs",
+        "insertions": 53,
+        "deletions": 0
+      },
+      {
+        "status": "M",
+        "path": "tests/fixtures/candy-scope5-runtime.mjs",
+        "insertions": 3,
+        "deletions": 2
+      },
+      {
+        "status": "A",
+        "path": "tests/fixtures/candy-scope6c-runtime.mjs",
+        "insertions": 34,
+        "deletions": 0
+      }
+    ]
+  },
+  "protectedBoundaries": {
+    "nativeDelta": [],
+    "manifestDelta": [],
+    "localAnchors": {
+      "candy-integration-scope6b-browser-scalability-qualified": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+      "candy-v7_4-merged-baseline-qualified": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "v7.3.14": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+    },
+    "liveRemoteRefs": {
+      "refs/heads/candy-integration-scope6c-runtime-reuse-recovery": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+      "refs/tags/candy-integration-scope6b-browser-scalability-qualified^{}": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+      "refs/tags/candy-v7_4-merged-baseline-qualified^{}": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "refs/tags/v7.3.14^{}": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+    },
+    "protectedHistoricalFilesMatched": 420,
+    "priorQualificationEvidenceMatched": 64
+  },
+  "existingQualification": {
+    "verdict": "PASS WITH EXPLICIT DEFERRED ITEMS",
+    "testFiles": {
+      "passed": 284,
+      "total": 284,
+      "suiteSeconds": 158.6
+    },
+    "focusedTestFiles": 5,
+    "lint": "PASS",
+    "build": "PASS",
+    "buildGithub": "PASS",
+    "productionVulnerabilities": 0,
+    "genuineCudaCycles": 1000,
+    "retainedJobsPlateau": 32,
+    "retainedArtifactsPlateau": 511,
+    "cleanRestart": "PASS",
+    "abruptRestart": "PASS",
+    "freshAuthentication": "PASS",
+    "browserReconnect": "PASS",
+    "staleJobResultSessionRejection": "PASS",
+    "evidenceUnchanged": true,
+    "fullQualificationRerun": false,
+    "reason": "All qualified implementation bytes match the commit exactly or after Git line-ending normalization."
+  },
+  "authorityContracts": [
+    {
+      "contract": "Caches reuse setup, not authority; current source/evidence/binary/tag/environment remain verified",
+      "source": [
+        "candy-runtime/src/capabilities/qualificationJson.js",
+        "candy-runtime/src/capabilities/motifQualification.js",
+        "candy-runtime/src/capabilities/capabilityRegistry.js"
+      ],
+      "evidence": [
+        "tests/candy-scope6c-qualification-reuse.test.mjs"
+      ]
+    },
+    {
+      "contract": "Exact browser upload reuse requires current authenticated metadata and Runtime session binding",
+      "source": [
+        "src/candy/artifactPresence.js",
+        "src/candy/motifWorkflow.js"
+      ],
+      "evidence": [
+        "tests/candy-scope6c-browser-reconnect.test.mjs"
+      ]
+    },
+    {
+      "contract": "New random session/job IDs; old IDs cannot be rebound or restored after restart",
+      "source": [
+        "candy-runtime/src/jobs/jobManager.js",
+        "candy-runtime/src/auth/sessionAuth.js",
+        "candy-runtime/src/server.js"
+      ],
+      "evidence": [
+        "artifacts/candy-scope6c-restart-recovery-post-restart.json",
+        "artifacts/candy-scope6c-abrupt-recovery-final.json"
+      ]
+    },
+    {
+      "contract": "Browser loss revokes readiness, capabilities, confirmations and current results; fresh pairing/discovery is explicit",
+      "source": [
+        "src/candy/useCandyRuntime.js",
+        "src/candy/client.js",
+        "src/candy/motifAnalysisController.js"
+      ],
+      "evidence": [
+        "artifacts/candy-scope6c-browser-qualification.json"
+      ]
+    },
+    {
+      "contract": "Analyze is separate from Apply; CUDA_STATIC and CUDA_INCREMENTAL remain distinct with no CPU/STATIC fallback or implicit projection",
+      "source": [
+        "src/candy/motifWorkflow.js",
+        "src/candy/motifAnalysisController.js",
+        "candy-runtime/src/backends/motifJobAdapter.js"
+      ],
+      "evidence": [
+        "artifacts/candy-scope6c-runtime-qualification.json",
+        "artifacts/candy-scope6c-browser-qualification.json"
+      ]
+    }
+  ],
+  "retention": {
+    "terminalJobs": 32,
+    "terminalSerializedBytes": 16777216,
+    "activeQueuedJobs": 16,
+    "activeJobsNeverEvicted": true,
+    "artifactItems": 512,
+    "artifactBytes": 67108864,
+    "itemBytes": 6291456,
+    "terminalEviction": "Unpublish lookup before unpin/remove; storage pressure may expire oldest terminal owners.",
+    "orphanCleanup": "Marked exclusively leased root reconciles recognized digest files/workspaces; no persisted job/session authority is adopted; unknown entries/links fail closed.",
+    "failedAndCancelledCleanup": "Output artifacts and workspaces removed before accepted terminal publication; cleanup failure remains truthful and blocks admission.",
+    "restartReconciliation": "Clean and abrupt final-code evidence passed; subsequent genuine work passed.",
+    "ownedProcesses": "Zero owned live/zombie processes at drained soak checkpoints; final project-native process check zero.",
+    "observedRssBytes": {
+      "min": 144191488,
+      "max": 229883904
+    },
+    "memoryLimit": "RSS includes service plus measurement harness; deterministic serialized/source-byte bounds are not direct heap measurements.",
+    "evidence": "artifacts/candy-scope6c-retention.json"
+  },
+  "shutdownObservation": {
+    "beforeMs": 7.687600000001112,
+    "afterMs": 220.66289999999572,
+    "differenceMs": 212.9752999999946,
+    "classification": "Different workloads; not a matched performance regression.",
+    "context": "Before shutdown followed the short initial scenario. After included 1000 additional jobs, substantially more retained artifacts (511), and selective owned-file cleanup.",
+    "evidence": "artifacts/candy-scope6c-performance-comparison.json"
+  },
+  "securityReliability": {
+    "noUnresolvedCriticalHigh": true,
+    "basis": "Preserved final review/corrective follow-up and passing qualification bind to identical committed code. No new security scan is claimed.",
+    "review": "artifacts/candy-scope6c-security-review.md",
+    "canonicalScanPreCorrection": true,
+    "correctiveLifecycleFindingsClosed": true,
+    "reviewTopics": [
+      "authentication bypass",
+      "stale qualification/authentication/result authority",
+      "cross-job/cross-session leakage",
+      "job ID rebinding",
+      "artifact traversal/unsafe deletion",
+      "orphan native processes/zombie jobs",
+      "unbounded retention",
+      "stale incremental results",
+      "secret/token logging"
+    ]
+  },
+  "deferred": [
+    {
+      "id": "persistent-native-worker-reuse",
+      "reason": "Qualified executables accept one request/process. Persistent workers require a separately qualified native protocol change; Scope 6D was not started."
+    }
+  ],
+  "recommendation": "Recommend qualification tag and main promotion of exact candidate 46ae55173407bb71683614ef212d9d4d4127ecc3 after human review, retaining PASS WITH EXPLICIT DEFERRED ITEMS and its sole native-worker protocol deferral.",
+  "evidenceIntegrity": {
+    "preserved": [
+      {
+        "path": "artifacts/candy-scope6c-abrupt-recovery-final.json",
+        "sha256": "a337f0bed339d5e4f4235cb278aa618152d378dd4bd4e3a2539d789225c39db8"
+      },
+      {
+        "path": "artifacts/candy-scope6c-abrupt-runtime-fourth.json",
+        "sha256": "428ea739cf52529dbe4e50dbb8be0ef431f8c4faafd9caf36ec77ae863f4be6e"
+      },
+      {
+        "path": "artifacts/candy-scope6c-abrupt-runtime-third.json",
+        "sha256": "b9a117ab9daa00b596fb4ad33ee4feb037cc00f526356f7470af87dd819299f3"
+      },
+      {
+        "path": "artifacts/candy-scope6c-benchmark-after-initial.json",
+        "sha256": "5ec85f8090c4f401082044a4848f24b10bf15b4d12cc66fc53c4ae8b55c8d85b"
+      },
+      {
+        "path": "artifacts/candy-scope6c-benchmark-after.json",
+        "sha256": "0ed20f3a844f81ff63998aa6796ff35c1b35f16e4c220e9bff006d8895ab33dd"
+      },
+      {
+        "path": "artifacts/candy-scope6c-benchmark-before.json",
+        "sha256": "9a3f36d19eed619635c088f3d6367c15917497fedaaa0cc6a816e89bc73629d0"
+      },
+      {
+        "path": "artifacts/candy-scope6c-browser-clean-loss.png",
+        "sha256": "dc680b6cc65b5dfb5a70f250c27cef13dc6fff554f66b0085bb0a808ce71ea33"
+      },
+      {
+        "path": "artifacts/candy-scope6c-browser-disconnected-post-restart.png",
+        "sha256": "f97631f1820270e9d218e517538e09c3e76ac131550ea78d5a03ef80e659c333"
+      },
+      {
+        "path": "artifacts/candy-scope6c-browser-qualification.json",
+        "sha256": "d98238ad06b2da7fe9cdd4dc8d9e7b3c76778f513b43f981de441fba3d3e1f6f"
+      },
+      {
+        "path": "artifacts/candy-scope6c-browser-reconnected-result.png",
+        "sha256": "ce8be1c5008dae3df2d6748ad283130ea888a8e858b511ace81e55f8601a0034"
+      },
+      {
+        "path": "artifacts/candy-scope6c-browser-runtime-first.json",
+        "sha256": "2e0424381184ae4af41408ab8ec94093937bcbe8a87dd82873ee6ece91e9a7e1"
+      },
+      {
+        "path": "artifacts/candy-scope6c-browser-runtime-second.json",
+        "sha256": "6389c62dc9fc5c30df47caa96c35e6d0a140f0a093a98bec0b576cdb23e18b24"
+      },
+      {
+        "path": "artifacts/candy-scope6c-browser-stale.png",
+        "sha256": "c29bcb8a131e5011151bf7cb4402cb125fde9f3b52d24d46dcb1077dd3d03517"
+      },
+      {
+        "path": "artifacts/candy-scope6c-build.log",
+        "sha256": "532da547fc138eca32350e0fe1ee6d5123fddf51ff3faf3a949e75bfbb5bb30b"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-abrupt-cleanup.json",
+        "sha256": "a7ea5872d640c723aac16e5d423a83cc3e88809b708bc4b546e26b9f1072cbf7"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-abrupt-observer.mjs",
+        "sha256": "7f63db418d62c8d6ceb035a01a12769fa27e09f65aa2555ff57975cdece39d5e"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-audit-closure.log",
+        "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-build-closure.log",
+        "sha256": "f1bb87df81af319086536deb2dfe174ecd66ff6c2bf44c4e4c1471157ece42b5"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-build-github-closure.log",
+        "sha256": "98984980a096337aa8770bf0ac9210b7eb95415daa502ce9312adba215269e0a"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-focused-closure.log",
+        "sha256": "2c53ac54553f8967cfe774c748f75e85566c48ebaf64041722ebe16a4e382c05"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-gate-binding.json",
+        "sha256": "67bc8e0b15ff9608efa30bbfdc0c36d942d1a9f385d8e86fcca905d697b7148f"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-lint-closure.log",
+        "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-preservation-check.json",
+        "sha256": "5da176841320d4483a673d5abe3df279da328dabb7c8acb11e6cd9301d564a4d"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-preview-error.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-preview-qualified-error.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-preview-qualified.log",
+        "sha256": "07edad05b658cfd85a87554787c731e75b3cc53ff62207a582f234f2877cdb01"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-preview.log",
+        "sha256": "a8f97bdac09e89351e2a394b5b8593a1ea0a519ffcc191cb8e54abe8a501939a"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-service-cleanup.json",
+        "sha256": "e311cbb30efd3e565b68388160d7709380c6ec16628b5ffb7289e560409338a4"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-soak-closure.log",
+        "sha256": "10aad547b4dc1135652b92513c841cc421f1419b80c57c19f1f7e0b087fb5389"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-test-closure.log",
+        "sha256": "a2ebf6d3766f8e9513f16d18d579c2a46e455808ab0bbdcaa612c4d06692136e"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-tested-source.json",
+        "sha256": "f697fa48138c9bac83150ca4bea94b2e070b8ba4b208f8bf331c28539e8105e3"
+      },
+      {
+        "path": "artifacts/candy-scope6c-implementation-report.md",
+        "sha256": "95ea7643d71e8866ba759cbf3370aba7ec1380326177fa3bf9c2e8e84a7a7f8f"
+      },
+      {
+        "path": "artifacts/candy-scope6c-intermediate-soak-cleanup.json",
+        "sha256": "95b269b1fbb4bf1087af9ba49468f3faea1359c69c58ac0f39c81a4daa4f8d32"
+      },
+      {
+        "path": "artifacts/candy-scope6c-interrupted-measurement-cleanup.json",
+        "sha256": "e4df2a15c97858eb9a3b0592d5c020059d1d261a10774cd9a611452695eb0e34"
+      },
+      {
+        "path": "artifacts/candy-scope6c-lint-post-restart.log",
+        "sha256": "778e34cba07294f43d3366d62f1a77062edd92272593d9c6d022be6b08fc9cec"
+      },
+      {
+        "path": "artifacts/candy-scope6c-npm-ci.log",
+        "sha256": "9a8ef4feae7b3da4f6340ee3f5c3059a44e469b39820a6fe9fbfb1b076032095"
+      },
+      {
+        "path": "artifacts/candy-scope6c-observer-invalid-attempt.json",
+        "sha256": "7f505b3b04f3e350746e4f5dbf4bf429b4083aea3ad9cfcf47bf272249e5ae79"
+      },
+      {
+        "path": "artifacts/candy-scope6c-parent-death.json",
+        "sha256": "010521abb79b2c30e2b4bca718d0fa0af0eda8672d374231fe71201a332f9cd3"
+      },
+      {
+        "path": "artifacts/candy-scope6c-performance-comparison.json",
+        "sha256": "87603a110e33db754c8377e024f3dd379908694a49bc081c8569898ce4093f21"
+      },
+      {
+        "path": "artifacts/candy-scope6c-post-abrupt-valid-job.json",
+        "sha256": "b7ba49eb28b7aa3335e2568f58b56966241e828516408b8701f1fc63ee2c8e11"
+      },
+      {
+        "path": "artifacts/candy-scope6c-post-restart-recovery-checklist.json",
+        "sha256": "fb6e323cb99fb2af84f978895d57869482aee8a7ec17bfeab11049af577ef1d7"
+      },
+      {
+        "path": "artifacts/candy-scope6c-prechange-inventory.json",
+        "sha256": "cc7e15e9f579f84e9394c1adf638c7723435a9eb8e4cb1cd0aa45a357deb6497"
+      },
+      {
+        "path": "artifacts/candy-scope6c-prechange-map.md",
+        "sha256": "79073554f19e38f063465e73495ecb5790b7ebeed0df9d8913af392bc4f25e70"
+      },
+      {
+        "path": "artifacts/candy-scope6c-qualification.json",
+        "sha256": "108f9ce568aa90db61f1d7d6ce3e7cf6ec53ea71854ea4f038dafc4302ca938d"
+      },
+      {
+        "path": "artifacts/candy-scope6c-restart-recovery-post-restart.json",
+        "sha256": "514231b90090b5d53da60a1ef1641cdb8d49bcec506c87c2966bc1b0dc003258"
+      },
+      {
+        "path": "artifacts/candy-scope6c-restart-recovery.json",
+        "sha256": "05795d2be925efe5d9a5fc7f96cf07708853b2a257b1a79b5077eb2d0a252349"
+      },
+      {
+        "path": "artifacts/candy-scope6c-retention.json",
+        "sha256": "ef693a2186f61fb6592d635411652b312fba8e99c39c521543465ec54b210763"
+      },
+      {
+        "path": "artifacts/candy-scope6c-runtime-qualification.json",
+        "sha256": "0c9478a7882322c5c231329d5d5fde04f23c360150e3e2a0b3ccd1e398afafef"
+      },
+      {
+        "path": "artifacts/candy-scope6c-runtime-restart-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "artifacts/candy-scope6c-runtime-restart-stdout.log",
+        "sha256": "6ced62fec4e6b1192cd6236c16325d7913ebf9db90694a191fc890dc03c3635c"
+      },
+      {
+        "path": "artifacts/candy-scope6c-runtime-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "artifacts/candy-scope6c-runtime-stdout.log",
+        "sha256": "6ced62fec4e6b1192cd6236c16325d7913ebf9db90694a191fc890dc03c3635c"
+      },
+      {
+        "path": "artifacts/candy-scope6c-security-review.md",
+        "sha256": "e04270b6ab2d7d04b1646df9a5b443a04c699c32cb14a871a515f43b8a61090f"
+      },
+      {
+        "path": "artifacts/candy-scope6c-soak-cleanup-failure.log",
+        "sha256": "391110b1d7e87631118525ea157d19f91ec6d71d4d73ed04d454245edf84a21d"
+      },
+      {
+        "path": "artifacts/candy-scope6c-soak-post-restart.log",
+        "sha256": "b410949d7dc6c33a6d188a1f729c43f99d40bb52ad6954ae7dbff523806f1162"
+      },
+      {
+        "path": "artifacts/candy-scope6c-soak-unavailable-attempt.json",
+        "sha256": "ca73de0ac3ba2e2573ae9aaef00409285bf414e445995ca1500acb42e3b95f25"
+      },
+      {
+        "path": "artifacts/candy-scope6c-soak-unavailable-attempt.log",
+        "sha256": "8ca78fe9fd167bcbdd1baf331dbd1d46d93212f988a32b646983f18f5669a2cd"
+      },
+      {
+        "path": "artifacts/candy-scope6c-studio-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "artifacts/candy-scope6c-studio-stdout.log",
+        "sha256": "a8f97bdac09e89351e2a394b5b8593a1ea0a519ffcc191cb8e54abe8a501939a"
+      },
+      {
+        "path": "artifacts/candy-scope6c-test-results.json",
+        "sha256": "11bf35d86ec4fb273b0f34dd30b031675e5d89664b4deccce146cc12cc1102f4"
+      },
+      {
+        "path": "artifacts/candy-scope6c-tests-final.log",
+        "sha256": "24da8dc42cd72bdaf87bc1f8bd360381fa54daf9eeb13c5a9e57575249d0ad7f"
+      },
+      {
+        "path": "artifacts/candy-scope6c-tests-initial.log",
+        "sha256": "397c74be1e7134de0372be650551f6c76db5510b814a85fa433efe92eb2afd2d"
+      },
+      {
+        "path": "artifacts/candy-scope6c-tests-second.log",
+        "sha256": "c8aa5da8d70c20097356ebf7dc838f3cd160bfa0fcdebf389d3b258eb0257a85"
+      },
+      {
+        "path": "artifacts/candy-scope6c-final-inventory.json",
+        "sha256": "d748ad4ab42606a27521c2038831d1164c3b4320e3ed1a74c9260ff4f043ebf0"
+      }
+    ],
+    "closureInputs": [
+      {
+        "path": "artifacts/candy-scope6c-remote-ci-observation.json",
+        "sha256": "b6747c779add945a70ad603d720b735fdc79d2e19befed5f4d4056074fc093f5"
+      },
+      {
+        "path": "artifacts/candy-scope6c-committed-identity-binding.json",
+        "sha256": "ebcd3960674be73cf139e19c49d0452d94942850b05a89975995f3f8515cd6bf"
+      }
+    ]
+  },
+  "hardStop": {
+    "committedEvidence": false,
+    "pushedEvidence": false,
+    "tagged": false,
+    "mergedPr": false,
+    "modifiedMain": false,
+    "movedQualificationAnchors": false,
+    "startedScope6d": false
+  }
+}

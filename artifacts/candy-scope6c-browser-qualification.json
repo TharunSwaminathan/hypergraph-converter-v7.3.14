@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "candy.scope6c-browser-qualification/1",
+  "phase": "post-machine-restart",
+  "startedAt": "2026-10-18T18:28:01.476Z",
+  "url": "http://127.0.0.1:5173/hypergraph-converter/",
+  "build": "Real final production build:github, feature flag enabled; matching preview base path",
+  "studio": {
+    "command": "npm.cmd run preview -- --host 127.0.0.1 --port 5173 --strictPort --base=/hypergraph-converter/",
+    "pid": 17656,
+    "port": 5173,
+    "httpStatus": 200
+  },
+  "setupNotes": [
+    "First preview was launched without the GitHub build base path and rendered an empty root. Corrected preview configuration before qualification; no product edit. Historical chat is inert and was not cleared."
+  ],
+  "cases": [
+    {
+      "id": "fresh-browser-disconnected",
+      "status": "PASS",
+      "observedAt": "2026-10-18T18:28:01.479Z",
+      "text": "CANDY Runtime Companion not_discovered\n\nOptional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.\n\nEndpoint\nhttp://127.0.0.1:8791\nRuntime\nnot discovered\nPairing\nnot paired\nRuntime capability readiness\nunavailable\nActive graph capability\nunavailable\nRuntime-qualified backends\nnone\nExecutable for active graph\nnone\nRuntime-qualified CUDA devices\nnone qualified\nActive graph type\nHypergraph\nSession pairing credential\nPair and discover\nClear pairing\n\nNo SSSP tool is exposed for this graph. The companion will not implicitly project a hypergraph.\n\nCUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.\n\nCurrent counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.\n\nAnalysis: NONE\n\nCount 3-edge motifs with CUDA\nOpen pending update panel\n\nGRAPH_TYPE_UNSUPPORTED: This explicit analysis requires a compatible authoritative hypergraph. No projection is performed."
+    },
+    {
+      "id": "small-conversion-preview",
+      "status": "PASS",
+      "hyperedges": 3,
+      "vertices": 4,
+      "graphVersion": 1,
+      "fixture": "h1: a,b; h2: b,c; h3: b,d",
+      "preview": "Three hyperedges/four vertices rendered with existing bounded preview controls"
+    },
+    {
+      "id": "dynamic-stage-inspect-disconnected",
+      "status": "PASS",
+      "text": "Dynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-1959c479-822… · revision 1\nVERSION\n2 → 3 (proposed)\nOPERATIONS\n1\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED · RUNTIME_UNAVAILABLE\nANALYSIS\nNONE\nCURRENT PENDING DELTA RESULT\nno\n\nDiscover an authenticated Runtime session first.\n\nRe-stage edited commands\nShow committed preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nPending update staged. Committed graph and version are unchanged.",
+      "observedAt": "2026-10-18T18:28:35.977Z"
+    },
+    {
+      "id": "fresh-authenticated-discovery",
+      "status": "PASS",
+      "text": "CANDY Runtime Companion ready\n\nOptional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.\n\nEndpoint\nhttp://127.0.0.1:8791\nRuntime\ncandy-runtime-companion/1\nPairing\npaired for this browser session\nRuntime capability readiness\nready\nActive graph capability\nready\nRuntime-qualified backends\nLOCAL_OPENMP, CUDA_STATIC, CUDA_INCREMENTAL\nExecutable for active graph\nCUDA_STATIC, CUDA_INCREMENTAL\nRuntime-qualified CUDA devices\n0: NVIDIA GeForce RTX 5060 (12.0, sm_120)\nActive graph type\nDynamicHypergraph\nSession pairing credential\nPair and discover\nClear pairing\n\nCUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.\n\nCurrent counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.\n\nAnalysis: STALE\n\nCount 3-edge motifs with CUDA\nOpen pending update panel",
+      "observedAt": "2026-10-18T18:38:57.148Z"
+    },
+    {
+      "id": "genuine-static-result",
+      "status": "PASS",
+      "jobId": "bab153e8-9e99-40d9-be58-fb979f0fcee2",
+      "text": "CANDY Runtime Companion ready\n\nOptional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.\n\nEndpoint\nhttp://127.0.0.1:8791\nRuntime\ncandy-runtime-companion/1\nPairing\npaired for this browser session\nRuntime capability readiness\nready\nActive graph capability\nready\nRuntime-qualified backends\nLOCAL_OPENMP, CUDA_STATIC, CUDA_INCREMENTAL\nExecutable for active graph\nCUDA_STATIC, CUDA_INCREMENTAL\nRuntime-qualified CUDA devices\n0: NVIDIA GeForce RTX 5060 (12.0, sm_120)\nActive graph type\nDynamicHypergraph\nSession pairing credential\nPair and discover\nClear pairing\n\nCUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.\n\nCurrent counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.\n\nAnalysis: RESULT_READY\n\nCount 3-edge motifs with CUDA\nOpen pending update panel\nRefresh job status\nCancel job\nOpen validated result\nVALIDATED STATIC RESULT\n\nTotal connected 3-edge motifs: 1\n\nBackend CUDA_STATIC · graph graph-1dbce957-960d-480f-8f94-1c9c25da1115 version 2\n\nDevice 0: NVIDIA GeForce RTX 5060 · sm_120\n\nAll 30 stable motif class counts\nSelected job\nbab153e8-9e99-40d9-be58-fb979f0fcee2\nStatus\ncompleted\nValidation\npassed",
+      "observedAt": "2026-10-18T18:39:12.156Z"
+    },
+    {
+      "id": "genuine-incremental-result-before-clean-stop",
+      "status": "PASS",
+      "text": "Dynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-1959c479-822… · revision 1\nVERSION\n2 → 3 (proposed)\nOPERATIONS\n1\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED · CUDA_INCREMENTAL available\nANALYSIS\nRESULT_READY\nCURRENT PENDING DELTA RESULT\nyes\nRe-stage edited commands\nShow committed preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nValidated delta describes the proposed pending transition. Graph has not been applied.\n\nRefresh analysis status\nOpen signed delta result\nCancel analysis\nMOTIF CHANGE (DELTA ONLY)\n\nSigned total connected 3-edge motif delta: 0\n\nBackend CUDA_INCREMENTAL · graph graph-1dbce957-960d-480f-8f94-1c9c25da1115 version 2\n\nDevice 0: NVIDIA GeForce RTX 5060 · sm_120\n\nThis is a signed delta for update pending-1959c479-8221-41ce-ac1c-ea4e9c0cf943. It is not a fabricated full count, and the update was not applied.\n\nThis result describes the proposed pending transition. It becomes stale when graph, update or Runtime session authority changes. Graph has not been applied.\n\nAffected / nonzero classes first\nClass 14 · CLOSED_TRIANGLE: -1\nClass 19 · CLOSED_TRIANGLE: +1\nAll 30 stable motif signed deltas",
+      "observedAt": "2026-10-18T18:39:36.238Z",
+      "jobId": "1838d512-b3ed-41b9-b525-84b95b111041"
+    },
+    {
+      "id": "idle-clean-runtime-loss-clears-ready-and-result",
+      "status": "PASS",
+      "text": "CANDY Runtime Companion unavailable\n\nOptional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.\n\nEndpoint\nhttp://127.0.0.1:8791\nRuntime\ncandy-runtime-companion/1\nPairing\nnot paired\nRuntime capability readiness\nunavailable\nActive graph capability\nunavailable\nRuntime-qualified backends\nnone\nExecutable for active graph\nnone\nRuntime-qualified CUDA devices\nnone qualified\nActive graph type\nDynamicHypergraph\nSession pairing credential\nPair and discover\nClear pairing\n\nBACKEND_UNAVAILABLE: Runtime connection lost. Pair and discover explicitly before new analysis.\n\nCUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.\n\nCurrent counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.\n\nAnalysis: STALE\n\nCount 3-edge motifs with CUDA\nOpen pending update panel\n\nRUNTIME_UNAVAILABLE: Discover an authenticated Runtime session first.",
+      "observedAt": "2026-10-18T18:40:11.038Z"
+    },
+    {
+      "id": "pending-proposal-survives-loss-without-current-result",
+      "status": "PASS",
+      "text": "Dynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-1959c479-822… · revision 1\nVERSION\n2 → 3 (proposed)\nOPERATIONS\n1\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED · RUNTIME_UNAVAILABLE\nANALYSIS\nSTALE\nCURRENT PENDING DELTA RESULT\nno\n\nDiscover an authenticated Runtime session first.\n\nRe-stage edited commands\nShow committed preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nValidated delta describes the proposed pending transition. Graph has not been applied.\n\nAnalysis stale. Runtime connection lost. Pair and discover explicitly before new analysis. Old results are not current. Request a fresh analysis when available.",
+      "observedAt": "2026-10-18T18:40:16.340Z"
+    },
+    {
+      "id": "browser-stale-credential-rejected-after-restart",
+      "status": "PASS",
+      "text": "CANDY Runtime Companion unauthorized\n\nOptional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.\n\nEndpoint\nhttp://127.0.0.1:8791\nRuntime\ncandy-runtime-companion/1\nPairing\nnot paired\nRuntime capability readiness\nunavailable\nActive graph capability\nunavailable\nRuntime-qualified backends\nnone\nExecutable for active graph\nnone\nRuntime-qualified CUDA devices\nnone qualified\nActive graph type\nDynamicHypergraph\nSession pairing credential\nPair and discover\nClear pairing\n\nUNAUTHORIZED: Pairing authentication is required.\n\nCUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.\n\nCurrent counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.\n\nAnalysis: STALE\n\nCount 3-edge motifs with CUDA\nOpen pending update panel\n\nRUNTIME_UNAVAILABLE: Discover an authenticated Runtime session first.",
+      "observedAt": "2026-10-18T18:40:43.473Z"
+    },
+    {
+      "id": "fresh-reconnect-does-not-resurrect-old-result",
+      "status": "PASS",
+      "text": "CANDY Runtime Companion ready\n\nOptional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.\n\nEndpoint\nhttp://127.0.0.1:8791\nRuntime\ncandy-runtime-companion/1\nPairing\npaired for this browser session\nRuntime capability readiness\nready\nActive graph capability\nready\nRuntime-qualified backends\nLOCAL_OPENMP, CUDA_STATIC, CUDA_INCREMENTAL\nExecutable for active graph\nCUDA_STATIC, CUDA_INCREMENTAL\nRuntime-qualified CUDA devices\n0: NVIDIA GeForce RTX 5060 (12.0, sm_120)\nActive graph type\nDynamicHypergraph\nSession pairing credential\nPair and discover\nClear pairing\n\nCUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.\n\nCurrent counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.\n\nAnalysis: STALE\n\nCount 3-edge motifs with CUDA\nOpen pending update panel",
+      "observedAt": "2026-10-18T18:40:47.717Z"
+    },
+    {
+      "id": "fresh-subsequent-incremental-result",
+      "status": "PASS",
+      "text": "Dynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-1959c479-822… · revision 1\nVERSION\n2 → 3 (proposed)\nOPERATIONS\n1\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED · CUDA_INCREMENTAL available\nANALYSIS\nRESULT_READY\nCURRENT PENDING DELTA RESULT\nyes\nRe-stage edited commands\nShow committed preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nValidated delta describes the proposed pending transition. Graph has not been applied.\n\nRefresh analysis status\nOpen signed delta result\nCancel analysis\nMOTIF CHANGE (DELTA ONLY)\n\nSigned total connected 3-edge motif delta: 0\n\nBackend CUDA_INCREMENTAL · graph graph-1dbce957-960d-480f-8f94-1c9c25da1115 version 2\n\nDevice 0: NVIDIA GeForce RTX 5060 · sm_120\n\nThis is a signed delta for update pending-1959c479-8221-41ce-ac1c-ea4e9c0cf943. It is not a fabricated full count, and the update was not applied.\n\nThis result describes the proposed pending transition. It becomes stale when graph, update or Runtime session authority changes. Graph has not been applied.\n\nAffected / nonzero classes first\nClass 14 · CLOSED_TRIANGLE: -1\nClass 19 · CLOSED_TRIANGLE: +1\nAll 30 stable motif signed deltas",
+      "observedAt": "2026-10-18T18:41:17.335Z",
+      "jobId": "c0eb5b51-eb79-40a9-8678-0d324178fd42"
+    },
+    {
+      "id": "separately-confirmed-apply-revokes-old-delta",
+      "status": "PASS",
+      "text": "Dynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nNONE\nUPDATE\nnone\nVERSION\n3 (committed)\nOPERATIONS\n0\nMOTIF IMPACT\nnot validated\nVALIDATION / ANALYSIS PREFLIGHT\nnot staged · NO_VALIDATED_PENDING_UPDATE\nANALYSIS\nSTALE\nCURRENT PENDING DELTA RESULT\nno\nStage pending update\nInspect pending preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nApplied once. Committed graph version 3. No Runtime job was created.\n\nAnalysis stale. Old results are not current. Request a fresh analysis when available.",
+      "observedAt": "2026-10-18T18:41:37.021Z"
+    },
+    {
+      "id": "edit-restage-independent",
+      "status": "PASS",
+      "text": "Dynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-4bb4025e-555… · revision 3\nVERSION\n3 → 4 (proposed)\nOPERATIONS\n1\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED · CUDA_INCREMENTAL available\nANALYSIS\nSTALE\nCURRENT PENDING DELTA RESULT\nno\nRe-stage edited commands\nInspect pending preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nPending update staged. Committed graph and version are unchanged.\n\nAnalysis stale. Old results are not current. Request a fresh analysis when available.",
+      "observedAt": "2026-10-18T18:41:43.074Z"
+    },
+    {
+      "id": "discard-preserves-committed-version",
+      "status": "PASS",
+      "text": "Dynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nNONE\nUPDATE\nnone\nVERSION\n3 (committed)\nOPERATIONS\n0\nMOTIF IMPACT\nnot validated\nVALIDATION / ANALYSIS PREFLIGHT\nnot staged · NO_VALIDATED_PENDING_UPDATE\nANALYSIS\nSTALE\nCURRENT PENDING DELTA RESULT\nno\nStage pending update\nInspect pending preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nPending update discarded. Committed graph and version are unchanged.\n\nAnalysis stale. Old results are not current. Request a fresh analysis when available.",
+      "observedAt": "2026-10-18T18:41:54.291Z"
+    }
+  ],
+  "finishedAt": "2026-10-18T18:41:54.291Z",
+  "status": "PASS",
+  "methodology": "Fresh IAB tab; real uninstrumented final production build; narrow semantic/section locators and stable keyboard activation. No broad-selector timeout or browser crash in this completed sequence. Historical messages remained inert. Genuine backend assertions separately bound to these job IDs via authenticated Runtime API.",
+  "screenshots": [
+    "artifacts/candy-scope6c-browser-disconnected-post-restart.png",
+    "artifacts/candy-scope6c-browser-clean-loss.png",
+    "artifacts/candy-scope6c-browser-reconnected-result.png"
+  ]
+}

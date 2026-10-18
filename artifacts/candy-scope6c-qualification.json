@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "candy.scope6c-qualification/1",
+  "verdict": "PASS WITH EXPLICIT DEFERRED ITEMS",
+  "capturedAt": "2026-10-18T18:48:08.558Z",
+  "branch": "candy-integration-scope6c-runtime-reuse-recovery",
+  "head": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+  "baseline": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+  "uncommitted": true,
+  "anchors": {
+    "candy-integration-scope6b-browser-scalability-qualified": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+    "candy-v7_4-merged-baseline-qualified": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+    "v7.3.14": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+  },
+  "automated": {
+    "status": "PASS",
+    "testFiles": {
+      "passed": 284,
+      "total": 284,
+      "suiteSeconds": 158.6
+    },
+    "productionVulnerabilities": 0,
+    "focusedTestFiles": 5,
+    "sourceHashesMatched": 629
+  },
+  "runtime": {
+    "status": "PASS",
+    "genuineSoakCycles": 1000,
+    "genuineBrowserJobs": 3,
+    "postAbruptValidJob": "3046152b-8180-48e5-85b4-4429a2525938",
+    "cleanRestart": true,
+    "abruptRestartOnFinalCode": true,
+    "oldCredentials401": true,
+    "oldJobsAndResults404": true,
+    "noOwnedLiveOrZombieAtDrainedCheckpoints": true
+  },
+  "browser": {
+    "status": "PASS",
+    "cases": 14,
+    "currentPendingResultRevokedOnLoss": true,
+    "freshPairingRequired": true,
+    "separateApplyEditDiscard": true
+  },
+  "protectedBoundaries": {
+    "nativeDelta": false,
+    "manifestDelta": false,
+    "anchorMovement": false,
+    "historicalFilesMatched": 420,
+    "preRestartScope6cFilesMatched": 23
+  },
+  "security": {
+    "noUnresolvedCriticalHigh": true,
+    "report": "artifacts/candy-scope6c-security-review.md",
+    "canonicalScan": "cae6a747-1f46-48c0-8314-ceb7a19485ff",
+    "canonicalSnapshotPreCorrection": true,
+    "finalCorrectiveReviewClosed": true
+  },
+  "deferred": [
+    {
+      "id": "persistent-native-worker-reuse",
+      "reason": "Qualified executables accept one request/process. Persistent workers require a separately qualified native protocol change; Scope 6D was not started."
+    }
+  ],
+  "implementationFiles": 34,
+  "evidence": {
+    "tests": "artifacts/candy-scope6c-test-results.json",
+    "gateBinding": "artifacts/candy-scope6c-final-gate-binding.json",
+    "performance": "artifacts/candy-scope6c-performance-comparison.json",
+    "retention": "artifacts/candy-scope6c-retention.json",
+    "runtime": "artifacts/candy-scope6c-runtime-qualification.json",
+    "browser": "artifacts/candy-scope6c-browser-qualification.json",
+    "cleanRestart": "artifacts/candy-scope6c-restart-recovery-post-restart.json",
+    "finalAbruptRestart": "artifacts/candy-scope6c-abrupt-recovery-final.json",
+    "postAbruptValidJob": "artifacts/candy-scope6c-post-abrupt-valid-job.json",
+    "report": "artifacts/candy-scope6c-implementation-report.md",
+    "inventory": "artifacts/candy-scope6c-final-inventory.json"
+  },
+  "hardStop": {
+    "committed": false,
+    "pushed": false,
+    "tagged": false,
+    "merged": false,
+    "mainModified": false,
+    "scope6dStarted": false
+  },
+  "servicesStopped": true
+}
