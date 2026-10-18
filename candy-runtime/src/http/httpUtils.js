@@ -26,6 +26,7 @@ export function structuredError(error) {
 
 export function statusForError(error) {
   if (!(error instanceof CandyContractError)) return 500;
+  if(error.httpStatus===404)return 404;
   if (error.code === CANDY_ERROR_CODES.RESOURCE_LIMIT) return 413;
   if ([CANDY_ERROR_CODES.BACKEND_UNAVAILABLE, CANDY_ERROR_CODES.BUILD_MISSING].includes(error.code)) return 503;
   return 400;

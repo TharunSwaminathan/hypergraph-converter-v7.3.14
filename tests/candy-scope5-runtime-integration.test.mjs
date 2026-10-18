@@ -95,6 +95,7 @@ globalThis.fetch=async(url,options)=>{
   if(path==="/v1/health") {if(healthGate)await healthGate;body={schemaVersion:"candy.runtime-api/1",serviceVersion:"test"};}
   else if(path==="/v1/capabilities") body=declaration();
   else if(path==="/v1/artifacts") {const data=JSON.parse(options.body);body=await hookHarness.client.uploadArtifact({bytes:JSON.parse(Buffer.from(data.content,"base64").toString()),mediaType:data.mediaType});}
+  else if(path.startsWith("/v1/artifacts/"))body=await hookHarness.client.getArtifactMetadata(decodeURIComponent(path.split('/')[3]));
   else if(path==="/v1/jobs") {body=await hookHarness.client.submitJob(JSON.parse(options.body));hookHarness.result={...hookHarness.result,runtimeSessionId:runtimeSession};hookHarness.result=(await import("./fixtures/candy-scope5-runtime.mjs")).sealResult(hookHarness.result);}
   else if(path.endsWith("/result")) body=hookHarness.result;
   else if(path.endsWith("/cancel")) body=await hookHarness.client.cancelJob();

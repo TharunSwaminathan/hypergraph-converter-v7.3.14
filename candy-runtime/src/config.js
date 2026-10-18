@@ -23,6 +23,14 @@ export const DEFAULT_LIMITS = Object.freeze({
   maxEdges: 10_000_000,
   maxUpdates: 1_000_000,
   maxJobs: 256,
+  maxActiveJobs: 16,
+  maxTerminalJobs: 32,
+  terminalBytes: 16 * 1024 * 1024,
+  maxArtifacts: 512,
+  totalArtifactBytes: 64 * 1024 * 1024,
+  maxHttpOperations: 4,
+  queueWaitMs: 60_000,
+  jobDeadlineMs: 120_000,
   maxCudaVertices: 10_000,
 });
 
@@ -31,6 +39,7 @@ const runtimeRoot = resolve(fileURLToPath(new URL("../", import.meta.url)));
 export function createRuntimeConfig(overrides = {}) {
   const host = overrides.host ?? "127.0.0.1";
   if (host !== "127.0.0.1") throw new Error("The CANDY companion may bind only to 127.0.0.1 in Scope 2.");
+  for(const [key,value] of Object.entries(overrides.limits ?? {})) if(!Object.hasOwn(DEFAULT_LIMITS,key) || !Number.isSafeInteger(value) || value<1)throw new Error("Runtime limits must be known positive safe integers.");
   return Object.freeze({
     host,
     port: overrides.port ?? 8791,

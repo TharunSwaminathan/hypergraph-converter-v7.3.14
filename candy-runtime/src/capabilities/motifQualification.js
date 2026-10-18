@@ -4,6 +4,7 @@ import { promisify } from "node:util";
 import { readFile, lstat } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { MOTIF_ALGORITHM, MOTIF_TAXONOMY } from "../../../src/candy/contracts/runtimeMotif.js";
+import { qualificationJsonCache } from "./qualificationJson.js";
 
 const exec = promisify(execFile);
 export async function inspectMotifQualificationEnvironment() {
@@ -32,13 +33,13 @@ async function regularBytes(path, max = 16 * 1024 * 1024) {
   if (!info.isFile() || info.isSymbolicLink() || info.size > max) throw new Error("Not a bounded regular qualified file");
   return readFile(path);
 }
-export async function verifyQualifiedMotifBackend(config, backend) {
+export async function verifyQualifiedMotifBackend(config, backend, round = null) {
   const spec = MOTIF_SPECS[backend];
   if (!spec) return { available: false, reason: "unknown_motif_backend" };
   // Only in-process test configuration can inject discovery, never HTTP/model input.
   if (config.motifBackendDiscovery) return Object.freeze({ ...(config.motifBackendDiscovery[backend] ?? { available: false }) });
   try {
-    const record = JSON.parse(await regularBytes(motifRecordPath(config.runtimeRoot, backend), 32 * 1024));
+    const record = qualificationJsonCache.parse(await regularBytes(motifRecordPath(config.runtimeRoot, backend), 32 * 1024));
     if (!exact(record, ["schemaVersion", "backend", "algorithm", "taxonomyVersion", "binarySha256", "sourceSha256", "makefileSha256", "qualifiedCommit", "architecture", "nvccVersion", "runtimeVersion", "runtimePackageVersion", "device", "evidence"])
       || record.schemaVersion !== MOTIF_RECORD_SCHEMA || record.backend !== backend || record.algorithm !== MOTIF_ALGORITHM || record.taxonomyVersion !== MOTIF_TAXONOMY
       || record.qualifiedCommit !== spec.commit || record.architecture !== "sm_120" || record.nvccVersion !== "13.4.59" || record.runtimeVersion !== 13040 || record.runtimePackageVersion !== "13.4.49") throw new Error("Invalid record");
@@ -53,7 +54,7 @@ export async function verifyQualifiedMotifBackend(config, backend) {
     for (const file of evidencePaths) {
       const bytes = await regularBytes(join(root,file));
       if (sha256(bytes) !== record.evidence[file]) throw new Error("Stale evidence");
-      const evidence = JSON.parse(bytes);
+      const evidence = qualificationJsonCache.parse(bytes);
       if (evidence.status !== "NATIVE_QUALIFICATION_PASS" || evidence.failed !== 0 || evidence.binarySha256 !== record.binarySha256) throw new Error("Unqualified evidence");
       if (file.includes("-native-") && (evidence.cases.length !== spec.cases || evidence.failures.length !== spec.failures)) throw new Error("Incomplete native evidence");
       if (file.includes("-native-") && evidence.device?.runtimeVersion !== record.runtimeVersion) throw new Error("Runtime evidence mismatch");
@@ -61,7 +62,7 @@ export async function verifyQualifiedMotifBackend(config, backend) {
     }
     const { stdout } = await exec("git", ["rev-parse", `${spec.tag}^{}`], { cwd: root, shell: false, windowsHide: true, timeout: 5000, maxBuffer: 1024 });
     if (stdout.trim() !== spec.commit) throw new Error("Qualification tag mismatch");
-    const { device, nvccVersion } = await inspectMotifQualificationEnvironment();
+    const { device, nvccVersion } = await (round ? round.environment() : inspectMotifQualificationEnvironment());
     if (!exact(record.device,["id","name","computeCapability","memoryMiB"]) || !device || record.device.id !== 0
       || device.id !== record.device.id || device.name !== record.device.name || device.computeCapability !== "12.0"
       || device.computeCapability !== record.device.computeCapability || device.memoryMiB !== record.device.memoryMiB || nvccVersion !== record.nvccVersion) throw new Error("Device/toolchain mismatch");

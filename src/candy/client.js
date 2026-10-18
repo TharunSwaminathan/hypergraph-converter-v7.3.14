@@ -23,7 +23,7 @@ export function validateCandyRuntimeUrl(value) {
   return parsed.origin;
 }
 
-export function createCandyClient({ baseUrl = DEFAULT_CANDY_RUNTIME_URL, token = "", fetchImpl = globalThis.fetch, signal: lifetimeSignal } = {}) {
+export function createCandyClient({ baseUrl = DEFAULT_CANDY_RUNTIME_URL, token = "", fetchImpl = globalThis.fetch, signal: lifetimeSignal, onConnectionFailure } = {}) {
   const origin = validateCandyRuntimeUrl(baseUrl);
   if (typeof fetchImpl !== "function") throw new TypeError("A fetch implementation is required.");
   const request = async (path, { method = "GET", body, protectedOperation = true, signal, timeoutMs = 15000 } = {}) => {
@@ -57,13 +57,16 @@ export function createCandyClient({ baseUrl = DEFAULT_CANDY_RUNTIME_URL, token =
       catch { throw new CandyClientError("OUTPUT_PARSE_FAILURE", "The local companion returned invalid JSON."); }
       if (!response.ok) {
         const classification = response.status === 401 ? "UNAUTHORIZED" : payload?.schemaVersion === ERROR_SCHEMA && typeof payload.classification === "string" ? payload.classification : "BACKEND_UNAVAILABLE";
-        throw new CandyClientError(classification, payload?.message || "The local companion rejected the request.", payload?.details ?? {});
+        throw new CandyClientError(classification, payload?.message || "The local companion rejected the request.", {...payload?.details,httpStatus:response.status});
       }
       return payload;
     };
     try {
       if (sources.some(source => source.aborted)) onAbort();
       return await Promise.race([aborted, transport.signal.aborted ? aborted : perform()]);
+    } catch(error) {
+      if(["UNAUTHORIZED","BACKEND_UNAVAILABLE","REQUEST_TIMEOUT","OUTPUT_PARSE_FAILURE"].includes(error.classification))onConnectionFailure?.(error);
+      throw error;
     } finally {
       clearTimeout(timer);
       for (const source of sources) source.removeEventListener("abort", onAbort);
@@ -73,6 +76,8 @@ export function createCandyClient({ baseUrl = DEFAULT_CANDY_RUNTIME_URL, token =
     baseUrl: origin,
     health: (options = {}) => request("/v1/health", { ...transportOptions(options), protectedOperation: false }),
     capabilities: (options = {}) => request("/v1/capabilities", transportOptions(options)),
+    session: (options = {}) => request("/v1/session", transportOptions(options)),
+    getArtifactMetadata: (id, options = {}) => request(`/v1/artifacts/${encodeURIComponent(id)}/metadata`, transportOptions(options)),
     uploadArtifact: ({ bytes, mediaType }, options = {}) => request("/v1/artifacts", { ...transportOptions(options), timeoutMs: options.timeoutMs ?? 30000, method: "POST", body: { schemaVersion: "candy.artifact-upload/1", mediaType, contentEncoding: "base64", content: bytesToBase64(bytes) } }),
     submitJob: (payload, options = {}) => request("/v1/jobs", { ...transportOptions(options), method: "POST", body: payload }),
     getJob: (jobId, options = {}) => request(`/v1/jobs/${encodeURIComponent(jobId)}`, transportOptions(options)),

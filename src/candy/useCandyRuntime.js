@@ -25,6 +25,7 @@ function createLiveContext(initial) {
     getDeclaration:()=>declaration,setDeclaration:next=>{declaration=next;},
     nextDiscovery:()=>{discovery.abort();discovery=new AbortController();return ++generation;},
     discoverySignal:()=>discovery.signal,isCurrent:expected=>mounted && expected===generation,
+    generation:()=>generation,
     mount:()=>{mounted=true;},unmount:()=>{mounted=false;generation++;discovery.abort();}});
 }
 
@@ -43,10 +44,24 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
       const graph=current.getGraphState?.() ?? current.graphState ?? {...current.graphValue,graphFingerprint:current.graphFingerprint};
       return {graph,pendingUpdate:current.pendingController?.getCurrent() ?? (current.pendingController ? null : current.pendingUpdate),runtime:current.state};
     },
-    getClient:({signal}={})=>createCandyClient({baseUrl:live.get().state.baseUrl,token:live.get().token,signal}),
+    getClient:({signal}={})=>{
+      const generation=live.generation();
+      return createCandyClient({baseUrl:live.get().state.baseUrl,token:live.get().token,signal,
+        onConnectionFailure:error=>live.get().connectionFailure?.(error,generation)});
+    },
   }));
+  const connectionFailure=useCallback((error,generation)=>{
+    if(!live.isCurrent(generation) || !live.get().state.authorized)return;
+    const unauthorized=error.classification==="UNAUTHORIZED";
+    const next={...live.get().state,status:unauthorized?"unauthorized":"unavailable",authorized:false,runtimeSessionId:null,
+      capabilities:[],runtimeCapabilities:[],motifReadiness:[],capabilityStatus:"unavailable",capabilityReason:"RUNTIME_UNAVAILABLE",runtimeCapabilityStatus:"unavailable",
+      lastError:{classification:error.classification ?? "BACKEND_UNAVAILABLE",message:"Runtime connection lost. Pair and discover explicitly before new analysis."}};
+    live.update({state:next,...(unauthorized?{token:""}:{})});live.nextDiscovery();live.setDeclaration(null);
+    if(unauthorized)pairingStorage("");
+    controller.invalidate();setState(next);
+  },[controller,live]);
   useLayoutEffect(() => {
-    live.update({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state});
+    live.update({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,connectionFailure});
     controller.synchronize();
   });
   const analysis=useSyncExternalStore(controller.subscribe,controller.getSnapshot,controller.getSnapshot);
@@ -104,6 +119,22 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
       return {ok:false,classification,error:error.message};
     }
   },[controller,enabled,live]);
+
+  useEffect(()=>{
+    if(!state.authorized)return;
+    const abort=new AbortController(),generation=live.generation(),session=state.runtimeSessionId;
+    let timer,stopped=false;
+    const check=async()=>{
+      try {
+        const client=createCandyClient({baseUrl:state.baseUrl,token:live.get().token,signal:abort.signal});
+        const value=await client.session({timeoutMs:3000});
+        if(value?.schemaVersion!=="candy.runtime-session/1" || value.runtimeSessionId!==session)throw Object.assign(new Error("Runtime session changed."),{classification:"BACKEND_UNAVAILABLE"});
+      }catch(error){if(!stopped && error.classification!=="RESOURCE_LIMIT")connectionFailure(error,generation);}
+      finally{if(!stopped && live.isCurrent(generation) && live.get().state.authorized)timer=setTimeout(check,2000);}
+    };
+    timer=setTimeout(check,2000);
+    return ()=>{stopped=true;clearTimeout(timer);abort.abort();};
+  },[state.authorized,state.runtimeSessionId,state.baseUrl,connectionFailure,live]);
 
   useEffect(()=>{
     if(!state.authorized || !live.getDeclaration()) return;

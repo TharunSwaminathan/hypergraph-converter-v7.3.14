@@ -13,6 +13,8 @@ globalThis.fetch=async(url,options)=>{
   if(path==="/v1/health")body={schemaVersion:"candy.runtime-api/1",serviceVersion:"fixture"};
   else if(path==="/v1/capabilities")body={schemaVersion:"candy.capabilities/1",runtimeSessionId:session,capabilities:frontendCandyCapabilities().filter(c=>["CUDA_STATIC","CUDA_INCREMENTAL"].includes(c.backend)).map(c=>({...c,executionEnvironment:"WSL2_CUDA",nativeBuildFingerprint:"sha256:"+"a".repeat(64),qualification:{schemaVersion:"candy.motif-qualified-build/1",status:"exact_local_operator_record"},devices:[{id:0,name:"Fixture only",computeCapability:"12.0",qualifiedArchitecture:"sm_120",memoryMiB:1024}]}))};
   else if(path==="/v1/artifacts"){const data=JSON.parse(options.body);body=await h.client.uploadArtifact({bytes:JSON.parse(Buffer.from(data.content,"base64").toString()),mediaType:data.mediaType});}
+  else if(path.startsWith("/v1/artifacts/"))body=await h.client.getArtifactMetadata(decodeURIComponent(path.split('/')[3]));
+  else if(path==="/v1/session")body={schemaVersion:"candy.runtime-session/1",runtimeSessionId:session};
   else if(path==="/v1/jobs"){body=await h.client.submitJob(JSON.parse(options.body));h.result=sealResult({...h.result,runtimeSessionId:session});}
   else if(path.endsWith("/cancel"))body=await h.client.cancelJob();
   else if(path.endsWith("/result"))body=h.result;

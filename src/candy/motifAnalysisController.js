@@ -3,6 +3,7 @@ import { motifApplicationBinding, motifAuthorityKey, motifGraphValue, motifPrefl
 import { createMotifResultRegistry } from "./motifResultRegistry.js";
 import { boundedCandyJobObservation } from "./resultObservation.js";
 import { CONFIRMATION_TTL_MS } from "../agent/confirmationState.js";
+import { createArtifactPresenceCache } from "./artifactPresence.js";
 
 export const MOTIF_ANALYSIS_ACTION = "run_candy_expensive_compute";
 export const MOTIF_ANALYSIS_STATUS = Object.freeze({ NONE:"NONE", CONFIRMATION_REQUIRED:"CONFIRMATION_REQUIRED", STAGED:"STAGED", RUNNING:"RUNNING", RESULT_READY:"RESULT_READY", FAILED:"FAILED", CANCELLED:"CANCELLED", STALE:"STALE" });
@@ -12,6 +13,7 @@ const rejected = error => ({ok:false,classification:error.code ?? error.classifi
 // One volatile analysis owner, independent of the Scope 5B Apply controller.
 export function createMotifAnalysisController({ getContext, getClient }) {
   const registry = createMotifResultRegistry(), listeners = new Set();
+  const artifactPresence=createArtifactPresenceCache();
   let state=Object.freeze({status:"NONE",job:null,resultEvidence:null,lastError:null});
   let epoch=0, resultReadEpoch=0, active=true, approval=null, jobBinding=null, currentKey=null;
   let transport = new AbortController(), resultTransport = null;
@@ -59,7 +61,7 @@ export function createMotifAnalysisController({ getContext, getClient }) {
       if (approval?.token === token) invalidate("NONE");
     },
     activate() { active=true; },
-    dispose() { active=false; invalidate(); listeners.clear(); },
+    dispose() { active=false; invalidate(); artifactPresence.clear(); listeners.clear(); },
     stage(argumentsValue) {
       try {
         if (!active) fail("STALE_GRAPH_VERSION","The analysis owner is unmounted.");
@@ -90,6 +92,8 @@ export function createMotifAnalysisController({ getContext, getClient }) {
         const ownedClient=getClient({signal:transport.signal}), cleanupClient=getClient();
         // Remote cancellation has its own bounded lifetime after local revocation.
         const client=Object.freeze({
+          baseUrl:ownedClient.baseUrl,
+          ...(ownedClient.getArtifactMetadata?{getArtifactMetadata:(...args)=>ownedClient.getArtifactMetadata(...args)}:{}),
           uploadArtifact:(...args)=>ownedClient.uploadArtifact(...args),
           submitJob:(...args)=>ownedClient.submitJob(...args),
           getJob:(...args)=>ownedClient.getJob(...args),
@@ -97,7 +101,7 @@ export function createMotifAnalysisController({ getContext, getClient }) {
           cancelJob:id=>cleanupClient.cancelJob(id),
         });
         const accepted=await submitMotifWorkflow({client,graphValue:motifGraphValue(captured.graph),pendingUpdate:captured.pendingUpdate?.motifUpdate,
-          argumentsValue,runtimeSessionId:captured.runtime.runtimeSessionId,applicationBinding:captured.applicationBinding,isCurrent:()=>isCurrent(captured,generation)});
+          argumentsValue,runtimeSessionId:captured.runtime.runtimeSessionId,applicationBinding:captured.applicationBinding,isCurrent:()=>isCurrent(captured,generation),artifactPresence});
         if (!isCurrent(captured,generation)) { cancelBestEffort({...accepted.binding,client}); fail("STALE_GRAPH_VERSION","Analysis changed before job attachment."); }
         jobBinding={...accepted.binding,binding:accepted.binding,client,context:captured,epoch:generation};
         emit({status:"RUNNING",job:boundedCandyJobObservation(accepted.job),resultEvidence:null});

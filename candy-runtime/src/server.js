@@ -34,8 +34,10 @@ function decodeArtifactUpload(value, limit) {
     throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA, "Artifact upload uses an incompatible schema.");
   }
   let bytes;
+  const byteLength=value.contentEncoding==="utf8"?Buffer.byteLength(value.content,"utf8"):value.content.length/4*3-(value.content.endsWith("==")?2:value.content.endsWith("=")?1:0);
+  if(byteLength>limit)throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT,"Artifact exceeds the configured size limit before decoding.");
   if (value.contentEncoding === "utf8") bytes = Buffer.from(value.content, "utf8");
-  else if (value.contentEncoding === "base64" && /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value.content)) bytes = Buffer.from(value.content, "base64");
+  else if (value.contentEncoding === "base64" && value.content.length%4===0 && !/[^A-Za-z0-9+/=]/.test(value.content) && !/=/.test(value.content.slice(0,-2)) && /^(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})?$/.test(value.content.slice(-4))) bytes = Buffer.from(value.content, "base64");
   else throw new CandyContractError(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA, "Unsupported artifact content encoding.");
   if (bytes.length > limit) throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT, "Artifact exceeds the configured size limit.");
   return { bytes, mediaType: value.mediaType };
@@ -45,9 +47,12 @@ export async function startCandyRuntime(overrides = {}) {
   const config = createRuntimeConfig(overrides);
   const auth = createSessionAuth(overrides.pairingToken);
   const artifactRoot = config.artifactRoot ?? await mkdtemp(join(tmpdir(), "candy-runtime-artifacts-"));
-  const artifactStore = await new ArtifactStore({ root: artifactRoot, maxBytes: config.limits.artifactBytes }).initialize();
+  const artifactStore = await new ArtifactStore({ root: artifactRoot, maxBytes: config.limits.artifactBytes, maxArtifacts:config.limits.maxArtifacts,maxTotalBytes:config.limits.totalArtifactBytes }).initialize();
   const jobs = new JobManager({ artifactStore, config });
-  const capabilities = await buildCapabilityDeclaration(config);
+  let capabilities;
+  try { capabilities=await buildCapabilityDeclaration(config); }
+  catch(error){if(config.artifactRoot)await artifactStore.close();else await artifactStore.dispose();throw error;}
+  let operations=0,closing=false;
   const server = http.createServer(async (request, response) => {
     const origin = request.headers.origin;
     const cors = corsHeaders(origin, config.allowedOrigins);
@@ -66,7 +71,12 @@ export async function startCandyRuntime(overrides = {}) {
       }, cors);
     }
     if (!protectedRequest(request, response, config, auth)) return;
+    let admitted=false;
     try {
+      if(closing)throw new CandyContractError(CANDY_ERROR_CODES.BACKEND_UNAVAILABLE,"Runtime is shutting down.");
+      if(operations>=config.limits.maxHttpOperations)throw new CandyContractError(CANDY_ERROR_CODES.RESOURCE_LIMIT,"Runtime HTTP operation admission limit reached.");
+      operations++;admitted=true;
+      if(request.method==="GET" && request.url==="/v1/session")return writeJson(response,200,{schemaVersion:"candy.runtime-session/1",runtimeSessionId:jobs.runtimeSessionId},cors);
       if (request.method === "GET" && request.url === "/v1/capabilities") return writeJson(response, 200, { ...await buildCapabilityDeclaration(config), runtimeSessionId: jobs.runtimeSessionId }, cors);
       if (request.method === "POST" && request.url === "/v1/artifacts") {
         const upload = decodeArtifactUpload(await readJsonBody(request, config.limits.requestBytes), config.limits.artifactBytes);
@@ -74,7 +84,13 @@ export async function startCandyRuntime(overrides = {}) {
       }
       const artifact = ARTIFACT_ROUTE.exec(request.url);
       if (request.method === "GET" && artifact) return writeJson(response, 200, artifactStore.metadata(artifact[1]), cors);
-      if (request.method === "POST" && request.url === "/v1/jobs") return writeJson(response, 202, await jobs.submit(await readJsonBody(request, config.limits.requestBytes)), cors);
+      if (request.method === "POST" && request.url === "/v1/jobs") {
+        const payload=await readJsonBody(request,config.limits.requestBytes);
+        const job=await jobs.submit(payload);
+        if(request.aborted || response.destroyed){jobs.cancel(job.jobId);return;}
+        response.once("close",()=>{if(!response.writableFinished)jobs.cancel(job.jobId);});
+        return writeJson(response,202,job,cors);
+      }
       const status = JOB_ROUTE.exec(request.url);
       if (request.method === "GET" && status) return writeJson(response, 200, jobs.get(status[1]), cors);
       const cancel = JOB_CANCEL_ROUTE.exec(request.url);
@@ -84,12 +100,13 @@ export async function startCandyRuntime(overrides = {}) {
       return writeJson(response, 404, { schemaVersion: CANDY_SCHEMA_VERSIONS.ALGORITHM_ERROR, classification: "ALGORITHM_FAILURE", message: "Unknown runtime route.", userCorrectable: true, retryable: false, details: {} }, cors);
     } catch (error) {
       if (!response.headersSent) writeJson(response, statusForError(error), structuredError(error), cors);
-    }
+    } finally { if(admitted)operations--;request.resume(); }
   });
-  await new Promise((resolve, reject) => {
+  server.requestTimeout=30000;server.headersTimeout=15000;server.maxConnections=32;
+  try { await new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(config.port, config.host, resolve);
-  });
+  }); } catch(error){if(config.artifactRoot)await artifactStore.close();else await artifactStore.dispose();throw error;}
   const address = server.address();
   return Object.freeze({
     host: config.host,
@@ -99,9 +116,13 @@ export async function startCandyRuntime(overrides = {}) {
     jobs,
     artifactStore,
     async close() {
-      await jobs.close();
+      if(closing)return;
+      closing=true;
+      let cleanupError;
+      try{await jobs.close();}catch(error){cleanupError=error;}
       await new Promise(resolve => server.close(resolve));
-      if (!config.artifactRoot) await artifactStore.dispose();
+      if (!config.artifactRoot) await artifactStore.dispose();else await artifactStore.close();
+      if(cleanupError)throw cleanupError;
     },
   });
 }

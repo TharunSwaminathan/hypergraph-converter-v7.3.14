@@ -4,6 +4,7 @@ import { access, readFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { join, normalize } from "node:path";
 import { promisify } from "node:util";
+import { qualificationJsonCache } from "./qualificationJson.js";
 
 const execFileAsync = promisify(execFile);
 const SCHEMA = "candy.cuda-qualified-build/1";
@@ -68,7 +69,7 @@ export async function verifyQualifiedCudaBackend(config) {
   const manifestPath = join(config.runtimeRoot, MANIFEST_RELATIVE);
   const binaryPath = join(config.runtimeRoot, BINARY_RELATIVE);
   try {
-    const manifest = validateManifest(JSON.parse(await readFile(manifestPath, "utf8")));
+    const manifest = validateManifest(qualificationJsonCache.parse(await readFile(manifestPath, "utf8")));
     if (!manifest) return { available: false, reason: "qualification_manifest_invalid" };
     await access(binaryPath, constants.R_OK);
     const executableHash = createHash("sha256").update(await readFile(binaryPath)).digest("hex");

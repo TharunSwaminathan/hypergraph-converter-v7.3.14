@@ -4,7 +4,7 @@ import { constants } from "node:fs";
 import { join } from "node:path";
 import { CAPABILITY_SCHEMA_VERSION } from "../config.js";
 import { verifyQualifiedCudaBackend } from "./cudaQualification.js";
-import { verifyQualifiedMotifBackend, MOTIF_SPECS } from "./motifQualification.js";
+import { verifyQualifiedMotifBackend, inspectMotifQualificationEnvironment, MOTIF_SPECS } from "./motifQualification.js";
 import { MOTIF_ALGORITHM, MOTIF_TAXONOMY } from "../../../src/candy/contracts/runtimeMotif.js";
 
 export const QUALIFIED_SSSP_CAPABILITY = Object.freeze({
@@ -65,8 +65,14 @@ export async function buildCapabilityDeclaration(config) {
   // Preserve that fixture contract; motif tests must inject motif discovery too.
   // Production CLI configuration never supplies either trusted override.
   const motifDiscoveryEnabled = typeof config.backendAvailable !== "boolean" || Boolean(config.motifBackendDiscovery);
-  for (const backend of motifDiscoveryEnabled ? Object.keys(MOTIF_SPECS) : []) {
-    const qualified = await verifyQualifiedMotifBackend(config, backend);
+  // One fresh environment observation per discovery round. The promise and its
+  // device facts never survive this call; files/tags are independently checked.
+  let environment;
+  const round={environment:()=>environment ??= inspectMotifQualificationEnvironment()};
+  const backends=motifDiscoveryEnabled ? Object.keys(MOTIF_SPECS) : [];
+  const qualifiedBackends=await Promise.all(backends.map(backend=>verifyQualifiedMotifBackend(config,backend,round)));
+  for (const [index,backend] of backends.entries()) {
+    const qualified = qualifiedBackends[index];
     const mode = backend === "CUDA_STATIC" ? "STATIC" : "INCREMENTAL";
     motifReadiness.push(Object.freeze({ backend, mode, status: qualified.available ? "AVAILABLE" : "UNAVAILABLE", reason: qualified.available ? null : qualified.reason }));
     if (qualified.available) capabilities.push(Object.freeze({

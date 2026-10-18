@@ -15,7 +15,7 @@ export function motifSelectorErrors(value = {}) {
   return errors;
 }
 const fail=(code,message)=>{throw new CandyContractError(code,message);};
-export async function submitMotifWorkflow({client,graphValue,pendingUpdate=null,argumentsValue,runtimeSessionId,applicationBinding=null,isCurrent=()=>true}) {
+export async function submitMotifWorkflow({client,graphValue,pendingUpdate=null,argumentsValue,runtimeSessionId,applicationBinding=null,isCurrent=()=>true,artifactPresence=null}) {
   const errors=motifSelectorErrors(argumentsValue);
   if (errors.length) fail(CANDY_ERROR_CODES.INVALID_GRAPH_SCHEMA,"Motif action arguments violate the bounded selector schema.");
   const check=()=>{if(!isCurrent()) fail(CANDY_ERROR_CODES.STALE_GRAPH_VERSION,"Graph, pending update or Runtime session changed during analysis authorization.");};
@@ -30,9 +30,10 @@ export async function submitMotifWorkflow({client,graphValue,pendingUpdate=null,
   const graphArtifactId = `sha256:${await sha256(graphText)}`; check();
   const updateArtifactId = incremental ? `sha256:${await sha256(updateText)}` : null; check();
   check();
-  const graphArtifact=await client.uploadArtifact({bytes:graphValue,mediaType:"application/vnd.candy.graph+json"});check();
+  const upload=(text,id,mediaType)=>artifactPresence?artifactPresence.upload(client,{text,id,mediaType,runtimeSessionId},check):client.uploadArtifact({bytes:text,mediaType});
+  const graphArtifact=await upload(graphText,graphArtifactId,"application/vnd.candy.graph+json");check();
   if (graphArtifact.id !== graphArtifactId) fail(CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE,"Uploaded graph artifact does not match the exact authorized content.");
-  const updateArtifact=incremental?await client.uploadArtifact({bytes:pendingUpdate,mediaType:"application/vnd.candy.updates+json"}):null;check();
+  const updateArtifact=incremental?await upload(updateText,updateArtifactId,"application/vnd.candy.updates+json"):null;check();
   if (incremental && updateArtifact.id !== updateArtifactId) fail(CANDY_ERROR_CODES.RESULT_VALIDATION_FAILURE,"Uploaded update artifact does not match the exact authorized content.");
   const request={schemaVersion:MOTIF_RUNTIME_REQUEST,requestId:crypto.randomUUID(),algorithm:MOTIF_ALGORITHM,taxonomyVersion:MOTIF_TAXONOMY,backend:argumentsValue.backend,mode:argumentsValue.mode,graphRef:{graphId:canonical.graphId,graphVersion:canonical.graphVersion},deviceId:argumentsValue.deviceId,timeoutMs:argumentsValue.timeoutMs,
     ...(incremental?{updateRef:{updateId:pendingUpdate.updateId,artifactId:updateArtifact.id,nextGraphVersion:pendingUpdate.nextGraphVersion}}:{})};

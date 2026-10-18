@@ -21,10 +21,11 @@ export async function harness({operations=[{type:"ADD_INCIDENCE",hyperedgeId:"h1
   const pending=createPendingHypergraphUpdateController({getGraphState:()=>graph,commit:(edges,options)=>{commits++;graph=commitGraphState(graph,edges,options);return graph;}});
   const stage=async ops=>pending.stage(createMutationPlan({graphIdentity:graphIdentityFromState(graph),operations:ops,summary:"5C test pending"}));
   await stage(operations);
-  const artifacts=new Map();
+  const artifacts=new Map(),metadata=new Map();
   let payload=null,job=null,result=null;
   const client={
-    async uploadArtifact({bytes,mediaType}) { uploads++; const id=artifactId(bytes); artifacts.set(id,structuredClone(bytes)); return {id,mediaType}; },
+    async uploadArtifact({bytes,mediaType}) { uploads++; const id=artifactId(bytes); artifacts.set(id,typeof bytes==="string"?JSON.parse(bytes):structuredClone(bytes));const result={id,mediaType,byteLength:Buffer.byteLength(typeof bytes==="string"?bytes:JSON.stringify(bytes))};metadata.set(id,result);return result; },
+    async getArtifactMetadata(id){return metadata.get(id);},
     async submitJob(value) {
       submissions++;payload=structuredClone(value);
       const request=payload.request;

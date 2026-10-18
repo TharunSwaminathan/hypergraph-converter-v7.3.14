@@ -115,7 +115,8 @@ export class NativeProcessRunner {
           stdout = append(stdout, handshake.subarray(newline+1), this.stdoutBytes);
           handshake = Buffer.alloc(0);
           if (terminalError || signal?.aborted) { terminating = false; terminate(); }
-          else child.stdin.end("CANDY_EXECUTE\n");
+          // Keep the pipe open as the supervisor's parent-liveness lease.
+          else child.stdin.write("CANDY_EXECUTE\n");
         } else stdout = append(stdout, chunk, this.stdoutBytes);
       });
       child.stderr.on("data", chunk => { stderr = append(stderr, chunk, this.stderrBytes); });
