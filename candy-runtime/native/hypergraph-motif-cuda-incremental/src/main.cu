@@ -350,14 +350,23 @@ void execute(const Request &r) {
   cuda_check(cudaSetDevice(static_cast<int>(r.device)));
   cudaDeviceProp prop{};
   cuda_check(cudaGetDeviceProperties(&prop,static_cast<int>(r.device)));
-  auto old_candidates = candidates(r.old_graph), new_candidates = candidates(r.new_graph);
   auto lookup = classifier();
-#ifdef CANDY_TEST_FAULT_ALLOCATION
-  cuda_check(cudaErrorMemoryAllocation);
-#endif
   float milliseconds = 0;
-  auto old_counts = affected_count(r.old_graph,old_candidates,lookup,prop,milliseconds);
-  auto new_counts = affected_count(r.new_graph,new_candidates,lookup,prop,milliseconds);
+  std::array<unsigned long long,30> old_counts{}, new_counts{};
+  std::size_t old_candidate_count = 0, new_candidate_count = 0;
+  {
+    auto old_candidates = candidates(r.old_graph);
+    old_candidate_count = old_candidates.size();
+#ifdef CANDY_TEST_FAULT_ALLOCATION
+    cuda_check(cudaErrorMemoryAllocation);
+#endif
+    old_counts = affected_count(r.old_graph,old_candidates,lookup,prop,milliseconds);
+  }
+  {
+    auto new_candidates = candidates(r.new_graph);
+    new_candidate_count = new_candidates.size();
+    new_counts = affected_count(r.new_graph,new_candidates,lookup,prop,milliseconds);
+  }
   std::array<std::int64_t,30> delta{};
   std::int64_t total = 0;
   for (unsigned i = 0; i < 30; ++i) {
@@ -372,7 +381,7 @@ void execute(const Request &r) {
     << "\",\"backend\":\"CUDA_INCREMENTAL\",\"mode\":\"INCREMENTAL\",\"inputGraphRef\":{\"graphId\":" << json_identity(r.graph_hex) << ",\"graphVersion\":" << r.old_version
     << "},\"outputGraphRef\":{\"graphId\":" << json_identity(r.graph_hex) << ",\"graphVersion\":" << r.new_version << "},\"updateId\":" << json_identity(r.update_hex) << ",\"requestDigest\":\"" << r.digest
     << "\",\"oldAffectedEdgeCount\":" << r.old_graph.affected.size() << ",\"newAffectedEdgeCount\":" << r.new_graph.affected.size()
-    << ",\"oldCandidateCount\":" << old_candidates.size() << ",\"newCandidateCount\":" << new_candidates.size() << ",\"oldAffectedCounts\":";
+    << ",\"oldCandidateCount\":" << old_candidate_count << ",\"newCandidateCount\":" << new_candidate_count << ",\"oldAffectedCounts\":";
   json_array(old_counts); std::cout << ",\"newAffectedCounts\":"; json_array(new_counts); std::cout << ",\"deltaCounts\":"; json_array(delta);
   std::cout << ",\"deltaTotalConnectedTriples\":" << total << ",\"cuda\":{\"deviceIndex\":" << r.device << ",\"deviceName\":\"" << escape(prop.name)
     << "\",\"computeMajor\":" << prop.major << ",\"computeMinor\":" << prop.minor << ",\"compiledArchitecture\":\"" << CANDY_QUALIFIED_ARCH
