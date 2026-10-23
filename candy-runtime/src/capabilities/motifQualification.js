@@ -22,9 +22,9 @@ export async function inspectMotifQualificationEnvironment() {
 export const MOTIF_RECORD_SCHEMA = "candy.motif-qualified-build/1";
 export const MOTIF_SPECS = Object.freeze({
   CUDA_STATIC: { directory: "hypergraph-motif-cuda", binary: "candy-hypergraph-motif-cuda", scope: "4b1", tag: "candy-integration-scope4b1-cuda-static-qualified", commit: "a27eb1246e342097de448408ffa0a4775545c4ae", cases: 487, failures: 69 },
-  CUDA_INCREMENTAL: { directory: "hypergraph-motif-cuda-incremental", binary: "candy-hypergraph-motif-cuda-incremental", scope: "4b2", tag: "candy-integration-scope4b2-cuda-incremental-qualified", commit: "febf3ec1aa97917f7fc989511078ec8013817bf8", cases: 405, failures: 104 },
+  CUDA_INCREMENTAL: { directory: "hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3", binary: "candy-hypergraph-motif-cuda-incremental", scope: "6d-tranche1", tag: "candy-integration-scope6d-tranche1-native-qualified", commit: "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0", cases: 405, failures: 104 },
 });
-export const motifRecordPath = (runtimeRoot, backend) => join(runtimeRoot, ".local", `${backend.toLowerCase()}-qualified-build.json`);
+export const motifRecordPath = (runtimeRoot, backend) => join(runtimeRoot, ".local", backend === "CUDA_INCREMENTAL" ? "cuda_incremental-scope6d-tranche1-f3fa7dc3-qualified-build.json" : `${backend.toLowerCase()}-qualified-build.json`);
 export const motifEvidencePaths = spec => ["native", "memcheck", "racecheck", "initcheck", "synccheck"].map(kind => `artifacts/candy-scope${spec.scope}-cuda-${spec.scope === "4b1" ? "static" : "incremental"}-${kind}-qualification.json`);
 export const sha256 = bytes => createHash("sha256").update(bytes).digest("hex");
 const exact = (v, keys) => v && typeof v === "object" && !Array.isArray(v) && Object.keys(v).length === keys.length && keys.every(k => Object.hasOwn(v,k));
@@ -39,7 +39,9 @@ export async function verifyQualifiedMotifBackend(config, backend, round = null)
   // Only in-process test configuration can inject discovery, never HTTP/model input.
   if (config.motifBackendDiscovery) return Object.freeze({ ...(config.motifBackendDiscovery[backend] ?? { available: false }) });
   try {
-    const record = qualificationJsonCache.parse(await regularBytes(motifRecordPath(config.runtimeRoot, backend), 32 * 1024));
+    const recordBytes = await regularBytes(motifRecordPath(config.runtimeRoot, backend), 32 * 1024);
+    if (backend === "CUDA_INCREMENTAL" && sha256(recordBytes) !== "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f") throw new Error("Unapproved incremental record");
+    const record = qualificationJsonCache.parse(recordBytes);
     if (!exact(record, ["schemaVersion", "backend", "algorithm", "taxonomyVersion", "binarySha256", "sourceSha256", "makefileSha256", "qualifiedCommit", "architecture", "nvccVersion", "runtimeVersion", "runtimePackageVersion", "device", "evidence"])
       || record.schemaVersion !== MOTIF_RECORD_SCHEMA || record.backend !== backend || record.algorithm !== MOTIF_ALGORITHM || record.taxonomyVersion !== MOTIF_TAXONOMY
       || record.qualifiedCommit !== spec.commit || record.architecture !== "sm_120" || record.nvccVersion !== "13.4.59" || record.runtimeVersion !== 13040 || record.runtimePackageVersion !== "13.4.49") throw new Error("Invalid record");
