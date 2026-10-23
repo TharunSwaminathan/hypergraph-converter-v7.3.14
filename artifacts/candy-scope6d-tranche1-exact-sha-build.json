@@ -1,0 +1,310 @@
+{
+  "status": "PASS",
+  "builtAt": "2026-10-18T22:30:49.774Z",
+  "commit": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+  "baseline": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+  "gitSourcePath": "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+  "gitBlob": "c9101e894b96e1ed9345607c10ea30f051e32dc4",
+  "sourceSha256": "ce425e455649fb1e2fec632cd608834dd6f8d7b31969c81673a8d1304908ee2b",
+  "buildSourcePath": "artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu",
+  "checkoutSourceSha256": "49373f697a3ad28866d1b9a58fb7360e9907e98892ac15cb3604588e5557325b",
+  "sourceByteInterpretation": "Build consumes exact LF Git blob bytes, not Windows CRLF checkout bytes. Both identities recorded separately. Future versioned package must use these exact LF source/Makefile snapshots; do not bind their hash to a different checkout representation.",
+  "makefileSha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b",
+  "makefileGitBlob": "207dde0d40eefb1b584ba5a2adbf8cd46e86a51d",
+  "candidateBinarySha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+  "buildDirectoryWasNew": true,
+  "builds": [
+    {
+      "fault": null,
+      "binary": "artifacts/candy-scope6d-tranche1-exact-sha-build/candidate",
+      "sha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--cd",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build",
+        "--exec",
+        "/usr/bin/env",
+        "-u",
+        "NVCC_PREPEND_FLAGS",
+        "-u",
+        "NVCC_APPEND_FLAGS",
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/candidate",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "fault": "UNAVAILABLE",
+      "binary": "artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-UNAVAILABLE",
+      "sha256": "12d8ad914f7f07ed32e6728705f9b4f008721f5bb1f10248a69d26503199935c",
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--cd",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build",
+        "--exec",
+        "/usr/bin/env",
+        "-u",
+        "NVCC_PREPEND_FLAGS",
+        "-u",
+        "NVCC_APPEND_FLAGS",
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-DCANDY_TEST_FAULT_UNAVAILABLE",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-UNAVAILABLE",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "fault": "ALLOCATION",
+      "binary": "artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-ALLOCATION",
+      "sha256": "16c463b14218a670a03ebb5d3fb7e0b8e9dfad5f04a16c5215c53281d02aa8eb",
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--cd",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build",
+        "--exec",
+        "/usr/bin/env",
+        "-u",
+        "NVCC_PREPEND_FLAGS",
+        "-u",
+        "NVCC_APPEND_FLAGS",
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-DCANDY_TEST_FAULT_ALLOCATION",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-ALLOCATION",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "fault": "LAUNCH",
+      "binary": "artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-LAUNCH",
+      "sha256": "b5495bbf967dab2833b7574b8e9755ec07762c36844e038bab4b0b4a0ff016dc",
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--cd",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build",
+        "--exec",
+        "/usr/bin/env",
+        "-u",
+        "NVCC_PREPEND_FLAGS",
+        "-u",
+        "NVCC_APPEND_FLAGS",
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-DCANDY_TEST_FAULT_LAUNCH",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-LAUNCH",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu"
+      ],
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "fault": "SYNC",
+      "binary": "artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-SYNC",
+      "sha256": "59d032431f6e10b0ac61c72e4d662f6536618fcc28d6ea7ea43ddce9218b6909",
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--cd",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build",
+        "--exec",
+        "/usr/bin/env",
+        "-u",
+        "NVCC_PREPEND_FLAGS",
+        "-u",
+        "NVCC_APPEND_FLAGS",
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-DCANDY_TEST_FAULT_SYNC",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/candidate-fault-SYNC",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu"
+      ],
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Mon_Aug_03_13:24:11_PDT_2026\nCuda compilation tools, release 13.4, V13.4.59\nBuild cuda_13.4.r13.4/compiler.38657139_0\n",
+  "hostCompiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "cuda": {
+    "cuda": {
+      "name": "CUDA SDK",
+      "version": "13.4.1"
+    },
+    "cuda_crt": {
+      "name": "CUDA crt Compiler for CUDA applications",
+      "version": "13.4.59"
+    },
+    "cuda_ctadvisor": {
+      "name": "CUDA Compile Time Advisor",
+      "version": "13.4.49"
+    },
+    "cuda_cudart": {
+      "name": "CUDA Runtime (cudart)",
+      "version": "13.4.49"
+    },
+    "cuda_culibos": {
+      "name": "CUDA DEV culibos is a Math Libraries",
+      "version": "13.4.49"
+    },
+    "cuda_cuobjdump": {
+      "name": "cuobjdump",
+      "version": "13.4.49"
+    },
+    "cuda_cupti": {
+      "name": "CUPTI",
+      "version": "13.4.58"
+    },
+    "cuda_cuxxfilt": {
+      "name": "CUDA cu++ filt",
+      "version": "13.4.49"
+    },
+    "cuda_gdb": {
+      "name": "CUDA GDB",
+      "version": "13.4.49"
+    },
+    "cuda_nvcc": {
+      "name": "CUDA NVCC",
+      "version": "13.4.59"
+    },
+    "cuda_nvdisasm": {
+      "name": "CUDA nvdisasm",
+      "version": "13.4.49"
+    },
+    "cuda_nvml_dev": {
+      "name": "CUDA NVML Headers",
+      "version": "13.4.61"
+    },
+    "cuda_nvprune": {
+      "name": "CUDA nvprune",
+      "version": "13.4.49"
+    },
+    "cuda_nvrtc": {
+      "name": "CUDA NVRTC",
+      "version": "13.4.59"
+    },
+    "cuda_nvtx": {
+      "name": "CUDA NVTX",
+      "version": "13.4.49"
+    },
+    "cuda_opencl": {
+      "name": "CUDA OpenCL",
+      "version": "13.4.49"
+    },
+    "cuda_profiler_api": {
+      "name": "CUDA Profiler API",
+      "version": "13.4.49"
+    },
+    "cuda_sandbox_dev": {
+      "name": "NVIDIA Sandbox Utils",
+      "version": "13.4.49"
+    },
+    "cuda_sanitizer_api": {
+      "name": "CUDA Compute Sanitizer API",
+      "version": "13.4.57"
+    },
+    "libcublas": {
+      "name": "CUDA cuBLAS",
+      "version": "13.7.0.27"
+    },
+    "libcufft": {
+      "name": "CUDA cuFFT",
+      "version": "12.4.0.34"
+    },
+    "libcufile": {
+      "name": "GPUDirect Storage (cufile)",
+      "version": "1.19.0.109"
+    },
+    "libcurand": {
+      "name": "CUDA cuRAND",
+      "version": "10.4.4.49"
+    },
+    "libcusolver": {
+      "name": "CUDA cuSOLVER",
+      "version": "12.3.2.15"
+    },
+    "libcusparse": {
+      "name": "CUDA cuSPARSE",
+      "version": "12.8.6.49"
+    },
+    "libnpp": {
+      "name": "CUDA NPP",
+      "version": "13.2.0.35"
+    },
+    "libnvfatbin": {
+      "name": "Fatbin interaction library",
+      "version": "13.4.49"
+    },
+    "libnvjitlink": {
+      "name": "JIT Linker Library",
+      "version": "13.4.52"
+    },
+    "libnvjpeg": {
+      "name": "CUDA nvJPEG",
+      "version": "13.2.2.35"
+    },
+    "libnvptxcompiler": {
+      "name": "CUDA PTX compiler",
+      "version": "13.4.59"
+    },
+    "libnvvm": {
+      "name": "NVVM",
+      "version": "13.4.59"
+    },
+    "nsight_compute": {
+      "name": "Nsight Compute",
+      "version": "2026.3.0.13"
+    },
+    "nsight_systems": {
+      "name": "Nsight Systems",
+      "version": "2026.3.2.313"
+    }
+  },
+  "gpu": "0, NVIDIA GeForce RTX 5060, 8151, 12.0, 617.42\n",
+  "controlledEnvironment": "New isolated directory containing Git-extracted source/Makefile; no prior build products. Explicit compiler/arch/flags; NVCC_PREPEND_FLAGS and NVCC_APPEND_FLAGS removed. Historical executables untouched."
+}

@@ -1,0 +1,190 @@
+{
+  "status": "PASS",
+  "verifiedAt": "2026-10-18T22:30:37.998Z",
+  "commit": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+  "branch": "refs/heads/candy-integration-scope6d-native-optimization",
+  "liveRemoteSha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+  "checks": [
+    {
+      "required": "CPU release / push",
+      "runId": 39171753728,
+      "jobId": 117806096421,
+      "sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "PASS",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171753728/job/117806096421"
+    },
+    {
+      "required": "CPU release / pull_request",
+      "runId": 39171793915,
+      "jobId": 117806209156,
+      "sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "PASS",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793915/job/117806209156"
+    },
+    {
+      "required": "Ubuntu",
+      "runId": 39171793958,
+      "jobId": 117806209518,
+      "sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "PASS",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209518"
+    },
+    {
+      "required": "macOS",
+      "runId": 39171793958,
+      "jobId": 117806209274,
+      "sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "PASS",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209274"
+    },
+    {
+      "required": "Windows",
+      "runId": 39171793958,
+      "jobId": 117806209141,
+      "sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "PASS",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209141"
+    }
+  ],
+  "runs": [
+    {
+      "id": 39171793915,
+      "name": "CPU regression and browser source release",
+      "event": "pull_request",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793915",
+      "checkSuiteId": 106148283200,
+      "jobs": [
+        {
+          "id": 117806209156,
+          "name": "cpu",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+          "run_id": 39171793915,
+          "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793915/job/117806209156",
+          "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/117806209156",
+          "started_at": "2026-10-18T22:20:28Z",
+          "completed_at": "2026-10-18T22:24:45Z"
+        }
+      ]
+    },
+    {
+      "id": 39171793958,
+      "name": "CI",
+      "event": "pull_request",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958",
+      "checkSuiteId": 106148283287,
+      "jobs": [
+        {
+          "id": 117806209141,
+          "name": "Build and test (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+          "run_id": 39171793958,
+          "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209141",
+          "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/117806209141",
+          "started_at": "2026-10-18T22:20:28Z",
+          "completed_at": "2026-10-18T22:26:06Z"
+        },
+        {
+          "id": 117806209274,
+          "name": "Build and test (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+          "run_id": 39171793958,
+          "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209274",
+          "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/117806209274",
+          "started_at": "2026-10-18T22:20:31Z",
+          "completed_at": "2026-10-18T22:22:40Z"
+        },
+        {
+          "id": 117806209518,
+          "name": "Build, lint and test (Ubuntu)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+          "run_id": 39171793958,
+          "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209518",
+          "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/117806209518",
+          "started_at": "2026-10-18T22:20:29Z",
+          "completed_at": "2026-10-18T22:24:55Z"
+        }
+      ]
+    },
+    {
+      "id": 39171753728,
+      "name": "CPU regression and browser source release",
+      "event": "push",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171753728",
+      "checkSuiteId": 106148186602,
+      "jobs": [
+        {
+          "id": 117806096421,
+          "name": "cpu",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+          "run_id": 39171753728,
+          "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171753728/job/117806096421",
+          "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/117806096421",
+          "started_at": "2026-10-18T22:20:01Z",
+          "completed_at": "2026-10-18T22:24:19Z"
+        }
+      ]
+    }
+  ],
+  "checkRuns": [
+    {
+      "id": 117806209518,
+      "name": "Build, lint and test (Ubuntu)",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209518"
+    },
+    {
+      "id": 117806209274,
+      "name": "Build and test (macos-latest)",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209274"
+    },
+    {
+      "id": 117806209156,
+      "name": "cpu",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793915/job/117806209156"
+    },
+    {
+      "id": 117806209141,
+      "name": "Build and test (windows-latest)",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171793958/job/117806209141"
+    },
+    {
+      "id": 117806096421,
+      "name": "cpu",
+      "head_sha": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/39171753728/job/117806096421"
+    }
+  ],
+  "method": "Authenticated read-only GitHub REST API via existing Git credential; no credentials retained. Desktop connector lacked repository access; direct repository credential verified all runs/jobs."
+}

@@ -1,0 +1,164 @@
+{
+  "status": "PASS",
+  "commit": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+  "binarySha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+  "runs": [
+    {
+      "name": "parity-resume",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/qualify-scope6d-tranche1-parity.mjs"
+      ],
+      "pid": 10740,
+      "startedAt": "2026-10-23T04:46:29.418Z",
+      "finishedAt": "2026-10-23T04:49:25.736Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-parity-resume-run.log"
+    },
+    {
+      "name": "full-native",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/legacy-qualification.mjs"
+      ],
+      "pid": 27328,
+      "startedAt": "2026-10-23T04:49:25.737Z",
+      "finishedAt": "2026-10-23T04:54:42.726Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-full-native-run.log"
+    },
+    {
+      "name": "diagnostic-builds",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/build-scope6d-tranche1-diagnostics.mjs"
+      ],
+      "pid": 8264,
+      "startedAt": "2026-10-23T04:54:42.727Z",
+      "finishedAt": "2026-10-23T04:54:48.765Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-diagnostic-builds-run.log"
+    },
+    {
+      "name": "safety",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/qualify-scope6d-tranche1-safety.mjs"
+      ],
+      "pid": 8500,
+      "startedAt": "2026-10-23T04:54:48.767Z",
+      "finishedAt": "2026-10-23T04:55:14.650Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-safety-run.log"
+    },
+    {
+      "name": "full-memcheck",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/legacy-qualification.mjs",
+        "--sanitizer=memcheck"
+      ],
+      "pid": 21496,
+      "startedAt": "2026-10-23T04:55:14.651Z",
+      "finishedAt": "2026-10-23T04:55:24.903Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-full-memcheck-run.log"
+    },
+    {
+      "name": "full-racecheck",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/legacy-qualification.mjs",
+        "--sanitizer=racecheck"
+      ],
+      "pid": 5664,
+      "startedAt": "2026-10-23T04:55:24.904Z",
+      "finishedAt": "2026-10-23T04:55:31.268Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-full-racecheck-run.log"
+    },
+    {
+      "name": "full-initcheck",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/legacy-qualification.mjs",
+        "--sanitizer=initcheck"
+      ],
+      "pid": 16376,
+      "startedAt": "2026-10-23T04:55:31.269Z",
+      "finishedAt": "2026-10-23T04:55:37.220Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-full-initcheck-run.log"
+    },
+    {
+      "name": "full-synccheck",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/legacy-qualification.mjs",
+        "--sanitizer=synccheck"
+      ],
+      "pid": 21748,
+      "startedAt": "2026-10-23T04:55:37.221Z",
+      "finishedAt": "2026-10-23T04:55:43.292Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-full-synccheck-run.log"
+    },
+    {
+      "name": "fault-memcheck",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/check-scope6d-tranche1-fault-memcheck.mjs"
+      ],
+      "pid": 26908,
+      "startedAt": "2026-10-23T04:55:43.293Z",
+      "finishedAt": "2026-10-23T04:55:56.996Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-fault-memcheck-run.log"
+    },
+    {
+      "name": "lifecycle",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/qualify-scope6d-tranche1-lifecycle.mjs"
+      ],
+      "pid": 2328,
+      "startedAt": "2026-10-23T04:55:56.998Z",
+      "finishedAt": "2026-10-23T04:56:06.071Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-lifecycle-run.log"
+    },
+    {
+      "name": "admission",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/check-scope6d-tranche1-admission.mjs"
+      ],
+      "pid": 7576,
+      "startedAt": "2026-10-23T04:56:06.072Z",
+      "finishedAt": "2026-10-23T04:56:07.578Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-admission-run.log"
+    },
+    {
+      "name": "scope6c",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--import",
+        "./artifacts/candy-scope6d-tranche1-exact-sha-post-restart-tooling/service-observer.mjs",
+        "--test",
+        "tests/candy-scope6c-retention.test.mjs",
+        "tests/candy-scope6c-recovery.test.mjs",
+        "tests/candy-scope6c-qualification-reuse.test.mjs",
+        "tests/candy-scope6c-corrective-lifecycle.test.mjs",
+        "tests/candy-scope6c-browser-reconnect.test.mjs"
+      ],
+      "pid": 27388,
+      "startedAt": "2026-10-23T04:56:07.579Z",
+      "finishedAt": "2026-10-23T04:56:25.322Z",
+      "exitCode": 0,
+      "log": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-scope6c-run.log"
+    }
+  ],
+  "retainedPreRebootMatrix": 30,
+  "retainedPreRebootRandomizedTransitions": 240
+}

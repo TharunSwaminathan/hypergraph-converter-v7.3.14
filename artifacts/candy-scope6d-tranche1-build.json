@@ -1,0 +1,160 @@
+{
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu",
+    "--exec",
+    "/usr/local/cuda-13.4/bin/nvcc",
+    "-std=c++17",
+    "-O2",
+    "-lineinfo",
+    "-Xcompiler=-Wall,-Wextra",
+    "-arch=sm_120",
+    "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+    "-o",
+    "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-build/candidate",
+    "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu"
+  ],
+  "stdout": "",
+  "stderr": "",
+  "sourceSha256": "49373f697a3ad28866d1b9a58fb7360e9907e98892ac15cb3604588e5557325b",
+  "baselineSourceSha256": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef",
+  "baselineBinarySha256": "f8930b6e1b169edb8c9fbaf2846a4744466477c75333326c51b5040121d46758",
+  "candidateBinarySha256": "c6f9a434cb79bfab58be439af61afe14060a7556a568b4c6d7d1dc4f9cdb460d",
+  "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Mon_Aug_03_13:24:11_PDT_2026\nCuda compilation tools, release 13.4, V13.4.59\nBuild cuda_13.4.r13.4/compiler.38657139_0\n",
+  "cuda": {
+    "cuda": {
+      "name": "CUDA SDK",
+      "version": "13.4.1"
+    },
+    "cuda_crt": {
+      "name": "CUDA crt Compiler for CUDA applications",
+      "version": "13.4.59"
+    },
+    "cuda_ctadvisor": {
+      "name": "CUDA Compile Time Advisor",
+      "version": "13.4.49"
+    },
+    "cuda_cudart": {
+      "name": "CUDA Runtime (cudart)",
+      "version": "13.4.49"
+    },
+    "cuda_culibos": {
+      "name": "CUDA DEV culibos is a Math Libraries",
+      "version": "13.4.49"
+    },
+    "cuda_cuobjdump": {
+      "name": "cuobjdump",
+      "version": "13.4.49"
+    },
+    "cuda_cupti": {
+      "name": "CUPTI",
+      "version": "13.4.58"
+    },
+    "cuda_cuxxfilt": {
+      "name": "CUDA cu++ filt",
+      "version": "13.4.49"
+    },
+    "cuda_gdb": {
+      "name": "CUDA GDB",
+      "version": "13.4.49"
+    },
+    "cuda_nvcc": {
+      "name": "CUDA NVCC",
+      "version": "13.4.59"
+    },
+    "cuda_nvdisasm": {
+      "name": "CUDA nvdisasm",
+      "version": "13.4.49"
+    },
+    "cuda_nvml_dev": {
+      "name": "CUDA NVML Headers",
+      "version": "13.4.61"
+    },
+    "cuda_nvprune": {
+      "name": "CUDA nvprune",
+      "version": "13.4.49"
+    },
+    "cuda_nvrtc": {
+      "name": "CUDA NVRTC",
+      "version": "13.4.59"
+    },
+    "cuda_nvtx": {
+      "name": "CUDA NVTX",
+      "version": "13.4.49"
+    },
+    "cuda_opencl": {
+      "name": "CUDA OpenCL",
+      "version": "13.4.49"
+    },
+    "cuda_profiler_api": {
+      "name": "CUDA Profiler API",
+      "version": "13.4.49"
+    },
+    "cuda_sandbox_dev": {
+      "name": "NVIDIA Sandbox Utils",
+      "version": "13.4.49"
+    },
+    "cuda_sanitizer_api": {
+      "name": "CUDA Compute Sanitizer API",
+      "version": "13.4.57"
+    },
+    "libcublas": {
+      "name": "CUDA cuBLAS",
+      "version": "13.7.0.27"
+    },
+    "libcufft": {
+      "name": "CUDA cuFFT",
+      "version": "12.4.0.34"
+    },
+    "libcufile": {
+      "name": "GPUDirect Storage (cufile)",
+      "version": "1.19.0.109"
+    },
+    "libcurand": {
+      "name": "CUDA cuRAND",
+      "version": "10.4.4.49"
+    },
+    "libcusolver": {
+      "name": "CUDA cuSOLVER",
+      "version": "12.3.2.15"
+    },
+    "libcusparse": {
+      "name": "CUDA cuSPARSE",
+      "version": "12.8.6.49"
+    },
+    "libnpp": {
+      "name": "CUDA NPP",
+      "version": "13.2.0.35"
+    },
+    "libnvfatbin": {
+      "name": "Fatbin interaction library",
+      "version": "13.4.49"
+    },
+    "libnvjitlink": {
+      "name": "JIT Linker Library",
+      "version": "13.4.52"
+    },
+    "libnvjpeg": {
+      "name": "CUDA nvJPEG",
+      "version": "13.2.2.35"
+    },
+    "libnvptxcompiler": {
+      "name": "CUDA PTX compiler",
+      "version": "13.4.59"
+    },
+    "libnvvm": {
+      "name": "NVVM",
+      "version": "13.4.59"
+    },
+    "nsight_compute": {
+      "name": "Nsight Compute",
+      "version": "2026.3.0.13"
+    },
+    "nsight_systems": {
+      "name": "Nsight Systems",
+      "version": "2026.3.2.313"
+    }
+  },
+  "gpu": "0, NVIDIA GeForce RTX 5060, 8151, 12.0\n"
+}

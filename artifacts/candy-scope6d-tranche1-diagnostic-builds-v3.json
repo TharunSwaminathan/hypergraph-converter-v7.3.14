@@ -1,0 +1,48 @@
+{
+  "isolatedOnly": true,
+  "productionHooksAdded": false,
+  "builds": [
+    {
+      "which": "baseline",
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v3.cu",
+      "binary": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v3",
+      "sourceSha256": "fd190ce4fdfc2e50a7b3e1e867492405e97c32786dfe1968029b5b4fdd065d13",
+      "binarySha256": "cdd8b326e1824019b800bb7945de63af5893c9dee3d70fd4e7f17225728b4298",
+      "command": [
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v3",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v3.cu"
+      ],
+      "stderr": ""
+    },
+    {
+      "which": "candidate",
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v3.cu",
+      "binary": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v3",
+      "sourceSha256": "e82851c3b0417d6bfec8eeb1c5098446fcbe7ff8b0de24290dfa6e66fa46e88b",
+      "binarySha256": "c7d2a869b3427d406f3f163ceb74303a92fb6b261aa3e0ee069de64e395cc401",
+      "command": [
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v3",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v3.cu"
+      ],
+      "stderr": ""
+    }
+  ],
+  "method": "Custom allocator traces requested host candidate element allocations/deallocations. One-shot fault hooks throw at actual phase API boundaries; FREE calls real cudaFree before throwing. Diagnostic std allocator forwarding preserves element payload but traces are separate from uninstrumented timing.",
+  "supersedes": "v1 consumed fault repeatedly; v2 missed NEW phase insertion because production uses CRLF. v3 normalizes diagnostic copy line endings before insertion. Initial safety attempt detected the missed hook by requiring exit 1 and an exact phase marker. Production helpers never changed."
+}

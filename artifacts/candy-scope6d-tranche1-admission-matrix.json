@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "id": "J-edge-217",
+      "layer": "Public workflow preflight",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT"
+    },
+    {
+      "id": "J-inc-218-edge-216",
+      "layer": "Public workflow preflight",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT"
+    },
+    {
+      "id": "J-edge-256",
+      "layer": "Public workflow preflight",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT"
+    },
+    {
+      "id": "J-edge-257",
+      "layer": "Public workflow preflight",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT"
+    },
+    {
+      "id": "J-incidence-100001",
+      "layer": "Public workflow preflight",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT"
+    },
+    {
+      "id": "J-native-edge-217",
+      "status": "PASS",
+      "bytes": 356,
+      "native": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Aggregate membership visits exceed the qualified oracle budget."
+        }
+      },
+      "layer": "Unchanged STATIC executable"
+    },
+    {
+      "id": "J-native-incidence-100001",
+      "status": "PASS",
+      "bytes": 357,
+      "native": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Numeric field exceeds its hard limit."
+        }
+      },
+      "layer": "Unchanged STATIC executable"
+    },
+    {
+      "id": "J-native-malformed-offset",
+      "status": "PASS",
+      "bytes": 352,
+      "native": {
+        "ok": false,
+        "error": {
+          "classification": "INVALID_GRAPH_SCHEMA",
+          "message": "Empty edges or decreasing offsets are forbidden."
+        }
+      },
+      "layer": "Unchanged STATIC executable"
+    },
+    {
+      "id": "J-native-packed-above-2MiB",
+      "status": "PASS",
+      "bytes": 2097153,
+      "native": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Request exceeds the byte limit."
+        }
+      },
+      "layer": "Unchanged STATIC executable"
+    },
+    {
+      "id": "I-native-packed-exact-2MiB",
+      "status": "PASS",
+      "bytes": 2097152,
+      "native": {
+        "ok": true,
+        "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "inputGraphRef": {
+          "graphId": "raw-parser",
+          "graphVersion": 1
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "totalConnectedTriples": 0,
+        "cuda": {
+          "deviceIndex": 0,
+          "deviceName": "NVIDIA GeForce RTX 5060",
+          "computeMajor": 12,
+          "computeMinor": 0,
+          "compiledArchitecture": "sm_120",
+          "compilerVersion": "13.4.59",
+          "runtimeVersion": 13040,
+          "driverVersion": 13040,
+          "kernelLaunchSucceeded": true,
+          "synchronizationSucceeded": true,
+          "kernelMilliseconds": 0.690432
+        }
+      },
+      "layer": "Unchanged STATIC executable"
+    }
+  ],
+  "incrementalBoundaries": "candy-scope6d-tranche1-boundaries.json",
+  "coverage": "Readiness public STATIC rejections and raw STATIC boundaries repeated; incremental packer and parser boundaries recorded separately, including exact digest-bound 2 MiB acceptance."
+}

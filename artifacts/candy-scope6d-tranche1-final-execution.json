@@ -1,0 +1,1103 @@
+{
+  "exactHead": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "retainedLongSoakEvidence": "artifacts/candy-scope6d-tranche1-binding-native-execution.json (300 native jobs; exact final product bytes unchanged)",
+  "capturedAt": "2026-10-23T16:24:49.083Z",
+  "command": "node artifacts/candy-scope6d-tranche1-final-closure-tooling/runtime-execution.mjs",
+  "pid": 24052,
+  "authority": "Ordinary production startCandyRuntime({port:0}), authenticated HTTP, actual NativeProcessRunner and qualified executable. No injected backend/runner.",
+  "limits": {
+    "requestBytes": 8388608,
+    "artifactBytes": 6291456,
+    "resultBytes": 8388608,
+    "stdoutBytes": 8388608,
+    "stderrBytes": 65536,
+    "maxVertices": 1000000,
+    "maxEdges": 10000000,
+    "maxUpdates": 1000000,
+    "maxJobs": 256,
+    "maxActiveJobs": 16,
+    "maxTerminalJobs": 32,
+    "terminalBytes": 16777216,
+    "maxArtifacts": 512,
+    "totalArtifactBytes": 67108864,
+    "maxHttpOperations": 4,
+    "queueWaitMs": 60000,
+    "jobDeadlineMs": 120000,
+    "maxCudaVertices": 10000
+  },
+  "cases": [
+    {
+      "id": "G-local-128",
+      "job": {
+        "schemaVersion": "candy.job-status/1",
+        "jobId": "6ce64976-7dbe-4665-916f-18a82f62dfb0",
+        "requestHash": "sha256:010e4d6badeb285535a212a177e1a01cac003ad648fb4670c91b8ef72ff558c0",
+        "status": "completed",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "graphRef": {
+          "graphId": "scope6d-G-local-128",
+          "graphVersion": 1
+        },
+        "createdAt": "2026-10-23T16:24:50.082Z",
+        "updatedAt": "2026-10-23T16:24:50.501Z",
+        "resultRef": "sha256:dcf821dbe6aac7e96f19eadb573bb92b9d376415932e1c6ad752016891be0c5a",
+        "error": null,
+        "lifecycle": [
+          "queued",
+          "preparing",
+          "running",
+          "validating",
+          "completed"
+        ]
+      },
+      "binding": {
+        "runtimeSessionId": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+        "jobId": "6ce64976-7dbe-4665-916f-18a82f62dfb0",
+        "requestId": "5c2469e4-2565-4d0c-80dc-850273f493ab",
+        "graphRef": {
+          "graphId": "scope6d-G-local-128",
+          "graphVersion": 1
+        },
+        "graphArtifactId": "sha256:6c071139f1ff326660076caac8e06bc4524e54b3a94bebf5249e89d32dc28a32",
+        "updateRef": {
+          "updateId": "G-local-128-update",
+          "artifactId": "sha256:0bd56500d6469d67a2294c175d71455e452b7a3c4e0cd0d82ce2b82ce4fb6468",
+          "nextGraphVersion": 2
+        },
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "deviceId": 0,
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "nativeRequestDigest": "c07ecf22448373f7d3cc85860d073693959a3103aabdd9a22844716dd314af94",
+        "applicationBinding": null,
+        "nativeIdentity": {
+          "oldAffectedEdgeCount": 1,
+          "oldCandidateCount": 8001,
+          "newAffectedEdgeCount": 1,
+          "newCandidateCount": 8001
+        }
+      },
+      "result": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+        "jobId": "6ce64976-7dbe-4665-916f-18a82f62dfb0",
+        "requestId": "5c2469e4-2565-4d0c-80dc-850273f493ab",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "inputGraphRef": {
+          "graphId": "scope6d-G-local-128",
+          "graphVersion": 1
+        },
+        "graphArtifactId": "sha256:6c071139f1ff326660076caac8e06bc4524e54b3a94bebf5249e89d32dc28a32",
+        "updateRef": {
+          "updateId": "G-local-128-update",
+          "artifactId": "sha256:0bd56500d6469d67a2294c175d71455e452b7a3c4e0cd0d82ce2b82ce4fb6468",
+          "nextGraphVersion": 2
+        },
+        "requestDigest": "c07ecf22448373f7d3cc85860d073693959a3103aabdd9a22844716dd314af94",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifDelta",
+        "interpretation": "delta_only",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "scope6d-G-local-128",
+            "graphVersion": 1
+          },
+          "outputGraphRef": {
+            "graphId": "scope6d-G-local-128",
+            "graphVersion": 2
+          },
+          "updateId": "G-local-128-update",
+          "requestDigest": "c07ecf22448373f7d3cc85860d073693959a3103aabdd9a22844716dd314af94",
+          "oldAffectedEdgeCount": 1,
+          "newAffectedEdgeCount": 1,
+          "oldCandidateCount": 8001,
+          "newCandidateCount": 8001,
+          "oldAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            3,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "newAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaCounts": [
+            0,
+            0,
+            0,
+            0,
+            -1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaTotalConnectedTriples": 0,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 1.71728
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:dcf821dbe6aac7e96f19eadb573bb92b9d376415932e1c6ad752016891be0c5a",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 2234
+        }
+      },
+      "expected": [
+        0,
+        0,
+        0,
+        0,
+        -1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "graphUnchanged": true
+    },
+    {
+      "id": "H-high-impact-128",
+      "job": {
+        "schemaVersion": "candy.job-status/1",
+        "jobId": "ac433be6-a0f4-47c9-aee4-1324add194bc",
+        "requestHash": "sha256:485864a3b27425ab1ea9e8654bbdbe02b775f19f61430a940d997109c1dde642",
+        "status": "completed",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "graphRef": {
+          "graphId": "scope6d-H-high-impact-128",
+          "graphVersion": 1
+        },
+        "createdAt": "2026-10-23T16:24:52.199Z",
+        "updatedAt": "2026-10-23T16:24:52.604Z",
+        "resultRef": "sha256:2e324bc9d72352bf606f829ce03caf86658037863ca76221763eee1f07f59338",
+        "error": null,
+        "lifecycle": [
+          "queued",
+          "preparing",
+          "running",
+          "validating",
+          "completed"
+        ]
+      },
+      "binding": {
+        "runtimeSessionId": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+        "jobId": "ac433be6-a0f4-47c9-aee4-1324add194bc",
+        "requestId": "664229cb-ab31-46f1-9ad5-9b64463a2e5a",
+        "graphRef": {
+          "graphId": "scope6d-H-high-impact-128",
+          "graphVersion": 1
+        },
+        "graphArtifactId": "sha256:cf341836539030a152e0fa29c462f7eaaab8fb3218d11371882e24c1c6619e4d",
+        "updateRef": {
+          "updateId": "H-high-impact-128-update",
+          "artifactId": "sha256:b5cb20e9e9aeba421bc0f25c109e9b60e6f68a9b013e889a5e5541051441f29b",
+          "nextGraphVersion": 2
+        },
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "deviceId": 0,
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "nativeRequestDigest": "24eea9ae478174dee5383520cdfa76cf151242e09271c0852a94e6f36ebbd22c",
+        "applicationBinding": null,
+        "nativeIdentity": {
+          "oldAffectedEdgeCount": 128,
+          "oldCandidateCount": 341376,
+          "newAffectedEdgeCount": 128,
+          "newCandidateCount": 341376
+        }
+      },
+      "result": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+        "jobId": "ac433be6-a0f4-47c9-aee4-1324add194bc",
+        "requestId": "664229cb-ab31-46f1-9ad5-9b64463a2e5a",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "inputGraphRef": {
+          "graphId": "scope6d-H-high-impact-128",
+          "graphVersion": 1
+        },
+        "graphArtifactId": "sha256:cf341836539030a152e0fa29c462f7eaaab8fb3218d11371882e24c1c6619e4d",
+        "updateRef": {
+          "updateId": "H-high-impact-128-update",
+          "artifactId": "sha256:b5cb20e9e9aeba421bc0f25c109e9b60e6f68a9b013e889a5e5541051441f29b",
+          "nextGraphVersion": 2
+        },
+        "requestDigest": "24eea9ae478174dee5383520cdfa76cf151242e09271c0852a94e6f36ebbd22c",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifDelta",
+        "interpretation": "delta_only",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "scope6d-H-high-impact-128",
+            "graphVersion": 1
+          },
+          "outputGraphRef": {
+            "graphId": "scope6d-H-high-impact-128",
+            "graphVersion": 2
+          },
+          "updateId": "H-high-impact-128-update",
+          "requestDigest": "24eea9ae478174dee5383520cdfa76cf151242e09271c0852a94e6f36ebbd22c",
+          "oldAffectedEdgeCount": 128,
+          "newAffectedEdgeCount": 128,
+          "oldCandidateCount": 341376,
+          "newCandidateCount": 341376,
+          "oldAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            341376,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "newAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            341376,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaTotalConnectedTriples": 0,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 1.25965
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:2e324bc9d72352bf606f829ce03caf86658037863ca76221763eee1f07f59338",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 2281
+        }
+      },
+      "expected": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "graphUnchanged": true
+    },
+    {
+      "id": "G-local-near-216",
+      "job": {
+        "schemaVersion": "candy.job-status/1",
+        "jobId": "8509892a-d96a-4bd2-8ce7-65fff4bc1ef8",
+        "requestHash": "sha256:06fcab6c7937ce6c58dde26eb6b225deda89e36dcb7da3f648d29d44fb43a3d9",
+        "status": "completed",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "graphRef": {
+          "graphId": "scope6d-G-local-near-216",
+          "graphVersion": 1
+        },
+        "createdAt": "2026-10-23T16:24:52.838Z",
+        "updatedAt": "2026-10-23T16:24:53.217Z",
+        "resultRef": "sha256:6cadec6363cc6a9757e101edea41bdd1efe6259060189313d06bfbf644aa237f",
+        "error": null,
+        "lifecycle": [
+          "queued",
+          "preparing",
+          "running",
+          "validating",
+          "completed"
+        ]
+      },
+      "binding": {
+        "runtimeSessionId": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+        "jobId": "8509892a-d96a-4bd2-8ce7-65fff4bc1ef8",
+        "requestId": "a86fa51a-8a31-4500-b555-230b45670497",
+        "graphRef": {
+          "graphId": "scope6d-G-local-near-216",
+          "graphVersion": 1
+        },
+        "graphArtifactId": "sha256:6ef6df6095e6636ec41c16daec31632234589766bc9cdd31f93a34fda97f8bfc",
+        "updateRef": {
+          "updateId": "G-local-near-216-update",
+          "artifactId": "sha256:0073abdf9f32bcc03c397abcb89d48e906b85802eb219b9989b5dea4366c9148",
+          "nextGraphVersion": 2
+        },
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "deviceId": 0,
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "nativeRequestDigest": "12466abae1d2fe292840fb1eacc67bfa86ced3bdf02a356cdf21d97f42a55b8d",
+        "applicationBinding": null,
+        "nativeIdentity": {
+          "oldAffectedEdgeCount": 1,
+          "oldCandidateCount": 23005,
+          "newAffectedEdgeCount": 1,
+          "newCandidateCount": 23005
+        }
+      },
+      "result": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+        "jobId": "8509892a-d96a-4bd2-8ce7-65fff4bc1ef8",
+        "requestId": "a86fa51a-8a31-4500-b555-230b45670497",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "inputGraphRef": {
+          "graphId": "scope6d-G-local-near-216",
+          "graphVersion": 1
+        },
+        "graphArtifactId": "sha256:6ef6df6095e6636ec41c16daec31632234589766bc9cdd31f93a34fda97f8bfc",
+        "updateRef": {
+          "updateId": "G-local-near-216-update",
+          "artifactId": "sha256:0073abdf9f32bcc03c397abcb89d48e906b85802eb219b9989b5dea4366c9148",
+          "nextGraphVersion": 2
+        },
+        "requestDigest": "12466abae1d2fe292840fb1eacc67bfa86ced3bdf02a356cdf21d97f42a55b8d",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifDelta",
+        "interpretation": "delta_only",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "scope6d-G-local-near-216",
+            "graphVersion": 1
+          },
+          "outputGraphRef": {
+            "graphId": "scope6d-G-local-near-216",
+            "graphVersion": 2
+          },
+          "updateId": "G-local-near-216-update",
+          "requestDigest": "12466abae1d2fe292840fb1eacc67bfa86ced3bdf02a356cdf21d97f42a55b8d",
+          "oldAffectedEdgeCount": 1,
+          "newAffectedEdgeCount": 1,
+          "oldCandidateCount": 23005,
+          "newCandidateCount": 23005,
+          "oldAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            23005,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "newAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            23005,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -23005,
+            23005,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaTotalConnectedTriples": 0,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 0.68976
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:6cadec6363cc6a9757e101edea41bdd1efe6259060189313d06bfbf644aa237f",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 2277
+        }
+      },
+      "expected": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -23005,
+        23005,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "graphUnchanged": true
+    }
+  ],
+  "checkpoints": [
+    {
+      "label": "three-production-cases",
+      "jobs": 3,
+      "artifacts": 9,
+      "artifactBytes": 33198,
+      "diskFiles": 12,
+      "workspaces": 0,
+      "rssBytes": 257384448,
+      "processes": {
+        "observedNativeGroups": 3,
+        "ownedRemaining": 0,
+        "supervisorHandles": 0
+      }
+    },
+    {
+      "label": "native-soak-10",
+      "jobs": 13,
+      "artifacts": 39,
+      "artifactBytes": 61986,
+      "diskFiles": 42,
+      "workspaces": 0,
+      "rssBytes": 85192704,
+      "processes": {
+        "observedNativeGroups": 13,
+        "ownedRemaining": 0,
+        "supervisorHandles": 0
+      }
+    },
+    {
+      "label": "native-soak-20",
+      "jobs": 23,
+      "artifacts": 69,
+      "artifactBytes": 90852,
+      "diskFiles": 72,
+      "workspaces": 0,
+      "rssBytes": 95997952,
+      "processes": {
+        "observedNativeGroups": 23,
+        "ownedRemaining": 0,
+        "supervisorHandles": 0
+      }
+    },
+    {
+      "label": "native-soak-30",
+      "jobs": 32,
+      "artifacts": 98,
+      "artifactBytes": 117485,
+      "diskFiles": 101,
+      "workspaces": 0,
+      "rssBytes": 101294080,
+      "processes": {
+        "observedNativeGroups": 33,
+        "ownedRemaining": 0,
+        "supervisorHandles": 0
+      }
+    },
+    {
+      "label": "native-soak-40",
+      "jobs": 32,
+      "artifacts": 118,
+      "artifactBytes": 124043,
+      "diskFiles": 121,
+      "workspaces": 0,
+      "rssBytes": 101584896,
+      "processes": {
+        "observedNativeGroups": 43,
+        "ownedRemaining": 0,
+        "supervisorHandles": 0
+      }
+    },
+    {
+      "label": "after-520-artifact-admissions",
+      "jobs": 32,
+      "artifacts": 512,
+      "artifactBytes": 103173,
+      "diskFiles": 515,
+      "workspaces": 0,
+      "rssBytes": 115789824,
+      "processes": {
+        "observedNativeGroups": 43,
+        "ownedRemaining": 0,
+        "supervisorHandles": 0
+      }
+    },
+    {
+      "label": "fresh-native-after-clean-restart",
+      "jobs": 1,
+      "artifacts": 3,
+      "artifactBytes": 8562,
+      "diskFiles": 6,
+      "workspaces": 0,
+      "rssBytes": 124571648,
+      "processes": {
+        "observedNativeGroups": 45,
+        "ownedRemaining": 0,
+        "supervisorHandles": 0
+      }
+    }
+  ],
+  "negativeBindings": [
+    {
+      "name": "stale session",
+      "status": "REJECTED"
+    },
+    {
+      "name": "wrong graph",
+      "status": "REJECTED"
+    },
+    {
+      "name": "wrong version",
+      "status": "REJECTED"
+    },
+    {
+      "name": "wrong digest",
+      "status": "REJECTED"
+    },
+    {
+      "name": "wrong update",
+      "status": "REJECTED"
+    },
+    {
+      "name": "stale result job",
+      "status": "REJECTED"
+    }
+  ],
+  "discovery": {
+    "schemaVersion": "candy.capabilities/1",
+    "capabilities": [
+      {
+        "capability": "RUN_SSSP",
+        "algorithm": "SSSP",
+        "algorithmVersion": "scope1-openmp-sssp/1",
+        "backend": "LOCAL_OPENMP",
+        "graphTypes": [
+          "OrdinaryGraph",
+          "DynamicOrdinaryGraph",
+          "ProjectedOrdinaryGraph"
+        ],
+        "modes": [
+          "STATIC",
+          "INCREMENTAL",
+          "COMPARE"
+        ],
+        "weightModel": {
+          "kind": "nonnegative_integer",
+          "objectives": 1,
+          "nativeMax": 2147483647
+        },
+        "adapterVersion": "candy.csr-adapter/1",
+        "nativeBuildFingerprint": "sha256:f5561eede6a06a8110e62b76ba1ffd7b6f53a091ada4ca23b8325c4800a85e7f",
+        "executionEnvironment": "WSL2_LINUX",
+        "limits": {
+          "requestBytes": 8388608,
+          "artifactBytes": 6291456,
+          "resultBytes": 8388608,
+          "stdoutBytes": 8388608,
+          "stderrBytes": 65536,
+          "maxVertices": 1000000,
+          "maxEdges": 10000000,
+          "maxUpdates": 1000000,
+          "maxJobs": 256,
+          "maxActiveJobs": 16,
+          "maxTerminalJobs": 32,
+          "terminalBytes": 16777216,
+          "maxArtifacts": 512,
+          "totalArtifactBytes": 67108864,
+          "maxHttpOperations": 4,
+          "queueWaitMs": 60000,
+          "jobDeadlineMs": 120000,
+          "maxCudaVertices": 10000
+        }
+      },
+      {
+        "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "algorithmVersion": "scope4c-qualified-motif/1",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "graphTypes": [
+          "Hypergraph",
+          "DynamicHypergraph"
+        ],
+        "modes": [
+          "STATIC"
+        ],
+        "adapterVersion": "candy.qualified-motif-transport/1",
+        "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "devices": [
+          {
+            "id": 0,
+            "name": "NVIDIA GeForce RTX 5060",
+            "memoryMiB": 8151,
+            "computeCapability": "12.0",
+            "qualifiedArchitecture": "sm_120"
+          }
+        ],
+        "limits": {
+          "maxHyperedges": 256,
+          "maxIncidences": 100000,
+          "maxAggregateWork": 5000000,
+          "timeoutMs": 60000,
+          "concurrentJobs": 1
+        }
+      },
+      {
+        "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "algorithmVersion": "scope4c-qualified-motif/1",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "graphTypes": [
+          "DynamicHypergraph"
+        ],
+        "modes": [
+          "INCREMENTAL"
+        ],
+        "adapterVersion": "candy.qualified-motif-transport/1",
+        "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "devices": [
+          {
+            "id": 0,
+            "name": "NVIDIA GeForce RTX 5060",
+            "memoryMiB": 8151,
+            "computeCapability": "12.0",
+            "qualifiedArchitecture": "sm_120"
+          }
+        ],
+        "limits": {
+          "maxHyperedges": 256,
+          "maxIncidences": 100000,
+          "maxAggregateWork": 5000000,
+          "timeoutMs": 60000,
+          "concurrentJobs": 1
+        }
+      }
+    ],
+    "motifReadiness": [
+      {
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "status": "AVAILABLE",
+        "reason": null
+      },
+      {
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "status": "AVAILABLE",
+        "reason": null
+      }
+    ],
+    "runtimeSessionId": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12"
+  },
+  "soak": {
+    "requested": 40,
+    "completed": 40,
+    "all": "CUDA_INCREMENTAL",
+    "uniqueGraphAndUpdateIds": true,
+    "defaultLimits": true
+  },
+  "retentionExpiration": {
+    "firstJobRejected": true,
+    "firstResultArtifactRejected": true
+  },
+  "artifactAdmission": {
+    "uploads": 520,
+    "maxArtifacts": 512
+  },
+  "cleanRestart": {
+    "oldSession": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+    "newSession": "f81c58f3-b941-4963-9fed-bc74d31d1daa",
+    "staleCredentialRejected": true,
+    "staleJobRejected": true,
+    "staleResultRejected": true,
+    "staleArtifactRejected": true,
+    "resultInvalidated": true,
+    "ownedDrained": {
+      "observedNativeGroups": 44,
+      "ownedRemaining": 0,
+      "supervisorHandles": 0
+    }
+  },
+  "status": "PASS",
+  "finishedAt": "2026-10-23T16:25:32.640Z",
+  "finalDrain": {
+    "observedNativeGroups": 45,
+    "ownedRemaining": 0,
+    "supervisorHandles": 0
+  }
+}

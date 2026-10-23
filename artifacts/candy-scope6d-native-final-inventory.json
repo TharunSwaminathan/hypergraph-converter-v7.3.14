@@ -1,0 +1,431 @@
+{
+  "capturedAt": "2026-10-18T20:59:15.604Z",
+  "verdict": "READY FOR BOUNDED SCOPE 6D IMPLEMENTATION",
+  "head": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+  "branch": "candy-integration-scope6d-native-optimization",
+  "anchors": {
+    "candy-integration-scope6c-runtime-reuse-recovery-qualified": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+    "candy-integration-scope6b-browser-scalability-qualified": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+    "candy-v7_4-merged-baseline-qualified": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+    "v7.3.14": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+  },
+  "firstTranche": "B: incremental host OLD/NEW candidate-vector lifetime only; not implemented",
+  "tooling": [
+    {
+      "path": "scripts/measure-scope6d-native.mjs",
+      "bytes": 17172,
+      "sha256": "53a94499eea49cf4911600412415848c95f20d0a81aaa614abcfe0d03607d505"
+    },
+    {
+      "path": "scripts/profile-scope6d-native.mjs",
+      "bytes": 2862,
+      "sha256": "7035d9baa4095e78b14e0c3ac830a0c5110491c646afd01436fd3d036580b92e"
+    },
+    {
+      "path": "scripts/analyze-scope6d-profiles.py",
+      "bytes": 4566,
+      "sha256": "54916ee8eda6b0b840e37efa6d92c59031668182f29c0165d364a2f3e547343f"
+    },
+    {
+      "path": "scripts/report-scope6d-readiness.mjs",
+      "bytes": 5058,
+      "sha256": "c8a5e4424d1ca2dff076ce06b28315a5968343c494796a7509a53d00d698e9db"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "artifacts/candy-scope6d-native-benchmark-before.json",
+      "bytes": 142103,
+      "sha256": "797dfbb61b3d81c42c624659e3e56c3b7a7d52292e5a62487a2e4b78f1412a08"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-benchmark-matrix.md",
+      "bytes": 6213,
+      "sha256": "8694d545bf0571ae285157ea447639bcbb19e3453ba29efd24c46b1e8211d307"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-benchmark-run.log",
+      "bytes": 5215,
+      "sha256": "b7009ebdcf689b555ca5f3bf2c002dfa17116946db0ecc5c6c9b31d3d8d4f593"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-benchmark-summary.json",
+      "bytes": 45656,
+      "sha256": "9f485b4757f948bfe0dc6ee75e2385777a426b0b21e0611403839239170ff5d2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-bottleneck-map.md",
+      "bytes": 7938,
+      "sha256": "db7d7cb1bedf8fff570888a5d6179c2556bac8d9e78beb81173ca3c3dd5dcb6f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-fixtures/B-high-cardinality.request",
+      "bytes": 556003,
+      "sha256": "1a6dcb47402708ab35ab75cef28defc3c436e56931c51ae58864ebc67e360cdb"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-fixtures/E-open-wedges.request",
+      "bytes": 959,
+      "sha256": "a83585e0dfc712a48094b37f11aaf139de2075eebe6d18f816b75d42db4ed470"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-fixtures/F-closed-triangles.request",
+      "bytes": 988,
+      "sha256": "31d071a04bf0595108593494220dd9e2387db4041d23037fffff4a1aa5058ee3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-fixtures/G-local-near-216.request",
+      "bytes": 4762,
+      "sha256": "ff3a87c6cc41d00968d8216e73be871ed3f3a1d0bcf1367eb50e7d11444ded97"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-fixtures/H-full-replace-216.request",
+      "bytes": 6394,
+      "sha256": "1163d4060671ec46712520df2f5b1e54dc75a28a83e01b0ac94f191fda10a9b2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-fixtures/I-work-64-inc-2560.request",
+      "bytes": 7747,
+      "sha256": "ee977121037d87980986848310bc510936d44d1ea9a7b9275e96e58f35a85374"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-host-rss.json",
+      "bytes": 21612,
+      "sha256": "414eadaa0fc71c890e58bf9d424537a104d9edda2a396d84b5f97efa74a8dc7b"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-implementation-plan.md",
+      "bytes": 7970,
+      "sha256": "f61e36b3f16e00cda7118744c2268069f3f18e2fd5a6d88d50b53d0ddd8ceb7b"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-prechange-inventory.json",
+      "bytes": 274723,
+      "sha256": "c194f3a5320ea1d2e9d5ef6618d4a2f104b0981b86c4650fc84ede4d07f300b3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profile-analysis.json",
+      "bytes": 29783,
+      "sha256": "8fed76f91cb07a6b6a0a445cbc51bc1e220605036aa08d6296fe3700c91b158d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profile-captures.json",
+      "bytes": 13127,
+      "sha256": "edea4a61da6917856cbe0fb4bf352d8964d218efbe9142fa1bf7d04d9dd49733"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality-capture.log",
+      "bytes": 2013,
+      "sha256": "958f91464c6150fe72dcfcd2a87885d7129089159bde2c9146210ed34f8c7427"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality-rss-0.json",
+      "bytes": 83,
+      "sha256": "0b79114d8438ce726b9ea46450e06ccba24ecc940da0459b74bee83188d16621"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality-rss-1.json",
+      "bytes": 83,
+      "sha256": "393e39144e39361d5c7bfc267e1728cfcd30e95ae2befb09f76e6d57d879b423"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality-rss-2.json",
+      "bytes": 83,
+      "sha256": "d6acfa2051054bbdcb46008c6e9400bcc2fd0efb743adaa6d008e032d630367e"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality-stats.log",
+      "bytes": 1970,
+      "sha256": "25d9c6ac284b33e3cd5182d3b492b3f97cbc14fa39e80dc4dd26467c0da63413"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality.nsys-rep",
+      "bytes": 57027,
+      "sha256": "e516f3a87892d03f97732e58c8cadafd1e3d4de6f77bc7da25082f704aef1087"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality.sqlite",
+      "bytes": 327680,
+      "sha256": "29be4e48b741eefa9d547ed72b3f7ce8fbb64ce1bcb320d8efe4f6bd91d1a30b"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality_cuda_api_sum.csv",
+      "bytes": 967,
+      "sha256": "ecc64681b5e9254998930c48d4db53e4be4831f3d1b1b358f2cb3881ed3844f2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality_cuda_gpu_kern_sum.csv",
+      "bytes": 278,
+      "sha256": "8e37c71c00d285e763ee99a984bb5982629bd663db19be1f7462abefa6c11e76"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "1177231f50521b43abd0e48d992bdb0c0250a38686f1936dbb0607037ec5f605"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/B-high-cardinality_cuda_gpu_mem_time_sum.csv",
+      "bytes": 279,
+      "sha256": "7cab94c6eaa125ab8daa3fbc0cac398c48cf039549872ab8da9b697f8c1b7fb2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges-capture.log",
+      "bytes": 1905,
+      "sha256": "1f18394b88a63e24980d998d3ba7ba5d2339cfa9da264218a24acc0f2c82dd26"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges-stats.log",
+      "bytes": 1920,
+      "sha256": "18fb867327dc15ac98b30d003a1aa437a266801c3ef6bea55be7d1a4fd2fca14"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges.nsys-rep",
+      "bytes": 56905,
+      "sha256": "e24f4098dbad190677ccc7dfc55d884e4fe78c322fb4adc9dd2df5ec41316b77"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges.sqlite",
+      "bytes": 327680,
+      "sha256": "ecee4a7febab10a8bca4d3868c177101cebc5b1dff7220986b59df158571c69e"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges_cuda_api_sum.csv",
+      "bytes": 950,
+      "sha256": "6f7571ae14cab7ace31cef916c9c75ebf564b7380f1284333cb162232c9294fe"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges_cuda_gpu_kern_sum.csv",
+      "bytes": 263,
+      "sha256": "79ff3e0c35733f4d001dd20a94105d52cbbfe6cc738db16886013be1d9d46293"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "4d629e87d372c59be8063449c49a795b3848bef311caf01cd63d62275ebff77c"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/E-open-wedges_cuda_gpu_mem_time_sum.csv",
+      "bytes": 273,
+      "sha256": "22e40c62207b0e34aee3bb465e65debf0f6acacd160ae71a42cca4008e8a40f4"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216-capture.log",
+      "bytes": 2726,
+      "sha256": "4e3f45af660fec494695d61857080d227937d65a6c8871cbdc5437eda9f78d8f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216-rss-0.json",
+      "bytes": 83,
+      "sha256": "b7fbc1c62074c64cde7c34b42fcebf95c866fd7c4b0dc0fe428f2f9c9c2afb70"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216-rss-1.json",
+      "bytes": 83,
+      "sha256": "8b8a150056f91186c93c8acf4ba8240ada360ed175ef505893192ad591cb22ad"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216-rss-2.json",
+      "bytes": 83,
+      "sha256": "5cd70f38deb04036dae870fc79eac2ae6ef11acd09a448666f446c9bc40593ea"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216-stats.log",
+      "bytes": 1959,
+      "sha256": "98430e7e811ec93d4c97a6854715aa47408fa25b5afb11c2949a51211566fa6f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216.nsys-rep",
+      "bytes": 58395,
+      "sha256": "767968beef4445cd9002d6562d13952283cc92d01b56cc34834b4f9ee1d93068"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216.sqlite",
+      "bytes": 331776,
+      "sha256": "c779e64b329d5d6117a40835db0c56dcf05c9126d98913ea364cf22bde057ba3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216_cuda_api_sum.csv",
+      "bytes": 971,
+      "sha256": "267c8074830c624148d22f2fa5af8d3653c8e1c2fe55f264efec38efddde6d7a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216_cuda_gpu_kern_sum.csv",
+      "bytes": 283,
+      "sha256": "3832e5722be0d7eefb51531e147fbbad86d95eb98870b9ebdcbcb516e6b889aa"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "9a81db98c906d02fa89ddcbb64eb565ee78982fdc54d1f3d32a9e17a647e9220"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/G-local-near-216_cuda_gpu_mem_time_sum.csv",
+      "bytes": 281,
+      "sha256": "860b0bcf1cfa6ec534182e3d5a9ab7cf1ad1201ce70b27177e40cf9745c59917"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216-capture.log",
+      "bytes": 2776,
+      "sha256": "c3e1c8552b29decbbb13a2c159adad7eab743226800a7dccd1ce8f72a0b0ff5a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216-rss-0.json",
+      "bytes": 83,
+      "sha256": "428762ec9a543917161311fdd60cbf14263437a51bdd6ea3f4a29c3cf70dbfe6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216-rss-1.json",
+      "bytes": 83,
+      "sha256": "56d3f8167bc36de9fc2e1c4f362771930028ac80f5ddddd0ba6925d6e496a3fd"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216-rss-2.json",
+      "bytes": 83,
+      "sha256": "283169137334c5d50c79ce4fff71b001d77038e5784f7ae1811a44d6a1ec52da"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216-stats.log",
+      "bytes": 1970,
+      "sha256": "f4ed59fa1ac4e0348a11f90e38b1278d8044c9e9ed9cc39f705886eda8151894"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216.nsys-rep",
+      "bytes": 58336,
+      "sha256": "49faf1e0f06fefb0ae5849c33c15fd48ec4bc4bb3846967ad7f8e1483ed8aa4d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216.sqlite",
+      "bytes": 331776,
+      "sha256": "72a29a3c87c759b8123b8fd2ce869b835633ec9302d608e5f57643f2ea980989"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216_cuda_api_sum.csv",
+      "bytes": 964,
+      "sha256": "8dce31baf368c4f942211f51e46decbbef511ed5b8f8a55a4d8ce99c66b7af60"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216_cuda_gpu_kern_sum.csv",
+      "bytes": 290,
+      "sha256": "ae2e7154d3c8b5b0663410f142671ba65dcf255db0a31a91ca47a925141e5dd6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216_cuda_gpu_mem_size_sum.csv",
+      "bytes": 263,
+      "sha256": "38cb3b7c5e28a969f01f6800855ad7e0afa9c33e083b65848ed271d36bd4e424"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/H-full-replace-216_cuda_gpu_mem_time_sum.csv",
+      "bytes": 289,
+      "sha256": "ea8345d9d825476ace623478b87c8732bfa457594eccff6f01471a9f3d0f9c51"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560-capture.log",
+      "bytes": 2021,
+      "sha256": "9e2aa7f3365f7c06e8b96d9b2cfd9f80bbdfff266bf7546ddf1c02a3147e00d6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560-stats.log",
+      "bytes": 1970,
+      "sha256": "e7073f33aa7879880097bb65189f11a8bee35d7dc3a265c884fc7d667de698ed"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560.nsys-rep",
+      "bytes": 56996,
+      "sha256": "dd78e7ac08e15cf4f5a047e9d8e1df1230b5502f70acf6be8189008a96d65fb2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560.sqlite",
+      "bytes": 327680,
+      "sha256": "a56bc9fe63ddd8803fe290e1570303b3a1d1dc872a04d7661c3021f176ad3dff"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560_cuda_api_sum.csv",
+      "bytes": 945,
+      "sha256": "7b886d9895e05ae79ab5fdea84fd0d33e4b46bdbb1a796bf1403aab9ade05808"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560_cuda_gpu_kern_sum.csv",
+      "bytes": 268,
+      "sha256": "07d192c6e0da72905fafa7395cf0df39c6b79234d6dd3f894ca6de69386e38b8"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "86a7ee64d8a6f03ae257ece4ac2ca9bbe798765b1ed5acf16d4d3f7d259ab318"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-profiles/I-work-64-inc-2560_cuda_gpu_mem_time_sum.csv",
+      "bytes": 273,
+      "sha256": "5fe5429642e86bc807c974005b5b648be079c70642c340a64dc551185a8b0ee4"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-readiness.md",
+      "bytes": 11309,
+      "sha256": "d8c413ef1c8f4068ec61b7205eb573f38299dd7bbb70f3b893acd03de4374329"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-risk-register.json",
+      "bytes": 8668,
+      "sha256": "9f68225ddba035d43d61bd80f736b1eff393c18639ae67309a852d787867bc59"
+    },
+    {
+      "path": "artifacts/candy-scope6d-native-verification.json",
+      "bytes": 1927,
+      "sha256": "2480727daf04ab9503b74040f519876be43ab2f196a9f1127cb38523f1bc32d1"
+    },
+    {
+      "path": "artifacts/candy-scope6d-scope6c-preservation-tests.log",
+      "bytes": 798,
+      "sha256": "55c05bf2bdb9f33f9fa7f00aa61c8d399e5ab405926213a4146c641a501384c1"
+    }
+  ],
+  "selfHashExcluded": true,
+  "preservation": {
+    "status": "PASS",
+    "capturedAt": "2026-10-18T20:59:15.580Z",
+    "head": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+    "branch": "candy-integration-scope6d-native-optimization",
+    "trackedSourceFilesUnchanged": 1281,
+    "historicalArtifactFilesUnchanged": 443,
+    "qualifiedLocalFilesUnchanged": 4,
+    "anchors": {
+      "candy-integration-scope6c-runtime-reuse-recovery-qualified": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+      "candy-integration-scope6b-browser-scalability-qualified": "61e3dda985b74be35e98f1e6b3886d33b58a4bfd",
+      "candy-v7_4-merged-baseline-qualified": "da4629b1f4204fbfc8f8e6d14941d29319d79e90",
+      "v7.3.14": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+    },
+    "trackedChanges": [],
+    "stagedChanges": [],
+    "freshChecks": {
+      "scope6cFiles": 5,
+      "scope6cResult": "PASS",
+      "taxonomyFile": "PASS",
+      "staticTransportContractFile": "PASS (3 subtests)",
+      "incrementalTransportContractFile": "PASS (3 subtests)",
+      "readinessObserverSyntax": "PASS"
+    },
+    "genuineCudaJobs": 54,
+    "acceptedCases": 30,
+    "boundaryProbes": 14,
+    "profiledCases": 5,
+    "hostRssSamples": 9,
+    "ownedNativeProcessesAfterBench": 0,
+    "projectNativeProcessCountFinal": 0,
+    "measurementRuntimeStopped": true,
+    "full284SuiteRerun": false,
+    "nativeSourcesOrBinariesRebuilt": false,
+    "manifestsChanged": false,
+    "scope6cHistoricalReportAbsence": "Scope6C qualification JSON/Markdown artifacts from previous chat are absent in this checkout at precheck; existing Scope6C logs and committed contract/tests are present and hashed. Qualified tag and user-provided baseline are authoritative; no historical evidence is recreated.",
+    "hardStop": {
+      "committed": false,
+      "pushed": false,
+      "tagged": false,
+      "merged": false,
+      "mainModified": false,
+      "protocolBroadened": false,
+      "persistentWorkersImplemented": false,
+      "firstTrancheImplemented": false,
+      "secondTrancheImplemented": false
+    }
+  }
+}

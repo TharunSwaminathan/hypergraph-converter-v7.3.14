@@ -1,0 +1,56 @@
+{
+  "capturedAt": "2026-10-23T16:27:51.089Z",
+  "status": "PASS",
+  "results": [
+    {
+      "command": "npm.cmd test",
+      "status": "PASS",
+      "files": 285,
+      "seconds": 177.7,
+      "log": "artifacts/candy-scope6d-tranche1-final-test.log"
+    },
+    {
+      "command": "npm.cmd run lint",
+      "status": "PASS",
+      "exitCode": 0,
+      "ms": 16326,
+      "log": "artifacts/candy-scope6d-tranche1-final-lint.log"
+    },
+    {
+      "command": "npm.cmd run build",
+      "status": "PASS",
+      "exitCode": 0,
+      "ms": 861,
+      "log": "artifacts/candy-scope6d-tranche1-final-build.log"
+    },
+    {
+      "command": "npm.cmd run build:github",
+      "status": "PASS",
+      "exitCode": 0,
+      "ms": 790,
+      "log": "artifacts/candy-scope6d-tranche1-final-build-github.log"
+    },
+    {
+      "command": "npm.cmd audit --omit=dev --json",
+      "status": "PASS",
+      "exitCode": 0,
+      "ms": 5268,
+      "log": "artifacts/candy-scope6d-tranche1-final-audit.log",
+      "productionVulnerabilities": 0
+    },
+    {
+      "command": "node scripts/run-node-tests.mjs --match=candy-scope6c",
+      "status": "PASS",
+      "exitCode": 0,
+      "ms": 12041,
+      "log": "artifacts/candy-scope6d-tranche1-final-focused6c.log"
+    },
+    {
+      "command": "node scripts/run-node-tests.mjs --match=candy-scope6d",
+      "status": "PASS",
+      "exitCode": 0,
+      "ms": 138,
+      "log": "artifacts/candy-scope6d-tranche1-final-focused6d.log"
+    }
+  ]
+}

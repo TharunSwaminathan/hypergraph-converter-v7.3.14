@@ -1,0 +1,461 @@
+{
+  "status": "PASS",
+  "unchangedLimits": {
+    "effectiveNonemptyEdges": 216,
+    "nominalEdges": 256,
+    "work": 5000000,
+    "incidences": 100000,
+    "deletions": 256,
+    "insertions": 256,
+    "packedBytes": 2097152
+  },
+  "acceptedMatrixBoundaries": [
+    "G-local-near-216",
+    "H-full-replace-216",
+    "I-edge-216-inc-217",
+    "I-work-64-inc-2560",
+    "I-incidence-cardinality-100000",
+    "I-incremental-inserted-100000"
+  ],
+  "probes": [
+    {
+      "name": "deletions257",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT",
+      "layer": "unchanged JS packer"
+    },
+    {
+      "name": "insertions257",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT",
+      "layer": "unchanged JS packer"
+    },
+    {
+      "name": "insertedIncidences100001",
+      "status": "PASS",
+      "classification": "RESOURCE_LIMIT",
+      "layer": "unchanged JS packer"
+    },
+    {
+      "name": "oldE217",
+      "bytes": 6394,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Snapshot exceeds qualified full-snapshot work budget."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Snapshot exceeds qualified full-snapshot work budget."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "newE257",
+      "bytes": 6394,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Numeric field exceeds its hard limit."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Numeric field exceeds its hard limit."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "I100001",
+      "bytes": 6397,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Numeric field exceeds its hard limit."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Numeric field exceeds its hard limit."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "workAbove5M",
+      "bytes": 6394,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Snapshot exceeds qualified full-snapshot work budget."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Snapshot exceeds qualified full-snapshot work budget."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "nominalE256WorkReject",
+      "bytes": 6394,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Snapshot exceeds qualified full-snapshot work budget."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Snapshot exceeds qualified full-snapshot work budget."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "badDigest",
+      "bytes": 6394,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "INVALID_GRAPH_SCHEMA",
+          "message": "Payload digest/transport framing mismatch."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "INVALID_GRAPH_SCHEMA",
+          "message": "Payload digest/transport framing mismatch."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "badOffsets",
+      "bytes": 6394,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "INVALID_GRAPH_SCHEMA",
+          "message": "Empty edge or invalid offsets."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "INVALID_GRAPH_SCHEMA",
+          "message": "Empty edge or invalid offsets."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "packedAbove2MiB",
+      "bytes": 2097153,
+      "baseline": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Request exceeds the byte limit."
+        }
+      },
+      "candidate": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Request exceeds the byte limit."
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "packedExact2MiB",
+      "bytes": 2097152,
+      "baseline": {
+        "ok": true,
+        "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "inputGraphRef": {
+          "graphId": "scope6d-R4-static",
+          "graphVersion": 1
+        },
+        "outputGraphRef": {
+          "graphId": "scope6d-R4-static",
+          "graphVersion": 2
+        },
+        "updateId": "update",
+        "requestDigest": "df7fd4c6222fac1309d689824aad4d7301aeac472f1cf5575df7666ccb2ff967",
+        "oldAffectedEdgeCount": 0,
+        "newAffectedEdgeCount": 0,
+        "oldCandidateCount": 0,
+        "newCandidateCount": 0,
+        "oldAffectedCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "newAffectedCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "deltaCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "deltaTotalConnectedTriples": 0,
+        "cuda": {
+          "deviceIndex": 0,
+          "deviceName": "NVIDIA GeForce RTX 5060",
+          "computeMajor": 12,
+          "computeMinor": 0,
+          "compiledArchitecture": "sm_120",
+          "compilerVersion": "13.4.59",
+          "runtimeVersion": 13040,
+          "driverVersion": 13040,
+          "kernelLaunchSucceeded": true,
+          "synchronizationSucceeded": true,
+          "kernelMilliseconds": 0.901696
+        }
+      },
+      "candidate": {
+        "ok": true,
+        "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "inputGraphRef": {
+          "graphId": "scope6d-R4-static",
+          "graphVersion": 1
+        },
+        "outputGraphRef": {
+          "graphId": "scope6d-R4-static",
+          "graphVersion": 2
+        },
+        "updateId": "update",
+        "requestDigest": "df7fd4c6222fac1309d689824aad4d7301aeac472f1cf5575df7666ccb2ff967",
+        "oldAffectedEdgeCount": 0,
+        "newAffectedEdgeCount": 0,
+        "oldCandidateCount": 0,
+        "newCandidateCount": 0,
+        "oldAffectedCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "newAffectedCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "deltaCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "deltaTotalConnectedTriples": 0,
+        "cuda": {
+          "deviceIndex": 0,
+          "deviceName": "NVIDIA GeForce RTX 5060",
+          "computeMajor": 12,
+          "computeMinor": 0,
+          "compiledArchitecture": "sm_120",
+          "compilerVersion": "13.4.59",
+          "runtimeVersion": 13040,
+          "driverVersion": 13040,
+          "kernelLaunchSucceeded": true,
+          "synchronizationSucceeded": true,
+          "kernelMilliseconds": 1.38323
+        }
+      },
+      "status": "PASS"
+    }
+  ]
+}

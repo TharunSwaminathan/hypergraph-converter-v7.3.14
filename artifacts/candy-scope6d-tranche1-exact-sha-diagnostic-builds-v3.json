@@ -1,0 +1,48 @@
+{
+  "isolatedOnly": true,
+  "productionHooksAdded": false,
+  "builds": [
+    {
+      "which": "baseline",
+      "path": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/baseline-diagnostic-v3.cu",
+      "binary": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/baseline-diagnostic-v3",
+      "sourceSha256": "fd190ce4fdfc2e50a7b3e1e867492405e97c32786dfe1968029b5b4fdd065d13",
+      "binarySha256": "92a8af9b2304c16753f3c6ebc1528ee466641cc20239f2b3978c373b302a2332",
+      "command": [
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/baseline-diagnostic-v3",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/baseline-diagnostic-v3.cu"
+      ],
+      "stderr": ""
+    },
+    {
+      "which": "candidate",
+      "path": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/candidate-diagnostic-v3.cu",
+      "binary": "artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/candidate-diagnostic-v3",
+      "sourceSha256": "e82851c3b0417d6bfec8eeb1c5098446fcbe7ff8b0de24290dfa6e66fa46e88b",
+      "binarySha256": "4ea97ecf913c52206b6ceadd486206ef19a48da778dd33c8fa82d111a68852c4",
+      "command": [
+        "/usr/local/cuda-13.4/bin/nvcc",
+        "-std=c++17",
+        "-O2",
+        "-lineinfo",
+        "-Xcompiler=-Wall,-Wextra",
+        "-arch=sm_120",
+        "-DCANDY_QUALIFIED_ARCH=\"sm_120\"",
+        "-o",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/candidate-diagnostic-v3",
+        "/mnt/c/Users/tharu/OneDrive/Documents/Candi/hypergraph-converter-v7.3.14/artifacts/candy-scope6d-tranche1-exact-sha-post-restart-work/candidate-diagnostic-v3.cu"
+      ],
+      "stderr": ""
+    }
+  ],
+  "method": "Custom allocator traces requested host candidate element allocations/deallocations. One-shot fault hooks throw at actual phase API boundaries; FREE calls real cudaFree before throwing. Diagnostic std allocator forwarding preserves element payload but traces are separate from uninstrumented timing.",
+  "provenance": "Corrected v3 diagnostic transformation, newly derived from exact committed source snapshots; no historical diagnostic copy reused."
+}

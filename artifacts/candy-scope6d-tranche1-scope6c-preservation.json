@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "fiveRegressions": {
+    "command": "node --test tests/candy-scope6c-retention.test.mjs tests/candy-scope6c-recovery.test.mjs tests/candy-scope6c-qualification-reuse.test.mjs tests/candy-scope6c-corrective-lifecycle.test.mjs tests/candy-scope6c-browser-reconnect.test.mjs",
+    "exitCode": 0,
+    "files": 5,
+    "log": "artifacts/candy-scope6d-tranche1-gate-scope6c.log"
+  },
+  "preserved": [
+    "Runtime retention",
+    "artifact retention",
+    "restart/recovery",
+    "browser reconnect",
+    "stale authority rejection",
+    "authentication",
+    "session lifecycle",
+    "result invalidation"
+  ],
+  "liveNativeLifecycle": "candy-scope6d-tranche1-lifecycle.json",
+  "ordinaryQualificationFailClosed": true,
+  "runtimeBrowserProductionBytesUnchanged": true,
+  "noScope6CTagMovement": true
+}

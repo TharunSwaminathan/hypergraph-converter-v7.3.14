@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "gates": [
+    {
+      "name": "test",
+      "command": "npm.cmd test",
+      "startedAt": "2026-10-18T21:20:27.606Z",
+      "finishedAt": "2026-10-18T21:23:26.402Z",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-scope6d-tranche1-gate-test.log",
+      "summary": "lly read-only plans reject unexpected protected-operation payloads (0.0714ms)\n✔ model-shaped identity corruption is blocked without confirmation or state change (0.0605ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 4.9097\n✔ Stage 8 corrective #3 pre-change evidence is pinned to the authoritative parent (0.535ms)\n✔ S8-N05 pre-change evidence records domain and typed-kind dispatch confusion (0.1114ms)\n✔ S8-N06 pre-change evidence records a legacy action self-declared as read-only (0.0955ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 5.1737\n✔ Stage 8 corrective #3 preserves S8-N01 through S8-N04 and corrective #2 (0.8776ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 4.5389\nStage 8 positive authorization and final-gate tests passed.\nStage 8 pending preservation and bounded-input tests passed.\nv7.3.10 submission request coordinator tests passed.\ntransformation plan compiler tests passed.\ntransformation plan tests passed.\nv7.3.13 upload cancellation and sampling tests passed.\nv7.3.12 upload policy tests passed.\nv7_4 corrective truth, alias safety, grouping, format, export, Stop identity and mounted Help regressions passed.\nv7.3.14 ZIP permission normalization passed (951 entries, modes: 0o755, 0o644).\n\nNode test suite passed: 284/284 files in 178.4s.\n"
+    },
+    {
+      "name": "scope6c",
+      "command": "node --test tests/candy-scope6c-retention.test.mjs tests/candy-scope6c-recovery.test.mjs tests/candy-scope6c-qualification-reuse.test.mjs tests/candy-scope6c-corrective-lifecycle.test.mjs tests/candy-scope6c-browser-reconnect.test.mjs",
+      "startedAt": "2026-10-18T21:23:26.402Z",
+      "finishedAt": "2026-10-18T21:23:32.879Z",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-scope6d-tranche1-gate-scope6c.log"
+    },
+    {
+      "name": "lint",
+      "command": "npm.cmd run lint",
+      "startedAt": "2026-10-18T21:23:32.879Z",
+      "finishedAt": "2026-10-18T21:23:41.979Z",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-scope6d-tranche1-gate-lint.log"
+    },
+    {
+      "name": "build",
+      "command": "npm.cmd run build",
+      "startedAt": "2026-10-18T21:23:41.979Z",
+      "finishedAt": "2026-10-18T21:23:42.782Z",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-scope6d-tranche1-gate-build.log"
+    },
+    {
+      "name": "build-github",
+      "command": "npm.cmd run build:github",
+      "startedAt": "2026-10-18T21:23:42.782Z",
+      "finishedAt": "2026-10-18T21:23:43.574Z",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-scope6d-tranche1-gate-build-github.log"
+    },
+    {
+      "name": "audit",
+      "command": "npm.cmd audit --omit=dev --json",
+      "startedAt": "2026-10-18T21:23:43.574Z",
+      "finishedAt": "2026-10-18T21:23:44.519Z",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-scope6d-tranche1-gate-audit.log",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    }
+  ]
+}

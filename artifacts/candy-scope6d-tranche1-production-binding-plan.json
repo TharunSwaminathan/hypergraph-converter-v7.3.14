@@ -1,0 +1,126 @@
+{
+  "status": "PREPARED_ONLY_NOT_APPLIED",
+  "preparedAt": "2026-10-23T04:56:56.709Z",
+  "candidateCommit": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+  "baseline": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+  "qualificationRecord": {
+    "path": "artifacts/candy-scope6d-tranche1-native-qualification.json",
+    "sha256": "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f",
+    "schemaVersion": "candy.motif-qualified-build/1",
+    "existingSchemaUnchanged": true,
+    "qualifiedCommit": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0"
+  },
+  "identities": {
+    "gitSourceBlob": "c9101e894b96e1ed9345607c10ea30f051e32dc4",
+    "sourceSha256": "ce425e455649fb1e2fec632cd608834dd6f8d7b31969c81673a8d1304908ee2b",
+    "checkoutCRLFSourceSha256": "49373f697a3ad28866d1b9a58fb7360e9907e98892ac15cb3604588e5557325b",
+    "makefileSha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b",
+    "executableSha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+    "architecture": "sm_120",
+    "nvccVersion": "13.4.59",
+    "runtimeVersion": 13040,
+    "device": {
+      "id": 0,
+      "name": "NVIDIA GeForce RTX 5060",
+      "memoryMiB": 8151,
+      "computeCapability": "12.0"
+    }
+  },
+  "beforeBinding": {
+    "incrementalAvailable": false,
+    "reason": "motif_qualification_unavailable_or_stale",
+    "staticAvailable": true,
+    "historicalRecord": "candy-runtime/.local/cuda_incremental-qualified-build.json",
+    "historicalExecutable": "candy-runtime/native/hypergraph-motif-cuda-incremental/build/candy-hypergraph-motif-cuda-incremental"
+  },
+  "afterApprovedBinding": {
+    "incrementalAvailable": true,
+    "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+    "staticIdentityUnchanged": true
+  },
+  "requiredOperatorApproval": true,
+  "applied": false,
+  "protocolSchemaChangeRequired": false,
+  "persistentWorkers": false,
+  "limitChange": false,
+  "steps": [
+    {
+      "order": 1,
+      "action": "Review and separately authorize production binding; revalidate branch/source, full evidence, immutable hashes and environment first. Do not rebuild silently; a rebuild yielding another hash requires its own qualification."
+    },
+    {
+      "order": 2,
+      "action": "Stage a new versioned local native package without overwriting the historical package.",
+      "directory": "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3",
+      "copies": [
+        {
+          "from": "artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu",
+          "to": "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/src/main.cu",
+          "sha256": "ce425e455649fb1e2fec632cd608834dd6f8d7b31969c81673a8d1304908ee2b"
+        },
+        {
+          "from": "artifacts/candy-scope6d-tranche1-exact-sha-build/Makefile",
+          "to": "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/Makefile",
+          "sha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b"
+        },
+        {
+          "from": "artifacts/candy-scope6d-tranche1-exact-sha-build/candidate",
+          "to": "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/build/candy-hypergraph-motif-cuda-incremental",
+          "sha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "action": "Copy the immutable additive qualification record to a NEW local versioned filename; retain all five evidence files and supplemental evidence by hash. Leave the Scope4B2 record unchanged.",
+      "from": "artifacts/candy-scope6d-tranche1-native-qualification.json",
+      "to": "candy-runtime/.local/cuda_incremental-scope6d-tranche1-f3fa7dc3-qualified-build.json",
+      "sha256": "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f"
+    },
+    {
+      "order": 4,
+      "action": "Prepare a narrowly reviewed identity-selection change in motifQualification.js. Select the new versioned local record only for CUDA_INCREMENTAL; pin the exact approved native commit, versioned package, new evidence scope, counts and a new distinct qualification anchor. Keep all freshness, file-type, evidence, environment, tag and hash checks. Do not accept arbitrary paths, old-record fallback or HTTP/model-supplied discovery.",
+      "file": "candy-runtime/src/capabilities/motifQualification.js",
+      "proposedSpec": {
+        "CUDA_INCREMENTAL": {
+          "directory": "hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3",
+          "binary": "candy-hypergraph-motif-cuda-incremental",
+          "scope": "6d-tranche1",
+          "commit": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0",
+          "tag": "candy-integration-scope6d-tranche1-native-qualified",
+          "cases": 405,
+          "failures": 104
+        }
+      },
+      "recordPathChange": {
+        "backend": "CUDA_INCREMENTAL",
+        "newFixedPath": "candy-runtime/.local/cuda_incremental-scope6d-tranche1-f3fa7dc3-qualified-build.json",
+        "otherBackendPathsUnchanged": true
+      },
+      "evidencePaths": [
+        "artifacts/candy-scope6d-tranche1-cuda-incremental-native-qualification.json",
+        "artifacts/candy-scope6d-tranche1-cuda-incremental-memcheck-qualification.json",
+        "artifacts/candy-scope6d-tranche1-cuda-incremental-racecheck-qualification.json",
+        "artifacts/candy-scope6d-tranche1-cuda-incremental-initcheck-qualification.json",
+        "artifacts/candy-scope6d-tranche1-cuda-incremental-synccheck-qualification.json"
+      ],
+      "sourceLineEndings": "Use exact LF Git-extracted package source and Makefile. Do not substitute CRLF checkout hashes or relax hash verification to accept either representation.",
+      "existingRecordKeysPreserved": true
+    },
+    {
+      "order": 5,
+      "action": "After explicit authorization, create a NEW native qualification anchor at the qualified native SHA. Do not move Scope4, Scope6C or other existing tags. Keep discovery fail-closed while this new anchor or any package/record/evidence component is absent or mismatched.",
+      "proposedNewAnchor": "candy-integration-scope6d-tranche1-native-qualified",
+      "exactTarget": "f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0"
+    },
+    {
+      "order": 6,
+      "action": "Review and test the binding code before selecting it: ordinary discovery must reject missing/tampered source, executable, record, evidence, stale SHA, wrong GPU/toolchain or anchor; valid new binding must advertise only its exact fingerprint. Preserve STATIC and the historical artifacts. Record selection changes are binding work, not native optimization tranche 2."
+    },
+    {
+      "order": 7,
+      "action": "Start a fresh authenticated production Runtime after authorized activation; prove health/actual port; confirm ordinary CUDA_INCREMENTAL discovery returns this exact fingerprint and execute one valid near-limit job. Repeat exact final-byte long-session/browser recovery qualification required by the prior implementation plan. Stop services cleanly and close evidence. Do not bypass ordinary verification."
+    }
+  ],
+  "rollback": "Revert/disable only the future new binding selection and retain the immutable versioned files for review. The current historical selector is expected to reject the new candidate source; do not fake availability by rewriting old qualification."
+}

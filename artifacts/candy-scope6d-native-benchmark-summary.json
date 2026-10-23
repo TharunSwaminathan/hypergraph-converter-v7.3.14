@@ -1,0 +1,1686 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "id": "A-many-small",
+      "mode": "STATIC",
+      "groups": [
+        "A"
+      ],
+      "graph": {
+        "vertices": 256,
+        "hyperedges": 128,
+        "incidences": 256,
+        "cardinality": {
+          "min": 2,
+          "max": 2,
+          "distribution": {
+            "2": 128
+          }
+        },
+        "aggregateMembershipVisits": 2048256,
+        "allUnorderedTriples": 341376,
+        "staticLaunchSlots": 2097152
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 341376
+      },
+      "packedRequestBytes": 1763,
+      "standaloneHostPackingMs": 0.7027000000000498,
+      "samples": 3,
+      "medianRuntimePreparationMs": 5.168799999999919,
+      "medianNativeWallMs": 267.38189999999986,
+      "medianRunnerWallMs": 436.02800000000025,
+      "medianQualificationMs": 159.6617000000001,
+      "medianEventIntervalMs": 0.60848,
+      "medianEndToEndRuntimeMs": 668.6657,
+      "medianResultBytes": 1790,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 2292,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "B-high-cardinality",
+      "mode": "STATIC",
+      "groups": [
+        "B"
+      ],
+      "graph": {
+        "vertices": 25000,
+        "hyperedges": 4,
+        "incidences": 100000,
+        "cardinality": {
+          "min": 25000,
+          "max": 25000,
+          "distribution": {
+            "25000": 4
+          }
+        },
+        "aggregateMembershipVisits": 300000,
+        "allUnorderedTriples": 4,
+        "staticLaunchSlots": 64
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 4
+      },
+      "packedRequestBytes": 556003,
+      "standaloneHostPackingMs": 86.25380000000041,
+      "samples": 3,
+      "medianRuntimePreparationMs": 100.76949999999943,
+      "medianNativeWallMs": 288.90419999999995,
+      "medianRunnerWallMs": 456.71540000000005,
+      "medianQualificationMs": 162.5087999999996,
+      "medianEventIntervalMs": 4.85898,
+      "medianEndToEndRuntimeMs": 888.3942000000002,
+      "medianResultBytes": 1801,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 400772,
+      "peakDeviceMemory": {
+        "metric": "Observed peak live explicit cudaMalloc bytes",
+        "bytes": 400772,
+        "excludes": "Context, allocator alignment, driver allocations and external/desktop VRAM; not total device peak",
+        "source": "artifacts/candy-scope6d-native-profile-analysis.json"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "C-sparse-overlap",
+      "mode": "STATIC",
+      "groups": [
+        "C"
+      ],
+      "graph": {
+        "vertices": 193,
+        "hyperedges": 64,
+        "incidences": 256,
+        "cardinality": {
+          "min": 4,
+          "max": 4,
+          "distribution": {
+            "4": 64
+          }
+        },
+        "aggregateMembershipVisits": 499968,
+        "allUnorderedTriples": 41664,
+        "staticLaunchSlots": 262144
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 41664
+      },
+      "packedRequestBytes": 1512,
+      "standaloneHostPackingMs": 0.29979999999977736,
+      "samples": 3,
+      "medianRuntimePreparationMs": 4.6624000000001615,
+      "medianNativeWallMs": 269.27689999999984,
+      "medianRunnerWallMs": 441.21820000000025,
+      "medianQualificationMs": 152.4274000000005,
+      "medianEventIntervalMs": 0.681504,
+      "medianEndToEndRuntimeMs": 675.4870000000001,
+      "medianResultBytes": 1800,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 2036,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "D-dense-overlap",
+      "mode": "STATIC",
+      "groups": [
+        "D"
+      ],
+      "graph": {
+        "vertices": 4,
+        "hyperedges": 64,
+        "incidences": 256,
+        "cardinality": {
+          "min": 4,
+          "max": 4,
+          "distribution": {
+            "4": 64
+          }
+        },
+        "aggregateMembershipVisits": 499968,
+        "allUnorderedTriples": 41664,
+        "staticLaunchSlots": 262144
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 41664
+      },
+      "packedRequestBytes": 1140,
+      "standaloneHostPackingMs": 1.2588999999989028,
+      "samples": 3,
+      "medianRuntimePreparationMs": 4.298999999999069,
+      "medianNativeWallMs": 272.1056000000008,
+      "medianRunnerWallMs": 437.6082999999999,
+      "medianQualificationMs": 156.2464999999993,
+      "medianEventIntervalMs": 0.70656,
+      "medianEndToEndRuntimeMs": 668.7626999999993,
+      "medianResultBytes": 1804,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 2036,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "E-open-wedges",
+      "mode": "STATIC",
+      "groups": [
+        "E"
+      ],
+      "graph": {
+        "vertices": 65,
+        "hyperedges": 64,
+        "incidences": 128,
+        "cardinality": {
+          "min": 2,
+          "max": 2,
+          "distribution": {
+            "2": 64
+          }
+        },
+        "aggregateMembershipVisits": 249984,
+        "allUnorderedTriples": 41664,
+        "staticLaunchSlots": 262144
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 41664
+      },
+      "packedRequestBytes": 959,
+      "standaloneHostPackingMs": 0.2713000000003376,
+      "samples": 3,
+      "medianRuntimePreparationMs": 4.66610000000037,
+      "medianNativeWallMs": 258.09150000000045,
+      "medianRunnerWallMs": 429.9436000000005,
+      "medianQualificationMs": 165.1790000000001,
+      "medianEventIntervalMs": 0.693184,
+      "medianEndToEndRuntimeMs": 675.8191999999999,
+      "medianResultBytes": 1794,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 1524,
+      "peakDeviceMemory": {
+        "metric": "Observed peak live explicit cudaMalloc bytes",
+        "bytes": 1524,
+        "excludes": "Context, allocator alignment, driver allocations and external/desktop VRAM; not total device peak",
+        "source": "artifacts/candy-scope6d-native-profile-analysis.json"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "F-closed-triangles",
+      "mode": "STATIC",
+      "groups": [
+        "F"
+      ],
+      "graph": {
+        "vertices": 65,
+        "hyperedges": 64,
+        "incidences": 128,
+        "cardinality": {
+          "min": 2,
+          "max": 2,
+          "distribution": {
+            "2": 64
+          }
+        },
+        "aggregateMembershipVisits": 249984,
+        "allUnorderedTriples": 41664,
+        "staticLaunchSlots": 262144
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 41664
+      },
+      "packedRequestBytes": 988,
+      "standaloneHostPackingMs": 0.5042000000012195,
+      "samples": 3,
+      "medianRuntimePreparationMs": 4.580100000001039,
+      "medianNativeWallMs": 274.5450000000001,
+      "medianRunnerWallMs": 466.7493999999988,
+      "medianQualificationMs": 185.66339999999946,
+      "medianEventIntervalMs": 0.836064,
+      "medianEndToEndRuntimeMs": 760.3186999999998,
+      "medianResultBytes": 1810,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 1524,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "G-local-128",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "G"
+      ],
+      "graph": {
+        "vertices": 129,
+        "hyperedges": 128,
+        "incidences": 256,
+        "cardinality": {
+          "min": 2,
+          "max": 2,
+          "distribution": {
+            "2": 128
+          }
+        },
+        "aggregateMembershipVisits": 2048256,
+        "allUnorderedTriples": 341376,
+        "staticLaunchSlots": 2097152
+      },
+      "newGraph": {
+        "vertices": 130,
+        "hyperedges": 128,
+        "incidences": 257,
+        "cardinality": {
+          "min": 2,
+          "max": 3,
+          "distribution": {
+            "2": 127,
+            "3": 1
+          }
+        },
+        "aggregateMembershipVisits": 2056257,
+        "allUnorderedTriples": 341376,
+        "staticLaunchSlots": 2097152
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 3
+      },
+      "candidateTriples": {
+        "old": 8001,
+        "new": 8001
+      },
+      "packedRequestBytes": 4174,
+      "standaloneHostPackingMs": 3.852100000000064,
+      "samples": 3,
+      "medianRuntimePreparationMs": 7.23989999999867,
+      "medianNativeWallMs": 268.27909999999974,
+      "medianRunnerWallMs": 454.0112999999983,
+      "medianQualificationMs": 177.44540000000052,
+      "medianEventIntervalMs": 1.06659,
+      "medianEndToEndRuntimeMs": 729.0095999999976,
+      "medianResultBytes": 2401,
+      "nativeCandidateHostPayloadBytes": 192024,
+      "devicePayloadEstimateBytes": 98308,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "G-local-near-216",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "G",
+        "I"
+      ],
+      "graph": {
+        "vertices": 1,
+        "hyperedges": 216,
+        "incidences": 216,
+        "cardinality": {
+          "min": 1,
+          "max": 1,
+          "distribution": {
+            "1": 216
+          }
+        },
+        "aggregateMembershipVisits": 4969080,
+        "allUnorderedTriples": 1656360,
+        "staticLaunchSlots": 10077696
+      },
+      "newGraph": {
+        "vertices": 2,
+        "hyperedges": 216,
+        "incidences": 217,
+        "cardinality": {
+          "min": 1,
+          "max": 2,
+          "distribution": {
+            "1": 215,
+            "2": 1
+          }
+        },
+        "aggregateMembershipVisits": 4992085,
+        "allUnorderedTriples": 1656360,
+        "staticLaunchSlots": 10077696
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 2
+      },
+      "candidateTriples": {
+        "old": 23005,
+        "new": 23005
+      },
+      "packedRequestBytes": 4762,
+      "standaloneHostPackingMs": 2.00170000000071,
+      "samples": 3,
+      "medianRuntimePreparationMs": 6.856100000000879,
+      "medianNativeWallMs": 282.2560000000012,
+      "medianRunnerWallMs": 459.53830000000016,
+      "medianQualificationMs": 171.17919999999867,
+      "medianEventIntervalMs": 1.10717,
+      "medianEndToEndRuntimeMs": 717.9979000000021,
+      "medianResultBytes": 2444,
+      "nativeCandidateHostPayloadBytes": 552120,
+      "devicePayloadEstimateBytes": 278548,
+      "peakDeviceMemory": {
+        "metric": "Observed peak live explicit cudaMalloc bytes",
+        "bytes": 278548,
+        "excludes": "Context, allocator alignment, driver allocations and external/desktop VRAM; not total device peak",
+        "source": "artifacts/candy-scope6d-native-profile-analysis.json"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "H-high-impact-128",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "H"
+      ],
+      "graph": {
+        "vertices": 129,
+        "hyperedges": 128,
+        "incidences": 256,
+        "cardinality": {
+          "min": 2,
+          "max": 2,
+          "distribution": {
+            "2": 128
+          }
+        },
+        "aggregateMembershipVisits": 2048256,
+        "allUnorderedTriples": 341376,
+        "staticLaunchSlots": 2097152
+      },
+      "newGraph": {
+        "vertices": 130,
+        "hyperedges": 128,
+        "incidences": 256,
+        "cardinality": {
+          "min": 2,
+          "max": 2,
+          "distribution": {
+            "2": 128
+          }
+        },
+        "aggregateMembershipVisits": 2048256,
+        "allUnorderedTriples": 341376,
+        "staticLaunchSlots": 2097152
+      },
+      "update": {
+        "deletions": 128,
+        "insertions": 128,
+        "insertedIncidences": 256
+      },
+      "candidateTriples": {
+        "old": 341376,
+        "new": 341376
+      },
+      "packedRequestBytes": 5114,
+      "standaloneHostPackingMs": 1.8333000000020547,
+      "samples": 3,
+      "medianRuntimePreparationMs": 8.191799999996874,
+      "medianNativeWallMs": 280.84490000000005,
+      "medianRunnerWallMs": 455.5128000000004,
+      "medianQualificationMs": 168.6241000000009,
+      "medianEventIntervalMs": 1.11446,
+      "medianEndToEndRuntimeMs": 739.0005999999994,
+      "medianResultBytes": 2448,
+      "nativeCandidateHostPayloadBytes": 8193024,
+      "devicePayloadEstimateBytes": 4098804,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "H-full-replace-216",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "H",
+        "I"
+      ],
+      "graph": {
+        "vertices": 1,
+        "hyperedges": 216,
+        "incidences": 216,
+        "cardinality": {
+          "min": 1,
+          "max": 1,
+          "distribution": {
+            "1": 216
+          }
+        },
+        "aggregateMembershipVisits": 4969080,
+        "allUnorderedTriples": 1656360,
+        "staticLaunchSlots": 10077696
+      },
+      "newGraph": {
+        "vertices": 2,
+        "hyperedges": 216,
+        "incidences": 216,
+        "cardinality": {
+          "min": 1,
+          "max": 1,
+          "distribution": {
+            "1": 216
+          }
+        },
+        "aggregateMembershipVisits": 4969080,
+        "allUnorderedTriples": 1656360,
+        "staticLaunchSlots": 10077696
+      },
+      "update": {
+        "deletions": 216,
+        "insertions": 216,
+        "insertedIncidences": 216
+      },
+      "candidateTriples": {
+        "old": 1656360,
+        "new": 1656360
+      },
+      "packedRequestBytes": 6394,
+      "standaloneHostPackingMs": 1.9783000000024913,
+      "samples": 3,
+      "medianRuntimePreparationMs": 7.693500000001222,
+      "medianNativeWallMs": 290.4506000000001,
+      "medianRunnerWallMs": 462.86889999999767,
+      "medianQualificationMs": 163.3665000000001,
+      "medianEventIntervalMs": 2.77363,
+      "medianEndToEndRuntimeMs": 716.495600000002,
+      "medianResultBytes": 2457,
+      "nativeCandidateHostPayloadBytes": 39752640,
+      "devicePayloadEstimateBytes": 19878804,
+      "peakDeviceMemory": {
+        "metric": "Observed peak live explicit cudaMalloc bytes",
+        "bytes": 19878804,
+        "excludes": "Context, allocator alignment, driver allocations and external/desktop VRAM; not total device peak",
+        "source": "artifacts/candy-scope6d-native-profile-analysis.json"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "I-edge-216-inc-217",
+      "mode": "STATIC",
+      "groups": [
+        "I"
+      ],
+      "graph": {
+        "vertices": 217,
+        "hyperedges": 216,
+        "incidences": 217,
+        "cardinality": {
+          "min": 1,
+          "max": 2,
+          "distribution": {
+            "1": 215,
+            "2": 1
+          }
+        },
+        "aggregateMembershipVisits": 4992085,
+        "allUnorderedTriples": 1656360,
+        "staticLaunchSlots": 10077696
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 1656360
+      },
+      "packedRequestBytes": 1930,
+      "standaloneHostPackingMs": 0.6098999999994703,
+      "samples": 3,
+      "medianRuntimePreparationMs": 4.4900999999990745,
+      "medianNativeWallMs": 262.4330000000009,
+      "medianRunnerWallMs": 428.6712000000007,
+      "medianQualificationMs": 167.4948000000004,
+      "medianEventIntervalMs": 0.87376,
+      "medianEndToEndRuntimeMs": 689.7513000000035,
+      "medianResultBytes": 1801,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 2488,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "mode": "STATIC",
+      "groups": [
+        "I"
+      ],
+      "graph": {
+        "vertices": 40,
+        "hyperedges": 64,
+        "incidences": 2560,
+        "cardinality": {
+          "min": 40,
+          "max": 40,
+          "distribution": {
+            "40": 64
+          }
+        },
+        "aggregateMembershipVisits": 4999680,
+        "allUnorderedTriples": 41664,
+        "staticLaunchSlots": 262144
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 41664
+      },
+      "packedRequestBytes": 7747,
+      "standaloneHostPackingMs": 0.7121000000006461,
+      "samples": 3,
+      "medianRuntimePreparationMs": 4.577499999999418,
+      "medianNativeWallMs": 271.29339999999866,
+      "medianRunnerWallMs": 448.33840000000055,
+      "medianQualificationMs": 170.3846999999987,
+      "medianEventIntervalMs": 0.711488,
+      "medianEndToEndRuntimeMs": 711.6795999999995,
+      "medianResultBytes": 1810,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 11252,
+      "peakDeviceMemory": {
+        "metric": "Observed peak live explicit cudaMalloc bytes",
+        "bytes": 11252,
+        "excludes": "Context, allocator alignment, driver allocations and external/desktop VRAM; not total device peak",
+        "source": "artifacts/candy-scope6d-native-profile-analysis.json"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "I-incidence-cardinality-100000",
+      "mode": "STATIC",
+      "groups": [
+        "B",
+        "I"
+      ],
+      "graph": {
+        "vertices": 100000,
+        "hyperedges": 1,
+        "incidences": 100000,
+        "cardinality": {
+          "min": 100000,
+          "max": 100000,
+          "distribution": {
+            "100000": 1
+          }
+        },
+        "aggregateMembershipVisits": 0,
+        "allUnorderedTriples": 0,
+        "staticLaunchSlots": 1
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 0
+      },
+      "packedRequestBytes": 589364,
+      "standaloneHostPackingMs": 221.1743000000024,
+      "samples": 1,
+      "medianRuntimePreparationMs": 198.4472999999998,
+      "medianNativeWallMs": 288.7985000000008,
+      "medianRunnerWallMs": 462.58899999999994,
+      "medianQualificationMs": 167.60139999999956,
+      "medianEventIntervalMs": 0.702112,
+      "medianEndToEndRuntimeMs": 1153.5771000000022,
+      "medianResultBytes": 1826,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 400760,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "I-incremental-inserted-100000",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "H",
+        "I"
+      ],
+      "graph": {
+        "vertices": 1,
+        "hyperedges": 1,
+        "incidences": 1,
+        "cardinality": {
+          "min": 1,
+          "max": 1,
+          "distribution": {
+            "1": 1
+          }
+        },
+        "aggregateMembershipVisits": 0,
+        "allUnorderedTriples": 0,
+        "staticLaunchSlots": 1
+      },
+      "newGraph": {
+        "vertices": 100001,
+        "hyperedges": 1,
+        "incidences": 100000,
+        "cardinality": {
+          "min": 100000,
+          "max": 100000,
+          "distribution": {
+            "100000": 1
+          }
+        },
+        "aggregateMembershipVisits": 0,
+        "allUnorderedTriples": 0,
+        "staticLaunchSlots": 1
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 100000
+      },
+      "candidateTriples": {
+        "old": 0,
+        "new": 0
+      },
+      "packedRequestBytes": 589878,
+      "standaloneHostPackingMs": 379.7850000000035,
+      "samples": 1,
+      "medianRuntimePreparationMs": 368.8114999999998,
+      "medianNativeWallMs": 271.7000999999982,
+      "medianRunnerWallMs": 445.89800000000105,
+      "medianQualificationMs": 167.6244000000006,
+      "medianEventIntervalMs": 1.34493,
+      "medianEndToEndRuntimeMs": 1420.3562999999995,
+      "medianResultBytes": 2484,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 400772,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R0-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 6,
+        "hyperedges": 4,
+        "incidences": 9,
+        "cardinality": {
+          "min": 1,
+          "max": 4,
+          "distribution": {
+            "1": 2,
+            "3": 1,
+            "4": 1
+          }
+        },
+        "aggregateMembershipVisits": 27,
+        "allUnorderedTriples": 4,
+        "staticLaunchSlots": 64
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 4
+      },
+      "packedRequestBytes": 394,
+      "standaloneHostPackingMs": 0.20209999999860884,
+      "samples": 1,
+      "medianRuntimePreparationMs": 3.6441999999988184,
+      "medianNativeWallMs": 291.41569999999774,
+      "medianRunnerWallMs": 460.71470000000045,
+      "medianQualificationMs": 162.4346000000005,
+      "medianEventIntervalMs": 0.8424,
+      "medianEndToEndRuntimeMs": 709.5440000000017,
+      "medianResultBytes": 1782,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 808,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R0-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 6,
+        "hyperedges": 4,
+        "incidences": 9,
+        "cardinality": {
+          "min": 1,
+          "max": 4,
+          "distribution": {
+            "1": 2,
+            "3": 1,
+            "4": 1
+          }
+        },
+        "aggregateMembershipVisits": 27,
+        "allUnorderedTriples": 4,
+        "staticLaunchSlots": 64
+      },
+      "newGraph": {
+        "vertices": 7,
+        "hyperedges": 4,
+        "incidences": 10,
+        "cardinality": {
+          "min": 1,
+          "max": 4,
+          "distribution": {
+            "1": 2,
+            "4": 2
+          }
+        },
+        "aggregateMembershipVisits": 30,
+        "allUnorderedTriples": 4,
+        "staticLaunchSlots": 64
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 4
+      },
+      "candidateTriples": {
+        "old": 3,
+        "new": 3
+      },
+      "packedRequestBytes": 901,
+      "standaloneHostPackingMs": 0.17929999999978463,
+      "samples": 1,
+      "medianRuntimePreparationMs": 4.892900000002555,
+      "medianNativeWallMs": 283.63299999999435,
+      "medianRunnerWallMs": 443.4471000000012,
+      "medianQualificationMs": 153.27040000000125,
+      "medianEventIntervalMs": 0.97552,
+      "medianEndToEndRuntimeMs": 647.7008999999998,
+      "medianResultBytes": 2409,
+      "nativeCandidateHostPayloadBytes": 72,
+      "devicePayloadEstimateBytes": 848,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R1-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 5,
+        "hyperedges": 5,
+        "incidences": 11,
+        "cardinality": {
+          "min": 1,
+          "max": 3,
+          "distribution": {
+            "1": 1,
+            "2": 2,
+            "3": 2
+          }
+        },
+        "aggregateMembershipVisits": 66,
+        "allUnorderedTriples": 10,
+        "staticLaunchSlots": 125
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 10
+      },
+      "packedRequestBytes": 403,
+      "standaloneHostPackingMs": 0.12559999999939464,
+      "samples": 1,
+      "medianRuntimePreparationMs": 3.8294999999998254,
+      "medianNativeWallMs": 272.09210000000166,
+      "medianRunnerWallMs": 558.3049000000028,
+      "medianQualificationMs": 279.6590999999971,
+      "medianEventIntervalMs": 0.749632,
+      "medianEndToEndRuntimeMs": 810.1120999999985,
+      "medianResultBytes": 1784,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 820,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R1-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 5,
+        "hyperedges": 5,
+        "incidences": 11,
+        "cardinality": {
+          "min": 1,
+          "max": 3,
+          "distribution": {
+            "1": 1,
+            "2": 2,
+            "3": 2
+          }
+        },
+        "aggregateMembershipVisits": 66,
+        "allUnorderedTriples": 10,
+        "staticLaunchSlots": 125
+      },
+      "newGraph": {
+        "vertices": 6,
+        "hyperedges": 5,
+        "incidences": 12,
+        "cardinality": {
+          "min": 1,
+          "max": 3,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 3
+          }
+        },
+        "aggregateMembershipVisits": 72,
+        "allUnorderedTriples": 10,
+        "staticLaunchSlots": 125
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 3
+      },
+      "candidateTriples": {
+        "old": 6,
+        "new": 6
+      },
+      "packedRequestBytes": 920,
+      "standaloneHostPackingMs": 0.7202000000033877,
+      "samples": 1,
+      "medianRuntimePreparationMs": 5.151899999997113,
+      "medianNativeWallMs": 248.97649999999703,
+      "medianRunnerWallMs": 419.2779999999984,
+      "medianQualificationMs": 164.0031999999992,
+      "medianEventIntervalMs": 1.0135,
+      "medianEndToEndRuntimeMs": 664.607600000003,
+      "medianResultBytes": 2410,
+      "nativeCandidateHostPayloadBytes": 144,
+      "devicePayloadEstimateBytes": 896,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R2-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 8,
+        "hyperedges": 6,
+        "incidences": 19,
+        "cardinality": {
+          "min": 2,
+          "max": 4,
+          "distribution": {
+            "2": 2,
+            "3": 1,
+            "4": 3
+          }
+        },
+        "aggregateMembershipVisits": 190,
+        "allUnorderedTriples": 20,
+        "staticLaunchSlots": 216
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 20
+      },
+      "packedRequestBytes": 423,
+      "standaloneHostPackingMs": 0.2481000000043423,
+      "samples": 1,
+      "medianRuntimePreparationMs": 5.112100000005739,
+      "medianNativeWallMs": 250.60859999999957,
+      "medianRunnerWallMs": 424.13209999999526,
+      "medianQualificationMs": 166.49749999999767,
+      "medianEventIntervalMs": 0.5088,
+      "medianEndToEndRuntimeMs": 664.4141000000018,
+      "medianResultBytes": 1783,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 856,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R2-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 8,
+        "hyperedges": 6,
+        "incidences": 19,
+        "cardinality": {
+          "min": 2,
+          "max": 4,
+          "distribution": {
+            "2": 2,
+            "3": 1,
+            "4": 3
+          }
+        },
+        "aggregateMembershipVisits": 190,
+        "allUnorderedTriples": 20,
+        "staticLaunchSlots": 216
+      },
+      "newGraph": {
+        "vertices": 9,
+        "hyperedges": 6,
+        "incidences": 20,
+        "cardinality": {
+          "min": 2,
+          "max": 5,
+          "distribution": {
+            "2": 2,
+            "3": 1,
+            "4": 2,
+            "5": 1
+          }
+        },
+        "aggregateMembershipVisits": 200,
+        "allUnorderedTriples": 20,
+        "staticLaunchSlots": 216
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 5
+      },
+      "candidateTriples": {
+        "old": 10,
+        "new": 10
+      },
+      "packedRequestBytes": 967,
+      "standaloneHostPackingMs": 0.30380000000150176,
+      "samples": 1,
+      "medianRuntimePreparationMs": 6.565399999999499,
+      "medianNativeWallMs": 269.00850000000355,
+      "medianRunnerWallMs": 430.55250000000524,
+      "medianQualificationMs": 155.58870000000024,
+      "medianEventIntervalMs": 0.976512,
+      "medianEndToEndRuntimeMs": 701.6210999999967,
+      "medianResultBytes": 2412,
+      "nativeCandidateHostPayloadBytes": 240,
+      "devicePayloadEstimateBytes": 980,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R3-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 10,
+        "hyperedges": 7,
+        "incidences": 21,
+        "cardinality": {
+          "min": 1,
+          "max": 5,
+          "distribution": {
+            "1": 2,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 2
+          }
+        },
+        "aggregateMembershipVisits": 315,
+        "allUnorderedTriples": 35,
+        "staticLaunchSlots": 343
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 35
+      },
+      "packedRequestBytes": 430,
+      "standaloneHostPackingMs": 0.22419999999692664,
+      "samples": 1,
+      "medianRuntimePreparationMs": 4.0592000000033295,
+      "medianNativeWallMs": 514.1802000000025,
+      "medianRunnerWallMs": 680.1046999999962,
+      "medianQualificationMs": 159.08329999999842,
+      "medianEventIntervalMs": 0.845664,
+      "medianEndToEndRuntimeMs": 915.2561999999962,
+      "medianResultBytes": 1785,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 868,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R3-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 10,
+        "hyperedges": 7,
+        "incidences": 21,
+        "cardinality": {
+          "min": 1,
+          "max": 5,
+          "distribution": {
+            "1": 2,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 2
+          }
+        },
+        "aggregateMembershipVisits": 315,
+        "allUnorderedTriples": 35,
+        "staticLaunchSlots": 343
+      },
+      "newGraph": {
+        "vertices": 11,
+        "hyperedges": 7,
+        "incidences": 22,
+        "cardinality": {
+          "min": 1,
+          "max": 5,
+          "distribution": {
+            "1": 1,
+            "2": 2,
+            "3": 1,
+            "4": 1,
+            "5": 2
+          }
+        },
+        "aggregateMembershipVisits": 330,
+        "allUnorderedTriples": 35,
+        "staticLaunchSlots": 343
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 2
+      },
+      "candidateTriples": {
+        "old": 15,
+        "new": 15
+      },
+      "packedRequestBytes": 986,
+      "standaloneHostPackingMs": 0.26599999999598367,
+      "samples": 1,
+      "medianRuntimePreparationMs": 5.172900000005029,
+      "medianNativeWallMs": 288.64020000000164,
+      "medianRunnerWallMs": 588.8117999999959,
+      "medianQualificationMs": 293.46860000000015,
+      "medianEventIntervalMs": 0.927968,
+      "medianEndToEndRuntimeMs": 838.5682000000015,
+      "medianResultBytes": 2412,
+      "nativeCandidateHostPayloadBytes": 360,
+      "devicePayloadEstimateBytes": 1052,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R4-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 10,
+        "hyperedges": 8,
+        "incidences": 29,
+        "cardinality": {
+          "min": 1,
+          "max": 6,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 3,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "aggregateMembershipVisits": 609,
+        "allUnorderedTriples": 56,
+        "staticLaunchSlots": 512
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 56
+      },
+      "packedRequestBytes": 450,
+      "standaloneHostPackingMs": 0.06960000000253785,
+      "samples": 1,
+      "medianRuntimePreparationMs": 4.336999999999534,
+      "medianNativeWallMs": 253.76859999999579,
+      "medianRunnerWallMs": 416.5512000000017,
+      "medianQualificationMs": 156.82189999999537,
+      "medianEventIntervalMs": 0.860512,
+      "medianEndToEndRuntimeMs": 762.0789999999979,
+      "medianResultBytes": 1785,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 904,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R4-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 10,
+        "hyperedges": 8,
+        "incidences": 29,
+        "cardinality": {
+          "min": 1,
+          "max": 6,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 3,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "aggregateMembershipVisits": 609,
+        "allUnorderedTriples": 56,
+        "staticLaunchSlots": 512
+      },
+      "newGraph": {
+        "vertices": 11,
+        "hyperedges": 8,
+        "incidences": 30,
+        "cardinality": {
+          "min": 1,
+          "max": 6,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 1
+          }
+        },
+        "aggregateMembershipVisits": 630,
+        "allUnorderedTriples": 56,
+        "staticLaunchSlots": 512
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 5
+      },
+      "candidateTriples": {
+        "old": 21,
+        "new": 21
+      },
+      "packedRequestBytes": 1029,
+      "standaloneHostPackingMs": 2.0072000000000116,
+      "samples": 1,
+      "medianRuntimePreparationMs": 5.306099999994331,
+      "medianNativeWallMs": 248.625,
+      "medianRunnerWallMs": 406.3919999999998,
+      "medianQualificationMs": 151.25940000000264,
+      "medianEventIntervalMs": 1.08589,
+      "medianEndToEndRuntimeMs": 649.3827999999994,
+      "medianResultBytes": 2416,
+      "nativeCandidateHostPayloadBytes": 504,
+      "devicePayloadEstimateBytes": 1160,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R5-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 11,
+        "hyperedges": 9,
+        "incidences": 25,
+        "cardinality": {
+          "min": 1,
+          "max": 4,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 6,
+            "4": 1
+          }
+        },
+        "aggregateMembershipVisits": 700,
+        "allUnorderedTriples": 84,
+        "staticLaunchSlots": 729
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 84
+      },
+      "packedRequestBytes": 448,
+      "standaloneHostPackingMs": 0.06689999999798601,
+      "samples": 1,
+      "medianRuntimePreparationMs": 4.365499999999884,
+      "medianNativeWallMs": 329.84850000000006,
+      "medianRunnerWallMs": 569.0429999999978,
+      "medianQualificationMs": 232.15430000000197,
+      "medianEventIntervalMs": 0.761024,
+      "medianEndToEndRuntimeMs": 812.8024000000005,
+      "medianResultBytes": 1786,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 892,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R5-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 11,
+        "hyperedges": 9,
+        "incidences": 25,
+        "cardinality": {
+          "min": 1,
+          "max": 4,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 6,
+            "4": 1
+          }
+        },
+        "aggregateMembershipVisits": 700,
+        "allUnorderedTriples": 84,
+        "staticLaunchSlots": 729
+      },
+      "newGraph": {
+        "vertices": 12,
+        "hyperedges": 9,
+        "incidences": 26,
+        "cardinality": {
+          "min": 1,
+          "max": 4,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 5,
+            "4": 2
+          }
+        },
+        "aggregateMembershipVisits": 728,
+        "allUnorderedTriples": 84,
+        "staticLaunchSlots": 729
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 4
+      },
+      "candidateTriples": {
+        "old": 28,
+        "new": 28
+      },
+      "packedRequestBytes": 1029,
+      "standaloneHostPackingMs": 2.507499999999709,
+      "samples": 1,
+      "medianRuntimePreparationMs": 4.929000000003725,
+      "medianNativeWallMs": 242.80859999999666,
+      "medianRunnerWallMs": 405.1504999999961,
+      "medianQualificationMs": 156.4088000000047,
+      "medianEventIntervalMs": 0.766944,
+      "medianEndToEndRuntimeMs": 648.5455999999976,
+      "medianResultBytes": 2414,
+      "nativeCandidateHostPayloadBytes": 672,
+      "devicePayloadEstimateBytes": 1232,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R6-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 12,
+        "hyperedges": 10,
+        "incidences": 36,
+        "cardinality": {
+          "min": 1,
+          "max": 6,
+          "distribution": {
+            "1": 2,
+            "3": 2,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
+        },
+        "aggregateMembershipVisits": 1296,
+        "allUnorderedTriples": 120,
+        "staticLaunchSlots": 1000
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 120
+      },
+      "packedRequestBytes": 477,
+      "standaloneHostPackingMs": 0.0849000000016531,
+      "samples": 1,
+      "medianRuntimePreparationMs": 3.8108999999967637,
+      "medianNativeWallMs": 268.06550000000425,
+      "medianRunnerWallMs": 427.51460000000225,
+      "medianQualificationMs": 153.3623000000007,
+      "medianEventIntervalMs": 0.646944,
+      "medianEndToEndRuntimeMs": 665.755600000004,
+      "medianResultBytes": 1790,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 940,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R6-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 12,
+        "hyperedges": 10,
+        "incidences": 36,
+        "cardinality": {
+          "min": 1,
+          "max": 6,
+          "distribution": {
+            "1": 2,
+            "3": 2,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
+        },
+        "aggregateMembershipVisits": 1296,
+        "allUnorderedTriples": 120,
+        "staticLaunchSlots": 1000
+      },
+      "newGraph": {
+        "vertices": 13,
+        "hyperedges": 10,
+        "incidences": 37,
+        "cardinality": {
+          "min": 1,
+          "max": 6,
+          "distribution": {
+            "1": 1,
+            "2": 1,
+            "3": 2,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
+        },
+        "aggregateMembershipVisits": 1332,
+        "allUnorderedTriples": 120,
+        "staticLaunchSlots": 1000
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 2
+      },
+      "candidateTriples": {
+        "old": 36,
+        "new": 36
+      },
+      "packedRequestBytes": 1093,
+      "standaloneHostPackingMs": 0.3041000000011991,
+      "samples": 1,
+      "medianRuntimePreparationMs": 5.949500000002445,
+      "medianNativeWallMs": 265.2156000000032,
+      "medianRunnerWallMs": 587.3767000000007,
+      "medianQualificationMs": 315.5466000000015,
+      "medianEventIntervalMs": 0.991232,
+      "medianEndToEndRuntimeMs": 801.5911000000051,
+      "medianResultBytes": 2420,
+      "nativeCandidateHostPayloadBytes": 864,
+      "devicePayloadEstimateBytes": 1376,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R7-static",
+      "mode": "STATIC",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 12,
+        "hyperedges": 11,
+        "incidences": 45,
+        "cardinality": {
+          "min": 1,
+          "max": 7,
+          "distribution": {
+            "1": 2,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 1,
+            "7": 2
+          }
+        },
+        "aggregateMembershipVisits": 2025,
+        "allUnorderedTriples": 165,
+        "staticLaunchSlots": 1331
+      },
+      "newGraph": null,
+      "update": null,
+      "candidateTriples": {
+        "all": 165
+      },
+      "packedRequestBytes": 502,
+      "standaloneHostPackingMs": 0.1397999999971944,
+      "samples": 1,
+      "medianRuntimePreparationMs": 3.9733000000051106,
+      "medianNativeWallMs": 255.91019999999844,
+      "medianRunnerWallMs": 419.7621999999974,
+      "medianQualificationMs": 157.42229999999836,
+      "medianEventIntervalMs": 0.575072,
+      "medianEndToEndRuntimeMs": 646.1114999999991,
+      "medianResultBytes": 1788,
+      "nativeCandidateHostPayloadBytes": 0,
+      "devicePayloadEstimateBytes": 980,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    },
+    {
+      "id": "R7-incremental",
+      "mode": "INCREMENTAL",
+      "groups": [
+        "randomized-differential"
+      ],
+      "graph": {
+        "vertices": 12,
+        "hyperedges": 11,
+        "incidences": 45,
+        "cardinality": {
+          "min": 1,
+          "max": 7,
+          "distribution": {
+            "1": 2,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 1,
+            "7": 2
+          }
+        },
+        "aggregateMembershipVisits": 2025,
+        "allUnorderedTriples": 165,
+        "staticLaunchSlots": 1331
+      },
+      "newGraph": {
+        "vertices": 13,
+        "hyperedges": 11,
+        "incidences": 46,
+        "cardinality": {
+          "min": 1,
+          "max": 7,
+          "distribution": {
+            "1": 2,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 3,
+            "6": 1,
+            "7": 2
+          }
+        },
+        "aggregateMembershipVisits": 2070,
+        "allUnorderedTriples": 165,
+        "staticLaunchSlots": 1331
+      },
+      "update": {
+        "deletions": 1,
+        "insertions": 1,
+        "insertedIncidences": 5
+      },
+      "candidateTriples": {
+        "old": 45,
+        "new": 45
+      },
+      "packedRequestBytes": 1149,
+      "standaloneHostPackingMs": 0.4600999999966007,
+      "samples": 1,
+      "medianRuntimePreparationMs": 6.223600000004808,
+      "medianNativeWallMs": 247.53720000000612,
+      "medianRunnerWallMs": 419.4577999999965,
+      "medianQualificationMs": 165.99730000000272,
+      "medianEventIntervalMs": 1.06336,
+      "medianEndToEndRuntimeMs": 667.8449000000037,
+      "medianResultBytes": 2416,
+      "nativeCandidateHostPayloadBytes": 1080,
+      "devicePayloadEstimateBytes": 1524,
+      "peakDeviceMemory": null,
+      "status": "PASS"
+    }
+  ],
+  "admission": [
+    {
+      "hyperedges": 1,
+      "maxIncidences": 100000,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 100000
+    },
+    {
+      "hyperedges": 2,
+      "maxIncidences": 100000,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 99999
+    },
+    {
+      "hyperedges": 3,
+      "maxIncidences": 100000,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 99998
+    },
+    {
+      "hyperedges": 4,
+      "maxIncidences": 100000,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 99997
+    },
+    {
+      "hyperedges": 10,
+      "maxIncidences": 100000,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 99991
+    },
+    {
+      "hyperedges": 12,
+      "maxIncidences": 90909,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 90898
+    },
+    {
+      "hyperedges": 16,
+      "maxIncidences": 47619,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 47604
+    },
+    {
+      "hyperedges": 32,
+      "maxIncidences": 10752,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 10721
+    },
+    {
+      "hyperedges": 64,
+      "maxIncidences": 2560,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 2497
+    },
+    {
+      "hyperedges": 100,
+      "maxIncidences": 1030,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 931
+    },
+    {
+      "hyperedges": 128,
+      "maxIncidences": 624,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 497
+    },
+    {
+      "hyperedges": 216,
+      "maxIncidences": 217,
+      "nonemptyFeasible": true,
+      "maxSingleRowIfOthersSingleton": 2
+    },
+    {
+      "hyperedges": 217,
+      "maxIncidences": 215,
+      "nonemptyFeasible": false,
+      "maxSingleRowIfOthersSingleton": null
+    },
+    {
+      "hyperedges": 256,
+      "maxIncidences": 154,
+      "nonemptyFeasible": false,
+      "maxSingleRowIfOthersSingleton": null
+    }
+  ],
+  "interpretation": "Dimension maxima are conditional; all byte, work, schema and qualification checks still apply."
+}

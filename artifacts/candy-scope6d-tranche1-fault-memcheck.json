@@ -1,0 +1,215 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "phase": "OLD",
+      "point": "HOST",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"RESOURCE_LIMIT\",\"message\":\"Host allocation failed.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_FAULT OLD:HOST\n",
+      "exit": 1,
+      "wallMs": 405.3082,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Host allocation failed."
+        }
+      }
+    },
+    {
+      "phase": "OLD",
+      "point": "CUDA_ALLOC",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:CUDA_ALLOC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 408.10630000000003,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "OLD",
+      "point": "H2D",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:H2D\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 403.87350000000004,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "OLD",
+      "point": "LAUNCH",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:LAUNCH\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 403.6113,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "OLD",
+      "point": "SYNC",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:SYNC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 504.47709999999984,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "OLD",
+      "point": "D2H",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:D2H\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 404.72839999999997,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "OLD",
+      "point": "FREE",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:FREE\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 528.4833999999996,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "NEW",
+      "point": "HOST",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"RESOURCE_LIMIT\",\"message\":\"Host allocation failed.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_FAULT NEW:HOST\n",
+      "exit": 1,
+      "wallMs": 401.78229999999985,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Host allocation failed."
+        }
+      }
+    },
+    {
+      "phase": "NEW",
+      "point": "CUDA_ALLOC",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:CUDA_ALLOC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 398.1500000000001,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "NEW",
+      "point": "H2D",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:H2D\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 399.5717000000004,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "NEW",
+      "point": "LAUNCH",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:LAUNCH\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 400.451,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "NEW",
+      "point": "SYNC",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:SYNC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 399.4520999999995,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "NEW",
+      "point": "D2H",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:D2H\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 402.41629999999986,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    },
+    {
+      "phase": "NEW",
+      "point": "FREE",
+      "stdout": "========= COMPUTE-SANITIZER\n{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n========= Target application returned an error\n========= LEAK SUMMARY: 0 bytes leaked in 0 allocations\n========= ERROR SUMMARY: 0 errors\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:FREE\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 406.1889000000001,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      }
+    }
+  ]
+}

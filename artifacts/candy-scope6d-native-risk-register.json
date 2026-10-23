@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "candy.scope6d-native-risk-register/1",
+  "baseline": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+  "scope": "Readiness/resource-safety source review, not a new exhaustive security certification",
+  "readinessBlockers": [],
+  "severityMeaning": "Potential impact if a future optimization breaks a guard; not existing exploitable High findings.",
+  "risks": [
+    {
+      "id": "S6D-R01",
+      "risk": "Integer/product overflow",
+      "potentialImpact": "High",
+      "currentGuard": "Checked uint64 multiply, safe decimal fields, E<=256/I<=100000.",
+      "requiredGate": "Preserve checked work/choose/launch arithmetic before allocation; test limits and hostile numeric input.",
+      "optimizationClasses": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R02",
+      "risk": "Allocation overflow and host memory growth",
+      "potentialImpact": "High",
+      "currentGuard": "Candidate bytes checked before reserve; nominal 33,162,240 bytes per vector, effective maximum 19,876,320. Device sizes use checked multiplication.",
+      "requiredGate": "First tranche must prevent OLD/NEW vector coexistence while retaining every cap; no device pool or larger quota.",
+      "optimizationClasses": [
+        "B",
+        "D"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R03",
+      "risk": "Malformed packed offsets/members",
+      "potentialImpact": "High",
+      "currentGuard": "Length, endpoint, monotonicity, sorted uniqueness and vertex range checks precede CUDA; malformed offset probe rejected.",
+      "requiredGate": "Keep parsing unchanged; test bad lengths/endpoints, duplicates, unsorted, negative and out-of-range values.",
+      "optimizationClasses": [
+        "A",
+        "B",
+        "C"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R04",
+      "risk": "Out-of-bounds CUDA access",
+      "potentialImpact": "High",
+      "currentGuard": "Bounded n keeps n*n/n^3 within unsigned; internally generated triples satisfy i<j<k<n. Grid and zero-slot guards remain.",
+      "requiredGate": "No external tuples; preserve bounds/guards and re-run all four CUDA sanitizers.",
+      "optimizationClasses": [
+        "B",
+        "C",
+        "D"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R05",
+      "risk": "Combinatorial denial of service",
+      "potentialImpact": "High",
+      "currentGuard": "Full-snapshot W<=5,000,000, packed<=2MiB, native/Runtime deadlines and bounded lane. Over-work and 217-edge inputs rejected.",
+      "requiredGate": "No D change in tranche one. Any proposed admission change needs a checked model, measured worst cases, resource/cancellation proof and review.",
+      "optimizationClasses": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R06",
+      "risk": "Pathological cardinality / low useful parallelism",
+      "potentialImpact": "Medium",
+      "currentGuard": "4x25k case has four useful triples and 4.146881 ms profiled active GPU time. 100k-cardinality single edge admitted.",
+      "requiredGate": "Do not label incidence count throughput capacity. Cooperative merges require dedicated C proof and skewed shapes.",
+      "optimizationClasses": [
+        "C",
+        "D"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R07",
+      "risk": "Partial success after phase/allocation failure",
+      "potentialImpact": "High",
+      "currentGuard": "RAII and explicit checked frees; no accepted result before native and workspace cleanup.",
+      "requiredGate": "NEW allocation can fail after OLD computation under proposed order. Keep counts private; inject failures in both host and CUDA phases, including free failure.",
+      "optimizationClasses": [
+        "B"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R08",
+      "risk": "Signed delta underflow / semantic drift",
+      "potentialImpact": "High",
+      "currentGuard": "Old/new histograms bounded before int64 subtraction; 30 fixed bins; DELETE_THEN_INSERT and unaffected semantic-row checks.",
+      "requiredGate": "Capture actual validated tuple lengths before destruction; compare old/new histograms and signed deltas; no full-count or STATIC substitution.",
+      "optimizationClasses": [
+        "A",
+        "B",
+        "C"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R09",
+      "risk": "Oversized output/materialization",
+      "potentialImpact": "Medium",
+      "currentGuard": "Only fixed 30-bin arrays and bounded identity/metadata, with Runtime stdout/result budgets.",
+      "requiredGate": "Keep schemas, identity bounds and no tuple/debug dumps on success stdout. Profiling remains external.",
+      "optimizationClasses": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R10",
+      "risk": "Cancellation, parent death and orphan processes",
+      "potentialImpact": "High",
+      "currentGuard": "Scope6C group/liveness supervision and owned-root cleanup unchanged; 60 observed groups drained to zero.",
+      "requiredGate": "Requalify timeout/cancel in each phase, abrupt parent death, reconciliation and subsequent valid work; no persistent native state.",
+      "optimizationClasses": [
+        "B",
+        "C",
+        "E"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R11",
+      "risk": "Stale/cross-session authority from reuse",
+      "potentialImpact": "High",
+      "currentGuard": "Fresh request/session/digest bindings and per-launch exact qualification; one-shot processes.",
+      "requiredGate": "No buffers, prepared graph, result or mutation authority escapes a request; retain independent Analyze/Apply and fresh authentication.",
+      "optimizationClasses": [
+        "B",
+        "E"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R12",
+      "risk": "Historical qualification invalidation",
+      "potentialImpact": "High",
+      "currentGuard": "Exact source/Makefile/binary/evidence/tag/device records verified by every qualified launch. Native changes correctly invalidate old records.",
+      "requiredGate": "Isolated candidate build; never rewrite old evidence/records/tags or bypass verifier. Activation requires fresh versioned qualification binding.",
+      "optimizationClasses": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R13",
+      "risk": "False timing/memory interpretation",
+      "potentialImpact": "Medium",
+      "currentGuard": "Unprofiled Runtime, instrumented CUDA activity, tracked allocation peak and GNU-time RSS are separate.",
+      "requiredGate": "Event interval is not pure active kernel time; payload peak is not total VRAM; RSS is not heap. Keep sample sizes and profiling overhead explicit.",
+      "optimizationClasses": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    },
+    {
+      "id": "S6D-R14",
+      "risk": "Protocol/schema/worker expansion",
+      "potentialImpact": "High",
+      "currentGuard": "Exactly one --request file/process; fixed result and authority contracts.",
+      "requiredGate": "Any E change must STOP for human review. Persistent workers are excluded and unnecessary for tranche-one lifetimes.",
+      "optimizationClasses": [
+        "E"
+      ],
+      "status": "CONTROLLED_CURRENT / GATE_FOR_FUTURE_CHANGE",
+      "confirmedCurrentVulnerability": false
+    }
+  ]
+}

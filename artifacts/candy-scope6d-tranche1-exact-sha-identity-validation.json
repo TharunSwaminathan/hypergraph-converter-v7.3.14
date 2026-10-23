@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "qualifiedRecordPath": "artifacts/candy-scope6d-tranche1-native-qualification.json",
+  "qualifiedRecordSha256": "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f",
+  "validRecordHashAndEvidenceChecks": true,
+  "negativeChecks": [
+    {
+      "name": "wrong-commit",
+      "rejected": true
+    },
+    {
+      "name": "checkout-CRLF-hash-as-build-source",
+      "rejected": true
+    },
+    {
+      "name": "historical-binary",
+      "rejected": true
+    },
+    {
+      "name": "wrong-backend",
+      "rejected": true
+    },
+    {
+      "name": "wrong-architecture",
+      "rejected": true
+    },
+    {
+      "name": "wrong-toolchain",
+      "rejected": true
+    },
+    {
+      "name": "wrong-runtime",
+      "rejected": true
+    },
+    {
+      "name": "wrong-device",
+      "rejected": true
+    },
+    {
+      "name": "missing-evidence",
+      "rejected": true
+    },
+    {
+      "name": "tampered-evidence-digest",
+      "rejected": true
+    },
+    {
+      "name": "extra-record-key",
+      "rejected": true
+    },
+    {
+      "name": "in-memory-byte-tamper",
+      "path": "artifacts/candy-scope6d-tranche1-exact-sha-build/main.cu",
+      "rejected": true,
+      "filesMutated": false
+    },
+    {
+      "name": "in-memory-byte-tamper",
+      "path": "artifacts/candy-scope6d-tranche1-exact-sha-build/Makefile",
+      "rejected": true,
+      "filesMutated": false
+    },
+    {
+      "name": "in-memory-byte-tamper",
+      "path": "artifacts/candy-scope6d-tranche1-exact-sha-build/candidate",
+      "rejected": true,
+      "filesMutated": false
+    },
+    {
+      "name": "in-memory-byte-tamper",
+      "path": "artifacts/candy-scope6d-tranche1-cuda-incremental-native-qualification.json",
+      "rejected": true,
+      "filesMutated": false
+    }
+  ],
+  "productionVerifierUnchanged": true,
+  "ordinaryIncremental": {
+    "available": false,
+    "reason": "motif_qualification_unavailable_or_stale"
+  },
+  "ordinaryStaticAvailable": true,
+  "notProductionActivation": true
+}

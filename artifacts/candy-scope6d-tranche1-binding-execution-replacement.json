@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-10-23T06:29:29.189Z",
+  "method": "Ordinary verifier and NativeProcessRunner.trustedExecutable on isolated installed-package fixture; no runner/discovery injection.",
+  "cases": [
+    {
+      "name": "executable replaced after valid discovery",
+      "status": "REJECTED_BEFORE_EXECUTION"
+    },
+    {
+      "name": "WSL-created source symlink representation",
+      "windowsSymbolicLink": true,
+      "lstatError": null,
+      "status": "REJECTED",
+      "note": "WSL NTFS link representation is not claimed equivalent to a Windows developer-mode symlink."
+    }
+  ],
+  "status": "PASS"
+}

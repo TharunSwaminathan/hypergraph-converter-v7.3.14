@@ -1,0 +1,18 @@
+# Scope 6D tranche 1 exact-SHA security closure
+
+Commit: f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0. Qualification record: artifacts/candy-scope6d-tranche1-native-qualification.json (SHA-256 065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f).
+
+No unresolved Critical/High issue was found in the bounded tranche and qualification/binding preparation. This is a focused source/resource/identity review, not a repository-wide security scan.
+
+- Lifetimes: committed execute() retains only fixed histograms and validated scalar sizes. OLD is destroyed before NEW allocation. Counting is synchronous; no pointer, span, reference or capture escapes. candidates(), affected_count(), classifier, kernel, parser, checked arithmetic, budgets and result serialization remain unchanged.
+- Inputs and CUDA: all 405 full native cases / 104 rejection and validation checks, 240 retained exact-binary differential transitions, 96 signatures plus permutations, admission/malformed input probes and 48 completed sanitizer fixture checks pass. CPU sets are validation only.
+- Failures: all 14 OLD/NEW injected phase failures and all 14 fault memchecks pass, including NEW failure after OLD completion. Diagnostic hooks are isolated copies, never production parameters. Each failure emits error-only JSON; subsequent valid work succeeds. Host allocation traces end at zero.
+- Process authority: fresh post-reboot cancellation in OLD/between/NEW, timeout, parent death, shutdown and restart/reconciliation expose no partial/stale result and leave zero owned live/zombie processes. Fresh sessions/tokens are created in memory and never written to evidence. Five Scope6C regressions pass.
+- Identity: exact Git LF source, Git blob, binary, Makefile, toolchain/GPU, all five native/safety evidence hashes and supplemental evidence are bound by the existing candy.motif-qualified-build/1 record format. 15 negative identity checks reject wrong source/commit/binary/device/toolchain/evidence or in-memory byte tampering without changing preserved files. This offline check does not claim production acceptance.
+- Qualification spoofing/staleness: the ordinary verifier remains unchanged, rejects CUDA_INCREMENTAL, and continues to validate STATIC. The additive record is not installed at the active record path. No cache or injected test discovery becomes production authority. Future binding must retain fresh per-launch hashes, exact fixed identities and the new distinct anchor, with no old-record fallback or arbitrary path acceptance.
+- Representation: the committed LF source hash is ce425e455649fb1e2fec632cd608834dd6f8d7b31969c81673a8d1304908ee2b; Windows CRLF checkout hash is 49373f697a3ad28866d1b9a58fb7360e9907e98892ac15cb3604588e5557325b. They are not interchangeable raw-byte identities. The binding plan packages the actual LF source/Makefile with the exact qualified executable and keeps the historical package immutable.
+- Preservation: all 1040 pre-restart files in the recovery inventory and all local tags still match. No manifests, protocol/schema, Runtime/browser authority, admission limits or committed product bytes were changed.
+
+The binding plan is prepared only. No install, tag, commit, push, merge, main change, historical rewrite, worker protocol or tranche 2 work occurred.
+
+A separate genuine abrupt-Runtime probe intentionally terminates an owning Runtime while diagnostic NEW-phase CUDA work is held. Its owned process group drains to zero; a new authenticated Runtime reconciles the abandoned root, rejects prior credentials/job/result/artifact handles and completes valid work with the exact candidate. The intentional abrupt termination is separately recorded, not presented as graceful shutdown.

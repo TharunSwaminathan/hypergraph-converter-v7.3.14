@@ -1,0 +1,1186 @@
+{
+  "status": "PASS",
+  "tool": "NVIDIA Nsight Systems 2026.3.2.313",
+  "profiles": [
+    {
+      "id": "G-local-near-216",
+      "status": "PASS",
+      "api": {
+        "cuModuleGetLoadingMode": {
+          "calls": 1,
+          "totalMs": 0.010776
+        },
+        "cudaGetDeviceProperties": {
+          "calls": 1,
+          "totalMs": 0.003476
+        },
+        "cudaMalloc": {
+          "calls": 10,
+          "totalMs": 2.488804
+        },
+        "cudaMemcpy": {
+          "calls": 10,
+          "totalMs": 0.703227
+        },
+        "cudaMemset": {
+          "calls": 2,
+          "totalMs": 0.257977
+        },
+        "cudaEventCreate": {
+          "calls": 4,
+          "totalMs": 0.232393
+        },
+        "cudaEventRecord": {
+          "calls": 4,
+          "totalMs": 0.092246
+        },
+        "cuLibraryLoadData": {
+          "calls": 1,
+          "totalMs": 0.501905
+        },
+        "cuLibraryGetKernel": {
+          "calls": 1,
+          "totalMs": 0.000552
+        },
+        "cuKernelGetName": {
+          "calls": 2,
+          "totalMs": 0.001341
+        },
+        "cudaLaunchKernel": {
+          "calls": 2,
+          "totalMs": 0.8451770000000001
+        },
+        "cudaDeviceSynchronize": {
+          "calls": 2,
+          "totalMs": 0.282868
+        },
+        "cudaFree": {
+          "calls": 10,
+          "totalMs": 0.481511
+        },
+        "cudaEventDestroy": {
+          "calls": 4,
+          "totalMs": 0.006459
+        }
+      },
+      "hostWallGapDevicePropertiesToFirstMallocMs": 1.572519,
+      "hostGapAttribution": "Contains candidate-vector generation (incremental), taxonomy derivation and host checks; may include scheduling. Not an isolated CPU phase timer.",
+      "actualGpuKernelInstances": 2,
+      "actualGpuKernelActiveMs": 0.021535,
+      "profiledNativeEventIntervalMs": 1.79078,
+      "memoryCopies": [
+        {
+          "copyKind": 1,
+          "operations": 8,
+          "bytes": 556612,
+          "activeMs": 0.086463
+        },
+        {
+          "copyKind": 2,
+          "operations": 2,
+          "bytes": 480,
+          "activeMs": 0.00304
+        }
+      ],
+      "copyKindDefinitions": [
+        {
+          "id": 0,
+          "name": "CUDA_MEMCPY_KIND_UNKNOWN",
+          "label": "Unknown"
+        },
+        {
+          "id": 1,
+          "name": "CUDA_MEMCPY_KIND_HTOD",
+          "label": "Host-to-Device"
+        },
+        {
+          "id": 2,
+          "name": "CUDA_MEMCPY_KIND_DTOH",
+          "label": "Device-to-Host"
+        },
+        {
+          "id": 3,
+          "name": "CUDA_MEMCPY_KIND_HTOA",
+          "label": "Host-to-Array"
+        },
+        {
+          "id": 4,
+          "name": "CUDA_MEMCPY_KIND_ATOH",
+          "label": "Array-to-Host"
+        },
+        {
+          "id": 5,
+          "name": "CUDA_MEMCPY_KIND_ATOA",
+          "label": "Array-to-Array"
+        },
+        {
+          "id": 6,
+          "name": "CUDA_MEMCPY_KIND_ATOD",
+          "label": "Array-to-Device"
+        },
+        {
+          "id": 7,
+          "name": "CUDA_MEMCPY_KIND_DTOA",
+          "label": "Device-to-Array"
+        },
+        {
+          "id": 8,
+          "name": "CUDA_MEMCPY_KIND_DTOD",
+          "label": "Device-to-Device"
+        },
+        {
+          "id": 9,
+          "name": "CUDA_MEMCPY_KIND_HTOH",
+          "label": "Host-to-Host"
+        },
+        {
+          "id": 10,
+          "name": "CUDA_MEMCPY_KIND_PTOP",
+          "label": "Peer-to-Peer"
+        },
+        {
+          "id": 11,
+          "name": "CUDA_MEMCPY_KIND_UVM_HTOD",
+          "label": "Unified Host-to-Device"
+        },
+        {
+          "id": 12,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOH",
+          "label": "Unified Device-to-Host"
+        },
+        {
+          "id": 13,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOD",
+          "label": "Unified Device-to-Device"
+        }
+      ],
+      "peakTrackedCudaMallocBytes": 278548,
+      "trackedDeviceBytesAtEnd": 0,
+      "allocationEvents": [
+        {
+          "start": 784758775,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 784772448,
+          "address": 30186406912,
+          "bytes": 864,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 784777973,
+          "address": 30186407936,
+          "bytes": 276060,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 784779683,
+          "address": 30186684416,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 784782614,
+          "address": 30186684928,
+          "bytes": 240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 788122642,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 788127635,
+          "address": 30186406912,
+          "bytes": 864,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 788129384,
+          "address": 30186407936,
+          "bytes": 276060,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 788131213,
+          "address": 30186684416,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 788132407,
+          "address": 30186684928,
+          "bytes": 240,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 788686133,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 788694263,
+          "address": 30186406912,
+          "bytes": 868,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 788696124,
+          "address": 30186407936,
+          "bytes": 276060,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 788697913,
+          "address": 30186684416,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 788699612,
+          "address": 30186684928,
+          "bytes": 240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 789082288,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 789085682,
+          "address": 30186406912,
+          "bytes": 868,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 789087259,
+          "address": 30186407936,
+          "bytes": 276060,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 789089013,
+          "address": 30186684416,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 789090146,
+          "address": 30186684928,
+          "bytes": 240,
+          "memoryOperationType": 1
+        }
+      ],
+      "all30BinsMatch": true
+    },
+    {
+      "id": "B-high-cardinality",
+      "status": "PASS",
+      "api": {
+        "cuModuleGetLoadingMode": {
+          "calls": 1,
+          "totalMs": 0.011271
+        },
+        "cudaGetDeviceProperties": {
+          "calls": 1,
+          "totalMs": 0.005252
+        },
+        "cudaMalloc": {
+          "calls": 4,
+          "totalMs": 1.6802110000000001
+        },
+        "cudaMemcpy": {
+          "calls": 4,
+          "totalMs": 0.679549
+        },
+        "cudaMemset": {
+          "calls": 1,
+          "totalMs": 0.278884
+        },
+        "cudaEventCreate": {
+          "calls": 2,
+          "totalMs": 0.262138
+        },
+        "cudaEventRecord": {
+          "calls": 2,
+          "totalMs": 0.042498
+        },
+        "cuLibraryLoadData": {
+          "calls": 1,
+          "totalMs": 0.100821
+        },
+        "cuLibraryGetKernel": {
+          "calls": 1,
+          "totalMs": 0.000402
+        },
+        "cuKernelGetName": {
+          "calls": 1,
+          "totalMs": 0.000381
+        },
+        "cudaLaunchKernel": {
+          "calls": 1,
+          "totalMs": 0.608696
+        },
+        "cudaDeviceSynchronize": {
+          "calls": 1,
+          "totalMs": 4.173443
+        },
+        "cudaFree": {
+          "calls": 4,
+          "totalMs": 0.35188800000000003
+        },
+        "cudaEventDestroy": {
+          "calls": 2,
+          "totalMs": 0.002366
+        }
+      },
+      "hostWallGapDevicePropertiesToFirstMallocMs": 0.069948,
+      "hostGapAttribution": "Contains candidate-vector generation (incremental), taxonomy derivation and host checks; may include scheduling. Not an isolated CPU phase timer.",
+      "actualGpuKernelInstances": 1,
+      "actualGpuKernelActiveMs": 4.146881,
+      "profiledNativeEventIntervalMs": 5.25949,
+      "memoryCopies": [
+        {
+          "copyKind": 1,
+          "operations": 3,
+          "bytes": 400532,
+          "activeMs": 0.061247
+        },
+        {
+          "copyKind": 2,
+          "operations": 1,
+          "bytes": 240,
+          "activeMs": 0.001696
+        }
+      ],
+      "copyKindDefinitions": [
+        {
+          "id": 0,
+          "name": "CUDA_MEMCPY_KIND_UNKNOWN",
+          "label": "Unknown"
+        },
+        {
+          "id": 1,
+          "name": "CUDA_MEMCPY_KIND_HTOD",
+          "label": "Host-to-Device"
+        },
+        {
+          "id": 2,
+          "name": "CUDA_MEMCPY_KIND_DTOH",
+          "label": "Device-to-Host"
+        },
+        {
+          "id": 3,
+          "name": "CUDA_MEMCPY_KIND_HTOA",
+          "label": "Host-to-Array"
+        },
+        {
+          "id": 4,
+          "name": "CUDA_MEMCPY_KIND_ATOH",
+          "label": "Array-to-Host"
+        },
+        {
+          "id": 5,
+          "name": "CUDA_MEMCPY_KIND_ATOA",
+          "label": "Array-to-Array"
+        },
+        {
+          "id": 6,
+          "name": "CUDA_MEMCPY_KIND_ATOD",
+          "label": "Array-to-Device"
+        },
+        {
+          "id": 7,
+          "name": "CUDA_MEMCPY_KIND_DTOA",
+          "label": "Device-to-Array"
+        },
+        {
+          "id": 8,
+          "name": "CUDA_MEMCPY_KIND_DTOD",
+          "label": "Device-to-Device"
+        },
+        {
+          "id": 9,
+          "name": "CUDA_MEMCPY_KIND_HTOH",
+          "label": "Host-to-Host"
+        },
+        {
+          "id": 10,
+          "name": "CUDA_MEMCPY_KIND_PTOP",
+          "label": "Peer-to-Peer"
+        },
+        {
+          "id": 11,
+          "name": "CUDA_MEMCPY_KIND_UVM_HTOD",
+          "label": "Unified Host-to-Device"
+        },
+        {
+          "id": 12,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOH",
+          "label": "Unified Device-to-Host"
+        },
+        {
+          "id": 13,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOD",
+          "label": "Unified Device-to-Device"
+        }
+      ],
+      "peakTrackedCudaMallocBytes": 400772,
+      "trackedDeviceBytesAtEnd": 0,
+      "allocationEvents": [
+        {
+          "start": 862210781,
+          "address": 30186405888,
+          "bytes": 20,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 862221043,
+          "address": 30186406400,
+          "bytes": 400000,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 862227064,
+          "address": 30186806784,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 862229855,
+          "address": 30186807296,
+          "bytes": 240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 869910013,
+          "address": 30186405888,
+          "bytes": 20,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 869921005,
+          "address": 30186406400,
+          "bytes": 400000,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 869924052,
+          "address": 30186806784,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 869925881,
+          "address": 30186807296,
+          "bytes": 240,
+          "memoryOperationType": 1
+        }
+      ],
+      "all30BinsMatch": true
+    },
+    {
+      "id": "H-full-replace-216",
+      "status": "PASS",
+      "api": {
+        "cuModuleGetLoadingMode": {
+          "calls": 1,
+          "totalMs": 0.005373
+        },
+        "cudaGetDeviceProperties": {
+          "calls": 1,
+          "totalMs": 0.002249
+        },
+        "cudaMalloc": {
+          "calls": 10,
+          "totalMs": 2.546844
+        },
+        "cudaMemcpy": {
+          "calls": 10,
+          "totalMs": 8.297155
+        },
+        "cudaMemset": {
+          "calls": 2,
+          "totalMs": 0.336293
+        },
+        "cudaEventCreate": {
+          "calls": 4,
+          "totalMs": 0.348556
+        },
+        "cudaEventRecord": {
+          "calls": 4,
+          "totalMs": 0.034172
+        },
+        "cuLibraryLoadData": {
+          "calls": 1,
+          "totalMs": 0.245661
+        },
+        "cuLibraryGetKernel": {
+          "calls": 1,
+          "totalMs": 0.000455
+        },
+        "cuKernelGetName": {
+          "calls": 2,
+          "totalMs": 0.0011389999999999998
+        },
+        "cudaLaunchKernel": {
+          "calls": 2,
+          "totalMs": 0.494662
+        },
+        "cudaDeviceSynchronize": {
+          "calls": 2,
+          "totalMs": 1.38499
+        },
+        "cudaFree": {
+          "calls": 10,
+          "totalMs": 0.633596
+        },
+        "cudaEventDestroy": {
+          "calls": 4,
+          "totalMs": 0.003258
+        }
+      },
+      "hostWallGapDevicePropertiesToFirstMallocMs": 23.757448,
+      "hostGapAttribution": "Contains candidate-vector generation (incremental), taxonomy derivation and host checks; may include scheduling. Not an isolated CPU phase timer.",
+      "actualGpuKernelInstances": 2,
+      "actualGpuKernelActiveMs": 1.364266,
+      "profiledNativeEventIntervalMs": 2.48195,
+      "memoryCopies": [
+        {
+          "copyKind": 1,
+          "operations": 8,
+          "bytes": 39757128,
+          "activeMs": 7.323789
+        },
+        {
+          "copyKind": 2,
+          "operations": 2,
+          "bytes": 480,
+          "activeMs": 0.003648
+        }
+      ],
+      "copyKindDefinitions": [
+        {
+          "id": 0,
+          "name": "CUDA_MEMCPY_KIND_UNKNOWN",
+          "label": "Unknown"
+        },
+        {
+          "id": 1,
+          "name": "CUDA_MEMCPY_KIND_HTOD",
+          "label": "Host-to-Device"
+        },
+        {
+          "id": 2,
+          "name": "CUDA_MEMCPY_KIND_DTOH",
+          "label": "Device-to-Host"
+        },
+        {
+          "id": 3,
+          "name": "CUDA_MEMCPY_KIND_HTOA",
+          "label": "Host-to-Array"
+        },
+        {
+          "id": 4,
+          "name": "CUDA_MEMCPY_KIND_ATOH",
+          "label": "Array-to-Host"
+        },
+        {
+          "id": 5,
+          "name": "CUDA_MEMCPY_KIND_ATOA",
+          "label": "Array-to-Array"
+        },
+        {
+          "id": 6,
+          "name": "CUDA_MEMCPY_KIND_ATOD",
+          "label": "Array-to-Device"
+        },
+        {
+          "id": 7,
+          "name": "CUDA_MEMCPY_KIND_DTOA",
+          "label": "Device-to-Array"
+        },
+        {
+          "id": 8,
+          "name": "CUDA_MEMCPY_KIND_DTOD",
+          "label": "Device-to-Device"
+        },
+        {
+          "id": 9,
+          "name": "CUDA_MEMCPY_KIND_HTOH",
+          "label": "Host-to-Host"
+        },
+        {
+          "id": 10,
+          "name": "CUDA_MEMCPY_KIND_PTOP",
+          "label": "Peer-to-Peer"
+        },
+        {
+          "id": 11,
+          "name": "CUDA_MEMCPY_KIND_UVM_HTOD",
+          "label": "Unified Host-to-Device"
+        },
+        {
+          "id": 12,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOH",
+          "label": "Unified Device-to-Host"
+        },
+        {
+          "id": 13,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOD",
+          "label": "Unified Device-to-Device"
+        }
+      ],
+      "peakTrackedCudaMallocBytes": 19878804,
+      "trackedDeviceBytesAtEnd": 0,
+      "allocationEvents": [
+        {
+          "start": 700350347,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 700367359,
+          "address": 30186406912,
+          "bytes": 864,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 700601292,
+          "address": 30188503040,
+          "bytes": 19876320,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 700613314,
+          "address": 30186407936,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 700616620,
+          "address": 30186408448,
+          "bytes": 240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 708093905,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 708098796,
+          "address": 30186406912,
+          "bytes": 864,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 708100660,
+          "address": 30188503040,
+          "bytes": 19876320,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 708295349,
+          "address": 30186407936,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 708298152,
+          "address": 30186408448,
+          "bytes": 240,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 708622741,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 708627399,
+          "address": 30186406912,
+          "bytes": 864,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 708900997,
+          "address": 30188503040,
+          "bytes": 19876320,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 708906699,
+          "address": 30186407936,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 708908977,
+          "address": 30186408448,
+          "bytes": 240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 713587247,
+          "address": 30186405888,
+          "bytes": 868,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 713590403,
+          "address": 30186406912,
+          "bytes": 864,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 713591859,
+          "address": 30188503040,
+          "bytes": 19876320,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 713784190,
+          "address": 30186407936,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 713786427,
+          "address": 30186408448,
+          "bytes": 240,
+          "memoryOperationType": 1
+        }
+      ],
+      "all30BinsMatch": true
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "status": "PASS",
+      "api": {
+        "cuModuleGetLoadingMode": {
+          "calls": 1,
+          "totalMs": 0.006195
+        },
+        "cudaGetDeviceProperties": {
+          "calls": 1,
+          "totalMs": 0.002774
+        },
+        "cudaMalloc": {
+          "calls": 4,
+          "totalMs": 1.1418209999999998
+        },
+        "cudaMemcpy": {
+          "calls": 4,
+          "totalMs": 0.380322
+        },
+        "cudaMemset": {
+          "calls": 1,
+          "totalMs": 0.195896
+        },
+        "cudaEventCreate": {
+          "calls": 2,
+          "totalMs": 0.222527
+        },
+        "cudaEventRecord": {
+          "calls": 2,
+          "totalMs": 0.019959
+        },
+        "cuLibraryLoadData": {
+          "calls": 1,
+          "totalMs": 0.093611
+        },
+        "cuLibraryGetKernel": {
+          "calls": 1,
+          "totalMs": 0.000331
+        },
+        "cuKernelGetName": {
+          "calls": 1,
+          "totalMs": 0.00035
+        },
+        "cudaLaunchKernel": {
+          "calls": 1,
+          "totalMs": 0.414589
+        },
+        "cudaDeviceSynchronize": {
+          "calls": 1,
+          "totalMs": 0.136373
+        },
+        "cudaFree": {
+          "calls": 4,
+          "totalMs": 0.219254
+        },
+        "cudaEventDestroy": {
+          "calls": 2,
+          "totalMs": 0.002618
+        }
+      },
+      "hostWallGapDevicePropertiesToFirstMallocMs": 0.068258,
+      "hostGapAttribution": "Contains candidate-vector generation (incremental), taxonomy derivation and host checks; may include scheduling. Not an isolated CPU phase timer.",
+      "actualGpuKernelInstances": 1,
+      "actualGpuKernelActiveMs": 0.033088,
+      "profiledNativeEventIntervalMs": 0.88192,
+      "memoryCopies": [
+        {
+          "copyKind": 1,
+          "operations": 3,
+          "bytes": 11012,
+          "activeMs": 0.001376
+        },
+        {
+          "copyKind": 2,
+          "operations": 1,
+          "bytes": 240,
+          "activeMs": 0.0016
+        }
+      ],
+      "copyKindDefinitions": [
+        {
+          "id": 0,
+          "name": "CUDA_MEMCPY_KIND_UNKNOWN",
+          "label": "Unknown"
+        },
+        {
+          "id": 1,
+          "name": "CUDA_MEMCPY_KIND_HTOD",
+          "label": "Host-to-Device"
+        },
+        {
+          "id": 2,
+          "name": "CUDA_MEMCPY_KIND_DTOH",
+          "label": "Device-to-Host"
+        },
+        {
+          "id": 3,
+          "name": "CUDA_MEMCPY_KIND_HTOA",
+          "label": "Host-to-Array"
+        },
+        {
+          "id": 4,
+          "name": "CUDA_MEMCPY_KIND_ATOH",
+          "label": "Array-to-Host"
+        },
+        {
+          "id": 5,
+          "name": "CUDA_MEMCPY_KIND_ATOA",
+          "label": "Array-to-Array"
+        },
+        {
+          "id": 6,
+          "name": "CUDA_MEMCPY_KIND_ATOD",
+          "label": "Array-to-Device"
+        },
+        {
+          "id": 7,
+          "name": "CUDA_MEMCPY_KIND_DTOA",
+          "label": "Device-to-Array"
+        },
+        {
+          "id": 8,
+          "name": "CUDA_MEMCPY_KIND_DTOD",
+          "label": "Device-to-Device"
+        },
+        {
+          "id": 9,
+          "name": "CUDA_MEMCPY_KIND_HTOH",
+          "label": "Host-to-Host"
+        },
+        {
+          "id": 10,
+          "name": "CUDA_MEMCPY_KIND_PTOP",
+          "label": "Peer-to-Peer"
+        },
+        {
+          "id": 11,
+          "name": "CUDA_MEMCPY_KIND_UVM_HTOD",
+          "label": "Unified Host-to-Device"
+        },
+        {
+          "id": 12,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOH",
+          "label": "Unified Device-to-Host"
+        },
+        {
+          "id": 13,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOD",
+          "label": "Unified Device-to-Device"
+        }
+      ],
+      "peakTrackedCudaMallocBytes": 11252,
+      "trackedDeviceBytesAtEnd": 0,
+      "allocationEvents": [
+        {
+          "start": 628906502,
+          "address": 30186405888,
+          "bytes": 260,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 628916117,
+          "address": 30186406400,
+          "bytes": 10240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 628917583,
+          "address": 30186416640,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 628920559,
+          "address": 30186417152,
+          "bytes": 240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 631398378,
+          "address": 30186405888,
+          "bytes": 260,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 631407877,
+          "address": 30186406400,
+          "bytes": 10240,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 631410198,
+          "address": 30186416640,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 631411407,
+          "address": 30186417152,
+          "bytes": 240,
+          "memoryOperationType": 1
+        }
+      ],
+      "all30BinsMatch": true
+    },
+    {
+      "id": "E-open-wedges",
+      "status": "PASS",
+      "api": {
+        "cuModuleGetLoadingMode": {
+          "calls": 1,
+          "totalMs": 0.01115
+        },
+        "cudaGetDeviceProperties": {
+          "calls": 1,
+          "totalMs": 0.003071
+        },
+        "cudaMalloc": {
+          "calls": 4,
+          "totalMs": 1.294192
+        },
+        "cudaMemcpy": {
+          "calls": 4,
+          "totalMs": 0.343607
+        },
+        "cudaMemset": {
+          "calls": 1,
+          "totalMs": 0.226609
+        },
+        "cudaEventCreate": {
+          "calls": 2,
+          "totalMs": 0.203595
+        },
+        "cudaEventRecord": {
+          "calls": 2,
+          "totalMs": 0.023137
+        },
+        "cuLibraryLoadData": {
+          "calls": 1,
+          "totalMs": 0.096842
+        },
+        "cuLibraryGetKernel": {
+          "calls": 1,
+          "totalMs": 0.000386
+        },
+        "cuKernelGetName": {
+          "calls": 1,
+          "totalMs": 0.000263
+        },
+        "cudaLaunchKernel": {
+          "calls": 1,
+          "totalMs": 0.698236
+        },
+        "cudaDeviceSynchronize": {
+          "calls": 1,
+          "totalMs": 0.168236
+        },
+        "cudaFree": {
+          "calls": 4,
+          "totalMs": 0.21861399999999998
+        },
+        "cudaEventDestroy": {
+          "calls": 2,
+          "totalMs": 0.001848
+        }
+      },
+      "hostWallGapDevicePropertiesToFirstMallocMs": 0.079446,
+      "hostGapAttribution": "Contains candidate-vector generation (incremental), taxonomy derivation and host checks; may include scheduling. Not an isolated CPU phase timer.",
+      "actualGpuKernelInstances": 1,
+      "actualGpuKernelActiveMs": 0.006912,
+      "profiledNativeEventIntervalMs": 1.20819,
+      "memoryCopies": [
+        {
+          "copyKind": 1,
+          "operations": 3,
+          "bytes": 1284,
+          "activeMs": 0.001088
+        },
+        {
+          "copyKind": 2,
+          "operations": 1,
+          "bytes": 240,
+          "activeMs": 0.001664
+        }
+      ],
+      "copyKindDefinitions": [
+        {
+          "id": 0,
+          "name": "CUDA_MEMCPY_KIND_UNKNOWN",
+          "label": "Unknown"
+        },
+        {
+          "id": 1,
+          "name": "CUDA_MEMCPY_KIND_HTOD",
+          "label": "Host-to-Device"
+        },
+        {
+          "id": 2,
+          "name": "CUDA_MEMCPY_KIND_DTOH",
+          "label": "Device-to-Host"
+        },
+        {
+          "id": 3,
+          "name": "CUDA_MEMCPY_KIND_HTOA",
+          "label": "Host-to-Array"
+        },
+        {
+          "id": 4,
+          "name": "CUDA_MEMCPY_KIND_ATOH",
+          "label": "Array-to-Host"
+        },
+        {
+          "id": 5,
+          "name": "CUDA_MEMCPY_KIND_ATOA",
+          "label": "Array-to-Array"
+        },
+        {
+          "id": 6,
+          "name": "CUDA_MEMCPY_KIND_ATOD",
+          "label": "Array-to-Device"
+        },
+        {
+          "id": 7,
+          "name": "CUDA_MEMCPY_KIND_DTOA",
+          "label": "Device-to-Array"
+        },
+        {
+          "id": 8,
+          "name": "CUDA_MEMCPY_KIND_DTOD",
+          "label": "Device-to-Device"
+        },
+        {
+          "id": 9,
+          "name": "CUDA_MEMCPY_KIND_HTOH",
+          "label": "Host-to-Host"
+        },
+        {
+          "id": 10,
+          "name": "CUDA_MEMCPY_KIND_PTOP",
+          "label": "Peer-to-Peer"
+        },
+        {
+          "id": 11,
+          "name": "CUDA_MEMCPY_KIND_UVM_HTOD",
+          "label": "Unified Host-to-Device"
+        },
+        {
+          "id": 12,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOH",
+          "label": "Unified Device-to-Host"
+        },
+        {
+          "id": 13,
+          "name": "CUDA_MEMCPY_KIND_UVM_DTOD",
+          "label": "Unified Device-to-Device"
+        }
+      ],
+      "peakTrackedCudaMallocBytes": 1524,
+      "trackedDeviceBytesAtEnd": 0,
+      "allocationEvents": [
+        {
+          "start": 667274832,
+          "address": 30186405888,
+          "bytes": 260,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 667281282,
+          "address": 30186406400,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 667284651,
+          "address": 30186406912,
+          "bytes": 512,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 667287754,
+          "address": 30186407424,
+          "bytes": 240,
+          "memoryOperationType": 0
+        },
+        {
+          "start": 670054405,
+          "address": 30186405888,
+          "bytes": 260,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 670060151,
+          "address": 30186406400,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 670062053,
+          "address": 30186406912,
+          "bytes": 512,
+          "memoryOperationType": 1
+        },
+        {
+          "start": 670063288,
+          "address": 30186407424,
+          "bytes": 240,
+          "memoryOperationType": 1
+        }
+      ],
+      "all30BinsMatch": true
+    }
+  ],
+  "memoryInterpretation": "Peak live explicit cudaMalloc payload observed from paired allocation/free events; excludes CUDA context, allocator padding, driver allocations and external/desktop VRAM. Not total peak device memory.",
+  "timingInterpretation": "Instrumented one-shot samples are separate from unprofiled Runtime medians. Existing native kernelMilliseconds is a CUDA-event interval surrounding host launch submission, not an isolated GPU kernel active duration. CUDA API durations may overlap GPU work; do not sum them into process wall time.",
+  "documentation": [
+    "https://docs.nvidia.com/nsight-systems/UserGuide/index.html",
+    "https://docs.nvidia.com/nsight-systems/AnalysisGuide/index.html"
+  ]
+}

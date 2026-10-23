@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "action": "cancel",
+      "phase": "OLD",
+      "status": "PASS",
+      "trace": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_BARRIER OLD:LAUNCH\n",
+      "noPublishedResult": true
+    },
+    {
+      "action": "cancel",
+      "phase": "BETWEEN",
+      "status": "PASS",
+      "trace": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_BARRIER BETWEEN:BETWEEN\n",
+      "noPublishedResult": true
+    },
+    {
+      "action": "cancel",
+      "phase": "NEW",
+      "status": "PASS",
+      "trace": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_BARRIER NEW:LAUNCH\n",
+      "noPublishedResult": true
+    },
+    {
+      "action": "timeout",
+      "status": "PASS",
+      "error": "PROCESS_TIMEOUT",
+      "noPublishedResult": true
+    },
+    {
+      "action": "Runtime shutdown during NEW",
+      "status": "PASS",
+      "noPublishedResult": true
+    },
+    {
+      "action": "restart/reconciliation",
+      "status": "PASS",
+      "freshSession": true,
+      "oldTokenRejected": true,
+      "oldResultRejected": true,
+      "recoveredFiles": 3,
+      "subsequentValidWork": true
+    },
+    {
+      "action": "parent death",
+      "status": "PASS",
+      "ownedGroup": 21029,
+      "noOwnedLiveOrZombieProcesses": true
+    },
+    {
+      "action": "ordinary fail-closed discovery",
+      "status": "PASS",
+      "incremental": {
+        "available": false,
+        "reason": "motif_qualification_unavailable_or_stale"
+      },
+      "staticAvailable": true,
+      "publicIncrementalAdvertised": false,
+      "unauthenticatedStatus": 401,
+      "health": 200,
+      "url": "http://127.0.0.1:58044"
+    }
+  ],
+  "observedOwnedGroups": [
+    20925,
+    20943,
+    20961,
+    20979,
+    20997,
+    21015,
+    21029
+  ],
+  "ownedLiveOrZombieProcesses": 0,
+  "ordinaryCandidateInstallation": false,
+  "oldClientClosed": "http://127.0.0.1:57323",
+  "experimentalFixture": "Only offline in-process discovery binds diagnostic/candidate copies; ordinary CLI/verifier remains fail-closed."
+}

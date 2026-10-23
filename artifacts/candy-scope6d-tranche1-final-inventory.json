@@ -1,0 +1,1012 @@
+{
+  "verdict": "PASS — SCOPE 6D TRANCHE 1 QUALIFIED FOR REVIEW",
+  "createdAt": "2026-10-18T21:29:49.697Z",
+  "branch": "candy-integration-scope6d-native-optimization",
+  "head": "46ae55173407bb71683614ef212d9d4d4127ecc3",
+  "productionChangedFiles": [
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu"
+  ],
+  "sourceSha256": "49373f697a3ad28866d1b9a58fb7360e9907e98892ac15cb3604588e5557325b",
+  "candidateBinarySha256": "c6f9a434cb79bfab58be439af61afe14060a7556a568b4c6d7d1dc4f9cdb460d",
+  "sourceAndBinaryUnchangedAfterGates": true,
+  "trackedDiff": "15\t6\tcandy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+  "stagedFiles": [],
+  "qualificationAnchorsUnchanged": true,
+  "preservedPrechangeFiles": 1547,
+  "changedPrechangeFiles": [
+    {
+      "path": "artifacts/deterministic-nlu-integrated-routing-report.json",
+      "beforeSha256": "ee2c97a086ca6183835be07599ce8b77feeb92256c9485cb3177f475a392b92b",
+      "afterSha256": "d42b44716596b6fd112d8623a847a0e3f92a721503a405b97b124af049180b18"
+    },
+    {
+      "path": "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu",
+      "beforeSha256": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef",
+      "afterSha256": "49373f697a3ad28866d1b9a58fb7360e9907e98892ac15cb3604588e5557325b"
+    }
+  ],
+  "readinessEntriesPreserved": 73,
+  "historicalNativeEvidenceEntriesPreserved": 22,
+  "protectedBoundaries": {
+    "staticSource": true,
+    "qualifiedBinaries": true,
+    "qualificationRecords": true,
+    "makefiles": true,
+    "packageManifests": true,
+    "runtimeBrowser": true,
+    "limitsSchemaProtocol": true
+  },
+  "files": [
+    {
+      "path": "artifacts/candy-scope6d-tranche1-admission-matrix.json",
+      "bytes": 3857,
+      "sha256": "747a3194652f0269f4215b8b9596f99590726018c19b9f97a3334b1ed2ff20ce"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-admission-run.log",
+      "bytes": 43,
+      "sha256": "e8cb73997d7efdfe936a61f832d596f17cadd1392c5919585fbb0f26fcb668e1"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-boundaries.json",
+      "bytes": 9915,
+      "sha256": "05fe4f63cb0f70080d10ec334211411daed2eb8b084dd323ab3a554aa6e9a14c"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build.json",
+      "bytes": 4178,
+      "sha256": "732b075daa8fdb68e2e0d269347d5e3530fca46d0985d775565bd9de76e8c2fa"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/A-many-small.request",
+      "bytes": 1763,
+      "sha256": "87e9d3f8f9cf3ff729434883dbf71576490a8e192195cdd2d6f535ec1da52964"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/B-high-cardinality.request",
+      "bytes": 556003,
+      "sha256": "1a6dcb47402708ab35ab75cef28defc3c436e56931c51ae58864ebc67e360cdb"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/C-sparse-overlap.request",
+      "bytes": 1512,
+      "sha256": "92c9947a24ceb0cf341da3d5bc04e7c0fadbef9692ddca1a981d95c67dd783cd"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/D-dense-overlap.request",
+      "bytes": 1140,
+      "sha256": "b3540829ae9fe488c329d0e78244f0abf61469875acbce2bf95e04744299821a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/E-open-wedges.request",
+      "bytes": 959,
+      "sha256": "a83585e0dfc712a48094b37f11aaf139de2075eebe6d18f816b75d42db4ed470"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/F-closed-triangles.request",
+      "bytes": 988,
+      "sha256": "31d071a04bf0595108593494220dd9e2387db4041d23037fffff4a1aa5058ee3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/G-local-128.request",
+      "bytes": 4174,
+      "sha256": "6d626f214530f7eb03cf076fe9a193c985116c24cec84ee652467bdbe4ee7a93"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/G-local-near-216.request",
+      "bytes": 4762,
+      "sha256": "ff3a87c6cc41d00968d8216e73be871ed3f3a1d0bcf1367eb50e7d11444ded97"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/H-full-replace-216.request",
+      "bytes": 6394,
+      "sha256": "1163d4060671ec46712520df2f5b1e54dc75a28a83e01b0ac94f191fda10a9b2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/H-high-impact-128.request",
+      "bytes": 5114,
+      "sha256": "b876811fdc27036433c87a83136cbc8b5016d9eef717bdab0e67c7caaf037e6d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/I-edge-216-inc-217.request",
+      "bytes": 1930,
+      "sha256": "abfb0f45b15220865ab1bf7a00936fd560b5b640b53144611dae017307241b56"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/I-incidence-cardinality-100000.request",
+      "bytes": 589364,
+      "sha256": "cbc8aa07a04ef137e3af242f7ea1d93fbd399ed941445ee0d4e97ba79895508c"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/I-incremental-inserted-100000.request",
+      "bytes": 589878,
+      "sha256": "0d78812053615716e4003184b44a3d84beebe6f1de778f0f4824e6f3e6db0e14"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/I-work-64-inc-2560.request",
+      "bytes": 7747,
+      "sha256": "ee977121037d87980986848310bc510936d44d1ea9a7b9275e96e58f35a85374"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R0-incremental.request",
+      "bytes": 901,
+      "sha256": "c260516adac35029011197b8f6bc97933bae99386724d01dfe7fafb686d7a268"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R0-static.request",
+      "bytes": 394,
+      "sha256": "d16cf0ea5016ed162d2a46fd712adbdccebd7c56791f5a41e325b4cb7184879a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R1-incremental.request",
+      "bytes": 920,
+      "sha256": "3302dc0a6250cc443a83a3399e7725827accba112c1fce9d789c81751eae5ce3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R1-static.request",
+      "bytes": 403,
+      "sha256": "1aca6f5b5bfa0104e5dcc15a6701c4fe757349dfade1face3e1853701fd95e95"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R2-incremental.request",
+      "bytes": 967,
+      "sha256": "8656545b73d855fbb781435ce0d3006e9210aaf824a1fe3824a452d6c50e8a0f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R2-static.request",
+      "bytes": 423,
+      "sha256": "569a3a90a1f2240cc6292b8ca3c51219a40cdf9a941796e540291d2b79410ae6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R3-incremental.request",
+      "bytes": 986,
+      "sha256": "ffcafe345a00affb93f544f0b6ebf2b81c26e1ba37ba9987a4dba09736693e1d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R3-static.request",
+      "bytes": 430,
+      "sha256": "32d2e2a1714c0e0dda9fee225f81a1689c08504c3e0759f01d737b0e81d326c2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R4-incremental.request",
+      "bytes": 1029,
+      "sha256": "0a995b446b17c0cd3fca4c6650cb31c733ad4722ccd043be17697ebba567d6ba"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R4-static.request",
+      "bytes": 450,
+      "sha256": "074e5c7b440fd9314f85548ff4b17000f0e268950c380545243f0539afc2b038"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R5-incremental.request",
+      "bytes": 1029,
+      "sha256": "d2ad14af8d18c37f63ff2aa9d8f65bba87a434e1e1dcb75f90023ee5f06d8adc"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R5-static.request",
+      "bytes": 448,
+      "sha256": "a3d7b2154ccf901d5be84450d2769e7b9a743771e07dfd4470cd1bf0be1ee24d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R6-incremental.request",
+      "bytes": 1093,
+      "sha256": "f2c0ef76add8813cac3528e6efcca0bae07f0350926569469c673f656c60a8f5"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R6-static.request",
+      "bytes": 477,
+      "sha256": "5c2567deddbd57cbe43be15f8f25340bb8f2c0d555bd7fe217609380d6982aaa"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R7-incremental.request",
+      "bytes": 1149,
+      "sha256": "4c6265e84c19988524ab4039d3dcdf4abd45600fae6a4df605204d9220edf3e5"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/R7-static.request",
+      "bytes": 502,
+      "sha256": "5a0be8eaf0fe51a93f1c94f018c953cc762cd6b984ff94472e2bbb191f7a7764"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/barrier-BETWEEN",
+      "bytes": 220,
+      "sha256": "f7fcf83c4b35c0365c58785b6762c2fb49e9638292b47a42f1a9412daab9ba9b"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/barrier-NEW",
+      "bytes": 215,
+      "sha256": "8a17a25c9dda7cc5a0591cb2f679fb0c8eb08d3b7a2eb934ec501c15b94f323c"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/barrier-OLD",
+      "bytes": 215,
+      "sha256": "508d0c99d570d59dd5108c9af27485e4ae9c9682baa89c980074b257357bd9b8"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic",
+      "bytes": 1190864,
+      "sha256": "9780e543a86f5ab153357e7d44b8ae35779c60a11fea0394a29c9599f17fe563"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v2",
+      "bytes": 1191096,
+      "sha256": "f1526186fe5643946f9fed644f0aaa43357956febc8edd7f8b1b4fff4087967d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v2.cu",
+      "bytes": 26273,
+      "sha256": "3b612f97789ad38cba440e53dd025a2360d1d4246ab698c604cd3c287a6cdd11"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v3",
+      "bytes": 1191096,
+      "sha256": "cdd8b326e1824019b800bb7945de63af5893c9dee3d70fd4e7f17225728b4298"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic-v3.cu",
+      "bytes": 25877,
+      "sha256": "fd190ce4fdfc2e50a7b3e1e867492405e97c32786dfe1968029b5b4fdd065d13"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-diagnostic.cu",
+      "bytes": 26200,
+      "sha256": "5e28328e41088672763890ef491918d4de3e8cc7650d2c18f6bd2ece0bbd3db1"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/baseline-main.cu",
+      "bytes": 24126,
+      "sha256": "f2a6c34ddb8cf4455ff7537a0b923dc5c55bff48b1e04954ad1c3491eea119ef"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/boundary.request",
+      "bytes": 2097152,
+      "sha256": "b8be591f244f50fbd7a1ca360e43711350b03f4c6ff0103bff84e08f96360f6e"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate",
+      "bytes": 1184872,
+      "sha256": "c6f9a434cb79bfab58be439af61afe14060a7556a568b4c6d7d1dc4f9cdb460d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic",
+      "bytes": 1191064,
+      "sha256": "ecd3cc3a5478abf4f74b7aa69f12f21b1da6124c0a1967ebe19cc64af30bb1f2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v2",
+      "bytes": 1195392,
+      "sha256": "af5989b5c19899fd0e6a9bfef39c09e1e523483b09b2395e97c9126994c48ac7"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v2.cu",
+      "bytes": 26569,
+      "sha256": "fa7b44ddb40e10f3d76b151d7e889e7bce8ac3f8e89585685673dd1ff4be853c"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v3",
+      "bytes": 1195392,
+      "sha256": "c7d2a869b3427d406f3f163ceb74303a92fb6b261aa3e0ee069de64e395cc401"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic-v3.cu",
+      "bytes": 26253,
+      "sha256": "e82851c3b0417d6bfec8eeb1c5098446fcbe7ff8b0de24290dfa6e66fa46e88b"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/candidate-diagnostic.cu",
+      "bytes": 26496,
+      "sha256": "521f59d5ea38b8dc0ee1adaf808474394551a0ff431e5b75c45f0b3066cf203f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/request.txt",
+      "bytes": 838,
+      "sha256": "6820f3333e653c5779f9fc6cab944afb6463cd4b24d9cf6554147795cf8fddb7"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-B-high-cardinality-0-baseline.json",
+      "bytes": 83,
+      "sha256": "581bb26ad39ac6bbba6cdd67d32aa6ceed47b4a5750d9394a12771e3e9721382"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-B-high-cardinality-0-candidate.json",
+      "bytes": 83,
+      "sha256": "df34315bde6cef528b967882cf024cf73d4f81362ece41dd4788739e911a3172"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-B-high-cardinality-1-baseline.json",
+      "bytes": 83,
+      "sha256": "bf274d9725a251f2f309442b948930831231fcca5e130c1400e6f391071ebd07"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-B-high-cardinality-1-candidate.json",
+      "bytes": 83,
+      "sha256": "5ee3c7feb230c9fe10017d75ddc5dc57df5ca5252cc5ec4fe0df20e95daa35c5"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-B-high-cardinality-2-baseline.json",
+      "bytes": 83,
+      "sha256": "02ac2356757c1df9b5fc0e52ad6a6b229fcf2ea95fea39e93dd8227cce5c498d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-B-high-cardinality-2-candidate.json",
+      "bytes": 83,
+      "sha256": "5268aee49f715f67b0d3a69c56685099681bd9011acc2b69848e3941d6c12743"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-G-local-near-216-0-baseline.json",
+      "bytes": 83,
+      "sha256": "444025c67df5c33201705dfb35c9fb63bd888ef212ecd2d7aa24f7332f82c190"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-G-local-near-216-0-candidate.json",
+      "bytes": 83,
+      "sha256": "c3943e1a60bb176b02c4a5d497b8963d5430b08f4dc60c3304f88c29bd9f8fdd"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-G-local-near-216-1-baseline.json",
+      "bytes": 83,
+      "sha256": "6a35527bed1f079501744a2840ad84068054a5da46e3d9a9dcb456f39135a706"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-G-local-near-216-1-candidate.json",
+      "bytes": 83,
+      "sha256": "777375f7f4a65425557610b7d86cc320376fecbed0addaaadd9db0f92f23d7c3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-G-local-near-216-2-baseline.json",
+      "bytes": 83,
+      "sha256": "693cdcc2d0674e3e5816004fb02756fcf1fe669ec05cbe820fc1cfeafa04da0e"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-G-local-near-216-2-candidate.json",
+      "bytes": 83,
+      "sha256": "6f9c97b0c84b27c93f7116b4f265dc27b8f2dfd00db66ddf10e4bc5fdd55fb82"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-full-replace-216-0-baseline.json",
+      "bytes": 83,
+      "sha256": "7a84de784e91c66ad0ff0f56f9a7555a88370bf43cf70171034613be71b1c6f7"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-full-replace-216-0-candidate.json",
+      "bytes": 83,
+      "sha256": "193e5daeeac8e58849828d6472679d71db36699bb2abb2128d23b9e68c7afa64"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-full-replace-216-1-baseline.json",
+      "bytes": 83,
+      "sha256": "c4a44dba9e5215ea41e9193e94050feb9f2add93d57d21d1beaaf1616a44c3bb"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-full-replace-216-1-candidate.json",
+      "bytes": 83,
+      "sha256": "a3e30789b4e3a1b9c468af68309736ebd2203648b9a830240696a0091c2c2b25"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-full-replace-216-2-baseline.json",
+      "bytes": 83,
+      "sha256": "ef85f7d28110193bef1a8425b4c38d71723f8c11a565b9c219aa5d22f32c62fb"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-full-replace-216-2-candidate.json",
+      "bytes": 83,
+      "sha256": "90994127fdbbdceb8fc4888bcf3a16c46c48635811f6c1ec6c24fa50b7182413"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-high-impact-128-0-baseline.json",
+      "bytes": 83,
+      "sha256": "b8793695e6dd76b9223607217eaee6ee279325436228c8a74c8ba0a3619fa367"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-high-impact-128-0-candidate.json",
+      "bytes": 83,
+      "sha256": "7176c69e0008254c675e10bcf600b95f8eff36074898fe177b2428be63a93144"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-high-impact-128-1-baseline.json",
+      "bytes": 83,
+      "sha256": "63cd185447525cb7fba9e75eba3a435c2dea584cb23d82d270aa5c21e46c0751"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-high-impact-128-1-candidate.json",
+      "bytes": 83,
+      "sha256": "e6161abdbbeb674082f8956cd581cab91d6e50a4732bbda9fbd9ef5d27cb9e4f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-high-impact-128-2-baseline.json",
+      "bytes": 83,
+      "sha256": "6deefd5b1bba0b5203684e20072d1d1522de8aaec530c0f42c8f34cce36efe2a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-H-high-impact-128-2-candidate.json",
+      "bytes": 83,
+      "sha256": "704a11cbc0824d095eade7fa31fdfcce097143afbcdcc22674b352b6a8de15aa"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-I-work-64-inc-2560-0-baseline.json",
+      "bytes": 83,
+      "sha256": "298f32da22f18f498e71b1faecca7604fdba7a008a09ba230ec444e5b6c8bb0e"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-I-work-64-inc-2560-0-candidate.json",
+      "bytes": 83,
+      "sha256": "e6aec1dd0f3e92dddd27e6aa625d698706604fbf160b76cb86c1fb74e4d6f1d9"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-I-work-64-inc-2560-1-baseline.json",
+      "bytes": 83,
+      "sha256": "b550161c4b45232ff1255810bf2e08de7835550825df140e80dd9f91faea55ad"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-I-work-64-inc-2560-1-candidate.json",
+      "bytes": 83,
+      "sha256": "7a47fb33b762d0b608d5f32eb342cbd72a84b4659a5446e908c9fb6b308a8961"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-I-work-64-inc-2560-2-baseline.json",
+      "bytes": 83,
+      "sha256": "568e5bfe5669dcf2498c3f5bcb30f3b5302e1a32a8dca7ef93a39c3dc95f9fe6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/rss-I-work-64-inc-2560-2-candidate.json",
+      "bytes": 83,
+      "sha256": "e40de4c0119ba425ae739443203201e0fa27340d4fd6145dc3e252261cc5cd98"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/safety-B-high-cardinality.request",
+      "bytes": 1112074,
+      "sha256": "b406d52e857c1f92c21cb3f81c0dc85353c70cfa9d6e9a5d5b9d876a9b5ff8ba"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/safety-C-sparse-overlap.request",
+      "bytes": 3448,
+      "sha256": "db06846143a35b9f38a5e9998dac21c29b75519a438358b9cd6daadbc104c000"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/safety-D-dense-overlap.request",
+      "bytes": 2704,
+      "sha256": "333b6ff274f769edc71f168302846cbcbf10f5fa69f83f31954a004f7d6590f9"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/safety-G-local-near-216.request",
+      "bytes": 4762,
+      "sha256": "ff3a87c6cc41d00968d8216e73be871ed3f3a1d0bcf1367eb50e7d11444ded97"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/safety-H-high-impact-128.request",
+      "bytes": 5114,
+      "sha256": "b876811fdc27036433c87a83136cbc8b5016d9eef717bdab0e67c7caaf037e6d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/safety-zero-candidate.request",
+      "bytes": 794,
+      "sha256": "65a6ececad26b17b76d934bf29992721531e86b5fda2d5df7845ebbf8e7c8ba5"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-build/static-boundary.request",
+      "bytes": 2097152,
+      "sha256": "696b127db28c652f71b1d3edbd55a281992107eda30fb8960eb9358a5299e797"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-diagnostic-builds-v2.json",
+      "bytes": 2448,
+      "sha256": "1e129e91ca7bd98ad32ae653724a86dedc874309e81d0b7c753fda8dffcb03d9"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-diagnostic-builds-v3.json",
+      "bytes": 2580,
+      "sha256": "13888bef11b28e197751661be74e878389459c56818b1e049a345f3326646bd3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-diagnostic-builds.json",
+      "bytes": 2248,
+      "sha256": "568a4c91218807fc9f713a603133c977b21010e3c2fef39fa07345e382c846bf"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-fault-memcheck-run.log",
+      "bytes": 31,
+      "sha256": "40193b4ec0e9644328d89c56ede131be4f6fcfad70e9bd6f89e126173cf41c60"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-fault-memcheck.json",
+      "bytes": 10259,
+      "sha256": "fa1ea0133e4fb9fffec287d1439602e3100b4b2346548f101af9ca347286951f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-faults.json",
+      "bytes": 9475,
+      "sha256": "e2f5b6b93893678e4f11398e0c852e9cc960598d0ca8809575daa76c042f2c12"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-gate-audit.log",
+      "bytes": 363,
+      "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-gate-build-github.log",
+      "bytes": 2141,
+      "sha256": "905c1a243489eb6cad191070c7c562736dd784f544a11025b05de2538f146515"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-gate-build.log",
+      "bytes": 2104,
+      "sha256": "6e45341c1b6911fd40c95021cf9a8dda5108ecb8ff800b65bcadb6c33531bc8d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-gate-lint.log",
+      "bytes": 55,
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-gate-run.log",
+      "bytes": 61,
+      "sha256": "42d3cbb194eea2dbb5506f9432f045d3299473da2594f36ef66cec04b8cd9978"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-gate-scope6c.log",
+      "bytes": 1169,
+      "sha256": "ad41deeb98f8590da11d0ea9e6bf1ab3f08620acd8dfc902f1362d13d98f37fa"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-gate-test.log",
+      "bytes": 28729,
+      "sha256": "ce845c2f383552cb6b0447db5f6924584458bc828a5c10a83e58397b83a7a71d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-implementation-report.md",
+      "bytes": 10554,
+      "sha256": "c0d8e259fc65f3f0fab5d868ca84535130efc720c9a966df4ed7fc8bb715db88"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-lifecycle-run.log",
+      "bytes": 48,
+      "sha256": "e2eaaf8c377f76e7414c2770641bb3832c6693302d0a4deab24fb3840a1ce792"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-lifecycle.json",
+      "bytes": 2150,
+      "sha256": "98b20247571f6ed2be470cbbf947134946ea1393be3932515ed75ccdf2be3bf2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-memory.json",
+      "bytes": 9756,
+      "sha256": "113fcef45a500a7c558b43b3fed7a4ce20053c4ac992d2b307eec68b5f5ac6a1"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-parity-resume.log",
+      "bytes": 225,
+      "sha256": "420ccd2c0d111b1957634e96157b39984b36e6935c9fbae57cc25b82d24d3daa"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-parity-run.log",
+      "bytes": 2289,
+      "sha256": "9f6b8bf09b4b084607f80f93edeb14eb8140d2882daee6ae5f8634ce6e2f08e4"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-parity.json",
+      "bytes": 114839,
+      "sha256": "31081320512de2b17f1cfcbd370ab4b574849c381764eff0c62f6d9b82c65aa6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-performance-run.log",
+      "bytes": 1690,
+      "sha256": "dbd8a915af0fefac59127ca0492882eec54c63abe4a4a7ece5ce516295e63467"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-performance.json",
+      "bytes": 111654,
+      "sha256": "ad5e9f37834289f3ec00876403da2e505c71338abcd97c2bcfc36030edb2b68a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-prechange.json",
+      "bytes": 290634,
+      "sha256": "dd0d8f333d1e3187dffe0b0d7c0475386a42a9d5402b554c05469aaed300ddd2"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profile-analysis.json",
+      "bytes": 38482,
+      "sha256": "e59a3e935782f2f6fccb4c91b25b1f6fe4a83700e7ad1e6156fe2226a4e3067d"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profile-captures.json",
+      "bytes": 17794,
+      "sha256": "1fc4e5605cc973e4ef5f247b2144ae7e5a863a17c4854637c5268484209ffc2a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profile-reference.json",
+      "bytes": 142540,
+      "sha256": "2768d361294a4faf856300e52d310a607cb2da63b30820829b09a5119c59da39"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profile-run.log",
+      "bytes": 1149,
+      "sha256": "b0166e9d9deeff402ea1b188aa1a46553cf736af27afe8cd4768fd70e99fc117"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality-capture.log",
+      "bytes": 2015,
+      "sha256": "35077a6563545db78218c058f36f9ff2b19bd536dc846b0b5492b2c38d1164c1"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality-stats.log",
+      "bytes": 1990,
+      "sha256": "fa955859d1170914aa7914f3244c3d34773f79b70c01332629f5fad3f971b53a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality.nsys-rep",
+      "bytes": 57442,
+      "sha256": "ad5df81a2fdbfd0d1eb58e6d64568405c25c14df7d424794f8de3898afaa3e67"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality.sqlite",
+      "bytes": 327680,
+      "sha256": "5b7308708b70a06a96bd1a778cdfdbfcb322f5dfe728ef868f014eb564285398"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality_cuda_api_sum.csv",
+      "bytes": 949,
+      "sha256": "c6bd49a7acd0f3a260228db661c707b07b7a435959b56dfd2cfd77adef78d240"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality_cuda_gpu_kern_sum.csv",
+      "bytes": 278,
+      "sha256": "8e4ddd905ae98c11f4e41e8e4c02552bd3100150c080e4d2e8a89bc62d768f7f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "1177231f50521b43abd0e48d992bdb0c0250a38686f1936dbb0607037ec5f605"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/B-high-cardinality_cuda_gpu_mem_time_sum.csv",
+      "bytes": 279,
+      "sha256": "18245fb72c27cd32522c650b981af84653f1762aeb9a593798a4ccc2cc7a0fc1"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216-capture.log",
+      "bytes": 2707,
+      "sha256": "7c89a0a4d421aee037b27c36ed2a00826024f2cb33149760ab8a8835de4b381f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216-stats.log",
+      "bytes": 1970,
+      "sha256": "75566a1178bcec35b6fbbaee100ed3473eccaf273970546fdd12b100e0bcbe0b"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216.nsys-rep",
+      "bytes": 58351,
+      "sha256": "e9066d60a2e3480fd441a190cefcaf1bc51a34bd5635e25672e1df04775d2bcd"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216.sqlite",
+      "bytes": 331776,
+      "sha256": "b95aeebbd778bb45254d5e1f2bc14ddfaecf7a4bbe8dc52e8cd354396ca082cb"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216_cuda_api_sum.csv",
+      "bytes": 959,
+      "sha256": "ebd6142d4541b4e0989c6c86712fc185fc1ad5d7539056655ec3c6c9ea6a80a9"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216_cuda_gpu_kern_sum.csv",
+      "bytes": 281,
+      "sha256": "3569ac86eed2e79940f956f83132923f4def41968856dba88da09497a68e6569"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "9a81db98c906d02fa89ddcbb64eb565ee78982fdc54d1f3d32a9e17a647e9220"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/G-local-near-216_cuda_gpu_mem_time_sum.csv",
+      "bytes": 282,
+      "sha256": "95ebff9b9f39a4feca65a0a98e7f9e867321a77c1b66eefc8c77da16f634a787"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216-capture.log",
+      "bytes": 2778,
+      "sha256": "3102986d5050a2fb4900fa70e376b343c978195b9c81769918263129fdc0949f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216-stats.log",
+      "bytes": 1990,
+      "sha256": "3a214890db7dfc902b279c99e03873ed00ec9f41c037f000afaeb6afa3d9a5c9"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216.nsys-rep",
+      "bytes": 58457,
+      "sha256": "1c5e5f6907e5709060872fa3abd2f9dd8e3d4b7ab7370b9c6aa660d7d1478586"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216.sqlite",
+      "bytes": 331776,
+      "sha256": "67e2f8d345865a4635e873f1763524e9bc5ac055e80ac34133f432a491a4df12"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216_cuda_api_sum.csv",
+      "bytes": 971,
+      "sha256": "7cfeddf3a9c462e82b35b19e17198702be1038089785b9268fe1b6383d04bd2f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216_cuda_gpu_kern_sum.csv",
+      "bytes": 290,
+      "sha256": "bd0be508598a4014ad557bef8192dec23a7580aca0c59f1d48f7e1d40c7376fc"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216_cuda_gpu_mem_size_sum.csv",
+      "bytes": 263,
+      "sha256": "38cb3b7c5e28a969f01f6800855ad7e0afa9c33e083b65848ed271d36bd4e424"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-full-replace-216_cuda_gpu_mem_time_sum.csv",
+      "bytes": 289,
+      "sha256": "8d6eb02f1c0b2f2e81a828059f5fbf7738f6f5710f1a1f3b892781ef90357318"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128-capture.log",
+      "bytes": 2740,
+      "sha256": "9774d96655ec7e9cd7aa9a695b68fe49e320ce84e0259e69aa397413b075a721"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128-stats.log",
+      "bytes": 1980,
+      "sha256": "61a0ef4947289fe44cde0062a700d495c51b6f4cc5b050c2ce6befd6c2d0af6f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128.nsys-rep",
+      "bytes": 58443,
+      "sha256": "74fe3ab21cd5b014ebc89ef612d4c2354fec01c86e8b7ca44f85f390e13685f9"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128.sqlite",
+      "bytes": 331776,
+      "sha256": "bc95f2d4f74ab59bb5e830618e13a7c272d47dc702677851947793be3b828041"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128_cuda_api_sum.csv",
+      "bytes": 966,
+      "sha256": "d34cb6853860f7f3d11d402f28cbfb51b363e4e5c3e09f0358b1ae4f225411b5"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128_cuda_gpu_kern_sum.csv",
+      "bytes": 287,
+      "sha256": "6e2e73413efa63ed026f0e89598b77fbedce54a91a2fe5b1356bf7b7a4190545"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "cf43cc092c707710e8570a0c66a2fb2b23609cb8cc1b05b54d7d34ff27a71406"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/H-high-impact-128_cuda_gpu_mem_time_sum.csv",
+      "bytes": 286,
+      "sha256": "4da83f262fbce9380cb0839ca7cc7f67ddcad9013a5ad5050465709a63fe038e"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560-capture.log",
+      "bytes": 2022,
+      "sha256": "641f70fdcbda406892d853d03a58a084367af0f2f4b3ffb1ccbb902fa2c7c967"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560-stats.log",
+      "bytes": 1990,
+      "sha256": "124941a5f990a7af1f5e319387354847b40ba8fcde453b1e711a94ce7680bfc5"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560.nsys-rep",
+      "bytes": 57541,
+      "sha256": "5aba074343ed3c6d5dc20e0c26a4ec5c05e53d23e7db258386f923618ac96155"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560.sqlite",
+      "bytes": 327680,
+      "sha256": "6112dac5b488c0bb043797c809dfacaec42fdf259f9a6bb67ad8baeedddf42f3"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560_cuda_api_sum.csv",
+      "bytes": 955,
+      "sha256": "58f6b2a9e221163b3364f92dd561752a9ee6f84c05e92b176bf9bea0e2ee4652"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560_cuda_gpu_kern_sum.csv",
+      "bytes": 268,
+      "sha256": "0a5d6a89366a5699826a60b1dbc7958e087f829a60439b09bb3b779c81abeded"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "86a7ee64d8a6f03ae257ece4ac2ca9bbe798765b1ed5acf16d4d3f7d259ab318"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/I-work-64-inc-2560_cuda_gpu_mem_time_sum.csv",
+      "bytes": 273,
+      "sha256": "f9372c38b9e27bda6b579304fee73b771581f81b3ab10ffd87fe49016d883fd4"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate-capture.log",
+      "bytes": 2501,
+      "sha256": "a1dd653af7784bedcbc29157f861f0d4b0cee778aa94b1af654a30fd6b1dc79f"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate-stats.log",
+      "bytes": 1950,
+      "sha256": "64133d821cfbb4103b52b37d3010fca556663d3dd8a806801df6dac1404aa820"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate.nsys-rep",
+      "bytes": 58396,
+      "sha256": "189c45dbd0bc0cb236dde958f85191dbb18db8ed08c8bb78375ab63ce96a3b00"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate.sqlite",
+      "bytes": 327680,
+      "sha256": "4c40ab580f794577e5f9e30b4af27e1da428c52344941d18256c92221d25d14c"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate_cuda_api_sum.csv",
+      "bytes": 954,
+      "sha256": "d93491a423373fd6996427a5690fd33bc3f19f313d820025bf82a2c52f36cc84"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate_cuda_gpu_kern_sum.csv",
+      "bytes": 273,
+      "sha256": "a49fdd8961f706ba8869b2a8a9ce75c15371bd3b16e4e79615e56b4dcc4b9367"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate_cuda_gpu_mem_size_sum.csv",
+      "bytes": 261,
+      "sha256": "0f5f066eefa33e84f8aac721172fa8d7e0e1fcbc16b8d5e8e776f65bf12104e9"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-profiles/zero-candidate_cuda_gpu_mem_time_sum.csv",
+      "bytes": 276,
+      "sha256": "8552d44ffba0925e4a796ba9290277bd533dc4e50ff3065c46d2bea7c17eedc6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-randomized.json",
+      "bytes": 1430509,
+      "sha256": "00387fbbb5bfa8d9fd7f3b3eb191174ce8b8959f342aa61ffaf5f8e20c782095"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-rss-controls-run.log",
+      "bytes": 32,
+      "sha256": "0f6fe582cadb3e1a2f9b8df3381b6f6d3dc301f6ed62ecf91b3204e5d5589850"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-rss-controls.json",
+      "bytes": 2690,
+      "sha256": "30f49a84c5949f277ad495296801676b132c1a633dd6978ea3df323fc5bf986a"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-safety-resume.log",
+      "bytes": 49,
+      "sha256": "6ae3053029658946147813dc3b6252c2057353eb150afd4a250b15b3400c5fc6"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-safety-run.log",
+      "bytes": 1430,
+      "sha256": "b09df9e0b724df7e274b91642155d1860c89e4985f92b27cd85c3ed9b5c3bc42"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-sanitizers.json",
+      "bytes": 108582,
+      "sha256": "a2feada79beecd10f99f367a4747257c425105b2cc6afa6e05ead57de6b91601"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-scope6c-preservation.json",
+      "bytes": 821,
+      "sha256": "76b85c95c728c943878090e7c4c555b8b2aea0c2f3e3fc7e514c2550d4d0e431"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-security-review.md",
+      "bytes": 4115,
+      "sha256": "59b51a96ab6e9df207d39b47b3ae65073e701481f1052cd17c261ced92e74795"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-source-diff.json",
+      "bytes": 514,
+      "sha256": "6e54da65780da56dfd0d4d74a71eb9313b2e6760ac032ac870f555fcf6853804"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-taxonomy.json",
+      "bytes": 1426179,
+      "sha256": "4262075bea1430f477255207f293955719b59ec7475e7a2bf7b6436ce363bbb7"
+    },
+    {
+      "path": "artifacts/candy-scope6d-tranche1-test-results.json",
+      "bytes": 3625,
+      "sha256": "44ff38429770764d020f704e711adb5a32e210c746316374a3d8295865fe10f2"
+    },
+    {
+      "path": "scripts/analyze-scope6d-tranche1-profiles.py",
+      "bytes": 4575,
+      "sha256": "9b092e278f273e565dc9c92f0ed26ce1018e2453aa432694d6eccce3f78063eb"
+    },
+    {
+      "path": "scripts/build-scope6d-tranche1-diagnostics.mjs",
+      "bytes": 4481,
+      "sha256": "9df3def768e307487d7cc67676198523a6eb39d737fa66b851eba4f18594d2a2"
+    },
+    {
+      "path": "scripts/build-scope6d-tranche1.mjs",
+      "bytes": 2553,
+      "sha256": "190e18ff9f613a3cae74e791a1053c444f688005dc6f8e2aff84bce7adc13c28"
+    },
+    {
+      "path": "scripts/check-scope6d-tranche1-admission.mjs",
+      "bytes": 2643,
+      "sha256": "94e66908bf9ab3e139ff0e55c44b300849aa8795ee57cd234738a8619d953fd1"
+    },
+    {
+      "path": "scripts/check-scope6d-tranche1-fault-memcheck.mjs",
+      "bytes": 825,
+      "sha256": "0dceecd150a56e0064b6f522d60d3fd46dcfcebb835416a55f77e3ebd03c13a6"
+    },
+    {
+      "path": "scripts/check-scope6d-tranche1-rss-controls.mjs",
+      "bytes": 1084,
+      "sha256": "ed6c9376ddabc132beb65b0ebaa01481c707a800df3a678dbb87b89c894d4363"
+    },
+    {
+      "path": "scripts/gate-scope6d-tranche1.mjs",
+      "bytes": 1474,
+      "sha256": "6143c2e57121e292da00a31a161e5ec907627f3894f3cd4ba058c4d07489bdd2"
+    },
+    {
+      "path": "scripts/measure-scope6d-tranche1.mjs",
+      "bytes": 3053,
+      "sha256": "ce91a27a048835707e7f4791a0f89f4dc0565eb90ceca209cceae340f4528642"
+    },
+    {
+      "path": "scripts/prepare-scope6d-tranche1.mjs",
+      "bytes": 2596,
+      "sha256": "e59a2f242702005d25ebe343e6e66bcd2a27b0cd4c964b008b684abaf07e73b8"
+    },
+    {
+      "path": "scripts/profile-scope6d-tranche1.mjs",
+      "bytes": 2504,
+      "sha256": "46df733e82763cbb43cbc98317113c3ad77e9c9ad98ef93d508d71cc4a148e77"
+    },
+    {
+      "path": "scripts/qualify-scope6d-tranche1-lifecycle.mjs",
+      "bytes": 7949,
+      "sha256": "3eb77f79a3219dac50087c6bf65566b7123bbc049f2933898ca6b289099e29d4"
+    },
+    {
+      "path": "scripts/qualify-scope6d-tranche1-parity.mjs",
+      "bytes": 7840,
+      "sha256": "cb74ed291b3dbbe8abc35b7a8e476eba6766da55157979cdcb42bafc7ad7cb4a"
+    },
+    {
+      "path": "scripts/qualify-scope6d-tranche1-safety.mjs",
+      "bytes": 4640,
+      "sha256": "a274b4bc04141ef1a90933e0801c919b08d68303436978dfcf3476d05f470581"
+    },
+    {
+      "path": "scripts/report-scope6d-tranche1.mjs",
+      "bytes": 16022,
+      "sha256": "01c348cdbb93f5e767818437db659cab6ef58c405b02dd56164747330380c782"
+    },
+    {
+      "path": "scripts/scope6d-tranche1-common.mjs",
+      "bytes": 2378,
+      "sha256": "774c7059530f46a33244534320fa33b30298c4586963b796bb9f8df19a59f1a7"
+    },
+    {
+      "path": "scripts/scope6d-tranche1-fixtures.mjs",
+      "bytes": 4123,
+      "sha256": "4310f47a564de459f31f2a46228d319a30693e9412d792b73157cc615efaba53"
+    },
+    {
+      "path": "scripts/scope6d-tranche1-offline-runtime.mjs",
+      "bytes": 2415,
+      "sha256": "cc94eb78dff1d9905f127c39ec2d655f060352e411afe31e19cd98c5cbdcfc2c"
+    },
+    {
+      "path": "scripts/scope6d-tranche1-parent-fixture.mjs",
+      "bytes": 707,
+      "sha256": "3f37e25626dbaad2db127a637fc5233a9ee0c935f4961eee55583dedc7d6c7b6"
+    }
+  ],
+  "finalInventorySelfHashExcluded": true
+}

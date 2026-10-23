@@ -1,0 +1,258 @@
+{
+  "status": "PASS",
+  "injection": "Isolated diagnostic copies with one-shot exceptions at actual API boundaries; not physical GPU hardware failures. FREE calls the real cudaFree first, then throws to test checked-release failure propagation and remaining cleanup.",
+  "checks": [
+    {
+      "phase": "OLD",
+      "point": "HOST",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"RESOURCE_LIMIT\",\"message\":\"Host allocation failed.\"}}\n",
+      "stderr": "SCOPE6D_FAULT OLD:HOST\n",
+      "exit": 1,
+      "wallMs": 266.5596999999998,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Host allocation failed."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "OLD",
+      "point": "CUDA_ALLOC",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:CUDA_ALLOC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 266.58669999999984,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "OLD",
+      "point": "H2D",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:H2D\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 237.8187999999991,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "OLD",
+      "point": "LAUNCH",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:LAUNCH\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 248.95529999999962,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "OLD",
+      "point": "SYNC",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:SYNC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 249.57959999999912,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "OLD",
+      "point": "D2H",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:D2H\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 264.90699999999924,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "OLD",
+      "point": "FREE",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT OLD:FREE\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 261.46690000000126,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "NEW",
+      "point": "HOST",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"RESOURCE_LIMIT\",\"message\":\"Host allocation failed.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_FAULT NEW:HOST\n",
+      "exit": 1,
+      "wallMs": 266.8689000000013,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "RESOURCE_LIMIT",
+          "message": "Host allocation failed."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "NEW",
+      "point": "CUDA_ALLOC",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:CUDA_ALLOC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 229.91609999999855,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "NEW",
+      "point": "H2D",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:H2D\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 249.9951000000001,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "NEW",
+      "point": "LAUNCH",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:LAUNCH\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 258.1856000000007,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "NEW",
+      "point": "SYNC",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:SYNC\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 255.5616000000009,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "NEW",
+      "point": "D2H",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:D2H\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 255.8672000000006,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    },
+    {
+      "phase": "NEW",
+      "point": "FREE",
+      "stdout": "{\"ok\":false,\"error\":{\"classification\":\"ALGORITHM_FAILURE\",\"message\":\"Unexpected native failure.\"}}\n",
+      "stderr": "SCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FREE 276060 live 0\nSCOPE6D_ALLOC 276060 live 276060 peak 276060\nSCOPE6D_FAULT NEW:FREE\nSCOPE6D_FREE 276060 live 0\n",
+      "exit": 1,
+      "wallMs": 270.22879999999714,
+      "payload": {
+        "ok": false,
+        "error": {
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unexpected native failure."
+        }
+      },
+      "recoveryValid": true,
+      "oldCountsPrivate": true,
+      "noPartialSuccess": true
+    }
+  ]
+}

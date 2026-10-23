@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "samples": [
+    {
+      "id": "H-high-impact-128",
+      "repeat": 0,
+      "which": "baseline",
+      "maxRssKiB": 124904,
+      "elapsedSeconds": 0.22,
+      "userSeconds": 0.01,
+      "systemSeconds": 0.05
+    },
+    {
+      "id": "H-high-impact-128",
+      "repeat": 0,
+      "which": "candidate",
+      "maxRssKiB": 121220,
+      "elapsedSeconds": 0.22,
+      "userSeconds": 0.01,
+      "systemSeconds": 0.05
+    },
+    {
+      "id": "H-high-impact-128",
+      "repeat": 1,
+      "which": "candidate",
+      "maxRssKiB": 121124,
+      "elapsedSeconds": 0.18,
+      "userSeconds": 0.01,
+      "systemSeconds": 0.05
+    },
+    {
+      "id": "H-high-impact-128",
+      "repeat": 1,
+      "which": "baseline",
+      "maxRssKiB": 124948,
+      "elapsedSeconds": 0.2,
+      "userSeconds": 0.01,
+      "systemSeconds": 0.06
+    },
+    {
+      "id": "H-high-impact-128",
+      "repeat": 2,
+      "which": "baseline",
+      "maxRssKiB": 124940,
+      "elapsedSeconds": 0.18,
+      "userSeconds": 0.01,
+      "systemSeconds": 0.05
+    },
+    {
+      "id": "H-high-impact-128",
+      "repeat": 2,
+      "which": "candidate",
+      "maxRssKiB": 121260,
+      "elapsedSeconds": 0.23,
+      "userSeconds": 0.01,
+      "systemSeconds": 0.06
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "repeat": 0,
+      "which": "baseline",
+      "maxRssKiB": 117004,
+      "elapsedSeconds": 0.19,
+      "userSeconds": 0.02,
+      "systemSeconds": 0.03
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "repeat": 0,
+      "which": "candidate",
+      "maxRssKiB": 117180,
+      "elapsedSeconds": 0.17,
+      "userSeconds": 0,
+      "systemSeconds": 0.04
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "repeat": 1,
+      "which": "candidate",
+      "maxRssKiB": 117152,
+      "elapsedSeconds": 0.18,
+      "userSeconds": 0.01,
+      "systemSeconds": 0.04
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "repeat": 1,
+      "which": "baseline",
+      "maxRssKiB": 117100,
+      "elapsedSeconds": 0.19,
+      "userSeconds": 0,
+      "systemSeconds": 0.05
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "repeat": 2,
+      "which": "baseline",
+      "maxRssKiB": 117192,
+      "elapsedSeconds": 0.22,
+      "userSeconds": 0,
+      "systemSeconds": 0.06
+    },
+    {
+      "id": "I-work-64-inc-2560",
+      "repeat": 2,
+      "which": "candidate",
+      "maxRssKiB": 116996,
+      "elapsedSeconds": 0.17,
+      "userSeconds": 0,
+      "systemSeconds": 0.05
+    }
+  ],
+  "remainingCases": "memory.json processRssProxy",
+  "interpretation": "Separate uninstrumented one-shot GNU time maxRSS observations. Not vector bytes, heap-only memory, VRAM or Runtime E2E timing."
+}

@@ -1,0 +1,521 @@
+{
+  "capturedAt": "2026-10-23T16:35:09.894Z",
+  "exactHead": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "status": "PASS",
+  "retainedLongSession": {
+    "path": "artifacts/candy-scope6d-tranche1-binding-native-execution.json",
+    "sha256": "c25bf97b95f3d1258077b450c3271fa90cbdcf80ab986c1df9c5777d1b8912f4",
+    "nativeJobs": 300,
+    "applicableBecauseQualifiedProductBytesMatch": true,
+    "rerun": false
+  },
+  "freshNativeJobs": 40,
+  "representativeCases": [
+    "G-local-128",
+    "H-high-impact-128",
+    "G-local-near-216"
+  ],
+  "additionalSmallCase": {
+    "vertices": 3,
+    "hyperedges": 3,
+    "record": "artifacts/candy-scope6d-tranche1-final-small-execution.json"
+  },
+  "defaultRetention": {
+    "maxTerminalJobs": 32,
+    "maxArtifacts": 512,
+    "maxArtifactBytes": 67108864,
+    "observedPeakJobs": 32,
+    "observedPeakArtifacts": 512,
+    "artifactAdmissions": 520,
+    "checkpointDetails": [
+      {
+        "label": "three-production-cases",
+        "jobs": 3,
+        "artifacts": 9,
+        "artifactBytes": 33198,
+        "diskFiles": 12,
+        "workspaces": 0,
+        "rssBytes": 257384448,
+        "processes": {
+          "observedNativeGroups": 3,
+          "ownedRemaining": 0,
+          "supervisorHandles": 0
+        }
+      },
+      {
+        "label": "native-soak-10",
+        "jobs": 13,
+        "artifacts": 39,
+        "artifactBytes": 61986,
+        "diskFiles": 42,
+        "workspaces": 0,
+        "rssBytes": 85192704,
+        "processes": {
+          "observedNativeGroups": 13,
+          "ownedRemaining": 0,
+          "supervisorHandles": 0
+        }
+      },
+      {
+        "label": "native-soak-20",
+        "jobs": 23,
+        "artifacts": 69,
+        "artifactBytes": 90852,
+        "diskFiles": 72,
+        "workspaces": 0,
+        "rssBytes": 95997952,
+        "processes": {
+          "observedNativeGroups": 23,
+          "ownedRemaining": 0,
+          "supervisorHandles": 0
+        }
+      },
+      {
+        "label": "native-soak-30",
+        "jobs": 32,
+        "artifacts": 98,
+        "artifactBytes": 117485,
+        "diskFiles": 101,
+        "workspaces": 0,
+        "rssBytes": 101294080,
+        "processes": {
+          "observedNativeGroups": 33,
+          "ownedRemaining": 0,
+          "supervisorHandles": 0
+        }
+      },
+      {
+        "label": "native-soak-40",
+        "jobs": 32,
+        "artifacts": 118,
+        "artifactBytes": 124043,
+        "diskFiles": 121,
+        "workspaces": 0,
+        "rssBytes": 101584896,
+        "processes": {
+          "observedNativeGroups": 43,
+          "ownedRemaining": 0,
+          "supervisorHandles": 0
+        }
+      },
+      {
+        "label": "after-520-artifact-admissions",
+        "jobs": 32,
+        "artifacts": 512,
+        "artifactBytes": 103173,
+        "diskFiles": 515,
+        "workspaces": 0,
+        "rssBytes": 115789824,
+        "processes": {
+          "observedNativeGroups": 43,
+          "ownedRemaining": 0,
+          "supervisorHandles": 0
+        }
+      },
+      {
+        "label": "fresh-native-after-clean-restart",
+        "jobs": 1,
+        "artifacts": 3,
+        "artifactBytes": 8562,
+        "diskFiles": 6,
+        "workspaces": 0,
+        "rssBytes": 124571648,
+        "processes": {
+          "observedNativeGroups": 45,
+          "ownedRemaining": 0,
+          "supervisorHandles": 0
+        }
+      }
+    ]
+  },
+  "queueAdmission": {
+    "status": "PASS",
+    "evidence": "artifacts/candy-scope6d-tranche1-final-focused6c.log",
+    "source": "tests/candy-scope6c-retention.test.mjs",
+    "method": "Existing injected CPU fixture tests FIFO, overload, active pins and cancellation; not claimed native execution evidence."
+  },
+  "cleanRestart": {
+    "oldSession": "a11a8eb9-a7aa-4748-b50b-e875c6f00a12",
+    "newSession": "f81c58f3-b941-4963-9fed-bc74d31d1daa",
+    "staleCredentialRejected": true,
+    "staleJobRejected": true,
+    "staleResultRejected": true,
+    "staleArtifactRejected": true,
+    "resultInvalidated": true,
+    "ownedDrained": {
+      "observedNativeGroups": 44,
+      "ownedRemaining": 0,
+      "supervisorHandles": 0
+    }
+  },
+  "abruptRestart": {
+    "capturedAt": "2026-10-23T16:28:33.145Z",
+    "command": "node artifacts/candy-scope6d-tranche1-final-closure-tooling/abrupt-recovery.mjs",
+    "method": "Terminate only the owning fresh production Runtime PID on observed real native supervisor group; no diagnostic executable, runner or discovery injection. Restart ordinary production service against its same marked owned root.",
+    "checks": [
+      "old credentials rejected",
+      "completed and interrupted jobs rejected",
+      "old result rejected",
+      "old artifact rejected",
+      "browser validator rejects old result under new session"
+    ],
+    "oldSession": "ce046fd9-55fd-41ee-ae68-1b5c1fb771fb",
+    "oldPid": 25092,
+    "oldJob": "979101d9-7760-4957-abc3-a81a7a934062",
+    "ownedRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6d-final-closure-owned-artifacts",
+    "interruptedJob": "f5cfe1cd-7779-4a3c-b468-c89053cf5878",
+    "observedActiveGroup": {
+      "at": "2026-10-23T16:28:35.019Z",
+      "pid": 25092,
+      "event": "native-group",
+      "pgid": 3727
+    },
+    "abruptTermination": {
+      "signal": "SIGKILL",
+      "parentOnly": true,
+      "at": "2026-10-23T16:28:35.027Z"
+    },
+    "ownedProcessDrain": {
+      "remaining": 0,
+      "includingZombies": true
+    },
+    "abandonedFiles": 17,
+    "fresh": {
+      "pid": 20328,
+      "port": 8791,
+      "httpHealth": 200,
+      "session": "b0ce69b4-5564-4334-b445-b8c2de0ee66a",
+      "command": "node artifacts/candy-scope6d-tranche1-final-closure-tooling/service.mjs",
+      "sameOwnedRoot": true
+    },
+    "discovery": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [
+        {
+          "capability": "RUN_SSSP",
+          "algorithm": "SSSP",
+          "algorithmVersion": "scope1-openmp-sssp/1",
+          "backend": "LOCAL_OPENMP",
+          "graphTypes": [
+            "OrdinaryGraph",
+            "DynamicOrdinaryGraph",
+            "ProjectedOrdinaryGraph"
+          ],
+          "modes": [
+            "STATIC",
+            "INCREMENTAL",
+            "COMPARE"
+          ],
+          "weightModel": {
+            "kind": "nonnegative_integer",
+            "objectives": 1,
+            "nativeMax": 2147483647
+          },
+          "adapterVersion": "candy.csr-adapter/1",
+          "nativeBuildFingerprint": "sha256:f5561eede6a06a8110e62b76ba1ffd7b6f53a091ada4ca23b8325c4800a85e7f",
+          "executionEnvironment": "WSL2_LINUX",
+          "limits": {
+            "requestBytes": 8388608,
+            "artifactBytes": 6291456,
+            "resultBytes": 8388608,
+            "stdoutBytes": 8388608,
+            "stderrBytes": 65536,
+            "maxVertices": 1000000,
+            "maxEdges": 10000000,
+            "maxUpdates": 1000000,
+            "maxJobs": 256,
+            "maxActiveJobs": 16,
+            "maxTerminalJobs": 32,
+            "terminalBytes": 16777216,
+            "maxArtifacts": 512,
+            "totalArtifactBytes": 67108864,
+            "maxHttpOperations": 4,
+            "queueWaitMs": 60000,
+            "jobDeadlineMs": 120000,
+            "maxCudaVertices": 10000
+          }
+        },
+        {
+          "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "algorithmVersion": "scope4c-qualified-motif/1",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "graphTypes": [
+            "Hypergraph",
+            "DynamicHypergraph"
+          ],
+          "modes": [
+            "STATIC"
+          ],
+          "adapterVersion": "candy.qualified-motif-transport/1",
+          "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+          "executionEnvironment": "WSL2_CUDA",
+          "qualification": {
+            "schemaVersion": "candy.motif-qualified-build/1",
+            "status": "exact_local_operator_record"
+          },
+          "devices": [
+            {
+              "id": 0,
+              "name": "NVIDIA GeForce RTX 5060",
+              "memoryMiB": 8151,
+              "computeCapability": "12.0",
+              "qualifiedArchitecture": "sm_120"
+            }
+          ],
+          "limits": {
+            "maxHyperedges": 256,
+            "maxIncidences": 100000,
+            "maxAggregateWork": 5000000,
+            "timeoutMs": 60000,
+            "concurrentJobs": 1
+          }
+        },
+        {
+          "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "algorithmVersion": "scope4c-qualified-motif/1",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "graphTypes": [
+            "DynamicHypergraph"
+          ],
+          "modes": [
+            "INCREMENTAL"
+          ],
+          "adapterVersion": "candy.qualified-motif-transport/1",
+          "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+          "executionEnvironment": "WSL2_CUDA",
+          "qualification": {
+            "schemaVersion": "candy.motif-qualified-build/1",
+            "status": "exact_local_operator_record"
+          },
+          "devices": [
+            {
+              "id": 0,
+              "name": "NVIDIA GeForce RTX 5060",
+              "memoryMiB": 8151,
+              "computeCapability": "12.0",
+              "qualifiedArchitecture": "sm_120"
+            }
+          ],
+          "limits": {
+            "maxHyperedges": 256,
+            "maxIncidences": 100000,
+            "maxAggregateWork": 5000000,
+            "timeoutMs": 60000,
+            "concurrentJobs": 1
+          }
+        }
+      ],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "AVAILABLE",
+          "reason": null
+        }
+      ],
+      "runtimeSessionId": "b0ce69b4-5564-4334-b445-b8c2de0ee66a"
+    },
+    "freshNativeResult": {
+      "schemaVersion": "candy.runtime-motif-result/1",
+      "runtimeSessionId": "b0ce69b4-5564-4334-b445-b8c2de0ee66a",
+      "jobId": "1bffcd6e-05c3-402c-b58a-3331cf872632",
+      "requestId": "ad89e6e6-37be-4920-b5b9-a2beaff1cc0d",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "inputGraphRef": {
+        "graphId": "scope6d-G-local-128",
+        "graphVersion": 1
+      },
+      "graphArtifactId": "sha256:6c071139f1ff326660076caac8e06bc4524e54b3a94bebf5249e89d32dc28a32",
+      "updateRef": {
+        "updateId": "G-local-128-update",
+        "artifactId": "sha256:0bd56500d6469d67a2294c175d71455e452b7a3c4e0cd0d82ce2b82ce4fb6468",
+        "nextGraphVersion": 2
+      },
+      "requestDigest": "c07ecf22448373f7d3cc85860d073693959a3103aabdd9a22844716dd314af94",
+      "execution": {
+        "status": "completed",
+        "exitCode": 0,
+        "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+      },
+      "validation": {
+        "status": "passed",
+        "method": "qualified_transport_identity_and_semantic_validation"
+      },
+      "resultType": "HypergraphMotifDelta",
+      "interpretation": "delta_only",
+      "native": {
+        "ok": true,
+        "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "inputGraphRef": {
+          "graphId": "scope6d-G-local-128",
+          "graphVersion": 1
+        },
+        "outputGraphRef": {
+          "graphId": "scope6d-G-local-128",
+          "graphVersion": 2
+        },
+        "updateId": "G-local-128-update",
+        "requestDigest": "c07ecf22448373f7d3cc85860d073693959a3103aabdd9a22844716dd314af94",
+        "oldAffectedEdgeCount": 1,
+        "newAffectedEdgeCount": 1,
+        "oldCandidateCount": 8001,
+        "newCandidateCount": 8001,
+        "oldAffectedCounts": [
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "newAffectedCounts": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "deltaCounts": [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "deltaTotalConnectedTriples": 0,
+        "cuda": {
+          "deviceIndex": 0,
+          "deviceName": "NVIDIA GeForce RTX 5060",
+          "computeMajor": 12,
+          "computeMinor": 0,
+          "compiledArchitecture": "sm_120",
+          "compilerVersion": "13.4.59",
+          "runtimeVersion": 13040,
+          "driverVersion": 13040,
+          "kernelLaunchSucceeded": true,
+          "synchronizationSucceeded": true,
+          "kernelMilliseconds": 0.730368
+        }
+      },
+      "warnings": [],
+      "resultArtifactRef": {
+        "id": "sha256:7d6f41355ee8d37c27e36c6c607d52b5bfbdaa09042fa871a8a23a5c783178bc",
+        "mediaType": "application/vnd.candy.result+json",
+        "byteLength": 2235
+      }
+    },
+    "status": "PASS",
+    "finishedAt": "2026-10-23T16:28:37.492Z"
+  },
+  "disconnectReconnectAndReload": {
+    "status": "PASS",
+    "records": [
+      "artifacts/candy-scope6d-tranche1-final-browser.json",
+      "artifacts/candy-scope6d-tranche1-final-browser-ordinary-supplement.json"
+    ]
+  },
+  "shutdown": {
+    "runtime": {
+      "at": "2026-10-23T16:32:59.676Z",
+      "pid": 20328,
+      "event": "clean-close"
+    },
+    "credentialRemoved": true,
+    "pairingCleared": true,
+    "ownedNativeProcessesRemaining": 0,
+    "studioPid": 18964,
+    "studioStopped": true
+  },
+  "workers": "DEFERRED; one-shot native execution unchanged"
+}
