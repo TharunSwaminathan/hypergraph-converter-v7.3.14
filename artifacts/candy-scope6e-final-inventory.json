@@ -1,0 +1,101 @@
+{
+  "capturedAt": "2026-10-23T17:47:24.055Z",
+  "verdict": "NON-PASS — SCOPE 6E INTEGRATED QUALIFICATION BLOCKED",
+  "head": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "branch": "candy-integration-scope6e-integrated-qualification",
+  "productChanges": [],
+  "stagedChanges": [],
+  "committedProductDeltaFromBaseline": false,
+  "allRefsUnchanged": true,
+  "mainUnchanged": true,
+  "historicalTrackedFilesUnchanged": 1282,
+  "blocker": "Local versioned native installation source/Makefile contaminate portable source packaging; committed-clean and populated archives differ.",
+  "evidence": [
+    {
+      "path": "artifacts/candy-scope6e-install.log",
+      "category": "C additive qualification evidence",
+      "bytes": 151,
+      "sha256": "539b57f4b00c1a67017be54f4f11f8e65b21e865fd0040a6f769557468d0fc83"
+    },
+    {
+      "path": "artifacts/candy-scope6e-integrated-qualification-report.md",
+      "category": "C additive qualification evidence",
+      "bytes": 7779,
+      "sha256": "08b15ef161dd3f64b82665f08e38a94452bd0df599ee6d40f8782c7d09dd2e59"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package/committed-clean.zip",
+      "category": "C additive qualification evidence",
+      "bytes": 1723688,
+      "sha256": "03a9ba540b59a3dd69f2881b833dd00d1ef2cf7bc735fba16af722b89ef64ce2"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package/committed-populated.zip",
+      "category": "C additive qualification evidence",
+      "bytes": 1733075,
+      "sha256": "bf6c0eb69ccb95d24f55992b6a818813b20795b54c67abc0f92a6b328e1a0380"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-reproduction.json",
+      "category": "C additive qualification evidence",
+      "bytes": 4504,
+      "sha256": "6d1c3902aced416a76de4069d3dac72b20ce94aa0f08be4962ef4b982fb3a425"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package.json",
+      "category": "C additive qualification evidence",
+      "bytes": 6163,
+      "sha256": "62752d9eb777a4e72def304567feb5e6ad5301ca1300efd71204964a00add96c"
+    },
+    {
+      "path": "artifacts/candy-scope6e-prechange-inventory.json",
+      "category": "C additive qualification evidence",
+      "bytes": 239286,
+      "sha256": "e76882c39826cf1895b61388a0947e21066ae91fea67b849f3be26a725332ab3"
+    },
+    {
+      "path": "artifacts/candy-scope6e-security-review.md",
+      "category": "C additive qualification evidence",
+      "bytes": 853,
+      "sha256": "0fb3e3a3bb845c01cc0b99d17e4a7d35bc3436452767bb36246b925cab7243bb"
+    },
+    {
+      "path": "artifacts/candy-scope6e-test-results.json",
+      "category": "C additive qualification evidence",
+      "bytes": 893,
+      "sha256": "f2eb25a9b7aca41c2c1116da532c46b5c874ff16fd483f0fdcbc28264ae1eca4"
+    },
+    {
+      "path": "artifacts/candy-scope6e-test.log",
+      "category": "C additive qualification evidence",
+      "bytes": 29466,
+      "sha256": "69d127bcd868ab3fda4424dcedcf0b4e77180d4cc28c9b11e48edbecd6a656da"
+    },
+    {
+      "path": "artifacts/candy-scope6e-tooling/qualify-package.py",
+      "category": "D temporary qualification tooling",
+      "bytes": 5162,
+      "sha256": "4348dea32bc2f8db23bfb600452200107f547940d20c5734ef0e2243391b17f1"
+    }
+  ],
+  "ignoredOutput": [
+    "!! artifacts/candy-scope6e-install.log",
+    "!! artifacts/candy-scope6e-test.log",
+    "!! artifacts/deterministic-nlu-compiler-quality-report.json",
+    "!! artifacts/deterministic-nlu-integrated-routing-report.json",
+    "!! artifacts/deterministic-nlu-quality-report.json",
+    "!! node_modules/",
+    "!! scripts/__pycache__/"
+  ],
+  "temporaryWitness": "C:/Users/tharu/AppData/Local/Temp/candy-scope6e-package-1kmkzrk0",
+  "qualificationServicesStarted": [],
+  "qualificationTag": {
+    "name": "candy-integration-scope6e-integrated-qualified",
+    "requestedTarget": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+    "recommended": false,
+    "created": false,
+    "reason": "Scope 6E did not pass"
+  },
+  "correctionImplemented": false,
+  "evidenceStaged": false
+}

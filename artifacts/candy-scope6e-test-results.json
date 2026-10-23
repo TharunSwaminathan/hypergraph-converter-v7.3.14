@@ -1,0 +1,30 @@
+{
+  "capturedAt": "2026-10-23T17:45:39.817Z",
+  "head": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "node": "v24.20.0",
+  "npm": "11.19.0",
+  "dependencyInstall": {
+    "command": "npm.cmd ci",
+    "status": "PASS",
+    "log": "artifacts/candy-scope6e-install.log"
+  },
+  "fullTests": {
+    "command": "npm.cmd test",
+    "status": "PASS",
+    "files": 285,
+    "seconds": 162.1,
+    "log": "artifacts/candy-scope6e-test.log"
+  },
+  "remainingAutomatedGates": {
+    "status": "NOT_RUN",
+    "commands": [
+      "npm.cmd run lint",
+      "npm.cmd run build",
+      "npm.cmd run build:github",
+      "npm.cmd audit --omit=dev"
+    ],
+    "reason": "Qualification stopped after a confirmed product packaging defect as requested. npm ci reported zero vulnerabilities but is not substituted for the requested production-only audit."
+  },
+  "diffCheck": "PASS",
+  "trackedProductChanges": false
+}
