@@ -442,6 +442,15 @@ def is_excluded(path: Path, root: Path) -> bool:
     # directories with this name (such as Runtime's artifact store) are source.
     if rel.parts[0].casefold() == "artifacts":
         return True
+    # Versioned Scope 6D qualification installs are local state, not the two
+    # production native source trees. Reserve this root-anchored namespace
+    # for every qualifier (including an unfinished install with no suffix).
+    if (
+        len(rel.parts) >= 3
+        and tuple(part.casefold() for part in rel.parts[:2]) == ("candy-runtime", "native")
+        and rel.parts[2].casefold().startswith("hypergraph-motif-cuda-incremental-scope6d-tranche1-")
+    ):
+        return True
     parts = {part.casefold() for part in rel.parts}
     if parts & {part.casefold() for part in EXCLUDED_DIRS}:
         return True
@@ -474,6 +483,17 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
     if output.resolve().is_relative_to(root.resolve()):
         raise RuntimeError("Package output must be outside the source tree.")
     files = iter_source_files(root)
+    # POSIX source trees can contain names that Windows ZIP extraction aliases
+    # to another path. Refuse them before touching the output, not by renaming
+    # or silently omitting source. Keep this independent of the ZIP verifier.
+    for path in files:
+        arcname = (Path(root.name) / path.relative_to(root)).as_posix()
+        if "\\" in arcname or any(
+            not part or part in {".", ".."} or part.endswith((".", " "))
+            or any(ord(char) < 32 or char in ':<>|"?*' for char in part)
+            for part in arcname.split("/")
+        ):
+            raise RuntimeError(f"Non-portable archive path generated: {arcname}")
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
         output.unlink()
@@ -500,8 +520,6 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
         for path in files:
             rel = path.relative_to(root)
             arcname = (Path(root.name) / rel).as_posix()
-            if "\\" in arcname:
-                raise RuntimeError(f"Non-portable archive path generated: {arcname}")
             if path.is_symlink():
                 raise RuntimeError(f"Symlinks are not permitted in the portable package: {arcname}")
 

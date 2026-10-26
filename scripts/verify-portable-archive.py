@@ -61,6 +61,7 @@ def verify(archive: Path, expected_root: str | None) -> tuple[dict[str, object],
     archive_bytes = archive.read_bytes()
     issues: dict[str, list[object]] = {
         "backslashMembers": [],
+        "nonCanonicalMembers": [],
         "absoluteMembers": [],
         "traversalMembers": [],
         "duplicateMembers": [],
@@ -80,7 +81,9 @@ def verify(archive: Path, expected_root: str | None) -> tuple[dict[str, object],
 
     with zipfile.ZipFile(archive, "r") as zf:
         infos = zf.infolist()
-        names = [info.filename for info in infos]
+        # ZipInfo normalizes host separators in filename on Windows; retain
+        # the original member spelling so backslashes cannot bypass rejection.
+        names = [info.orig_filename for info in infos]
         name_counts = Counter(names)
         issues["duplicateMembers"] = sorted(name for name, count in name_counts.items() if count > 1)
 
@@ -95,7 +98,17 @@ def verify(archive: Path, expected_root: str | None) -> tuple[dict[str, object],
         manifest_members = []
         mode_counts: Counter[str] = Counter()
         for info in infos:
-            name = info.filename
+            name = info.orig_filename
+            # Validate the raw spelling before PurePosixPath collapses empty
+            # or dot components, or Windows extraction strips dots/spaces.
+            # Reject aliases explicitly; never normalize them into acceptance.
+            raw_parts = (name[:-1] if name.endswith("/") else name).split("/")
+            if any(
+                not part or part in {".", ".."} or part.endswith((".", " "))
+                or any(ord(char) < 32 or char in ':<>|"?*' for char in part)
+                for part in raw_parts
+            ):
+                issues["nonCanonicalMembers"].append(name)
             normalized = name.rstrip("/")
             pure = PurePosixPath(normalized)
             parts = pure.parts
@@ -117,6 +130,14 @@ def verify(archive: Path, expected_root: str | None) -> tuple[dict[str, object],
             # The first component is the project root. Only its immediate
             # artifacts/ directory is release evidence; nested source is valid.
             if len(parts) > 1 and parts[1].casefold() == "artifacts":
+                issues["forbiddenMembers"].append(name)
+            # Enforce independently of the producer, including directory-only
+            # members and arbitrary qualifiers in the local-install namespace.
+            if (
+                len(parts) >= 4
+                and tuple(part.casefold() for part in parts[1:3]) == ("candy-runtime", "native")
+                and parts[3].casefold().startswith("hypergraph-motif-cuda-incremental-scope6d-tranche1-")
+            ):
                 issues["forbiddenMembers"].append(name)
             if any(part.casefold() in {item.casefold() for item in FORBIDDEN_PARTS} for part in parts):
                 issues["forbiddenMembers"].append(name)
