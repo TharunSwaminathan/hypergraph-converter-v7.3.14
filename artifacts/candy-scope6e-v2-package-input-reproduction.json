@@ -1,0 +1,216 @@
+{
+  "capturedAt": "2026-10-26T03:58:09.863862+00:00",
+  "status": "PASS",
+  "sourceCommit": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+  "method": "Corrected producer invoked directly against actual clean and actual read-only populated Git worktrees, with the same product root name; raw committed blobs, no snapshots or exclusions added for the 22 filenames.",
+  "identicalBytes": true,
+  "cases": [
+    {
+      "source": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v2",
+      "path": "artifacts/candy-scope6e-v2-package-input-work/clean.zip",
+      "sha256": "c7b9d7a14c88b9c2330ee601e92eeb60434ad6c3f9438f1b5509763c0eb7a1b2",
+      "bytes": 1721572,
+      "entries": 939,
+      "files": 883,
+      "directories": 56,
+      "verifier": {
+        "archive": "clean.zip",
+        "bytes": 1721572,
+        "sha256": "c7b9d7a14c88b9c2330ee601e92eeb60434ad6c3f9438f1b5509763c0eb7a1b2",
+        "memberCount": 939,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 855,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 0,
+        "ok": true,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4"
+      }
+    },
+    {
+      "source": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+      "path": "artifacts/candy-scope6e-v2-package-input-work/populated.zip",
+      "sha256": "c7b9d7a14c88b9c2330ee601e92eeb60434ad6c3f9438f1b5509763c0eb7a1b2",
+      "bytes": 1721572,
+      "entries": 939,
+      "files": 883,
+      "directories": 56,
+      "verifier": {
+        "archive": "populated.zip",
+        "bytes": 1721572,
+        "sha256": "c7b9d7a14c88b9c2330ee601e92eeb60434ad6c3f9438f1b5509763c0eb7a1b2",
+        "memberCount": 939,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 855,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 0,
+        "ok": true,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4"
+      }
+    }
+  ],
+  "all22UntrackedScriptsAbsent": [
+    "scripts/analyze-scope6d-profiles.py",
+    "scripts/analyze-scope6d-tranche1-profiles.py",
+    "scripts/build-scope6d-tranche1-diagnostics.mjs",
+    "scripts/build-scope6d-tranche1.mjs",
+    "scripts/check-scope6d-tranche1-admission.mjs",
+    "scripts/check-scope6d-tranche1-fault-memcheck.mjs",
+    "scripts/check-scope6d-tranche1-rss-controls.mjs",
+    "scripts/gate-scope6d-tranche1.mjs",
+    "scripts/measure-scope6d-native.mjs",
+    "scripts/measure-scope6d-tranche1.mjs",
+    "scripts/prepare-scope6d-tranche1.mjs",
+    "scripts/profile-scope6d-native.mjs",
+    "scripts/profile-scope6d-tranche1.mjs",
+    "scripts/qualify-scope6d-tranche1-lifecycle.mjs",
+    "scripts/qualify-scope6d-tranche1-parity.mjs",
+    "scripts/qualify-scope6d-tranche1-safety.mjs",
+    "scripts/report-scope6d-readiness.mjs",
+    "scripts/report-scope6d-tranche1.mjs",
+    "scripts/scope6d-tranche1-common.mjs",
+    "scripts/scope6d-tranche1-fixtures.mjs",
+    "scripts/scope6d-tranche1-offline-runtime.mjs",
+    "scripts/scope6d-tranche1-parent-fixture.mjs"
+  ],
+  "allUntrackedFilesExcludedByCommitInventory": true,
+  "checkoutEolCannotChangeBlobBytes": true,
+  "injectedArchivesRejected": [
+    {
+      "path": "artifacts/candy-scope6e-v2-package-input-work/injected-0.zip",
+      "sha256": "9f73d254dffec75a96a4815176a0e449d4f8230fcfee4ad4508af1652a9ec62d",
+      "report": {
+        "archive": "injected-0.zip",
+        "bytes": 1721744,
+        "sha256": "9f73d254dffec75a96a4815176a0e449d4f8230fcfee4ad4508af1652a9ec62d",
+        "memberCount": 940,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": [
+            "product/scripts/new-untracked-diagnostic.mjs"
+          ]
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4"
+      }
+    },
+    {
+      "path": "artifacts/candy-scope6e-v2-package-input-work/injected-1.zip",
+      "sha256": "22bd38c28b4da16ba0f1760e84042f4ce5423100046861a41043d8e8aff3206d",
+      "report": {
+        "archive": "injected-1.zip",
+        "bytes": 1721726,
+        "sha256": "22bd38c28b4da16ba0f1760e84042f4ce5423100046861a41043d8e8aff3206d",
+        "memberCount": 940,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": [
+            "product/src/arbitrary-injection.txt"
+          ]
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4"
+      }
+    }
+  ],
+  "implementationSha256": {
+    "scripts/package-portable-source.py": "b9c04eff5d951c99cfe7f6e2348263dee488ac7a56f92858ae6d70b865882b5f",
+    "scripts/verify-portable-archive.py": "0be81700ba74fa2558d6d3748f6443a4251759afd6c5da080d097ae8a76e5a98"
+  },
+  "note": "Source HEAD remains the committed baseline. Uncommitted corrective implementation is exercised externally and separately packaged as an explicit reviewed candidate snapshot; the default release does not silently include these edits."
+}

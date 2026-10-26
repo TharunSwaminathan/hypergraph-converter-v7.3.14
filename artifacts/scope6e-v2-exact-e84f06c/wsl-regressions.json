@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "nodeLauncherUnavailable": true,
+  "unavailableLauncherLog": "wsl-focused-0.log",
+  "unchangedCommittedPythonBodies": true,
+  "results": [
+    {
+      "test": "tests/candy-scope6e-package-input.test.mjs",
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "testBlobSha256": "8ee77a818bd3d7bac42275b02f5781baf6a60847a65a53fa0bdb945bfd608c46",
+      "method": "Exact committed String.raw Python body, unmodified, via WSL python3 -B; WSL has no Node executable.",
+      "exitCode": 0,
+      "seconds": 12.191,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/wsl-python-0.log",
+      "sha256": "1e18e0eb470caa0268c50a99980d21c0e15c46a048456c8528f891ccd719bb8a"
+    },
+    {
+      "test": "tests/candy-scope6e-package.test.mjs",
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "testBlobSha256": "cc5d5a3d7f0ba13ea52aff0effc42713ffd9aec8cb0191f1992b5da5bf4aeff2",
+      "method": "Exact committed String.raw Python body, unmodified, via WSL python3 -B; WSL has no Node executable.",
+      "exitCode": 0,
+      "seconds": 6.67,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/wsl-python-1.log",
+      "sha256": "b7c9ecaa33e3d6066abd51de74ae7d820934f62ce54653868f7f67d3dd373508"
+    }
+  ]
+}

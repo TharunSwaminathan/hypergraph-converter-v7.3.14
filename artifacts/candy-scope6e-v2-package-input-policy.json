@@ -1,0 +1,43 @@
+{
+  "recordedAt": "2026-10-26T04:05:48.206454+00:00",
+  "baseline": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+  "productionSourceMode": "git (default)",
+  "authority": "One resolved commit tree and raw blobs; not checkout files, index, Git attributes/filters, or untracked paths",
+  "sourceRevisionPinned": true,
+  "sourceRootMustMatchGitWorktreeRoot": true,
+  "ambientGitOverridesRemoved": true,
+  "replacementObjectsDisabled": true,
+  "textAndBinaryBytes": "Exact committed blobs; no blind text normalization",
+  "untrackedInjection": "Excluded as a class, not by 22 filenames",
+  "gitUnavailableBehavior": "FAIL; no automatic filesystem fallback",
+  "noGitCompatibility": {
+    "mode": "snapshot (explicit only)",
+    "intendedUse": "Reviewed Git-free archives, intentional fixtures and uncommitted candidate snapshots",
+    "membership": "Reviewed filesystem inventory with existing exclusions; not a committed-release attestation",
+    "bytes": "Exact filesystem bytes"
+  },
+  "verifier": {
+    "independent": true,
+    "importsProducerPolicy": false,
+    "qualifiedMode": "--source-root <trusted-worktree> --revision <commit>",
+    "expectedInventory": "Independently read commit tree/raw blobs from external trusted Git",
+    "rejects": "Extra/missing/changed files and extra/missing directories, plus independent structural policy",
+    "withoutSourceRoot": "structural-only; ok does not attest intended membership or committed identity"
+  },
+  "compatibilityEvidence": {
+    "scope6aActualCleanPopulated": "PASS, byte-identical; actual release commit-bound",
+    "rc2IntentionalNestedFixture": "PASS, explicit snapshot mode",
+    "windowsInputTests": "PASS",
+    "linuxWslInputTests": "PASS",
+    "noGitCli": "Default refusal and explicit snapshot round-trip PASS"
+  },
+  "candidateQualification": {
+    "commitCreated": false,
+    "defaultReleaseSource": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+    "implementation": "Current uncommitted producer/verifier exercised against actual worktrees and disposable Git fixtures",
+    "reviewedCandidateSnapshot": "artifacts/candy-scope6e-v2-package-input-work/reviewed-candidate.zip",
+    "reviewedCandidateSha256": "81cef0a4a22387c6a841ce62b9c69212ff25b6a191f5b9fc501ca17b63f2b7a9",
+    "newCommitStillRequiresExactShaQualification": true
+  },
+  "historicalFailure": "Preserved unchanged; prior 939/961 entries, 22 extra scripts and 555 EOL-only differences remain historical evidence"
+}

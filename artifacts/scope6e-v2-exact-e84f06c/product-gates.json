@@ -1,0 +1,100 @@
+{
+  "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "status": "PASS",
+  "freshDependencyInstall": true,
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "startedAt": "2026-10-26T04:57:55.582502+00:00",
+      "exitCode": 0,
+      "seconds": 20.646,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/gate-00.log",
+      "sha256": "2923d32bed81f6590d547fc42b5c7c9f515b092441a3b8d532b978d776406ca5"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "startedAt": "2026-10-26T04:58:16.393499+00:00",
+      "exitCode": 0,
+      "seconds": 229.009,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/gate-01.log",
+      "sha256": "364a8d639a33da82b20c8344a46cc9d3c6070f9419b682f8f9f0f48c05d1a1da",
+      "discovered": 287,
+      "passed": 287,
+      "total": 287
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "startedAt": "2026-10-26T05:02:05.640028+00:00",
+      "exitCode": 0,
+      "seconds": 10.298,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/gate-02.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "startedAt": "2026-10-26T05:02:16.123291+00:00",
+      "exitCode": 0,
+      "seconds": 0.884,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/gate-03.log",
+      "sha256": "65536547d082905b763800368ca0ab777f144c0587083dd5e10d2e4ece1e58d2"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "startedAt": "2026-10-26T05:02:17.164138+00:00",
+      "exitCode": 0,
+      "seconds": 0.835,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/gate-04.log",
+      "sha256": "0b987d4048572ff2deeab5be34809f4fcb43c740b65bb6e5acfdba26ccf5a50f"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "startedAt": "2026-10-26T05:02:18.151214+00:00",
+      "exitCode": 0,
+      "seconds": 0.964,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/gate-05.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+      "startedAt": "2026-10-26T05:02:19.277912+00:00",
+      "exitCode": 0,
+      "seconds": 0.029,
+      "log": "artifacts/scope6e-v2-exact-e84f06c/gate-06.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

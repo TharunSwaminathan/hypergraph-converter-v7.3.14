@@ -1,0 +1,81 @@
+{
+  "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "recordedAt": "2026-10-26T05:03:48.593465+00:00",
+  "status": "PASS",
+  "controls": [
+    {
+      "control": "Arbitrary untracked scripts and allowed-directory files excluded",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "Dirty text/binary and LF/CRLF checkout bytes have no release authority",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "All committed binary bytes preserved without text normalization",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "Legitimate committed scripts/native source and artifactStore included",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "Git-free default fails closed and preserves existing output",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "Explicit snapshot mode and structural-only result remain explicit",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "Independent trusted-commit verifier rejects extra/missing/changed files and extra empty directories",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "Unsafe committed aliases, links, submodules, case collisions and ambient Git overrides rejected",
+      "status": "PASS",
+      "evidence": "focused-0.log"
+    },
+    {
+      "control": "Native local-install/root artifacts exclusion and canonical positive controls",
+      "status": "PASS",
+      "evidence": "focused-1.log"
+    },
+    {
+      "control": "Trailing-dot/space, mixed/backslash, traversal and absolute aliases rejected",
+      "status": "PASS",
+      "evidence": "focused-1.log"
+    },
+    {
+      "control": "Symlink/special/unsafe modes, duplicates/case, CRC and root controls",
+      "status": "PASS",
+      "evidence": "focused-1.log"
+    },
+    {
+      "control": "Actual Windows extraction guard and prior CWE-180 bypass regression",
+      "status": "PASS",
+      "evidence": "focused-1.log"
+    },
+    {
+      "control": "POSIX unsafe filesystem source aliases fail before replacing output",
+      "status": "PASS",
+      "evidence": "wsl-python-1.log"
+    },
+    {
+      "control": "Historical RC2 source policy and exact permission normalization",
+      "status": "PASS",
+      "evidence": "focused-2.log; focused-3.log"
+    }
+  ],
+  "windowsExecution": "Committed Node wrappers with native Windows Python",
+  "wslExecution": "Unmodified Python bodies extracted from exact committed test blobs; Node launcher unavailable and initial failure retained.",
+  "historicalAssertionsPreserved": true,
+  "precommitResultsReused": false
+}
