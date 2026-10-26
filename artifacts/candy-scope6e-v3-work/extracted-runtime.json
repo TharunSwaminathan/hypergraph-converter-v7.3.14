@@ -1,0 +1,44 @@
+{
+  "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "extractedRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v3-extracted-gzej6clz\\product",
+  "startedAt": "2026-10-26T05:18:35.122Z",
+  "reusePriorCredentials": false,
+  "checks": [
+    {
+      "startup": "PASS",
+      "health": 200,
+      "unauthenticatedDiscovery": 401,
+      "freshAuthentication": "PASS",
+      "authenticatedDiscovery": "PASS",
+      "declaration": {
+        "schemaVersion": "candy.capabilities/1",
+        "capabilities": [],
+        "motifReadiness": [
+          {
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "status": "UNAVAILABLE",
+            "reason": "motif_qualification_unavailable_or_stale"
+          },
+          {
+            "backend": "CUDA_INCREMENTAL",
+            "mode": "INCREMENTAL",
+            "status": "UNAVAILABLE",
+            "reason": "motif_qualification_unavailable_or_stale"
+          }
+        ],
+        "runtimeSessionId": "45756181-3897-426e-ab0d-47e71cb18355"
+      },
+      "gpuTruth": "No native installation or qualification supplied; no CUDA capability advertised."
+    },
+    {
+      "restart": "PASS",
+      "newCredentialsAndSession": true,
+      "staleCredentialStatus": 401,
+      "freshDiscovery": "PASS"
+    }
+  ],
+  "cleanShutdown": true,
+  "status": "PASS",
+  "finishedAt": "2026-10-26T05:18:35.195Z"
+}

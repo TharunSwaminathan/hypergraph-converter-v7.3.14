@@ -1,0 +1,35 @@
+{
+  "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "status": "NON-PASS",
+  "blockers": [
+    {
+      "id": "V3-EXTRACTED-SUITE-GITFREE-CALLER",
+      "classification": "Committed Git-free test/caller compatibility regression",
+      "location": "tests/candy-scope6a-release.test.mjs:32",
+      "command": "npm.cmd test in extracted portable package",
+      "discovered": 287,
+      "passedBeforeFailure": 47,
+      "exitCode": 1,
+      "cause": "The committed test invokes scripts/qualify-scope6a-package.py without explicit snapshot mode in a .git-free extracted package. The helper defaults to authoritative Git mode and correctly refuses missing metadata.",
+      "expected": "Unmodified extracted-package full suite must pass. Intentional Git-free qualification must explicitly choose snapshot mode.",
+      "evidence": "artifacts/candy-scope6e-v3-work/extract-gate-1.log",
+      "diagnostic": "Same helper succeeds with --source-mode snapshot; no product/test edits, fallback or suite retry.",
+      "fixImplemented": false
+    },
+    {
+      "id": "V3-NATIVE-PERSISTED-EVIDENCE-MISSING",
+      "classification": "Local native qualification prerequisite unavailable",
+      "cause": "The exact incremental local record references five evidence files absent at the populated witness expected paths. Native binary, source and record are present; required evidence bytes were not available for ordinary production binding.",
+      "missing": [
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-native-qualification.json",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-memcheck-qualification.json",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-racecheck-qualification.json",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-initcheck-qualification.json",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-synccheck-qualification.json"
+      ],
+      "bypassed": false,
+      "genuineCudaJobsSubmitted": 0,
+      "fixImplemented": false
+    }
+  ]
+}

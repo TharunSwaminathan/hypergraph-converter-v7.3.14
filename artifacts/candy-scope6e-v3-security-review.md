@@ -1,0 +1,14 @@
+# Scope 6E V3 security status and limits
+
+Candidate: `e84f06cdaa750803a06007ade63124b6bce693c8`.
+
+Package adversarial regressions: **PASS in the fresh clean-repository full suite**. `candy-scope6e-package-input.test.mjs` confirms committed source authority, arbitrary untracked/dirty/EOL exclusion, exact synthetic binary blobs, independent commit membership/content checks, no-Git fail-closed behavior, explicit snapshots and structural-only labeling. `candy-scope6e-package.test.mjs` confirms local native-install/root artifacts exclusion, canonical production acceptance, trailing-dot/space, mixed/backslash, traversal and absolute path rejection, controls/illegal characters, symlink/special/mode/duplicate/case/CRC guards and the actual Windows extraction guard. These are real executions of the committed tests, recorded in `candy-scope6e-v3-work/repo-gate-1.log`; they do not substitute for live GPU or browser integration.
+
+Focused review of the executed package/authentication boundary found no unresolved Critical/High security finding. The producer pins a commit before enumerating its raw tree/blobs, validates raw paths/types and blob identity, sanitizes Git overrides and does not silently walk a filesystem. The independent verifier derives expected paths and hashes from external trusted Git metadata and labels structural-only results. The extracted Runtime restricts binding to loopback, authenticates protected routes and does not advertise missing CUDA qualification. Fresh health/auth/discovery/restart checks confirmed 401 for absent/stale credentials, new session/credentials and clean shutdown. Ordinary native binding requires exact source/binary/record/evidence/tag/environment identity; missing persisted evidence was not bypassed.
+
+The new extracted-suite failure is a non-security caller/compatibility defect: a legacy test omits explicit snapshot mode. The fail-closed producer behavior is correct. This report does not reclassify either historical package NON-PASS or the security-infrastructure failure as successful.
+
+**Full integrated substantive product security qualification is NOT COMPLETED**, because integrated browser/native/soak execution could not be qualified. No unresolved Critical/High security issue was identified in the bounded review, but this is not a completed integrated security PASS. The requested final substantive-product-security PASS wording is therefore not asserted.
+
+**Automated Codex Security completion seal UNAVAILABLE / NOT COMPLETED.** The explicitly accepted historical checkpoint-lifecycle/completion-ordering infrastructure exception remains unchanged and does not waive any product finding. No Codex Security tool, scan, completion or sealing was invoked. Missing native qualification evidence is a separate local prerequisite; it is not covered by that exception.
+

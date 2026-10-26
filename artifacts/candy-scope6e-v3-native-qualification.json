@@ -1,0 +1,58 @@
+{
+  "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "status": "BLOCKED",
+  "environmentObservation": {
+    "device": "NVIDIA GeForce RTX 5060",
+    "memoryMiB": 8151,
+    "computeCapability": "12.0",
+    "command": "wsl.exe -d Ubuntu --exec /usr/lib/wsl/lib/nvidia-smi --query-gpu=index,name,memory.total,compute_cap --format=csv,noheader,nounits --id=0"
+  },
+  "qualificationPrerequisite": {
+    "status": "BLOCKED",
+    "classification": "Persisted local qualification evidence unavailable",
+    "record": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\.local\\cuda_incremental-scope6d-tranche1-f3fa7dc3-qualified-build.json",
+    "recordSha256": "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f",
+    "files": [
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-native-qualification.json",
+        "exists": false,
+        "expectedSha256": "aff7a38f36b3755d3e8337ad39accf1e116490e644e90fe2f3646ea577268d87"
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-memcheck-qualification.json",
+        "exists": false,
+        "expectedSha256": "2dd22c7d0032208627631917782004f6bd6aa6eea22288a66cd2d8115284786d"
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-racecheck-qualification.json",
+        "exists": false,
+        "expectedSha256": "302d35ccbfa9a308c8b0151c65ad104ada578c45afdf29eccdd93bd6d9830cb0"
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-initcheck-qualification.json",
+        "exists": false,
+        "expectedSha256": "c16ca1dfe609165e247bca6fe73db5e745ead82218d5b4f6c7d9ba3bca5069d2"
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\artifacts\\candy-scope6d-tranche1-cuda-incremental-synccheck-qualification.json",
+        "exists": false,
+        "expectedSha256": "049caef3c980c39fceafb447de07477abb1015ca4ac4c0e6047d16413707be49"
+      }
+    ],
+    "productionDiscoveryNotBypassed": true,
+    "genuineCudaJobsSubmitted": 0,
+    "sourceAndRecordsNotModified": true,
+    "partialAdditiveDeploymentsPreserved": [
+      "artifacts/v3/product",
+      "artifacts/v3run/product"
+    ],
+    "note": "Native installation source/binary/record exist, but ordinary production binding also requires exact evidence bytes. No synthetic discovery or mocked native success substituted."
+  },
+  "STATIC": "NOT QUALIFIED IN V3",
+  "INCREMENTAL": "NOT QUALIFIED IN V3",
+  "nativeJobsExecuted": 0,
+  "mocksOrCpuSubstitutesUsed": false,
+  "sourceModified": false,
+  "partialPreparation": "Two additive deployment attempts retained; initial static source/Makefile raw Git bytes differed from independently qualified CRLF bytes but normalized to the same Git blobs. Fresh qualified-byte deployment then stopped at missing evidence; no source or record was changed.",
+  "candidateVectorOptimization": "Qualified source/binary hashes were checked during preparation; no live execution or performance confirmation claimed."
+}

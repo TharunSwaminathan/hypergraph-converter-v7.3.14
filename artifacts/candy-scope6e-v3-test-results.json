@@ -1,0 +1,96 @@
+{
+  "candidate": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "status": "PASS",
+  "mode": "repo",
+  "root": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v3",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 13.196,
+      "startedAt": "2026-10-26T05:12:49.744865+00:00",
+      "log": "artifacts/candy-scope6e-v3-work/repo-gate-0.log",
+      "sha256": "9937ace3c1788eb2214f20144b4283704c04739bada1fce8a99e18e025dd3159"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 197.85,
+      "startedAt": "2026-10-26T05:13:02.941601+00:00",
+      "log": "artifacts/candy-scope6e-v3-work/repo-gate-1.log",
+      "sha256": "aa521bddb426cc06aeaf3b052ac0a84ad1a11dd7c25e6be1fefe8fedbb197d71",
+      "discovered": 287,
+      "passed": 287,
+      "total": 287,
+      "testCountMatchesDiscovery": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 16.804,
+      "startedAt": "2026-10-26T05:16:20.793529+00:00",
+      "log": "artifacts/candy-scope6e-v3-work/repo-gate-2.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.848,
+      "startedAt": "2026-10-26T05:16:37.597766+00:00",
+      "log": "artifacts/candy-scope6e-v3-work/repo-gate-3.log",
+      "sha256": "646cfe92b07c3f0457821645ea573632fdc34f320e82736c58152270b2a9c3b4"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.891,
+      "startedAt": "2026-10-26T05:16:38.446311+00:00",
+      "log": "artifacts/candy-scope6e-v3-work/repo-gate-4.log",
+      "sha256": "282837412eff82b197ee615e639b11acbdcb873e5d340c2b4a459ff592955de1"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "seconds": 0.942,
+      "startedAt": "2026-10-26T05:16:39.337412+00:00",
+      "log": "artifacts/candy-scope6e-v3-work/repo-gate-5.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 0.035,
+      "startedAt": "2026-10-26T05:16:40.280145+00:00",
+      "log": "artifacts/candy-scope6e-v3-work/repo-gate-6.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "actualDiscoveredTestFiles": 287
+}

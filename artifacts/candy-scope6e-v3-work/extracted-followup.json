@@ -1,0 +1,65 @@
+{
+  "overallExtractedPackage": "NON-PASS",
+  "failedFullSuitePreserved": true,
+  "remainingGates": [
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 9.597,
+      "log": "artifacts/candy-scope6e-v3-work/extract-followup-0.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.904,
+      "log": "artifacts/candy-scope6e-v3-work/extract-followup-1.log",
+      "sha256": "20c1c2faed1d32e23fa9eea8c59bdbae53a667369917f17d11c69ae513a72464"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.815,
+      "log": "artifacts/candy-scope6e-v3-work/extract-followup-2.log",
+      "sha256": "38990735be3fafac4ce1dfd724988f2cf447bd4844e6c675b0c9b32715768203"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "seconds": 0.911,
+      "log": "artifacts/candy-scope6e-v3-work/extract-followup-3.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    }
+  ],
+  "explicitSnapshotDiagnostic": {
+    "command": [
+      "python",
+      "-B",
+      "scripts/qualify-scope6a-package.py",
+      "--source-mode",
+      "snapshot",
+      "--output",
+      "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v3\\artifacts\\candy-scope6e-v3-work\\explicit-snapshot-helper.json"
+    ],
+    "exitCode": 0,
+    "changesToTestOrProduct": false,
+    "failedSuiteRetried": false
+  }
+}
