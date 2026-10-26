@@ -75,7 +75,7 @@ with tempfile.TemporaryDirectory(prefix="candy-scope6e-package-test-") as temp:
     archives = []
     for name, candidate in [("clean", clean), ("populated", populated)]:
         archive = work / (name + ".zip")
-        pack.create_zip(candidate, archive)
+        pack.create_zip(candidate, archive, source_mode="snapshot")
         report, _ = verify.verify(archive, "product")
         assert report["ok"] and report["testzip"] == "ok", report
         with zipfile.ZipFile(archive) as zf:
@@ -174,7 +174,7 @@ with tempfile.TemporaryDirectory(prefix="candy-scope6e-package-test-") as temp:
             output = work / ("unsafe-producer-%d.zip" % index)
             output.write_bytes(b"KEEP_EXISTING_OUTPUT")
             try:
-                pack.create_zip(unsafe, output)
+                pack.create_zip(unsafe, output, source_mode="snapshot")
                 raise AssertionError("Producer accepted Windows-aliased source: " + rel)
             except RuntimeError as error:
                 assert "Non-portable archive path" in str(error), error

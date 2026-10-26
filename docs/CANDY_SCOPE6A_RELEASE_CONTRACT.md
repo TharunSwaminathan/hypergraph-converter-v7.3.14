@@ -33,7 +33,14 @@ evidence at the repository-root `artifacts/` directory, while nested source
 directories named `artifacts` remain subject to the other exclusion rules. It excludes
 native `build`, Runtime `.local`, dependencies, caches, uploads, temporary files,
 common key/token/secret files and executables. Intended uncommitted source files
-are included. This filesystem exclusion policy cannot detect arbitrary secrets
+are included in explicit reviewed snapshot mode; qualified releases now use the
+committed Git inventory and raw blobs as specified in
+`PORTABLE_LOCAL_INSTALL_POLICY.md`. Untracked files and checkout LF/CRLF
+representations cannot affect that release path. Missing Git metadata requires
+an explicit snapshot choice, never an automatic fallback. Snapshot packages
+remain supported for Git-free source trees and intentional fixtures. Independent
+commit-bound verification requires a trusted source root/revision; a structural
+ZIP check alone is not source-identity qualification. This exclusion policy cannot detect arbitrary secrets
 with innocuous names: publish only a reviewed source tree.
 
 Identical selected bytes, root name and compression implementation yield identical
@@ -81,8 +88,10 @@ Apply remain separate actions and confirmations. Apply never derives authority
 from an analysis result. There is no CPU fallback, STATIC fallback for incremental
 analysis, or implicit projection.
 
-Git blobs may use LF while a Windows checkout uses CRLF. Source/ZIP digests bind
-exact observed bytes; semantic newline equivalence is distinct from byte equality.
+Git blobs may use LF while a Windows checkout uses CRLF. Historical source/ZIP
+digests bind exact observed bytes; semantic newline equivalence remains distinct
+from byte equality. Current Git-mode portable packages bind raw committed blobs
+instead of checkout representations; explicit snapshots still bind observed bytes.
 Deployed native binary/source/Makefile qualification still binds exact bytes
 independently. Do not normalize deployed native bytes or rewrite old records.
 

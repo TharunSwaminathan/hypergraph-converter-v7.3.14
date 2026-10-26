@@ -1,5 +1,46 @@
 # Portable source and local native installations
 
+## Intended inventory and source bytes
+
+Qualified release production defaults to `--source-mode git --revision HEAD`.
+The source root must itself be a Git worktree root. The revision is resolved
+once to a commit; membership comes from that commit's tree after exclusions,
+and contents come from its raw Git blobs. The index, untracked paths, dirty
+tracked bytes, checkout line endings and Git checkout filters are not release
+inputs. Binary and text blobs are preserved exactly; no text normalization is
+applied. Symbolic links, submodules and other non-regular committed entries fail.
+Git metadata and the selected revision are an operator trust boundary, not a
+publisher signature. Ambient `GIT_*` overrides and replacement objects are
+disabled for these reads. A changed HEAD is a different release identity.
+
+For equal archive roots across worktree names, use `--project-name product`.
+This changes only the top-level ZIP name, not membership or content.
+
+Source archives without `.git` and intentional fixture/review snapshots remain
+supported through **explicit** `--source-mode snapshot` (API: `source_mode="snapshot"`).
+That mode retains the reviewed filesystem inventory and exact bytes, including
+intentional fixtures/uncommitted source, with the existing exclusions and safety
+checks. It is not committed-release qualification. Default Git mode fails on
+missing/broken metadata or an ancestor repository; it never falls back to a walk.
+Uncommitted candidate edits are deliberately not smuggled into HEAD releases:
+review an explicit bounded candidate snapshot, then qualify its future commit.
+
+The verifier remains independent. `--source-root <trusted-worktree> --revision
+<commit>` independently derives expected Git inventory/content and rejects
+missing, extra or changed members and extra directories, in addition to all
+structural policy checks. It never trusts an inventory supplied inside the ZIP
+or imports the producer's policy. Without `--source-root`, results are explicitly
+`structural-only`; an `ok` structural report does not attest intended source or
+committed identity. Commit-bound verification reports its resolved `sourceCommit`.
+Qualified release use requires both Git-mode production and commit-bound
+verification. Intentional snapshot fixtures use structural checks explicitly.
+
+The Scope 6A helper retains Git-free snapshot comparison without silently
+weakening the actual release input: in Git mode its clean/populated temporary
+snapshots are assembled from the exact committed blobs. Its explicit snapshot
+option is for reviewed Git-free trees. Historical capture-time inventories and
+NON-PASS results are not rewritten by this policy correction.
+
 The portable source producer excludes the root-relative namespace
 `candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-*/`.
 The prefix is reserved for local qualification installations: every qualifier,

@@ -10,7 +10,10 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+import hashlib
+import os
 import stat
+import subprocess
 import sys
 import zipfile
 from pathlib import Path
@@ -479,21 +482,94 @@ def iter_source_files(root: Path) -> list[Path]:
     ]
 
 
-def create_zip(root: Path, output: Path) -> dict[str, int]:
+def git_source_entries(root: Path, revision: str = "HEAD") -> dict[Path, bytes]:
+    """Read a pinned commit, never the index, checkout bytes or untracked paths."""
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+    env.update(GIT_OPTIONAL_LOCKS="0", GIT_NO_REPLACE_OBJECTS="1")
+    def git(*args: str) -> bytes:
+        try:
+            return subprocess.run(["git", "-C", str(root), *args], env=env,
+                                  capture_output=True, check=True).stdout
+        except (OSError, subprocess.CalledProcessError) as error:
+            raise RuntimeError("Committed source requires usable Git metadata; use explicit snapshot mode for a reviewed source tree.") from error
+    top = Path(git("rev-parse", "--show-toplevel").decode().strip()).resolve()
+    if top != root.resolve():
+        raise RuntimeError("Source root must be the Git worktree root.")
+    commit = git("rev-parse", "--verify", "--end-of-options", revision + "^{commit}").decode().strip()
+    selected = []
+    seen = set()
+    for row in git("ls-tree", "-rz", "--full-tree", commit).split(b"\0"):
+        if not row:
+            continue
+        metadata, raw_path = row.split(b"\t", 1)
+        mode, kind, oid = metadata.decode("ascii").split()
+        relative = raw_path.decode("utf-8")
+        if "\\" in relative or any(
+            not part or part in {".", ".."} or part.endswith((".", " "))
+            or any(ord(char) < 32 or char in ':<>|"?*' for char in part)
+            for part in relative.split("/")
+        ):
+            raise RuntimeError(f"Non-portable committed source path: {relative}")
+        path = root / relative
+        if is_excluded(path, root):
+            continue
+        if relative.casefold() in seen:
+            raise RuntimeError(f"Case-colliding committed source path: {relative}")
+        seen.add(relative.casefold())
+        if mode not in {"100644", "100755"} or kind != "blob":
+            raise RuntimeError(f"Non-regular committed source rejected: {path}")
+        selected.append((path, oid))
+    try:
+        payload = subprocess.run(["git", "-C", str(root), "cat-file", "--batch"],
+            input="".join(oid + "\n" for _, oid in selected).encode("ascii"),
+            env=env, capture_output=True, check=True).stdout
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise RuntimeError("Committed blob read failed.") from error
+    entries = {}
+    offset = 0
+    for path, oid in selected:
+        end = payload.index(b"\n", offset)
+        actual_oid, kind, size = payload[offset:end].decode("ascii").split()
+        size = int(size)
+        data = payload[end + 1:end + 1 + size]
+        digest = hashlib.sha1 if len(oid) == 40 else hashlib.sha256
+        if actual_oid != oid or kind != "blob" or len(data) != size or digest(b"blob " + str(size).encode() + b"\0" + data).hexdigest() != oid:
+            raise RuntimeError(f"Committed blob identity mismatch: {path}")
+        entries[path] = data
+        offset = end + size + 2
+    if offset != len(payload):
+        raise RuntimeError("Unexpected committed blob stream data.")
+    return entries
+
+
+def create_zip(root: Path, output: Path, *, source_mode: str = "git",
+               revision: str = "HEAD", project_name: str | None = None) -> dict[str, int]:
     if output.resolve().is_relative_to(root.resolve()):
         raise RuntimeError("Package output must be outside the source tree.")
-    files = iter_source_files(root)
+    if source_mode == "git":
+        committed = git_source_entries(root, revision)
+        files = sorted(committed, key=lambda path: source_sort_key(path, root))
+    elif source_mode == "snapshot":
+        committed = None
+        files = iter_source_files(root)
+    else:
+        raise ValueError("Source mode must be git or snapshot.")
+    project_name = project_name or root.name
+    if "/" in project_name or "\\" in project_name:
+        raise RuntimeError("Project name must be one portable path component.")
     # POSIX source trees can contain names that Windows ZIP extraction aliases
     # to another path. Refuse them before touching the output, not by renaming
     # or silently omitting source. Keep this independent of the ZIP verifier.
     for path in files:
-        arcname = (Path(root.name) / path.relative_to(root)).as_posix()
+        arcname = (Path(project_name) / path.relative_to(root)).as_posix()
         if "\\" in arcname or any(
             not part or part in {".", ".."} or part.endswith((".", " "))
             or any(ord(char) < 32 or char in ':<>|"?*' for char in part)
             for part in arcname.split("/")
         ):
             raise RuntimeError(f"Non-portable archive path generated: {arcname}")
+        if committed is None and (path.is_symlink() or not stat.S_ISREG(path.stat().st_mode)):
+            raise RuntimeError(f"Non-regular snapshot source rejected: {arcname}")
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
         output.unlink()
@@ -503,9 +579,9 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
     # and sidesteps zipfile's requirement that DOS timestamps be >= 1980.
     fixed_date_time = (2024, 1, 1, 0, 0, 0)
 
-    directory_names = {f"{root.name}/"}
+    directory_names = {f"{project_name}/"}
     for path in files:
-        parts = (Path(root.name) / path.relative_to(root)).parts[:-1]
+        parts = (Path(project_name) / path.relative_to(root)).parts[:-1]
         for index in range(1, len(parts) + 1):
             directory_names.add("/".join(parts[:index]) + "/")
 
@@ -519,8 +595,8 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
 
         for path in files:
             rel = path.relative_to(root)
-            arcname = (Path(root.name) / rel).as_posix()
-            if path.is_symlink():
+            arcname = (Path(project_name) / rel).as_posix()
+            if committed is None and path.is_symlink():
                 raise RuntimeError(f"Symlinks are not permitted in the portable package: {arcname}")
 
             info = zipfile.ZipInfo(arcname, date_time=fixed_date_time)
@@ -530,7 +606,7 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
             # explicitly chosen per entry_mode(), never read from path.stat().
             info.external_attr = (stat.S_IFREG | entry_mode(path)) << 16
             info.create_system = 3  # unix, so external_attr's mode bits are honored on extraction
-            data = path.read_bytes()
+            data = committed[path] if committed is not None else path.read_bytes()
             zf.writestr(info, data)
 
     with zipfile.ZipFile(output, "r") as zf:
@@ -538,20 +614,20 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
         backslash_entries = [name for name in names if "\\" in name]
         if backslash_entries:
             raise RuntimeError(f"Backslash entries found: {backslash_entries[:5]}")
-        required = {(Path(root.name) / item).as_posix() for item in REQUIRED_FILES}
+        required = {(Path(project_name) / item).as_posix() for item in REQUIRED_FILES}
         missing = sorted(required - set(names))
         if missing:
             raise RuntimeError(f"Required files missing from ZIP: {missing}")
         roots = {Path(name).parts[0] for name in names if name}
-        if roots != {root.name}:
-            raise RuntimeError(f"Expected one project root {root.name!r}, found {sorted(roots)}")
+        if roots != {project_name}:
+            raise RuntimeError(f"Expected one project root {project_name!r}, found {sorted(roots)}")
         # Case-insensitive path collisions extract unpredictably on
         # case-insensitive filesystems (macOS default, Windows) even though
         # the archive itself is a valid ZIP — reject them outright.
         seen_lower: dict[str, str] = {}
         collisions = []
         for name in names:
-            key = name.lower()
+            key = name.casefold()
             if key in seen_lower and seen_lower[key] != name:
                 collisions.append((seen_lower[key], name))
             else:
@@ -575,7 +651,7 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
             "dist_entries": sum("/dist/" in name for name in names),
             "git_entries": sum("/.git/" in name for name in names),
             "artifacts_entries": sum(
-                name.casefold().startswith(f"{root.name}/artifacts/".casefold())
+                name.casefold().startswith(f"{project_name}/artifacts/".casefold())
                 for name in names
             ),
             "coverage_entries": sum("/coverage/" in name for name in names),
@@ -598,6 +674,10 @@ def create_zip(root: Path, output: Path) -> dict[str, int]:
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description="Package Hypergraph Converter Studio source as a portable ZIP.")
     parser.add_argument("--root", type=Path, default=project_root_from_script(), help="Project root to package.")
+    parser.add_argument("--source-mode", choices=["git", "snapshot"], default="git",
+                        help="git: pinned committed blobs (default); snapshot: explicitly reviewed filesystem bytes, not a committed release.")
+    parser.add_argument("--revision", default="HEAD", help="Commit/ref for git mode; resolved once before reading blobs.")
+    parser.add_argument("--project-name", help="One portable project-root component for stable archive names.")
     parser.add_argument(
         "--output",
         type=Path,
@@ -608,7 +688,8 @@ def main(argv: list[str]) -> int:
 
     root = args.root.resolve()
     output = (args.output or root.parent / f"{root.name}-portable.zip").resolve()
-    counts = create_zip(root, output)
+    counts = create_zip(root, output, source_mode=args.source_mode, revision=args.revision, project_name=args.project_name)
+    print(f"Source policy: {args.source_mode}")
     print(f"Created: {output}")
     for key, value in counts.items():
         print(f"{key}: {value}")

@@ -16,17 +16,23 @@ def load(path, name):
     spec.loader.exec_module(module)
     return module
 
-def qualify(root, node):
+def qualify(root, node, source_mode="git"):
     pack = load(root / "scripts/package-portable-source.py", "source_pack")
     verify = load(root / "scripts/verify-portable-archive.py", "source_verify")
     workspace = Path(tempfile.mkdtemp(prefix="candy-scope6a-package-"))
     clean = workspace / "clean" / root.name
-    for source in pack.iter_source_files(root):
-        if source.is_symlink():
-            raise RuntimeError("Symlink source rejected")
+    if source_mode == "git":
+        inputs = pack.git_source_entries(root)
+    else:
+        inputs = {}
+        for source in pack.iter_source_files(root):
+            if source.is_symlink():
+                raise RuntimeError("Symlink source rejected")
+            inputs[source] = source.read_bytes()
+    for source, data in inputs.items():
         target = clean / source.relative_to(root)
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, target)
+        target.write_bytes(data)
     populated = workspace / "populated" / root.name
     shutil.copytree(clean, populated)
     private_marker = "SCOPE6A_SYNTHETIC_" + "PRIVATE_MARKER"
@@ -42,9 +48,9 @@ def qualify(root, node):
     for name, candidate in [("actual",root),("clean",clean),("populated",populated)]:
         archive=workspace / (name+".zip")
         started=time.perf_counter()
-        counts=pack.create_zip(candidate, archive)
+        counts=pack.create_zip(candidate, archive, source_mode=source_mode if name=="actual" else "snapshot")
         milliseconds=(time.perf_counter()-started)*1000
-        report, manifest=verify.verify(archive, root.name)
+        report, manifest=verify.verify(archive, root.name, source_root=root if source_mode=="git" else None)
         if not report["ok"]:
             raise RuntimeError(json.dumps(report))
         content=archive.read_bytes()
@@ -75,8 +81,9 @@ if __name__ == "__main__":
     parser.add_argument("--root",type=Path,default=Path(__file__).resolve().parent.parent)
     parser.add_argument("--node",default="node")
     parser.add_argument("--output",type=Path,required=True)
+    parser.add_argument("--source-mode",choices=["git","snapshot"],default="git")
     args=parser.parse_args()
-    result=qualify(args.root.resolve(),args.node)
+    result=qualify(args.root.resolve(),args.node,args.source_mode)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8",newline="\n")
     print(json.dumps({"status":result["status"],"identicalBytes":True,"extractedRoot":result["extractedRoot"]}))

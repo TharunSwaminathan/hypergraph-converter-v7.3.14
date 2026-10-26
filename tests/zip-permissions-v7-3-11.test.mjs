@@ -38,7 +38,8 @@ const tmpDir = mkdtempSync(join(tmpdir(), "portable-zip-test-"));
 const outputZip = join(tmpDir, "output-portable.zip");
 
 try {
-  execFileSync(python.command, [...python.prefix, scriptPath, "--output", outputZip], { cwd: root, stdio: "pipe" });
+  const sourceMode = existsSync(join(root, ".git")) ? "git" : "snapshot";
+  execFileSync(python.command, [...python.prefix, scriptPath, "--source-mode", sourceMode, "--output", outputZip], { cwd: root, stdio: "pipe" });
   assert.ok(existsSync(outputZip), "the packaging script must produce an output ZIP");
 
   // Inspect the real archive's permission bits using Python's own zipfile

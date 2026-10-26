@@ -53,7 +53,7 @@ for candidate in [clean, populated]:
 archives = []
 for name, candidate in [("clean", clean), ("populated", populated)]:
     archive = workspace / (name + ".zip")
-    counts = pack.create_zip(candidate, archive)
+    counts = pack.create_zip(candidate, archive, source_mode="snapshot")
     report, manifest = verify.verify(archive, root.name)
     assert report["ok"] and report["testzip"] == "ok", report
     assert counts["artifacts_entries"] == 0
