@@ -1,0 +1,119 @@
+{
+  "recordedAt": "2026-10-26T01:59:00.738461+00:00",
+  "candidate": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+  "baseline": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "branch": "candy-integration-scope6e-package-corrective",
+  "head": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+  "originTrackingSha": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+  "liveRemoteSha": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+  "committedPaths": [
+    {
+      "path": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "status": "added",
+      "insertions": 59,
+      "deletions": 0,
+      "committedGitBlob": "dfff63bc12a92451d94fa04a94831d9628d00b98",
+      "worktreeSha256": "635daaf2a8731850cea3cc600e27d9b261f540a6228dc12cb7a7fd95ff69bd03",
+      "exactExportSha256": "5b2650da32a1d4f20c8767440e5d82faf0c8bd568e9692d88e728c83077fb7e3",
+      "exactExportBytes": 3790
+    },
+    {
+      "path": "scripts/package-portable-source.py",
+      "status": "modified",
+      "insertions": 20,
+      "deletions": 2,
+      "committedGitBlob": "e4e0a7fea2fd0ed73897e4bce1c213a59a6ece44",
+      "worktreeSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9",
+      "exactExportSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9",
+      "exactExportBytes": 29110
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "status": "modified",
+      "insertions": 23,
+      "deletions": 2,
+      "committedGitBlob": "3c082f72f103849c72f7453f6bb09fb3eaf4aa89",
+      "worktreeSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43",
+      "exactExportSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43",
+      "exactExportBytes": 9396
+    },
+    {
+      "path": "tests/candy-scope6e-package.test.mjs",
+      "status": "added",
+      "insertions": 232,
+      "deletions": 0,
+      "committedGitBlob": "56b437b9b22af2d51b2800c719f2ac572cad74e3",
+      "worktreeSha256": "6b8f83ba5ddcd9a8ae693ca299ff05dec8283de9cb34efa8cf6f2556c4e59cc9",
+      "exactExportSha256": "c57c9dbde7819a740f85ab4aa75250b0db4c03e3817d69bb4490a6bbae681b7a",
+      "exactExportBytes": 13571
+    }
+  ],
+  "files": 4,
+  "insertions": 334,
+  "deletions": 4,
+  "committedArtifactsPaths": [],
+  "trackedChanges": [],
+  "stagedChanges": [],
+  "untrackedEvidenceAllowed": true,
+  "excludedFromFutureProductCommits": [
+    "artifacts/**"
+  ],
+  "protectedNativeAndProductionPathsUnchanged": true,
+  "preservation": {
+    "candidate": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+    "allTrackedFileBytesUnchanged": 1284,
+    "priorArtifactFilesUnchanged": 545,
+    "refsUnchanged": true,
+    "indexUnchanged": true,
+    "noProductModifications": true,
+    "noStageCommitPushTag": true,
+    "exactExportBlobsUnchanged": true
+  },
+  "security": {
+    "candidate": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+    "humanExceptionAcceptance": "ACCEPTED",
+    "substantiveSecurityQualification": "PASS",
+    "unresolvedFindings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    "automatedCodexSecuritySeal": "UNAVAILABLE / NOT COMPLETED",
+    "reason": "reproducible checkpoint lifecycle / completion ordering failure",
+    "productSecurityFindingWaiver": false,
+    "acceptedEvidenceUnchanged": true,
+    "exactCandidateProductBinding": [
+      {
+        "path": "scripts/package-portable-source.py",
+        "acceptedWorktreeSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9",
+        "committedGitBlob": "e4e0a7fea2fd0ed73897e4bce1c213a59a6ece44",
+        "exactExportSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9",
+        "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+      },
+      {
+        "path": "scripts/verify-portable-archive.py",
+        "acceptedWorktreeSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43",
+        "committedGitBlob": "3c082f72f103849c72f7453f6bb09fb3eaf4aa89",
+        "exactExportSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43",
+        "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+      },
+      {
+        "path": "tests/candy-scope6e-package.test.mjs",
+        "acceptedWorktreeSha256": "6b8f83ba5ddcd9a8ae693ca299ff05dec8283de9cb34efa8cf6f2556c4e59cc9",
+        "committedGitBlob": "56b437b9b22af2d51b2800c719f2ac572cad74e3",
+        "exactExportSha256": "c57c9dbde7819a740f85ab4aa75250b0db4c03e3817d69bb4490a6bbae681b7a",
+        "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+      },
+      {
+        "path": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+        "acceptedWorktreeSha256": "635daaf2a8731850cea3cc600e27d9b261f540a6228dc12cb7a7fd95ff69bd03",
+        "committedGitBlob": "dfff63bc12a92451d94fa04a94831d9628d00b98",
+        "exactExportSha256": "5b2650da32a1d4f20c8767440e5d82faf0c8bd568e9692d88e728c83077fb7e3",
+        "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+      }
+    ],
+    "truthfulStatement": "Substantive product security qualification PASS under an explicitly accepted security-infrastructure exception; automated Codex Security completion seal UNAVAILABLE."
+  },
+  "readiness": "READY FOR SCOPE 6E PACKAGE CORRECTIVE QUALIFICATION TAG AND MAIN PROMOTION"
+}

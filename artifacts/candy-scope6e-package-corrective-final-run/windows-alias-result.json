@@ -1,0 +1,136 @@
+{
+  "platform": "win32",
+  "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+  "baselineArchiveSha256": "31d85c85ee1013cdc9270a9065e0d34d74660f5b6cd57dd4d437b2a97236c384",
+  "candidateSha256": {
+    "scripts/package-portable-source.py": "8eda426922db87b11614fadd4cef1f929122164a92c4e35c626750b3decaaf61",
+    "scripts/verify-portable-archive.py": "ca1208f8ef8340101fc4d92b4bce1367c38e767ff42814e1a3abee0307e713ce"
+  },
+  "rubric": [
+    "Current corrected archive verifies before injection",
+    "Raw alias member passes actual verifier API and CLI",
+    "Windows extractall places bytes in prohibited canonical namespace",
+    "Producer excludes extracted canonical path",
+    "Canonical namespace control is rejected"
+  ],
+  "cases": [
+    {
+      "rawMember": "product/candy-runtime./native/hypergraph-motif-cuda-incremental-scope6d-tranche1-alias/src/main.cu",
+      "archiveSha256": "b49e8baf461c3050ebf5b66ac62879f4a1aa039c6422ec3b99f5e8cdfd69a6c4",
+      "verifier": {
+        "archive": "alias-0.zip",
+        "bytes": 1728708,
+        "sha256": "b49e8baf461c3050ebf5b66ac62879f4a1aa039c6422ec3b99f5e8cdfd69a6c4",
+        "memberCount": 940,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": []
+        },
+        "issueCount": 0,
+        "ok": true
+      },
+      "cliExitCode": 0,
+      "canonicalExtractedRelativePath": "product/candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-alias/src/main.cu",
+      "actualWindowsExtraction": true,
+      "markerMatched": true,
+      "producerExcludesCanonicalPath": true
+    },
+    {
+      "rawMember": "product/candy-runtime/native./hypergraph-motif-cuda-incremental-scope6d-tranche1-alias/src/main.cu",
+      "archiveSha256": "5f78ee05fdb4a6a5b3e71d98d91fceaed710f8db81c52e77f8ccab24e4aa4ef2",
+      "verifier": {
+        "archive": "alias-1.zip",
+        "bytes": 1728708,
+        "sha256": "5f78ee05fdb4a6a5b3e71d98d91fceaed710f8db81c52e77f8ccab24e4aa4ef2",
+        "memberCount": 940,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": []
+        },
+        "issueCount": 0,
+        "ok": true
+      },
+      "cliExitCode": 0,
+      "canonicalExtractedRelativePath": "product/candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-alias/src/main.cu",
+      "actualWindowsExtraction": true,
+      "markerMatched": true,
+      "producerExcludesCanonicalPath": true
+    }
+  ],
+  "canonicalControlRejected": true,
+  "canonicalControl": {
+    "archive": "canonical-control.zip",
+    "bytes": 1728706,
+    "sha256": "2fd3ce6f5b6c01e7883a7cdec82693347471348bc692bcf5926b660a73c0dc07",
+    "memberCount": 940,
+    "root": "product",
+    "testzip": "ok",
+    "modeCounts": {
+      "0644": 856,
+      "0755": 84
+    },
+    "issues": {
+      "backslashMembers": [],
+      "absoluteMembers": [],
+      "traversalMembers": [],
+      "duplicateMembers": [],
+      "caseCollisions": [],
+      "forbiddenMembers": [
+        "product/candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-alias/src/main.cu"
+      ],
+      "symlinkMembers": [],
+      "specialMembers": [],
+      "unexpectedExecutableFiles": [],
+      "missingExecutableBits": [],
+      "incorrectOrdinaryModes": [],
+      "incorrectDirectoryModes": [],
+      "worldOrGroupWritable": [],
+      "nonUnixCreateSystem": [],
+      "rootLayout": [],
+      "crcFailures": []
+    },
+    "issueCount": 1,
+    "ok": false
+  },
+  "conclusion": "Confirmed Windows trailing-dot component alias bypass and producer/verifier disagreement; no execution, private secret access or runtime activation demonstrated."
+}

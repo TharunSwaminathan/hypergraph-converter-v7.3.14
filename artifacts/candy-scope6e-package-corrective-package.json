@@ -1,0 +1,240 @@
+{
+  "capturedAt": "2026-10-23T18:38:21.170269+00:00",
+  "baseline": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "candidateIdentity": "Uncommitted exact four-file overlay on baseline git archive; no candidate commit created.",
+  "method": "git archive exact baseline; overlay explicit candidate files byte-for-byte; copy to equal-named product roots; add synthetic local state only to populated copy; invoke candidate snapshot producer and independent verifier.",
+  "workspace": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-corrective-_geslee0",
+  "overlays": [
+    {
+      "path": "scripts/package-portable-source.py",
+      "sha256": "8eda426922db87b11614fadd4cef1f929122164a92c4e35c626750b3decaaf61",
+      "bytes": 28571
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "sha256": "ca1208f8ef8340101fc4d92b4bce1367c38e767ff42814e1a3abee0307e713ce",
+      "bytes": 8754
+    },
+    {
+      "path": "tests/candy-scope6e-package.test.mjs",
+      "sha256": "ed233f496164e16ba9c020408a9342b4061746a9fda2cb65c967c578c45ac160",
+      "bytes": 8464
+    },
+    {
+      "path": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "sha256": "23114bcd6a4d1d30912c3e49fee9d13c7f37012d523aa86b7d7acbd1e7f0b249",
+      "bytes": 2265
+    }
+  ],
+  "cases": [
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-witnesses\\candidate-clean.zip",
+      "sha256": "31d85c85ee1013cdc9270a9065e0d34d74660f5b6cd57dd4d437b2a97236c384",
+      "bytes": 1728395,
+      "entries": 939,
+      "files": 883,
+      "directories": 56,
+      "producerCounts": {
+        "entries": 939,
+        "backslash_entries": 0,
+        "project_roots": 1,
+        "node_modules_entries": 0,
+        "dist_entries": 0,
+        "git_entries": 0,
+        "artifacts_entries": 0,
+        "coverage_entries": 0,
+        "macos_entries": 0,
+        "ds_store_entries": 0,
+        "temporary_cache_entries": 0,
+        "directory_entries": 56,
+        "executable_entries": 28
+      },
+      "verifier": {
+        "archive": "candidate-clean.zip",
+        "bytes": 1728395,
+        "sha256": "31d85c85ee1013cdc9270a9065e0d34d74660f5b6cd57dd4d437b2a97236c384",
+        "memberCount": 939,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 855,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": []
+        },
+        "issueCount": 0,
+        "ok": true
+      }
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-witnesses\\candidate-populated.zip",
+      "sha256": "31d85c85ee1013cdc9270a9065e0d34d74660f5b6cd57dd4d437b2a97236c384",
+      "bytes": 1728395,
+      "entries": 939,
+      "files": 883,
+      "directories": 56,
+      "producerCounts": {
+        "entries": 939,
+        "backslash_entries": 0,
+        "project_roots": 1,
+        "node_modules_entries": 0,
+        "dist_entries": 0,
+        "git_entries": 0,
+        "artifacts_entries": 0,
+        "coverage_entries": 0,
+        "macos_entries": 0,
+        "ds_store_entries": 0,
+        "temporary_cache_entries": 0,
+        "directory_entries": 56,
+        "executable_entries": 28
+      },
+      "verifier": {
+        "archive": "candidate-populated.zip",
+        "bytes": 1728395,
+        "sha256": "31d85c85ee1013cdc9270a9065e0d34d74660f5b6cd57dd4d437b2a97236c384",
+        "memberCount": 939,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 855,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": []
+        },
+        "issueCount": 0,
+        "ok": true
+      }
+    }
+  ],
+  "identicalBytes": true,
+  "excludedSyntheticPaths": [
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/src/main.cu",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/build/native-binary",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/qualification.json",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/bin/extensionless-native",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-0123456789abcdef/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-0123456789abcdef/src/main.cu",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-0123456789abcdef/build/native-binary",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-0123456789abcdef/qualification.json",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-0123456789abcdef/bin/extensionless-native",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-future-install_2/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-future-install_2/src/main.cu",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-future-install_2/build/native-binary",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-future-install_2/qualification.json",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-future-install_2/bin/extensionless-native",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-/src/main.cu",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-/build/native-binary",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-/qualification.json",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-/bin/extensionless-native",
+    "CANDY-RUNTIME/NATIVE/HYPERGRAPH-MOTIF-CUDA-INCREMENTAL-SCOPE6D-TRANCHE1-CASE/src/main.cu",
+    "artifacts/qualification.json",
+    "artifacts/diagnostic-worktree/src/probe.js",
+    "candy-runtime/.local/cuda_incremental-qualified-build.json",
+    "candy-runtime/native/hypergraph-motif-cuda/build/native-binary",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/build/native-binary",
+    "node_modules/private.js",
+    "dist/private.js",
+    "coverage/report.json",
+    ".git/private",
+    ".env.local",
+    "pairing-token.txt",
+    "credentials.json",
+    ".secrets/session.json",
+    ".cache/private",
+    ".pytest_cache/private",
+    ".vite/private",
+    "tool.exe",
+    "lib.so"
+  ],
+  "requiredProductionPaths": [
+    "candy-runtime/src/artifacts/artifactStore.js",
+    "candy-runtime/native/hypergraph-motif-cuda/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/Makefile",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu"
+  ],
+  "comparedWithOriginalClean": {
+    "added": [
+      "product/docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "product/tests/candy-scope6e-package.test.mjs"
+    ],
+    "removed": [],
+    "changed": [
+      "product/scripts/package-portable-source.py",
+      "product/scripts/verify-portable-archive.py"
+    ]
+  },
+  "independentContamination": {
+    "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-witnesses\\deliberately-contaminated.zip",
+    "verifier": {
+      "archive": "deliberately-contaminated.zip",
+      "bytes": 1729067,
+      "sha256": "c269c93ddd76653fc4f1a1c31a37dfdd48319b1c4f6a92a8346e5073906534d2",
+      "memberCount": 941,
+      "root": "product",
+      "testzip": "ok",
+      "modeCounts": {
+        "0644": 857,
+        "0755": 84
+      },
+      "issues": {
+        "backslashMembers": [],
+        "absoluteMembers": [],
+        "traversalMembers": [],
+        "duplicateMembers": [],
+        "caseCollisions": [],
+        "forbiddenMembers": [
+          "product/candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-unseen-future/Makefile",
+          "product/candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-unseen-future/src/main.cu"
+        ],
+        "symlinkMembers": [],
+        "specialMembers": [],
+        "unexpectedExecutableFiles": [],
+        "missingExecutableBits": [],
+        "incorrectOrdinaryModes": [],
+        "incorrectDirectoryModes": [],
+        "worldOrGroupWritable": [],
+        "nonUnixCreateSystem": [],
+        "rootLayout": [],
+        "crcFailures": []
+      },
+      "issueCount": 2,
+      "ok": false
+    }
+  },
+  "status": "PASS"
+}

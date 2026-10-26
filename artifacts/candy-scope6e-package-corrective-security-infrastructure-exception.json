@@ -1,0 +1,292 @@
+{
+  "recordType": "qualification-security-infrastructure-exception",
+  "schemaVersion": 1,
+  "status": "SECURITY INFRASTRUCTURE EXCEPTION READY FOR HUMAN DECISION",
+  "recordedAtUtc": "2026-10-24T17:38:57.852224+00:00",
+  "repository": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective",
+  "branch": "candy-integration-scope6e-package-corrective",
+  "baseline": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "currentHead": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "productStatus": {
+    "status": "PASS",
+    "testFilesPassed": 286,
+    "testFilesDiscovered": 286,
+    "lint": "PASS",
+    "build": "PASS",
+    "buildGithub": "PASS",
+    "productionAuditVulnerabilities": 0,
+    "diffCheck": "PASS",
+    "portableArchivesByteIdentical": true,
+    "unsafeCasesRejected": 31,
+    "legitimateControlsAccepted": 6,
+    "actualWindowsExtractionProofs": 16,
+    "windowsExtractionGuard": "PASS",
+    "wslProducerRegression": "PASS",
+    "previousLowP3Cwe180Reproduces": false,
+    "changesSincePreviousPassingCorrective": "NONE",
+    "gateEvidence": "Retained completed outputs and current product/package hashes independently verified; no product gates rerun by this exception-only task."
+  },
+  "substantiveSecurityReview": {
+    "status": "PASS",
+    "semanticReviewComplete": true,
+    "unresolvedFindings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    "scope": "Exact four-file package corrective; no repository-wide or integrated native/runtime certification",
+    "findingsPath": "\\\\?\\C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\c294ed0cea093bb8933d06e6e23177a7f1409952_20261024T172728Z_4qly0t_h\\findings.json",
+    "findingsSha256": "6230cc8174108327fc9003156a587f9478ec9bb75ccf2cad73e1330c4c2c2181",
+    "findingCount": 0,
+    "coveragePath": "\\\\?\\C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\c294ed0cea093bb8933d06e6e23177a7f1409952_20261024T172728Z_4qly0t_h\\coverage.json",
+    "coverageSha256": "abaa743c5714e49c5542a6a89feae222c9bc025d8aa7c1010d409636c33b19c3",
+    "coverageCompleteness": "complete"
+  },
+  "toolingStatus": {
+    "status": "UNAVAILABLE",
+    "automatedSealCompleted": false,
+    "classification": "reproducible checkpoint lifecycle / completion ordering failure",
+    "productDefect": false,
+    "scanId": "6020da4c-4936-43fb-b9ef-12349cfadfac",
+    "scanDirectoryName": "c294ed0cea093bb8933d06e6e23177a7f1409952_20261024T172728Z_4qly0t_h",
+    "checkpointHeadReference": "9c238905dddf4a92581a4c4decfcec0a1af0e88f64c27206bfd575e809eb5074.json",
+    "completionError": {
+      "type": "FileNotFoundError",
+      "windowsError": 3,
+      "operation": "os.utime(checkpoint_path, ns=(parent_modified, parent_modified))",
+      "location": "workbench_saved_results.py:980",
+      "message": "The system cannot find the path specified"
+    },
+    "diagnostics": {
+      "provenance": "Human-supplied read-only diagnostics in the current request; prior completion traceback observed in this conversation.",
+      "checkpointHeadJsonReferencedExactFile": true,
+      "directoryListingShowedExactCheckpoint": true,
+      "listedBytes": 9435,
+      "listedLastWriteTimeLocal": "2026-10-24 12:33:27 PM",
+      "localTimezone": "America/Chicago",
+      "immediatelyFollowingGetItem": "PathNotFound / ItemNotFoundException",
+      "findingsScanId": "6020da4c-4936-43fb-b9ef-12349cfadfac",
+      "findings": [],
+      "completionLockReportedPresent": true,
+      "completionLockScanId": "6020da4c-4936-43fb-b9ef-12349cfadfac"
+    },
+    "noSecurityInvocationDuringExceptionTask": true,
+    "noCodexFilesModified": true,
+    "noCheckpointRecoveryOrFabrication": true,
+    "noInfrastructureRetry": true
+  },
+  "qualificationStatus": {
+    "ordinaryFullAutomatedSecuritySealCompletion": false,
+    "overallAutomatedQualification": "NOT COMPLETE",
+    "exceptionOnly": true,
+    "priorNonPassResultsPreserved": true
+  },
+  "policyDecision": {
+    "status": "PENDING_EXPLICIT_HUMAN_ACCEPTANCE",
+    "explicitHumanAcceptanceRequired": true,
+    "exceptionAcceptedByThisRecord": false,
+    "promotionAuthorizedByThisRecord": false,
+    "promotionCondition": "Promotion may proceed only if a human explicitly accepts this documented security-infrastructure exception and the applicable promotion work is authorized.",
+    "scope6eIntegratedQualificationResumed": false
+  },
+  "correctiveArchiveIdentity": {
+    "sha256": "c7b0e113582868dc2fbd501090da9d0b95ee6e7a32b41d22e85a87739138f73e",
+    "bytes": 1730492,
+    "entries": 939,
+    "files": 883,
+    "directories": 56
+  },
+  "packageWitnesses": [
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/witnesses/candidate-clean.zip",
+      "sha256": "c7b0e113582868dc2fbd501090da9d0b95ee6e7a32b41d22e85a87739138f73e",
+      "bytes": 1730492,
+      "entries": 939,
+      "files": 883,
+      "directories": 56
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/witnesses/candidate-populated.zip",
+      "sha256": "c7b0e113582868dc2fbd501090da9d0b95ee6e7a32b41d22e85a87739138f73e",
+      "bytes": 1730492,
+      "entries": 939,
+      "files": 883,
+      "directories": 56
+    }
+  ],
+  "proposedProductInventory": [
+    {
+      "path": "scripts/package-portable-source.py",
+      "status": "modified tracked",
+      "category": "portable producer exclusion and path policy",
+      "bytes": 29110,
+      "worktreeSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9",
+      "beforeAliasFixSha256": "8eda426922db87b11614fadd4cef1f929122164a92c4e35c626750b3decaaf61",
+      "baselineGitBlob": "2dde0662ba01510153b90e6f453171bc2b545c5b",
+      "prospectiveGitBlob": "e4e0a7fea2fd0ed73897e4bce1c213a59a6ece44",
+      "staged": false,
+      "packagedMember": "product/scripts/package-portable-source.py",
+      "packagedMemberSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9"
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "status": "modified tracked",
+      "category": "independent verifier exclusion and path policy",
+      "bytes": 9396,
+      "worktreeSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43",
+      "beforeAliasFixSha256": "ca1208f8ef8340101fc4d92b4bce1367c38e767ff42814e1a3abee0307e713ce",
+      "baselineGitBlob": "379c45a3a085aa97dbb7f041d9677034b9a48803",
+      "prospectiveGitBlob": "3c082f72f103849c72f7453f6bb09fb3eaf4aa89",
+      "staged": false,
+      "packagedMember": "product/scripts/verify-portable-archive.py",
+      "packagedMemberSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43"
+    },
+    {
+      "path": "tests/candy-scope6e-package.test.mjs",
+      "status": "new untracked proposed addition",
+      "category": "package corrective regression tests",
+      "bytes": 13339,
+      "worktreeSha256": "6b8f83ba5ddcd9a8ae693ca299ff05dec8283de9cb34efa8cf6f2556c4e59cc9",
+      "beforeAliasFixSha256": "ed233f496164e16ba9c020408a9342b4061746a9fda2cb65c967c578c45ac160",
+      "baselineGitBlob": null,
+      "prospectiveGitBlob": "56b437b9b22af2d51b2800c719f2ac572cad74e3",
+      "staged": false,
+      "packagedMember": "product/tests/candy-scope6e-package.test.mjs",
+      "packagedMemberSha256": "6b8f83ba5ddcd9a8ae693ca299ff05dec8283de9cb34efa8cf6f2556c4e59cc9"
+    },
+    {
+      "path": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "status": "new untracked proposed addition",
+      "category": "directly relevant packaging-policy documentation",
+      "bytes": 3731,
+      "worktreeSha256": "635daaf2a8731850cea3cc600e27d9b261f540a6228dc12cb7a7fd95ff69bd03",
+      "beforeAliasFixSha256": "23114bcd6a4d1d30912c3e49fee9d13c7f37012d523aa86b7d7acbd1e7f0b249",
+      "baselineGitBlob": null,
+      "prospectiveGitBlob": "dfff63bc12a92451d94fa04a94831d9628d00b98",
+      "staged": false,
+      "packagedMember": "product/docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "packagedMemberSha256": "635daaf2a8731850cea3cc600e27d9b261f540a6228dc12cb7a7fd95ff69bd03"
+    }
+  ],
+  "proposedProductFileCount": 4,
+  "excludedFromProductCommit": [
+    "artifacts/**"
+  ],
+  "nothingStaged": true,
+  "verifiedGateLogs": [
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "path": "artifacts/candy-scope6e-package-alias-closure/01-npm.cmd-test.log",
+      "sha256": "32bf79169b41f111f443cbadd9c62a76491b63c7d7ee40ac0d87b811779fe4e9"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "path": "artifacts/candy-scope6e-package-alias-closure/02-npm.cmd-run-lint.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "path": "artifacts/candy-scope6e-package-alias-closure/03-npm.cmd-run-build.log",
+      "sha256": "4f6b66e1ffc52291475f2a74b4d2ef0b2bf31149a6c63b14e125bb969ec42793"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "path": "artifacts/candy-scope6e-package-alias-closure/04-npm.cmd-run-build-github.log",
+      "sha256": "a5d1449ff3d94ad441f52be888a341a02695b1c0567c9c3c7519de060352c6ea"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "path": "artifacts/candy-scope6e-package-alias-closure/05-npm.cmd-audit---omit=dev.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "path": "artifacts/candy-scope6e-package-alias-closure/06-git-diff---check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "evidenceSources": [
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/final-inventory.json",
+      "sha256": "12cfbd2e542d3ec8dd05610d9b96f6d8b1e4219618ffd8acfa9dcb7302a28143"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/gates.json",
+      "sha256": "0b9030ae4c1e2ad89b28f7e3dabfbd8daf013ceb5269330e2c912aa818ef0aff"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/package.json",
+      "sha256": "291e6933417cde18a6ed62d3e5c6c4222c93e0081f179789b713f04fefd646fa"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/adversarial-matrix.json",
+      "sha256": "ef2ef172c527d8c4b1b981bb605b0ca541828304c167640f767b20066babd7a8"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/security-final.json",
+      "sha256": "e5635c711af795947eb1cb51947cdb8a39ae3b5efeedb6958556ac2c2ea91536"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/preservation.json",
+      "sha256": "a46e66ec21c8db86076acc6ba62e214019554fae9b35130192ea30e7e6deed15"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/focused.log",
+      "sha256": "c58055dba571d1d00e3d15549ef0c7dfc96e86dc7956322991ebf89caaaae560"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/wsl-focused.log",
+      "sha256": "b7c9ecaa33e3d6066abd51de74ae7d820934f62ce54653868f7f67d3dd373508"
+    },
+    {
+      "path": "artifacts/candy-scope6e-package-alias-closure/final-report.md",
+      "sha256": "cf501611b06d0066d9adc810a4d3c8350b75dd062d6f759808f0087ccfd53287"
+    }
+  ],
+  "preservation": {
+    "priorArtifactFiles": 538,
+    "priorArtifactInventorySha256": "a5df1db75c78c40c9c53f2a856ca134b8d2579b865fe30b774cfb3dbb269cbf0",
+    "trackedFiles": 1282,
+    "trackedInventorySha256": "7d1c94b1d73f59078ccc98a05d34e596338b59e5802fba76ae225b6e004f01b3",
+    "productHashesMatchPreviousPassingCorrective": true,
+    "allPreexistingArtifactBytesUnchanged": true,
+    "indexSha256": "8fefaab6994dc65199d9b6645709b8bfdac40639fc91e1cf0fabc518e38f7451",
+    "refsSha256": "e7e2397dc556b159d0fd1018d3cc7d10bf7c05b0a45ef9495e8ed8220c9af377",
+    "onlyAdditions": [
+      "artifacts/candy-scope6e-package-corrective-security-infrastructure-exception.md",
+      "artifacts/candy-scope6e-package-corrective-security-infrastructure-exception.json"
+    ],
+    "noStageCommitPushTagMainOrAnchorChange": true
+  },
+  "evidenceProvenance": "Local retained evidence, current-byte verification, observed prior completion error, and explicitly attributed human-supplied checkpoint diagnostics; no additional security scan or checkpoint investigation performed."
+}

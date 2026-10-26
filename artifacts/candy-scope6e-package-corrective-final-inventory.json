@@ -1,0 +1,93 @@
+{
+  "capturedAt": "2026-10-24T17:18:31.783639+00:00",
+  "verdict": "NON-PASS \u2014 SCOPE 6E PACKAGE CORRECTIVE VERIFIER POLICY BYPASS",
+  "branch": "candy-integration-scope6e-package-corrective",
+  "baseline": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "head": "c294ed0cea093bb8933d06e6e23177a7f1409952",
+  "proposedProductPaths": [
+    {
+      "path": "scripts/package-portable-source.py",
+      "status": "modified tracked",
+      "category": "packaging policy",
+      "bytes": 28571,
+      "worktreeSha256": "8eda426922db87b11614fadd4cef1f929122164a92c4e35c626750b3decaaf61",
+      "baselineGitBlob": "2dde0662ba01510153b90e6f453171bc2b545c5b",
+      "prospectiveGitBlob": "152165a91bf425ab9975e76348e9a76731d3b5a6",
+      "staged": false,
+      "archiveMember": "product/scripts/package-portable-source.py"
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "status": "modified tracked",
+      "category": "independent archive verifier policy",
+      "bytes": 8754,
+      "worktreeSha256": "ca1208f8ef8340101fc4d92b4bce1367c38e767ff42814e1a3abee0307e713ce",
+      "baselineGitBlob": "379c45a3a085aa97dbb7f041d9677034b9a48803",
+      "prospectiveGitBlob": "3a8f7eb71dd36bfaf6e3228901b61d13b3a9a461",
+      "staged": false,
+      "archiveMember": "product/scripts/verify-portable-archive.py"
+    },
+    {
+      "path": "tests/candy-scope6e-package.test.mjs",
+      "status": "new untracked proposed addition",
+      "category": "package corrective regression test",
+      "bytes": 8464,
+      "worktreeSha256": "ed233f496164e16ba9c020408a9342b4061746a9fda2cb65c967c578c45ac160",
+      "baselineGitBlob": null,
+      "prospectiveGitBlob": "3bf6d77662ca441a1642637e4c5afe759ca8f2dd",
+      "staged": false,
+      "archiveMember": "product/tests/candy-scope6e-package.test.mjs"
+    },
+    {
+      "path": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "status": "new untracked proposed addition",
+      "category": "directly relevant packaging policy documentation",
+      "bytes": 2265,
+      "worktreeSha256": "23114bcd6a4d1d30912c3e49fee9d13c7f37012d523aa86b7d7acbd1e7f0b249",
+      "baselineGitBlob": null,
+      "prospectiveGitBlob": "6b4b4bef19c4e4233e173943a839af615cfdbc7e",
+      "staged": false,
+      "archiveMember": "product/docs/PORTABLE_LOCAL_INSTALL_POLICY.md"
+    }
+  ],
+  "excludedFromProductCommit": [
+    {
+      "pattern": "artifacts/**",
+      "category": "qualification evidence/tooling",
+      "reason": "Explicit user instruction; never stage evidence"
+    }
+  ],
+  "changedTrackedPaths": [
+    "M\tscripts/package-portable-source.py",
+    "M\tscripts/verify-portable-archive.py"
+  ],
+  "untrackedNonEvidencePaths": [
+    "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+    "tests/candy-scope6e-package.test.mjs"
+  ],
+  "stagedPaths": [],
+  "gitStatusShort": "M scripts/package-portable-source.py\n M scripts/verify-portable-archive.py\n?? artifacts/candy-scope6e-package-corrective-final-inventory.json\n?? artifacts/candy-scope6e-package-corrective-final-report.md\n?? artifacts/candy-scope6e-package-corrective-final-run/\n?? artifacts/candy-scope6e-package-corrective-logs/\n?? artifacts/candy-scope6e-package-corrective-package-final.json\n?? artifacts/candy-scope6e-package-corrective-package.json\n?? artifacts/candy-scope6e-package-corrective-prechange.json\n?? artifacts/candy-scope6e-package-corrective-repro-final.json\n?? artifacts/candy-scope6e-package-corrective-repro.json\n?? artifacts/candy-scope6e-package-corrective-security-final.json\n?? artifacts/candy-scope6e-package-corrective-tests.json\n?? artifacts/candy-scope6e-package-corrective-tooling/\n?? artifacts/candy-scope6e-package-corrective-witnesses/\n?? docs/PORTABLE_LOCAL_INSTALL_POLICY.md\n?? tests/candy-scope6e-package.test.mjs",
+  "gitDiffStat": "scripts/package-portable-source.py |  9 +++++++++\n scripts/verify-portable-archive.py | 14 ++++++++++++--\n 2 files changed, 21 insertions(+), 2 deletions(-)",
+  "diffCheckPass": true,
+  "protectedProductionPathsUnchanged": true,
+  "allCandidateHashesMatchPriorEvidence": true,
+  "preservation": {
+    "productBytesUnchanged": true,
+    "allOtherTrackedFilesUnchanged": 1280,
+    "refsUnchanged": true,
+    "indexUnchanged": true,
+    "historicalScope6EEvidenceUnchanged": true,
+    "priorEvidenceUnchangedExceptIgnoredGeneratedTelemetry": [
+      "artifacts/deterministic-nlu-integrated-routing-report.json"
+    ],
+    "explanation": "npm test regenerated a gitignored nondeterministic routing metrics report. The overly broad preservation assertion stopped the evidence runner after all gates and package regressions passed. Independent reconciliation confirms all product, tracked historical evidence, Scope 6E evidence, prior corrective evidence, refs and index preserved. No restoration or product edits performed.",
+    "allSevenGatesPass": true,
+    "freshPackageReproducesPriorSha256": "31d85c85ee1013cdc9270a9065e0d34d74660f5b6cd57dd4d437b2a97236c384"
+  },
+  "securityFinalization": "pending",
+  "references": {
+    "report": "candy-scope6e-package-corrective-final-report.md",
+    "security": "candy-scope6e-package-corrective-security-final.json",
+    "package": "candy-scope6e-package-corrective-package-final.json"
+  }
+}

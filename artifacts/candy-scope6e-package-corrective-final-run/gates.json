@@ -1,0 +1,96 @@
+{
+  "capturedAt": "2026-10-24T17:13:20.016186+00:00",
+  "sourceSha256": {
+    "scripts/package-portable-source.py": "8eda426922db87b11614fadd4cef1f929122164a92c4e35c626750b3decaaf61",
+    "scripts/verify-portable-archive.py": "ca1208f8ef8340101fc4d92b4bce1367c38e767ff42814e1a3abee0307e713ce",
+    "tests/candy-scope6e-package.test.mjs": "ed233f496164e16ba9c020408a9342b4061746a9fda2cb65c967c578c45ac160",
+    "docs/PORTABLE_LOCAL_INSTALL_POLICY.md": "23114bcd6a4d1d30912c3e49fee9d13c7f37012d523aa86b7d7acbd1e7f0b249"
+  },
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 176.424,
+      "log": "artifacts/candy-scope6e-package-corrective-final-run/01-npm.cmd-test.log",
+      "sha256": "728c415988382c2545eafa1c51a6298411a45f5f050736774beeee946bd2d8b0",
+      "tail": " tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.1899\n\u2714 every public legacy action works with correct or omitted registry side-effect metadata (0.4569ms)\n\u2714 legacy actions cannot self-declare a lower or unrelated privilege (0.1057ms)\n\u2714 unregistered legacy kinds fail closed (0.0901ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.2606\n\u2714 canonical plan identity covers every registered domain and typed-kind pair (0.8771ms)\n\u2714 every protected family is blocked under every wrong typed kind (0.1807ms)\n\u2714 nominally read-only plans reject unexpected protected-operation payloads (0.0774ms)\n\u2714 model-shaped identity corruption is blocked without confirmation or state change (0.0805ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.8764\n\u2714 Stage 8 corrective #3 pre-change evidence is pinned to the authoritative parent (0.434ms)\n\u2714 S8-N05 pre-change evidence records domain and typed-kind dispatch confusion (0.0887ms)\n\u2714 S8-N06 pre-change evidence records a legacy action self-declared as read-only (0.0773ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.4726\n\u2714 Stage 8 corrective #3 preserves S8-N01 through S8-N04 and corrective #2 (0.7369ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.3097\nStage 8 positive authorization and final-gate tests passed.\nStage 8 pending preservation and bounded-input tests passed.\nv7.3.10 submission request coordinator tests passed.\ntransformation plan compiler tests passed.\ntransformation plan tests passed.\nv7.3.13 upload cancellation and sampling tests passed.\nv7.3.12 upload policy tests passed.\nv7_4 corrective truth, alias safety, grouping, format, export, Stop identity and mounted Help regressions passed.\nv7.3.14 ZIP permission normalization passed (939 entries, modes: 0o755, 0o644).\n\nNode test suite passed: 286/286 files in 170.5s.\nnpm notice\nnpm notice New major version of npm available! 11.19.0 -> 12.2.1\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1\nnpm notice To update run: npm install -g npm@12.2.1\nnpm notice\n",
+      "discovered": 286,
+      "passed": 286
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 18.352,
+      "log": "artifacts/candy-scope6e-package-corrective-final-run/02-npm.cmd-run-lint.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c",
+      "tail": "\n> hypergraph-converter-studio@7.3.14 lint\n> eslint .\n\n"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 1.547,
+      "log": "artifacts/candy-scope6e-package-corrective-final-run/03-npm.cmd-run-build.log",
+      "sha256": "7b6e02886769e2ceae412e51bd2d3cab3e4b5cc6d76ba0c5dbfa48ff8f3a571b",
+      "tail": "\n> hypergraph-converter-studio@7.3.14 build\n> vite build\n\nvite v8.3.4 building client environment for production...\ntransforming...\n\u2713 283 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                                  0.48 kB \u2502 gzip:   0.31 kB\ndist/assets/source-code-pro-latin-600-normal-DVVSlvOB.woff2     11.62 kB\ndist/assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2     11.65 kB\ndist/assets/derivedWorker-wWi8IIW8.js                           12.02 kB\ndist/assets/source-code-pro-latin-600-normal-B5rj6vMs.woff      15.14 kB\ndist/assets/source-code-pro-latin-400-normal-Bf_aQirX.woff      15.23 kB\ndist/assets/source-sans-3-latin-700-normal-CkzU-mV9.woff2       15.59 kB\ndist/assets/source-sans-3-latin-500-normal-DiWS0tcR.woff2       15.65 kB\ndist/assets/source-sans-3-latin-600-normal-DeckBYAU.woff2       15.66 kB\ndist/assets/source-sans-3-latin-400-normal-DQi5PRDE.woff2       15.69 kB\ndist/assets/source-sans-3-latin-700-normal-BBbVrHF_.woff        19.81 kB\ndist/assets/source-sans-3-latin-500-normal-BtDzq-z9.woff        19.86 kB\ndist/assets/source-sans-3-latin-400-normal-AFMiCETP.woff        19.90 kB\ndist/assets/source-sans-3-latin-600-normal-BvDVuF-j.woff        19.90 kB\ndist/assets/source-serif-4-latin-600-normal-DouSKlru.woff2      21.53 kB\ndist/assets/source-serif-4-latin-700-normal-CGGdTIBe.woff2      21.71 kB\ndist/assets/source-serif-4-latin-600-normal-DMD1h6_f.woff       25.62 kB\ndist/assets/source-serif-4-latin-700-normal-3V4Pv1hj.woff       25.71 kB\ndist/assets/index-DGiZsV96.css                                  49.00 kB \u2502 gzip:   9.30 kB\ndist/assets/index-FA8qa_Ca.js                                1,717.70 kB \u2502 gzip: 483.24 kB\n\n\u2713 built in 934ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.856,
+      "log": "artifacts/candy-scope6e-package-corrective-final-run/04-npm.cmd-run-build-github.log",
+      "sha256": "d1e25c3df29595f265d21acdd5b5dc28a9839e341820c4291d17f900df8186f6",
+      "tail": "\n> hypergraph-converter-studio@7.3.14 build:github\n> vite build --base=/hypergraph-converter/\n\nvite v8.3.4 building client environment for production...\ntransforming...\n\u2713 283 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                                  0.54 kB \u2502 gzip:   0.31 kB\ndist/assets/source-code-pro-latin-600-normal-DVVSlvOB.woff2     11.62 kB\ndist/assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2     11.65 kB\ndist/assets/derivedWorker-wWi8IIW8.js                           12.02 kB\ndist/assets/source-code-pro-latin-600-normal-B5rj6vMs.woff      15.14 kB\ndist/assets/source-code-pro-latin-400-normal-Bf_aQirX.woff      15.23 kB\ndist/assets/source-sans-3-latin-700-normal-CkzU-mV9.woff2       15.59 kB\ndist/assets/source-sans-3-latin-500-normal-DiWS0tcR.woff2       15.65 kB\ndist/assets/source-sans-3-latin-600-normal-DeckBYAU.woff2       15.66 kB\ndist/assets/source-sans-3-latin-400-normal-DQi5PRDE.woff2       15.69 kB\ndist/assets/source-sans-3-latin-700-normal-BBbVrHF_.woff        19.81 kB\ndist/assets/source-sans-3-latin-500-normal-BtDzq-z9.woff        19.86 kB\ndist/assets/source-sans-3-latin-400-normal-AFMiCETP.woff        19.90 kB\ndist/assets/source-sans-3-latin-600-normal-BvDVuF-j.woff        19.90 kB\ndist/assets/source-serif-4-latin-600-normal-DouSKlru.woff2      21.53 kB\ndist/assets/source-serif-4-latin-700-normal-CGGdTIBe.woff2      21.71 kB\ndist/assets/source-serif-4-latin-600-normal-DMD1h6_f.woff       25.62 kB\ndist/assets/source-serif-4-latin-700-normal-3V4Pv1hj.woff       25.71 kB\ndist/assets/index-BGbkWwNt.css                                  49.34 kB \u2502 gzip:   9.31 kB\ndist/assets/index-B09bGgWX.js                                1,717.78 kB \u2502 gzip: 483.27 kB\n\n\u2713 built in 296ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "seconds": 2.618,
+      "log": "artifacts/candy-scope6e-package-corrective-final-run/05-npm.cmd-audit---omit=dev.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "tail": "found 0 vulnerabilities\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 0.04,
+      "log": "artifacts/candy-scope6e-package-corrective-final-run/06-git-diff---check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tail": ""
+    },
+    {
+      "command": [
+        "node",
+        "tests/candy-scope6e-package.test.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 5.385,
+      "log": "artifacts/candy-scope6e-package-corrective-final-run/07-node-tests-candy-scope6e-package.test.mjs.log",
+      "sha256": "c58055dba571d1d00e3d15549ef0c7dfc96e86dc7956322991ebf89caaaae560",
+      "tail": "C:\\Users\\tharu\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\zipfile\\__init__.py:1661: UserWarning: Duplicate name: 'product/README.md'\n  return self._open_to_write(zinfo, force_zip64=force_zip64)\nScope 6E synthetic clean/populated byte identity, native inclusion, local-install exclusion and independent malformed-archive rejection passed.\n"
+    }
+  ],
+  "allPass": true
+}

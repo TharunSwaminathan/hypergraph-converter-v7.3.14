@@ -1,0 +1,46 @@
+{
+  "candidate": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+  "humanExceptionAcceptance": "ACCEPTED",
+  "substantiveSecurityQualification": "PASS",
+  "unresolvedFindings": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "automatedCodexSecuritySeal": "UNAVAILABLE / NOT COMPLETED",
+  "reason": "reproducible checkpoint lifecycle / completion ordering failure",
+  "productSecurityFindingWaiver": false,
+  "acceptedEvidenceUnchanged": true,
+  "exactCandidateProductBinding": [
+    {
+      "path": "scripts/package-portable-source.py",
+      "acceptedWorktreeSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9",
+      "committedGitBlob": "e4e0a7fea2fd0ed73897e4bce1c213a59a6ece44",
+      "exactExportSha256": "84a5f8340bb1ccc47a5d9ac5c18066accde5ee2a47cd7023c30b96438cf065a9",
+      "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "acceptedWorktreeSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43",
+      "committedGitBlob": "3c082f72f103849c72f7453f6bb09fb3eaf4aa89",
+      "exactExportSha256": "e4ae71bc7e3f922d5b40b7eba2916a1ff12f7ea905d2d4bd14d4a58ea8d28b43",
+      "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+    },
+    {
+      "path": "tests/candy-scope6e-package.test.mjs",
+      "acceptedWorktreeSha256": "6b8f83ba5ddcd9a8ae693ca299ff05dec8283de9cb34efa8cf6f2556c4e59cc9",
+      "committedGitBlob": "56b437b9b22af2d51b2800c719f2ac572cad74e3",
+      "exactExportSha256": "c57c9dbde7819a740f85ab4aa75250b0db4c03e3817d69bb4490a6bbae681b7a",
+      "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+    },
+    {
+      "path": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "acceptedWorktreeSha256": "635daaf2a8731850cea3cc600e27d9b261f540a6228dc12cb7a7fd95ff69bd03",
+      "committedGitBlob": "dfff63bc12a92451d94fa04a94831d9628d00b98",
+      "exactExportSha256": "5b2650da32a1d4f20c8767440e5d82faf0c8bd568e9692d88e728c83077fb7e3",
+      "binding": "Accepted corrective normalized Git blob equals exact committed candidate blob; exported bytes independently hashed."
+    }
+  ],
+  "truthfulStatement": "Substantive product security qualification PASS under an explicitly accepted security-infrastructure exception; automated Codex Security completion seal UNAVAILABLE."
+}

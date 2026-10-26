@@ -1,0 +1,185 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 121351567840,
+      "run_id": 40253919517,
+      "workflow_name": "CPU regression and browser source release",
+      "head_branch": "candy-integration-scope6e-package-corrective",
+      "run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40253919517",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUS84v88AAAAcQR354A",
+      "head_sha": "d22b9c89f79446fbfea2480e98e807f8da4dfbf4",
+      "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/jobs/121351567840",
+      "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40253919517/job/121351567840",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T01:22:44Z",
+      "started_at": "2026-10-26T01:22:46Z",
+      "completed_at": "2026-10-26T01:26:17Z",
+      "name": "cpu",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T01:22:47Z",
+          "completed_at": "2026-10-26T01:22:50Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T01:22:50Z",
+          "completed_at": "2026-10-26T01:22:53Z"
+        },
+        {
+          "name": "Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T01:22:53Z",
+          "completed_at": "2026-10-26T01:23:01Z"
+        },
+        {
+          "name": "Observed tool versions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-26T01:23:01Z",
+          "completed_at": "2026-10-26T01:23:01Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-26T01:23:01Z",
+          "completed_at": "2026-10-26T01:23:06Z"
+        },
+        {
+          "name": "Run npm test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-26T01:23:06Z",
+          "completed_at": "2026-10-26T01:25:43Z"
+        },
+        {
+          "name": "Run npm run lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-26T01:25:43Z",
+          "completed_at": "2026-10-26T01:25:59Z"
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-26T01:25:59Z",
+          "completed_at": "2026-10-26T01:26:00Z"
+        },
+        {
+          "name": "Run npm run build:github",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-26T01:26:00Z",
+          "completed_at": "2026-10-26T01:26:01Z"
+        },
+        {
+          "name": "Run npm audit --omit=dev",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-26T01:26:01Z",
+          "completed_at": "2026-10-26T01:26:01Z"
+        },
+        {
+          "name": "Deterministic fixture, packing and transport bounds",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-26T01:26:01Z",
+          "completed_at": "2026-10-26T01:26:06Z"
+        },
+        {
+          "name": "Clean and populated archive integrity; extracted CUDA fail closed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-26T01:26:06Z",
+          "completed_at": "2026-10-26T01:26:09Z"
+        },
+        {
+          "name": "Extracted browser source build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-26T01:26:09Z",
+          "completed_at": "2026-10-26T01:26:12Z"
+        },
+        {
+          "name": "GPU live qualification status",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-26T01:26:12Z",
+          "completed_at": "2026-10-26T01:26:12Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- package.json package-lock.json",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-26T01:26:12Z",
+          "completed_at": "2026-10-26T01:26:12Z"
+        },
+        {
+          "name": "Run git diff --check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-26T01:26:12Z",
+          "completed_at": "2026-10-26T01:26:12Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31,
+          "started_at": "2026-10-26T01:26:12Z",
+          "completed_at": "2026-10-26T01:26:12Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-26T01:26:12Z",
+          "completed_at": "2026-10-26T01:26:13Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-26T01:26:13Z",
+          "completed_at": "2026-10-26T01:26:13Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/121351567840",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000111,
+      "runner_name": "GitHub Actions 1000000111",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

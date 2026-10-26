@@ -1,0 +1,98 @@
+{
+  "capturedAt": "2026-10-23T18:39:59.124559+00:00",
+  "freshDependencyState": true,
+  "sourceSha256": {
+    "scripts/package-portable-source.py": "8eda426922db87b11614fadd4cef1f929122164a92c4e35c626750b3decaaf61",
+    "scripts/verify-portable-archive.py": "ca1208f8ef8340101fc4d92b4bce1367c38e767ff42814e1a3abee0307e713ce",
+    "tests/candy-scope6e-package.test.mjs": "ed233f496164e16ba9c020408a9342b4061746a9fda2cb65c967c578c45ac160",
+    "docs/PORTABLE_LOCAL_INSTALL_POLICY.md": "23114bcd6a4d1d30912c3e49fee9d13c7f37012d523aa86b7d7acbd1e7f0b249"
+  },
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 8.197,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\01-ci.log",
+      "sha256": "0cc44f8392d8a35c29be7b489427ef2b2e4bac674e5e60fb74f9c9e7cc00b44d",
+      "tail": "\nadded 155 packages, and audited 156 packages in 8s\n\n35 packages are looking for funding\n  run `npm fund` for details\n\nfound 0 vulnerabilities\n"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 162.892,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\02-test.log",
+      "sha256": "4176dde1c304ab9205461769204cab865cfef2e8b32c89e01a124952e8b91d56",
+      "tail": ")\n\u2714 legacy actions cannot self-declare a lower or unrelated privilege (0.1096ms)\n\u2714 unregistered legacy kinds fail closed (0.0945ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.7893\n\u2714 canonical plan identity covers every registered domain and typed-kind pair (0.8908ms)\n\u2714 every protected family is blocked under every wrong typed kind (0.1881ms)\n\u2714 nominally read-only plans reject unexpected protected-operation payloads (0.0794ms)\n\u2714 model-shaped identity corruption is blocked without confirmation or state change (0.0661ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.5889\n\u2714 Stage 8 corrective #3 pre-change evidence is pinned to the authoritative parent (0.4656ms)\n\u2714 S8-N05 pre-change evidence records domain and typed-kind dispatch confusion (0.0927ms)\n\u2714 S8-N06 pre-change evidence records a legacy action self-declared as read-only (0.0796ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 4.8232\n\u2714 Stage 8 corrective #3 preserves S8-N01 through S8-N04 and corrective #2 (1.0912ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 6.3985\nStage 8 positive authorization and final-gate tests passed.\nStage 8 pending preservation and bounded-input tests passed.\nv7.3.10 submission request coordinator tests passed.\ntransformation plan compiler tests passed.\ntransformation plan tests passed.\nv7.3.13 upload cancellation and sampling tests passed.\nv7.3.12 upload policy tests passed.\nv7_4 corrective truth, alias safety, grouping, format, export, Stop identity and mounted Help regressions passed.\nv7.3.14 ZIP permission normalization passed (939 entries, modes: 0o755, 0o644).\n\nNode test suite passed: 286/286 files in 162.5s.\n",
+      "testFileCount": 286
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 8.978,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\03-run-lint.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c",
+      "tail": "\n> hypergraph-converter-studio@7.3.14 lint\n> eslint .\n\n"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.854,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\04-run-build.log",
+      "sha256": "0fd898ea1ede7f1338de6a72248e655441c474ff502d984f2314911926308dbc",
+      "tail": "ist/assets/source-code-pro-latin-600-normal-DVVSlvOB.woff2     11.62 kB\ndist/assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2     11.65 kB\ndist/assets/derivedWorker-wWi8IIW8.js                           12.02 kB\ndist/assets/source-code-pro-latin-600-normal-B5rj6vMs.woff      15.14 kB\ndist/assets/source-code-pro-latin-400-normal-Bf_aQirX.woff      15.23 kB\ndist/assets/source-sans-3-latin-700-normal-CkzU-mV9.woff2       15.59 kB\ndist/assets/source-sans-3-latin-500-normal-DiWS0tcR.woff2       15.65 kB\ndist/assets/source-sans-3-latin-600-normal-DeckBYAU.woff2       15.66 kB\ndist/assets/source-sans-3-latin-400-normal-DQi5PRDE.woff2       15.69 kB\ndist/assets/source-sans-3-latin-700-normal-BBbVrHF_.woff        19.81 kB\ndist/assets/source-sans-3-latin-500-normal-BtDzq-z9.woff        19.86 kB\ndist/assets/source-sans-3-latin-400-normal-AFMiCETP.woff        19.90 kB\ndist/assets/source-sans-3-latin-600-normal-BvDVuF-j.woff        19.90 kB\ndist/assets/source-serif-4-latin-600-normal-DouSKlru.woff2      21.53 kB\ndist/assets/source-serif-4-latin-700-normal-CGGdTIBe.woff2      21.71 kB\ndist/assets/source-serif-4-latin-600-normal-DMD1h6_f.woff       25.62 kB\ndist/assets/source-serif-4-latin-700-normal-3V4Pv1hj.woff       25.71 kB\ndist/assets/index-DGiZsV96.css                                  49.00 kB \u2502 gzip:   9.30 kB\ndist/assets/index-FA8qa_Ca.js                                1,717.70 kB \u2502 gzip: 483.24 kB\n\n\u2713 built in 264ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.811,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\05-run-build-github.log",
+      "sha256": "19d2cd021215b32ff190f14d55f37f8eb4b4a03dd59c2c212de93f12e88ee808",
+      "tail": "ist/assets/source-code-pro-latin-600-normal-DVVSlvOB.woff2     11.62 kB\ndist/assets/source-code-pro-latin-400-normal-DEXWLoHG.woff2     11.65 kB\ndist/assets/derivedWorker-wWi8IIW8.js                           12.02 kB\ndist/assets/source-code-pro-latin-600-normal-B5rj6vMs.woff      15.14 kB\ndist/assets/source-code-pro-latin-400-normal-Bf_aQirX.woff      15.23 kB\ndist/assets/source-sans-3-latin-700-normal-CkzU-mV9.woff2       15.59 kB\ndist/assets/source-sans-3-latin-500-normal-DiWS0tcR.woff2       15.65 kB\ndist/assets/source-sans-3-latin-600-normal-DeckBYAU.woff2       15.66 kB\ndist/assets/source-sans-3-latin-400-normal-DQi5PRDE.woff2       15.69 kB\ndist/assets/source-sans-3-latin-700-normal-BBbVrHF_.woff        19.81 kB\ndist/assets/source-sans-3-latin-500-normal-BtDzq-z9.woff        19.86 kB\ndist/assets/source-sans-3-latin-400-normal-AFMiCETP.woff        19.90 kB\ndist/assets/source-sans-3-latin-600-normal-BvDVuF-j.woff        19.90 kB\ndist/assets/source-serif-4-latin-600-normal-DouSKlru.woff2      21.53 kB\ndist/assets/source-serif-4-latin-700-normal-CGGdTIBe.woff2      21.71 kB\ndist/assets/source-serif-4-latin-600-normal-DMD1h6_f.woff       25.62 kB\ndist/assets/source-serif-4-latin-700-normal-3V4Pv1hj.woff       25.71 kB\ndist/assets/index-BGbkWwNt.css                                  49.34 kB \u2502 gzip:   9.31 kB\ndist/assets/index-B09bGgWX.js                                1,717.78 kB \u2502 gzip: 483.27 kB\n\n\u2713 built in 288ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n",
+      "originalLogPath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\05-run-build:github.log",
+      "logPortabilityNote": "Copied identical output bytes from a Windows alternate stream to a portable regular filename; command/result/hash unchanged."
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "seconds": 0.941,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\06-audit-omit=dev.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "tail": "found 0 vulnerabilities\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 0.033,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\artifacts\\candy-scope6e-package-corrective-logs\\07-diff-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tail": ""
+    }
+  ],
+  "allPass": true
+}

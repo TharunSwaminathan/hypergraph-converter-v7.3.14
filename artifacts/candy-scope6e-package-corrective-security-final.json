@@ -1,0 +1,300 @@
+{
+  "capturedAt": "2026-10-24T17:18:31.783639+00:00",
+  "scanId": "ce39ac67-885a-486d-b456-99dd082d9c70",
+  "scanDirectory": "\\\\?\\C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\c294ed0cea093bb8933d06e6e23177a7f1409952_20261024T170845Z_e5i5f7vi",
+  "freshScan": true,
+  "previousMissingCheckpointUsed": false,
+  "finalizationStatus": "pending",
+  "unresolvedSeverityCounts": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "highCriticalGatePass": true,
+  "independentVerifierContaminationGatePass": false,
+  "productDefectConfirmed": true,
+  "infrastructureBlocked": false,
+  "finding": {
+    "ruleId": "portable-archive.windows-component-alias",
+    "identity": {
+      "anchor": "scripts/verify-portable-archive.py/verify/local-install-guard",
+      "instance": "windows-trailing-dot"
+    },
+    "title": "Windows component aliases bypass local-install archive rejection",
+    "summary": "The verifier compares raw POSIX components with candy-runtime/native before Windows extraction removes trailing dots. A ZIP containing product/candy-runtime./native/hypergraph-motif-cuda-incremental-scope6d-tranche1-alias/src/main.cu (or native.) passes the actual verifier with zero issues, then extracts into the prohibited local-install namespace on Windows. The producer excludes that canonical extracted path. This breaks the independently verified contamination policy, while the normal clean/populated producer archives remain identical.",
+    "severity": {
+      "level": "low",
+      "rationale": "CWE-180 produces a concrete release-policy validation bypass under Windows extraction. It requires a crafted archive and a reviewer trusting verification before extraction; bounded source contamination is demonstrated. Major security impact is not evidenced, so High/Critical are unjustified.",
+      "changeConditions": "Reject noncanonical Windows aliases before applying policy (for example trailing-dot/space components), retain independent producer/verifier checks, and add actual Windows extraction negative regressions. Remediation is a proposed follow-up only; preserved product bytes are unchanged."
+    },
+    "confidence": {
+      "level": "high",
+      "rationale": "Two variants reproduced with actual current verifier API, CLI, and Windows extractall; canonical negative control rejects the payload. Candidate hashes match prior qualification."
+    },
+    "taxonomy": {
+      "category": "Archive path canonicalization before policy validation",
+      "cwe": [
+        "CWE-180"
+      ]
+    },
+    "locations": [
+      {
+        "path": "scripts/verify-portable-archive.py",
+        "startLine": 125,
+        "endLine": 130,
+        "role": "root_control"
+      },
+      {
+        "path": "scripts/verify-portable-archive.py",
+        "startLine": 100,
+        "endLine": 103,
+        "role": "source"
+      },
+      {
+        "path": "scripts/verify-portable-archive.py",
+        "startLine": 184,
+        "endLine": 196,
+        "role": "sink"
+      }
+    ],
+    "codeEvidence": [
+      {
+        "id": "namespace-raw-check",
+        "label": "Raw component equality precedes platform canonicalization",
+        "path": "scripts/verify-portable-archive.py",
+        "startLine": 125,
+        "endLine": 130,
+        "language": "python",
+        "role": "root_control",
+        "code": "            if (\n                len(parts) >= 4\n                and tuple(part.casefold() for part in parts[1:3]) == (\"candy-runtime\", \"native\")\n                and parts[3].casefold().startswith(\"hypergraph-motif-cuda-incremental-scope6d-tranche1-\")\n            ):\n                issues[\"forbiddenMembers\"].append(name)",
+        "explanation": "Trailing-dot component aliases do not equal either canonical anchor but extract to them on Windows."
+      }
+    ],
+    "rootCause": "The local-install policy compares raw member components instead of rejecting aliases that the supported Windows extraction platform canonicalizes to those same components.",
+    "remediation": "Reject unsafe/noncanonical Windows path components before namespace matching; retain raw member checks and add independent injection plus actual Windows extraction regressions. Proposed follow-up only; no product edits made in this closure attempt.",
+    "validation": {
+      "counterEvidence": [
+        "Fresh clean/populated producer archives remain byte-identical and contain no local installation state. The canonical injected path is rejected. The verifier never executes archive content, and the demonstration writes only synthetic source bytes inside a disposable extraction root. No RCE, secret leak or privilege escalation follows from the evidence."
+      ],
+      "evidence": "Two archives passed verification and extracted matching synthetic bytes into the reserved namespace. The canonical-name control failed verification, and the producer excluded the extracted files.",
+      "evidenceRefs": [
+        "namespace-raw-check"
+      ],
+      "limitations": [
+        "No execution, credential disclosure, native activation or privilege escalation demonstrated."
+      ],
+      "method": "Actual current Python API/CLI and Windows ZIP extraction",
+      "status": "confirmed",
+      "artifact_paths": [
+        "artifacts/02_discovery/validation_artifacts/candidate-75ede7b1f21f28b6/result.json",
+        "artifacts/02_discovery/validation_artifacts/candidate-75ede7b1f21f28b6/windows_alias_probe.py"
+      ]
+    },
+    "attackPath": {
+      "dataflow": "Attacker-controlled ZIP entry name product/candy-runtime./native/<reserved-prefix>alias/src/main.cu (or native.) -> orig_filename -> PurePosixPath -> raw-component equality check does not match -> issueCount=0 and verifier CLI exit 0 -> Windows zipfile.extractall strips trailing dot -> bytes written beneath canonical prohibited local-install namespace.",
+      "impact": "low",
+      "likelihood": "low",
+      "limitations": [
+        "Fresh clean/populated producer archives remain byte-identical and contain no local installation state. The canonical injected path is rejected. The verifier never executes archive content, and the demonstration writes only synthetic source bytes inside a disposable extraction root. No RCE, secret leak or privilege escalation follows from the evidence."
+      ],
+      "preconditions": [
+        "Attacker supplies/repackages ZIP bytes; reviewer trusts local verifier before Windows extraction."
+      ],
+      "reachability": "A release reviewer runs the actual local verifier CLI on a submitted or repacked archive and then extracts it on Windows. No account privilege beyond supplying archive bytes is needed. The direct producer does not generate this alias archive; activation of native code or disclosure of private files is not established.",
+      "summary": "CWE-180 produces a concrete release-policy validation bypass under Windows extraction. It requires a crafted archive and a reviewer trusting verification before extraction; bounded source contamination is demonstrated. Major security impact is not evidenced, so High/Critical are unjustified."
+    },
+    "remediationTests": [
+      "Both candy-runtime. and native. injected members must fail verifier API and CLI before extraction.",
+      "Retain byte-identical canonical clean/populated archives and production-native false-positive controls."
+    ],
+    "provenance": {
+      "source": "local_plugin",
+      "candidateId": "candidate-75ede7b1f21f28b6",
+      "previousFindings": [
+        {
+          "ruleId": "portable-archive.windows-component-alias",
+          "identity": {
+            "anchor": "scripts/verify-portable-archive.py/verify/local-install-guard",
+            "instance": "windows-trailing-dot"
+          },
+          "title": "Windows component aliases bypass local-install archive rejection",
+          "summary": "The verifier compares raw POSIX components with candy-runtime/native before Windows extraction removes trailing dots. A ZIP containing product/candy-runtime./native/hypergraph-motif-cuda-incremental-scope6d-tranche1-alias/src/main.cu (or native.) passes the actual verifier with zero issues, then extracts into the prohibited local-install namespace on Windows. The producer excludes that canonical extracted path. This breaks the independently verified contamination policy, while the normal clean/populated producer archives remain identical.",
+          "severity": {
+            "level": "low",
+            "rationale": "CWE-180 produces a concrete release-policy validation bypass under Windows extraction. It requires a crafted archive and a reviewer trusting verification before extraction; bounded source contamination is demonstrated. Major security impact is not evidenced, so High/Critical are unjustified.",
+            "changeConditions": "Reject noncanonical Windows aliases before applying policy (for example trailing-dot/space components), retain independent producer/verifier checks, and add actual Windows extraction negative regressions. Remediation is a proposed follow-up only; preserved product bytes are unchanged."
+          },
+          "confidence": {
+            "level": "high",
+            "rationale": "Two variants reproduced with actual current verifier API, CLI, and Windows extractall; canonical negative control rejects the payload. Candidate hashes match prior qualification."
+          },
+          "taxonomy": {
+            "category": "Archive path canonicalization before policy validation",
+            "cwe": [
+              "CWE-180"
+            ]
+          },
+          "locations": [
+            {
+              "path": "scripts/verify-portable-archive.py",
+              "startLine": 125,
+              "endLine": 130,
+              "role": "root_control"
+            },
+            {
+              "path": "scripts/verify-portable-archive.py",
+              "startLine": 100,
+              "endLine": 103,
+              "role": "source"
+            },
+            {
+              "path": "scripts/verify-portable-archive.py",
+              "startLine": 184,
+              "endLine": 196,
+              "role": "sink"
+            }
+          ],
+          "codeEvidence": [
+            {
+              "id": "namespace-raw-check",
+              "label": "Raw component equality precedes platform canonicalization",
+              "path": "scripts/verify-portable-archive.py",
+              "startLine": 125,
+              "endLine": 130,
+              "language": "python",
+              "role": "root_control",
+              "code": "            if (\n                len(parts) >= 4\n                and tuple(part.casefold() for part in parts[1:3]) == (\"candy-runtime\", \"native\")\n                and parts[3].casefold().startswith(\"hypergraph-motif-cuda-incremental-scope6d-tranche1-\")\n            ):\n                issues[\"forbiddenMembers\"].append(name)",
+              "explanation": "Trailing-dot component aliases do not equal either canonical anchor but extract to them on Windows."
+            }
+          ],
+          "rootCause": "The local-install policy compares raw member components instead of rejecting aliases that the supported Windows extraction platform canonicalizes to those same components.",
+          "remediation": "Reject unsafe/noncanonical Windows path components before namespace matching; retain raw member checks and add independent injection plus actual Windows extraction regressions. Proposed follow-up only; no product edits made in this closure attempt.",
+          "validation": {
+            "counterEvidence": [
+              "Fresh clean/populated producer archives remain byte-identical and contain no local installation state. The canonical injected path is rejected. The verifier never executes archive content, and the demonstration writes only synthetic source bytes inside a disposable extraction root. No RCE, secret leak or privilege escalation follows from the evidence."
+            ],
+            "evidence": [
+              "Two archives passed verification and extracted matching synthetic bytes into the reserved namespace. The canonical-name control failed verification, and the producer excluded the extracted files."
+            ],
+            "evidenceRefs": [
+              "namespace-raw-check"
+            ],
+            "limitations": [
+              "No execution, credential disclosure, native activation or privilege escalation demonstrated."
+            ],
+            "method": "Actual current Python API/CLI and Windows ZIP extraction",
+            "status": "confirmed",
+            "artifact_paths": [
+              "artifacts/02_discovery/validation_artifacts/candidate-75ede7b1f21f28b6/result.json",
+              "artifacts/02_discovery/validation_artifacts/candidate-75ede7b1f21f28b6/windows_alias_probe.py"
+            ]
+          },
+          "attackPath": {
+            "dataflow": "Attacker-controlled ZIP entry name product/candy-runtime./native/<reserved-prefix>alias/src/main.cu (or native.) -> orig_filename -> PurePosixPath -> raw-component equality check does not match -> issueCount=0 and verifier CLI exit 0 -> Windows zipfile.extractall strips trailing dot -> bytes written beneath canonical prohibited local-install namespace.",
+            "impact": "low",
+            "likelihood": "low",
+            "limitations": [
+              "Fresh clean/populated producer archives remain byte-identical and contain no local installation state. The canonical injected path is rejected. The verifier never executes archive content, and the demonstration writes only synthetic source bytes inside a disposable extraction root. No RCE, secret leak or privilege escalation follows from the evidence."
+            ],
+            "preconditions": [
+              "Attacker supplies/repackages ZIP bytes; reviewer trusts local verifier before Windows extraction."
+            ],
+            "reachability": "A release reviewer runs the actual local verifier CLI on a submitted or repacked archive and then extracts it on Windows. No account privilege beyond supplying archive bytes is needed. The direct producer does not generate this alias archive; activation of native code or disclosure of private files is not established.",
+            "summary": "CWE-180 produces a concrete release-policy validation bypass under Windows extraction. It requires a crafted archive and a reviewer trusting verification before extraction; bounded source contamination is demonstrated. Major security impact is not evidenced, so High/Critical are unjustified."
+          },
+          "remediationTests": [
+            "Both candy-runtime. and native. injected members must fail verifier API and CLI before extraction.",
+            "Retain byte-identical canonical clean/populated archives and production-native false-positive controls."
+          ],
+          "provenance": {
+            "source": "local_plugin",
+            "candidateId": "candidate-75ede7b1f21f28b6"
+          }
+        }
+      ]
+    }
+  },
+  "coverage": {
+    "completeness": "complete",
+    "surfaces": [
+      {
+        "id": "pack-producer",
+        "label": "scripts/package-portable-source.py",
+        "disposition": "no_issue_found",
+        "receiptRefs": [],
+        "riskArea": "Anchored exclusions, deterministic contents and legitimate source preservation",
+        "notes": "Reviewed full producer. Added guard at 442-453 casefolds complete root components and reserves arbitrary/empty suffixes. Existing controls retain credentials/build/cache/root-artifacts exclusion, file symlink rejection, fixed metadata, REQUIRED_FILES and collision checks. Fresh real baseline-plus-four-overlay archives reproduce exact prior SHA256; no source member removed."
+      },
+      {
+        "id": "archive-verifier",
+        "label": "scripts/verify-portable-archive.py",
+        "disposition": "reported",
+        "receiptRefs": [
+          "artifacts/02_discovery/validation_artifacts/candidate-75ede7b1f21f28b6/result.json"
+        ],
+        "riskArea": "Independent exclusion and malformed-path verification",
+        "notes": "Reviewed full verifier. Raw backslashes, absolute/drive paths, parent traversal, case collisions, symlinks/special files, permissions and CRC negative tests pass. Confirmed Windows trailing-dot namespace alias bypass CWE-180, Low. Both alias variants accepted; actual Windows extraction writes prohibited namespace bytes and producer excludes resulting file. Canonical local-install contamination rejected."
+      },
+      {
+        "id": "regression",
+        "label": "tests/candy-scope6e-package.test.mjs",
+        "disposition": "no_issue_found",
+        "receiptRefs": [],
+        "riskArea": "Synthetic test isolation and regression adequacy",
+        "notes": "Explicitly reviewed untracked new file omitted by compact inventory. Temp-only synthetic fixtures, no real install inspection; independent injection covers local variants, empty suffix, case, directory entries, all existing forbidden categories, metadata and CRC. Fresh focused command and full 286/286 file suite pass. Existing corpus lacks the confirmed Windows trailing-dot variant; follow-up regression proposed in finding."
+      },
+      {
+        "id": "policy-doc",
+        "label": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+        "disposition": "no_issue_found",
+        "receiptRefs": [],
+        "riskArea": "Policy scope and product qualification claims",
+        "notes": "Explicitly reviewed untracked new doc omitted by compact inventory. Accurately distinguishes root-local install state, production native source, nested lookalikes and integrated qualification scope. Independent verifier guarantee is limited by the separately reported alias flaw; closure report withholds PASS."
+      }
+    ],
+    "explicitExclusions": [
+      {
+        "pattern": "artifacts/**",
+        "reason": "User excludes all qualification evidence/tooling from product commit; reviewed as supporting evidence. Compact inventory's 11 artifact entries accounted for here."
+      },
+      {
+        "pattern": "artifacts/**",
+        "reason": "Compact-inventory artifact entries are qualification evidence/tooling, excluded from product commit per user. Evidence digests and tooling inspected as support; current-run evidence additive."
+      },
+      {
+        "pattern": "artifacts/**",
+        "reason": "User excludes qualification evidence/tooling from product commit; inspected as supporting evidence only."
+      }
+    ],
+    "deferred": [],
+    "mode": "working_tree",
+    "inventoryStrategy": "diff",
+    "includePaths": [
+      "."
+    ],
+    "excludePaths": [],
+    "documentType": "codex-security.coverage",
+    "schemaVersion": "1.0",
+    "scanId": "ce39ac67-885a-486d-b456-99dd082d9c70"
+  },
+  "canonicalArtifacts": {
+    "scan-manifest.json": {
+      "path": "\\\\?\\C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\c294ed0cea093bb8933d06e6e23177a7f1409952_20261024T170845Z_e5i5f7vi\\scan-manifest.json",
+      "sha256": "9043021609058a63adeab457a04d78904e73146737c5f4c4fca4f03377af626b"
+    },
+    "findings.json": {
+      "path": "\\\\?\\C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\c294ed0cea093bb8933d06e6e23177a7f1409952_20261024T170845Z_e5i5f7vi\\findings.json",
+      "sha256": "2605fbd77e27650e0087b43dbdf2df1f9065d3626aaefe37d518dc770ee64709"
+    },
+    "coverage.json": {
+      "path": "\\\\?\\C:\\Users\\tharu\\.codex\\state\\plugins\\codex-security\\scans\\hypergraph-converter-v7.3.14-scope6e-package-corrective\\c294ed0cea093bb8933d06e6e23177a7f1409952_20261024T170845Z_e5i5f7vi\\coverage.json",
+      "sha256": "326fa42d1bac87d697acb22b4b925d088ac294ceb647dedffb6bcad58298c972"
+    }
+  },
+  "aliasEvidence": {
+    "path": "artifacts/candy-scope6e-package-corrective-final-run/windows-alias-result.json",
+    "sha256": "aace0a7e91cc6ece03c4691ac71e46b56ac8e511911bb8110af3ab051e525a7c"
+  },
+  "reportPath": null
+}
