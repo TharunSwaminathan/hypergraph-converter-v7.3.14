@@ -1,0 +1,15 @@
+# Focused semantic review — extracted snapshot caller correction
+
+Baseline `e84f06cdaa750803a06007ade63124b6bce693c8`; reviewed delta: only `tests/candy-scope6a-release.test.mjs`, 19 additions / 2 deletions. **No unresolved Critical or High issue identified.** No reportable security finding was identified in this bounded change.
+
+The change is confined to a self-test caller. Git-backed execution still invokes the helper without snapshot arguments, preserving default commit-authoritative source selection. A root `.git` entry may be a directory or a linked-worktree file. If that entry exists but is broken, the helper still takes its Git path and fails; this change does not catch Git failures and retry with filesystem inputs. Only the intentionally Git-free extracted self-test passes the explicit snapshot flag.
+
+The added result assertions enforce the trust distinction: Git-backed runs require `commit-bound` verification and the current committed SHA; snapshot runs require `structural-only` and a null commit. The separate invocation against the helper's freshly extracted Git-free tree omits snapshot arguments and must fail with the metadata error, without producing a success report. An explicit snapshot therefore cannot pass these tests while masquerading as a commit-bound release.
+
+The producer, verifier, helper and policy documentation are unchanged. Their committed-tree/raw-blob authority, untracked and dirty/EOL exclusion, exact binary handling, independent external inventory/content verification, local-install/root-artifact exclusion and raw Windows alias checks retain the previously qualified implementation. Existing input-policy and adversarial package regressions are part of both full-suite runs. Prior assertion lines in this test remain textually unchanged; the new assertions strengthen provenance and fail-closed coverage.
+
+Child processes receive fixed argument arrays through `execFileSync`/`spawnSync`, with no shell interpolation or new external input. Temporary files are locally owned diagnostic reports; no Runtime credentials, native qualification record, CUDA source, endpoint, model permission or production authority is changed. The new failure test does not invoke a native backend. Missing native evidence is neither fabricated nor reconstructed.
+
+The real clean/populated Git release witnesses remain bound to the committed baseline and deliberately exclude the uncommitted test edit. The reviewed candidate archive is assembled explicitly from that committed inventory plus one externally hashed test overlay. Structural verification can accept it; baseline commit-bound verification must reject precisely the changed test. This separation prevents precommit validation from being misrepresented as future exact-SHA release qualification.
+
+**Automated Codex Security completion seal UNAVAILABLE / NOT COMPLETED.** No Codex Security scan, completion or sealing is invoked. The existing accepted infrastructure exception remains historical and unchanged. This focused corrective review does not resume or qualify integrated Scope 6E operation or the missing native-evidence lane.

@@ -1,0 +1,402 @@
+{
+  "recordedAt": "2026-10-26T06:17:40.483212+00:00",
+  "verdict": "READY FOR SCOPE 6E EXTRACTED SNAPSHOT CORRECTIVE QUALIFICATION TAG AND MAIN PROMOTION",
+  "status": "PASS",
+  "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "baseline": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "branch": "candy-integration-scope6e-extracted-snapshot-corrective",
+  "committedDelta": {
+    "status": "PASS",
+    "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+    "baseline": "e84f06cdaa750803a06007ade63124b6bce693c8",
+    "pathCount": 1,
+    "additions": 19,
+    "deletions": 2,
+    "paths": [
+      {
+        "path": "tests/candy-scope6a-release.test.mjs",
+        "gitBlob": "4882f08a36337fd74c72eac2d5ea2f33298b5ce6",
+        "sha256": "bb96ebc8f2f84250048a35b327f1df6b02a5b862c717bbfe7568fe27bce7e957",
+        "committedBytes": 4647,
+        "checkoutSha256": "c26a5cd4bb0c8620d27cfe6d42f41577f43be8d8adf36390b2f953b605c602e6",
+        "matchesReviewedProspectiveBlob": true,
+        "checkoutNormalizesToExactBlob": true
+      }
+    ],
+    "noOtherCommittedDelta": true,
+    "noProtectedPathDelta": true,
+    "primaryOrigin": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+    "githubBranchVerifiedSeparately": true
+  },
+  "trackedAndStagedChanges": [],
+  "repositoryTests": {
+    "passed": 287,
+    "discovered": 287
+  },
+  "extractedTests": {
+    "passed": 287,
+    "discovered": 287
+  },
+  "repositoryGates": "PASS",
+  "extractedGates": "PASS",
+  "bothProductionAudits": 0,
+  "allFiveRemoteChecksPassExactSha": true,
+  "remoteChecks": [
+    {
+      "label": "CPU release / push",
+      "status": "PASS",
+      "candidateSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "workflowName": "CPU regression and browser source release",
+      "event": "push",
+      "workflowRunId": 40277242192,
+      "workflowRunNumber": 62,
+      "runAttempt": 1,
+      "workflowRunUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277242192",
+      "workflowConclusion": "success",
+      "jobId": 121422483147,
+      "jobName": "cpu",
+      "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277242192/job/121422483147",
+      "jobHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "jobConclusion": "success",
+      "checkRunId": 121422483147,
+      "checkHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "allSubstantiveStepsSuccess": true
+    },
+    {
+      "label": "CPU release / pull_request",
+      "status": "PASS",
+      "candidateSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "workflowName": "CPU regression and browser source release",
+      "event": "pull_request",
+      "workflowRunId": 40277433267,
+      "workflowRunNumber": 63,
+      "runAttempt": 1,
+      "workflowRunUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433267",
+      "workflowConclusion": "success",
+      "jobId": 121423037851,
+      "jobName": "cpu",
+      "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433267/job/121423037851",
+      "jobHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "jobConclusion": "success",
+      "checkRunId": 121423037851,
+      "checkHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "allSubstantiveStepsSuccess": true
+    },
+    {
+      "label": "Ubuntu",
+      "status": "PASS",
+      "candidateSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "workflowName": "CI",
+      "event": "pull_request",
+      "workflowRunId": 40277433271,
+      "workflowRunNumber": 17,
+      "runAttempt": 1,
+      "workflowRunUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433271",
+      "workflowConclusion": "success",
+      "jobId": 121423037746,
+      "jobName": "Build, lint and test (Ubuntu)",
+      "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433271/job/121423037746",
+      "jobHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "jobConclusion": "success",
+      "checkRunId": 121423037746,
+      "checkHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "allSubstantiveStepsSuccess": true
+    },
+    {
+      "label": "macOS",
+      "status": "PASS",
+      "candidateSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "workflowName": "CI",
+      "event": "pull_request",
+      "workflowRunId": 40277433271,
+      "workflowRunNumber": 17,
+      "runAttempt": 1,
+      "workflowRunUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433271",
+      "workflowConclusion": "success",
+      "jobId": 121423038142,
+      "jobName": "Build and test (macos-latest)",
+      "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433271/job/121423038142",
+      "jobHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "jobConclusion": "success",
+      "checkRunId": 121423038142,
+      "checkHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "allSubstantiveStepsSuccess": true
+    },
+    {
+      "label": "Windows",
+      "status": "PASS",
+      "candidateSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "workflowName": "CI",
+      "event": "pull_request",
+      "workflowRunId": 40277433271,
+      "workflowRunNumber": 17,
+      "runAttempt": 1,
+      "workflowRunUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433271",
+      "workflowConclusion": "success",
+      "jobId": 121423037991,
+      "jobName": "Build and test (windows-latest)",
+      "jobUrl": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40277433271/job/121423037991",
+      "jobHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "jobConclusion": "success",
+      "checkRunId": 121423037991,
+      "checkHeadSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "allSubstantiveStepsSuccess": true
+    }
+  ],
+  "pullRequest": {
+    "number": 9,
+    "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/pull/9",
+    "draft": true,
+    "headSha": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+    "baseSha": "e84f06cdaa750803a06007ade63124b6bce693c8",
+    "baseRef": "main"
+  },
+  "archive": {
+    "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+    "bytes": 1729984,
+    "entries": 940,
+    "files": 884,
+    "directories": 56
+  },
+  "realWitnessesByteIdentical": true,
+  "packageAdversarial": "PASS",
+  "rejectedAdversarialCases": 24,
+  "substantiveSecurity": "PASS for corrective scope",
+  "unresolvedCriticalHigh": 0,
+  "securityStatement": "Substantive product security qualification PASS under the explicitly accepted security-infrastructure exception; automated Codex Security completion seal UNAVAILABLE / NOT COMPLETED.",
+  "automatedCodexSecuritySeal": "UNAVAILABLE / NOT COMPLETED",
+  "fiveFileNativeEvidenceBlocker": "OPEN / NOT ADDRESSED",
+  "integratedScope6e": "NON-PASS",
+  "integratedScope6eResumed": false,
+  "preservation": {
+    "status": "PASS",
+    "primaryTrackedBytesUnchanged": 1285,
+    "priorPrimaryArtifactsUnchanged": 440,
+    "populatedTrackedAnd22ScriptsUnchanged": 1307,
+    "populatedLocalInstallationFilesUnchanged": 6,
+    "populatedPriorArtifactsUnchanged": 980,
+    "bothIndexesAndAllRefsUnchanged": true,
+    "populatedStatusBranchHeadUnchanged": true,
+    "sourceTestPolicyRuntimeNativeCudaBytesModified": false,
+    "populatedWitnessReadOnly": true,
+    "noStagingCommitPushTagMergeOrMainChange": true,
+    "readyForReviewClicked": false,
+    "missingNativeEvidenceTouched": false,
+    "integratedQualificationResumed": false
+  },
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "tagged": false,
+  "merged": false,
+  "mainModified": false,
+  "readyForReviewClicked": false,
+  "evidenceFiles": [
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/adversarial-matrix.json",
+      "bytes": 39099,
+      "sha256": "b260d582fa36d384522867c6cea4a18d234899ff5d49bdfe5e5996061b6bfda4"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/adversarial.py",
+      "bytes": 4320,
+      "sha256": "1621fe8617a3bb0919ba87ebb82e83df91b1fd46345e9e15c8bb8f476633aff0"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/before.json",
+      "bytes": 529332,
+      "sha256": "ab3981758f8820a10efd0b1e42d96d2b3079c4c0430099f8ddd317d472d0a43d"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/clean-manifest.json",
+      "bytes": 209397,
+      "sha256": "202ab293ae403d225887ab745ee240223e3bff61c9e566cb5875e0f283c53364"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/clean.zip",
+      "bytes": 1729984,
+      "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/close.py",
+      "bytes": 14770,
+      "sha256": "81cadafb105642c2e8561bbed16ed9f28268a2c52c2724608a293f3ad28a27ea"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/committed-delta.json",
+      "bytes": 863,
+      "sha256": "48992602aea1973325da691266166bb58c4b33a253a4728c807333d9f1fc9db0"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/corrective-semantics.json",
+      "bytes": 789,
+      "sha256": "3ec16e10aee6d0b2207cf1e5a58db081f3613a47e3666b7bddb994a9e6f4defd"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/exact-sha-report.md",
+      "bytes": 8834,
+      "sha256": "b940d36a563a0a393c80b3a9be6f37a964956c632fec790f9d6b7c2e5a20e3ee"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extracted-0.log",
+      "bytes": 335,
+      "sha256": "8d0c3cadc2f30cbf110648a0c631f7c3b62e256272bc52f94ab3ea9639ceec26"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extracted-1.log",
+      "bytes": 30023,
+      "sha256": "cfac698f5e2ae5c18600143310cd3f0ce1ecad655c47818fe997dcb18ed7dddf"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extracted-2.log",
+      "bytes": 55,
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extracted-3.log",
+      "bytes": 2104,
+      "sha256": "db1ed249576060715c777ef4118528efd35ce49a38ed94e849ff5aa81066308f"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extracted-4.log",
+      "bytes": 2141,
+      "sha256": "ead9cab2a59efe26d1235b034fab71225a0c4316c35407b26307e2372b017c22"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extracted-5.log",
+      "bytes": 24,
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extracted-gates.json",
+      "bytes": 2872,
+      "sha256": "0175da299d7ed890f526efd265d34854efb3a253a643327d38a07bcfceb65053"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/extraction.json",
+      "bytes": 496,
+      "sha256": "26a503158cc1f53e5bb1af97e75ae8653a847b61b58e3ba0427ba530d44df114"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/package-reproduction.json",
+      "bytes": 66770,
+      "sha256": "c87c20594ce0d3e139b26a74b7cd5c5473f37c9160cab544d238545b9357f59e"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/populated-manifest.json",
+      "bytes": 209401,
+      "sha256": "fbb26b34912b90a8457022f7fde93930953c06376029aa543b3e3dd21293473d"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/populated.zip",
+      "bytes": 1729984,
+      "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/preservation.json",
+      "bytes": 613,
+      "sha256": "edbf02134eb84a0dc26cbebb3ee3aa79e5e62fb9ee3971c5c3fc49cdca5dbeb5"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/qualify.py",
+      "bytes": 10535,
+      "sha256": "53c570e8507d82b3c25ade32f3754e97fd1d9b60b0182659b9bd84f8e8108f16"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/branch.json",
+      "bytes": 5171,
+      "sha256": "f1283292ce84f31a6c7685960959bb5c074f66365c2669b38abbba17ebf069e7"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/checks.json",
+      "bytes": 27265,
+      "sha256": "db7b9dff0a21a9540f05411a3a7e187752ac8539ed776c284aa3ea0dbe017bf8"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/closure.json",
+      "bytes": 7394,
+      "sha256": "3fc988acc3e217118ecd76c822b08362f65d57d3fea3ef1736b0d4bed4b2c16a"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/jobs-40277242192.json",
+      "bytes": 6566,
+      "sha256": "d4f8677485fd1c3920ffac64b8ddfd36efe3ffc80cc5168d45b2de88355c6a7c"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/jobs-40277433267.json",
+      "bytes": 6566,
+      "sha256": "647d11b19dc1d55249080b3f534fc327d54886c6edd77f858908b8148afc1e5e"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/jobs-40277433271.json",
+      "bytes": 11167,
+      "sha256": "526d19b8ea9a7332de17f51fed6bd0c05edc143a25882e653f3e071e17417839"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/pulls.json",
+      "bytes": 23101,
+      "sha256": "8dd75f37306f142bd0b4b6c1e5f768bf6a593213e16579b68421a10112ce7800"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote/runs.json",
+      "bytes": 54850,
+      "sha256": "e95682b1c567b41bf555fed3993b8b948803f8e257b3911dba6921bf4ac584fb"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/remote-ci.py",
+      "bytes": 6083,
+      "sha256": "8706267dc34cc8574eac0c63e2d82be31510da0bfa644d9cea07e4c56329995b"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-0.log",
+      "bytes": 335,
+      "sha256": "6393deb476a2dda531e50393e11a5748296f8b52a0239f0431ae7b9b2c1191f9"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-1.log",
+      "bytes": 29738,
+      "sha256": "d5f7d169a58d12ee6d37d87f66d47b5602d1f6f2e7a9c86fa2b5fa937f317547"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-2.log",
+      "bytes": 55,
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-3.log",
+      "bytes": 2104,
+      "sha256": "54bb7f100137e0f6f687b1300fe86d7aae52171fd12ec108a2339e167c263043"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-4.log",
+      "bytes": 2141,
+      "sha256": "2c3d18c514b84626e0ebcccaf5dbb127e08d7c10dfc88884650f52db8ecb57fb"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-5.log",
+      "bytes": 24,
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-6.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-gates.json",
+      "bytes": 3324,
+      "sha256": "3bf254b309775c36d526dd0f8049c74c204f61af93d6139e2d3d18b15acf19c7"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/security-review.json",
+      "bytes": 915,
+      "sha256": "8146cabb884068889fdb91f667ce007c5b2ffb1258b77b23fe4435ae60a3144f"
+    },
+    {
+      "path": "artifacts/scope6e-snapshot-exact-d2a2bdb/security-review.md",
+      "bytes": 4939,
+      "sha256": "bee3b0a592aa7cca7c39f871c9c55e7a9aa8ef934cd0d8ac90b45c78db6bce23"
+    }
+  ],
+  "selfDigestExcluded": true
+}

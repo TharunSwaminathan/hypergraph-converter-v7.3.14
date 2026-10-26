@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "baseline": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "controls": [
+    {
+      "requirement": "Git-backed helper invocation without snapshot arguments remains commit-authoritative",
+      "result": "PASS",
+      "evidence": "repository full suite executes the modified caller with no snapshot args; all three helper reports must be commit-bound and match HEAD."
+    },
+    {
+      "requirement": "Git-free helper default fails closed",
+      "result": "PASS",
+      "evidence": "Both repository and extracted self-tests invoke the helper against newly extracted no-Git output with no opt-in; require exit 1, metadata error and absent success report."
+    },
+    {
+      "requirement": "Git-free extracted self-test explicitly requests snapshot and passes",
+      "result": "PASS",
+      "evidence": "Full extracted suite passes from new no-Git directory; modified caller explicitly passes --source-mode snapshot."
+    },
+    {
+      "requirement": "Snapshot cannot masquerade as commit-bound qualification",
+      "result": "PASS",
+      "evidence": "Caller requires structural-only/null sourceCommit for every snapshot helper case; independent baseline commit-bound verification rejects precisely the reviewed candidate changed test."
+    },
+    {
+      "requirement": "Existing package-input contamination/path/alias regressions pass",
+      "result": "PASS",
+      "evidence": "Unmodified candy-scope6e-package-input and candy-scope6e-package tests pass in both full suites; fresh real Git witnesses exclude all 22 scripts/local-install/root evidence and retain canonical production paths."
+    }
+  ],
+  "productPathsChanged": [
+    "tests/candy-scope6a-release.test.mjs"
+  ]
+}

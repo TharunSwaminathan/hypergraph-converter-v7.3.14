@@ -1,0 +1,1215 @@
+{
+  "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "status": "PASS",
+  "actualReleaseSha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+  "rejected": 24,
+  "acceptedCanonicalControls": 6,
+  "controls": [
+    "README.md",
+    "scripts/qualify-scope6a-package.py",
+    "tests/candy-scope6a-release.test.mjs",
+    "candy-runtime/src/artifacts/artifactStore.js",
+    "candy-runtime/native/hypergraph-motif-cuda/src/main.cu",
+    "candy-runtime/native/hypergraph-motif-cuda-incremental/src/main.cu"
+  ],
+  "originalCommitBoundReport": {
+    "archive": "clean.zip",
+    "bytes": 1729984,
+    "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+    "memberCount": 940,
+    "root": "product",
+    "testzip": "ok",
+    "modeCounts": {
+      "0644": 856,
+      "0755": 84
+    },
+    "issues": {
+      "backslashMembers": [],
+      "nonCanonicalMembers": [],
+      "absoluteMembers": [],
+      "traversalMembers": [],
+      "duplicateMembers": [],
+      "caseCollisions": [],
+      "forbiddenMembers": [],
+      "symlinkMembers": [],
+      "specialMembers": [],
+      "unexpectedExecutableFiles": [],
+      "missingExecutableBits": [],
+      "incorrectOrdinaryModes": [],
+      "incorrectDirectoryModes": [],
+      "worldOrGroupWritable": [],
+      "nonUnixCreateSystem": [],
+      "rootLayout": [],
+      "crcFailures": [],
+      "sourceInventory": []
+    },
+    "issueCount": 0,
+    "ok": true,
+    "verificationLevel": "commit-bound",
+    "sourceCommit": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2"
+  },
+  "cases": [
+    {
+      "case": "arbitrary untracked script",
+      "rawName": "product/scripts/arbitrary-new-diagnostic.mjs",
+      "sha256": "966445b6f6f29d0174a2f9f0c604cffefaa334911f2d78b897b6a93086230002",
+      "status": "REJECTED",
+      "expectedIssue": "sourceInventory",
+      "report": {
+        "archive": "0.zip",
+        "bytes": 1730173,
+        "sha256": "966445b6f6f29d0174a2f9f0c604cffefaa334911f2d78b897b6a93086230002",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": [
+            "product/scripts/arbitrary-new-diagnostic.mjs"
+          ]
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2"
+      }
+    },
+    {
+      "case": "arbitrary untracked allowed-directory file",
+      "rawName": "product/src/arbitrary-new-file.txt",
+      "sha256": "d6b61158047751511a9e2ad7dfb3528a390f512a83d7b1b97b41844b03268a1e",
+      "status": "REJECTED",
+      "expectedIssue": "sourceInventory",
+      "report": {
+        "archive": "1.zip",
+        "bytes": 1730153,
+        "sha256": "d6b61158047751511a9e2ad7dfb3528a390f512a83d7b1b97b41844b03268a1e",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": [
+            "product/src/arbitrary-new-file.txt"
+          ]
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2"
+      }
+    },
+    {
+      "case": "local native install",
+      "rawName": "product/candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu",
+      "sha256": "7d740c5a0f08db83fb553dc071a8218075819a622cf2d1ee75b3840594aefe0f",
+      "status": "REJECTED",
+      "expectedIssue": "forbiddenMembers",
+      "report": {
+        "archive": "2.zip",
+        "bytes": 1730287,
+        "sha256": "7d740c5a0f08db83fb553dc071a8218075819a622cf2d1ee75b3840594aefe0f",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [
+            "product/candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu"
+          ],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "root artifacts",
+      "rawName": "product/artifacts/qualification.json",
+      "sha256": "082bba11ba1fc8f14d7af1361dd273345742a7fec24fa8b51a9b2c16539f9f70",
+      "status": "REJECTED",
+      "expectedIssue": "forbiddenMembers",
+      "report": {
+        "archive": "3.zip",
+        "bytes": 1730157,
+        "sha256": "082bba11ba1fc8f14d7af1361dd273345742a7fec24fa8b51a9b2c16539f9f70",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [
+            "product/artifacts/qualification.json"
+          ],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "trailing dot",
+      "rawName": "product/candy-runtime./native/hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu",
+      "sha256": "5e20764762750268615dd3e42d615d2c3c76105e1fcf14724a6007b218659994",
+      "status": "REJECTED",
+      "expectedIssue": "nonCanonicalMembers",
+      "report": {
+        "archive": "4.zip",
+        "bytes": 1730289,
+        "sha256": "5e20764762750268615dd3e42d615d2c3c76105e1fcf14724a6007b218659994",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "product/candy-runtime./native/hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu"
+          ],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "trailing space",
+      "rawName": "product/candy-runtime /native/hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu",
+      "sha256": "bc8dd17809611effa717c343abb094d5a8c7d2becf8063017967aaa0e1fa4536",
+      "status": "REJECTED",
+      "expectedIssue": "nonCanonicalMembers",
+      "report": {
+        "archive": "5.zip",
+        "bytes": 1730289,
+        "sha256": "bc8dd17809611effa717c343abb094d5a8c7d2becf8063017967aaa0e1fa4536",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "product/candy-runtime /native/hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu"
+          ],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "mixed slash alias",
+      "rawName": "product/candy-runtime/native.\\hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu",
+      "sha256": "1bdba688c7813a50531ec1ce74e9f920c0a25246de35e7bf1dd5eff4b7646615",
+      "status": "REJECTED",
+      "expectedIssue": "backslashMembers",
+      "report": {
+        "archive": "6.zip",
+        "bytes": 1730289,
+        "sha256": "1bdba688c7813a50531ec1ce74e9f920c0a25246de35e7bf1dd5eff4b7646615",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [
+            "product/candy-runtime/native.\\hypergraph-motif-cuda-incremental-scope6d-tranche1-untrusted/src/main.cu"
+          ],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "raw backslash",
+      "rawName": "product\\src\\payload.txt",
+      "sha256": "1e1098eb2ef78cc77920f8398b31b692c75d7c30ba924ee82e5b3b8f24946728",
+      "status": "REJECTED",
+      "expectedIssue": "backslashMembers",
+      "report": {
+        "archive": "7.zip",
+        "bytes": 1730131,
+        "sha256": "1e1098eb2ef78cc77920f8398b31b692c75d7c30ba924ee82e5b3b8f24946728",
+        "memberCount": 941,
+        "root": null,
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [
+            "product\\src\\payload.txt"
+          ],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [
+            {
+              "expected": [
+                "product"
+              ],
+              "actual": [
+                "product",
+                "product\\src\\payload.txt"
+              ]
+            }
+          ],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 2,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "traversal",
+      "rawName": "product/../payload.txt",
+      "sha256": "3e22b0dd3e09ff01c7d184af9ac3641f9c714f39c98fb5e063a19bb44588adbc",
+      "status": "REJECTED",
+      "expectedIssue": "traversalMembers",
+      "report": {
+        "archive": "8.zip",
+        "bytes": 1730129,
+        "sha256": "3e22b0dd3e09ff01c7d184af9ac3641f9c714f39c98fb5e063a19bb44588adbc",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "product/../payload.txt"
+          ],
+          "absoluteMembers": [],
+          "traversalMembers": [
+            "product/../payload.txt"
+          ],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 2,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "POSIX absolute",
+      "rawName": "/payload.txt",
+      "sha256": "c2629b52dbfd2832bf6c69ed99b44accf3cc8ebd2e89f784c29ab9b486b7c2ce",
+      "status": "REJECTED",
+      "expectedIssue": "absoluteMembers",
+      "report": {
+        "archive": "9.zip",
+        "bytes": 1730109,
+        "sha256": "c2629b52dbfd2832bf6c69ed99b44accf3cc8ebd2e89f784c29ab9b486b7c2ce",
+        "memberCount": 941,
+        "root": null,
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "/payload.txt"
+          ],
+          "absoluteMembers": [
+            "/payload.txt"
+          ],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [
+            {
+              "expected": [
+                "product"
+              ],
+              "actual": [
+                "/",
+                "product"
+              ]
+            }
+          ],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 3,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "Windows absolute",
+      "rawName": "C:/payload.txt",
+      "sha256": "7ac9b7b14f38e367aa2bdc26f2f4f3caa93fb38a0ac562b326bfd31f064add19",
+      "status": "REJECTED",
+      "expectedIssue": "absoluteMembers",
+      "report": {
+        "archive": "10.zip",
+        "bytes": 1730113,
+        "sha256": "7ac9b7b14f38e367aa2bdc26f2f4f3caa93fb38a0ac562b326bfd31f064add19",
+        "memberCount": 941,
+        "root": null,
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "C:/payload.txt"
+          ],
+          "absoluteMembers": [
+            "C:/payload.txt"
+          ],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [
+            {
+              "expected": [
+                "product"
+              ],
+              "actual": [
+                "C:",
+                "product"
+              ]
+            }
+          ],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 3,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "UNC",
+      "rawName": "\\\\server\\share\\payload.txt",
+      "sha256": "147528557c90d98f215c20d2e89ab89455b6f42a4513619b9733c0ac9e757796",
+      "status": "REJECTED",
+      "expectedIssue": "backslashMembers",
+      "report": {
+        "archive": "11.zip",
+        "bytes": 1730137,
+        "sha256": "147528557c90d98f215c20d2e89ab89455b6f42a4513619b9733c0ac9e757796",
+        "memberCount": 941,
+        "root": null,
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [
+            "\\\\server\\share\\payload.txt"
+          ],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [
+            {
+              "expected": [
+                "product"
+              ],
+              "actual": [
+                "\\\\server\\share\\payload.txt",
+                "product"
+              ]
+            }
+          ],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 2,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "pairing token",
+      "rawName": "product/pairing-token.json",
+      "sha256": "2a4be84458b6e9e99906d848972183fc5c34db4bcdecea05b9f7f95b061310ae",
+      "status": "REJECTED",
+      "expectedIssue": "forbiddenMembers",
+      "report": {
+        "archive": "12.zip",
+        "bytes": 1730137,
+        "sha256": "2a4be84458b6e9e99906d848972183fc5c34db4bcdecea05b9f7f95b061310ae",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [
+            "product/pairing-token.json"
+          ],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "credential",
+      "rawName": "product/credentials.json",
+      "sha256": "c8f795a665428e55fd82c1e36b5d7c648fa710e376c153fb9bd6267ad0ff14d5",
+      "status": "REJECTED",
+      "expectedIssue": "forbiddenMembers",
+      "report": {
+        "archive": "13.zip",
+        "bytes": 1730133,
+        "sha256": "c8f795a665428e55fd82c1e36b5d7c648fa710e376c153fb9bd6267ad0ff14d5",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [
+            "product/credentials.json"
+          ],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "environment credential",
+      "rawName": "product/.env.local",
+      "sha256": "45b20eab938338db7d52d6bf7bb81c67b0a6f0c5a7e89303fba4ef9955f9cad6",
+      "status": "REJECTED",
+      "expectedIssue": "forbiddenMembers",
+      "report": {
+        "archive": "14.zip",
+        "bytes": 1730121,
+        "sha256": "45b20eab938338db7d52d6bf7bb81c67b0a6f0c5a7e89303fba4ef9955f9cad6",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [
+            "product/.env.local"
+          ],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "unsafe executable alias",
+      "rawName": "product/native.exe ",
+      "sha256": "0358752715bf9e85e888422714110efcfd256643285fefb17f0f4093eb20697d",
+      "status": "REJECTED",
+      "expectedIssue": "nonCanonicalMembers",
+      "report": {
+        "archive": "15.zip",
+        "bytes": 1730123,
+        "sha256": "0358752715bf9e85e888422714110efcfd256643285fefb17f0f4093eb20697d",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "product/native.exe "
+          ],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "NUL spelling",
+      "rawName": "product/src/ordinary\u0000hidden",
+      "sha256": "ea02ac0e4b839b7bca4a9f2ce294589ea3f0ae08d7bc155ee6e4b31c5bb3646a",
+      "status": "REJECTED",
+      "expectedIssue": "nonCanonicalMembers",
+      "report": {
+        "archive": "16.zip",
+        "bytes": 1730139,
+        "sha256": "ea02ac0e4b839b7bca4a9f2ce294589ea3f0ae08d7bc155ee6e4b31c5bb3646a",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "product/src/ordinary\u0000hidden"
+          ],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "control spelling",
+      "rawName": "product/src/ordinary\u0001hidden",
+      "sha256": "2f5fc6380ab05c4dafd3073ffc7f6048d2ec1e05464c9ca367bf32923c2e0a9a",
+      "status": "REJECTED",
+      "expectedIssue": "nonCanonicalMembers",
+      "report": {
+        "archive": "17.zip",
+        "bytes": 1730139,
+        "sha256": "2f5fc6380ab05c4dafd3073ffc7f6048d2ec1e05464c9ca367bf32923c2e0a9a",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "product/src/ordinary\u0001hidden"
+          ],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "illegal character",
+      "rawName": "product/src/ordinary:name",
+      "sha256": "3f9821fc3175ae039f1cdefb05d8480da8ed63a4af49580314fd8b6a11e6b829",
+      "status": "REJECTED",
+      "expectedIssue": "nonCanonicalMembers",
+      "report": {
+        "archive": "18.zip",
+        "bytes": 1730135,
+        "sha256": "3f9821fc3175ae039f1cdefb05d8480da8ed63a4af49580314fd8b6a11e6b829",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [
+            "product/src/ordinary:name"
+          ],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "symlink",
+      "rawName": "product/src/link",
+      "sha256": "ecf6db9fb4fa9cea40135e80fda221a901c0a06bca1bdc4d22ed0a03236dce8b",
+      "status": "REJECTED",
+      "expectedIssue": "symlinkMembers",
+      "report": {
+        "archive": "19.zip",
+        "bytes": 1730117,
+        "sha256": "ecf6db9fb4fa9cea40135e80fda221a901c0a06bca1bdc4d22ed0a03236dce8b",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 84,
+          "0777": 1
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [
+            "product/src/link"
+          ],
+          "specialMembers": [
+            [
+              "product/src/link",
+              "0o120000"
+            ]
+          ],
+          "unexpectedExecutableFiles": [
+            [
+              "product/src/link",
+              "0777"
+            ]
+          ],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [
+            [
+              "product/src/link",
+              "0777"
+            ]
+          ],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 4,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "special FIFO",
+      "rawName": "product/src/fifo",
+      "sha256": "7fca4be40d6a4bb582134d9b276b38a55395a7769fba2348f2ccb3d736d3bbe8",
+      "status": "REJECTED",
+      "expectedIssue": "specialMembers",
+      "report": {
+        "archive": "20.zip",
+        "bytes": 1730117,
+        "sha256": "7fca4be40d6a4bb582134d9b276b38a55395a7769fba2348f2ccb3d736d3bbe8",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 857,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [
+            [
+              "product/src/fifo",
+              "0o10000"
+            ]
+          ],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "writable mode",
+      "rawName": "product/src/writeable",
+      "sha256": "d07c3108258bb0aee5ca9e50e3f0f0f0c238bb76b2a591ad006e90cff22ed904",
+      "status": "REJECTED",
+      "expectedIssue": "worldOrGroupWritable",
+      "report": {
+        "archive": "21.zip",
+        "bytes": 1730127,
+        "sha256": "d07c3108258bb0aee5ca9e50e3f0f0f0c238bb76b2a591ad006e90cff22ed904",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0666": 1,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [
+            [
+              "product/src/writeable",
+              "0666"
+            ]
+          ],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [
+            [
+              "product/src/writeable",
+              "0666"
+            ]
+          ],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 2,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "unexpected executable mode",
+      "rawName": "product/src/ordinary.txt",
+      "sha256": "334c12d22e593557ad8022e3d913e608f95e18ec67174b577ff8a4e422fbc62d",
+      "status": "REJECTED",
+      "expectedIssue": "unexpectedExecutableFiles",
+      "report": {
+        "archive": "22.zip",
+        "bytes": 1730133,
+        "sha256": "334c12d22e593557ad8022e3d913e608f95e18ec67174b577ff8a4e422fbc62d",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 85
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [
+            [
+              "product/src/ordinary.txt",
+              "0755"
+            ]
+          ],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    },
+    {
+      "case": "directory mode",
+      "rawName": "product/unsafe-dir/",
+      "sha256": "0c1970dd96d665cd984cb820379a09c1e163322ece6e6c95b6a77a5622012c98",
+      "status": "REJECTED",
+      "expectedIssue": "incorrectDirectoryModes",
+      "report": {
+        "archive": "23.zip",
+        "bytes": 1730123,
+        "sha256": "0c1970dd96d665cd984cb820379a09c1e163322ece6e6c95b6a77a5622012c98",
+        "memberCount": 941,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0700": 1,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [
+            [
+              "product/unsafe-dir/",
+              "0700"
+            ]
+          ],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 1,
+        "ok": false,
+        "verificationLevel": "structural-only",
+        "sourceCommit": null
+      }
+    }
+  ],
+  "unchangedCommittedInputPolicyFixture": "Both fresh full suites separately exercise untracked/dirty/EOL/binary mutation, unsafe committed inputs and no-Git behavior. No test or package-policy byte was modified."
+}

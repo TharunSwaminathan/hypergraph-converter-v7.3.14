@@ -1,0 +1,93 @@
+{
+  "status": "PASS",
+  "root": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-extracted-snapshot-corrective",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 14.771,
+      "startedAt": "2026-10-26T05:33:55.199890+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/repository-0.log",
+      "sha256": "9937ace3c1788eb2214f20144b4283704c04739bada1fce8a99e18e025dd3159"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 192.396,
+      "startedAt": "2026-10-26T05:34:09.971288+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/repository-1.log",
+      "sha256": "d2f5d1aafece4ba66a0266133457515d6936883ffae0584d71d67119af9745e8",
+      "discovered": 287,
+      "passed": 287,
+      "total": 287,
+      "allDiscoveredPassed": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 9.201,
+      "startedAt": "2026-10-26T05:37:22.369156+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/repository-2.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.897,
+      "startedAt": "2026-10-26T05:37:31.570115+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/repository-3.log",
+      "sha256": "e525872b2f7af1b81e701992e36eb5f3acfb4c987437be7d80746775b49964a1"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.812,
+      "startedAt": "2026-10-26T05:37:32.467366+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/repository-4.log",
+      "sha256": "2d3214c6ffa02f4bb8c9cf19d19efe47f63d5757ad0ac9ce78ee73d1ff0b991f"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "seconds": 0.947,
+      "startedAt": "2026-10-26T05:37:33.279721+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/repository-5.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 0.03,
+      "startedAt": "2026-10-26T05:37:34.226684+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/repository-6.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

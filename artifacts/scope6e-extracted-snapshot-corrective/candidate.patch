@@ -1,0 +1,40 @@
+diff --git a/tests/candy-scope6a-release.test.mjs b/tests/candy-scope6a-release.test.mjs
+index 4d30902..4882f08 100644
+--- a/tests/candy-scope6a-release.test.mjs
++++ b/tests/candy-scope6a-release.test.mjs
+@@ -1,8 +1,9 @@
+ import assert from "node:assert/strict";
+ import { readFile, mkdtemp } from "node:fs/promises";
++import { existsSync } from "node:fs";
+ import { tmpdir } from "node:os";
+ import { join } from "node:path";
+-import { execFileSync } from "node:child_process";
++import { execFileSync, spawnSync } from "node:child_process";
+ import { createBenchmarkFixture, requireQualifiedBenchmarkFixture, FIXTURE_SEEDS } from "../scripts/benchmarks/scope6a-fixtures.mjs";
+ import { packCudaMotifRequest } from "../candy-runtime/test/hypergraph-motif-cuda-contract.mjs";
+ 
+@@ -29,7 +30,23 @@ assert.match(docs,/LF/);assert.match(docs,/CRLF/);assert.match(docs,/publisher a
+ // Real Python producer/verifier, populated ignored private material, and actual
+ // extracted verifier. Nothing is injected into native capability discovery.
+ const workspace=await mkdtemp(join(tmpdir(),"candy-scope6a-package-test-")),output=join(workspace,"report.json");
+-execFileSync(process.env.PYTHON || (process.platform==="win32"?"python":"python3"),["scripts/qualify-scope6a-package.py","--output",output,"--node",process.execPath],{cwd:process.cwd(),windowsHide:true,timeout:60000,env:{...process.env,PYTHONDONTWRITEBYTECODE:"1"}});
++// Git-backed self-tests retain the helper's committed-release default. Only
++// intentionally Git-free extracted self-tests explicitly opt into snapshots.
++const snapshot = !existsSync(join(process.cwd(), ".git"));
++const sourceArgs = snapshot ? ["--source-mode", "snapshot"] : [];
++const python = process.env.PYTHON || (process.platform==="win32"?"python":"python3");
++execFileSync(python,["scripts/qualify-scope6a-package.py",...sourceArgs,"--output",output,"--node",process.execPath],{cwd:process.cwd(),windowsHide:true,timeout:60000,env:{...process.env,PYTHONDONTWRITEBYTECODE:"1"}});
+ const report=JSON.parse(await readFile(output,"utf8"));assert.equal(report.status,"PASS");assert.equal(report.identicalBytes,true);
+ assert.equal(report.cases.length,3);assert.ok(report.cuda.every(value=>value.available===false));
++const expectedCommit = snapshot ? null : execFileSync("git", ["rev-parse", "HEAD"], {encoding:"utf8",windowsHide:true}).trim();
++for (const {integrity} of report.cases) {
++  assert.equal(integrity.verificationLevel, snapshot ? "structural-only" : "commit-bound");
++  assert.equal(integrity.sourceCommit, expectedCommit);
++}
++// An extracted tree must still fail closed when its caller omits the opt-in.
++const noGitOutput = join(workspace, "no-git-default.json");
++const noGit = spawnSync(python,["scripts/qualify-scope6a-package.py","--root",report.extractedRoot,"--output",noGitOutput,"--node",process.execPath],{cwd:process.cwd(),windowsHide:true,timeout:60000,encoding:"utf8",env:{...process.env,PYTHONDONTWRITEBYTECODE:"1"}});
++assert.equal(noGit.status, 1);
++assert.match(noGit.stderr, /Committed source requires usable Git metadata/);
++assert.equal(existsSync(noGitOutput), false);
+ console.log("Scope 6A deterministic fixtures, native lane refusal, CPU CI contract, provenance and actual/clean/populated/extracted archive checks passed.");

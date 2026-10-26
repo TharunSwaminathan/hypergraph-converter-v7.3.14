@@ -1,0 +1,101 @@
+{
+  "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "status": "PASS",
+  "root": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-extracted-snapshot-corrective",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "exitCode": 0,
+      "seconds": 15.049,
+      "startedAt": "2026-10-26T06:12:18.766119+00:00",
+      "log": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-0.log",
+      "sha256": "6393deb476a2dda531e50393e11a5748296f8b52a0239f0431ae7b9b2c1191f9"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "exitCode": 0,
+      "seconds": 191.015,
+      "startedAt": "2026-10-26T06:12:33.815944+00:00",
+      "log": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-1.log",
+      "sha256": "d5f7d169a58d12ee6d37d87f66d47b5602d1f6f2e7a9c86fa2b5fa937f317547",
+      "discovered": 287,
+      "passed": 287,
+      "total": 287,
+      "allDiscoveredPassed": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "exitCode": 0,
+      "seconds": 9.825,
+      "startedAt": "2026-10-26T06:15:44.832963+00:00",
+      "log": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-2.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "exitCode": 0,
+      "seconds": 0.837,
+      "startedAt": "2026-10-26T06:15:54.658621+00:00",
+      "log": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-3.log",
+      "sha256": "54bb7f100137e0f6f687b1300fe86d7aae52171fd12ec108a2339e167c263043"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "exitCode": 0,
+      "seconds": 0.87,
+      "startedAt": "2026-10-26T06:15:55.495735+00:00",
+      "log": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-4.log",
+      "sha256": "2c3d18c514b84626e0ebcccaf5dbb127e08d7c10dfc88884650f52db8ecb57fb"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "exitCode": 0,
+      "seconds": 1.258,
+      "startedAt": "2026-10-26T06:15:56.366255+00:00",
+      "log": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-5.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+      "exitCode": 0,
+      "seconds": 0.029,
+      "startedAt": "2026-10-26T06:15:57.624359+00:00",
+      "log": "artifacts/scope6e-snapshot-exact-d2a2bdb/repository-6.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

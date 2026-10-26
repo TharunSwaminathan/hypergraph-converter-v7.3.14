@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-snapshot-corrective-extracted-0j_1wunv\\product",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 7.424,
+      "startedAt": "2026-10-26T05:37:44.099162+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/extracted-0.log",
+      "sha256": "f2b8b04551548b8aef9ed5fecd96ce43695b3a7faed6b9d948d88f219f43e080"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 183.719,
+      "startedAt": "2026-10-26T05:37:51.522988+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/extracted-1.log",
+      "sha256": "2a32354b4c374641a1abacb65dbb85f52c0e1eaaa5be23f926de0155bffee61a",
+      "discovered": 287,
+      "passed": 287,
+      "total": 287,
+      "allDiscoveredPassed": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 9.613,
+      "startedAt": "2026-10-26T05:40:55.243356+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/extracted-2.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.891,
+      "startedAt": "2026-10-26T05:41:04.856240+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/extracted-3.log",
+      "sha256": "7394891d8634a90c48171a93e7f8ad0c955cbf3ffc9d28b323abc526e1edc1f1"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.812,
+      "startedAt": "2026-10-26T05:41:05.748005+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/extracted-4.log",
+      "sha256": "10aa4ea318433c717021f2a9d86941dda6745ee582a170e4cbf307b093e22c2d"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "seconds": 0.924,
+      "startedAt": "2026-10-26T05:41:06.559863+00:00",
+      "log": "artifacts/scope6e-extracted-snapshot-corrective/extracted-5.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    }
+  ]
+}

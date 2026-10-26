@@ -1,0 +1,72 @@
+{
+  "recordedAt": "2026-10-26T05:41:23.210310+00:00",
+  "verdict": "READY TO CREATE SCOPE 6E EXTRACTED SNAPSHOT CORRECTIVE CANDIDATE COMMIT",
+  "baseline": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "branch": "candy-integration-scope6e-extracted-snapshot-corrective",
+  "workingRepository": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-extracted-snapshot-corrective",
+  "readOnlyOriginalRepository": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+  "productPathCount": 1,
+  "additions": 19,
+  "deletions": 2,
+  "proposedCommitFiles": [
+    {
+      "path": "tests/candy-scope6a-release.test.mjs",
+      "status": "modified tracked",
+      "classification": "Narrow self-test caller and related regression assertions",
+      "reason": "Explicit snapshot opt-in for intentionally Git-free self-test; retain default Git authority and assert verification level/source identity plus no-Git fail-closed behavior.",
+      "bytes": 4699,
+      "sha256": "c26a5cd4bb0c8620d27cfe6d42f41577f43be8d8adf36390b2f953b605c602e6",
+      "prospectiveGitBlob": "4882f08a36337fd74c72eac2d5ea2f33298b5ce6",
+      "additions": 19,
+      "deletions": 2
+    }
+  ],
+  "evidenceExcludedFromProposedCommit": "All artifacts/**, candidate.patch, reports, ZIPs, logs and helper scripts are validation evidence only; none staged.",
+  "noProtectedPathDelta": true,
+  "noProductionPolicyChange": true,
+  "allPriorAssertionsPreserved": true,
+  "repositoryTests": {
+    "passed": 287,
+    "discovered": 287
+  },
+  "extractedTests": {
+    "passed": 287,
+    "discovered": 287
+  },
+  "repositoryGates": "PASS",
+  "extractedGates": "PASS",
+  "bothProductionAudits": 0,
+  "realBaselineArchivesByteIdentical": true,
+  "reviewedCandidateSnapshotsByteIdentical": true,
+  "futureExactShaQualificationRequired": true,
+  "candidateCommitCreated": false,
+  "focusedSecurityReview": "PASS",
+  "unresolvedCriticalHigh": 0,
+  "automatedCodexSecuritySeal": "UNAVAILABLE / NOT COMPLETED",
+  "preservation": {
+    "status": "PASS",
+    "primaryTrackedExceptApprovedTestUnchanged": 1284,
+    "originalTrackedAnd22UntrackedScriptsUnchanged": 1307,
+    "originalLocalInstallationFilesUnchanged": 6,
+    "originalPriorArtifactsUnchanged": 981,
+    "originalIndexRefsStatusBranchHeadUnchanged": true,
+    "cloneIndexAndRefsUnchanged": true,
+    "originalPopulatedWitnessReadOnly": true,
+    "oldHistoryPreserved": true,
+    "sourcePolicyNativeRuntimeApplicationAndManifestChanges": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false,
+    "tagged": false,
+    "merged": false,
+    "mainModified": false,
+    "missingNativeEvidenceFabricatedOrReconstructed": false,
+    "integratedQualificationResumed": false,
+    "codexSecurityAutomationInvoked": false
+  },
+  "patch": {
+    "path": "artifacts/scope6e-extracted-snapshot-corrective/candidate.patch",
+    "bytes": 3293,
+    "sha256": "1edfc6347fd863a01de4f2f440ccdd9872748aeaf276d77f3b9919e9885e8453"
+  }
+}

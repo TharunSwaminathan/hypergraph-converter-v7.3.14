@@ -1,0 +1,16 @@
+{
+  "candidate": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "status": "PASS",
+  "gitBackedSelfTest": "No snapshot argument; all three helper cases must report commit-bound and exact HEAD.",
+  "extractedSelfTest": "Explicit --source-mode snapshot; all three helper cases must report structural-only and null sourceCommit.",
+  "gitFreeDefault": "Separate helper invocation without snapshot mode must exit 1 for missing metadata and create no success report.",
+  "presentBrokenMetadata": "No catch/retry; presence of .git keeps default Git mode.",
+  "allPriorAssertionsPreserved": true,
+  "producerVerifierHelperPolicyUnchanged": true,
+  "evidence": [
+    "repository-gates.json",
+    "extracted-gates.json",
+    "adversarial-matrix.json",
+    "committed-delta.json"
+  ]
+}

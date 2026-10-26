@@ -1,0 +1,17 @@
+# Extracted snapshot self-test contract diagnosis
+
+Baseline: `e84f06cdaa750803a06007ade63124b6bce693c8`. Decision: **A — correct the self-test caller to request snapshot mode explicitly only for its intentionally Git-free environment**.
+
+`docs/PORTABLE_LOCAL_INSTALL_POLICY.md`, “Intended inventory and source bytes,” requires default Git-mode release production from pinned committed trees/raw blobs. It separately supports reviewed Git-free trees through explicit snapshot mode and labels verification without trusted Git metadata `structural-only`. `docs/CANDY_SCOPE6A_RELEASE_CONTRACT.md`, “Browser-only source archive,” preserves Git-free source archive operation and historic capture-time evidence while adopting that explicit mode boundary. The archive deliberately excludes `.git`.
+
+`scripts/qualify-scope6a-package.py` defaults `source_mode` to `git`. In that mode it reads raw committed inputs and independently verifies every actual/clean/populated archive against trusted Git. In explicit snapshot mode it selects reviewed filesystem bytes and performs structural verification; its reports expose that distinction in each case's `integrity.verificationLevel` and `sourceCommit`. Missing metadata does not trigger a fallback.
+
+The legacy `tests/candy-scope6a-release.test.mjs` caller omitted the source-mode argument in both environments. That is correct in a Git-backed checkout and incorrect for the intentionally Git-free extracted self-test. The V3 failure is consistent with this trace: the default helper refused missing metadata; a separate explicitly selected snapshot call succeeded. The existing permission regression already distinguishes these two self-test environments explicitly.
+
+The correction changes only this test. Presence of the project-root `.git` entry (directory or linked-worktree file) preserves the helper's default invocation. Its absence selects `--source-mode snapshot` explicitly for this known Git-free self-test. Present but unusable metadata does not select snapshots. This is a caller-specific self-test choice, not a production fallback or provenance attestation.
+
+New assertions require every helper case to report `commit-bound` and current HEAD in a Git-backed run, or `structural-only` and null source commit in an extracted run. A separate call of the helper against its newly extracted Git-free output, omitting snapshot mode, must exit 1 with the missing-metadata error and create no success report. All pre-existing fixture, CPU CI, provenance, archive reproducibility and unavailable-CUDA assertions remain intact.
+
+Default release archives continue to exclude this uncommitted test edit. Engineering validation therefore distinguishes fresh real Git-backed baseline witnesses from an **explicit reviewed candidate snapshot** containing the same committed source inventory plus exactly this one externally hashed test overlay. A baseline commit-bound verifier must reject the snapshot's changed test rather than falsely attest it as baseline content. A future committed correction must receive exact-SHA qualification separately.
+
+The populated repository remains read-only. Work is isolated at `C:\Users\tharu\OneDrive\Documents\Candi\hypergraph-converter-v7.3.14-scope6e-extracted-snapshot-corrective` on the requested branch. No native evidence recovery, CUDA execution, integrated qualification, staging, commit, push, tag or merge is part of this correction.

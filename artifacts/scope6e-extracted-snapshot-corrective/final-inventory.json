@@ -1,0 +1,283 @@
+{
+  "recordedAt": "2026-10-26T05:41:23.210310+00:00",
+  "verdict": "READY TO CREATE SCOPE 6E EXTRACTED SNAPSHOT CORRECTIVE CANDIDATE COMMIT",
+  "baseline": "e84f06cdaa750803a06007ade63124b6bce693c8",
+  "branch": "candy-integration-scope6e-extracted-snapshot-corrective",
+  "repository": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-extracted-snapshot-corrective",
+  "proposedCandidate": {
+    "recordedAt": "2026-10-26T05:41:23.210310+00:00",
+    "verdict": "READY TO CREATE SCOPE 6E EXTRACTED SNAPSHOT CORRECTIVE CANDIDATE COMMIT",
+    "baseline": "e84f06cdaa750803a06007ade63124b6bce693c8",
+    "branch": "candy-integration-scope6e-extracted-snapshot-corrective",
+    "workingRepository": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-extracted-snapshot-corrective",
+    "readOnlyOriginalRepository": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+    "productPathCount": 1,
+    "additions": 19,
+    "deletions": 2,
+    "proposedCommitFiles": [
+      {
+        "path": "tests/candy-scope6a-release.test.mjs",
+        "status": "modified tracked",
+        "classification": "Narrow self-test caller and related regression assertions",
+        "reason": "Explicit snapshot opt-in for intentionally Git-free self-test; retain default Git authority and assert verification level/source identity plus no-Git fail-closed behavior.",
+        "bytes": 4699,
+        "sha256": "c26a5cd4bb0c8620d27cfe6d42f41577f43be8d8adf36390b2f953b605c602e6",
+        "prospectiveGitBlob": "4882f08a36337fd74c72eac2d5ea2f33298b5ce6",
+        "additions": 19,
+        "deletions": 2
+      }
+    ],
+    "evidenceExcludedFromProposedCommit": "All artifacts/**, candidate.patch, reports, ZIPs, logs and helper scripts are validation evidence only; none staged.",
+    "noProtectedPathDelta": true,
+    "noProductionPolicyChange": true,
+    "allPriorAssertionsPreserved": true,
+    "repositoryTests": {
+      "passed": 287,
+      "discovered": 287
+    },
+    "extractedTests": {
+      "passed": 287,
+      "discovered": 287
+    },
+    "repositoryGates": "PASS",
+    "extractedGates": "PASS",
+    "bothProductionAudits": 0,
+    "realBaselineArchivesByteIdentical": true,
+    "reviewedCandidateSnapshotsByteIdentical": true,
+    "futureExactShaQualificationRequired": true,
+    "candidateCommitCreated": false,
+    "focusedSecurityReview": "PASS",
+    "unresolvedCriticalHigh": 0,
+    "automatedCodexSecuritySeal": "UNAVAILABLE / NOT COMPLETED",
+    "preservation": {
+      "status": "PASS",
+      "primaryTrackedExceptApprovedTestUnchanged": 1284,
+      "originalTrackedAnd22UntrackedScriptsUnchanged": 1307,
+      "originalLocalInstallationFilesUnchanged": 6,
+      "originalPriorArtifactsUnchanged": 981,
+      "originalIndexRefsStatusBranchHeadUnchanged": true,
+      "cloneIndexAndRefsUnchanged": true,
+      "originalPopulatedWitnessReadOnly": true,
+      "oldHistoryPreserved": true,
+      "sourcePolicyNativeRuntimeApplicationAndManifestChanges": false,
+      "staged": false,
+      "committed": false,
+      "pushed": false,
+      "tagged": false,
+      "merged": false,
+      "mainModified": false,
+      "missingNativeEvidenceFabricatedOrReconstructed": false,
+      "integratedQualificationResumed": false,
+      "codexSecurityAutomationInvoked": false
+    },
+    "patch": {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/candidate.patch",
+      "bytes": 3293,
+      "sha256": "1edfc6347fd863a01de4f2f440ccdd9872748aeaf276d77f3b9919e9885e8453"
+    }
+  },
+  "preservation": {
+    "status": "PASS",
+    "primaryTrackedExceptApprovedTestUnchanged": 1284,
+    "originalTrackedAnd22UntrackedScriptsUnchanged": 1307,
+    "originalLocalInstallationFilesUnchanged": 6,
+    "originalPriorArtifactsUnchanged": 981,
+    "originalIndexRefsStatusBranchHeadUnchanged": true,
+    "cloneIndexAndRefsUnchanged": true,
+    "originalPopulatedWitnessReadOnly": true,
+    "oldHistoryPreserved": true,
+    "sourcePolicyNativeRuntimeApplicationAndManifestChanges": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false,
+    "tagged": false,
+    "merged": false,
+    "mainModified": false,
+    "missingNativeEvidenceFabricatedOrReconstructed": false,
+    "integratedQualificationResumed": false,
+    "codexSecurityAutomationInvoked": false
+  },
+  "evidenceFiles": [
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/before.json",
+      "bytes": 468591,
+      "sha256": "4c4789bd9eedf3f222ee3df606fa0a84e6870a7fe25bf7987de6cefb56227a65"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/candidate-input.json",
+      "bytes": 479,
+      "sha256": "52e62617a703404062a52ee9f7005a082f191e36837e4dea10ced8f920d96efb"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/candidate.patch",
+      "bytes": 3293,
+      "sha256": "1edfc6347fd863a01de4f2f440ccdd9872748aeaf276d77f3b9919e9885e8453"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/clean-committed-manifest.json",
+      "bytes": 209407,
+      "sha256": "1bdf2833a311280bc315011383a81c0fda7f5e1552520bc4acc9dccc6da20bce"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/clean-committed.zip",
+      "bytes": 1729529,
+      "sha256": "7a297cf32dfc9b40a627ab1158c0f62dcfe2088f60df990a2a1cf3e80db361f9"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/clean-reviewed-candidate.zip",
+      "bytes": 1729996,
+      "sha256": "8ff3906c22b2a897fc45ccc2a07bd9fa548f37c7725fb0e67e635f1d4c422876"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/close-review.py",
+      "bytes": 13972,
+      "sha256": "2b7db27d92e1e8404759e2f75e8d2e2eafac83bd815275c729b04800af9e1924"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/contract-review.json",
+      "bytes": 656,
+      "sha256": "3afd59f0bb018a88e9c91a59afe5bcfa5c9ea728a2403af4f45d1705a20451b5"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/corrective-report.md",
+      "bytes": 6019,
+      "sha256": "49a6e6a199dc67cfed0c2043311f09e2bbc2f9550378fc545a2c9c50a14ac5c1"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/diagnosis.md",
+      "bytes": 3431,
+      "sha256": "10ecdf4f70ef64190f4910e042099f7da02d66c85e0e6f55729eac4d9c0da11d"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-0.log",
+      "bytes": 334,
+      "sha256": "f2b8b04551548b8aef9ed5fecd96ce43695b3a7faed6b9d948d88f219f43e080"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-1.log",
+      "bytes": 29497,
+      "sha256": "2a32354b4c374641a1abacb65dbb85f52c0e1eaaa5be23f926de0155bffee61a"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-2.log",
+      "bytes": 55,
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-3.log",
+      "bytes": 2104,
+      "sha256": "7394891d8634a90c48171a93e7f8ad0c955cbf3ffc9d28b323abc526e1edc1f1"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-4.log",
+      "bytes": 2141,
+      "sha256": "10aa4ea318433c717021f2a9d86941dda6745ee582a170e4cbf307b093e22c2d"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-5.log",
+      "bytes": 24,
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-gates.json",
+      "bytes": 2474,
+      "sha256": "4e210e1ed4be163b13815764fd05e764f5a3e5570b3eee54d293b1cf24c89f6c"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/extracted-input.json",
+      "bytes": 446,
+      "sha256": "f780e54f5ccf94f252cac2a4ae6e25e82355ffe4db67241b5bc8cd969a244f5d"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/package-reproduction.json",
+      "bytes": 10278,
+      "sha256": "ed004cc36bac5d6bc868f938797bf506c73c54dadaed6cab85500293fdc54fb4"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/populated-committed-manifest.json",
+      "bytes": 209411,
+      "sha256": "ecdd619321154a611cebaf9d89613c9f64ea1b9a8421cbb30ffd66d6b32873a4"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/populated-committed.zip",
+      "bytes": 1729529,
+      "sha256": "7a297cf32dfc9b40a627ab1158c0f62dcfe2088f60df990a2a1cf3e80db361f9"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/populated-reviewed-candidate.zip",
+      "bytes": 1729996,
+      "sha256": "8ff3906c22b2a897fc45ccc2a07bd9fa548f37c7725fb0e67e635f1d4c422876"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/preservation.json",
+      "bytes": 746,
+      "sha256": "f9ec925837bb0b1fc80023f622fd48d9aaed5555f2b128d865bc042e6d25a794"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/proposed-commit-inventory.json",
+      "bytes": 3064,
+      "sha256": "223ced64fdf1407c6f707712d12645824a9379e49ebf5bfdceff3fab2c7280d9"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/regression-matrix.json",
+      "bytes": 1744,
+      "sha256": "b98ccaa3329b376ac237e60a8a4ef7c2209724a4481a63a0d716c898304e0d5a"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-0.log",
+      "bytes": 335,
+      "sha256": "9937ace3c1788eb2214f20144b4283704c04739bada1fce8a99e18e025dd3159"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-1.log",
+      "bytes": 29596,
+      "sha256": "d2f5d1aafece4ba66a0266133457515d6936883ffae0584d71d67119af9745e8"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-2.log",
+      "bytes": 55,
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-3.log",
+      "bytes": 2104,
+      "sha256": "e525872b2f7af1b81e701992e36eb5f3acfb4c987437be7d80746775b49964a1"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-4.log",
+      "bytes": 2141,
+      "sha256": "2d3214c6ffa02f4bb8c9cf19d19efe47f63d5757ad0ac9ce78ee73d1ff0b991f"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-5.log",
+      "bytes": 24,
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-6.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/repository-gates.json",
+      "bytes": 2865,
+      "sha256": "52b3472d2117d126870875f1ff3375e95008cddc43e09359c33c5c3bffbeb352"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/security-review.json",
+      "bytes": 663,
+      "sha256": "8d9198edd0a62e4d2b8741ebd3e291eea048b357e019f9e93e190d434ccc565b"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/security-review.md",
+      "bytes": 3133,
+      "sha256": "03385fed7d6c8512df6cbdab289b902fa98b0986f0094d9c13c40de09b916291"
+    },
+    {
+      "path": "artifacts/scope6e-extracted-snapshot-corrective/validate.py",
+      "bytes": 8527,
+      "sha256": "a45c274d7ece4835377260689550176a7eb6b079c6b113b5ec064a7a0bc78927"
+    }
+  ],
+  "selfDigestExcluded": true
+}
