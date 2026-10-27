@@ -1,0 +1,329 @@
+{
+  "status": "NON-PASS",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v5-extracted-rlg7dxk8\\product",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-0.log",
+      "seconds": 9.986,
+      "elapsedMeasurement": "Recovered approximation: log creation to next-gate log creation; original in-memory timing interrupted.",
+      "exitCodeProof": "The sequential unchanged runner advanced to the next gate only after exit zero and content checks passed."
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-1.log",
+      "seconds": 196.784,
+      "elapsedMeasurement": "Recovered approximation: log creation to next-gate log creation; original in-memory timing interrupted.",
+      "exitCodeProof": "The sequential unchanged runner advanced to the next gate only after exit zero and content checks passed.",
+      "passed": 287,
+      "total": 287,
+      "testSuiteReportedSeconds": 196.4
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-2.log",
+      "seconds": 10.305,
+      "elapsedMeasurement": "Recovered approximation: log creation to next-gate log creation; original in-memory timing interrupted.",
+      "exitCodeProof": "The sequential unchanged runner advanced to the next gate only after exit zero and content checks passed."
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "startedAtUtc": "2026-10-27T03:25:08.196735+00:00",
+      "seconds": 4.104,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-resume-0.log",
+      "sha256": "c75f389a65031215bafc50a6d2d1cfa1474c874f43052c889c44968d4ea4c9c6",
+      "freshAfterInterruption": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "startedAtUtc": "2026-10-27T03:25:12.300887+00:00",
+      "seconds": 0.953,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-resume-1.log",
+      "sha256": "5ac7a6cbd894a18c5c8fdbfe90ebbea33e748c3ee20e4604a780e9d0cd4b8272",
+      "freshAfterInterruption": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "startedAtUtc": "2026-10-27T03:25:13.254425+00:00",
+      "seconds": 7.066,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-resume-2.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "freshAfterInterruption": true,
+      "productionVulnerabilities": 0
+    }
+  ],
+  "interruptionNote": "Identical request resubmission ended the tool session before final gate summary. Original logs retained. Builds and audit freshly rerun; earlier ci/test/lint zero exits proven by sequential advancement. Earlier elapsed approximations are explicitly identified.",
+  "runtimeValidation": "NON-PASS",
+  "productGatesStatus": "PASS",
+  "runtimeReport": {
+    "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+    "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v5-extracted-rlg7dxk8\\product",
+    "startedAt": "2026-10-27T03:25:27.557Z",
+    "privateStateInjected": false,
+    "injectedDiscovery": false,
+    "injectedRunner": false,
+    "cleanShutdown": true,
+    "health": {
+      "schemaVersion": "candy.runtime-api/1",
+      "serviceVersion": "candy-runtime-companion/1",
+      "schemaVersions": [
+        "candy.runtime-api/1",
+        "candy.capabilities/1",
+        "candy.artifact-upload/1",
+        "candy.job-submit/1",
+        "candy.graph-snapshot/1",
+        "candy.graph-update-batch/1",
+        "candy.algorithm-request/1",
+        "candy.algorithm-result/1",
+        "candy.algorithm-error/1",
+        "candy.vertex-mapping/1",
+        "candy.native-sssp-request/1",
+        "candy.native-sssp-result/1",
+        "candy.hypergraph-incidence/1",
+        "candy.hyperedge-mapping/1",
+        "candy.hypergraph-3edge-motif-request/1",
+        "candy.hypergraph-3edge-motif-update/1",
+        "candy.hypergraph-3edge-motif-state/1",
+        "candy.hypergraph-3edge-motif-result/1"
+      ],
+      "platform": "windows-wsl-boundary",
+      "runtimeStatus": "ready"
+    },
+    "declaration": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        }
+      ],
+      "runtimeSessionId": "f9c0b095-3369-4681-a888-6d6f8968576b"
+    },
+    "status": "NON-PASS",
+    "error": {
+      "name": "CandyClientError",
+      "message": "Unknown runtime route."
+    },
+    "finishedAt": "2026-10-27T03:25:27.635Z"
+  },
+  "runtimeReproduction": {
+    "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+    "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v5-extracted-rlg7dxk8\\product",
+    "startedAt": "2026-10-27T03:26:27.545Z",
+    "purpose": "Bounded diagnosis of first failed V5 hard gate; no corrective applied",
+    "cleanShutdown": true,
+    "health": {
+      "schemaVersion": "candy.runtime-api/1",
+      "serviceVersion": "candy-runtime-companion/1",
+      "schemaVersions": [
+        "candy.runtime-api/1",
+        "candy.capabilities/1",
+        "candy.artifact-upload/1",
+        "candy.job-submit/1",
+        "candy.graph-snapshot/1",
+        "candy.graph-update-batch/1",
+        "candy.algorithm-request/1",
+        "candy.algorithm-result/1",
+        "candy.algorithm-error/1",
+        "candy.vertex-mapping/1",
+        "candy.native-sssp-request/1",
+        "candy.native-sssp-result/1",
+        "candy.hypergraph-incidence/1",
+        "candy.hyperedge-mapping/1",
+        "candy.hypergraph-3edge-motif-request/1",
+        "candy.hypergraph-3edge-motif-update/1",
+        "candy.hypergraph-3edge-motif-state/1",
+        "candy.hypergraph-3edge-motif-result/1"
+      ],
+      "platform": "windows-wsl-boundary",
+      "runtimeStatus": "ready"
+    },
+    "capabilities": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        }
+      ],
+      "runtimeSessionId": "187e7ad7-fba4-457f-a16d-498ece16ccdb"
+    },
+    "cpuReference": {
+      "graphRef": {
+        "graphId": "motif-1",
+        "graphVersion": 1
+      },
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "totalConnectedTriples": 1
+    },
+    "uploadedArtifact": {
+      "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+      "mediaType": "application/vnd.candy.graph+json",
+      "byteLength": 282
+    },
+    "clientError": {
+      "name": "CandyClientError",
+      "classification": "ALGORITHM_FAILURE",
+      "message": "Unknown runtime route.",
+      "details": {
+        "httpStatus": 404
+      }
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3A9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+        "httpStatus": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+        "httpStatus": 200,
+        "body": {
+          "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+          "mediaType": "application/vnd.candy.graph+json",
+          "byteLength": 282
+        }
+      }
+    ],
+    "status": "REPRODUCED_PRODUCT_CONTRACT_MISMATCH",
+    "finishedAt": "2026-10-27T03:26:27.620Z"
+  },
+  "firstFailedGate": {
+    "gate": 7,
+    "id": "EXTRACTED_RUNTIME_ARTIFACT_METADATA_ROUTE_MISMATCH",
+    "title": "Git-free extracted Runtime ordinary artifact-metadata client/server contract",
+    "expected": "Fresh authenticated upload followed by committed client.getArtifactMetadata(id) returns that artifact metadata.",
+    "actual": "Fresh upload succeeds; committed client metadata lookup returns HTTP404 ALGORITHM_FAILURE / Unknown runtime route.",
+    "client": {
+      "path": "src/candy/client.js",
+      "line": 80,
+      "blob": "73726fed143bc5247bcddc2b6121d4406f7ac3fb",
+      "behavior": "encodeURIComponent(id) encodes sha256: as sha256%3A"
+    },
+    "server": {
+      "path": "candy-runtime/src/server.js",
+      "line": 14,
+      "blob": "f01f53f4037a79eeca10b24143b5e60ff939190e",
+      "behavior": "ARTIFACT_ROUTE matches literal sha256: against raw request.url; encoded form never reaches metadata lookup"
+    },
+    "encodedRequest": {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+      "httpStatus": 404,
+      "body": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "ALGORITHM_FAILURE",
+        "message": "Unknown runtime route.",
+        "userCorrectable": true,
+        "retryable": false,
+        "details": {}
+      }
+    },
+    "literalRequest": {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+      "httpStatus": 200,
+      "body": {
+        "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+        "mediaType": "application/vnd.candy.graph+json",
+        "byteLength": 282
+      }
+    },
+    "exactArtifactPresent": true,
+    "authenticationFailure": false,
+    "qualificationInfrastructureFailure": false,
+    "productCorrectnessIssue": true,
+    "securitySeverity": "No security severity assigned; observed product API contract failure.",
+    "materialObservation": "Production artifact-presence reuse calls the same client metadata helper. Its 404 handling may cause reupload instead of a successful metadata/cache validation; later integrated browser/soak behavior was not executed.",
+    "diagnosticEvidence": "artifacts/candy-scope6e-v5-work/extracted-metadata-route-repro.json",
+    "noCorrectiveStarted": true
+  }
+}

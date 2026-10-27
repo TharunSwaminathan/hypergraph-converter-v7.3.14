@@ -1,0 +1,50 @@
+{
+  "gate": 7,
+  "id": "EXTRACTED_RUNTIME_ARTIFACT_METADATA_ROUTE_MISMATCH",
+  "title": "Git-free extracted Runtime ordinary artifact-metadata client/server contract",
+  "expected": "Fresh authenticated upload followed by committed client.getArtifactMetadata(id) returns that artifact metadata.",
+  "actual": "Fresh upload succeeds; committed client metadata lookup returns HTTP404 ALGORITHM_FAILURE / Unknown runtime route.",
+  "client": {
+    "path": "src/candy/client.js",
+    "line": 80,
+    "blob": "73726fed143bc5247bcddc2b6121d4406f7ac3fb",
+    "behavior": "encodeURIComponent(id) encodes sha256: as sha256%3A"
+  },
+  "server": {
+    "path": "candy-runtime/src/server.js",
+    "line": 14,
+    "blob": "f01f53f4037a79eeca10b24143b5e60ff939190e",
+    "behavior": "ARTIFACT_ROUTE matches literal sha256: against raw request.url; encoded form never reaches metadata lookup"
+  },
+  "encodedRequest": {
+    "method": "GET",
+    "path": "/v1/artifacts/sha256%3A9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+    "httpStatus": 404,
+    "body": {
+      "schemaVersion": "candy.algorithm-error/1",
+      "classification": "ALGORITHM_FAILURE",
+      "message": "Unknown runtime route.",
+      "userCorrectable": true,
+      "retryable": false,
+      "details": {}
+    }
+  },
+  "literalRequest": {
+    "method": "GET",
+    "path": "/v1/artifacts/sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+    "httpStatus": 200,
+    "body": {
+      "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+      "mediaType": "application/vnd.candy.graph+json",
+      "byteLength": 282
+    }
+  },
+  "exactArtifactPresent": true,
+  "authenticationFailure": false,
+  "qualificationInfrastructureFailure": false,
+  "productCorrectnessIssue": true,
+  "securitySeverity": "No security severity assigned; observed product API contract failure.",
+  "materialObservation": "Production artifact-presence reuse calls the same client metadata helper. Its 404 handling may cause reupload instead of a successful metadata/cache validation; later integrated browser/soak behavior was not executed.",
+  "diagnosticEvidence": "artifacts/candy-scope6e-v5-work/extracted-metadata-route-repro.json",
+  "noCorrectiveStarted": true
+}

@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v5-extracted-rlg7dxk8\\product",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-0.log",
+      "seconds": 9.986,
+      "elapsedMeasurement": "Recovered approximation: log creation to next-gate log creation; original in-memory timing interrupted.",
+      "exitCodeProof": "The sequential unchanged runner advanced to the next gate only after exit zero and content checks passed."
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-1.log",
+      "seconds": 196.784,
+      "elapsedMeasurement": "Recovered approximation: log creation to next-gate log creation; original in-memory timing interrupted.",
+      "exitCodeProof": "The sequential unchanged runner advanced to the next gate only after exit zero and content checks passed.",
+      "passed": 287,
+      "total": 287,
+      "testSuiteReportedSeconds": 196.4
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-2.log",
+      "seconds": 10.305,
+      "elapsedMeasurement": "Recovered approximation: log creation to next-gate log creation; original in-memory timing interrupted.",
+      "exitCodeProof": "The sequential unchanged runner advanced to the next gate only after exit zero and content checks passed."
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "startedAtUtc": "2026-10-27T03:25:08.196735+00:00",
+      "seconds": 4.104,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-resume-0.log",
+      "sha256": "c75f389a65031215bafc50a6d2d1cfa1474c874f43052c889c44968d4ea4c9c6",
+      "freshAfterInterruption": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "startedAtUtc": "2026-10-27T03:25:12.300887+00:00",
+      "seconds": 0.953,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-resume-1.log",
+      "sha256": "5ac7a6cbd894a18c5c8fdbfe90ebbea33e748c3ee20e4604a780e9d0cd4b8272",
+      "freshAfterInterruption": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "startedAtUtc": "2026-10-27T03:25:13.254425+00:00",
+      "seconds": 7.066,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\extracted-resume-2.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "freshAfterInterruption": true,
+      "productionVulnerabilities": 0
+    }
+  ],
+  "interruptionNote": "Identical request resubmission ended the tool session before final gate summary. Original logs retained. Builds and audit freshly rerun; earlier ci/test/lint zero exits proven by sequential advancement. Earlier elapsed approximations are explicitly identified.",
+  "runtimeValidation": "PENDING"
+}

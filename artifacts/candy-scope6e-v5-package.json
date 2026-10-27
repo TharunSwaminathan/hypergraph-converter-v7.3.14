@@ -1,0 +1,136 @@
+{
+  "status": "PASS",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "byteIdentical": true,
+  "cases": [
+    {
+      "case": "clean",
+      "sourceMode": "snapshot",
+      "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+      "bytes": 1729984,
+      "entries": 940,
+      "files": 884,
+      "directories": 56,
+      "verification": {
+        "archive": "clean.zip",
+        "bytes": 1729984,
+        "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+        "memberCount": 940,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 0,
+        "ok": true,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2"
+      },
+      "leaks": []
+    },
+    {
+      "case": "populated",
+      "sourceMode": "git",
+      "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+      "bytes": 1729984,
+      "entries": 940,
+      "files": 884,
+      "directories": 56,
+      "verification": {
+        "archive": "populated.zip",
+        "bytes": 1729984,
+        "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+        "memberCount": 940,
+        "root": "product",
+        "testzip": "ok",
+        "modeCounts": {
+          "0644": 856,
+          "0755": 84
+        },
+        "issues": {
+          "backslashMembers": [],
+          "nonCanonicalMembers": [],
+          "absoluteMembers": [],
+          "traversalMembers": [],
+          "duplicateMembers": [],
+          "caseCollisions": [],
+          "forbiddenMembers": [],
+          "symlinkMembers": [],
+          "specialMembers": [],
+          "unexpectedExecutableFiles": [],
+          "missingExecutableBits": [],
+          "incorrectOrdinaryModes": [],
+          "incorrectDirectoryModes": [],
+          "worldOrGroupWritable": [],
+          "nonUnixCreateSystem": [],
+          "rootLayout": [],
+          "crcFailures": [],
+          "sourceInventory": []
+        },
+        "issueCount": 0,
+        "ok": true,
+        "verificationLevel": "commit-bound",
+        "sourceCommit": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2"
+      },
+      "leaks": []
+    }
+  ],
+  "historicalUntrackedScriptsExcluded": [
+    "scripts/analyze-scope6d-profiles.py",
+    "scripts/analyze-scope6d-tranche1-profiles.py",
+    "scripts/build-scope6d-tranche1-diagnostics.mjs",
+    "scripts/build-scope6d-tranche1.mjs",
+    "scripts/check-scope6d-tranche1-admission.mjs",
+    "scripts/check-scope6d-tranche1-fault-memcheck.mjs",
+    "scripts/check-scope6d-tranche1-rss-controls.mjs",
+    "scripts/gate-scope6d-tranche1.mjs",
+    "scripts/measure-scope6d-native.mjs",
+    "scripts/measure-scope6d-tranche1.mjs",
+    "scripts/prepare-scope6d-tranche1.mjs",
+    "scripts/profile-scope6d-native.mjs",
+    "scripts/profile-scope6d-tranche1.mjs",
+    "scripts/qualify-scope6d-tranche1-lifecycle.mjs",
+    "scripts/qualify-scope6d-tranche1-parity.mjs",
+    "scripts/qualify-scope6d-tranche1-safety.mjs",
+    "scripts/report-scope6d-readiness.mjs",
+    "scripts/report-scope6d-tranche1.mjs",
+    "scripts/scope6d-tranche1-common.mjs",
+    "scripts/scope6d-tranche1-fixtures.mjs",
+    "scripts/scope6d-tranche1-offline-runtime.mjs",
+    "scripts/scope6d-tranche1-parent-fixture.mjs"
+  ],
+  "aliasMatrix": {
+    "command": [
+      "node",
+      "tests/candy-scope6e-package.test.mjs"
+    ],
+    "exitCode": 0,
+    "seconds": 11.152,
+    "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-work\\alias-matrix.log",
+    "sha256": "c58055dba571d1d00e3d15549ef0c7dfc96e86dc7956322991ebf89caaaae560"
+  },
+  "cleanMethod": "Raw pinned committed-source snapshot; unchanged producer snapshot mode.",
+  "populatedMethod": "Pinned Git-backed committed producer against fully populated worktree.",
+  "privateInstallationsAndRootEvidenceExcluded": true
+}

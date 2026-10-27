@@ -1,0 +1,132 @@
+{
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v5-extracted-rlg7dxk8\\product",
+  "startedAt": "2026-10-27T03:26:27.545Z",
+  "purpose": "Bounded diagnosis of first failed V5 hard gate; no corrective applied",
+  "cleanShutdown": true,
+  "health": {
+    "schemaVersion": "candy.runtime-api/1",
+    "serviceVersion": "candy-runtime-companion/1",
+    "schemaVersions": [
+      "candy.runtime-api/1",
+      "candy.capabilities/1",
+      "candy.artifact-upload/1",
+      "candy.job-submit/1",
+      "candy.graph-snapshot/1",
+      "candy.graph-update-batch/1",
+      "candy.algorithm-request/1",
+      "candy.algorithm-result/1",
+      "candy.algorithm-error/1",
+      "candy.vertex-mapping/1",
+      "candy.native-sssp-request/1",
+      "candy.native-sssp-result/1",
+      "candy.hypergraph-incidence/1",
+      "candy.hyperedge-mapping/1",
+      "candy.hypergraph-3edge-motif-request/1",
+      "candy.hypergraph-3edge-motif-update/1",
+      "candy.hypergraph-3edge-motif-state/1",
+      "candy.hypergraph-3edge-motif-result/1"
+    ],
+    "platform": "windows-wsl-boundary",
+    "runtimeStatus": "ready"
+  },
+  "capabilities": {
+    "schemaVersion": "candy.capabilities/1",
+    "capabilities": [],
+    "motifReadiness": [
+      {
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      },
+      {
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      }
+    ],
+    "runtimeSessionId": "187e7ad7-fba4-457f-a16d-498ece16ccdb"
+  },
+  "cpuReference": {
+    "graphRef": {
+      "graphId": "motif-1",
+      "graphVersion": 1
+    },
+    "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+    "counts": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "totalConnectedTriples": 1
+  },
+  "uploadedArtifact": {
+    "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+    "mediaType": "application/vnd.candy.graph+json",
+    "byteLength": 282
+  },
+  "clientError": {
+    "name": "CandyClientError",
+    "classification": "ALGORITHM_FAILURE",
+    "message": "Unknown runtime route.",
+    "details": {
+      "httpStatus": 404
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+      "httpStatus": 404,
+      "body": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "ALGORITHM_FAILURE",
+        "message": "Unknown runtime route.",
+        "userCorrectable": true,
+        "retryable": false,
+        "details": {}
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+      "httpStatus": 200,
+      "body": {
+        "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+        "mediaType": "application/vnd.candy.graph+json",
+        "byteLength": 282
+      }
+    }
+  ],
+  "status": "REPRODUCED_PRODUCT_CONTRACT_MISMATCH",
+  "finishedAt": "2026-10-27T03:26:27.620Z"
+}

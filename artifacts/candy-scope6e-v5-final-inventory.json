@@ -1,0 +1,284 @@
+{
+  "schemaVersion": "candy.scope6e-v5-final-inventory/1",
+  "recordedAtUtc": "2026-10-27T03:30:53.811397+00:00",
+  "verdict": "NON-PASS \u2014 CANDY SCOPE 6E INTEGRATED QUALIFICATION BLOCKED",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "branch": "candy-integration-scope6e-integrated-qualification-v5",
+  "originMain": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "firstFailedGate": {
+    "gate": 7,
+    "id": "EXTRACTED_RUNTIME_ARTIFACT_METADATA_ROUTE_MISMATCH",
+    "title": "Git-free extracted Runtime ordinary artifact-metadata client/server contract",
+    "expected": "Fresh authenticated upload followed by committed client.getArtifactMetadata(id) returns that artifact metadata.",
+    "actual": "Fresh upload succeeds; committed client metadata lookup returns HTTP404 ALGORITHM_FAILURE / Unknown runtime route.",
+    "client": {
+      "path": "src/candy/client.js",
+      "line": 80,
+      "blob": "73726fed143bc5247bcddc2b6121d4406f7ac3fb",
+      "behavior": "encodeURIComponent(id) encodes sha256: as sha256%3A"
+    },
+    "server": {
+      "path": "candy-runtime/src/server.js",
+      "line": 14,
+      "blob": "f01f53f4037a79eeca10b24143b5e60ff939190e",
+      "behavior": "ARTIFACT_ROUTE matches literal sha256: against raw request.url; encoded form never reaches metadata lookup"
+    },
+    "encodedRequest": {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+      "httpStatus": 404,
+      "body": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "ALGORITHM_FAILURE",
+        "message": "Unknown runtime route.",
+        "userCorrectable": true,
+        "retryable": false,
+        "details": {}
+      }
+    },
+    "literalRequest": {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5/metadata",
+      "httpStatus": 200,
+      "body": {
+        "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+        "mediaType": "application/vnd.candy.graph+json",
+        "byteLength": 282
+      }
+    },
+    "exactArtifactPresent": true,
+    "authenticationFailure": false,
+    "qualificationInfrastructureFailure": false,
+    "productCorrectnessIssue": true,
+    "securitySeverity": "No security severity assigned; observed product API contract failure.",
+    "materialObservation": "Production artifact-presence reuse calls the same client metadata helper. Its 404 handling may cause reupload instead of a successful metadata/cache validation; later integrated browser/soak behavior was not executed.",
+    "diagnosticEvidence": "artifacts/candy-scope6e-v5-work/extracted-metadata-route-repro.json",
+    "noCorrectiveStarted": true
+  },
+  "trackedChanges": [],
+  "stagedChanges": [],
+  "refsUnchanged": true,
+  "refs": "refs/heads/candy-integration-scope1 54c134f30d1bbe50019c17437d9ad5ff58d16530 \nrefs/heads/candy-integration-scope2 50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3 \nrefs/heads/candy-integration-scope3-cuda 48b78c106615add75128832236ccc07e0bcff6cc \nrefs/heads/candy-integration-scope4-escher faeca1053f95a61bfe03ac88295c563d32f91969 \nrefs/heads/candy-integration-scope4a-security-finalization 7b4206ba66f38df18b0a0fe33d55800f79ef0000 \nrefs/heads/candy-integration-scope4b1-cuda-static 592c91f938675d6c76d3179b080c95ed6e1b9398 \nrefs/heads/candy-integration-scope4b2-cuda-incremental 1df4890e8bc80be44a5324727c00fde8cbbc01c6 \nrefs/heads/candy-integration-scope4c-runtime-integration faeca1053f95a61bfe03ac88295c563d32f91969 \nrefs/heads/candy-integration-scope5-dynamic-hypergraph 54dd4d3edb73681f51bf8bb69b9708778a46a502 \nrefs/heads/candy-integration-scope5-main-promotion b24c4e32100d2e7c05b13df3c8f6f9e279fd8828 \nrefs/heads/candy-integration-scope5a-graph-state eb829fb627de349be99d440ebfed11990f76837e \nrefs/heads/candy-integration-scope5b-pending-update 3379e0102704521960a5ccc1185a14a2beb2725d \nrefs/heads/candy-integration-scope5c-runtime-binding adad84847dac54261f3036dc488c35ed4caef3e7 \nrefs/heads/candy-integration-scope5d-ui-assistant 18fa9aebd7c91b22c7415519a56ec160a88d2956 \nrefs/heads/candy-integration-scope5e-hardening 1e8f7fa2eac97f9cadf72224ae9e99febdea85df \nrefs/heads/candy-integration-scope5f-final-qualification 54dd4d3edb73681f51bf8bb69b9708778a46a502 \nrefs/heads/candy-integration-scope6-readiness f8343ae195e37885726c396733dd6f5b9468f0fb \nrefs/heads/candy-integration-scope6a-release-hardening 117ed4b9d8caa929ead5df3d6af59ad70a878cb2 \nrefs/heads/candy-integration-scope6b-browser-scalability 9d79d9f9027b338096d7cf62d67c2a22e9cab247 \nrefs/heads/candy-integration-scope6b-browser-scalability-evidence 8ad6593ee86918b2fb40f9cfa5671e126c043575 \nrefs/heads/candy-integration-scope6b-browser-scalability-v7_4 61e3dda985b74be35e98f1e6b3886d33b58a4bfd \nrefs/heads/candy-integration-scope6c-runtime-reuse-recovery 46ae55173407bb71683614ef212d9d4d4127ecc3 \nrefs/heads/candy-integration-scope6c-runtime-reuse-recovery-evidence 9314024f0a201ca0c44dcb4e3aa17c258167c13f \nrefs/heads/candy-integration-scope6d-native-optimization c294ed0cea093bb8933d06e6e23177a7f1409952 \nrefs/heads/candy-integration-scope6d-tranche1-evidence cf2acfb07fbca011e5c89e14092402b3d52f879b \nrefs/heads/candy-integration-scope6e-extracted-snapshot-corrective e84f06cdaa750803a06007ade63124b6bce693c8 \nrefs/heads/candy-integration-scope6e-extracted-snapshot-evidence 5504e7453e129041e75d2c30210189b03f39102e \nrefs/heads/candy-integration-scope6e-integrated-qualification c294ed0cea093bb8933d06e6e23177a7f1409952 \nrefs/heads/candy-integration-scope6e-integrated-qualification-v2 d22b9c89f79446fbfea2480e98e807f8da4dfbf4 \nrefs/heads/candy-integration-scope6e-integrated-qualification-v3 e84f06cdaa750803a06007ade63124b6bce693c8 \nrefs/heads/candy-integration-scope6e-integrated-qualification-v4 d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/heads/candy-integration-scope6e-integrated-qualification-v5 d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/heads/candy-integration-scope6e-native-evidence-audit d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/heads/candy-integration-scope6e-native-evidence-recovery d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/heads/candy-integration-scope6e-nonpass-evidence b80a1a44eeefd5fd35df04d673fd8300d5133a39 \nrefs/heads/candy-integration-scope6e-package-corrective d22b9c89f79446fbfea2480e98e807f8da4dfbf4 \nrefs/heads/candy-integration-scope6e-package-corrective-evidence cc414f39ca3605a225b778e9003b781fee04e134 \nrefs/heads/candy-integration-scope6e-static-install-audit d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/heads/candy-integration-scope6e-static-install-recovery d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/heads/candy-integration-scope6e-static-install-recovery-evidence 0ad4243692d0e57bfb333f3887f0418a3556a87c \nrefs/heads/candy-integration-scope6e-v2-package-input-corrective e84f06cdaa750803a06007ade63124b6bce693c8 \nrefs/heads/candy-integration-scope6e-v2-package-input-evidence 16d024bebb5b5632a602a85df21fba8d83d9ec4f \nrefs/heads/candy-integration-scope6e-v3-nonpass-evidence e9aa277953df3a943664f3b21de6a111eee57c88 \nrefs/heads/candy-integration-scope6e-v4-nonpass-evidence 96b5dbc0564b596a3935c41aa2d955f509ac8d22 \nrefs/heads/main d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/heads/post-corrective-deep-diagnosis 4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302 \nrefs/heads/post-diagnosis-full-corrective 57daa23050c89cd0d2c74328766d284311376da4 \nrefs/heads/post-scope4c-chatbot-ui-corrective 4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302 \nrefs/heads/release-v7.3.14-rc1 117ed4b9d8caa929ead5df3d6af59ad70a878cb2 \nrefs/heads/release-v7.3.14-rc1-evidence 987c19f19fe5fb257f16d64601269c6f2f312afe \nrefs/heads/release-v7.3.14-rc2 9d79d9f9027b338096d7cf62d67c2a22e9cab247 \nrefs/heads/release-v7.3.14-rc2-evidence 9883d2d9b6213dc914603667b648e3100f3aedee \nrefs/heads/scope2-react 7b8fd71e2951482b3c30a6be9ec8886e86d2c1be \nrefs/heads/v7_4-final-baseline-evidence efc4eb2b0e4ab5aaf8878576f9a19917e9226cb0 \nrefs/heads/v7_4-merged-baseline-evidence c9a407cd1e9083673a6b9b403a3cda4fc8936b82 \nrefs/heads/v7_4-merged-baseline-integration da4629b1f4204fbfc8f8e6d14941d29319d79e90 \nrefs/remotes/origin/HEAD d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/remotes/origin/candy-integration-scope1 54c134f30d1bbe50019c17437d9ad5ff58d16530 \nrefs/remotes/origin/candy-integration-scope2 50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3 \nrefs/remotes/origin/candy-integration-scope3-cuda 48b78c106615add75128832236ccc07e0bcff6cc \nrefs/remotes/origin/candy-integration-scope4-escher faeca1053f95a61bfe03ac88295c563d32f91969 \nrefs/remotes/origin/candy-integration-scope4a-security-finalization 7b4206ba66f38df18b0a0fe33d55800f79ef0000 \nrefs/remotes/origin/candy-integration-scope4b1-cuda-static 592c91f938675d6c76d3179b080c95ed6e1b9398 \nrefs/remotes/origin/candy-integration-scope4b2-cuda-incremental 1df4890e8bc80be44a5324727c00fde8cbbc01c6 \nrefs/remotes/origin/candy-integration-scope4c-runtime-integration faeca1053f95a61bfe03ac88295c563d32f91969 \nrefs/remotes/origin/candy-integration-scope5-dynamic-hypergraph 54dd4d3edb73681f51bf8bb69b9708778a46a502 \nrefs/remotes/origin/candy-integration-scope5-main-promotion b24c4e32100d2e7c05b13df3c8f6f9e279fd8828 \nrefs/remotes/origin/candy-integration-scope5a-graph-state eb829fb627de349be99d440ebfed11990f76837e \nrefs/remotes/origin/candy-integration-scope5b-pending-update 3379e0102704521960a5ccc1185a14a2beb2725d \nrefs/remotes/origin/candy-integration-scope5c-runtime-binding adad84847dac54261f3036dc488c35ed4caef3e7 \nrefs/remotes/origin/candy-integration-scope5d-ui-assistant 18fa9aebd7c91b22c7415519a56ec160a88d2956 \nrefs/remotes/origin/candy-integration-scope5e-hardening 1e8f7fa2eac97f9cadf72224ae9e99febdea85df \nrefs/remotes/origin/candy-integration-scope5f-final-qualification 54dd4d3edb73681f51bf8bb69b9708778a46a502 \nrefs/remotes/origin/candy-integration-scope6-readiness f8343ae195e37885726c396733dd6f5b9468f0fb \nrefs/remotes/origin/candy-integration-scope6a-release-hardening 117ed4b9d8caa929ead5df3d6af59ad70a878cb2 \nrefs/remotes/origin/candy-integration-scope6b-browser-scalability 9d79d9f9027b338096d7cf62d67c2a22e9cab247 \nrefs/remotes/origin/candy-integration-scope6b-browser-scalability-evidence 8ad6593ee86918b2fb40f9cfa5671e126c043575 \nrefs/remotes/origin/candy-integration-scope6b-browser-scalability-v7_4 61e3dda985b74be35e98f1e6b3886d33b58a4bfd \nrefs/remotes/origin/candy-integration-scope6c-runtime-reuse-recovery 46ae55173407bb71683614ef212d9d4d4127ecc3 \nrefs/remotes/origin/candy-integration-scope6c-runtime-reuse-recovery-evidence 9314024f0a201ca0c44dcb4e3aa17c258167c13f \nrefs/remotes/origin/candy-integration-scope6d-native-optimization c294ed0cea093bb8933d06e6e23177a7f1409952 \nrefs/remotes/origin/candy-integration-scope6d-tranche1-evidence cf2acfb07fbca011e5c89e14092402b3d52f879b \nrefs/remotes/origin/candy-integration-scope6e-extracted-snapshot-corrective d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/remotes/origin/candy-integration-scope6e-extracted-snapshot-evidence 5504e7453e129041e75d2c30210189b03f39102e \nrefs/remotes/origin/candy-integration-scope6e-integrated-qualification c294ed0cea093bb8933d06e6e23177a7f1409952 \nrefs/remotes/origin/candy-integration-scope6e-integrated-qualification-v2 d22b9c89f79446fbfea2480e98e807f8da4dfbf4 \nrefs/remotes/origin/candy-integration-scope6e-integrated-qualification-v3 e84f06cdaa750803a06007ade63124b6bce693c8 \nrefs/remotes/origin/candy-integration-scope6e-native-evidence-audit d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/remotes/origin/candy-integration-scope6e-native-evidence-recovery d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/remotes/origin/candy-integration-scope6e-nonpass-evidence b80a1a44eeefd5fd35df04d673fd8300d5133a39 \nrefs/remotes/origin/candy-integration-scope6e-package-corrective d22b9c89f79446fbfea2480e98e807f8da4dfbf4 \nrefs/remotes/origin/candy-integration-scope6e-package-corrective-evidence cc414f39ca3605a225b778e9003b781fee04e134 \nrefs/remotes/origin/candy-integration-scope6e-static-install-recovery-evidence 0ad4243692d0e57bfb333f3887f0418a3556a87c \nrefs/remotes/origin/candy-integration-scope6e-v2-package-input-corrective e84f06cdaa750803a06007ade63124b6bce693c8 \nrefs/remotes/origin/candy-integration-scope6e-v2-package-input-evidence 16d024bebb5b5632a602a85df21fba8d83d9ec4f \nrefs/remotes/origin/candy-integration-scope6e-v3-nonpass-evidence e9aa277953df3a943664f3b21de6a111eee57c88 \nrefs/remotes/origin/candy-integration-scope6e-v4-nonpass-evidence 96b5dbc0564b596a3935c41aa2d955f509ac8d22 \nrefs/remotes/origin/main d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/remotes/origin/post-corrective-deep-diagnosis 4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302 \nrefs/remotes/origin/post-diagnosis-full-corrective 57daa23050c89cd0d2c74328766d284311376da4 \nrefs/remotes/origin/post-scope4c-chatbot-ui-corrective 4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302 \nrefs/remotes/origin/release-v7.3.14-rc1 117ed4b9d8caa929ead5df3d6af59ad70a878cb2 \nrefs/remotes/origin/release-v7.3.14-rc1-evidence 987c19f19fe5fb257f16d64601269c6f2f312afe \nrefs/remotes/origin/release-v7.3.14-rc2 9d79d9f9027b338096d7cf62d67c2a22e9cab247 \nrefs/remotes/origin/release-v7.3.14-rc2-evidence 9883d2d9b6213dc914603667b648e3100f3aedee \nrefs/remotes/origin/scope2-react 7b8fd71e2951482b3c30a6be9ec8886e86d2c1be \nrefs/remotes/origin/v7_4-final-baseline-evidence efc4eb2b0e4ab5aaf8878576f9a19917e9226cb0 \nrefs/remotes/origin/v7_4-merged-baseline-evidence c9a407cd1e9083673a6b9b403a3cda4fc8936b82 \nrefs/remotes/origin/v7_4-merged-baseline-integration da4629b1f4204fbfc8f8e6d14941d29319d79e90 \nrefs/tags/candy-integration-scope1-qualified 1d987f19888f919b907879c0b7c5841624af38c4 54c134f30d1bbe50019c17437d9ad5ff58d16530\nrefs/tags/candy-integration-scope2-qualified 598d1458b36842651ce5af7268901fcc41e7a56b 50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3\nrefs/tags/candy-integration-scope3-cuda-env-blocked 380bdb14810a60e8751f48f1e552667cdc24e93f 81491e4a04b4d33adb3ebd0679cbe196ce109288\nrefs/tags/candy-integration-scope3-cuda-qualified 29ad8df1922b3ed9d4f8fd6bd8a2953b8466cdcb 48b78c106615add75128832236ccc07e0bcff6cc\nrefs/tags/candy-integration-scope4a-qualified b644fea22d1cfabd1ee05b3086fb15767534cbe1 7b4206ba66f38df18b0a0fe33d55800f79ef0000\nrefs/tags/candy-integration-scope4a-security-blocked c6262835f4b4268c620d6583a371a69a4ae73868 9b70bd2f2ede2130857822d0603b1c394bb6c557\nrefs/tags/candy-integration-scope4b1-cuda-static-qualified 33fe4019aa8a122443cf8ab019e97a41a72e3980 a27eb1246e342097de448408ffa0a4775545c4ae\nrefs/tags/candy-integration-scope4b2-cuda-incremental-qualified f8cf150b68dc3f9cc74db181aefd58bbeb3f4195 febf3ec1aa97917f7fc989511078ec8013817bf8\nrefs/tags/candy-integration-scope4c-runtime-integration-qualified 61982f88d029eee849ce1f3a3daa378791627250 faeca1053f95a61bfe03ac88295c563d32f91969\nrefs/tags/candy-integration-scope5a-graph-state-qualified eb829fb627de349be99d440ebfed11990f76837e \nrefs/tags/candy-integration-scope5b-pending-update-qualified 3379e0102704521960a5ccc1185a14a2beb2725d \nrefs/tags/candy-integration-scope5c-runtime-binding-qualified adad84847dac54261f3036dc488c35ed4caef3e7 \nrefs/tags/candy-integration-scope5d-ui-assistant-qualified 18fa9aebd7c91b22c7415519a56ec160a88d2956 \nrefs/tags/candy-integration-scope5e-hardening-qualified 1e8f7fa2eac97f9cadf72224ae9e99febdea85df \nrefs/tags/candy-integration-scope5f-browser-blocked bf0240a54fb6ac8284bd9ac371306511158a1a2e \nrefs/tags/candy-integration-scope5f-final-qualified 54dd4d3edb73681f51bf8bb69b9708778a46a502 \nrefs/tags/candy-integration-scope6a-release-hardening-qualified 117ed4b9d8caa929ead5df3d6af59ad70a878cb2 \nrefs/tags/candy-integration-scope6b-browser-scalability-qualified e6dfaa8ba0e2f09b2b09015e721b07856873f2a6 61e3dda985b74be35e98f1e6b3886d33b58a4bfd\nrefs/tags/candy-integration-scope6c-runtime-reuse-recovery-qualified 46ae55173407bb71683614ef212d9d4d4127ecc3 \nrefs/tags/candy-integration-scope6d-tranche1-native-qualified f3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0 \nrefs/tags/candy-integration-scope6d-tranche1-qualified c294ed0cea093bb8933d06e6e23177a7f1409952 \nrefs/tags/candy-integration-scope6e-extracted-snapshot-corrective-qualified d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2 \nrefs/tags/candy-integration-scope6e-package-corrective-qualified d22b9c89f79446fbfea2480e98e807f8da4dfbf4 \nrefs/tags/candy-integration-scope6e-v2-package-input-qualified e84f06cdaa750803a06007ade63124b6bce693c8 \nrefs/tags/candy-v7.3.14-rc2-qualified 9d79d9f9027b338096d7cf62d67c2a22e9cab247 \nrefs/tags/candy-v7_4-merged-baseline-qualified 6556c3bc12c26bfdec8803aa12188f5aabd3402a da4629b1f4204fbfc8f8e6d14941d29319d79e90\nrefs/tags/post-diagnosis-full-corrective-qualified 57daa23050c89cd0d2c74328766d284311376da4 \nrefs/tags/post-scope4c-chatbot-ui-corrective-qualified 8040a0b259c25862179a01149ace0ae788f0f7da 4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302\nrefs/tags/to-be-chatbot-final-qualified a56a720ecf6195c982d86a4b78239631d74ab630 cdaa0b3798bfe14de0e19ca55404bc94facc8bb9\nrefs/tags/to-be-chatbot-live-ollama-qualified 97ff3873aff621226c1781799097b4babad23460 7b8fd71e2951482b3c30a6be9ec8886e86d2c1be\nrefs/tags/to-be-chatbot-scope1-qualified 6158b6c04dd41278e33c22b24a16b39d04f43ce5 3464a12ab6d420cbaca12e5bf387172f2ac8e379\nrefs/tags/v7.3.14 af3911c505a510ae7b0a90bcfcbd5db47d0921a4 9d79d9f9027b338096d7cf62d67c2a22e9cab247\n",
+  "indexSha256": "0fda3e8955b56d6fa32c491ec9261f00b2ea9fc9efa56e878d0663b03391c223",
+  "priorFileCount": 1376,
+  "priorFilesChanged": [],
+  "priorMtimesChanged": [
+    "artifacts/deterministic-nlu-compiler-quality-report.json",
+    "artifacts/deterministic-nlu-quality-report.json"
+  ],
+  "eighteenNativeFiles": [
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+      "bytes": 1487,
+      "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+      "mtimeNs": 1793068592450479500
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+      "bytes": 1160632,
+      "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+      "mtimeNs": 1793068592458607400
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\src\\main.cu",
+      "bytes": 15915,
+      "sha256": "74a9210e8872cf845d7c4c958732615c6f1eb81e4225a823542567aa837ac797",
+      "mtimeNs": 1793056787275593900
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\Makefile",
+      "bytes": 765,
+      "sha256": "695d82ec5c51ddf157bb1e4163ab9212711f72024797a190e3202a72038036a6",
+      "mtimeNs": 1793056787274594800
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-native-qualification.json",
+      "bytes": 273866,
+      "sha256": "fa82a2e46518adc959b8b6b25f4e67dc44cbfe72d03b75cd07b764f8c305af63",
+      "mtimeNs": 1793056787024166900
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-memcheck-qualification.json",
+      "bytes": 5401,
+      "sha256": "bc8071686bff75bc26d8d426225bc317a950606cd074a74ee160fc1dc2f125df",
+      "mtimeNs": 1793056787021166800
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-racecheck-qualification.json",
+      "bytes": 5515,
+      "sha256": "5d60eaceae2cffb7aee62ef1798beedd7cf7b0fd05e4c081db53c99071601fe6",
+      "mtimeNs": 1793056787025173500
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-initcheck-qualification.json",
+      "bytes": 5400,
+      "sha256": "8f77642af711595fd4ba1b66cb04608b8a856060802209e77210341091dbdf72",
+      "mtimeNs": 1793056787020167800
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-synccheck-qualification.json",
+      "bytes": 5402,
+      "sha256": "27c10a45cebb0526f1440b347a0fe63e8c527488ed7da6f2f448f66c59b0ceee",
+      "mtimeNs": 1793056787025173500
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_incremental-scope6d-tranche1-f3fa7dc3-qualified-build.json",
+      "bytes": 1557,
+      "sha256": "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f",
+      "mtimeNs": 1793058034256233900
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\src\\main.cu",
+      "bytes": 23975,
+      "sha256": "ce425e455649fb1e2fec632cd608834dd6f8d7b31969c81673a8d1304908ee2b",
+      "mtimeNs": 1793058034258237000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\Makefile",
+      "bytes": 779,
+      "sha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b",
+      "mtimeNs": 1793058034265240100
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\build\\candy-hypergraph-motif-cuda-incremental",
+      "bytes": 1184872,
+      "sha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+      "mtimeNs": 1793058034267250200
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-native-qualification.json",
+      "bytes": 730848,
+      "sha256": "aff7a38f36b3755d3e8337ad39accf1e116490e644e90fe2f3646ea577268d87",
+      "mtimeNs": 1793057032805502700
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-memcheck-qualification.json",
+      "bytes": 22154,
+      "sha256": "2dd22c7d0032208627631917782004f6bd6aa6eea22288a66cd2d8115284786d",
+      "mtimeNs": 1793057032819053200
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-racecheck-qualification.json",
+      "bytes": 22384,
+      "sha256": "302d35ccbfa9a308c8b0151c65ad104ada578c45afdf29eccdd93bd6d9830cb0",
+      "mtimeNs": 1793057032826101900
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-initcheck-qualification.json",
+      "bytes": 22155,
+      "sha256": "c16ca1dfe609165e247bca6fe73db5e745ead82218d5b4f6c7d9ba3bca5069d2",
+      "mtimeNs": 1793057032831574300
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-synccheck-qualification.json",
+      "bytes": 22155,
+      "sha256": "049caef3c980c39fceafb447de07477abb1015ca4ac4c0e6047d16413707be49",
+      "mtimeNs": 1793057032837610700
+    }
+  ],
+  "nativeInstallationsUnchanged": true,
+  "nativeBinaryRebuilds": 0,
+  "nativeQualificationRuns": 0,
+  "sanitizerRuns": 0,
+  "nativeJobsAttempted": 0,
+  "browserProductInteractions": 0,
+  "laterGatesNotRun": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "historicalEvidencePreserved": true,
+  "automatedSecuritySeal": "UNAVAILABLE / NOT COMPLETED",
+  "codexSecurityInvoked": false,
+  "substantiveIntegratedSecurityStatus": "NOT_COMPLETED",
+  "newUntrackedPathsBeforeFinalization": [
+    "artifacts/candy-scope6e-v5-extracted.json",
+    "artifacts/candy-scope6e-v5-package.json",
+    "artifacts/candy-scope6e-v5-preflight.json",
+    "artifacts/candy-scope6e-v5-product-gates.json",
+    "artifacts/candy-scope6e-v5-work/before.json",
+    "artifacts/candy-scope6e-v5-work/clean-manifest.json",
+    "artifacts/candy-scope6e-v5-work/clean.zip",
+    "artifacts/candy-scope6e-v5-work/extracted-gates.json",
+    "artifacts/candy-scope6e-v5-work/extracted-metadata-repro.mjs",
+    "artifacts/candy-scope6e-v5-work/extracted-metadata-route-repro.json",
+    "artifacts/candy-scope6e-v5-work/extracted-runtime.json",
+    "artifacts/candy-scope6e-v5-work/extracted-runtime.mjs",
+    "artifacts/candy-scope6e-v5-work/extraction.json",
+    "artifacts/candy-scope6e-v5-work/finish-blocked.py",
+    "artifacts/candy-scope6e-v5-work/native.mjs",
+    "artifacts/candy-scope6e-v5-work/ordinary-production-discovery.json",
+    "artifacts/candy-scope6e-v5-work/populated-manifest.json",
+    "artifacts/candy-scope6e-v5-work/populated.zip",
+    "artifacts/candy-scope6e-v5-work/repository-gates.json",
+    "artifacts/candy-scope6e-v5-work/runtime-child.mjs",
+    "artifacts/candy-scope6e-v5-work/runtime-regression.mjs"
+  ],
+  "currentNewEvidenceFiles": [
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-browser.json",
+      "bytes": 415,
+      "sha256": "ba5fb06f7c03f4847e7683a31954e07cb5178ffea0e854dc01aeb54f4f38f227"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-extracted.json",
+      "bytes": 12089,
+      "sha256": "3976f0a96a44abb46305f9daf36ec54c8647e33ea00616767f26dc7b1551ab01"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-integrated-qualification-report.md",
+      "bytes": 8411,
+      "sha256": "5dcb2b61b28ec57394f11329cda54fea908d02d1d4bf10617b57426b59c3518d"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-native-incremental.json",
+      "bytes": 311,
+      "sha256": "310f98e55507b0c36f4781190af22e75ae917e6ba287bc3c33cdff65401613b6"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-native-static.json",
+      "bytes": 311,
+      "sha256": "368570ff7d7a45f4970b0d2a346b1440bdb8163a512b644f4aad7066cedcf901"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-package.json",
+      "bytes": 4692,
+      "sha256": "6ecacae2b8a8878764fc61a4efe609a188719b76d8cb7ea9f15d2b2c5c86e8ab"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-preflight.json",
+      "bytes": 10400,
+      "sha256": "1cb90d3fa5ff0635ec81f3b68349bc805b62b0267eedec5c7e1516166cfe4492"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-product-gates.json",
+      "bytes": 3513,
+      "sha256": "8a13ed0e22d0847ea4415d9d5b7dd95933a4eb6168663db30f2f28ee1b1551eb"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-runtime.json",
+      "bytes": 415,
+      "sha256": "b3c655158d6ae6e23cdc525c19c9648ead9d7b7a67ac09ac73489e5b386ac292"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-security-review.md",
+      "bytes": 2634,
+      "sha256": "b0648170f0f6d1cb31e689d18035289a10d290faa30006b5fc5921da4c57036a"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-v5-soak.json",
+      "bytes": 312,
+      "sha256": "f75a3636f9e7676924e42ed2446b9976a315cc071b37fd9095909d041cc829fa"
+    }
+  ],
+  "generatedTelemetryException": "Untracked artifacts/deterministic-nlu-integrated-routing-report.json is regenerated by the committed full test suite; not historical Scope qualification evidence.",
+  "servicesStartedByV5CleanlyStopped": true,
+  "committed": false,
+  "staged": false,
+  "pushed": false,
+  "tagged": false,
+  "merged": false,
+  "productCorrectiveStarted": false
+}
