@@ -1,0 +1,369 @@
+{
+  "recordedAt": "2026-10-27T01:08:04.974144+00:00",
+  "verdict": "NON-PASS \u2014 CANDY SCOPE 6E INTEGRATED QUALIFICATION BLOCKED",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "branch": "candy-integration-scope6e-integrated-qualification-v4",
+  "firstFailedHardGate": {
+    "section": 7,
+    "gate": "Installed production CUDA_STATIC validation",
+    "status": "NON-PASS",
+    "reason": "Specified V4 recovery worktree lacks its CUDA_STATIC .local qualification record and qualified executable; ordinary production binding returns unavailable and does not advertise STATIC.",
+    "missing": [
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+        "exists": false,
+        "errorCode": "ENOENT"
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+        "exists": false,
+        "errorCode": "ENOENT"
+      }
+    ],
+    "genuineStaticJobsAttempted": 0
+  },
+  "additionalAvailabilityObservation": {
+    "observation": "Intermittent committed GPU-environment probe deadline",
+    "initialDiscovery": {
+      "available": false,
+      "reason": "motif_qualification_unavailable_or_stale"
+    },
+    "environmentDiagnostic": {
+      "startedAt": "2026-10-27T01:01:13.209Z",
+      "purpose": "Diagnose differing ordinary incremental discovery observations without changing qualification state.",
+      "environmentStatus": "UNAVAILABLE",
+      "environmentError": {
+        "message": "Command failed: wsl.exe -d Ubuntu --exec /usr/lib/wsl/lib/nvidia-smi --query-gpu=index,name,memory.total,compute_cap --format=csv,noheader,nounits --id=0\n",
+        "code": null,
+        "signal": "SIGTERM",
+        "killed": true,
+        "stdout": "",
+        "stderr": ""
+      },
+      "incremental": {
+        "available": true,
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\build\\candy-hypergraph-motif-cuda-incremental",
+        "fingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "device": {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      },
+      "finishedAt": "2026-10-27T01:01:19.145Z"
+    },
+    "subsequentOrdinaryCapabilityFollowup": {
+      "observedAt": "2026-10-27T01:02:11.135Z",
+      "code": "Ordinary production capability declaration without overrides, after the recorded environment timeout diagnostic.",
+      "declaration": {
+        "schemaVersion": "candy.capabilities/1",
+        "capabilities": [
+          {
+            "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "algorithmVersion": "scope4c-qualified-motif/1",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_INCREMENTAL",
+            "graphTypes": [
+              "DynamicHypergraph"
+            ],
+            "modes": [
+              "INCREMENTAL"
+            ],
+            "adapterVersion": "candy.qualified-motif-transport/1",
+            "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+            "executionEnvironment": "WSL2_CUDA",
+            "qualification": {
+              "schemaVersion": "candy.motif-qualified-build/1",
+              "status": "exact_local_operator_record"
+            },
+            "devices": [
+              {
+                "id": 0,
+                "name": "NVIDIA GeForce RTX 5060",
+                "memoryMiB": 8151,
+                "computeCapability": "12.0",
+                "qualifiedArchitecture": "sm_120"
+              }
+            ],
+            "limits": {
+              "maxHyperedges": 256,
+              "maxIncidences": 100000,
+              "maxAggregateWork": 5000000,
+              "timeoutMs": 60000,
+              "concurrentJobs": 1
+            }
+          }
+        ],
+        "motifReadiness": [
+          {
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "status": "UNAVAILABLE",
+            "reason": "motif_qualification_unavailable_or_stale"
+          },
+          {
+            "backend": "CUDA_INCREMENTAL",
+            "mode": "INCREMENTAL",
+            "status": "AVAILABLE",
+            "reason": null
+          }
+        ]
+      },
+      "incrementalAdvertised": true,
+      "staticAdvertised": false,
+      "earlierTimeoutEvidenceRetained": "discovery-environment-diagnostic.json"
+    },
+    "interpretation": "A five-second nvidia-smi probe was terminated by the current production timeout; subsequent unchanged ordinary discovery advertised CUDA_INCREMENTAL. Both outcomes retained. Sustained availability under integrated soak is not qualified."
+  },
+  "repositoryGates": "PASS",
+  "repositoryTestCount": 287,
+  "packageReproducibility": "PASS",
+  "extractedGates": "PASS",
+  "extractedTestCount": 287,
+  "extractedRuntimeCli": "PASS",
+  "extractedCudaFailClosed": "PASS",
+  "installedStatic": "NON-PASS",
+  "incrementalDiscoveryFinallyAdvertised": true,
+  "genuineV4NativeJobs": 0,
+  "liveScope6c": "NOT COMPLETED",
+  "liveScope6b": "NOT RUN",
+  "integratedSoak": "NOT RUN",
+  "integratedSecurity": "NOT COMPLETED",
+  "automatedSecuritySeal": "UNAVAILABLE / NOT COMPLETED",
+  "preservation": {
+    "status": "PASS",
+    "trackedFilesUnchanged": 1285,
+    "priorArtifactFilesUnchanged": 430,
+    "allNineRecoveredFilesUnchanged": true,
+    "refsTagsMainOriginMainHistoricalBranchesAndIndexUnchanged": true,
+    "trackedChanges": [],
+    "stagedChanges": [],
+    "historicalNonPassAndCorrectiveEvidenceUnchanged": true,
+    "noProductPolicyRuntimeNativeSourceEdits": true,
+    "noPrivateStateDeletedCleanedResetOrStashed": true,
+    "noNativeBinaryRebuild": true,
+    "noQualificationEvidenceRegenerated": true,
+    "noStageCommitPushTagMerge": true
+  },
+  "files": [
+    {
+      "path": "artifacts/candy-scope6e-v4-browser.json",
+      "bytes": 568,
+      "sha256": "32d5236a0339a407106f2d1242935cc04dbca28c9eaadd61154e960042c10e2a"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-extracted.json",
+      "bytes": 5610,
+      "sha256": "89e66ea0df04cf8816e12f4e3daab2c5285afe6d4516cf6c288b697b93e7ad90"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-integrated-qualification-report.md",
+      "bytes": 7160,
+      "sha256": "6c8c8c16280056727ca2a0a898a0f1db30f352f87e8b1b28b9b652251dc98530"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-native-incremental.json",
+      "bytes": 6916,
+      "sha256": "36e501d588b017d15fe88eedfea5f24c94adfc31f8259907e8e9cfe6e90e9a59"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-native-static.json",
+      "bytes": 1257,
+      "sha256": "559617f00b6290d543237cbf5c7d7db13e8f981015ccebc2d9ba15a33e6bba8b"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-package.json",
+      "bytes": 36368,
+      "sha256": "08899437e5c6f5d76110f318c6850eb4b09245842815bd4d155f67d5fb92864d"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-runtime.json",
+      "bytes": 3298,
+      "sha256": "4af27da28fc9aa492602267bdcfc851a9c490ec9c7807a4526fd728f54f0df7e"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-security-review.md",
+      "bytes": 2507,
+      "sha256": "b41facbe7ed1549735f9825943c258aeb3fc25644d46a0713bae265b8f3cbd03"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-soak.json",
+      "bytes": 546,
+      "sha256": "5f423e7963936a6ca18ed09d1bca369efe00d423da2f3c4deccc7638376d2bca"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/before.json",
+      "bytes": 224122,
+      "sha256": "6970b844bbb82ecef33f0875f3bf16982e418777da3402e1921b2ddaa1168332"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/checkout-eol-observations.json",
+      "bytes": 28614,
+      "sha256": "f39b0f61e3e2b7e176c3420226dfeb76584c120385981d4c6df0b4edec912a88"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/clean-manifest.json",
+      "bytes": 209397,
+      "sha256": "202ab293ae403d225887ab745ee240223e3bff61c9e566cb5875e0f283c53364"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/clean.zip",
+      "bytes": 1729984,
+      "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/discovery-environment-diagnostic.json",
+      "bytes": 1293,
+      "sha256": "210cfa0df27986e90fc54bd37c230f561bbd8292ec27f24cafc8dabb7d54f172"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/discovery-followup.json",
+      "bytes": 1961,
+      "sha256": "22f847f1ba797cedf4a83a9a247cc52080ddcd6144bfa77d61f49013d636dac7"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-0.log",
+      "bytes": 335,
+      "sha256": "768d97922c42f4c4c8671786b73f428bbe3517b7da9ec04b9ee93e4ead555faa"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-1.log",
+      "bytes": 29911,
+      "sha256": "28acf14d39c8155968377ded25162c7266150c5cf00e4d94a1a14479de08de71"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-2.log",
+      "bytes": 55,
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-3.log",
+      "bytes": 2104,
+      "sha256": "e8e5dc4df4caf28efcefc24041043d900c05c6bc991f12734fede337320c68be"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-4.log",
+      "bytes": 2141,
+      "sha256": "ebb1d51e454ba6bfbe8e4024c504f75a2e397b4f0eda45516aaf2a776f99fbe6"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-5.log",
+      "bytes": 24,
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-cli-prelaunch.json",
+      "bytes": 585,
+      "sha256": "ef5e981b45d8d242ed79f4c982c14fbe22ba712caf6e564becb80bbfe89052a2"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-gates.json",
+      "bytes": 2428,
+      "sha256": "994e39633ed6930e79e6699e53ce1b60c7e565daaf77002dd43c6c85550b36dc"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-runtime-live.json",
+      "bytes": 2323,
+      "sha256": "0b6d9fc939afa55780243ccbcdbff0e47879c41b10fd28e0649a82bbaafd1ea6"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extracted-runtime-shutdown.json",
+      "bytes": 228,
+      "sha256": "a4c719dc0cf0451237673a8884153daa0224dfd2280c1e64a81a6311e0c29c7d"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/extraction.json",
+      "bytes": 313,
+      "sha256": "dc96bce38906988366aa6830213784ff39fd0674d8f5bb7609f2bb2ba4750b63"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/historical-populated-manifest.json",
+      "bytes": 209412,
+      "sha256": "67d24e7bdc92d4896ca50787d63f3bb47f5a1241312de70571b01fd7732e54fc"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/historical-populated.zip",
+      "bytes": 1729984,
+      "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/ordinary-production-discovery.json",
+      "bytes": 1788,
+      "sha256": "b2ea07907da2136654d2daa4b3bf516b0f054aae70b2d9971af6c3941470263c"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/package.json",
+      "bytes": 6529,
+      "sha256": "c9c8da183f2b8630fa2d11b216c5b1e4022846c342737907eb3da7cad48835c3"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/populated-recovery-manifest.json",
+      "bytes": 209410,
+      "sha256": "1a29ff601173f3418f5c7d3f84ccf1e9b6ad7a8db8931123c69fd837fbd71971"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/populated-recovery.zip",
+      "bytes": 1729984,
+      "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/preservation.json",
+      "bytes": 547,
+      "sha256": "cd4883bf70ce9b1c133fe538d9480f16d3bf0f17e09e1234a10dbc45a3a6f275"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/qualify.py",
+      "bytes": 9466,
+      "sha256": "a10543c3547a86a0963db0854751c46f7a271b68d248707dc958663d66132940"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-0.log",
+      "bytes": 335,
+      "sha256": "e3abcc65f854447ebe0cd9cbc6d1ffe48b9634a33c982991cdfe06debfd7865c"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-1.log",
+      "bytes": 29838,
+      "sha256": "00127b9269fa19ebfc153665f8e639c947f600e1e36a4647bfaffd8149ef37c6"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-2.log",
+      "bytes": 55,
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-3.log",
+      "bytes": 2104,
+      "sha256": "eee50dee8779c582656231361e18516b4ea58e51fa1ba15ea1fca5c642039616"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-4.log",
+      "bytes": 2141,
+      "sha256": "7e1f8054f47d1629f7f25c806970eaefb199ff7844e91c2ea4af0a5ca09e4d75"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-5.log",
+      "bytes": 24,
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-6.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/candy-scope6e-v4-work/repository-gates.json",
+      "bytes": 2809,
+      "sha256": "820fd90d58c821ee13ba0a8aa768f9b1c4e11fe7f13a0a09fb2a494ee30292ed"
+    }
+  ],
+  "selfDigestExcluded": true
+}

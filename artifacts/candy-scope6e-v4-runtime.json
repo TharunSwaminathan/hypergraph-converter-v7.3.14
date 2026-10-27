@@ -1,0 +1,84 @@
+{
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "status": "PARTIAL / INTEGRATED REGRESSION NOT COMPLETED",
+  "extractedCliStartupHealthAuthDiscoveryShutdown": "PASS",
+  "extracted": {
+    "status": "PASS",
+    "observedAt": "2026-10-27T01:04:25.850548+00:00",
+    "command": [
+      "npm.cmd",
+      "run",
+      "candy:runtime"
+    ],
+    "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v4-extracted-9ygudpit\\product",
+    "healthStatus": 200,
+    "health": {
+      "schemaVersion": "candy.runtime-api/1",
+      "serviceVersion": "candy-runtime-companion/1",
+      "schemaVersions": [
+        "candy.runtime-api/1",
+        "candy.capabilities/1",
+        "candy.artifact-upload/1",
+        "candy.job-submit/1",
+        "candy.graph-snapshot/1",
+        "candy.graph-update-batch/1",
+        "candy.algorithm-request/1",
+        "candy.algorithm-result/1",
+        "candy.algorithm-error/1",
+        "candy.vertex-mapping/1",
+        "candy.native-sssp-request/1",
+        "candy.native-sssp-result/1",
+        "candy.hypergraph-incidence/1",
+        "candy.hyperedge-mapping/1",
+        "candy.hypergraph-3edge-motif-request/1",
+        "candy.hypergraph-3edge-motif-update/1",
+        "candy.hypergraph-3edge-motif-state/1",
+        "candy.hypergraph-3edge-motif-result/1"
+      ],
+      "platform": "windows-wsl-boundary",
+      "runtimeStatus": "ready"
+    },
+    "unauthenticatedDiscovery": 401,
+    "authenticatedSession": {
+      "schemaVersion": "candy.runtime-session/1",
+      "runtimeSessionId": "7af32097-35a7-4750-b81d-940c7b683d7d"
+    },
+    "authenticatedDiscoveryStatus": 200,
+    "capabilityDeclaration": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        }
+      ],
+      "runtimeSessionId": "7af32097-35a7-4750-b81d-940c7b683d7d"
+    },
+    "freshCredentialFileCreatedByThisNewCli": true,
+    "oldCredentialsReused": false,
+    "credentialMaterialPersistedInReports": false,
+    "extractedCudaTruth": "UNAVAILABLE / fail-closed without private qualification installation",
+    "pairingFile": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-runtime-pairing-9209ab473b25b326.txt",
+    "cleanShutdown": "PENDING"
+  },
+  "shutdown": {
+    "status": "PASS",
+    "method": "SIGINT sent to owned npm/Node terminal process group; batch termination prompt answered Y",
+    "listenerClosed": true,
+    "pairingFileRemovedByCommittedCli": true,
+    "cleanShutdown": true
+  },
+  "committedScope6cTests": "PASS in both fresh full suites, including FIFO/admission, retention, cleanup, session/stale authority and recovery fixtures. Injected fixture jobs are not genuine GPU jobs.",
+  "installedLiveCleanAndAbruptNativeRestart": "NOT RUN",
+  "integratedStaleCapabilityAuthority": "NOT QUALIFIED",
+  "persistentNativeWorkers": "DEFERRED / NOT INTRODUCED"
+}

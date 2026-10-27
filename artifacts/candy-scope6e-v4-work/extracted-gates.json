@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v4-extracted-9ygudpit\\product",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T00:59:17.729346+00:00",
+      "seconds": 16.248,
+      "log": "artifacts/candy-scope6e-v4-work/extracted-0.log",
+      "sha256": "768d97922c42f4c4c8671786b73f428bbe3517b7da9ec04b9ee93e4ead555faa"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T00:59:33.976771+00:00",
+      "seconds": 209.7,
+      "log": "artifacts/candy-scope6e-v4-work/extracted-1.log",
+      "sha256": "28acf14d39c8155968377ded25162c7266150c5cf00e4d94a1a14479de08de71",
+      "discovered": 287,
+      "passed": 287,
+      "total": 287,
+      "allDiscoveredPassed": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:03.670650+00:00",
+      "seconds": 10.371,
+      "log": "artifacts/candy-scope6e-v4-work/extracted-2.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:14.041368+00:00",
+      "seconds": 0.914,
+      "log": "artifacts/candy-scope6e-v4-work/extracted-3.log",
+      "sha256": "e8e5dc4df4caf28efcefc24041043d900c05c6bc991f12734fede337320c68be"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:14.955937+00:00",
+      "seconds": 0.878,
+      "log": "artifacts/candy-scope6e-v4-work/extracted-4.log",
+      "sha256": "ebb1d51e454ba6bfbe8e4024c504f75a2e397b4f0eda45516aaf2a776f99fbe6"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:15.834591+00:00",
+      "seconds": 1.027,
+      "log": "artifacts/candy-scope6e-v4-work/extracted-5.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    }
+  ]
+}

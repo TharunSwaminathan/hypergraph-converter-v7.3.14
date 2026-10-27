@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-10-27T01:01:13.209Z",
+  "purpose": "Diagnose differing ordinary incremental discovery observations without changing qualification state.",
+  "environmentStatus": "UNAVAILABLE",
+  "environmentError": {
+    "message": "Command failed: wsl.exe -d Ubuntu --exec /usr/lib/wsl/lib/nvidia-smi --query-gpu=index,name,memory.total,compute_cap --format=csv,noheader,nounits --id=0\n",
+    "code": null,
+    "signal": "SIGTERM",
+    "killed": true,
+    "stdout": "",
+    "stderr": ""
+  },
+  "incremental": {
+    "available": true,
+    "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\build\\candy-hypergraph-motif-cuda-incremental",
+    "fingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+    "executionEnvironment": "WSL2_CUDA",
+    "qualification": {
+      "schemaVersion": "candy.motif-qualified-build/1",
+      "status": "exact_local_operator_record"
+    },
+    "device": {
+      "id": 0,
+      "name": "NVIDIA GeForce RTX 5060",
+      "memoryMiB": 8151,
+      "computeCapability": "12.0",
+      "qualifiedArchitecture": "sm_120"
+    }
+  },
+  "finishedAt": "2026-10-27T01:01:19.145Z"
+}

@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "root": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T00:59:08.928265+00:00",
+      "seconds": 24.311,
+      "log": "artifacts/candy-scope6e-v4-work/repository-0.log",
+      "sha256": "e3abcc65f854447ebe0cd9cbc6d1ffe48b9634a33c982991cdfe06debfd7865c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T00:59:33.238369+00:00",
+      "seconds": 210.114,
+      "log": "artifacts/candy-scope6e-v4-work/repository-1.log",
+      "sha256": "00127b9269fa19ebfc153665f8e639c947f600e1e36a4647bfaffd8149ef37c6",
+      "discovered": 287,
+      "passed": 287,
+      "total": 287,
+      "allDiscoveredPassed": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:03.345863+00:00",
+      "seconds": 10.378,
+      "log": "artifacts/candy-scope6e-v4-work/repository-2.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:13.723470+00:00",
+      "seconds": 0.937,
+      "log": "artifacts/candy-scope6e-v4-work/repository-3.log",
+      "sha256": "eee50dee8779c582656231361e18516b4ea58e51fa1ba15ea1fca5c642039616"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:14.660980+00:00",
+      "seconds": 0.842,
+      "log": "artifacts/candy-scope6e-v4-work/repository-4.log",
+      "sha256": "7e1f8054f47d1629f7f25c806970eaefb199ff7844e91c2ea4af0a5ca09e4d75"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:15.502773+00:00",
+      "seconds": 1.196,
+      "log": "artifacts/candy-scope6e-v4-work/repository-5.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "startedAt": "2026-10-27T01:03:16.699299+00:00",
+      "seconds": 0.031,
+      "log": "artifacts/candy-scope6e-v4-work/repository-6.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

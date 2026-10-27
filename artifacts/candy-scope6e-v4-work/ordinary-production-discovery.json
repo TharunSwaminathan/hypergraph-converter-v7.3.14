@@ -1,0 +1,48 @@
+{
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "observedAt": "2026-10-27T00:59:30.123Z",
+  "runtimeRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime",
+  "incremental": {
+    "available": false,
+    "reason": "motif_qualification_unavailable_or_stale"
+  },
+  "static": {
+    "available": false,
+    "reason": "motif_qualification_unavailable_or_stale"
+  },
+  "declaration": {
+    "schemaVersion": "candy.capabilities/1",
+    "capabilities": [],
+    "motifReadiness": [
+      {
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      },
+      {
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "status": "UNAVAILABLE",
+        "reason": "motif_qualification_unavailable_or_stale"
+      }
+    ]
+  },
+  "staticPrerequisites": [
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+      "exists": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+      "exists": false,
+      "errorCode": "ENOENT"
+    }
+  ],
+  "injectedDiscovery": false,
+  "injectedRunner": false,
+  "genuineNativeJobsExecuted": 0,
+  "sourceOrInstallationChanged": false,
+  "firstFailedInstalledBackendGate": "Section 7: installed production CUDA_STATIC unavailable in specified V4 worktree; local qualification record and qualified executable absent."
+}

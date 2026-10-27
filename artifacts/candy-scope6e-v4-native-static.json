@@ -1,0 +1,30 @@
+{
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "status": "NON-PASS",
+  "firstFailedHardGate": {
+    "section": 7,
+    "gate": "Installed production CUDA_STATIC validation",
+    "status": "NON-PASS",
+    "reason": "Specified V4 recovery worktree lacks its CUDA_STATIC .local qualification record and qualified executable; ordinary production binding returns unavailable and does not advertise STATIC.",
+    "missing": [
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+        "exists": false,
+        "errorCode": "ENOENT"
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+        "exists": false,
+        "errorCode": "ENOENT"
+      }
+    ],
+    "genuineStaticJobsAttempted": 0
+  },
+  "ordinaryProductionResult": {
+    "available": false,
+    "reason": "motif_qualification_unavailable_or_stale"
+  },
+  "advertised": false,
+  "nativeJobsExecuted": 0,
+  "installationCopiedOrChanged": false
+}

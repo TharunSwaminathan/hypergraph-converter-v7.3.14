@@ -1,0 +1,173 @@
+{
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "status": "PARTIAL / NOT FULLY QUALIFIED IN V4",
+  "nineIdentityHashes": "PASS",
+  "ordinaryDiscoveryFinallyAdvertised": true,
+  "discoveryFollowup": {
+    "observedAt": "2026-10-27T01:02:11.135Z",
+    "code": "Ordinary production capability declaration without overrides, after the recorded environment timeout diagnostic.",
+    "declaration": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [
+        {
+          "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "algorithmVersion": "scope4c-qualified-motif/1",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "graphTypes": [
+            "DynamicHypergraph"
+          ],
+          "modes": [
+            "INCREMENTAL"
+          ],
+          "adapterVersion": "candy.qualified-motif-transport/1",
+          "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+          "executionEnvironment": "WSL2_CUDA",
+          "qualification": {
+            "schemaVersion": "candy.motif-qualified-build/1",
+            "status": "exact_local_operator_record"
+          },
+          "devices": [
+            {
+              "id": 0,
+              "name": "NVIDIA GeForce RTX 5060",
+              "memoryMiB": 8151,
+              "computeCapability": "12.0",
+              "qualifiedArchitecture": "sm_120"
+            }
+          ],
+          "limits": {
+            "maxHyperedges": 256,
+            "maxIncidences": 100000,
+            "maxAggregateWork": 5000000,
+            "timeoutMs": 60000,
+            "concurrentJobs": 1
+          }
+        }
+      ],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "AVAILABLE",
+          "reason": null
+        }
+      ]
+    },
+    "incrementalAdvertised": true,
+    "staticAdvertised": false,
+    "earlierTimeoutEvidenceRetained": "discovery-environment-diagnostic.json"
+  },
+  "additionalAvailabilityObservation": {
+    "observation": "Intermittent committed GPU-environment probe deadline",
+    "initialDiscovery": {
+      "available": false,
+      "reason": "motif_qualification_unavailable_or_stale"
+    },
+    "environmentDiagnostic": {
+      "startedAt": "2026-10-27T01:01:13.209Z",
+      "purpose": "Diagnose differing ordinary incremental discovery observations without changing qualification state.",
+      "environmentStatus": "UNAVAILABLE",
+      "environmentError": {
+        "message": "Command failed: wsl.exe -d Ubuntu --exec /usr/lib/wsl/lib/nvidia-smi --query-gpu=index,name,memory.total,compute_cap --format=csv,noheader,nounits --id=0\n",
+        "code": null,
+        "signal": "SIGTERM",
+        "killed": true,
+        "stdout": "",
+        "stderr": ""
+      },
+      "incremental": {
+        "available": true,
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\build\\candy-hypergraph-motif-cuda-incremental",
+        "fingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "device": {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      },
+      "finishedAt": "2026-10-27T01:01:19.145Z"
+    },
+    "subsequentOrdinaryCapabilityFollowup": {
+      "observedAt": "2026-10-27T01:02:11.135Z",
+      "code": "Ordinary production capability declaration without overrides, after the recorded environment timeout diagnostic.",
+      "declaration": {
+        "schemaVersion": "candy.capabilities/1",
+        "capabilities": [
+          {
+            "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "algorithmVersion": "scope4c-qualified-motif/1",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_INCREMENTAL",
+            "graphTypes": [
+              "DynamicHypergraph"
+            ],
+            "modes": [
+              "INCREMENTAL"
+            ],
+            "adapterVersion": "candy.qualified-motif-transport/1",
+            "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+            "executionEnvironment": "WSL2_CUDA",
+            "qualification": {
+              "schemaVersion": "candy.motif-qualified-build/1",
+              "status": "exact_local_operator_record"
+            },
+            "devices": [
+              {
+                "id": 0,
+                "name": "NVIDIA GeForce RTX 5060",
+                "memoryMiB": 8151,
+                "computeCapability": "12.0",
+                "qualifiedArchitecture": "sm_120"
+              }
+            ],
+            "limits": {
+              "maxHyperedges": 256,
+              "maxIncidences": 100000,
+              "maxAggregateWork": 5000000,
+              "timeoutMs": 60000,
+              "concurrentJobs": 1
+            }
+          }
+        ],
+        "motifReadiness": [
+          {
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "status": "UNAVAILABLE",
+            "reason": "motif_qualification_unavailable_or_stale"
+          },
+          {
+            "backend": "CUDA_INCREMENTAL",
+            "mode": "INCREMENTAL",
+            "status": "AVAILABLE",
+            "reason": null
+          }
+        ]
+      },
+      "incrementalAdvertised": true,
+      "staticAdvertised": false,
+      "earlierTimeoutEvidenceRetained": "discovery-environment-diagnostic.json"
+    },
+    "interpretation": "A five-second nvidia-smi probe was terminated by the current production timeout; subsequent unchanged ordinary discovery advertised CUDA_INCREMENTAL. Both outcomes retained. Sustained availability under integrated soak is not qualified."
+  },
+  "genuineV4IncrementalJobs": 0,
+  "multipleTransitions": "NOT RUN after installed STATIC prerequisite failure",
+  "previousSuccessfulRecoverySmoke": "Historical only; not reused as V4 native execution evidence.",
+  "nativeEvidenceRegenerated": false
+}
