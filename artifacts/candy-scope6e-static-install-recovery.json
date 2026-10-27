@@ -1,0 +1,504 @@
+{
+  "schemaVersion": "candy.scope6e-static-install-recovery/1",
+  "recordedAtUtc": "2026-10-27T02:41:29.298924+00:00",
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "branch": "candy-integration-scope6e-static-install-recovery",
+  "status": "PASS",
+  "verdict": "READY TO START SCOPE 6E V5 INTEGRATED QUALIFICATION",
+  "gates": {
+    "preRecoveryIdentityAndSourceHashGate": true,
+    "exclusiveTwoFileBinaryTransfer": true,
+    "sourceDestinationExactDigests": true,
+    "qualificationRecordContract": true,
+    "staticSourceAndMakefileUnchanged": true,
+    "fiveStaticEvidenceUnchanged": true,
+    "ordinaryProductionStaticDiscovery": true,
+    "genuineOneJobStaticSmoke": true,
+    "incrementalStillAdvertised": true,
+    "incrementalNineFilesPreserved": true,
+    "cleanPopulatedPackageByteIdentical": true,
+    "privateInstallationsAndRootArtifactsExcluded": true,
+    "zeroTrackedAndStagedChanges": true,
+    "headBranchRefsOriginMainTagsEvidenceBranchesUnchanged": true,
+    "historicalEvidenceBytesAndMtimesUnchanged": true,
+    "noNativeBuildOrEvidenceRegeneration": true,
+    "runtimeCleanShutdown": true
+  },
+  "files": [
+    {
+      "source": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+        "bytes": 1487,
+        "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+        "mtimeNs": 1789742392512883200
+      },
+      "destination": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+        "bytes": 1487,
+        "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+        "mtimeNs": 1793068592450479500
+      },
+      "expectedBytes": 1487,
+      "expectedSha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+      "exclusiveBinaryCreate": true,
+      "exactBytes": true,
+      "sourceReverified": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+        "bytes": 1487,
+        "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+        "mtimeNs": 1789742392512883200
+      },
+      "destinationReverified": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+        "bytes": 1487,
+        "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+        "mtimeNs": 1793068592450479500
+      }
+    },
+    {
+      "source": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+        "bytes": 1160632,
+        "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "mtimeNs": 1789658821479438900
+      },
+      "destination": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+        "bytes": 1160632,
+        "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "mtimeNs": 1793068592458607400
+      },
+      "expectedBytes": 1160632,
+      "expectedSha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+      "exclusiveBinaryCreate": true,
+      "exactBytes": true,
+      "sourceReverified": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+        "bytes": 1160632,
+        "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "mtimeNs": 1789658821479438900
+      },
+      "destinationReverified": {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda",
+        "bytes": 1160632,
+        "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "mtimeNs": 1793068592458607400
+      }
+    }
+  ],
+  "qualificationRecordValidation": {
+    "status": "PASS",
+    "predicates": {
+      "schemaVersion": true,
+      "backend": true,
+      "algorithm": true,
+      "taxonomyVersion": true,
+      "qualifiedCommit": true,
+      "architecture": true,
+      "nvccVersion": true,
+      "runtimeVersion": true,
+      "runtimePackageVersion": true,
+      "binarySha256": true,
+      "sourceSha256": true,
+      "makefileSha256": true,
+      "exactKeys": true,
+      "exactEvidencePaths": true,
+      "deviceExactKeys": true,
+      "deviceIdentity": true
+    },
+    "recordSha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+    "staticInputs": [
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\src\\main.cu",
+        "bytes": 15915,
+        "sha256": "74a9210e8872cf845d7c4c958732615c6f1eb81e4225a823542567aa837ac797",
+        "mtimeNs": 1793056787275593900
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\Makefile",
+        "bytes": 765,
+        "sha256": "695d82ec5c51ddf157bb1e4163ab9212711f72024797a190e3202a72038036a6",
+        "mtimeNs": 1793056787274594800
+      }
+    ],
+    "staticEvidence": [
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-native-qualification.json",
+        "bytes": 273866,
+        "sha256": "fa82a2e46518adc959b8b6b25f4e67dc44cbfe72d03b75cd07b764f8c305af63",
+        "mtimeNs": 1793056787024166900,
+        "checks": {
+          "status": true,
+          "failed": true,
+          "binary": true,
+          "cases": true,
+          "failures": true,
+          "runtimeVersion": true
+        }
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-memcheck-qualification.json",
+        "bytes": 5401,
+        "sha256": "bc8071686bff75bc26d8d426225bc317a950606cd074a74ee160fc1dc2f125df",
+        "mtimeNs": 1793056787021166800,
+        "checks": {
+          "status": true,
+          "failed": true,
+          "binary": true,
+          "cases": true
+        }
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-racecheck-qualification.json",
+        "bytes": 5515,
+        "sha256": "5d60eaceae2cffb7aee62ef1798beedd7cf7b0fd05e4c081db53c99071601fe6",
+        "mtimeNs": 1793056787025173500,
+        "checks": {
+          "status": true,
+          "failed": true,
+          "binary": true,
+          "cases": true
+        }
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-initcheck-qualification.json",
+        "bytes": 5400,
+        "sha256": "8f77642af711595fd4ba1b66cb04608b8a856060802209e77210341091dbdf72",
+        "mtimeNs": 1793056787020167800,
+        "checks": {
+          "status": true,
+          "failed": true,
+          "binary": true,
+          "cases": true
+        }
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope4b1-cuda-static-synccheck-qualification.json",
+        "bytes": 5402,
+        "sha256": "27c10a45cebb0526f1440b347a0fe63e8c527488ed7da6f2f448f66c59b0ceee",
+        "mtimeNs": 1793056787025173500,
+        "checks": {
+          "status": true,
+          "failed": true,
+          "binary": true,
+          "cases": true
+        }
+      }
+    ],
+    "incrementalFiles": [
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_incremental-scope6d-tranche1-f3fa7dc3-qualified-build.json",
+        "bytes": 1557,
+        "sha256": "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f",
+        "mtimeNs": 1793058034256233900
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\src\\main.cu",
+        "bytes": 23975,
+        "sha256": "ce425e455649fb1e2fec632cd608834dd6f8d7b31969c81673a8d1304908ee2b",
+        "mtimeNs": 1793058034258237000
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\Makefile",
+        "bytes": 779,
+        "sha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b",
+        "mtimeNs": 1793058034265240100
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3\\build\\candy-hypergraph-motif-cuda-incremental",
+        "bytes": 1184872,
+        "sha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+        "mtimeNs": 1793058034267250200
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-native-qualification.json",
+        "bytes": 730848,
+        "sha256": "aff7a38f36b3755d3e8337ad39accf1e116490e644e90fe2f3646ea577268d87",
+        "mtimeNs": 1793057032805502700
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-memcheck-qualification.json",
+        "bytes": 22154,
+        "sha256": "2dd22c7d0032208627631917782004f6bd6aa6eea22288a66cd2d8115284786d",
+        "mtimeNs": 1793057032819053200
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-racecheck-qualification.json",
+        "bytes": 22384,
+        "sha256": "302d35ccbfa9a308c8b0151c65ad104ada578c45afdf29eccdd93bd6d9830cb0",
+        "mtimeNs": 1793057032826101900
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-initcheck-qualification.json",
+        "bytes": 22155,
+        "sha256": "c16ca1dfe609165e247bca6fe73db5e745ead82218d5b4f6c7d9ba3bca5069d2",
+        "mtimeNs": 1793057032831574300
+      },
+      {
+        "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6d-tranche1-cuda-incremental-synccheck-qualification.json",
+        "bytes": 22155,
+        "sha256": "049caef3c980c39fceafb447de07477abb1015ca4ac4c0e6047d16413707be49",
+        "mtimeNs": 1793057032837610700
+      }
+    ],
+    "sourceMakefileOrEvidenceRewritten": false,
+    "nativeBuildPerformed": false
+  },
+  "productionDiscoveryReport": "artifacts/candy-scope6e-static-positive-discovery.json",
+  "staticSmokeReport": "artifacts/candy-scope6e-static-smoke.json",
+  "incrementalRegression": {
+    "status": "PASS",
+    "method": "fresh ordinary production capabilities after STATIC smoke; no incremental job necessary",
+    "fingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+  },
+  "packageNonContamination": {
+    "status": "PASS",
+    "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+    "identicalBytes": true,
+    "cases": [
+      {
+        "case": "clean-committed",
+        "sourceMode": "snapshot",
+        "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+        "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+        "bytes": 1729984,
+        "entries": 940,
+        "files": 884,
+        "directories": 56,
+        "archive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-static-install-recovery-work\\clean-committed.zip",
+        "verification": {
+          "archive": "clean-committed.zip",
+          "bytes": 1729984,
+          "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+          "memberCount": 940,
+          "root": "product",
+          "testzip": "ok",
+          "modeCounts": {
+            "0644": 856,
+            "0755": 84
+          },
+          "issues": {
+            "backslashMembers": [],
+            "nonCanonicalMembers": [],
+            "absoluteMembers": [],
+            "traversalMembers": [],
+            "duplicateMembers": [],
+            "caseCollisions": [],
+            "forbiddenMembers": [],
+            "symlinkMembers": [],
+            "specialMembers": [],
+            "unexpectedExecutableFiles": [],
+            "missingExecutableBits": [],
+            "incorrectOrdinaryModes": [],
+            "incorrectDirectoryModes": [],
+            "worldOrGroupWritable": [],
+            "nonUnixCreateSystem": [],
+            "rootLayout": [],
+            "crcFailures": [],
+            "sourceInventory": []
+          },
+          "issueCount": 0,
+          "ok": true,
+          "verificationLevel": "commit-bound",
+          "sourceCommit": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2"
+        },
+        "producerCounts": {
+          "entries": 940,
+          "backslash_entries": 0,
+          "project_roots": 1,
+          "node_modules_entries": 0,
+          "dist_entries": 0,
+          "git_entries": 0,
+          "artifacts_entries": 0,
+          "coverage_entries": 0,
+          "macos_entries": 0,
+          "ds_store_entries": 0,
+          "temporary_cache_entries": 0,
+          "directory_entries": 56,
+          "executable_entries": 28
+        },
+        "privateInstallationLeaks": []
+      },
+      {
+        "case": "fully-populated-recovery",
+        "sourceMode": "git",
+        "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+        "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+        "bytes": 1729984,
+        "entries": 940,
+        "files": 884,
+        "directories": 56,
+        "archive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-static-install-recovery-work\\fully-populated-recovery.zip",
+        "verification": {
+          "archive": "fully-populated-recovery.zip",
+          "bytes": 1729984,
+          "sha256": "508977338144acc212fc88c8a622e7725e98a16d56c9c36052be4566e56cc3ba",
+          "memberCount": 940,
+          "root": "product",
+          "testzip": "ok",
+          "modeCounts": {
+            "0644": 856,
+            "0755": 84
+          },
+          "issues": {
+            "backslashMembers": [],
+            "nonCanonicalMembers": [],
+            "absoluteMembers": [],
+            "traversalMembers": [],
+            "duplicateMembers": [],
+            "caseCollisions": [],
+            "forbiddenMembers": [],
+            "symlinkMembers": [],
+            "specialMembers": [],
+            "unexpectedExecutableFiles": [],
+            "missingExecutableBits": [],
+            "incorrectOrdinaryModes": [],
+            "incorrectDirectoryModes": [],
+            "worldOrGroupWritable": [],
+            "nonUnixCreateSystem": [],
+            "rootLayout": [],
+            "crcFailures": [],
+            "sourceInventory": []
+          },
+          "issueCount": 0,
+          "ok": true,
+          "verificationLevel": "commit-bound",
+          "sourceCommit": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2"
+        },
+        "producerCounts": {
+          "entries": 940,
+          "backslash_entries": 0,
+          "project_roots": 1,
+          "node_modules_entries": 0,
+          "dist_entries": 0,
+          "git_entries": 0,
+          "artifacts_entries": 0,
+          "coverage_entries": 0,
+          "macos_entries": 0,
+          "ds_store_entries": 0,
+          "temporary_cache_entries": 0,
+          "directory_entries": 56,
+          "executable_entries": 28
+        },
+        "privateInstallationLeaks": []
+      }
+    ],
+    "producer": {
+      "path": "scripts/package-portable-source.py",
+      "blob": "e85685d65f30a7cf31ddd76c8f831aa7ade61081",
+      "rawSha256": "8eefd4298fe2197f238a08cc96e8bb1a283b5f698655e6b925190db35ecdfd59"
+    },
+    "verifier": {
+      "path": "scripts/verify-portable-archive.py",
+      "blob": "0c8be3330f1514c9a9cfb9ccde5623549ad70ee3",
+      "rawSha256": "d82cff6c52466a0bc26dc48e0c24e761451ca30689f932950763fca7ce067541"
+    },
+    "privateFilesPresentAndExcluded": [
+      {
+        "path": "candy-runtime/.local/cuda_static-qualified-build.json",
+        "bytes": 1487,
+        "sha256": "68d5e17696c67c04f5558e3aba556f4f86afdbf0750f44c1c80539b86f8d021f",
+        "producerPolicyExcludes": true
+      },
+      {
+        "path": "candy-runtime/native/hypergraph-motif-cuda/build/candy-hypergraph-motif-cuda",
+        "bytes": 1160632,
+        "sha256": "fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "producerPolicyExcludes": true
+      },
+      {
+        "path": "candy-runtime/.local/cuda_incremental-scope6d-tranche1-f3fa7dc3-qualified-build.json",
+        "bytes": 1557,
+        "sha256": "065ba1a42fcf8b641104f67c26661364ca4aa293d2489cd4a8146a97e03b312f",
+        "producerPolicyExcludes": true
+      },
+      {
+        "path": "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/src/main.cu",
+        "bytes": 23975,
+        "sha256": "ce425e455649fb1e2fec632cd608834dd6f8d7b31969c81673a8d1304908ee2b",
+        "producerPolicyExcludes": true
+      },
+      {
+        "path": "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/Makefile",
+        "bytes": 779,
+        "sha256": "7460a217f6d29f5c4c8eaf9079babfcc8e7ef2f79ba7a2890ca3442f6a24cc8b",
+        "producerPolicyExcludes": true
+      },
+      {
+        "path": "candy-runtime/native/hypergraph-motif-cuda-incremental-scope6d-tranche1-f3fa7dc3/build/candy-hypergraph-motif-cuda-incremental",
+        "bytes": 1184872,
+        "sha256": "58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+        "producerPolicyExcludes": true
+      }
+    ],
+    "cleanSourceMethod": "Raw pinned committed production source entries materialized only in a new temporary directory outside both repositories; unchanged producer snapshot mode.",
+    "populatedSourceMethod": "Unchanged committed Git-backed producer, pinned to exact baseline, invoked against fully populated recovery worktree.",
+    "scratchDirectoryRemoved": true,
+    "privateStaticExcluded": true,
+    "privateIncrementalExcluded": true,
+    "rootArtifactsExcluded": true,
+    "productionRuntimeArtifactStoreSourceIncluded": true,
+    "packagePolicyModified": false
+  },
+  "preservation": [
+    {
+      "root": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery",
+      "filesRehashed": 1364,
+      "allBytesAndMtimesUnchanged": true,
+      "indexUnchanged": true,
+      "headUnchanged": true,
+      "branchUnchanged": true,
+      "statusUnchanged": false,
+      "statusNote": "Recovery worktree has allowed new artifacts only; populated source status identical."
+    },
+    {
+      "root": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14",
+      "filesRehashed": 1901,
+      "allBytesAndMtimesUnchanged": true,
+      "indexUnchanged": true,
+      "headUnchanged": true,
+      "branchUnchanged": true,
+      "statusUnchanged": true,
+      "statusNote": "Identical"
+    }
+  ],
+  "priorFileEntriesReverified": 3265,
+  "allLocalRefsUnchanged": true,
+  "trackedChanges": [],
+  "stagedChanges": [],
+  "newUntrackedPathsBeforeFinalReports": [
+    "artifacts/candy-scope6e-static-install-recovery-work/before.json",
+    "artifacts/candy-scope6e-static-install-recovery-work/clean-committed-manifest.json",
+    "artifacts/candy-scope6e-static-install-recovery-work/clean-committed.zip",
+    "artifacts/candy-scope6e-static-install-recovery-work/finish.py",
+    "artifacts/candy-scope6e-static-install-recovery-work/fully-populated-recovery-manifest.json",
+    "artifacts/candy-scope6e-static-install-recovery-work/fully-populated-recovery.zip",
+    "artifacts/candy-scope6e-static-install-recovery-work/package-non-contamination.json",
+    "artifacts/candy-scope6e-static-install-recovery-work/packages.py",
+    "artifacts/candy-scope6e-static-install-recovery-work/record-validation.json",
+    "artifacts/candy-scope6e-static-install-recovery-work/two-file-transfer.json",
+    "artifacts/candy-scope6e-static-install-recovery-work/validate.mjs",
+    "artifacts/candy-scope6e-static-positive-discovery.json",
+    "artifacts/candy-scope6e-static-smoke.json"
+  ],
+  "noStaticSourceOrMakefileOrEvidenceRewrite": true,
+  "noIncrementalInstallationChange": true,
+  "nativeBinariesRebuilt": 0,
+  "nativeQualificationRuns": 0,
+  "sanitizerRuns": 0,
+  "codexSecurityInvoked": false,
+  "staticProductionJobs": 1,
+  "incrementalProductionJobs": 0,
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "tagged": false,
+  "merged": false,
+  "scope6EV5Started": false,
+  "scope6EIntegratedQualified": false,
+  "historicalV4NonPassPreserved": true,
+  "allowedPersistentNonEvidenceAdditions": [
+    "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\.local\\cuda_static-qualified-build.json",
+    "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\candy-runtime\\native\\hypergraph-motif-cuda\\build\\candy-hypergraph-motif-cuda"
+  ]
+}

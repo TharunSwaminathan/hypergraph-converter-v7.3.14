@@ -1,0 +1,525 @@
+{
+  "baseline": "d2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2",
+  "startedAt": "2026-10-27T02:38:30.077Z",
+  "command": [
+    "node",
+    "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-native-evidence-recovery\\artifacts\\candy-scope6e-static-install-recovery-work\\validate.mjs",
+    "smoke"
+  ],
+  "submittedJobs": 1,
+  "completedJobs": 1,
+  "injectedDiscovery": false,
+  "injectedRunner": false,
+  "qualificationOverrides": false,
+  "nativeExecutableRebuilt": false,
+  "nativeQualificationOrSanitizersExecuted": false,
+  "expectedResultAuthority": "Committed taxonomy witness 0: exactly three connected hyperedges form exactly one triple in motif bin 0. No CPU oracle is used for production execution.",
+  "fixture": {
+    "source": "tests/fixtures/candy-scope4-motifs.mjs ALL_30_MOTIF_WITNESSES[0]",
+    "motifId": 1,
+    "shape": "OPEN_WEDGE",
+    "graph": {
+      "schemaVersion": "candy.hypergraph-incidence/1",
+      "graphId": "motif-1",
+      "graphVersion": 1,
+      "graphType": "Hypergraph",
+      "vertices": [
+        "v-ab_only",
+        "v-bc_only"
+      ],
+      "hyperedges": [
+        {
+          "id": "A",
+          "vertices": [
+            "v-ab_only"
+          ]
+        },
+        {
+          "id": "B",
+          "vertices": [
+            "v-ab_only",
+            "v-bc_only"
+          ]
+        },
+        {
+          "id": "C",
+          "vertices": [
+            "v-bc_only"
+          ]
+        }
+      ]
+    },
+    "graphJsonSha256": "9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5"
+  },
+  "expectedCounts": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "expectedTotalConnectedTriples": 1,
+  "cleanShutdown": true,
+  "runtime": {
+    "platform": "win32",
+    "host": "127.0.0.1",
+    "port": 61464,
+    "transport": "authenticated_production_http_client",
+    "runtimeSessionId": "e9eba2c5-8c55-4b51-8ed0-fd89c32e74ed"
+  },
+  "startupBackends": {
+    "CUDA_STATIC": {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "graphTypes": [
+        "Hypergraph",
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "STATIC"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    },
+    "CUDA_INCREMENTAL": {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_INCREMENTAL",
+      "graphTypes": [
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "INCREMENTAL"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    }
+  },
+  "submission": {
+    "schemaVersion": "candy.job-submit/1",
+    "request": {
+      "schemaVersion": "candy.runtime-motif-request/1",
+      "requestId": "6193f6e8-055f-4c50-a68f-4053c2a2a956",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "graphRef": {
+        "graphId": "motif-1",
+        "graphVersion": 1
+      },
+      "deviceId": 0,
+      "timeoutMs": 10000
+    },
+    "graphSnapshot": {
+      "schemaVersion": "candy.graph-snapshot/1",
+      "graphId": "motif-1",
+      "graphVersion": 1,
+      "graphType": "Hypergraph",
+      "directed": false,
+      "weightModel": {
+        "kind": "nonnegative_integer",
+        "objectives": [
+          "weight"
+        ]
+      },
+      "vertexCount": 2,
+      "hyperedgeCount": 3,
+      "canonicalArtifactRef": {
+        "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+        "mediaType": "application/vnd.candy.graph+json",
+        "byteLength": 282
+      },
+      "provenance": {
+        "source": "scope6e-static-recovery-single-committed-taxonomy-witness"
+      }
+    },
+    "graphArtifactId": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5"
+  },
+  "submissionJsonSha256": "89e680bc6fc0ccbcbcc1f44b7db219aa0d55e790559643c810a2e1907028ef3c",
+  "jobId": "a9d063ae-333d-4dc5-b1ba-7a8c623c9f9d",
+  "job": {
+    "schemaVersion": "candy.job-status/1",
+    "jobId": "a9d063ae-333d-4dc5-b1ba-7a8c623c9f9d",
+    "requestHash": "sha256:ead8c0fde16f03417aeb024c0066c883e84ab0ae4055af61ee17a5817dab076c",
+    "status": "completed",
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC",
+    "graphRef": {
+      "graphId": "motif-1",
+      "graphVersion": 1
+    },
+    "createdAt": "2026-10-27T02:38:30.706Z",
+    "updatedAt": "2026-10-27T02:38:31.139Z",
+    "resultRef": "sha256:be322c810879c925d20915758424b6c0ea3d383a41d7c75ce613a86fa4e57dce",
+    "error": null,
+    "lifecycle": [
+      "queued",
+      "preparing",
+      "running",
+      "validating",
+      "completed"
+    ]
+  },
+  "result": {
+    "schemaVersion": "candy.runtime-motif-result/1",
+    "runtimeSessionId": "e9eba2c5-8c55-4b51-8ed0-fd89c32e74ed",
+    "jobId": "a9d063ae-333d-4dc5-b1ba-7a8c623c9f9d",
+    "requestId": "6193f6e8-055f-4c50-a68f-4053c2a2a956",
+    "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+    "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+    "backend": "CUDA_STATIC",
+    "mode": "STATIC",
+    "inputGraphRef": {
+      "graphId": "motif-1",
+      "graphVersion": 1
+    },
+    "graphArtifactId": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+    "updateRef": null,
+    "requestDigest": "f0c09485a9439e03179e90741764d5e6fb75f63ad7adad840579bdf5df910365",
+    "execution": {
+      "status": "completed",
+      "exitCode": 0,
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+    },
+    "validation": {
+      "status": "passed",
+      "method": "qualified_transport_identity_and_semantic_validation"
+    },
+    "resultType": "HypergraphMotifCounts",
+    "interpretation": "absolute_counts",
+    "native": {
+      "ok": true,
+      "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "inputGraphRef": {
+        "graphId": "motif-1",
+        "graphVersion": 1
+      },
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "totalConnectedTriples": 1,
+      "cuda": {
+        "deviceIndex": 0,
+        "deviceName": "NVIDIA GeForce RTX 5060",
+        "computeMajor": 12,
+        "computeMinor": 0,
+        "compiledArchitecture": "sm_120",
+        "compilerVersion": "13.4.59",
+        "runtimeVersion": 13040,
+        "driverVersion": 13040,
+        "kernelLaunchSucceeded": true,
+        "synchronizationSucceeded": true,
+        "kernelMilliseconds": 0.548672
+      }
+    },
+    "warnings": [],
+    "resultArtifactRef": {
+      "id": "sha256:be322c810879c925d20915758424b6c0ea3d383a41d7c75ce613a86fa4e57dce",
+      "mediaType": "application/vnd.candy.result+json",
+      "byteLength": 1597
+    }
+  },
+  "resultJsonSha256": "dfb1da7b103d54ab86b014067386d3998f6018e36d9ac2eb6166d84f085223be",
+  "graphUnchanged": true,
+  "noCpuFallbackOrIncrementalOrProjectionSubstitute": true,
+  "nativeInvocation": {
+    "runner": "candy-runtime/src/backends/nativeProcessRunner.js NativeProcessRunner.run",
+    "commandTemplate": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu",
+      "--exec",
+      "/usr/bin/setsid",
+      "--wait",
+      "/bin/bash",
+      "<committed nativeSupervisor.sh>",
+      "<exact recovered STATIC executable>",
+      "<owned request.txt>"
+    ],
+    "qualifiedExecutableFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+    "requestDigest": "f0c09485a9439e03179e90741764d5e6fb75f63ad7adad840579bdf5df910365",
+    "templateNotProcessCommandLineCapture": true
+  },
+  "postSmokeDeclaration": {
+    "schemaVersion": "candy.capabilities/1",
+    "capabilities": [
+      {
+        "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "algorithmVersion": "scope4c-qualified-motif/1",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "graphTypes": [
+          "Hypergraph",
+          "DynamicHypergraph"
+        ],
+        "modes": [
+          "STATIC"
+        ],
+        "adapterVersion": "candy.qualified-motif-transport/1",
+        "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "devices": [
+          {
+            "id": 0,
+            "name": "NVIDIA GeForce RTX 5060",
+            "memoryMiB": 8151,
+            "computeCapability": "12.0",
+            "qualifiedArchitecture": "sm_120"
+          }
+        ],
+        "limits": {
+          "maxHyperedges": 256,
+          "maxIncidences": 100000,
+          "maxAggregateWork": 5000000,
+          "timeoutMs": 60000,
+          "concurrentJobs": 1
+        }
+      },
+      {
+        "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "algorithmVersion": "scope4c-qualified-motif/1",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "graphTypes": [
+          "DynamicHypergraph"
+        ],
+        "modes": [
+          "INCREMENTAL"
+        ],
+        "adapterVersion": "candy.qualified-motif-transport/1",
+        "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "devices": [
+          {
+            "id": 0,
+            "name": "NVIDIA GeForce RTX 5060",
+            "memoryMiB": 8151,
+            "computeCapability": "12.0",
+            "qualifiedArchitecture": "sm_120"
+          }
+        ],
+        "limits": {
+          "maxHyperedges": 256,
+          "maxIncidences": 100000,
+          "maxAggregateWork": 5000000,
+          "timeoutMs": 60000,
+          "concurrentJobs": 1
+        }
+      }
+    ],
+    "motifReadiness": [
+      {
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "status": "AVAILABLE",
+        "reason": null
+      },
+      {
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "status": "AVAILABLE",
+        "reason": null
+      }
+    ],
+    "runtimeSessionId": "e9eba2c5-8c55-4b51-8ed0-fd89c32e74ed"
+  },
+  "postSmokeBackends": {
+    "CUDA_STATIC": {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_STATIC",
+      "graphTypes": [
+        "Hypergraph",
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "STATIC"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    },
+    "CUDA_INCREMENTAL": {
+      "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+      "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+      "algorithmVersion": "scope4c-qualified-motif/1",
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "backend": "CUDA_INCREMENTAL",
+      "graphTypes": [
+        "DynamicHypergraph"
+      ],
+      "modes": [
+        "INCREMENTAL"
+      ],
+      "adapterVersion": "candy.qualified-motif-transport/1",
+      "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+      "executionEnvironment": "WSL2_CUDA",
+      "qualification": {
+        "schemaVersion": "candy.motif-qualified-build/1",
+        "status": "exact_local_operator_record"
+      },
+      "devices": [
+        {
+          "id": 0,
+          "name": "NVIDIA GeForce RTX 5060",
+          "memoryMiB": 8151,
+          "computeCapability": "12.0",
+          "qualifiedArchitecture": "sm_120"
+        }
+      ],
+      "limits": {
+        "maxHyperedges": 256,
+        "maxIncidences": 100000,
+        "maxAggregateWork": 5000000,
+        "timeoutMs": 60000,
+        "concurrentJobs": 1
+      }
+    }
+  },
+  "incrementalRegression": {
+    "status": "PASS",
+    "method": "fresh ordinary production capabilities after STATIC smoke; no incremental job necessary",
+    "fingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+  },
+  "status": "PASS",
+  "finishedAt": "2026-10-27T02:38:31.414Z"
+}
