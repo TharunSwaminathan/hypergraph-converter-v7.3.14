@@ -11,7 +11,9 @@ import { JobManager } from "./jobs/jobManager.js";
 import { CANDY_ERROR_CODES, CandyContractError } from "../../src/candy/contracts/errorClasses.js";
 import { CANDY_SCHEMA_VERSIONS } from "../../src/candy/contracts/schemaVersions.js";
 
-const ARTIFACT_ROUTE = /^\/v1\/artifacts\/(sha256:[a-f0-9]{64})\/metadata$/;
+// Accept the literal ID or encodeURIComponent's colon spelling. Capture only
+// canonical digest bytes; never generally percent-decode URL/path input.
+const ARTIFACT_ROUTE = /^\/v1\/artifacts\/sha256(?::|%3[Aa])([a-f0-9]{64})\/metadata$/;
 const JOB_ROUTE = /^\/v1\/jobs\/([0-9a-f-]{36})$/;
 const JOB_CANCEL_ROUTE = /^\/v1\/jobs\/([0-9a-f-]{36})\/cancel$/;
 const JOB_RESULT_ROUTE = /^\/v1\/jobs\/([0-9a-f-]{36})\/result$/;
@@ -83,7 +85,7 @@ export async function startCandyRuntime(overrides = {}) {
         return writeJson(response, 201, await artifactStore.put(upload.bytes, upload.mediaType), cors);
       }
       const artifact = ARTIFACT_ROUTE.exec(request.url);
-      if (request.method === "GET" && artifact) return writeJson(response, 200, artifactStore.metadata(artifact[1]), cors);
+      if (request.method === "GET" && artifact) return writeJson(response, 200, artifactStore.metadata(`sha256:${artifact[1]}`), cors);
       if (request.method === "POST" && request.url === "/v1/jobs") {
         const payload=await readJsonBody(request,config.limits.requestBytes);
         const job=await jobs.submit(payload);
