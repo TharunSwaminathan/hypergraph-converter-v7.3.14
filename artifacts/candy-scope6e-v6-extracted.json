@@ -1,0 +1,783 @@
+{
+  "status": "PASS",
+  "baseline": "51e8a46ad527760b838bd92e78e19404d07acf40",
+  "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v6-extracted-5ttb0gix\\product",
+  "results": [
+    {
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "startedAtUtc": "2026-10-28T20:42:45.782584+00:00",
+      "seconds": 7.246,
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v6\\artifacts\\candy-scope6e-v6-work\\extracted-0.log",
+      "sha256": "f2b8b04551548b8aef9ed5fecd96ce43695b3a7faed6b9d948d88f219f43e080"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "startedAtUtc": "2026-10-28T20:42:53.028991+00:00",
+      "seconds": 188.169,
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v6\\artifacts\\candy-scope6e-v6-work\\extracted-1.log",
+      "sha256": "65362fde81047931da36acaed5aea07c39eb2a5f867d4789c303f0bd3f4a26ca",
+      "discovered": 288,
+      "passed": 288,
+      "total": 288,
+      "allDiscoveredPassed": true
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "startedAtUtc": "2026-10-28T20:46:01.195864+00:00",
+      "seconds": 9.107,
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v6\\artifacts\\candy-scope6e-v6-work\\extracted-2.log",
+      "sha256": "ecc4e1beccf9ce7a2c1ed88d6640c8de9b2ee19f9ec3b4dba1015e5b7bcb7c5c"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "startedAtUtc": "2026-10-28T20:46:10.302580+00:00",
+      "seconds": 0.861,
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v6\\artifacts\\candy-scope6e-v6-work\\extracted-3.log",
+      "sha256": "3d37175d32f077887cfe902d710fc7a775a4271f75db752ec5496b624707b8c5"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "startedAtUtc": "2026-10-28T20:46:11.164081+00:00",
+      "seconds": 0.833,
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v6\\artifacts\\candy-scope6e-v6-work\\extracted-4.log",
+      "sha256": "38990735be3fafac4ce1dfd724988f2cf447bd4844e6c675b0c9b32715768203"
+    },
+    {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev"
+      ],
+      "startedAtUtc": "2026-10-28T20:46:11.996809+00:00",
+      "seconds": 0.956,
+      "exitCode": 0,
+      "log": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v6\\artifacts\\candy-scope6e-v6-work\\extracted-5.log",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "productionVulnerabilities": 0
+    }
+  ],
+  "runtimeValidation": {
+    "baseline": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "root": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope6e-v6-extracted-5ttb0gix\\product",
+    "startedAt": "2026-10-28T20:46:22.379Z",
+    "privateStateInjected": false,
+    "injectedDiscovery": false,
+    "injectedRunner": false,
+    "cleanShutdown": true,
+    "health": {
+      "schemaVersion": "candy.runtime-api/1",
+      "serviceVersion": "candy-runtime-companion/1",
+      "schemaVersions": [
+        "candy.runtime-api/1",
+        "candy.capabilities/1",
+        "candy.artifact-upload/1",
+        "candy.job-submit/1",
+        "candy.graph-snapshot/1",
+        "candy.graph-update-batch/1",
+        "candy.algorithm-request/1",
+        "candy.algorithm-result/1",
+        "candy.algorithm-error/1",
+        "candy.vertex-mapping/1",
+        "candy.native-sssp-request/1",
+        "candy.native-sssp-result/1",
+        "candy.hypergraph-incidence/1",
+        "candy.hyperedge-mapping/1",
+        "candy.hypergraph-3edge-motif-request/1",
+        "candy.hypergraph-3edge-motif-update/1",
+        "candy.hypergraph-3edge-motif-state/1",
+        "candy.hypergraph-3edge-motif-result/1"
+      ],
+      "platform": "windows-wsl-boundary",
+      "runtimeStatus": "ready"
+    },
+    "declaration": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "UNAVAILABLE",
+          "reason": "motif_qualification_unavailable_or_stale"
+        }
+      ],
+      "runtimeSessionId": "ef0c9b01-e43f-421d-85be-16d68faee1f5"
+    },
+    "normalArtifactMetadata": {
+      "id": "sha256:9082f31a8158020729e5084899269beb0293c8fa3f5e0ba1b4bf2296af7becc5",
+      "mediaType": "application/vnd.candy.graph+json",
+      "byteLength": 282
+    },
+    "cpuBrowserSafeReference": {
+      "graphRef": {
+        "graphId": "motif-1",
+        "graphVersion": 1
+      },
+      "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+      "counts": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "totalConnectedTriples": 1
+    },
+    "authenticationEnforced": true,
+    "cleanRestartReconnect": {
+      "status": "PASS",
+      "freshSession": true,
+      "freshAuthentication": true,
+      "staleTokenRejected": true,
+      "oldArtifactAbsent": true,
+      "freshUploadAndMetadata": true
+    },
+    "truthfulCudaFailClosed": true,
+    "status": "PASS",
+    "finishedAt": "2026-10-28T20:46:22.508Z"
+  },
+  "artifactRouteAndReuse": {
+    "status": "PASS",
+    "positiveRoutes": [
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 200,
+        "body": {
+          "id": "sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b",
+          "mediaType": "application/json",
+          "byteLength": 37
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%3A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 200,
+        "body": {
+          "id": "sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b",
+          "mediaType": "application/json",
+          "byteLength": 37
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%3a95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 200,
+        "body": {
+          "id": "sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b",
+          "mediaType": "application/json",
+          "byteLength": 37
+        }
+      }
+    ],
+    "negativeRoutes": [
+      {
+        "path": "/v1/artifacts/sha256:5c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b0/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/SHA256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha512:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%253A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%2595c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%395c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%GG95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:%/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/%73ha256%3A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256%3A%615c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%2Fother/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%2fother/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%5Cother/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%5cother/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%252Fother/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%255Cother/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/other/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b\\other/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:../secret/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:..%2F..%2Fsecret/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:%2e%2e%2fsecret/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b?ignored/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b#ignored/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%3Fignored/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%23ignored/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%00/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%20/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata/extra",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata?query=1",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata#fragment",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts/sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata/",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      },
+      {
+        "path": "/v1/artifacts//sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "method": "GET",
+        "status": 404,
+        "body": {
+          "schemaVersion": "candy.algorithm-error/1",
+          "classification": "ALGORITHM_FAILURE",
+          "message": "Unknown runtime route.",
+          "userCorrectable": true,
+          "retryable": false,
+          "details": {}
+        }
+      }
+    ],
+    "reuse": {
+      "presentDetectedWithoutUpload": true,
+      "genuineEvictionReuploadedOnce": true,
+      "authorityFailuresPropagatedWithoutUpload": true
+    },
+    "cleanShutdown": true,
+    "artifact": {
+      "id": "sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b",
+      "mediaType": "application/json",
+      "byteLength": 37
+    },
+    "clientMetadata": {
+      "id": "sha256:95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b",
+      "mediaType": "application/json",
+      "byteLength": 37
+    },
+    "absentCanonicalId": {
+      "path": "/v1/artifacts/sha256%3A0000000000000000000000000000000000000000000000000000000000000000/metadata",
+      "method": "GET",
+      "status": 404,
+      "body": {
+        "schemaVersion": "candy.algorithm-error/1",
+        "classification": "INVALID_GRAPH_SCHEMA",
+        "message": "Artifact is unknown or expired.",
+        "userCorrectable": true,
+        "retryable": false,
+        "details": {}
+      }
+    },
+    "authenticationAndMethodControls": "PASS",
+    "ownershipIsolation": "PASS",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v1/artifacts",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%2Fextra/metadata",
+        "status": 404
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%3Fquery/metadata",
+        "status": 404
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b%23fragment/metadata",
+        "status": 404
+      },
+      {
+        "method": "POST",
+        "path": "/v1/artifacts",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3Ae2ee94dc728b4a139fc63d38a344f9905de2cdb55bb47a73f140d31fcc5fc35e/metadata",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3Ae2ee94dc728b4a139fc63d38a344f9905de2cdb55bb47a73f140d31fcc5fc35e/metadata",
+        "status": 404
+      },
+      {
+        "method": "POST",
+        "path": "/v1/artifacts",
+        "status": 201
+      },
+      {
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3A95c0b1f44a2f91d7eb278484d4ebb0608b99395038be079945f15b8e7eda276b/metadata",
+        "status": 200
+      }
+    ]
+  },
+  "verificationLevel": "commit-bound",
+  "archiveSourceCommit": "51e8a46ad527760b838bd92e78e19404d07acf40"
+}

@@ -1,0 +1,3026 @@
+{
+  "baseline": "51e8a46ad527760b838bd92e78e19404d07acf40",
+  "startedAt": "2026-10-28T20:46:50.612Z",
+  "injectedDiscovery": false,
+  "injectedRunner": false,
+  "nativeJobs": 12,
+  "transitions": [
+    {
+      "kind": "INSERT",
+      "operations": [
+        {
+          "type": "ADD_HYPEREDGE",
+          "hyperedgeId": "h4",
+          "vertices": [
+            "a",
+            "c"
+          ]
+        }
+      ],
+      "beforeGraph": {
+        "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+        "version": 1
+      },
+      "afterGraph": {
+        "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+        "version": 2
+      },
+      "before": {
+        "jobId": "73c4b462-ef54-40ce-97fc-2b829620a64d",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "73c4b462-ef54-40ce-97fc-2b829620a64d",
+          "requestId": "98026634-6cca-4121-922e-f5f97d2fefa1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 1
+          },
+          "graphArtifactId": "sha256:50d05aa9a1a35807952360c72189b84ebab73105b04796f07b390eb57bb421cb",
+          "updateRef": null,
+          "requestDigest": "14d875a2536b7892f105f514e72fd8201ee403829607238182eadec0bfde6b22",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 1
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 1,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.516992
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:8808c4c3c51cf9894f2f3c7cdd7bb8378ec1d17fd46535745f829f5d9d52921a",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "repeated": {
+        "jobId": "8b62a757-21ce-4d93-85c2-c1489a577924",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "8b62a757-21ce-4d93-85c2-c1489a577924",
+          "requestId": "48c4e21d-1e81-4075-b1f3-da0ea6f0a412",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 1
+          },
+          "graphArtifactId": "sha256:50d05aa9a1a35807952360c72189b84ebab73105b04796f07b390eb57bb421cb",
+          "updateRef": null,
+          "requestDigest": "14d875a2536b7892f105f514e72fd8201ee403829607238182eadec0bfde6b22",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 1
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 1,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.783072
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:ea960b8a314eacaca2db7900018785470795faad68e4969c5f0bce373363bc07",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "incremental": {
+        "jobId": "bb41db86-e926-4792-9e58-74f4dfc87d75",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "bb41db86-e926-4792-9e58-74f4dfc87d75",
+          "requestId": "083c7b0f-f4da-4248-b94b-9e8627a64a15",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 1
+          },
+          "graphArtifactId": "sha256:50d05aa9a1a35807952360c72189b84ebab73105b04796f07b390eb57bb421cb",
+          "updateRef": {
+            "updateId": "pending-7fbe34b6-c22d-4e2f-926d-3b6a0f87aa32",
+            "artifactId": "sha256:fffb1f9a90912ba04a002f76574aafaea1ce1db41ceb495fecb840f7f34e2c56",
+            "nextGraphVersion": 2
+          },
+          "requestDigest": "2ad1c597645d378881c409c6a2c340ed89b8417b07282018360e2b4c933f940d",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifDelta",
+          "interpretation": "delta_only",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_INCREMENTAL",
+            "mode": "INCREMENTAL",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 1
+            },
+            "outputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 2
+            },
+            "updateId": "pending-7fbe34b6-c22d-4e2f-926d-3b6a0f87aa32",
+            "requestDigest": "2ad1c597645d378881c409c6a2c340ed89b8417b07282018360e2b4c933f940d",
+            "oldAffectedEdgeCount": 0,
+            "newAffectedEdgeCount": 1,
+            "oldCandidateCount": 0,
+            "newCandidateCount": 3,
+            "oldAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "newAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaCounts": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaTotalConnectedTriples": 3,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.611744
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:0122efbd17304354499fa3a2b598c889169be0a70e12dca4b4308edb5c63b5f8",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 2349
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "after": {
+        "jobId": "1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+          "requestId": "5f56600f-7ce8-457b-a979-3db32fe19174",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 2
+          },
+          "graphArtifactId": "sha256:821bbb698cb0b8d2e0b302fdd2046f5189f6bfc6af8c16fcab65f72ba5beee47",
+          "updateRef": null,
+          "requestDigest": "7687d6a4bc411fd47651e23265529fcc7c175b65f5d4a6e933f18a0ec72f7007",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 2
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 4,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.520576
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:a04086949f3bc48d9e7c126da5b0749962b217c00295693486d8b7b230bb6eb0",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "staticDifference": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "allThirtyBinsEqual": true,
+      "realEncodedMetadataReuseWithoutUpload": true,
+      "analyzeDidNotApply": true,
+      "applyWasSeparate": true,
+      "staleResultRejectedAfterApply": true,
+      "freshPostApplyResultAuthority": true,
+      "noProjectionOrFallback": true,
+      "status": "PASS"
+    },
+    {
+      "kind": "DELETE",
+      "operations": [
+        {
+          "type": "REMOVE_HYPEREDGE",
+          "hyperedgeId": "h2"
+        }
+      ],
+      "beforeGraph": {
+        "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+        "version": 2
+      },
+      "afterGraph": {
+        "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+        "version": 3
+      },
+      "before": {
+        "jobId": "c59f2921-9097-4171-b2c8-d19856bcf33c",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "c59f2921-9097-4171-b2c8-d19856bcf33c",
+          "requestId": "0ac8fa01-089b-4140-a77b-1b82f22a0d7b",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 2
+          },
+          "graphArtifactId": "sha256:821bbb698cb0b8d2e0b302fdd2046f5189f6bfc6af8c16fcab65f72ba5beee47",
+          "updateRef": null,
+          "requestDigest": "7687d6a4bc411fd47651e23265529fcc7c175b65f5d4a6e933f18a0ec72f7007",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 2
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 4,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.653088
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:6b45403a1748b7da3dc9e995a5a1ba04441e4632a21f4cae791f4b6be8a11c7c",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "repeated": {
+        "jobId": "7d04d5fc-6425-4718-b46d-d87af589ca90",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "7d04d5fc-6425-4718-b46d-d87af589ca90",
+          "requestId": "b6684bb3-b75e-4316-8761-8f390667c46e",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 2
+          },
+          "graphArtifactId": "sha256:821bbb698cb0b8d2e0b302fdd2046f5189f6bfc6af8c16fcab65f72ba5beee47",
+          "updateRef": null,
+          "requestDigest": "7687d6a4bc411fd47651e23265529fcc7c175b65f5d4a6e933f18a0ec72f7007",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 2
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 4,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.623296
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:f0a5dfabbdfaeaff3b577920b909b12dce1604f00025dd2dc570d17e982c5de5",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "incremental": {
+        "jobId": "4cffa72e-8b19-465a-8257-a6cfd8007a61",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "4cffa72e-8b19-465a-8257-a6cfd8007a61",
+          "requestId": "ef834520-9156-4ce6-bac9-0e61fdbe2e14",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 2
+          },
+          "graphArtifactId": "sha256:821bbb698cb0b8d2e0b302fdd2046f5189f6bfc6af8c16fcab65f72ba5beee47",
+          "updateRef": {
+            "updateId": "pending-21fd4357-813f-4a5a-915d-38a13f861233",
+            "artifactId": "sha256:f7a10fa8bc22be3f8d13943130fb3941d354066682e17d47a55e890903293264",
+            "nextGraphVersion": 3
+          },
+          "requestDigest": "242db47f82ce89ff9158f3eb0c2189a209adfe9e34922cd2daebf436fa49bf68",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifDelta",
+          "interpretation": "delta_only",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_INCREMENTAL",
+            "mode": "INCREMENTAL",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 2
+            },
+            "outputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 3
+            },
+            "updateId": "pending-21fd4357-813f-4a5a-915d-38a13f861233",
+            "requestDigest": "242db47f82ce89ff9158f3eb0c2189a209adfe9e34922cd2daebf436fa49bf68",
+            "oldAffectedEdgeCount": 1,
+            "newAffectedEdgeCount": 0,
+            "oldCandidateCount": 3,
+            "newCandidateCount": 0,
+            "oldAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "newAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaCounts": [
+              0,
+              0,
+              0,
+              0,
+              -1,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaTotalConnectedTriples": -3,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 1.45645
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:48680ef0af6e4c4e09c302f456fd491e6d62d319d3b286c3e20c961894b0285b",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 2352
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "after": {
+        "jobId": "8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+          "requestId": "09a703ee-bdc9-4a6f-9cb5-1101c9bed2a6",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 3
+          },
+          "graphArtifactId": "sha256:603218e9b9c47cc7c248cf359c4e4a9b73cd35fbefb6769a16e32745098b88f2",
+          "updateRef": null,
+          "requestDigest": "285bfb0b103555cf9b49f3d41e3aab464e94805b669fef379399a2148f88856c",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 3
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 1,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.674496
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:89d99dfb4f707dc509750dabdbd848b9f2f10535d5c47a49d809f253b5be8f5d",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "staticDifference": [
+        0,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "allThirtyBinsEqual": true,
+      "realEncodedMetadataReuseWithoutUpload": true,
+      "analyzeDidNotApply": true,
+      "applyWasSeparate": true,
+      "staleResultRejectedAfterApply": true,
+      "freshPostApplyResultAuthority": true,
+      "noProjectionOrFallback": true,
+      "status": "PASS"
+    },
+    {
+      "kind": "UPDATE_REPLACEMENT",
+      "operations": [
+        {
+          "type": "REMOVE_HYPEREDGE",
+          "hyperedgeId": "h1"
+        },
+        {
+          "type": "ADD_HYPEREDGE",
+          "hyperedgeId": "h1",
+          "vertices": [
+            "a",
+            "d"
+          ]
+        }
+      ],
+      "beforeGraph": {
+        "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+        "version": 3
+      },
+      "afterGraph": {
+        "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+        "version": 4
+      },
+      "before": {
+        "jobId": "41c595ab-baff-4a95-b309-d0d045cc1cf9",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "41c595ab-baff-4a95-b309-d0d045cc1cf9",
+          "requestId": "86a7ad97-f942-4702-b41b-f73e37198985",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 3
+          },
+          "graphArtifactId": "sha256:603218e9b9c47cc7c248cf359c4e4a9b73cd35fbefb6769a16e32745098b88f2",
+          "updateRef": null,
+          "requestDigest": "285bfb0b103555cf9b49f3d41e3aab464e94805b669fef379399a2148f88856c",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 3
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 1,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.509216
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:43fe9b4afa79481b866335e0f0d35ae051ed31549fdffb91880af9a3dc5adedf",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "repeated": {
+        "jobId": "7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+          "requestId": "8c1f519e-8286-42e4-b3f7-7151509aa5de",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 3
+          },
+          "graphArtifactId": "sha256:603218e9b9c47cc7c248cf359c4e4a9b73cd35fbefb6769a16e32745098b88f2",
+          "updateRef": null,
+          "requestDigest": "285bfb0b103555cf9b49f3d41e3aab464e94805b669fef379399a2148f88856c",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 3
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 1,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.518944
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:2e25a3f9d5b5563a56c391b52f41e86278d66946f0b9d54c5538ea99bd73ddd5",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "incremental": {
+        "jobId": "1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+          "requestId": "0750d727-d8ab-4926-a257-dca69ff451c2",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 3
+          },
+          "graphArtifactId": "sha256:603218e9b9c47cc7c248cf359c4e4a9b73cd35fbefb6769a16e32745098b88f2",
+          "updateRef": {
+            "updateId": "pending-a354b46e-3e4b-4eaa-bf9c-73568fa914b3",
+            "artifactId": "sha256:241e9151b78e291a753ebf7f29c854b7f93e170159fb4af9b2671a26ae4f079a",
+            "nextGraphVersion": 4
+          },
+          "requestDigest": "a4d038496838a115d78491b3e1c6018192b3fc39a9b82169cc5fe3b4665cb1dd",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifDelta",
+          "interpretation": "delta_only",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_INCREMENTAL",
+            "mode": "INCREMENTAL",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 3
+            },
+            "outputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 4
+            },
+            "updateId": "pending-a354b46e-3e4b-4eaa-bf9c-73568fa914b3",
+            "requestDigest": "a4d038496838a115d78491b3e1c6018192b3fc39a9b82169cc5fe3b4665cb1dd",
+            "oldAffectedEdgeCount": 1,
+            "newAffectedEdgeCount": 1,
+            "oldCandidateCount": 1,
+            "newCandidateCount": 1,
+            "oldAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "newAffectedCounts": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaCounts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "deltaTotalConnectedTriples": 0,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 1.4847
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:88ad643be1436fd0652cbe21bc3659c50750f2a7df9049f12fb204883d943e52",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 2347
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "after": {
+        "jobId": "c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+        "result": {
+          "schemaVersion": "candy.runtime-motif-result/1",
+          "runtimeSessionId": "f2ce8f10-d490-4aad-b03c-5924193382ee",
+          "jobId": "c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+          "requestId": "c0395ffe-8f45-4ca7-a5a9-1393a6288d46",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+            "graphVersion": 4
+          },
+          "graphArtifactId": "sha256:c83a2a8be3526c99afdcc4a59565583b4f8fe2342d505756fa4ed4d672062329",
+          "updateRef": null,
+          "requestDigest": "0bf806cc8a854451b0ce8b740d8fcb9194673dc17006b5581b6e1d5f8f576f73",
+          "execution": {
+            "status": "completed",
+            "exitCode": 0,
+            "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+          },
+          "validation": {
+            "status": "passed",
+            "method": "qualified_transport_identity_and_semantic_validation"
+          },
+          "resultType": "HypergraphMotifCounts",
+          "interpretation": "absolute_counts",
+          "native": {
+            "ok": true,
+            "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+            "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+            "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+            "backend": "CUDA_STATIC",
+            "mode": "STATIC",
+            "inputGraphRef": {
+              "graphId": "graph-ba3fcec9-1344-4974-aa66-672569d117de",
+              "graphVersion": 4
+            },
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "totalConnectedTriples": 1,
+            "cuda": {
+              "deviceIndex": 0,
+              "deviceName": "NVIDIA GeForce RTX 5060",
+              "computeMajor": 12,
+              "computeMinor": 0,
+              "compiledArchitecture": "sm_120",
+              "compilerVersion": "13.4.59",
+              "runtimeVersion": 13040,
+              "driverVersion": 13040,
+              "kernelLaunchSucceeded": true,
+              "synchronizationSucceeded": true,
+              "kernelMilliseconds": 0.495136
+            }
+          },
+          "warnings": [],
+          "resultArtifactRef": {
+            "id": "sha256:0441716e28fdbacda875255cef5c4ccf03791585e3689b47c788ab9b8070c08e",
+            "mediaType": "application/vnd.candy.result+json",
+            "byteLength": 1667
+          }
+        },
+        "counts": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "staticDifference": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "allThirtyBinsEqual": true,
+      "realEncodedMetadataReuseWithoutUpload": true,
+      "analyzeDidNotApply": true,
+      "applyWasSeparate": true,
+      "staleResultRejectedAfterApply": true,
+      "freshPostApplyResultAuthority": true,
+      "noProjectionOrFallback": true,
+      "status": "PASS"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/v1/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/capabilities",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/73c4b462-ef54-40ce-97fc-2b829620a64d/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A50d05aa9a1a35807952360c72189b84ebab73105b04796f07b390eb57bb421cb/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/8b62a757-21ce-4d93-85c2-c1489a577924/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A50d05aa9a1a35807952360c72189b84ebab73105b04796f07b390eb57bb421cb/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/bb41db86-e926-4792-9e58-74f4dfc87d75/cancel",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/1a182ff2-e4ee-4b05-a0c4-ae7f5b031774/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A821bbb698cb0b8d2e0b302fdd2046f5189f6bfc6af8c16fcab65f72ba5beee47/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/c59f2921-9097-4171-b2c8-d19856bcf33c/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A821bbb698cb0b8d2e0b302fdd2046f5189f6bfc6af8c16fcab65f72ba5beee47/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/7d04d5fc-6425-4718-b46d-d87af589ca90/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A821bbb698cb0b8d2e0b302fdd2046f5189f6bfc6af8c16fcab65f72ba5beee47/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/4cffa72e-8b19-465a-8257-a6cfd8007a61/cancel",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/8e7f6328-e802-45ec-bd36-3b316aec7ecb/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A603218e9b9c47cc7c248cf359c4e4a9b73cd35fbefb6769a16e32745098b88f2/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/41c595ab-baff-4a95-b309-d0d045cc1cf9/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A603218e9b9c47cc7c248cf359c4e4a9b73cd35fbefb6769a16e32745098b88f2/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/7ecf4f24-ca83-4d09-b9b0-549a1e071ed7/cancel",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/artifacts/sha256%3A603218e9b9c47cc7c248cf359c4e4a9b73cd35fbefb6769a16e32745098b88f2/metadata",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee/result",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs/1ddd4b4e-980a-43e6-85c1-95afd09278ee/cancel",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/c20064a4-e0c8-47bd-8f01-5ca208a32b3a/result",
+      "status": 200
+    }
+  ],
+  "cleanShutdown": true,
+  "oracleRole": "Expected-output validation only; every production result is genuine CUDA native execution.",
+  "status": "PASS",
+  "finishedAt": "2026-10-28T20:46:59.820Z"
+}

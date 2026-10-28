@@ -1,0 +1,641 @@
+{
+  "status": "PASS",
+  "baseline": "51e8a46ad527760b838bd92e78e19404d07acf40",
+  "rawEvidence": "artifacts/candy-scope6e-v6-soak-native.json",
+  "workload": {
+    "family": "Published qualified S1",
+    "seed": 731406,
+    "baselineHyperedges": 16,
+    "baselineIncidences": 64,
+    "baselineVertices": 64,
+    "staticJobs": 20,
+    "incrementalJobs": 20,
+    "operationKinds": [
+      "INSERT",
+      "DELETE",
+      "REPLACEMENT"
+    ],
+    "retentionSentinels": 520,
+    "defaultTerminalJobLimit": 32,
+    "defaultArtifactLimit": 512,
+    "withinExistingQualifiedAdmissionEnvelope": true
+  },
+  "nativeJobs": 40,
+  "passed": 40,
+  "failed": 0,
+  "maxRetainedJobs": 32,
+  "maxRetainedArtifacts": 512,
+  "allWorkspaceCleanup": true,
+  "allExpectedVectorsMatch": true,
+  "nativeProcessesRemaining": 0,
+  "restartEvidence": [
+    "artifacts/candy-scope6e-v6-runtime.json",
+    "artifacts/candy-scope6e-v6-browser.json"
+  ],
+  "memory": [
+    {
+      "iteration": 1,
+      "rss": 100315136,
+      "heapTotal": 52092928,
+      "heapUsed": 16578136,
+      "external": 5797869,
+      "arrayBuffers": 1508094
+    },
+    {
+      "iteration": 2,
+      "rss": 100253696,
+      "heapTotal": 52092928,
+      "heapUsed": 18250456,
+      "external": 5831098,
+      "arrayBuffers": 1541251
+    },
+    {
+      "iteration": 3,
+      "rss": 103194624,
+      "heapTotal": 52092928,
+      "heapUsed": 26084352,
+      "external": 8930811,
+      "arrayBuffers": 4640868
+    },
+    {
+      "iteration": 4,
+      "rss": 108249088,
+      "heapTotal": 52092928,
+      "heapUsed": 26332200,
+      "external": 10007442,
+      "arrayBuffers": 5717467
+    },
+    {
+      "iteration": 5,
+      "rss": 108609536,
+      "heapTotal": 52092928,
+      "heapUsed": 20083216,
+      "external": 8939884,
+      "arrayBuffers": 4650005
+    },
+    {
+      "iteration": 6,
+      "rss": 110628864,
+      "heapTotal": 52355072,
+      "heapUsed": 22368632,
+      "external": 10076039,
+      "arrayBuffers": 5786096
+    },
+    {
+      "iteration": 7,
+      "rss": 107241472,
+      "heapTotal": 52355072,
+      "heapUsed": 17768120,
+      "external": 7294410,
+      "arrayBuffers": 3004595
+    },
+    {
+      "iteration": 8,
+      "rss": 107954176,
+      "heapTotal": 52355072,
+      "heapUsed": 18784152,
+      "external": 7854616,
+      "arrayBuffers": 3564769
+    },
+    {
+      "iteration": 9,
+      "rss": 111038464,
+      "heapTotal": 52355072,
+      "heapUsed": 25741504,
+      "external": 10954297,
+      "arrayBuffers": 6664354
+    },
+    {
+      "iteration": 10,
+      "rss": 112123904,
+      "heapTotal": 52355072,
+      "heapUsed": 23867104,
+      "external": 10012918,
+      "arrayBuffers": 5722943
+    },
+    {
+      "iteration": 11,
+      "rss": 107782144,
+      "heapTotal": 51044352,
+      "heapUsed": 15839920,
+      "external": 5794144,
+      "arrayBuffers": 1504329
+    },
+    {
+      "iteration": 12,
+      "rss": 107868160,
+      "heapTotal": 51044352,
+      "heapUsed": 16684320,
+      "external": 5796099,
+      "arrayBuffers": 1506252
+    },
+    {
+      "iteration": 13,
+      "rss": 110993408,
+      "heapTotal": 51044352,
+      "heapUsed": 23445120,
+      "external": 8895772,
+      "arrayBuffers": 4605829
+    },
+    {
+      "iteration": 14,
+      "rss": 111988736,
+      "heapTotal": 51044352,
+      "heapUsed": 20219544,
+      "external": 9999581,
+      "arrayBuffers": 5709638
+    },
+    {
+      "iteration": 15,
+      "rss": 115408896,
+      "heapTotal": 51044352,
+      "heapUsed": 26986968,
+      "external": 13099294,
+      "arrayBuffers": 8809255
+    },
+    {
+      "iteration": 16,
+      "rss": 111693824,
+      "heapTotal": 50520064,
+      "heapUsed": 19012104,
+      "external": 9910179,
+      "arrayBuffers": 5625943
+    },
+    {
+      "iteration": 17,
+      "rss": 114745344,
+      "heapTotal": 50520064,
+      "heapUsed": 25819568,
+      "external": 13011117,
+      "arrayBuffers": 8726785
+    },
+    {
+      "iteration": 18,
+      "rss": 112017408,
+      "heapTotal": 50782208,
+      "heapUsed": 23243312,
+      "external": 10012074,
+      "arrayBuffers": 5727710
+    },
+    {
+      "iteration": 19,
+      "rss": 110661632,
+      "heapTotal": 84598784,
+      "heapUsed": 16125488,
+      "external": 7265107,
+      "arrayBuffers": 2980999
+    },
+    {
+      "iteration": 20,
+      "rss": 114728960,
+      "heapTotal": 84598784,
+      "heapUsed": 28611688,
+      "external": 11437879,
+      "arrayBuffers": 7153579
+    },
+    {
+      "iteration": 21,
+      "rss": 121655296,
+      "heapTotal": 84598784,
+      "heapUsed": 35347856,
+      "external": 14538815,
+      "arrayBuffers": 10254419
+    },
+    {
+      "iteration": 22,
+      "rss": 127057920,
+      "heapTotal": 84598784,
+      "heapUsed": 20434200,
+      "external": 11152436,
+      "arrayBuffers": 6868200
+    },
+    {
+      "iteration": 23,
+      "rss": 129957888,
+      "heapTotal": 84598784,
+      "heapUsed": 27164240,
+      "external": 14253372,
+      "arrayBuffers": 9969040
+    },
+    {
+      "iteration": 24,
+      "rss": 128442368,
+      "heapTotal": 84598784,
+      "heapUsed": 18227208,
+      "external": 7837335,
+      "arrayBuffers": 3553195
+    },
+    {
+      "iteration": 25,
+      "rss": 131411968,
+      "heapTotal": 84598784,
+      "heapUsed": 24901024,
+      "external": 10937016,
+      "arrayBuffers": 6652780
+    },
+    {
+      "iteration": 26,
+      "rss": 126423040,
+      "heapTotal": 84598784,
+      "heapUsed": 17280856,
+      "external": 5813374,
+      "arrayBuffers": 1529234
+    },
+    {
+      "iteration": 27,
+      "rss": 129732608,
+      "heapTotal": 84598784,
+      "heapUsed": 23898680,
+      "external": 8911800,
+      "arrayBuffers": 4627564
+    },
+    {
+      "iteration": 28,
+      "rss": 134266880,
+      "heapTotal": 84598784,
+      "heapUsed": 37423944,
+      "external": 13084421,
+      "arrayBuffers": 8799993
+    },
+    {
+      "iteration": 29,
+      "rss": 132911104,
+      "heapTotal": 85123072,
+      "heapUsed": 17192448,
+      "external": 7288911,
+      "arrayBuffers": 3004803
+    },
+    {
+      "iteration": 30,
+      "rss": 136945664,
+      "heapTotal": 85123072,
+      "heapUsed": 30593584,
+      "external": 11464767,
+      "arrayBuffers": 7180467
+    },
+    {
+      "iteration": 31,
+      "rss": 131219456,
+      "heapTotal": 85123072,
+      "heapUsed": 15933440,
+      "external": 5787134,
+      "arrayBuffers": 1503026
+    },
+    {
+      "iteration": 32,
+      "rss": 135385088,
+      "heapTotal": 85123072,
+      "heapUsed": 28271288,
+      "external": 9958599,
+      "arrayBuffers": 5674299
+    },
+    {
+      "iteration": 33,
+      "rss": 138321920,
+      "heapTotal": 85123072,
+      "heapUsed": 34971544,
+      "external": 13059316,
+      "arrayBuffers": 8774920
+    },
+    {
+      "iteration": 34,
+      "rss": 137711616,
+      "heapTotal": 85123072,
+      "heapUsed": 20567272,
+      "external": 9993016,
+      "arrayBuffers": 5708780
+    },
+    {
+      "iteration": 35,
+      "rss": 140349440,
+      "heapTotal": 85123072,
+      "heapUsed": 27121152,
+      "external": 13091442,
+      "arrayBuffers": 8807110
+    },
+    {
+      "iteration": 36,
+      "rss": 135249920,
+      "heapTotal": 85385216,
+      "heapUsed": 18833336,
+      "external": 7868219,
+      "arrayBuffers": 3584079
+    },
+    {
+      "iteration": 37,
+      "rss": 138334208,
+      "heapTotal": 85385216,
+      "heapUsed": 25787392,
+      "external": 10967932,
+      "arrayBuffers": 6683696
+    },
+    {
+      "iteration": 38,
+      "rss": 133496832,
+      "heapTotal": 85385216,
+      "heapUsed": 16743016,
+      "external": 5779731,
+      "arrayBuffers": 1495591
+    },
+    {
+      "iteration": 39,
+      "rss": 136568832,
+      "heapTotal": 85385216,
+      "heapUsed": 23805568,
+      "external": 8880699,
+      "arrayBuffers": 4596463
+    },
+    {
+      "iteration": 40,
+      "rss": 140247040,
+      "heapTotal": 85385216,
+      "heapUsed": 38037648,
+      "external": 13054595,
+      "arrayBuffers": 8770167
+    }
+  ],
+  "retention": [
+    {
+      "iteration": 1,
+      "jobs": 1,
+      "artifacts": 512,
+      "artifactBytes": 16404,
+      "workspaces": 0
+    },
+    {
+      "iteration": 2,
+      "jobs": 2,
+      "artifacts": 512,
+      "artifactBytes": 21121,
+      "workspaces": 0
+    },
+    {
+      "iteration": 3,
+      "jobs": 3,
+      "artifacts": 512,
+      "artifactBytes": 24817,
+      "workspaces": 0
+    },
+    {
+      "iteration": 4,
+      "jobs": 4,
+      "artifacts": 512,
+      "artifactBytes": 29579,
+      "workspaces": 0
+    },
+    {
+      "iteration": 5,
+      "jobs": 5,
+      "artifacts": 512,
+      "artifactBytes": 33275,
+      "workspaces": 0
+    },
+    {
+      "iteration": 6,
+      "jobs": 6,
+      "artifacts": 512,
+      "artifactBytes": 38155,
+      "workspaces": 0
+    },
+    {
+      "iteration": 7,
+      "jobs": 7,
+      "artifacts": 512,
+      "artifactBytes": 41851,
+      "workspaces": 0
+    },
+    {
+      "iteration": 8,
+      "jobs": 8,
+      "artifacts": 512,
+      "artifactBytes": 46568,
+      "workspaces": 0
+    },
+    {
+      "iteration": 9,
+      "jobs": 9,
+      "artifacts": 512,
+      "artifactBytes": 50264,
+      "workspaces": 0
+    },
+    {
+      "iteration": 10,
+      "jobs": 10,
+      "artifacts": 512,
+      "artifactBytes": 55026,
+      "workspaces": 0
+    },
+    {
+      "iteration": 11,
+      "jobs": 11,
+      "artifacts": 512,
+      "artifactBytes": 58722,
+      "workspaces": 0
+    },
+    {
+      "iteration": 12,
+      "jobs": 12,
+      "artifacts": 512,
+      "artifactBytes": 63603,
+      "workspaces": 0
+    },
+    {
+      "iteration": 13,
+      "jobs": 13,
+      "artifacts": 512,
+      "artifactBytes": 67297,
+      "workspaces": 0
+    },
+    {
+      "iteration": 14,
+      "jobs": 14,
+      "artifacts": 512,
+      "artifactBytes": 72014,
+      "workspaces": 0
+    },
+    {
+      "iteration": 15,
+      "jobs": 15,
+      "artifacts": 512,
+      "artifactBytes": 75710,
+      "workspaces": 0
+    },
+    {
+      "iteration": 16,
+      "jobs": 16,
+      "artifacts": 512,
+      "artifactBytes": 80472,
+      "workspaces": 0
+    },
+    {
+      "iteration": 17,
+      "jobs": 17,
+      "artifacts": 512,
+      "artifactBytes": 84168,
+      "workspaces": 0
+    },
+    {
+      "iteration": 18,
+      "jobs": 18,
+      "artifacts": 512,
+      "artifactBytes": 89049,
+      "workspaces": 0
+    },
+    {
+      "iteration": 19,
+      "jobs": 19,
+      "artifacts": 512,
+      "artifactBytes": 92743,
+      "workspaces": 0
+    },
+    {
+      "iteration": 20,
+      "jobs": 20,
+      "artifacts": 512,
+      "artifactBytes": 97459,
+      "workspaces": 0
+    },
+    {
+      "iteration": 21,
+      "jobs": 21,
+      "artifacts": 512,
+      "artifactBytes": 101155,
+      "workspaces": 0
+    },
+    {
+      "iteration": 22,
+      "jobs": 22,
+      "artifacts": 512,
+      "artifactBytes": 105916,
+      "workspaces": 0
+    },
+    {
+      "iteration": 23,
+      "jobs": 23,
+      "artifacts": 512,
+      "artifactBytes": 109612,
+      "workspaces": 0
+    },
+    {
+      "iteration": 24,
+      "jobs": 24,
+      "artifacts": 512,
+      "artifactBytes": 114493,
+      "workspaces": 0
+    },
+    {
+      "iteration": 25,
+      "jobs": 25,
+      "artifacts": 512,
+      "artifactBytes": 118189,
+      "workspaces": 0
+    },
+    {
+      "iteration": 26,
+      "jobs": 26,
+      "artifacts": 512,
+      "artifactBytes": 122906,
+      "workspaces": 0
+    },
+    {
+      "iteration": 27,
+      "jobs": 27,
+      "artifacts": 512,
+      "artifactBytes": 126602,
+      "workspaces": 0
+    },
+    {
+      "iteration": 28,
+      "jobs": 28,
+      "artifacts": 512,
+      "artifactBytes": 131364,
+      "workspaces": 0
+    },
+    {
+      "iteration": 29,
+      "jobs": 29,
+      "artifacts": 512,
+      "artifactBytes": 135060,
+      "workspaces": 0
+    },
+    {
+      "iteration": 30,
+      "jobs": 30,
+      "artifacts": 512,
+      "artifactBytes": 139940,
+      "workspaces": 0
+    },
+    {
+      "iteration": 31,
+      "jobs": 31,
+      "artifacts": 512,
+      "artifactBytes": 143636,
+      "workspaces": 0
+    },
+    {
+      "iteration": 32,
+      "jobs": 32,
+      "artifacts": 512,
+      "artifactBytes": 148352,
+      "workspaces": 0
+    },
+    {
+      "iteration": 33,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 150380,
+      "workspaces": 0
+    },
+    {
+      "iteration": 34,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 152815,
+      "workspaces": 0
+    },
+    {
+      "iteration": 35,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 154868,
+      "workspaces": 0
+    },
+    {
+      "iteration": 36,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 157422,
+      "workspaces": 0
+    },
+    {
+      "iteration": 37,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 159475,
+      "workspaces": 0
+    },
+    {
+      "iteration": 38,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 161864,
+      "workspaces": 0
+    },
+    {
+      "iteration": 39,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 163917,
+      "workspaces": 0
+    },
+    {
+      "iteration": 40,
+      "jobs": 32,
+      "artifacts": 511,
+      "artifactBytes": 166351,
+      "workspaces": 0
+    }
+  ],
+  "cleanShutdown": true,
+  "limits": "Bounded published S1 fixtures only; no larger native scale, throughput SLA, persistent worker, public-CI GPU, or in-flight GPU crash-kill claim."
+}
