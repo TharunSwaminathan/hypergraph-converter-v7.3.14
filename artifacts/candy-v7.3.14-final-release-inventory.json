@@ -1,0 +1,158 @@
+{
+  "status": "PASS",
+  "qualificationVerdict": "NON-PASS \u2014 v7.3.14 FINAL RELEASE QUALIFICATION BLOCKED",
+  "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+  "tree": "d64da79235d0c149ea8ec475ba0494b816c2d9cd",
+  "firstReleaseBlocker": {
+    "gate": "Pre-release version identity / stable-tag provenance",
+    "classification": "RELEASE_VERSION_IDENTITY_CONFLICT",
+    "releaseVersion": "v7.3.14",
+    "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "candidateTree": "d64da79235d0c149ea8ec475ba0494b816c2d9cd",
+    "existingTagObject": "af3911c505a510ae7b0a90bcfcbd5db47d0921a4",
+    "existingTagCommit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "existingTagTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+    "localAndRemoteAgree": true,
+    "changedCommittedPaths": 143,
+    "reason": "The requested final stable tag already exists locally and on origin and identifies different committed product bytes. Assigning that name to this candidate would replace published version provenance, rather than create a new unoccupied release identity.",
+    "productDefectEstablished": false,
+    "repairPerformed": false
+  },
+  "trackedFilesPreserved": 1286,
+  "priorLocalEntriesPreserved": 1286,
+  "historicalExternalFilesPreserved": 884,
+  "allBytesSizesMtimesUnchanged": true,
+  "indexUnchanged": true,
+  "allLocalRefsUnchanged": true,
+  "trackedChanges": [],
+  "stagedChanges": [],
+  "nativeFilesModified": 0,
+  "productFilesModified": 0,
+  "servicesStarted": 0,
+  "nativeJobs": 0,
+  "nativeBuilds": 0,
+  "sanitizerRuns": 0,
+  "nativeRequalificationRuns": 0,
+  "codexSecurityInvoked": false,
+  "stableReleaseTagCreatedOrMoved": false,
+  "githubReleaseCreated": false,
+  "nextScopeStarted": false,
+  "newUntrackedPaths": [
+    "artifacts/candy-v7.3.14-final-release-browser.json",
+    "artifacts/candy-v7.3.14-final-release-documentation-review.json",
+    "artifacts/candy-v7.3.14-final-release-extracted.json",
+    "artifacts/candy-v7.3.14-final-release-first-blocker.json",
+    "artifacts/candy-v7.3.14-final-release-manifest.json",
+    "artifacts/candy-v7.3.14-final-release-native.json",
+    "artifacts/candy-v7.3.14-final-release-package.json",
+    "artifacts/candy-v7.3.14-final-release-preflight.json",
+    "artifacts/candy-v7.3.14-final-release-product-gates.json",
+    "artifacts/candy-v7.3.14-final-release-qualification.md",
+    "artifacts/candy-v7.3.14-final-release-runtime.json",
+    "artifacts/candy-v7.3.14-final-release-security-review.md",
+    "artifacts/candy-v7.3.14-final-release-work/before.json",
+    "artifacts/candy-v7.3.14-final-release-work/github-stable-tag.json",
+    "artifacts/candy-v7.3.14-final-release-work/record-blocked.py",
+    "artifacts/candy-v7.3.14-final-release-work/remote-refs.json"
+  ],
+  "rootEvidence": [
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-browser.json",
+      "bytes": 276,
+      "sha256": "5cbf7757b327f0a01cf169165753ba1e90128772ff3586f79f9f63550bd131eb",
+      "mtimeNs": 1793223194026557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-documentation-review.json",
+      "bytes": 289,
+      "sha256": "ce15eeaa9799ecc2fce362ba343f702a2f55bab544435b1295c895858eab484e",
+      "mtimeNs": 1793223194026557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-extracted.json",
+      "bytes": 278,
+      "sha256": "dec67ebbb0f27d592fd89d95fb1de5030f570cc4060b0f3cc863b19ae24c19fd",
+      "mtimeNs": 1793223194025557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-first-blocker.json",
+      "bytes": 875,
+      "sha256": "c84033ef4a525d038bda1a91f224b3bedcf2f5186437335bef9e3d0c72436f55",
+      "mtimeNs": 1793223194024555900
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-manifest.json",
+      "bytes": 3982,
+      "sha256": "fba025f39ddd6dbc9590522e82ee2536abe07652e065805b4d4c6b369f8a25d4",
+      "mtimeNs": 1793223194027557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-native.json",
+      "bytes": 275,
+      "sha256": "cc9583bc4c5e11b9b440c1d0d51b8ae37287c74347855992b6cee850b7885d9a",
+      "mtimeNs": 1793223194026557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-package.json",
+      "bytes": 276,
+      "sha256": "7b9496e432db17cae7eab7396e40cae907d9b989cdf17a5cc6d3e91dd91affc8",
+      "mtimeNs": 1793223194025557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-preflight.json",
+      "bytes": 1804,
+      "sha256": "b85a47e972e1ce216c593d308c2dc6fe5bc405eaaee3554d6fdf663e1efee3b0",
+      "mtimeNs": 1793223194024555900
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-product-gates.json",
+      "bytes": 282,
+      "sha256": "f6cc9f095b8fb05f76ecb41b463f3bd864c18332be5ae7a09e04942181d858ba",
+      "mtimeNs": 1793223194025557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-qualification.md",
+      "bytes": 4703,
+      "sha256": "e74b5e77e225845866f6f141c8c74bfa4a4fc82d5e43f396b1f993ac6e3d8b38",
+      "mtimeNs": 1793223194615065600
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-runtime.json",
+      "bytes": 276,
+      "sha256": "2ced5b2165a37d1063c41979338c6ad40c5baa37afcd1e6167deea90166fe2be",
+      "mtimeNs": 1793223194026557000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-security-review.md",
+      "bytes": 903,
+      "sha256": "a236367381ab78ff8a56ef8550ae7c81ad5a1f7cb6a34e0a82199ba732f3cf31",
+      "mtimeNs": 1793223194027557000
+    }
+  ],
+  "workEvidence": [
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-work\\before.json",
+      "bytes": 1032944,
+      "sha256": "2d605147396783d339fe769c753411a3f7e2579449af30e02dfa0a26fc018061",
+      "mtimeNs": 1793223193983554600
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-work\\github-stable-tag.json",
+      "bytes": 458,
+      "sha256": "d2b5fb61d65013eb203ccd6bdabbdf8f056ade599769a196a1a11169a9887b6e",
+      "mtimeNs": 1793223073567019000
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-work\\record-blocked.py",
+      "bytes": 13056,
+      "sha256": "8a31a2da15b0d9494d6cdbddc756d252fe25aa5909a0c0c8588b54975537fd9b",
+      "mtimeNs": 1793223183083652900
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-final-release\\artifacts\\candy-v7.3.14-final-release-work\\remote-refs.json",
+      "bytes": 948,
+      "sha256": "430e993c04c25d3817358f66710a66666afe7ac9c2fcb5922d49f7547012e92e",
+      "mtimeNs": 1793223184315995800
+    }
+  ]
+}

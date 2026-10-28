@@ -1,0 +1,94 @@
+{
+  "status": "NON-PASS",
+  "releaseVersion": "v7.3.14",
+  "releaseCandidateSha": "51e8a46ad527760b838bd92e78e19404d07acf40",
+  "treeSha": "d64da79235d0c149ea8ec475ba0494b816c2d9cd",
+  "finalScope6eTag": {
+    "name": "candy-integration-scope6e-final-integrated-qualified",
+    "commit": "51e8a46ad527760b838bd92e78e19404d07acf40"
+  },
+  "firstReleaseBlocker": {
+    "gate": "Pre-release version identity / stable-tag provenance",
+    "classification": "RELEASE_VERSION_IDENTITY_CONFLICT",
+    "releaseVersion": "v7.3.14",
+    "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "candidateTree": "d64da79235d0c149ea8ec475ba0494b816c2d9cd",
+    "existingTagObject": "af3911c505a510ae7b0a90bcfcbd5db47d0921a4",
+    "existingTagCommit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247",
+    "existingTagTree": "86a367ee1c4d8fabb8b9cf88d0c395a6e5ce02a3",
+    "localAndRemoteAgree": true,
+    "changedCommittedPaths": 143,
+    "reason": "The requested final stable tag already exists locally and on origin and identifies different committed product bytes. Assigning that name to this candidate would replace published version provenance, rather than create a new unoccupied release identity.",
+    "productDefectEstablished": false,
+    "repairPerformed": false
+  },
+  "finalArchive": {
+    "status": "NOT_CREATED",
+    "filename": null,
+    "sha256": null,
+    "bytes": null,
+    "entries": null,
+    "files": null,
+    "directories": null,
+    "sourceCommit": null,
+    "verificationLevel": null
+  },
+  "repositoryTests": {
+    "status": "NOT_RUN",
+    "discoveredTestFiles": null,
+    "passed": null,
+    "failed": null,
+    "elapsedSeconds": null,
+    "exitStatus": null
+  },
+  "productionAudit": {
+    "status": "NOT_RUN",
+    "vulnerabilities": null
+  },
+  "extractedTests": {
+    "status": "NOT_RUN",
+    "reason": "Stopped at the existing stable-version tag identity conflict; no later release gates were executed.",
+    "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "recordedAtUtc": "2026-10-28T21:33:03.420645+00:00"
+  },
+  "browser": {
+    "status": "NOT_RUN",
+    "reason": "Stopped at the existing stable-version tag identity conflict; no later release gates were executed.",
+    "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "recordedAtUtc": "2026-10-28T21:33:03.420645+00:00"
+  },
+  "runtime": {
+    "status": "NOT_RUN",
+    "reason": "Stopped at the existing stable-version tag identity conflict; no later release gates were executed.",
+    "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "recordedAtUtc": "2026-10-28T21:33:03.420645+00:00"
+  },
+  "portableCudaFailClosed": {
+    "status": "NOT_RUN",
+    "reason": "Stopped at the existing stable-version tag identity conflict; no later release gates were executed.",
+    "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "recordedAtUtc": "2026-10-28T21:33:03.420645+00:00"
+  },
+  "localQualifiedCudaSanity": {
+    "status": "NOT_RUN",
+    "reason": "Stopped at the existing stable-version tag identity conflict; no later release gates were executed.",
+    "candidate": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "recordedAtUtc": "2026-10-28T21:33:03.420645+00:00"
+  },
+  "securityReview": {
+    "status": "NOT_RUN",
+    "unresolvedCritical": null,
+    "unresolvedHigh": null,
+    "automatedCompletionSeal": "UNAVAILABLE / NOT COMPLETED under the previously accepted infrastructure exception"
+  },
+  "githubCi": {
+    "status": "NOT_QUALIFIED_IN_THIS_RUN",
+    "note": "An initial read-only workflow inventory was fetched before the stable tag collision was confirmed; no final CI pass is asserted."
+  },
+  "githubPages": {
+    "status": "NOT_ASSESSED",
+    "reason": "Stopped at the existing stable-version tag identity conflict; no later release gates were executed."
+  },
+  "previousScope6eQualification": "Preserved PASS for exact candidate; this release-version collision does not relabel prior integrated results.",
+  "stableReleaseTagChanged": false
+}
