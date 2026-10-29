@@ -22,17 +22,21 @@ done
 if [ -n "${FRONTEND_PORT:-}" ]; then
   REQUESTED_FRONTEND_PORT="${FRONTEND_PORT}"
   FRONTEND_PORT="$(node scripts/launcher-preflight.mjs find-frontend-port "${REQUESTED_FRONTEND_PORT}" 1)" || {
-    echo "Frontend port ${REQUESTED_FRONTEND_PORT} is unavailable. Close the occupying process or clear FRONTEND_PORT to select another port automatically."
+    echo "Frontend port ${REQUESTED_FRONTEND_PORT} is unavailable. No other listener was terminated."
     exit 1
   }
 else
-  FRONTEND_PORT="$(node scripts/launcher-preflight.mjs find-frontend-port 5173 20)" || {
-    echo "No free loopback frontend port was found in the range 5173-5192. Close an occupying process or set FRONTEND_PORT explicitly."
+  FRONTEND_PORT="$(node scripts/launcher-preflight.mjs find-frontend-port 5173 1)" || {
+    echo "Canonical frontend port 5173 is occupied. No silent fallback to 5174. Close the conflict yourself or explicitly choose FRONTEND_PORT."
     exit 1
   }
 fi
 FRONTEND_HOST="127.0.0.1"
 DASHBOARD_URL="http://${FRONTEND_HOST}:${FRONTEND_PORT}"
+echo "Frontend origin: ${DASHBOARD_URL}"
+if [ "${FRONTEND_PORT}" != "5173" ]; then
+  echo "WARNING: Noncanonical origin. Browser persistence is separate; no saved data is relocated. Cross-origin export/import support is deferred beyond Scope 7A."
+fi
 HYPERGRAPH_FRONTEND_ORIGIN="${DASHBOARD_URL}"
 HYPERGRAPH_BRIDGE_ORIGINS="http://127.0.0.1:${FRONTEND_PORT},http://localhost:${FRONTEND_PORT}"
 export FRONTEND_PORT HYPERGRAPH_BRIDGE_PORT VITE_HYPERGRAPH_BRIDGE_PORT HYPERGRAPH_FRONTEND_ORIGIN HYPERGRAPH_BRIDGE_ORIGINS

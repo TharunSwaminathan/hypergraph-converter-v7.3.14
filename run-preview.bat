@@ -1,13 +1,16 @@
 @echo off
 title Hypergraph Converter Studio - Production Preview
 cd /d "%~dp0"
+node scripts\launcher-preflight.mjs find-frontend-port 5173 1 >nul
+if errorlevel 1 goto :error
+echo Frontend origin: http://127.0.0.1:5173. No saved data is relocated across origins.
 echo Building and starting production preview...
 echo.
 call npm install
 if errorlevel 1 goto :error
 call npm run build
 if errorlevel 1 goto :error
-call npm run preview -- --host 0.0.0.0
+call npm run preview -- --host 127.0.0.1 --port 5173 --strictPort
 if errorlevel 1 goto :error
 pause
 exit /b 0

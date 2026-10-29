@@ -76,7 +76,7 @@ import {
   LOCAL_MODEL_TASK_TIMEOUTS,
   LOCAL_MODEL_SETTINGS_VERSION,
   RECOMMENDED_OLLAMA_MODEL, LOCAL_MODEL_DISABLED_MESSAGE,
-  isEmptyOrPlaceholderModel, loadLocalModelConfig, saveLocalModelConfig,
+  isEmptyOrPlaceholderModel, loadLocalModelConfigReceipt, saveLocalModelConfig,
 } from "./agent/localModelSettings.js";
 import { createLocalModelRequestCoordinator } from "./agent/localModelRequestCoordinator.js";
 import {
@@ -162,7 +162,7 @@ import {
   createParserProfileFromMapping,
   deleteParserProfile,
   exportParserProfiles,
-  loadParserProfiles,
+  loadParserProfilesReceipt,
   matchParserProfiles,
   upsertParserProfile,
 } from "./agent/parserProfiles.js";
@@ -224,10 +224,12 @@ function AppCore() {
   const [specialistReviewRequired, setSpecialistReviewRequired] = useState(false);
   const [customLogs, setCustomLogs] = useState([]);
   const [customResultId, setCustomResultId] = useState(null);
-  const [parserProfiles, setParserProfiles] = useState(() => loadParserProfiles());
-  const [parserProfileNotice, setParserProfileNotice] = useState("");
+  const [initialProfileStorage] = useState(loadParserProfilesReceipt);
+  const [parserProfiles, setParserProfiles] = useState(() => initialProfileStorage.value);
+  const [parserProfileNotice, setParserProfileNotice] = useState(initialProfileStorage.error ?? "");
   // Optional local-model assist. Settings contain no keys and requests remain local-only.
-  const [localModelConfig, setLocalModelConfig] = useState(loadLocalModelConfig);
+  const [modelStorageReceipt, setModelStorageReceipt] = useState(loadLocalModelConfigReceipt);
+  const [localModelConfig, setLocalModelConfig] = useState(() => modelStorageReceipt.value);
   const [localModelStatus, setLocalModelStatus] = useState("disconnected");
   const [localModelMessage, setLocalModelMessage] = useState(
     localModelConfig.enabled === false ? LOCAL_MODEL_DISABLED_MESSAGE : "Settings loaded. Start Ollama, then click Connect.",
@@ -340,10 +342,10 @@ function AppCore() {
   }, [activeAgentBatch?.version, activeBatchId]);
 
   useEffect(() => {
-    saveLocalModelConfig({
+    setModelStorageReceipt(saveLocalModelConfig({
       ...localModelConfig,
       settingsVersion: localModelConfig.settingsVersion ?? LOCAL_MODEL_SETTINGS_VERSION,
-    });
+    }));
   }, [localModelConfig]);
 
   useEffect(() => {
@@ -3869,10 +3871,15 @@ function AppCore() {
       parserCode: customCode,
       activeBatch: activeAgentBatch ?? { files: customFiles, fileSummaries: [] },
     });
-    const next = upsertParserProfile(profile, parserProfiles);
-    setParserProfiles(next);
-    setParserProfileNotice(`Saved parser profile: ${profile.name}.`);
-    return { ok: true, profile };
+    try {
+      const next = upsertParserProfile(profile, parserProfiles);
+      setParserProfiles(next);
+      setParserProfileNotice(`Saved parser profile: ${profile.name}.`);
+      return { ok: true, profile };
+    } catch (error) {
+      setParserProfileNotice(`Parser profile was not saved: ${error.message}`);
+      return { ok: false, error: error.message };
+    }
   }
 
   function loadParserProfileIntoEditor(profileId) {
@@ -3888,10 +3895,15 @@ function AppCore() {
 
   function removeParserProfile(profileId) {
     const profile = parserProfiles.find(item => item.id === profileId);
-    const next = deleteParserProfile(profileId, parserProfiles);
-    setParserProfiles(next);
-    setParserProfileNotice(profile ? `Deleted parser profile: ${profile.name}.` : "Parser profile deleted.");
-    return { ok: true };
+    try {
+      const next = deleteParserProfile(profileId, parserProfiles);
+      setParserProfiles(next);
+      setParserProfileNotice(profile ? `Deleted parser profile: ${profile.name}.` : "Parser profile deleted.");
+      return { ok: true };
+    } catch (error) {
+      setParserProfileNotice(`Parser profile deletion was not saved: ${error.message}`);
+      return { ok: false, error: error.message };
+    }
   }
 
   function downloadParserProfiles() {
@@ -4336,6 +4348,7 @@ function AppCore() {
     err,
     localModel: {
       config: localModelConfig,
+      storageReceipt: modelStorageReceipt,
       status: localModelStatus,
       message: localModelMessage,
       models: localModelModels,

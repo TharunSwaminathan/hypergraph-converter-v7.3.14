@@ -51,9 +51,13 @@ export function createThreadStore(indexedDB = globalThis.indexedDB, databaseName
       const value = await operation("readonly", s => s.get(id));
       return value ? normalizeThreadRecord(value) : null;
     },
+    async loadThreadWithSource(id = "main") {
+      const value = await operation("readonly", s => s.get(id));
+      return value ? { record: normalizeThreadRecord(value), sourceSchemaVersion: value.schemaVersion } : null;
+    },
     async listThreads() { return (await operation("readonly", s => s.getAll())).map(normalizeThreadRecord).map(({ id, updatedAt }) => ({ id, updatedAt })); },
     async saveThreadState(value) {
-      const safe = normalizeThreadRecord({ ...value, schemaVersion: THREAD_SCHEMA_VERSION, updatedAt: new Date().toISOString() });
+      const safe = normalizeThreadRecord({ ...value, schemaVersion: value.schemaVersion ?? THREAD_SCHEMA_VERSION, updatedAt: new Date().toISOString() });
       await operation("readwrite", s => { const request = s.put(safe); trimThreads(s, safe.id); return request; }); return safe;
     },
     async saveMessage(id, message) {
@@ -77,6 +81,8 @@ export function createThreadStore(indexedDB = globalThis.indexedDB, databaseName
       });
     },
     deleteThread: (id = "main") => operation("readwrite", s => s.delete(id)),
+    clearThreads: () => operation("readwrite", s => s.clear()),
+    async close() { const db = await opening?.catch(() => null); db?.close(); opening = null; },
   };
   store.loadThreadState = store.loadThread;
   return store;

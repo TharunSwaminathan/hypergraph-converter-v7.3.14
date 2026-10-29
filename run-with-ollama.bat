@@ -34,20 +34,22 @@ if defined FRONTEND_PORT (
   set "FRONTEND_PORT="
   for /f "delims=" %%P in ('node scripts\launcher-preflight.mjs find-frontend-port !REQUESTED_FRONTEND_PORT! 1') do set "FRONTEND_PORT=%%P"
   if not defined FRONTEND_PORT (
-    echo Frontend port !REQUESTED_FRONTEND_PORT! is unavailable. Close the occupying process or clear FRONTEND_PORT to select another port automatically.
+    echo Frontend port !REQUESTED_FRONTEND_PORT! is unavailable. No other listener was terminated.
     pause
     exit /b 1
   )
 ) else (
-  for /f "delims=" %%P in ('node scripts\launcher-preflight.mjs find-frontend-port 5173 20') do set "FRONTEND_PORT=%%P"
+  for /f "delims=" %%P in ('node scripts\launcher-preflight.mjs find-frontend-port 5173 1') do set "FRONTEND_PORT=%%P"
   if not defined FRONTEND_PORT (
-    echo No free loopback frontend port was found in the range 5173-5192. Close an occupying process or set FRONTEND_PORT explicitly.
+    echo Canonical frontend port 5173 is occupied. No silent fallback to 5174. Close the conflict yourself or explicitly choose FRONTEND_PORT.
     pause
     exit /b 1
   )
 )
 set "FRONTEND_HOST=127.0.0.1"
 set "DASHBOARD_URL=http://%FRONTEND_HOST%:%FRONTEND_PORT%"
+echo Frontend origin: %DASHBOARD_URL%
+if not "%FRONTEND_PORT%"=="5173" echo WARNING: Noncanonical origin. Browser persistence is separate; no saved data is relocated. Cross-origin export/import is deferred beyond Scope 7A.
 set "HYPERGRAPH_FRONTEND_ORIGIN=%DASHBOARD_URL%"
 set "HYPERGRAPH_BRIDGE_ORIGINS=http://127.0.0.1:%FRONTEND_PORT%,http://localhost:%FRONTEND_PORT%"
 

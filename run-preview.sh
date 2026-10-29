@@ -13,9 +13,12 @@ for required_command in node npm; do
   fi
 done
 node scripts/check-node-version.mjs || exit 1
+node scripts/launcher-preflight.mjs find-frontend-port 5173 1 >/dev/null || exit 1
+echo "Frontend origin: http://${HOST}:5173 (canonical: http://127.0.0.1:5173). No saved data is relocated across origins."
+if [ "${HOST}" != "127.0.0.1" ]; then echo "WARNING: Noncanonical origin. Browser persistence is separate; portability is deferred beyond Scope 7A."; fi
 
 echo "Building and starting the production preview..."
 echo
 npm install || { echo; echo "npm install failed."; exit 1; }
 npm run build || { echo; echo "The production build failed."; exit 1; }
-exec npm run preview -- --host "${HOST}"
+exec npm run preview -- --host "${HOST}" --port 5173 --strictPort

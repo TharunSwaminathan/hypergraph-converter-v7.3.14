@@ -3042,8 +3042,10 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
             </div>
             {agentState.selectionNotice && <div className="agent-selection-notice">{agentState.selectionNotice}</div>}
             <div role="status" className="agent-status">
-              {persistence.error || (persistence.status === "loading" ? "Restoring saved thread…" : "Chat saved on this browser. Workspace references never grant execution permission.")}
+              {persistence.error || persistence.message}
+              {(persistence.receipt?.state === "error" || persistence.status === "unavailable") && <button type="button" onClick={persistence.retryStorage}>Retry storage</button>}
             </div>
+            {agentState.localModel?.storageReceipt?.ok === false && <p role="status">Model settings were not saved: {agentState.localModel.storageReceipt.error}</p>}
             {persistence.restoredWorkspace && <p role="status">Restored messages are historical context. No graph, pending update, confirmation, Runtime job or current result was restored. Reload the graph and review any requested change again.</p>}
             {persistence.restoredWorkspace?.requiresReupload && !agentState.agentFileCount && <details className="agent-upload">
               <summary>Saved workspace requires re-upload</summary>

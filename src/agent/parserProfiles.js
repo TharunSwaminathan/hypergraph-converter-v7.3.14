@@ -1,4 +1,6 @@
 import { stableStringify } from "../graph/graphFingerprint.js";
+import { createLocalStorageAdapter, browserLocalStorage } from "../persistence/localStorageAdapter.js";
+import { boundedCopy, parseBoundedJSON, StorageFault, utf8Bytes } from "../persistence/storageSafety.js";
 
 export const PARSER_PROFILE_STORAGE_KEY = "hypergraph_converter_parser_profiles_v7_3";
 export const LEGACY_PARSER_PROFILE_STORAGE_KEY = "hypergraph_converter_parser_profiles_v7_2";
@@ -36,31 +38,57 @@ export function createParserProfileFromMapping({
   };
 }
 
-export function loadParserProfiles(storage = globalThis.localStorage) {
-  try {
-    const raw = storage?.getItem?.(PARSER_PROFILE_STORAGE_KEY) ?? storage?.getItem?.(LEGACY_PARSER_PROFILE_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    const profiles = Array.isArray(parsed) ? parsed : parsed.profiles;
-    return Array.isArray(profiles) ? profiles.filter(isParserProfile).map(migrateProfile) : [];
-  } catch {
-    return [];
-  }
+export const PARSER_PROFILE_PROJECT_KEY = "hypergraph-studio.parser-profiles.v1";
+export const PROFILE_LIMITS = Object.freeze({ bytes: 2 * 1024 * 1024, depth: 14, nodes: 20000, array: 1000, string: 60000 });
+const profileAdapters = new WeakMap();
+export function validateStoredProfiles(input) {
+  const value = boundedCopy(input, PROFILE_LIMITS);
+  if (!Array.isArray(value) && value?.schema && value.schema !== "hypergraph-parser-profiles-v7.3") throw new StorageFault("INCOMPATIBLE", "Parser profile document version is incompatible.", true);
+  const profiles = Array.isArray(value) ? value : value?.profiles;
+  if (!Array.isArray(profiles) || profiles.length > 100) throw new StorageFault("LIMIT", "At most 100 bounded parser profiles are supported.", true);
+  const ids = new Set();
+  return profiles.map(profile => {
+    if (![2, 3].includes(profile?.schemaVersion ?? 2)) throw new StorageFault("INCOMPATIBLE", "Parser profile version is incompatible; original data is preserved.", true);
+    if (!isParserProfile(profile) || typeof profile.id !== "string" || profile.id.length > 160 || typeof profile.name !== "string" || profile.name.length > 240
+      || profile.parserCode.length > 60000 || utf8Bytes(profile.parserCode) > 240000 || ids.has(profile.id)) throw new StorageFault("CORRUPT", "Parser profile identity/code is invalid or exceeds bounds.", true);
+    ids.add(profile.id);
+    const { parserCode, ...metadata } = profile;
+    const safe = boundedCopy(metadata, { bytes: 128 * 1024, depth: 12, nodes: 5000, array: 1000, string: 8192 });
+    for (const key of ["fileRoles", "fileSignatures", "relationshipSignature"]) {
+      if (Object.hasOwn(safe, key) && !Array.isArray(safe[key])) throw new StorageFault("CORRUPT", "Parser profile collections must be arrays.", true);
+    }
+    if (safe.mappingSpec !== undefined && safe.mappingSpec !== null && (typeof safe.mappingSpec !== "object" || Array.isArray(safe.mappingSpec))) throw new StorageFault("CORRUPT", "Parser mapping metadata must be an object.", true);
+    for (const key of ["createdAt", "updatedAt"]) {
+      if (Object.hasOwn(safe, key) && (typeof safe[key] !== "string" || safe[key].length > 32 || Number.isNaN(Date.parse(safe[key])))) throw new StorageFault("CORRUPT", "Parser profile timestamps are invalid.", true);
+    }
+    const allowed = ["id", "schemaVersion", "name", "createdAt", "updatedAt", "datasetType", "fileRoles", "fileSignatures", "relationshipSignature", "mappingSpec", "fingerprint"];
+    if (Object.keys(safe).some(key => !allowed.includes(key))) throw new StorageFault("CORRUPT", "Parser profile contains unsupported fields.", true);
+    return migrateProfile({ ...safe, parserCode });
+  });
 }
-
-export function saveParserProfiles(profiles, storage = globalThis.localStorage) {
-  const safeProfiles = (profiles ?? []).filter(isParserProfile).slice(0, 100);
-  storage?.setItem?.(PARSER_PROFILE_STORAGE_KEY, JSON.stringify(safeProfiles, null, 2));
-  return safeProfiles;
+function profileAdapter(storage = browserLocalStorage()) {
+  if (storage && profileAdapters.has(storage)) return profileAdapters.get(storage);
+  const adapter = createLocalStorageAdapter({ key: PARSER_PROFILE_PROJECT_KEY, legacyKeys: [PARSER_PROFILE_STORAGE_KEY, LEGACY_PARSER_PROFILE_STORAGE_KEY], limits: PROFILE_LIMITS,
+    validate: validateStoredProfiles, legacyVersion: value => (Array.isArray(value) ? value : value?.profiles)?.[0]?.schemaVersion ?? 2, storage });
+  if (storage) profileAdapters.set(storage, adapter);
+  return adapter;
 }
+export function loadParserProfilesReceipt(storage) { return profileAdapter(storage).load([]); }
+export function loadParserProfiles(storage) { return loadParserProfilesReceipt(storage).value; }
+export function saveParserProfiles(profiles, storage) {
+  const result = profileAdapter(storage).save(profiles);
+  if (!result.ok) throw new StorageFault(result.code, result.error, result.status === "read_only");
+  return result.value;
+}
+export function clearStoredParserProfiles(storage) { return profileAdapter(storage).clear(); }
 
-export function upsertParserProfile(profile, profiles = [], storage = globalThis.localStorage) {
+export function upsertParserProfile(profile, profiles = [], storage = browserLocalStorage()) {
   const nextProfile = { ...profile, updatedAt: new Date().toISOString() };
   const without = profiles.filter(item => item.id !== nextProfile.id);
   return saveParserProfiles([nextProfile, ...without], storage);
 }
 
-export function deleteParserProfile(profileId, profiles = [], storage = globalThis.localStorage) {
+export function deleteParserProfile(profileId, profiles = [], storage = browserLocalStorage()) {
   return saveParserProfiles(profiles.filter(profile => profile.id !== profileId), storage);
 }
 
@@ -68,14 +96,12 @@ export function exportParserProfiles(profiles = []) {
   return JSON.stringify({
     schema: "hypergraph-parser-profiles-v7.3",
     exportedAt: new Date().toISOString(),
-    profiles: (profiles ?? []).filter(isParserProfile).map(migrateProfile),
+    profiles: validateStoredProfiles(profiles),
   }, null, 2);
 }
 
-export function importParserProfiles(text, existingProfiles = [], storage = globalThis.localStorage) {
-  const data = JSON.parse(String(text ?? ""));
-  const incoming = Array.isArray(data) ? data : data.profiles;
-  if (!Array.isArray(incoming)) throw new Error("Parser profile import must contain a profiles array.");
+export function importParserProfiles(text, existingProfiles = [], storage = browserLocalStorage()) {
+  const incoming = validateStoredProfiles(parseBoundedJSON(text, PROFILE_LIMITS));
   const byId = new Map(existingProfiles.map(profile => [profile.id, profile]));
   for (const profile of incoming) {
     if (!isParserProfile(profile)) continue;

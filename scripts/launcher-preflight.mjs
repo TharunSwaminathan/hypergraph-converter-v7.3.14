@@ -69,9 +69,18 @@ export async function inspectBridgeHealth(urlValue, { timeoutMs = 2000 } = {}) {
 async function main(argv) {
   const [command, ...args] = argv;
   if (command === "find-frontend-port") {
-    const port = await findAvailableLoopbackPort(args[0], args[1]);
-    if (!port) process.exitCode = 2;
-    else process.stdout.write(String(port));
+    if (args[0] !== undefined && (!/^\d+$/.test(args[0]) || Number(args[0]) < 1 || Number(args[0]) > 65535)) {
+      process.stderr.write("FRONTEND_PORT must be an integer from 1 to 65535. No listener was terminated.\n"); process.exitCode = 2; return;
+    }
+    const port = await findAvailableLoopbackPort(args[0], args[1] ?? 1);
+    if (!port) {
+      process.stderr.write(`Frontend port ${args[0] ?? 5173} is occupied. Canonical origin is http://127.0.0.1:5173. Changing origin changes browser persistence; no data is relocated and no listener was terminated.\n`);
+      process.exitCode = 2;
+    }
+    else {
+      if (port !== 5173) process.stderr.write(`WARNING: Noncanonical frontend origin http://127.0.0.1:${port}. Changing origin changes browser persistence; no saved data is relocated. Export/import portability is deferred beyond Scope 7A.\n`);
+      process.stdout.write(String(port));
+    }
     return;
   }
   if (command === "bridge-status") {

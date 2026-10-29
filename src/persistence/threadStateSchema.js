@@ -1,3 +1,5 @@
+import { boundedCopy, StorageFault } from "./storageSafety.js";
+
 export const THREAD_SCHEMA_VERSION = 1;
 export const THREAD_LIMITS = Object.freeze({ threads: 80, messages: 80, messageChars: 6000, summaryChars: 2000, recordChars: 1000000 });
 const text = (v, n = 200) => typeof v === "string" ? v.slice(0, n) : "";
@@ -5,6 +7,7 @@ const text = (v, n = 200) => typeof v === "string" ? v.slice(0, n) : "";
 // Explicit projections prevent persisted objects from reviving executable UI
 // actions, approval tokens, model settings, or application-owned state.
 export function workspaceReferences(state = {}) {
+  if ((state.agentFiles ?? []).some(file => !file || typeof file !== "object") || (state.specialist?.jobs ?? []).some(job => !job || typeof job !== "object")) throw new StorageFault("CORRUPT", "Workspace references are malformed; original data is preserved.", true);
   return {
     activeBatchId: text(state.activeBatchId),
     files: (state.agentFiles ?? []).slice(0, 50).map(f => ({ id: text(f.id), name: text(f.name), size: Number(f.size) || 0, requiresReupload: true })),
@@ -21,8 +24,9 @@ export function workspaceReferences(state = {}) {
 }
 
 export function normalizeThreadRecord(record) {
-  if (!record || typeof record !== "object" || ![0, 1].includes(record.schemaVersion)) throw new Error("Unsupported or corrupt thread schema.");
-  if (JSON.stringify(record).length > THREAD_LIMITS.recordChars) throw new Error("Stored thread exceeds the bounded record limit.");
+  if (!record || typeof record !== "object" || ![0, 1].includes(record.schemaVersion)) throw new StorageFault("INCOMPATIBLE", "Unsupported or corrupt thread schema.", true);
+  record = boundedCopy(record, { bytes: 2 * 1024 * 1024, depth: 16, nodes: 20000, array: 1000, string: THREAD_LIMITS.recordChars });
+  if (JSON.stringify(record).length > THREAD_LIMITS.recordChars) throw new StorageFault("LIMIT", "Stored thread exceeds the bounded record limit.", true);
   const workspace = record.workspace && typeof record.workspace === "object" ? record.workspace : {};
   return {
     schemaVersion: THREAD_SCHEMA_VERSION,

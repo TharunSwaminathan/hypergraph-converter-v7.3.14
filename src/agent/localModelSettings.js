@@ -1,3 +1,6 @@
+import { createLocalStorageAdapter, browserLocalStorage } from "../persistence/localStorageAdapter.js";
+import { boundedCopy, StorageFault } from "../persistence/storageSafety.js";
+
 export const RECOMMENDED_OLLAMA_MODEL = "qwen3:8b";
 export const LEGACY_RECOMMENDED_OLLAMA_MODEL = "qwen2.5-coder:1.5b";
 export const DEFAULT_LOCAL_MODEL_TIMEOUT_MS = 120000;
@@ -162,24 +165,40 @@ export function normalizeLocalModelConfig(stored = null) {
   return { config, migrated, migrationReason };
 }
 
-export function loadLocalModelConfig() {
-  try {
-    const stored = JSON.parse(localStorage.getItem(LOCAL_MODEL_STORAGE_KEY) ?? "null");
-    const normalized = normalizeLocalModelConfig(stored);
-    if (normalized.migrated) {
-      localStorage.setItem(LOCAL_MODEL_STORAGE_KEY, JSON.stringify(normalized.config));
-    }
-    return normalized.config;
-  } catch {
-    return { ...DEFAULT_LOCAL_MODEL_CONFIG };
-  }
+export const MODEL_SETTINGS_PROJECT_KEY = "hypergraph-studio.settings.v1";
+export const MODEL_SETTINGS_LIMITS = Object.freeze({ bytes: 16 * 1024, depth: 3, nodes: 80, array: 8, string: 1024 });
+const settingsAdapters = new WeakMap();
+function settingsVersion(value) {
+  const version = value?.settingsVersion ?? 0;
+  if (![0, 1, 2, 3].includes(version)) throw new StorageFault("INCOMPATIBLE", "Model settings version is incompatible; original data is preserved.", true);
+  return version;
 }
-
-export function saveLocalModelConfig(config) {
-  try {
-    const normalized = normalizeLocalModelConfig(config);
-    localStorage.setItem(LOCAL_MODEL_STORAGE_KEY, JSON.stringify(normalized.config));
-  } catch {
-    // Storage can fail (private browsing, quota); settings simply will not persist.
+export function validateStoredModelSettings(input) {
+  const value = boundedCopy(input, MODEL_SETTINGS_LIMITS);
+  if (!value || Array.isArray(value) || typeof value !== "object") throw new StorageFault("CORRUPT", "Model settings must be an object.", true);
+  settingsVersion(value);
+  for (const key of ["timeoutMs", "temperature", "maxPreviewFiles", "maxPreviewLinesPerFile"]) {
+    if (Object.hasOwn(value, key) && (typeof value[key] !== "number" || !Number.isFinite(value[key]))) throw new StorageFault("CORRUPT", "Model settings numeric fields are invalid.", true);
   }
+  for (const key of ["model", "activeBaseUrl", "migrationNotice"]) {
+    if (Object.hasOwn(value, key) && typeof value[key] !== "string") throw new StorageFault("CORRUPT", "Model settings text fields are invalid.", true);
+  }
+  if (Object.hasOwn(value, "enabled") && typeof value.enabled !== "boolean") throw new StorageFault("CORRUPT", "Model enabled preference must be boolean.", true);
+  const config = normalizeLocalModelConfig(value).config;
+  if (config.timeoutMs < 1000 || config.timeoutMs > 120000 || config.temperature < 0 || config.temperature > 1
+    || !Number.isInteger(config.maxPreviewFiles) || config.maxPreviewFiles < 1 || config.maxPreviewFiles > 50
+    || !Number.isInteger(config.maxPreviewLinesPerFile) || config.maxPreviewLinesPerFile < 1 || config.maxPreviewLinesPerFile > 500
+    || config.activeBaseUrl.length > 512 || config.migrationNotice.length > 1024) throw new StorageFault("LIMIT", "Model settings exceed supported bounds.", true);
+  return config;
 }
+function settingsAdapter(storage = browserLocalStorage()) {
+  if (storage && settingsAdapters.has(storage)) return settingsAdapters.get(storage);
+  const adapter = createLocalStorageAdapter({ key: MODEL_SETTINGS_PROJECT_KEY, legacyKeys: [LOCAL_MODEL_STORAGE_KEY], limits: MODEL_SETTINGS_LIMITS,
+    validate: validateStoredModelSettings, legacyVersion: settingsVersion, storage });
+  if (storage) settingsAdapters.set(storage, adapter);
+  return adapter;
+}
+export function loadLocalModelConfigReceipt(storage) { return settingsAdapter(storage).load({ ...DEFAULT_LOCAL_MODEL_CONFIG }); }
+export function loadLocalModelConfig(storage) { return loadLocalModelConfigReceipt(storage).value; }
+export function saveLocalModelConfig(config, storage) { return settingsAdapter(storage).save(config); }
+export function clearStoredModelSettings(storage) { return settingsAdapter(storage).clear(); }

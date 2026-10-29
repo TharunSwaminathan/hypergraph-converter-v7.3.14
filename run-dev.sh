@@ -14,6 +14,9 @@ for required_command in node npm; do
   fi
 done
 node scripts/check-node-version.mjs || exit 1
+node scripts/launcher-preflight.mjs find-frontend-port 5173 1 >/dev/null || exit 1
+echo "Frontend origin: http://${HOST}:5173 (canonical: http://127.0.0.1:5173). No saved data is relocated across origins."
+if [ "${HOST}" != "127.0.0.1" ]; then echo "WARNING: Noncanonical origin. Browser persistence is separate; portability is deferred beyond Scope 7A."; fi
 
 echo "Starting Hypergraph Converter Studio in development mode..."
 echo
@@ -22,4 +25,4 @@ npm install || {
   echo "npm install failed. Review the error above, check your network/registry access, and retry."
   exit 1
 }
-exec npm run dev -- --host "${HOST}"
+exec npm run dev -- --host "${HOST}" --port 5173 --strictPort

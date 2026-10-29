@@ -5,7 +5,8 @@ import { createPendingHypergraphUpdateController } from "../src/graph/pendingHyp
 import { createMotifAnalysisController } from "../src/candy/motifAnalysisController.js";
 import { normalizeThreadRecord, workspaceReferences } from "../src/persistence/threadStateSchema.js";
 import { qualifiedRuntime } from "./fixtures/candy-scope5-runtime.mjs";
-import { deferred, memoryIndexedDB } from "./fixtures/candy-scope5e-storage.mjs";
+import { deferred } from "./fixtures/candy-scope5e-storage.mjs";
+import { projectIndexedDB as memoryIndexedDB } from "./fixtures/candy-scope7a-storage.mjs";
 import { Window } from "happy-dom";
 import { createServer } from "vite";
 
