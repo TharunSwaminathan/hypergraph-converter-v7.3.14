@@ -528,7 +528,7 @@ await withMockFetch(async url => {
 
   const packageJson = JSON.parse(await readFile(projectFile("package.json"), "utf8"));
   assert.equal(packageJson.name, "hypergraph-converter-studio");
-  assert.equal(packageJson.version, "7.3.14");
+  assert.equal(packageJson.version, "7.3.15");
   sourceScriptAssertionTests += 2;
 
   const rootScripts = [

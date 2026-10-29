@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 
 const packageJson = JSON.parse(await readFile("package.json", "utf8"));
 assert.equal(packageJson.name, "hypergraph-converter-studio");
-assert.equal(packageJson.version, "7.3.14");
+assert.equal(packageJson.version, "7.3.15");
 
 for (const file of [
   "src/agent/deterministicNlu/compileDeterministicAction.js",

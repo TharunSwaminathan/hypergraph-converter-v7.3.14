@@ -30,7 +30,7 @@ GitHub Pages is static hosting and cannot run Ollama or the bridge; the hosted p
 
 ---
 
-Release: **v7.3.14** (cross-platform build)
+Release: **v7.3.15** (cross-platform build)
 
 ## CANDY Scope 3 — CUDA candidate (not runtime-qualified)
 
