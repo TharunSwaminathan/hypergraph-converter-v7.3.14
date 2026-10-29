@@ -1,0 +1,161 @@
+{
+  "candidateSha": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+  "status": "PASS",
+  "caseCount": 11,
+  "canonicalOrigin": {
+    "candidateSha": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+    "status": "PASS",
+    "canonicalOrigin": "http://127.0.0.1:5173",
+    "actualPortOccupied": 5173,
+    "preflightExit": 2,
+    "stdout": "",
+    "stderr": "Frontend port 5173 is occupied. Canonical origin is http://127.0.0.1:5173. Changing origin changes browser persistence; no data is relocated and no listener was terminated.\n",
+    "listenerRemainedAlive": true,
+    "strictBindRejected": true,
+    "nextPort5174Unoccupied": true,
+    "evidence": "real TCP listener + committed preflight + strict Vite bind; no browser mock"
+  },
+  "reports": [
+    {
+      "path": "artifacts/candy-scope7a-exact-sha-work/browser-committed-native-first.json",
+      "sha256": "33338059c6c6507c7932f227c48f0e5aad1d83950f7efc6c604faab7615fcccb",
+      "ok": true,
+      "phase": "first",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "transaction-receipt",
+          "evidence": "real native IndexedDB events",
+          "events": [
+            "request-success",
+            "request-success",
+            "complete",
+            "receipt"
+          ]
+        },
+        {
+          "case": "two-top-level-tabs-CAS",
+          "code": "CONFLICT"
+        },
+        {
+          "case": "two-tabs-delete-late-writer",
+          "code": "DELETED"
+        },
+        {
+          "case": "native-IDB-versionchange",
+          "revoked": true
+        },
+        {
+          "case": "unavailable-in-browser",
+          "evidence": "injected unavailable API; not browser policy denial"
+        },
+        {
+          "case": "native-coordinator-flush",
+          "revision": 3
+        },
+        {
+          "case": "native-IDB-abort-atomic-publication",
+          "revisionPreserved": 3
+        }
+      ],
+      "limitations": [
+        "isolated headless profile",
+        "no physical reboot or power-loss claim",
+        "no native/backend execution",
+        "unavailable API is an injected fault"
+      ],
+      "candidateSha": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+      "runnerMode": "isolated headless profile",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7a\\artifacts\\candy-scope7a-exact-sha-work\\browser-profile-committed-native"
+    },
+    {
+      "path": "artifacts/candy-scope7a-exact-sha-work/browser-committed-native-reload.json",
+      "sha256": "a4728b2c5cc2a5480a702c1ef3e320e70a223a3bd5074b6bd331fb63a3c1676f",
+      "ok": true,
+      "phase": "reload",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "same-origin-page-reload",
+          "revision": 3,
+          "graphAvailable": false,
+          "approvalRestored": false,
+          "settingsKey": "hypergraph-studio.settings.v1"
+        },
+        {
+          "case": "native-project-database-cleared-while-mounted",
+          "oldOwnerRevoked": true,
+          "oldProjectAbsent": true
+        }
+      ],
+      "limitations": [
+        "isolated headless profile",
+        "no physical reboot or power-loss claim",
+        "no native/backend execution",
+        "unavailable API is an injected fault"
+      ],
+      "candidateSha": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+      "runnerMode": "isolated headless profile",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7a\\artifacts\\candy-scope7a-exact-sha-work\\browser-profile-committed-native"
+    },
+    {
+      "path": "artifacts/candy-scope7a-exact-sha-work/browser-committed-private-private.json",
+      "sha256": "890774bc44d79cede95e04b5ab9bc112edbec881f81ba3410dc513055480713c",
+      "ok": true,
+      "phase": "private",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "private-mode-permits-session-storage",
+          "committedAPIOnly": true,
+          "retentionGuaranteed": false
+        }
+      ],
+      "limitations": [
+        "isolated headless profile",
+        "no physical reboot or power-loss claim",
+        "no native/backend execution",
+        "unavailable API is an injected fault"
+      ],
+      "candidateSha": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+      "runnerMode": "headless --incognito",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7a\\artifacts\\candy-scope7a-exact-sha-work\\browser-profile-committed-private"
+    },
+    {
+      "path": "artifacts/candy-scope7a-exact-sha-work/browser-committed-private-private-reopen.json",
+      "sha256": "878944f37168f3ae701eecc6cfb5753882735cf51c6e2dade6f6934f36234d7a",
+      "ok": true,
+      "phase": "private-reopen",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "private-mode-new-session",
+          "previousProjectUnavailable": true
+        }
+      ],
+      "limitations": [
+        "isolated headless profile",
+        "no physical reboot or power-loss claim",
+        "no native/backend execution",
+        "unavailable API is an injected fault"
+      ],
+      "candidateSha": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+      "runnerMode": "headless --incognito",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7a\\artifacts\\candy-scope7a-exact-sha-work\\browser-profile-committed-private"
+    }
+  ],
+  "evidenceClasses": {
+    "native": "Actual isolated Chrome IndexedDB, two top-level windows, reload, native abort, versionchange and incognito sessions",
+    "injected": "Explicit createProjectStore(null) API absence inside browser, not browser-policy denial",
+    "unit": "Storage/mounted doubles separately recorded in local gates"
+  },
+  "privacy": "New isolated profiles only; real user browser profiles and saved Candi data untouched",
+  "limitations": [
+    "No fsync, physical reboot or power-loss guarantee",
+    "Native browser execution here is Windows headless Chrome; OS CI is Node/test-double evidence"
+  ]
+}
