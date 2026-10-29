@@ -1,0 +1,89 @@
+{
+  "candidate": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "archiveSha256": "310f1e2bb1b29f52818f8ca4d2addd10f1b8b127085540854bd789c8ef092249",
+  "startedAt": "2026-10-29T04:11:27.160Z",
+  "privateStateSupplied": false,
+  "injectedDiscovery": false,
+  "injectedRunner": false,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/v1/capabilities",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/session",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 503
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/artifacts",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "status": 503
+    }
+  ],
+  "cleanShutdown": true,
+  "cases": [
+    {
+      "label": "Explicit STATIC production request fails closed",
+      "status": "PASS",
+      "classification": "BACKEND_UNAVAILABLE"
+    },
+    {
+      "label": "Explicit INCREMENTAL production request fails closed without STATIC fallback",
+      "status": "PASS",
+      "classification": "BACKEND_UNAVAILABLE"
+    },
+    {
+      "label": "CPU oracle cannot be selected as a production fallback",
+      "status": "PASS",
+      "classification": "INVALID_GRAPH_SCHEMA"
+    },
+    {
+      "label": "OrdinaryGraph is not implicitly projected to Hypergraph",
+      "status": "PASS",
+      "classification": "INVALID_GRAPH_TYPE"
+    }
+  ],
+  "motifReadiness": [
+    {
+      "backend": "CUDA_STATIC",
+      "mode": "STATIC",
+      "status": "UNAVAILABLE",
+      "reason": "motif_qualification_unavailable_or_stale"
+    },
+    {
+      "backend": "CUDA_INCREMENTAL",
+      "mode": "INCREMENTAL",
+      "status": "UNAVAILABLE",
+      "reason": "motif_qualification_unavailable_or_stale"
+    }
+  ],
+  "noCpuFallback": true,
+  "noImplicitStaticFallback": true,
+  "noImplicitProjection": true,
+  "noFalseQualifiedState": true,
+  "nativeJobsCreated": 0,
+  "status": "PASS",
+  "finishedAt": "2026-10-29T04:11:27.245Z"
+}

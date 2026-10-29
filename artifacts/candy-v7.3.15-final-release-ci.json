@@ -1,0 +1,2280 @@
+{
+  "schema": "candy.v7.3.15-final-release-ci/1",
+  "candidate": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "status": "PASS",
+  "queriedAtUtc": "2026-10-29 03:59:41 UTC",
+  "sourceUrl": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs?head_sha=335c320a052eab48d3f0c2d309805d10a5918189&per_page=100",
+  "queryCoversAllEvents": true,
+  "allRunPagesComplete": true,
+  "requiredJobs": [
+    {
+      "id": 123250139487,
+      "name": "cpu",
+      "event": "push",
+      "workflow": ".github/workflows/cpu-release-gates.yml",
+      "headSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391/job/123250139487",
+      "startedAt": "2026-10-29T03:44:27Z",
+      "completedAt": "2026-10-29T03:46:55Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T03:44:27Z",
+          "completed_at": "2026-10-29T03:44:28Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T03:44:28Z",
+          "completed_at": "2026-10-29T03:44:29Z"
+        },
+        {
+          "name": "Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T03:44:29Z",
+          "completed_at": "2026-10-29T03:44:33Z"
+        },
+        {
+          "name": "Observed tool versions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-29T03:44:33Z",
+          "completed_at": "2026-10-29T03:44:33Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-29T03:44:33Z",
+          "completed_at": "2026-10-29T03:44:36Z"
+        },
+        {
+          "name": "Run npm test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-29T03:44:36Z",
+          "completed_at": "2026-10-29T03:46:34Z"
+        },
+        {
+          "name": "Run npm run lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-29T03:46:34Z",
+          "completed_at": "2026-10-29T03:46:44Z"
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-29T03:46:44Z",
+          "completed_at": "2026-10-29T03:46:45Z"
+        },
+        {
+          "name": "Run npm run build:github",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-29T03:46:45Z",
+          "completed_at": "2026-10-29T03:46:45Z"
+        },
+        {
+          "name": "Run npm audit --omit=dev",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-29T03:46:45Z",
+          "completed_at": "2026-10-29T03:46:46Z"
+        },
+        {
+          "name": "Deterministic fixture, packing and transport bounds",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-29T03:46:46Z",
+          "completed_at": "2026-10-29T03:46:48Z"
+        },
+        {
+          "name": "Clean and populated archive integrity; extracted CUDA fail closed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-29T03:46:48Z",
+          "completed_at": "2026-10-29T03:46:50Z"
+        },
+        {
+          "name": "Extracted browser source build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-29T03:46:50Z",
+          "completed_at": "2026-10-29T03:46:52Z"
+        },
+        {
+          "name": "GPU live qualification status",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-29T03:46:52Z",
+          "completed_at": "2026-10-29T03:46:52Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- package.json package-lock.json",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-29T03:46:52Z",
+          "completed_at": "2026-10-29T03:46:52Z"
+        },
+        {
+          "name": "Run git diff --check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-29T03:46:52Z",
+          "completed_at": "2026-10-29T03:46:52Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31,
+          "started_at": "2026-10-29T03:46:52Z",
+          "completed_at": "2026-10-29T03:46:52Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-29T03:46:52Z",
+          "completed_at": "2026-10-29T03:46:52Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-29T03:46:52Z",
+          "completed_at": "2026-10-29T03:46:52Z"
+        }
+      ]
+    },
+    {
+      "id": 123247935705,
+      "name": "Build, lint and test (Ubuntu)",
+      "event": "pull_request",
+      "workflow": ".github/workflows/ci.yml",
+      "headSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/job/123247935705",
+      "startedAt": "2026-10-29T03:37:03Z",
+      "completedAt": "2026-10-29T03:40:53Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T03:37:04Z",
+          "completed_at": "2026-10-29T03:37:05Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T03:37:05Z",
+          "completed_at": "2026-10-29T03:37:06Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T03:37:06Z",
+          "completed_at": "2026-10-29T03:37:07Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-29T03:37:07Z",
+          "completed_at": "2026-10-29T03:37:12Z"
+        },
+        {
+          "name": "Run npm run lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-29T03:37:12Z",
+          "completed_at": "2026-10-29T03:37:30Z"
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-29T03:37:30Z",
+          "completed_at": "2026-10-29T03:37:31Z"
+        },
+        {
+          "name": "Run npm test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-29T03:37:31Z",
+          "completed_at": "2026-10-29T03:40:48Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-29T03:40:48Z",
+          "completed_at": "2026-10-29T03:40:50Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-29T03:40:50Z",
+          "completed_at": "2026-10-29T03:40:51Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-29T03:40:51Z",
+          "completed_at": "2026-10-29T03:40:51Z"
+        }
+      ]
+    },
+    {
+      "id": 123247935889,
+      "name": "Build and test (macos-latest)",
+      "event": "pull_request",
+      "workflow": ".github/workflows/ci.yml",
+      "headSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/job/123247935889",
+      "startedAt": "2026-10-29T03:37:04Z",
+      "completedAt": "2026-10-29T03:41:24Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T03:37:05Z",
+          "completed_at": "2026-10-29T03:37:06Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T03:37:06Z",
+          "completed_at": "2026-10-29T03:37:09Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T03:37:09Z",
+          "completed_at": "2026-10-29T03:37:11Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-29T03:37:11Z",
+          "completed_at": "2026-10-29T03:37:17Z"
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-29T03:37:17Z",
+          "completed_at": "2026-10-29T03:37:18Z"
+        },
+        {
+          "name": "Run npm test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-29T03:37:18Z",
+          "completed_at": "2026-10-29T03:41:16Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-29T03:41:16Z",
+          "completed_at": "2026-10-29T03:41:19Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-29T03:41:19Z",
+          "completed_at": "2026-10-29T03:41:20Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-29T03:41:20Z",
+          "completed_at": "2026-10-29T03:41:22Z"
+        }
+      ]
+    },
+    {
+      "id": 123247935897,
+      "name": "Build and test (windows-latest)",
+      "event": "pull_request",
+      "workflow": ".github/workflows/ci.yml",
+      "headSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/job/123247935897",
+      "startedAt": "2026-10-29T03:37:03Z",
+      "completedAt": "2026-10-29T03:42:55Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T03:37:03Z",
+          "completed_at": "2026-10-29T03:37:04Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T03:37:04Z",
+          "completed_at": "2026-10-29T03:37:10Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T03:37:10Z",
+          "completed_at": "2026-10-29T03:37:16Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-29T03:37:16Z",
+          "completed_at": "2026-10-29T03:37:29Z"
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-29T03:37:29Z",
+          "completed_at": "2026-10-29T03:37:31Z"
+        },
+        {
+          "name": "Run npm test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-29T03:37:31Z",
+          "completed_at": "2026-10-29T03:42:46Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-29T03:42:46Z",
+          "completed_at": "2026-10-29T03:42:52Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-29T03:42:52Z",
+          "completed_at": "2026-10-29T03:42:54Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-29T03:42:54Z",
+          "completed_at": "2026-10-29T03:42:54Z"
+        }
+      ]
+    },
+    {
+      "id": 123247935593,
+      "name": "cpu",
+      "event": "pull_request",
+      "workflow": ".github/workflows/cpu-release-gates.yml",
+      "headSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770/job/123247935593",
+      "startedAt": "2026-10-29T03:37:03Z",
+      "completedAt": "2026-10-29T03:41:02Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T03:37:03Z",
+          "completed_at": "2026-10-29T03:37:04Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T03:37:04Z",
+          "completed_at": "2026-10-29T03:37:06Z"
+        },
+        {
+          "name": "Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T03:37:06Z",
+          "completed_at": "2026-10-29T03:37:10Z"
+        },
+        {
+          "name": "Observed tool versions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-29T03:37:10Z",
+          "completed_at": "2026-10-29T03:37:10Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-29T03:37:10Z",
+          "completed_at": "2026-10-29T03:37:15Z"
+        },
+        {
+          "name": "Run npm test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-29T03:37:15Z",
+          "completed_at": "2026-10-29T03:40:32Z"
+        },
+        {
+          "name": "Run npm run lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-29T03:40:32Z",
+          "completed_at": "2026-10-29T03:40:47Z"
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-29T03:40:47Z",
+          "completed_at": "2026-10-29T03:40:48Z"
+        },
+        {
+          "name": "Run npm run build:github",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-29T03:40:48Z",
+          "completed_at": "2026-10-29T03:40:49Z"
+        },
+        {
+          "name": "Run npm audit --omit=dev",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-29T03:40:49Z",
+          "completed_at": "2026-10-29T03:40:49Z"
+        },
+        {
+          "name": "Deterministic fixture, packing and transport bounds",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-29T03:40:49Z",
+          "completed_at": "2026-10-29T03:40:53Z"
+        },
+        {
+          "name": "Clean and populated archive integrity; extracted CUDA fail closed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-29T03:40:53Z",
+          "completed_at": "2026-10-29T03:40:56Z"
+        },
+        {
+          "name": "Extracted browser source build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-29T03:40:56Z",
+          "completed_at": "2026-10-29T03:41:00Z"
+        },
+        {
+          "name": "GPU live qualification status",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-29T03:41:00Z",
+          "completed_at": "2026-10-29T03:41:00Z"
+        },
+        {
+          "name": "Run git diff --exit-code -- package.json package-lock.json",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-29T03:41:00Z",
+          "completed_at": "2026-10-29T03:41:00Z"
+        },
+        {
+          "name": "Run git diff --check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-29T03:41:00Z",
+          "completed_at": "2026-10-29T03:41:00Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31,
+          "started_at": "2026-10-29T03:41:00Z",
+          "completed_at": "2026-10-29T03:41:00Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-29T03:41:00Z",
+          "completed_at": "2026-10-29T03:41:01Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-29T03:41:01Z",
+          "completed_at": "2026-10-29T03:41:01Z"
+        }
+      ]
+    }
+  ],
+  "observedRuns": {
+    "total_count": 4,
+    "workflow_runs": [
+      {
+        "id": 40813828391,
+        "name": "CPU regression and browser source release",
+        "node_id": "WFR_kwLOUS84v88AAAAJgLGZJw",
+        "head_branch": "release-v7.3.15-final-qualification",
+        "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+        "path": ".github/workflows/cpu-release-gates.yml",
+        "display_title": "chore: bump Hypergraph Converter Studio to v7.3.15",
+        "run_number": 85,
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "workflow_id": 380244371,
+        "check_suite_id": 110630259685,
+        "check_suite_node_id": "CS_kwDOUS84v88AAAAZwhPL5Q",
+        "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391",
+        "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391",
+        "pull_requests": [],
+        "created_at": "2026-10-29T03:44:24Z",
+        "updated_at": "2026-10-29T03:46:55Z",
+        "actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "run_attempt": 1,
+        "referenced_workflows": [],
+        "run_started_at": "2026-10-29T03:44:24Z",
+        "triggering_actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "jobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391/jobs",
+        "logs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391/logs",
+        "check_suite_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-suites/110630259685",
+        "artifacts_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391/artifacts",
+        "cancel_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391/cancel",
+        "rerun_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391/rerun",
+        "previous_attempt_url": null,
+        "workflow_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/workflows/380244371",
+        "head_commit": {
+          "id": "335c320a052eab48d3f0c2d309805d10a5918189",
+          "tree_id": "2a9b123565fc49ec3aa344fd3edb45392c175243",
+          "message": "chore: bump Hypergraph Converter Studio to v7.3.15",
+          "timestamp": "2026-10-29T03:26:27Z",
+          "author": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          },
+          "committer": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          }
+        },
+        "repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        },
+        "head_repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        }
+      },
+      {
+        "id": 40813143809,
+        "name": "CI",
+        "node_id": "WFR_kwLOUS84v88AAAAJgKcnAQ",
+        "head_branch": "release-v7.3.15-version-bump-corrective",
+        "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+        "path": ".github/workflows/ci.yml",
+        "display_title": "Qualify v7.3.15 version-only release bump",
+        "run_number": 21,
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "workflow_id": 384908961,
+        "check_suite_id": 110628419870,
+        "check_suite_node_id": "CS_kwDOUS84v88AAAAZwfe5Hg",
+        "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809",
+        "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809",
+        "pull_requests": [
+          {
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls/11",
+            "id": 5061673401,
+            "number": 11,
+            "head": {
+              "ref": "release-v7.3.15-version-bump-corrective",
+              "sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+              "repo": {
+                "id": 1362049215,
+                "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+                "name": "hypergraph-converter-v7.3.14"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "51e8a46ad527760b838bd92e78e19404d07acf40",
+              "repo": {
+                "id": 1362049215,
+                "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+                "name": "hypergraph-converter-v7.3.14"
+              }
+            }
+          }
+        ],
+        "created_at": "2026-10-29T03:37:01Z",
+        "updated_at": "2026-10-29T03:42:56Z",
+        "actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "run_attempt": 1,
+        "referenced_workflows": [],
+        "run_started_at": "2026-10-29T03:37:01Z",
+        "triggering_actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "jobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/jobs",
+        "logs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/logs",
+        "check_suite_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-suites/110628419870",
+        "artifacts_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/artifacts",
+        "cancel_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/cancel",
+        "rerun_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/rerun",
+        "previous_attempt_url": null,
+        "workflow_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/workflows/384908961",
+        "head_commit": {
+          "id": "335c320a052eab48d3f0c2d309805d10a5918189",
+          "tree_id": "2a9b123565fc49ec3aa344fd3edb45392c175243",
+          "message": "chore: bump Hypergraph Converter Studio to v7.3.15",
+          "timestamp": "2026-10-29T03:26:27Z",
+          "author": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          },
+          "committer": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          }
+        },
+        "repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        },
+        "head_repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        }
+      },
+      {
+        "id": 40813143770,
+        "name": "CPU regression and browser source release",
+        "node_id": "WFR_kwLOUS84v88AAAAJgKcm2g",
+        "head_branch": "release-v7.3.15-version-bump-corrective",
+        "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+        "path": ".github/workflows/cpu-release-gates.yml",
+        "display_title": "Qualify v7.3.15 version-only release bump",
+        "run_number": 84,
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "workflow_id": 380244371,
+        "check_suite_id": 110628419784,
+        "check_suite_node_id": "CS_kwDOUS84v88AAAAZwfe4yA",
+        "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770",
+        "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770",
+        "pull_requests": [
+          {
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls/11",
+            "id": 5061673401,
+            "number": 11,
+            "head": {
+              "ref": "release-v7.3.15-version-bump-corrective",
+              "sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+              "repo": {
+                "id": 1362049215,
+                "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+                "name": "hypergraph-converter-v7.3.14"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "51e8a46ad527760b838bd92e78e19404d07acf40",
+              "repo": {
+                "id": 1362049215,
+                "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+                "name": "hypergraph-converter-v7.3.14"
+              }
+            }
+          }
+        ],
+        "created_at": "2026-10-29T03:37:01Z",
+        "updated_at": "2026-10-29T03:41:03Z",
+        "actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "run_attempt": 1,
+        "referenced_workflows": [],
+        "run_started_at": "2026-10-29T03:37:01Z",
+        "triggering_actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "jobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770/jobs",
+        "logs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770/logs",
+        "check_suite_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-suites/110628419784",
+        "artifacts_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770/artifacts",
+        "cancel_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770/cancel",
+        "rerun_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770/rerun",
+        "previous_attempt_url": null,
+        "workflow_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/workflows/380244371",
+        "head_commit": {
+          "id": "335c320a052eab48d3f0c2d309805d10a5918189",
+          "tree_id": "2a9b123565fc49ec3aa344fd3edb45392c175243",
+          "message": "chore: bump Hypergraph Converter Studio to v7.3.15",
+          "timestamp": "2026-10-29T03:26:27Z",
+          "author": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          },
+          "committer": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          }
+        },
+        "repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        },
+        "head_repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        }
+      },
+      {
+        "id": 40812164721,
+        "name": "CPU regression and browser source release",
+        "node_id": "WFR_kwLOUS84v88AAAAJgJg2cQ",
+        "head_branch": "release-v7.3.15-version-bump-corrective",
+        "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+        "path": ".github/workflows/cpu-release-gates.yml",
+        "display_title": "chore: bump Hypergraph Converter Studio to v7.3.15",
+        "run_number": 83,
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "workflow_id": 380244371,
+        "check_suite_id": 110625807354,
+        "check_suite_node_id": "CS_kwDOUS84v88AAAAZwc_b-g",
+        "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40812164721",
+        "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40812164721",
+        "pull_requests": [
+          {
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls/11",
+            "id": 5061673401,
+            "number": 11,
+            "head": {
+              "ref": "release-v7.3.15-version-bump-corrective",
+              "sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+              "repo": {
+                "id": 1362049215,
+                "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+                "name": "hypergraph-converter-v7.3.14"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "51e8a46ad527760b838bd92e78e19404d07acf40",
+              "repo": {
+                "id": 1362049215,
+                "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+                "name": "hypergraph-converter-v7.3.14"
+              }
+            }
+          }
+        ],
+        "created_at": "2026-10-29T03:26:42Z",
+        "updated_at": "2026-10-29T03:30:08Z",
+        "actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "run_attempt": 1,
+        "referenced_workflows": [],
+        "run_started_at": "2026-10-29T03:26:42Z",
+        "triggering_actor": {
+          "login": "TharunSwaminathan",
+          "id": 123496486,
+          "node_id": "U_kgDOB1xoJg",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/TharunSwaminathan",
+          "html_url": "https://github.com/TharunSwaminathan",
+          "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+          "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+          "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+          "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+          "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "jobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40812164721/jobs",
+        "logs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40812164721/logs",
+        "check_suite_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-suites/110625807354",
+        "artifacts_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40812164721/artifacts",
+        "cancel_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40812164721/cancel",
+        "rerun_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40812164721/rerun",
+        "previous_attempt_url": null,
+        "workflow_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/workflows/380244371",
+        "head_commit": {
+          "id": "335c320a052eab48d3f0c2d309805d10a5918189",
+          "tree_id": "2a9b123565fc49ec3aa344fd3edb45392c175243",
+          "message": "chore: bump Hypergraph Converter Studio to v7.3.15",
+          "timestamp": "2026-10-29T03:26:27Z",
+          "author": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          },
+          "committer": {
+            "name": "Codex",
+            "email": "maxk33772@gmail.com"
+          }
+        },
+        "repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        },
+        "head_repository": {
+          "id": 1362049215,
+          "node_id": "R_kgDOUS84vw",
+          "name": "hypergraph-converter-v7.3.14",
+          "full_name": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "private": false,
+          "owner": {
+            "login": "TharunSwaminathan",
+            "id": 123496486,
+            "node_id": "U_kgDOB1xoJg",
+            "avatar_url": "https://avatars.githubusercontent.com/u/123496486?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/TharunSwaminathan",
+            "html_url": "https://github.com/TharunSwaminathan",
+            "followers_url": "https://api.github.com/users/TharunSwaminathan/followers",
+            "following_url": "https://api.github.com/users/TharunSwaminathan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TharunSwaminathan/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/TharunSwaminathan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TharunSwaminathan/subscriptions",
+            "organizations_url": "https://api.github.com/users/TharunSwaminathan/orgs",
+            "repos_url": "https://api.github.com/users/TharunSwaminathan/repos",
+            "events_url": "https://api.github.com/users/TharunSwaminathan/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/TharunSwaminathan/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "description": null,
+          "fork": false,
+          "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14",
+          "forks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/forks",
+          "keys_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/teams",
+          "hooks_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/hooks",
+          "issue_events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/events",
+          "assignees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/tags",
+          "blobs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/languages",
+          "stargazers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/stargazers",
+          "contributors_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contributors",
+          "subscribers_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscribers",
+          "subscription_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/subscription",
+          "commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/merges",
+          "archive_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/downloads",
+          "issues_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/labels{/name}",
+          "releases_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/deployments"
+        }
+      }
+    ]
+  },
+  "selectedJobResponses": [
+    {
+      "runId": 40813828391,
+      "event": "push",
+      "raw": {
+        "total_count": 1,
+        "jobs": [
+          {
+            "id": 123250139487,
+            "run_id": 40813828391,
+            "workflow_name": "CPU regression and browser source release",
+            "head_branch": "release-v7.3.15-final-qualification",
+            "run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391",
+            "run_attempt": 1,
+            "node_id": "CR_kwDOUS84v88AAAAcskfhXw",
+            "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/jobs/123250139487",
+            "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813828391/job/123250139487",
+            "status": "completed",
+            "conclusion": "success",
+            "created_at": "2026-10-29T03:44:25Z",
+            "started_at": "2026-10-29T03:44:27Z",
+            "completed_at": "2026-10-29T03:46:55Z",
+            "name": "cpu",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 1,
+                "started_at": "2026-10-29T03:44:27Z",
+                "completed_at": "2026-10-29T03:44:28Z"
+              },
+              {
+                "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 2,
+                "started_at": "2026-10-29T03:44:28Z",
+                "completed_at": "2026-10-29T03:44:29Z"
+              },
+              {
+                "name": "Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 3,
+                "started_at": "2026-10-29T03:44:29Z",
+                "completed_at": "2026-10-29T03:44:33Z"
+              },
+              {
+                "name": "Observed tool versions",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 4,
+                "started_at": "2026-10-29T03:44:33Z",
+                "completed_at": "2026-10-29T03:44:33Z"
+              },
+              {
+                "name": "Run npm ci",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 5,
+                "started_at": "2026-10-29T03:44:33Z",
+                "completed_at": "2026-10-29T03:44:36Z"
+              },
+              {
+                "name": "Run npm test",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 6,
+                "started_at": "2026-10-29T03:44:36Z",
+                "completed_at": "2026-10-29T03:46:34Z"
+              },
+              {
+                "name": "Run npm run lint",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 7,
+                "started_at": "2026-10-29T03:46:34Z",
+                "completed_at": "2026-10-29T03:46:44Z"
+              },
+              {
+                "name": "Run npm run build",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 8,
+                "started_at": "2026-10-29T03:46:44Z",
+                "completed_at": "2026-10-29T03:46:45Z"
+              },
+              {
+                "name": "Run npm run build:github",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 9,
+                "started_at": "2026-10-29T03:46:45Z",
+                "completed_at": "2026-10-29T03:46:45Z"
+              },
+              {
+                "name": "Run npm audit --omit=dev",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 10,
+                "started_at": "2026-10-29T03:46:45Z",
+                "completed_at": "2026-10-29T03:46:46Z"
+              },
+              {
+                "name": "Deterministic fixture, packing and transport bounds",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 11,
+                "started_at": "2026-10-29T03:46:46Z",
+                "completed_at": "2026-10-29T03:46:48Z"
+              },
+              {
+                "name": "Clean and populated archive integrity; extracted CUDA fail closed",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 12,
+                "started_at": "2026-10-29T03:46:48Z",
+                "completed_at": "2026-10-29T03:46:50Z"
+              },
+              {
+                "name": "Extracted browser source build",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 13,
+                "started_at": "2026-10-29T03:46:50Z",
+                "completed_at": "2026-10-29T03:46:52Z"
+              },
+              {
+                "name": "GPU live qualification status",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 14,
+                "started_at": "2026-10-29T03:46:52Z",
+                "completed_at": "2026-10-29T03:46:52Z"
+              },
+              {
+                "name": "Run git diff --exit-code -- package.json package-lock.json",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 15,
+                "started_at": "2026-10-29T03:46:52Z",
+                "completed_at": "2026-10-29T03:46:52Z"
+              },
+              {
+                "name": "Run git diff --check",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 16,
+                "started_at": "2026-10-29T03:46:52Z",
+                "completed_at": "2026-10-29T03:46:52Z"
+              },
+              {
+                "name": "Post Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 31,
+                "started_at": "2026-10-29T03:46:52Z",
+                "completed_at": "2026-10-29T03:46:52Z"
+              },
+              {
+                "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 32,
+                "started_at": "2026-10-29T03:46:52Z",
+                "completed_at": "2026-10-29T03:46:52Z"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 33,
+                "started_at": "2026-10-29T03:46:52Z",
+                "completed_at": "2026-10-29T03:46:52Z"
+              }
+            ],
+            "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/123250139487",
+            "labels": [
+              "ubuntu-24.04"
+            ],
+            "runner_id": 1000000187,
+            "runner_name": "GitHub Actions 1000000187",
+            "runner_group_id": 0,
+            "runner_group_name": "GitHub Actions"
+          }
+        ]
+      }
+    },
+    {
+      "runId": 40813143809,
+      "event": "pull_request",
+      "raw": {
+        "total_count": 3,
+        "jobs": [
+          {
+            "id": 123247935705,
+            "run_id": 40813143809,
+            "workflow_name": "CI",
+            "head_branch": "release-v7.3.15-version-bump-corrective",
+            "run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809",
+            "run_attempt": 1,
+            "node_id": "CR_kwDOUS84v88AAAAcsiZA2Q",
+            "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/jobs/123247935705",
+            "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/job/123247935705",
+            "status": "completed",
+            "conclusion": "success",
+            "created_at": "2026-10-29T03:37:01Z",
+            "started_at": "2026-10-29T03:37:03Z",
+            "completed_at": "2026-10-29T03:40:53Z",
+            "name": "Build, lint and test (Ubuntu)",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 1,
+                "started_at": "2026-10-29T03:37:04Z",
+                "completed_at": "2026-10-29T03:37:05Z"
+              },
+              {
+                "name": "Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 2,
+                "started_at": "2026-10-29T03:37:05Z",
+                "completed_at": "2026-10-29T03:37:06Z"
+              },
+              {
+                "name": "Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 3,
+                "started_at": "2026-10-29T03:37:06Z",
+                "completed_at": "2026-10-29T03:37:07Z"
+              },
+              {
+                "name": "Run npm ci",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 4,
+                "started_at": "2026-10-29T03:37:07Z",
+                "completed_at": "2026-10-29T03:37:12Z"
+              },
+              {
+                "name": "Run npm run lint",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 5,
+                "started_at": "2026-10-29T03:37:12Z",
+                "completed_at": "2026-10-29T03:37:30Z"
+              },
+              {
+                "name": "Run npm run build",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 6,
+                "started_at": "2026-10-29T03:37:30Z",
+                "completed_at": "2026-10-29T03:37:31Z"
+              },
+              {
+                "name": "Run npm test",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 7,
+                "started_at": "2026-10-29T03:37:31Z",
+                "completed_at": "2026-10-29T03:40:48Z"
+              },
+              {
+                "name": "Post Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 13,
+                "started_at": "2026-10-29T03:40:48Z",
+                "completed_at": "2026-10-29T03:40:50Z"
+              },
+              {
+                "name": "Post Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 14,
+                "started_at": "2026-10-29T03:40:50Z",
+                "completed_at": "2026-10-29T03:40:51Z"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 15,
+                "started_at": "2026-10-29T03:40:51Z",
+                "completed_at": "2026-10-29T03:40:51Z"
+              }
+            ],
+            "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/123247935705",
+            "labels": [
+              "ubuntu-latest"
+            ],
+            "runner_id": 1000000184,
+            "runner_name": "GitHub Actions 1000000184",
+            "runner_group_id": 0,
+            "runner_group_name": "GitHub Actions"
+          },
+          {
+            "id": 123247935889,
+            "run_id": 40813143809,
+            "workflow_name": "CI",
+            "head_branch": "release-v7.3.15-version-bump-corrective",
+            "run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809",
+            "run_attempt": 1,
+            "node_id": "CR_kwDOUS84v88AAAAcsiZBkQ",
+            "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/jobs/123247935889",
+            "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/job/123247935889",
+            "status": "completed",
+            "conclusion": "success",
+            "created_at": "2026-10-29T03:37:01Z",
+            "started_at": "2026-10-29T03:37:04Z",
+            "completed_at": "2026-10-29T03:41:24Z",
+            "name": "Build and test (macos-latest)",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 1,
+                "started_at": "2026-10-29T03:37:05Z",
+                "completed_at": "2026-10-29T03:37:06Z"
+              },
+              {
+                "name": "Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 2,
+                "started_at": "2026-10-29T03:37:06Z",
+                "completed_at": "2026-10-29T03:37:09Z"
+              },
+              {
+                "name": "Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 3,
+                "started_at": "2026-10-29T03:37:09Z",
+                "completed_at": "2026-10-29T03:37:11Z"
+              },
+              {
+                "name": "Run npm ci",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 4,
+                "started_at": "2026-10-29T03:37:11Z",
+                "completed_at": "2026-10-29T03:37:17Z"
+              },
+              {
+                "name": "Run npm run build",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 5,
+                "started_at": "2026-10-29T03:37:17Z",
+                "completed_at": "2026-10-29T03:37:18Z"
+              },
+              {
+                "name": "Run npm test",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 6,
+                "started_at": "2026-10-29T03:37:18Z",
+                "completed_at": "2026-10-29T03:41:16Z"
+              },
+              {
+                "name": "Post Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 11,
+                "started_at": "2026-10-29T03:41:16Z",
+                "completed_at": "2026-10-29T03:41:19Z"
+              },
+              {
+                "name": "Post Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 12,
+                "started_at": "2026-10-29T03:41:19Z",
+                "completed_at": "2026-10-29T03:41:20Z"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 13,
+                "started_at": "2026-10-29T03:41:20Z",
+                "completed_at": "2026-10-29T03:41:22Z"
+              }
+            ],
+            "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/123247935889",
+            "labels": [
+              "macos-latest"
+            ],
+            "runner_id": 1000000185,
+            "runner_name": "GitHub Actions 1000000185",
+            "runner_group_id": 0,
+            "runner_group_name": "GitHub Actions"
+          },
+          {
+            "id": 123247935897,
+            "run_id": 40813143809,
+            "workflow_name": "CI",
+            "head_branch": "release-v7.3.15-version-bump-corrective",
+            "run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809",
+            "run_attempt": 1,
+            "node_id": "CR_kwDOUS84v88AAAAcsiZBmQ",
+            "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/jobs/123247935897",
+            "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143809/job/123247935897",
+            "status": "completed",
+            "conclusion": "success",
+            "created_at": "2026-10-29T03:37:01Z",
+            "started_at": "2026-10-29T03:37:03Z",
+            "completed_at": "2026-10-29T03:42:55Z",
+            "name": "Build and test (windows-latest)",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 1,
+                "started_at": "2026-10-29T03:37:03Z",
+                "completed_at": "2026-10-29T03:37:04Z"
+              },
+              {
+                "name": "Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 2,
+                "started_at": "2026-10-29T03:37:04Z",
+                "completed_at": "2026-10-29T03:37:10Z"
+              },
+              {
+                "name": "Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 3,
+                "started_at": "2026-10-29T03:37:10Z",
+                "completed_at": "2026-10-29T03:37:16Z"
+              },
+              {
+                "name": "Run npm ci",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 4,
+                "started_at": "2026-10-29T03:37:16Z",
+                "completed_at": "2026-10-29T03:37:29Z"
+              },
+              {
+                "name": "Run npm run build",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 5,
+                "started_at": "2026-10-29T03:37:29Z",
+                "completed_at": "2026-10-29T03:37:31Z"
+              },
+              {
+                "name": "Run npm test",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 6,
+                "started_at": "2026-10-29T03:37:31Z",
+                "completed_at": "2026-10-29T03:42:46Z"
+              },
+              {
+                "name": "Post Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 11,
+                "started_at": "2026-10-29T03:42:46Z",
+                "completed_at": "2026-10-29T03:42:52Z"
+              },
+              {
+                "name": "Post Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 12,
+                "started_at": "2026-10-29T03:42:52Z",
+                "completed_at": "2026-10-29T03:42:54Z"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 13,
+                "started_at": "2026-10-29T03:42:54Z",
+                "completed_at": "2026-10-29T03:42:54Z"
+              }
+            ],
+            "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/123247935897",
+            "labels": [
+              "windows-latest"
+            ],
+            "runner_id": 1000000186,
+            "runner_name": "GitHub Actions 1000000186",
+            "runner_group_id": 0,
+            "runner_group_name": "GitHub Actions"
+          }
+        ]
+      }
+    },
+    {
+      "runId": 40813143770,
+      "event": "pull_request",
+      "raw": {
+        "total_count": 1,
+        "jobs": [
+          {
+            "id": 123247935593,
+            "run_id": 40813143770,
+            "workflow_name": "CPU regression and browser source release",
+            "head_branch": "release-v7.3.15-version-bump-corrective",
+            "run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770",
+            "run_attempt": 1,
+            "node_id": "CR_kwDOUS84v88AAAAcsiZAaQ",
+            "head_sha": "335c320a052eab48d3f0c2d309805d10a5918189",
+            "url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/jobs/123247935593",
+            "html_url": "https://github.com/TharunSwaminathan/hypergraph-converter-v7.3.14/actions/runs/40813143770/job/123247935593",
+            "status": "completed",
+            "conclusion": "success",
+            "created_at": "2026-10-29T03:37:01Z",
+            "started_at": "2026-10-29T03:37:03Z",
+            "completed_at": "2026-10-29T03:41:02Z",
+            "name": "cpu",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 1,
+                "started_at": "2026-10-29T03:37:03Z",
+                "completed_at": "2026-10-29T03:37:04Z"
+              },
+              {
+                "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 2,
+                "started_at": "2026-10-29T03:37:04Z",
+                "completed_at": "2026-10-29T03:37:06Z"
+              },
+              {
+                "name": "Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 3,
+                "started_at": "2026-10-29T03:37:06Z",
+                "completed_at": "2026-10-29T03:37:10Z"
+              },
+              {
+                "name": "Observed tool versions",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 4,
+                "started_at": "2026-10-29T03:37:10Z",
+                "completed_at": "2026-10-29T03:37:10Z"
+              },
+              {
+                "name": "Run npm ci",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 5,
+                "started_at": "2026-10-29T03:37:10Z",
+                "completed_at": "2026-10-29T03:37:15Z"
+              },
+              {
+                "name": "Run npm test",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 6,
+                "started_at": "2026-10-29T03:37:15Z",
+                "completed_at": "2026-10-29T03:40:32Z"
+              },
+              {
+                "name": "Run npm run lint",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 7,
+                "started_at": "2026-10-29T03:40:32Z",
+                "completed_at": "2026-10-29T03:40:47Z"
+              },
+              {
+                "name": "Run npm run build",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 8,
+                "started_at": "2026-10-29T03:40:47Z",
+                "completed_at": "2026-10-29T03:40:48Z"
+              },
+              {
+                "name": "Run npm run build:github",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 9,
+                "started_at": "2026-10-29T03:40:48Z",
+                "completed_at": "2026-10-29T03:40:49Z"
+              },
+              {
+                "name": "Run npm audit --omit=dev",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 10,
+                "started_at": "2026-10-29T03:40:49Z",
+                "completed_at": "2026-10-29T03:40:49Z"
+              },
+              {
+                "name": "Deterministic fixture, packing and transport bounds",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 11,
+                "started_at": "2026-10-29T03:40:49Z",
+                "completed_at": "2026-10-29T03:40:53Z"
+              },
+              {
+                "name": "Clean and populated archive integrity; extracted CUDA fail closed",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 12,
+                "started_at": "2026-10-29T03:40:53Z",
+                "completed_at": "2026-10-29T03:40:56Z"
+              },
+              {
+                "name": "Extracted browser source build",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 13,
+                "started_at": "2026-10-29T03:40:56Z",
+                "completed_at": "2026-10-29T03:41:00Z"
+              },
+              {
+                "name": "GPU live qualification status",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 14,
+                "started_at": "2026-10-29T03:41:00Z",
+                "completed_at": "2026-10-29T03:41:00Z"
+              },
+              {
+                "name": "Run git diff --exit-code -- package.json package-lock.json",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 15,
+                "started_at": "2026-10-29T03:41:00Z",
+                "completed_at": "2026-10-29T03:41:00Z"
+              },
+              {
+                "name": "Run git diff --check",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 16,
+                "started_at": "2026-10-29T03:41:00Z",
+                "completed_at": "2026-10-29T03:41:00Z"
+              },
+              {
+                "name": "Post Run actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 31,
+                "started_at": "2026-10-29T03:41:00Z",
+                "completed_at": "2026-10-29T03:41:00Z"
+              },
+              {
+                "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 32,
+                "started_at": "2026-10-29T03:41:00Z",
+                "completed_at": "2026-10-29T03:41:01Z"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success",
+                "number": 33,
+                "started_at": "2026-10-29T03:41:01Z",
+                "completed_at": "2026-10-29T03:41:01Z"
+              }
+            ],
+            "check_run_url": "https://api.github.com/repos/TharunSwaminathan/hypergraph-converter-v7.3.14/check-runs/123247935593",
+            "labels": [
+              "ubuntu-24.04"
+            ],
+            "runner_id": 1000000183,
+            "runner_name": "GitHub Actions 1000000183",
+            "runner_group_id": 0,
+            "runner_group_name": "GitHub Actions"
+          }
+        ]
+      }
+    }
+  ],
+  "nativeGpuQualificationClaimedByCi": false
+}

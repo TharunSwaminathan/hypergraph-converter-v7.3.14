@@ -1,0 +1,155 @@
+{
+  "baseline": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "startedAt": "2026-10-29T04:35:59.183Z",
+  "injectedDiscovery": false,
+  "injectedRunner": false,
+  "artifactRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-v7315-release-restart-f6ofoZ",
+  "restarts": [
+    {
+      "kind": "clean",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "kind": "abrupt",
+      "exit": {
+        "code": null,
+        "signal": "SIGKILL"
+      }
+    }
+  ],
+  "committedTests": [
+    {
+      "file": "tests/candy-scope6c-retention.test.mjs",
+      "freshFullSuitePassed": true,
+      "coverage": "Scope6C 300-job retention",
+      "controlledFixturesNotClaimedAsNativeExecution": true
+    },
+    {
+      "file": "tests/candy-scope6c-recovery.test.mjs",
+      "freshFullSuitePassed": true,
+      "coverage": "Scope6C HTTP admission/abort",
+      "controlledFixturesNotClaimedAsNativeExecution": true
+    },
+    {
+      "file": "tests/candy-scope6c-browser-reconnect.test.mjs",
+      "freshFullSuitePassed": true,
+      "coverage": "Scope6C exact-byte/session-scoped",
+      "controlledFixturesNotClaimedAsNativeExecution": true
+    },
+    {
+      "file": "tests/candy-scope6c-corrective-lifecycle.test.mjs",
+      "freshFullSuitePassed": true,
+      "coverage": "Scope6C",
+      "controlledFixturesNotClaimedAsNativeExecution": true
+    }
+  ],
+  "cleanShutdown": true,
+  "firstSession": "b2d99d73-aaf8-4728-94ee-8b1a92bbf814",
+  "ownedAbruptRecovery": {
+    "recoveredFiles": 2,
+    "artifactsOnStartup": 0,
+    "workspacesOnStartup": 0
+  },
+  "freshCapabilities": {
+    "schemaVersion": "candy.capabilities/1",
+    "capabilities": [
+      {
+        "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "algorithmVersion": "scope4c-qualified-motif/1",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "graphTypes": [
+          "Hypergraph",
+          "DynamicHypergraph"
+        ],
+        "modes": [
+          "STATIC"
+        ],
+        "adapterVersion": "candy.qualified-motif-transport/1",
+        "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "devices": [
+          {
+            "id": 0,
+            "name": "NVIDIA GeForce RTX 5060",
+            "memoryMiB": 8151,
+            "computeCapability": "12.0",
+            "qualifiedArchitecture": "sm_120"
+          }
+        ],
+        "limits": {
+          "maxHyperedges": 256,
+          "maxIncidences": 100000,
+          "maxAggregateWork": 5000000,
+          "timeoutMs": 60000,
+          "concurrentJobs": 1
+        }
+      },
+      {
+        "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "algorithmVersion": "scope4c-qualified-motif/1",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "graphTypes": [
+          "DynamicHypergraph"
+        ],
+        "modes": [
+          "INCREMENTAL"
+        ],
+        "adapterVersion": "candy.qualified-motif-transport/1",
+        "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+        "executionEnvironment": "WSL2_CUDA",
+        "qualification": {
+          "schemaVersion": "candy.motif-qualified-build/1",
+          "status": "exact_local_operator_record"
+        },
+        "devices": [
+          {
+            "id": 0,
+            "name": "NVIDIA GeForce RTX 5060",
+            "memoryMiB": 8151,
+            "computeCapability": "12.0",
+            "qualifiedArchitecture": "sm_120"
+          }
+        ],
+        "limits": {
+          "maxHyperedges": 256,
+          "maxIncidences": 100000,
+          "maxAggregateWork": 5000000,
+          "timeoutMs": 60000,
+          "concurrentJobs": 1
+        }
+      }
+    ],
+    "motifReadiness": [
+      {
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "status": "AVAILABLE",
+        "reason": null
+      },
+      {
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "status": "AVAILABLE",
+        "reason": null
+      }
+    ],
+    "runtimeSessionId": "67f8c214-cdd7-48cf-86f4-867612b0db91"
+  },
+  "freshAuthentication": true,
+  "staleTokensRejected": true,
+  "staleArtifactJobResultHandlesRejected": true,
+  "defaultPolicyScope": "Fresh committed regressions cover FIFO/admission, 300-job/artifact bounds, expiration cleanup, cancellation, lease recovery and browser stale session/capability/result/approval rejection. Live child Runtime checks add genuine production clean/abrupt restart and fresh authentication without discovery/runner injection.",
+  "status": "PASS",
+  "finishedAt": "2026-10-29T04:36:04.668Z"
+}

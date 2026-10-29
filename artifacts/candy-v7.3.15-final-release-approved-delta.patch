@@ -1,0 +1,201 @@
+diff --git a/README.md b/README.md
+index 26e3a768c0226f37308735a7a1e771668c599143..4339bc79d98f6cd6474ccde7711b684f648d0d66 100644
+--- a/README.md
++++ b/README.md
+@@ -30,7 +30,7 @@ GitHub Pages is static hosting and cannot run Ollama or the bridge; the hosted p
+ 
+ ---
+ 
+-Release: **v7.3.14** (cross-platform build)
++Release: **v7.3.15** (cross-platform build)
+ 
+ ## CANDY Scope 3 — CUDA candidate (not runtime-qualified)
+ 
+diff --git a/package-lock.json b/package-lock.json
+index bd68b1e58009ce0c49afbe876588c8beb3d7ea60..10d0047519df74162d07361fd524d769ea035669 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "hypergraph-converter-studio",
+-  "version": "7.3.14",
++  "version": "7.3.15",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "hypergraph-converter-studio",
+-      "version": "7.3.14",
++      "version": "7.3.15",
+       "dependencies": {
+         "@fontsource/source-code-pro": "^5.3.0",
+         "@fontsource/source-sans-3": "^5.3.0",
+diff --git a/package.json b/package.json
+index 61c6c14da44b29f27a8e97758dd1ba76831ecc44..39a35df41a91252fa2f190cb7f349b320054b61a 100644
+--- a/package.json
++++ b/package.json
+@@ -1,7 +1,7 @@
+ {
+   "name": "hypergraph-converter-studio",
+   "private": true,
+-  "version": "7.3.14",
++  "version": "7.3.15",
+   "type": "module",
+   "engines": {
+     "node": "^20.19.0 || >=22.12.0"
+diff --git a/tests/agent-local-model.test.mjs b/tests/agent-local-model.test.mjs
+index 5a92f56ea85daec648215296e0ed152c0d1d1818..d2dbec4f3a76559d30ebe76801c8743b246522e2 100644
+--- a/tests/agent-local-model.test.mjs
++++ b/tests/agent-local-model.test.mjs
+@@ -528,7 +528,7 @@ await withMockFetch(async url => {
+ 
+   const packageJson = JSON.parse(await readFile(projectFile("package.json"), "utf8"));
+   assert.equal(packageJson.name, "hypergraph-converter-studio");
+-  assert.equal(packageJson.version, "7.3.14");
++  assert.equal(packageJson.version, "7.3.15");
+   sourceScriptAssertionTests += 2;
+ 
+   const rootScripts = [
+diff --git a/tests/regression-v7-2-1.test.mjs b/tests/regression-v7-2-1.test.mjs
+index b33a9548aa83b8c394326b364658e75ca9eb76f1..495a0d7e4ab189d344d0eecedd9acee63f4afe55 100644
+--- a/tests/regression-v7-2-1.test.mjs
++++ b/tests/regression-v7-2-1.test.mjs
+@@ -9,7 +9,7 @@ const read = path => readFile(join(root, path), "utf8");
+ 
+ const packageJson = JSON.parse(await read("package.json"));
+ assert.equal(packageJson.name, "hypergraph-converter-studio");
+-assert.equal(packageJson.version, "7.3.14");
++assert.equal(packageJson.version, "7.3.15");
+ 
+ for (const file of [
+   "src/agent/graphMutationDraftSchema.js",
+diff --git a/tests/regression-v7-2-2.test.mjs b/tests/regression-v7-2-2.test.mjs
+index fd1a714ecbd017b9c687780e56dc0c6f44f5a982..7850d7079a63d0a2c8654e7631fab78e6a797f96 100644
+--- a/tests/regression-v7-2-2.test.mjs
++++ b/tests/regression-v7-2-2.test.mjs
+@@ -9,7 +9,7 @@ const read = path => readFile(join(root, path), "utf8");
+ 
+ const packageJson = JSON.parse(await read("package.json"));
+ assert.equal(packageJson.name, "hypergraph-converter-studio");
+-assert.equal(packageJson.version, "7.3.14");
++assert.equal(packageJson.version, "7.3.15");
+ 
+ for (const file of [
+   "src/agent/localModelRequestCoordinator.js",
+diff --git a/tests/regression-v7-2.test.mjs b/tests/regression-v7-2.test.mjs
+index b21a1014c88618446901afc96fd81989ded8b943..b0f3f84cb0addd806fe36e5a0cabf3a8e6f272a4 100644
+--- a/tests/regression-v7-2.test.mjs
++++ b/tests/regression-v7-2.test.mjs
+@@ -9,7 +9,7 @@ const read = path => readFile(join(root, path), "utf8");
+ 
+ const packageJson = JSON.parse(await read("package.json"));
+ assert.equal(packageJson.name, "hypergraph-converter-studio");
+-assert.equal(packageJson.version, "7.3.14");
++assert.equal(packageJson.version, "7.3.15");
+ 
+ const app = await read("src/App.jsx");
+ assert.doesNotMatch(app, /setGraphVersion/);
+diff --git a/tests/regression-v7-3-1.test.mjs b/tests/regression-v7-3-1.test.mjs
+index 4c45775dc8e1907657a297dbd37448c1413c3ab3..9272f3d9f26a6ddc5d7fdec46a7140cbe24ea8b6 100644
+--- a/tests/regression-v7-3-1.test.mjs
++++ b/tests/regression-v7-3-1.test.mjs
+@@ -12,7 +12,7 @@ import { buildRegressionFixture, regressionRequest } from "./deterministic-datas
+ const root = dirname(dirname(fileURLToPath(import.meta.url)));
+ const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+ assert.equal(packageJson.name, "hypergraph-converter-studio");
+-assert.equal(packageJson.version, "7.3.14");
++assert.equal(packageJson.version, "7.3.15");
+ 
+ for (const file of [
+   "src/agent/datasetMappingIntent.js",
+diff --git a/tests/regression-v7-3-2.test.mjs b/tests/regression-v7-3-2.test.mjs
+index 78b637f016d7e8076b87170832582b8821d00602..a97a3549b25eeb8dc58e3002f576200f4243f834 100644
+--- a/tests/regression-v7-3-2.test.mjs
++++ b/tests/regression-v7-3-2.test.mjs
+@@ -6,7 +6,7 @@ import { applyDatasetMappingPatch } from "../src/agent/datasetMappingPatchApplie
+ 
+ const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+ assert.equal(packageJson.name, "hypergraph-converter-studio");
+-assert.equal(packageJson.version, "7.3.14");
++assert.equal(packageJson.version, "7.3.15");
+ 
+ const { files, batch, mappingSpec } = authorshipFixture();
+ const request = `Authors are the nodes, papers are the groups, and authorships links them.
+diff --git a/tests/regression-v7-3-3.test.mjs b/tests/regression-v7-3-3.test.mjs
+index 5f8e1288ed77f63e12dfe78ec379c99afb1b3587..33abb0d7613fe7702bb908a74dd51082b2ef7f2e 100644
+--- a/tests/regression-v7-3-3.test.mjs
++++ b/tests/regression-v7-3-3.test.mjs
+@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
+ 
+ const packageJson = JSON.parse(await readFile("package.json", "utf8"));
+ assert.equal(packageJson.name, "hypergraph-converter-studio");
+-assert.equal(packageJson.version, "7.3.14");
++assert.equal(packageJson.version, "7.3.15");
+ 
+ for (const file of [
+   "src/agent/deterministicNlu/compileDeterministicAction.js",
+diff --git a/tests/regression-v7-3-5.test.mjs b/tests/regression-v7-3-5.test.mjs
+index 389e3a7bdb7957ceb9e7b1bb679f7007e684b8bf..8077a3d39238a5f31bfa07476866ee022b418dac 100644
+--- a/tests/regression-v7-3-5.test.mjs
++++ b/tests/regression-v7-3-5.test.mjs
+@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
+ 
+ const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+ assert.equal(pkg.name, "hypergraph-converter-studio");
+-assert.equal(pkg.version, "7.3.14");
++assert.equal(pkg.version, "7.3.15");
+ 
+ const panel = readFileSync(new URL("../src/components/AgentChatPanel.jsx", import.meta.url), "utf8");
+ assert.match(panel, /precompiledPlan:\s*options\.precompiledPlan/);
+diff --git a/tests/regression-v7-3-7.test.mjs b/tests/regression-v7-3-7.test.mjs
+index 143bb1a5b868e594052d1c6326ce3a73c158eeed..e29a4401347608ae9c37dedfa295c28db7518c97 100644
+--- a/tests/regression-v7-3-7.test.mjs
++++ b/tests/regression-v7-3-7.test.mjs
+@@ -8,7 +8,7 @@ import { buildCompilerContexts, extractOperationTypes } from "./helpers/evaluate
+ 
+ const pkg = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+ assert.equal(pkg.name, "hypergraph-converter-studio");
+-assert.equal(pkg.version, "7.3.14");
++assert.equal(pkg.version, "7.3.15");
+ 
+ const graphCtx = await buildCompilerContexts("graph-basic");
+ const includeNlu = analyzeDeterministicNlu("Include vertices 6 and 7 in h2", graphCtx.analysisContext);
+diff --git a/tests/regression-v7-3-8.test.mjs b/tests/regression-v7-3-8.test.mjs
+index ffd347435488bf488e070df4e1cb1b1ff90c5e10..3981d1227823b54fb5c4a0fa97a5f14ff511ded1 100644
+--- a/tests/regression-v7-3-8.test.mjs
++++ b/tests/regression-v7-3-8.test.mjs
+@@ -5,7 +5,7 @@ import { ACTION_INTENT_REGISTRY_VERSION, PUBLIC_ACTION_INTENTS } from "../src/ag
+ 
+ const pkg = JSON.parse((await readFile(new URL("../package.json", import.meta.url), "utf8")).replace(/^\uFEFF/, ""));
+ assert.equal(pkg.name, "hypergraph-converter-studio");
+-assert.equal(pkg.version, "7.3.14");
++assert.equal(pkg.version, "7.3.15");
+ assert.equal(CATALOG_CURRENT_VERSION, "7.3.13");
+ assert.equal(ACTION_INTENT_REGISTRY_VERSION, "7.3.13");
+ assert.ok(COMMAND_CATALOG.length >= 90);
+diff --git a/tests/regression-v7-3-9.test.mjs b/tests/regression-v7-3-9.test.mjs
+index 4287cc1cfc8dfc9f9e66aa4eb87959529fec780f..f49de9a160584352dce9a0c77f447633866282aa 100644
+--- a/tests/regression-v7-3-9.test.mjs
++++ b/tests/regression-v7-3-9.test.mjs
+@@ -10,7 +10,7 @@ import {
+ const pkg = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+ 
+ assert.equal(pkg.name, "hypergraph-converter-studio");
+-assert.equal(pkg.version, "7.3.14");
++assert.equal(pkg.version, "7.3.15");
+ assert.equal(CATALOG_CURRENT_VERSION, "7.3.13");
+ assert.equal(ACTION_INTENT_REGISTRY_VERSION, "7.3.13");
+ assert.ok(COMMAND_CATALOG.length >= 115, "v7.3.10 should preserve and extend the complete command inventory");
+diff --git a/tests/regression-v7-3.test.mjs b/tests/regression-v7-3.test.mjs
+index dc009c3188c0aa9930f93acce25cfff26dc8c5f7..f3a5a38362f63e40703a8fd83e5e84d117ddc4b8 100644
+--- a/tests/regression-v7-3.test.mjs
++++ b/tests/regression-v7-3.test.mjs
+@@ -8,7 +8,7 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
+ const read = path => readFile(join(root, path), "utf8");
+ const packageJson = JSON.parse(await read("package.json"));
+ assert.equal(packageJson.name, "hypergraph-converter-studio");
+-assert.equal(packageJson.version, "7.3.14");
++assert.equal(packageJson.version, "7.3.15");
+ 
+ for (const file of [
+   "src/utils/delimitedText.js",

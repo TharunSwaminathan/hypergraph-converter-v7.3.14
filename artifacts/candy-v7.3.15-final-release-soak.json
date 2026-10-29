@@ -1,0 +1,532 @@
+{
+  "schema": "candy.v7.3.15-final-release-soak/1",
+  "status": "PASS",
+  "candidate": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "recordedAtUtc": "2026-10-29T04:36:37.789719+00:00",
+  "envelope": {
+    "family": "Published qualified S1",
+    "seed": 731406,
+    "baselineHyperedges": 16,
+    "baselineIncidences": 64,
+    "baselineVertices": 64,
+    "staticJobs": 20,
+    "incrementalJobs": 20,
+    "operationKinds": [
+      "INSERT",
+      "DELETE",
+      "REPLACEMENT"
+    ],
+    "retentionSentinels": 520,
+    "defaultTerminalJobLimit": 32,
+    "defaultArtifactLimit": 512,
+    "withinExistingQualifiedAdmissionEnvelope": true
+  },
+  "nativeStatus": "PASS",
+  "nativeJobs": 40,
+  "nativeJobKinds": {
+    "STATIC": 20,
+    "INCREMENTAL": 20
+  },
+  "maxRetainedJobs": 32,
+  "maxRetainedArtifacts": 512,
+  "allCompletedWorkspacesRemoved": true,
+  "allNativeVectorsMatchedExpectedValues": true,
+  "noProgressiveResultCorruption": true,
+  "noProductCrashOrFallback": true,
+  "memoryObservations": [
+    {
+      "iteration": 1,
+      "rss": 104280064,
+      "heapTotal": 53665792,
+      "heapUsed": 28007048,
+      "external": 8895417,
+      "arrayBuffers": 4604428
+    },
+    {
+      "iteration": 2,
+      "rss": 107024384,
+      "heapTotal": 54452224,
+      "heapUsed": 18286344,
+      "external": 7773232,
+      "arrayBuffers": 3482235
+    },
+    {
+      "iteration": 3,
+      "rss": 110616576,
+      "heapTotal": 54452224,
+      "heapUsed": 26175912,
+      "external": 10872913,
+      "arrayBuffers": 6581820
+    },
+    {
+      "iteration": 4,
+      "rss": 109916160,
+      "heapTotal": 54714368,
+      "heapUsed": 26114216,
+      "external": 9932103,
+      "arrayBuffers": 5640978
+    },
+    {
+      "iteration": 5,
+      "rss": 110428160,
+      "heapTotal": 54714368,
+      "heapUsed": 19948608,
+      "external": 8867255,
+      "arrayBuffers": 4576226
+    },
+    {
+      "iteration": 6,
+      "rss": 112058368,
+      "heapTotal": 54714368,
+      "heapUsed": 22105040,
+      "external": 9999091,
+      "arrayBuffers": 5707998
+    },
+    {
+      "iteration": 7,
+      "rss": 107831296,
+      "heapTotal": 51830784,
+      "heapUsed": 16503168,
+      "external": 5727200,
+      "arrayBuffers": 1436235
+    },
+    {
+      "iteration": 8,
+      "rss": 107835392,
+      "heapTotal": 51830784,
+      "heapUsed": 18039176,
+      "external": 5758396,
+      "arrayBuffers": 1467399
+    },
+    {
+      "iteration": 9,
+      "rss": 111063040,
+      "heapTotal": 51830784,
+      "heapUsed": 24977928,
+      "external": 8858109,
+      "arrayBuffers": 4567016
+    },
+    {
+      "iteration": 10,
+      "rss": 113459200,
+      "heapTotal": 52092928,
+      "heapUsed": 23067496,
+      "external": 9943065,
+      "arrayBuffers": 5651940
+    },
+    {
+      "iteration": 11,
+      "rss": 109838336,
+      "heapTotal": 52092928,
+      "heapUsed": 16137760,
+      "external": 5729758,
+      "arrayBuffers": 1438793
+    },
+    {
+      "iteration": 12,
+      "rss": 109735936,
+      "heapTotal": 52092928,
+      "heapUsed": 16963736,
+      "external": 5731677,
+      "arrayBuffers": 1440680
+    },
+    {
+      "iteration": 13,
+      "rss": 112832512,
+      "heapTotal": 52092928,
+      "heapUsed": 23742664,
+      "external": 8831358,
+      "arrayBuffers": 4540265
+    },
+    {
+      "iteration": 14,
+      "rss": 114110464,
+      "heapTotal": 52092928,
+      "heapUsed": 20497688,
+      "external": 9933922,
+      "arrayBuffers": 5642829
+    },
+    {
+      "iteration": 15,
+      "rss": 116695040,
+      "heapTotal": 52092928,
+      "heapUsed": 27264880,
+      "external": 13033603,
+      "arrayBuffers": 8742414
+    },
+    {
+      "iteration": 16,
+      "rss": 114319360,
+      "heapTotal": 52092928,
+      "heapUsed": 25468040,
+      "external": 10017703,
+      "arrayBuffers": 5726578
+    },
+    {
+      "iteration": 17,
+      "rss": 114032640,
+      "heapTotal": 85647360,
+      "heapUsed": 17374240,
+      "external": 8769263,
+      "arrayBuffers": 4484005
+    },
+    {
+      "iteration": 18,
+      "rss": 118546432,
+      "heapTotal": 85909504,
+      "heapUsed": 31032760,
+      "external": 12946390,
+      "arrayBuffers": 8660940
+    },
+    {
+      "iteration": 19,
+      "rss": 118235136,
+      "heapTotal": 85909504,
+      "heapUsed": 17469080,
+      "external": 8695968,
+      "arrayBuffers": 4410710
+    },
+    {
+      "iteration": 20,
+      "rss": 122085376,
+      "heapTotal": 85909504,
+      "heapUsed": 29932648,
+      "external": 12867433,
+      "arrayBuffers": 8581983
+    },
+    {
+      "iteration": 21,
+      "rss": 116264960,
+      "heapTotal": 85909504,
+      "heapUsed": 15822320,
+      "external": 5717039,
+      "arrayBuffers": 1431781
+    },
+    {
+      "iteration": 22,
+      "rss": 120696832,
+      "heapTotal": 85909504,
+      "heapUsed": 29464896,
+      "external": 9889660,
+      "arrayBuffers": 5604210
+    },
+    {
+      "iteration": 23,
+      "rss": 124547072,
+      "heapTotal": 85909504,
+      "heapUsed": 36133392,
+      "external": 12989341,
+      "arrayBuffers": 8703795
+    },
+    {
+      "iteration": 24,
+      "rss": 130412544,
+      "heapTotal": 85909504,
+      "heapUsed": 20571888,
+      "external": 9931394,
+      "arrayBuffers": 5646008
+    },
+    {
+      "iteration": 25,
+      "rss": 133619712,
+      "heapTotal": 85909504,
+      "heapUsed": 27236480,
+      "external": 13031071,
+      "arrayBuffers": 8745589
+    },
+    {
+      "iteration": 26,
+      "rss": 128487424,
+      "heapTotal": 85909504,
+      "heapUsed": 18505992,
+      "external": 7774870,
+      "arrayBuffers": 3489580
+    },
+    {
+      "iteration": 27,
+      "rss": 131751936,
+      "heapTotal": 85909504,
+      "heapUsed": 25513496,
+      "external": 10879591,
+      "arrayBuffers": 6594205
+    },
+    {
+      "iteration": 28,
+      "rss": 126902272,
+      "heapTotal": 85909504,
+      "heapUsed": 17376944,
+      "external": 5746413,
+      "arrayBuffers": 1461123
+    },
+    {
+      "iteration": 29,
+      "rss": 129921024,
+      "heapTotal": 85909504,
+      "heapUsed": 24069744,
+      "external": 8846094,
+      "arrayBuffers": 4560708
+    },
+    {
+      "iteration": 30,
+      "rss": 135012352,
+      "heapTotal": 85909504,
+      "heapUsed": 37443592,
+      "external": 13020675,
+      "arrayBuffers": 8735097
+    },
+    {
+      "iteration": 31,
+      "rss": 134086656,
+      "heapTotal": 85909504,
+      "heapUsed": 17393992,
+      "external": 7220339,
+      "arrayBuffers": 2935081
+    },
+    {
+      "iteration": 32,
+      "rss": 138133504,
+      "heapTotal": 85909504,
+      "heapUsed": 29840672,
+      "external": 11393079,
+      "arrayBuffers": 7107629
+    },
+    {
+      "iteration": 33,
+      "rss": 132648960,
+      "heapTotal": 85909504,
+      "heapUsed": 16521192,
+      "external": 5723788,
+      "arrayBuffers": 1438530
+    },
+    {
+      "iteration": 34,
+      "rss": 137084928,
+      "heapTotal": 85909504,
+      "heapUsed": 30149736,
+      "external": 9896409,
+      "arrayBuffers": 5610959
+    },
+    {
+      "iteration": 35,
+      "rss": 140046336,
+      "heapTotal": 85909504,
+      "heapUsed": 36882648,
+      "external": 12996090,
+      "arrayBuffers": 8710544
+    },
+    {
+      "iteration": 36,
+      "rss": 137437184,
+      "heapTotal": 85909504,
+      "heapUsed": 21156408,
+      "external": 9931410,
+      "arrayBuffers": 5646024
+    },
+    {
+      "iteration": 37,
+      "rss": 140410880,
+      "heapTotal": 85909504,
+      "heapUsed": 28094632,
+      "external": 13031091,
+      "arrayBuffers": 8745609
+    },
+    {
+      "iteration": 38,
+      "rss": 134918144,
+      "heapTotal": 86171648,
+      "heapUsed": 18856320,
+      "external": 7773164,
+      "arrayBuffers": 3487874
+    },
+    {
+      "iteration": 39,
+      "rss": 138067968,
+      "heapTotal": 86171648,
+      "heapUsed": 25865872,
+      "external": 10874296,
+      "arrayBuffers": 6588910
+    },
+    {
+      "iteration": 40,
+      "rss": 132972544,
+      "heapTotal": 86171648,
+      "heapUsed": 16505040,
+      "external": 5701941,
+      "arrayBuffers": 1416651
+    }
+  ],
+  "nativeLog": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\soak-native.txt",
+  "nativeEvidence": "artifacts/candy-v7.3.15-final-release-soak-native.json",
+  "recoveryEvidence": "artifacts/candy-v7.3.15-final-release-runtime-recovery.json",
+  "recovery": {
+    "baseline": "335c320a052eab48d3f0c2d309805d10a5918189",
+    "startedAt": "2026-10-29T04:35:59.183Z",
+    "injectedDiscovery": false,
+    "injectedRunner": false,
+    "artifactRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-v7315-release-restart-f6ofoZ",
+    "restarts": [
+      {
+        "kind": "clean",
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "kind": "abrupt",
+        "exit": {
+          "code": null,
+          "signal": "SIGKILL"
+        }
+      }
+    ],
+    "committedTests": [
+      {
+        "file": "tests/candy-scope6c-retention.test.mjs",
+        "freshFullSuitePassed": true,
+        "coverage": "Scope6C 300-job retention",
+        "controlledFixturesNotClaimedAsNativeExecution": true
+      },
+      {
+        "file": "tests/candy-scope6c-recovery.test.mjs",
+        "freshFullSuitePassed": true,
+        "coverage": "Scope6C HTTP admission/abort",
+        "controlledFixturesNotClaimedAsNativeExecution": true
+      },
+      {
+        "file": "tests/candy-scope6c-browser-reconnect.test.mjs",
+        "freshFullSuitePassed": true,
+        "coverage": "Scope6C exact-byte/session-scoped",
+        "controlledFixturesNotClaimedAsNativeExecution": true
+      },
+      {
+        "file": "tests/candy-scope6c-corrective-lifecycle.test.mjs",
+        "freshFullSuitePassed": true,
+        "coverage": "Scope6C",
+        "controlledFixturesNotClaimedAsNativeExecution": true
+      }
+    ],
+    "cleanShutdown": true,
+    "firstSession": "b2d99d73-aaf8-4728-94ee-8b1a92bbf814",
+    "ownedAbruptRecovery": {
+      "recoveredFiles": 2,
+      "artifactsOnStartup": 0,
+      "workspacesOnStartup": 0
+    },
+    "freshCapabilities": {
+      "schemaVersion": "candy.capabilities/1",
+      "capabilities": [
+        {
+          "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "algorithmVersion": "scope4c-qualified-motif/1",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "graphTypes": [
+            "Hypergraph",
+            "DynamicHypergraph"
+          ],
+          "modes": [
+            "STATIC"
+          ],
+          "adapterVersion": "candy.qualified-motif-transport/1",
+          "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688",
+          "executionEnvironment": "WSL2_CUDA",
+          "qualification": {
+            "schemaVersion": "candy.motif-qualified-build/1",
+            "status": "exact_local_operator_record"
+          },
+          "devices": [
+            {
+              "id": 0,
+              "name": "NVIDIA GeForce RTX 5060",
+              "memoryMiB": 8151,
+              "computeCapability": "12.0",
+              "qualifiedArchitecture": "sm_120"
+            }
+          ],
+          "limits": {
+            "maxHyperedges": 256,
+            "maxIncidences": 100000,
+            "maxAggregateWork": 5000000,
+            "timeoutMs": 60000,
+            "concurrentJobs": 1
+          }
+        },
+        {
+          "capability": "RUN_HYPERGRAPH_3EDGE_MOTIFS",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "algorithmVersion": "scope4c-qualified-motif/1",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "graphTypes": [
+            "DynamicHypergraph"
+          ],
+          "modes": [
+            "INCREMENTAL"
+          ],
+          "adapterVersion": "candy.qualified-motif-transport/1",
+          "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff",
+          "executionEnvironment": "WSL2_CUDA",
+          "qualification": {
+            "schemaVersion": "candy.motif-qualified-build/1",
+            "status": "exact_local_operator_record"
+          },
+          "devices": [
+            {
+              "id": 0,
+              "name": "NVIDIA GeForce RTX 5060",
+              "memoryMiB": 8151,
+              "computeCapability": "12.0",
+              "qualifiedArchitecture": "sm_120"
+            }
+          ],
+          "limits": {
+            "maxHyperedges": 256,
+            "maxIncidences": 100000,
+            "maxAggregateWork": 5000000,
+            "timeoutMs": 60000,
+            "concurrentJobs": 1
+          }
+        }
+      ],
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "AVAILABLE",
+          "reason": null
+        }
+      ],
+      "runtimeSessionId": "67f8c214-cdd7-48cf-86f4-867612b0db91"
+    },
+    "freshAuthentication": true,
+    "staleTokensRejected": true,
+    "staleArtifactJobResultHandlesRejected": true,
+    "defaultPolicyScope": "Fresh committed regressions cover FIFO/admission, 300-job/artifact bounds, expiration cleanup, cancellation, lease recovery and browser stale session/capability/result/approval rejection. Live child Runtime checks add genuine production clean/abrupt restart and fresh authentication without discovery/runner injection.",
+    "status": "PASS",
+    "finishedAt": "2026-10-29T04:36:04.668Z"
+  },
+  "nativeProcessCleanup": {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu",
+      "--exec",
+      "/usr/bin/pgrep",
+      "-af",
+      "[c]andy-hypergraph-motif-cuda|[n]ativeSupervisor.sh"
+    ],
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "",
+    "meaning": "No matching native CUDA job or supervisor remained."
+  },
+  "scopeLimit": "Published S1 seed 731406; 16 hyperedges / 64 incidences / 64 vertices before each case. No claims beyond the previously qualified envelope."
+}

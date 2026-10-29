@@ -1,0 +1,128 @@
+{
+  "schema": "candy.v7.3.15-final-release-provenance/1",
+  "recordedAtUtc": "2026-10-29T04:46:21.641257+00:00",
+  "verdict": "READY FOR FINAL v7.3.15 RELEASE TAG AND MAIN PROMOTION",
+  "version": "v7.3.15",
+  "candidateSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "parentSha": "51e8a46ad527760b838bd92e78e19404d07acf40",
+  "treeSha": "2a9b123565fc49ec3aa344fd3edb45392c175243",
+  "finalScope6eQualificationAnchor": {
+    "tag": "candy-integration-scope6e-final-integrated-qualified",
+    "sha": "51e8a46ad527760b838bd92e78e19404d07acf40"
+  },
+  "archive": {
+    "filename": "hypergraph-converter-studio-v7.3.15-portable-source.zip",
+    "archivePath": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\hypergraph-converter-studio-v7.3.15-portable-source.zip",
+    "sha256": "310f1e2bb1b29f52818f8ca4d2addd10f1b8b127085540854bd789c8ef092249",
+    "bytes": 1785779,
+    "entries": 941,
+    "files": 885,
+    "directories": 56,
+    "sourceCommit": "335c320a052eab48d3f0c2d309805d10a5918189",
+    "verificationLevel": "commit-bound",
+    "sourceMode": "git",
+    "byteIdentical": true
+  },
+  "sourceTests": {
+    "status": "PASS",
+    "files": "288/288",
+    "seconds": 203.5
+  },
+  "extractedTests": {
+    "status": "PASS",
+    "files": "288/288",
+    "seconds": 189.8,
+    "gitMetadataAbsent": true
+  },
+  "productGates": "PASS",
+  "productionAudit": {
+    "sourceVulnerabilities": 0,
+    "extractedVulnerabilities": 0
+  },
+  "runtime": "PASS",
+  "browser": "PASS",
+  "portableNativeFailClosed": "PASS",
+  "localQualifiedCuda": "PASS",
+  "staticIncrementalAllThirtyBinParity": "PASS",
+  "soak": "PASS",
+  "genuineNativeJobs": 64,
+  "substantiveSecurity": {
+    "status": "PASS",
+    "unresolvedCritical": 0,
+    "unresolvedHigh": 0
+  },
+  "codexSecurityAutomatedSeal": "UNAVAILABLE / NOT COMPLETED — accepted infrastructure exception",
+  "automatedSecurityScanInvoked": false,
+  "productSecurityFindingsWaived": false,
+  "exactShaGitHubCi": {
+    "status": "PASS",
+    "headSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+    "requiredJobCount": 5,
+    "allRequiredJobStepsExecutedSuccessfully": true,
+    "workflowRunIds": [
+      40813143809,
+      40813143770,
+      40813828391
+    ]
+  },
+  "githubPages": {
+    "status": "PASS",
+    "configuration": "GitHub Actions per user; successful prior main deployment confirmed",
+    "existingDeployedMainSha": "51e8a46ad527760b838bd92e78e19404d07acf40",
+    "existingDeploymentRun": 40757468558,
+    "candidateBuildCompatibility": "PASS",
+    "newCandidateDeployed": false,
+    "noDeploymentTriggered": true
+  },
+  "releaseDocumentation": "PASS, current integration contracts with phase-scoped historical documentation preserved",
+  "preservation": {
+    "headUnchanged": true,
+    "treeUnchanged": true,
+    "trackedModifications": 0,
+    "stagedChanges": 0,
+    "indexBytesSizeMtimeUnchanged": true,
+    "allGitRefsUnchanged": true,
+    "mainAndOriginMainUnchanged": true,
+    "rootPriorFilesChecked": 1286,
+    "rootHistoricalArtifactFilesUnchanged": 401,
+    "v6PriorSourceEvidenceFilesChecked": 1369,
+    "qualifiedNativeInputsUnchanged": 18,
+    "allPriorBytesSizeMtimeUnchanged": true,
+    "externalPriorCandidateBoundaryReportUnchanged": true,
+    "all885ExtractedShippedFilesUnchanged": true,
+    "v7314TagUnchanged": {
+      "object": "af3911c505a510ae7b0a90bcfcbd5db47d0921a4",
+      "peeledCommit": "9d79d9f9027b338096d7cf62d67c2a22e9cab247"
+    },
+    "v7315AbsentLocalAndRemote": true,
+    "protectedRemoteRefsRechecked": "335c320a052eab48d3f0c2d309805d10a5918189\trefs/heads/release-v7.3.15-final-qualification\naf3911c505a510ae7b0a90bcfcbd5db47d0921a4\trefs/tags/v7.3.14\n9d79d9f9027b338096d7cf62d67c2a22e9cab247\trefs/tags/v7.3.14^{}"
+  },
+  "cleanup": {
+    "browserTabClosed": true,
+    "runtimeAndPreviewClosed": true,
+    "pairingFileRemoved": true,
+    "ownedNativeAndSupervisorProcesses": 0,
+    "completedNativeWorkspaces": 0
+  },
+  "operatorHarnessSetupNotes": [
+    "Initial populated ZIP destination inside source was correctly rejected; valid ZIP produced outside source before preserving bytes under artifacts.",
+    "Initial deep extraction destination exceeded Win32 path limit; partial attempt preserved; new short artifacts/x15 extraction longest final member path 222 characters.",
+    "Initial extracted evidence logger relative-path error occurred after successful fresh npm ci; original exit-0 install log retained; remaining gates continued with corrected outer evidence path. No product source or packaging policy changed."
+  ],
+  "actionsNotPerformed": [
+    "stage",
+    "commit",
+    "amend",
+    "merge",
+    "push product changes",
+    "modify main",
+    "create v7.3.15",
+    "alter v7.3.14",
+    "create GitHub Release",
+    "modify native source/binaries",
+    "rebuild qualified binaries",
+    "regenerate historical evidence",
+    "invoke Codex Security",
+    "begin another implementation scope"
+  ]
+}

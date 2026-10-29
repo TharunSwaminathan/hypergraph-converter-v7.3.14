@@ -1,0 +1,93 @@
+{
+  "schema": "candy.v7.3.15-final-release-product-gates/1",
+  "phase": "EXACT-SHA FINAL RELEASE: fresh product gates",
+  "baseline": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "gates": [
+    {
+      "gate": "ci",
+      "command": "npm.cmd ci",
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification",
+      "startedAtUtc": "2026-10-29T03:54:56.027187+00:00",
+      "finishedAtUtc": "2026-10-29T03:55:16.143916+00:00",
+      "seconds": 20.116,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-v7.3.15-final-release-product-ci.txt",
+      "logSha256": "0a4afbdec19da6e1265f021d664c34f7a087e26f05315954833c1476bba34919"
+    },
+    {
+      "gate": "test",
+      "command": "npm.cmd test",
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification",
+      "startedAtUtc": "2026-10-29T03:55:16.152864+00:00",
+      "finishedAtUtc": "2026-10-29T03:58:40.281181+00:00",
+      "seconds": 204.123,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-v7.3.15-final-release-product-test.txt",
+      "logSha256": "388dd738135179ddfb8a5e1f18f6d57575c50547bee24b415488ce69dbe88e93"
+    },
+    {
+      "gate": "lint",
+      "command": "npm.cmd run lint",
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification",
+      "startedAtUtc": "2026-10-29T03:58:40.288069+00:00",
+      "finishedAtUtc": "2026-10-29T03:58:50.363726+00:00",
+      "seconds": 10.075,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-v7.3.15-final-release-product-lint.txt",
+      "logSha256": "61168f1d51cdcb2b4e81ebc02c3277e6d18ba88c6ac994f639dd5b3a24ac713e"
+    },
+    {
+      "gate": "build",
+      "command": "npm.cmd run build",
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification",
+      "startedAtUtc": "2026-10-29T03:58:50.371191+00:00",
+      "finishedAtUtc": "2026-10-29T03:58:51.317817+00:00",
+      "seconds": 0.947,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-v7.3.15-final-release-product-build.txt",
+      "logSha256": "8e81c8355d28d7dcade7f28d5e478a6b0536e5df7bf2f1d09a35360e14519ac5"
+    },
+    {
+      "gate": "build-github",
+      "command": "npm.cmd run build:github",
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification",
+      "startedAtUtc": "2026-10-29T03:58:51.324993+00:00",
+      "finishedAtUtc": "2026-10-29T03:58:52.152296+00:00",
+      "seconds": 0.827,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-v7.3.15-final-release-product-build-github.txt",
+      "logSha256": "04ad5810f0920aefb3e25d152e8c1439098315997db3a111e9235d00626a2237"
+    },
+    {
+      "gate": "audit",
+      "command": "npm.cmd audit --omit=dev",
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification",
+      "startedAtUtc": "2026-10-29T03:58:52.158883+00:00",
+      "finishedAtUtc": "2026-10-29T03:58:53.332550+00:00",
+      "seconds": 1.174,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-v7.3.15-final-release-product-audit.txt",
+      "logSha256": "139ccb0a3076e4df0c14fc26b403ce96cb979180abb61680bc3c7e76ca77a3aa"
+    },
+    {
+      "gate": "diff-check",
+      "command": "git diff --check",
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification",
+      "startedAtUtc": "2026-10-29T03:58:53.338355+00:00",
+      "finishedAtUtc": "2026-10-29T03:58:53.394144+00:00",
+      "seconds": 0.056,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "artifacts/candy-v7.3.15-final-release-product-diff-check.txt",
+      "logSha256": "e4ed457223e93c494986f80217f64237e69e879a0ea2c0ca1cbe9e2e5dec06e9"
+    }
+  ],
+  "complete": true,
+  "allPassed": true
+}

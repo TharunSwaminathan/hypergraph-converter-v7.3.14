@@ -1,0 +1,1296 @@
+{
+  "schema": "candy.v7.3.15-final-release-browser/1",
+  "status": "PASS",
+  "candidate": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "recordedAtUtc": "2026-10-29T04:33:27.429867+00:00",
+  "builtProduct": {
+    "pid": 17764,
+    "url": "http://127.0.0.1:5173",
+    "runtimeFeatureFlag": true,
+    "mode": "Built exact candidate Studio, normal Vite preview, documented Runtime feature flag enabled at build; no dev transforms, application instrumentation or injected hooks.",
+    "closed": true
+  },
+  "qualifiedInstallationRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.14-scope6e-v6",
+  "runtimeImplementationByteIdenticalToCandidate": true,
+  "noApplicationInstrumentation": true,
+  "noDiscoveryOrRunnerInjection": true,
+  "genuineNativeJobs": [
+    {
+      "jobId": "a7a585f5-7f81-498c-99a0-35b56b07a48a",
+      "status": "completed",
+      "finished": true,
+      "request": {
+        "schemaVersion": "candy.runtime-motif-request/1",
+        "requestId": "6fa58aca-6172-4236-b97d-b5d3010b35d9",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "graphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 1
+        },
+        "deviceId": 0,
+        "timeoutMs": 5000
+      },
+      "fullResult": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "7a368564-07a9-436e-97e3-061855f3befc",
+        "jobId": "a7a585f5-7f81-498c-99a0-35b56b07a48a",
+        "requestId": "6fa58aca-6172-4236-b97d-b5d3010b35d9",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "inputGraphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 1
+        },
+        "graphArtifactId": "sha256:5210eb7ec6bc5695f5c29f78e9069dc3e7bf122804441d9906971cdda9264cd9",
+        "updateRef": null,
+        "requestDigest": "1d6f496046c027bd170744eb6c012bd260b606cfc04addcfe732a933659499d6",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifCounts",
+        "interpretation": "absolute_counts",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+            "graphVersion": 1
+          },
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "totalConnectedTriples": 1,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 0.7624
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:f57aecd0f6e2dbef07a4cb7571eee481afde005bb90321880f9d0f5ddb1faf43",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 1665
+        }
+      },
+      "error": null
+    },
+    {
+      "jobId": "722f4c05-9ca5-487b-9b1d-88d14b56b7bc",
+      "status": "completed",
+      "finished": true,
+      "request": {
+        "schemaVersion": "candy.runtime-motif-request/1",
+        "requestId": "7e45c65e-21ac-47b2-b3bc-3dba667fcff1",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "graphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 2
+        },
+        "deviceId": 0,
+        "timeoutMs": 5000,
+        "updateRef": {
+          "updateId": "pending-c1e44dfd-6900-4478-965f-8f08c4be44a9",
+          "artifactId": "sha256:6e2fc391649be196ef9c540ff4f2549a71ab07c68f0df13c69c310efa2be2630",
+          "nextGraphVersion": 3
+        }
+      },
+      "fullResult": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "7a368564-07a9-436e-97e3-061855f3befc",
+        "jobId": "722f4c05-9ca5-487b-9b1d-88d14b56b7bc",
+        "requestId": "7e45c65e-21ac-47b2-b3bc-3dba667fcff1",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_INCREMENTAL",
+        "mode": "INCREMENTAL",
+        "inputGraphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 2
+        },
+        "graphArtifactId": "sha256:4d665debfade2a9b48049a02d9b363cc8ee5197aaa8a96afd804f1700767d82c",
+        "updateRef": {
+          "updateId": "pending-c1e44dfd-6900-4478-965f-8f08c4be44a9",
+          "artifactId": "sha256:6e2fc391649be196ef9c540ff4f2549a71ab07c68f0df13c69c310efa2be2630",
+          "nextGraphVersion": 3
+        },
+        "requestDigest": "10cdf4f0b9fc50991900b72881d8e706c9896a5b545a6ce8b529536836ee106d",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:58772e07cc04a5135a4cd21d8f6ba33701801b79d06925cde99284db075d12ff"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifDelta",
+        "interpretation": "delta_only",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-incremental-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "inputGraphRef": {
+            "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+            "graphVersion": 2
+          },
+          "outputGraphRef": {
+            "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+            "graphVersion": 3
+          },
+          "updateId": "pending-c1e44dfd-6900-4478-965f-8f08c4be44a9",
+          "requestDigest": "10cdf4f0b9fc50991900b72881d8e706c9896a5b545a6ce8b529536836ee106d",
+          "oldAffectedEdgeCount": 1,
+          "newAffectedEdgeCount": 1,
+          "oldCandidateCount": 1,
+          "newCandidateCount": 1,
+          "oldAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "newAffectedCounts": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaCounts": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "deltaTotalConnectedTriples": 0,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 0.800992
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:8a51300fecfceaf14b13153dd95c769e852b429eb7bf97f76a0eabf1dcd6c3c9",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 2350
+        }
+      },
+      "error": null
+    },
+    {
+      "jobId": "012814a3-ab76-446d-b0b5-e127e1bacda8",
+      "status": "completed",
+      "finished": true,
+      "request": {
+        "schemaVersion": "candy.runtime-motif-request/1",
+        "requestId": "58dbd11a-f42a-4b6f-b734-8fd122c316fa",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "graphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "deviceId": 0,
+        "timeoutMs": 5000
+      },
+      "fullResult": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "7a368564-07a9-436e-97e3-061855f3befc",
+        "jobId": "012814a3-ab76-446d-b0b5-e127e1bacda8",
+        "requestId": "58dbd11a-f42a-4b6f-b734-8fd122c316fa",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "inputGraphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "graphArtifactId": "sha256:93a1a001eb816f36e91e12ac0e929199ed251681cec69ce862ae3b4cb52128e9",
+        "updateRef": null,
+        "requestDigest": "77f40386bc54f4643b84fceb3982cf7382f6133f9145078259a8ad645b9026fe",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifCounts",
+        "interpretation": "absolute_counts",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+            "graphVersion": 3
+          },
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "totalConnectedTriples": 1,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 0.593152
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:c8ea2cc4d08faef75d3fe1272be8fc8a6457a47a60630f47a320d071fa099b75",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 1667
+        }
+      },
+      "error": null
+    },
+    {
+      "jobId": "eb920571-8fd6-4aa8-bd36-175894315d05",
+      "status": "completed",
+      "finished": true,
+      "request": {
+        "schemaVersion": "candy.runtime-motif-request/1",
+        "requestId": "0979514d-3c84-45e9-aec7-b1834cab3a7f",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "graphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "deviceId": 0,
+        "timeoutMs": 5000
+      },
+      "fullResult": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "7a368564-07a9-436e-97e3-061855f3befc",
+        "jobId": "eb920571-8fd6-4aa8-bd36-175894315d05",
+        "requestId": "0979514d-3c84-45e9-aec7-b1834cab3a7f",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "inputGraphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "graphArtifactId": "sha256:93a1a001eb816f36e91e12ac0e929199ed251681cec69ce862ae3b4cb52128e9",
+        "updateRef": null,
+        "requestDigest": "77f40386bc54f4643b84fceb3982cf7382f6133f9145078259a8ad645b9026fe",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifCounts",
+        "interpretation": "absolute_counts",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+            "graphVersion": 3
+          },
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "totalConnectedTriples": 1,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 0.807744
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:887aa0842942421fbffab73e795448fe7abdffb7aafb44698e3e655a593b1db5",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 1667
+        }
+      },
+      "error": null
+    },
+    {
+      "jobId": "071710f3-0c38-4a38-82bb-743f45b16b03",
+      "status": "completed",
+      "finished": true,
+      "request": {
+        "schemaVersion": "candy.runtime-motif-request/1",
+        "requestId": "20cdd2df-2216-4f20-9233-5cc62865ee30",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "graphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "deviceId": 0,
+        "timeoutMs": 5000
+      },
+      "fullResult": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "4a8f1b01-ff5b-472e-b2a6-9538bb99e267",
+        "jobId": "071710f3-0c38-4a38-82bb-743f45b16b03",
+        "requestId": "20cdd2df-2216-4f20-9233-5cc62865ee30",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "inputGraphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "graphArtifactId": "sha256:93a1a001eb816f36e91e12ac0e929199ed251681cec69ce862ae3b4cb52128e9",
+        "updateRef": null,
+        "requestDigest": "77f40386bc54f4643b84fceb3982cf7382f6133f9145078259a8ad645b9026fe",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifCounts",
+        "interpretation": "absolute_counts",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+            "graphVersion": 3
+          },
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "totalConnectedTriples": 1,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 0.703648
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:fb13808c223e8869700a08b8477ec61aa07e188138854f708400f5414b57a48b",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 1667
+        }
+      },
+      "error": null
+    },
+    {
+      "jobId": "ee6dc53a-6258-4e05-ba9e-3c50d012f76e",
+      "status": "completed",
+      "finished": true,
+      "request": {
+        "schemaVersion": "candy.runtime-motif-request/1",
+        "requestId": "47db86de-0a4f-4dc1-8bf2-b9e33083b622",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "graphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "deviceId": 0,
+        "timeoutMs": 5000
+      },
+      "fullResult": {
+        "schemaVersion": "candy.runtime-motif-result/1",
+        "runtimeSessionId": "ab9a6436-0424-454d-ab21-957fd44f5e21",
+        "jobId": "ee6dc53a-6258-4e05-ba9e-3c50d012f76e",
+        "requestId": "47db86de-0a4f-4dc1-8bf2-b9e33083b622",
+        "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+        "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+        "backend": "CUDA_STATIC",
+        "mode": "STATIC",
+        "inputGraphRef": {
+          "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+          "graphVersion": 3
+        },
+        "graphArtifactId": "sha256:93a1a001eb816f36e91e12ac0e929199ed251681cec69ce862ae3b4cb52128e9",
+        "updateRef": null,
+        "requestDigest": "77f40386bc54f4643b84fceb3982cf7382f6133f9145078259a8ad645b9026fe",
+        "execution": {
+          "status": "completed",
+          "exitCode": 0,
+          "nativeBuildFingerprint": "sha256:fd0e2af192a322a00f719c8289218a0e08f96a4861553d31613d1fab6c346688"
+        },
+        "validation": {
+          "status": "passed",
+          "method": "qualified_transport_identity_and_semantic_validation"
+        },
+        "resultType": "HypergraphMotifCounts",
+        "interpretation": "absolute_counts",
+        "native": {
+          "ok": true,
+          "schemaVersion": "candy.hypergraph-motif-cuda-static-result/1",
+          "algorithm": "HYPERGRAPH_3EDGE_MOTIF_COUNT",
+          "taxonomyVersion": "candy.hypergraph-3edge-motif-taxonomy/1",
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "inputGraphRef": {
+            "graphId": "graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3",
+            "graphVersion": 3
+          },
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "totalConnectedTriples": 1,
+          "cuda": {
+            "deviceIndex": 0,
+            "deviceName": "NVIDIA GeForce RTX 5060",
+            "computeMajor": 12,
+            "computeMinor": 0,
+            "compiledArchitecture": "sm_120",
+            "compilerVersion": "13.4.59",
+            "runtimeVersion": 13040,
+            "driverVersion": 13040,
+            "kernelLaunchSucceeded": true,
+            "synchronizationSucceeded": true,
+            "kernelMilliseconds": 0.570272
+          }
+        },
+        "warnings": [],
+        "resultArtifactRef": {
+          "id": "sha256:6961d48cabe937d68efa847fc1b715d6b28817f85ceee12f1ce24897bd6de4f8",
+          "mediaType": "application/vnd.candy.result+json",
+          "byteLength": 1667
+        }
+      },
+      "error": null
+    }
+  ],
+  "nativeJobCount": 6,
+  "backendCounts": {
+    "CUDA_STATIC": 5,
+    "CUDA_INCREMENTAL": 1
+  },
+  "uiStaticAndSignedAllThirtyBinVectorsExactlyMatchGenuineNativeResults": true,
+  "analyzeDoesNotApply": true,
+  "applySeparateAndOnceVersion2To3": true,
+  "staleApprovalDisabledAfterRestart": {
+    "enabled": false,
+    "message": "Confirmation is stale because the update, graph or Runtime session changed. Request a fresh confirmation.",
+    "url": "http://127.0.0.1:5173/"
+  },
+  "artifactMetadataReuse": {
+    "event": "Repeated STATIC on unchanged graph version 3",
+    "requests": [
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:32.041Z",
+        "method": "OPTIONS",
+        "path": "/v1/jobs/012814a3-ab76-446d-b0b5-e127e1bacda8/cancel",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:32.042Z",
+        "method": "POST",
+        "path": "/v1/jobs/012814a3-ab76-446d-b0b5-e127e1bacda8/cancel",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:32.321Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:32.322Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:32.336Z",
+        "method": "OPTIONS",
+        "path": "/v1/artifacts/sha256%3A93a1a001eb816f36e91e12ac0e929199ed251681cec69ce862ae3b4cb52128e9/metadata",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:32.337Z",
+        "method": "GET",
+        "path": "/v1/artifacts/sha256%3A93a1a001eb816f36e91e12ac0e929199ed251681cec69ce862ae3b4cb52128e9/metadata",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:32.348Z",
+        "method": "OPTIONS",
+        "path": "/v1/jobs",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:34.333Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:34.334Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:35.110Z",
+        "method": "POST",
+        "path": "/v1/jobs",
+        "status": 202,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:36.348Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:36.349Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:38.353Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:38.354Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:40.372Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:40.373Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:41.331Z",
+        "method": "OPTIONS",
+        "path": "/v1/jobs/eb920571-8fd6-4aa8-bd36-175894315d05",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:41.332Z",
+        "method": "GET",
+        "path": "/v1/jobs/eb920571-8fd6-4aa8-bd36-175894315d05",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:42.383Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:42.385Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:44.400Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:44.401Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:46.410Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:46.411Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:48.398Z",
+        "method": "OPTIONS",
+        "path": "/v1/jobs/eb920571-8fd6-4aa8-bd36-175894315d05",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:48.399Z",
+        "method": "GET",
+        "path": "/v1/jobs/eb920571-8fd6-4aa8-bd36-175894315d05",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:48.414Z",
+        "method": "OPTIONS",
+        "path": "/v1/session",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:48.415Z",
+        "method": "OPTIONS",
+        "path": "/v1/jobs/eb920571-8fd6-4aa8-bd36-175894315d05/result",
+        "status": 204,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:48.416Z",
+        "method": "GET",
+        "path": "/v1/session",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      },
+      {
+        "generation": 1,
+        "type": "http",
+        "at": "2026-10-29T04:26:48.416Z",
+        "method": "GET",
+        "path": "/v1/jobs/eb920571-8fd6-4aa8-bd36-175894315d05/result",
+        "status": 200,
+        "origin": "http://127.0.0.1:5173"
+      }
+    ],
+    "uploads": 0,
+    "encodedMetadata200": true
+  },
+  "generations": [
+    {
+      "type": "ready",
+      "pid": 4988,
+      "port": 8791,
+      "runtimeSessionId": "7a368564-07a9-436e-97e3-061855f3befc",
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "AVAILABLE",
+          "reason": null
+        }
+      ],
+      "recoveredFiles": 0,
+      "generation": 1,
+      "at": "2026-10-29T04:16:28.339Z"
+    },
+    {
+      "type": "ready",
+      "pid": 9832,
+      "port": 8791,
+      "runtimeSessionId": "4a8f1b01-ff5b-472e-b2a6-9538bb99e267",
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "AVAILABLE",
+          "reason": null
+        }
+      ],
+      "recoveredFiles": 8,
+      "generation": 2,
+      "at": "2026-10-29T04:27:16.027Z"
+    },
+    {
+      "type": "ready",
+      "pid": 17440,
+      "port": 8791,
+      "runtimeSessionId": "ab9a6436-0424-454d-ab21-957fd44f5e21",
+      "motifReadiness": [
+        {
+          "backend": "CUDA_STATIC",
+          "mode": "STATIC",
+          "status": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "backend": "CUDA_INCREMENTAL",
+          "mode": "INCREMENTAL",
+          "status": "AVAILABLE",
+          "reason": null
+        }
+      ],
+      "recoveredFiles": 2,
+      "generation": 3,
+      "at": "2026-10-29T04:28:53.039Z"
+    }
+  ],
+  "restarts": [
+    {
+      "kind": "clean",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "kind": "abrupt",
+      "exit": {
+        "code": null,
+        "signal": "SIGKILL"
+      }
+    }
+  ],
+  "freshNativeExecutionAfterBothRestarts": true,
+  "preservedRestoredChatPolicy": "Previously saved chat rendered as explicitly historical only. Graph, pending update, pairing, jobs/results and approvals were newly created; no restored authority reused. Historical messages were not cleared.",
+  "consoleWarningsErrors": [],
+  "navigation": {
+    "url": "http://127.0.0.1:5173/",
+    "unplannedNavigationObserved": false,
+    "unplannedReloadObserved": false,
+    "explicitReloads": 0
+  },
+  "cleanup": {
+    "temporaryTabClosed": true,
+    "runtimeClosed": true,
+    "studioClosed": true,
+    "pairingFileRemoved": true,
+    "allCapturedNativeWorkspaces": 0
+  },
+  "domReceipts": [
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-1.json",
+      "sha256": "35af8dbf9201ebee600edc3d92181c00e8fe66007c8be52b40ae23bf50eafdea",
+      "label": "static-confirmation-before-execution",
+      "at": "2026-10-29T04:19:14.375Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "CONFIRMATION REQUIRED\nRun potentially expensive local CANDY analysis?\nThis exact CANDY request uses CUDA, COMPARE, or exceeds the low-cost envelope. Confirm the bound graph version, backend, mode, device/resources, pending update and timeout. Motif analysis does not apply graph updates.\nConfirm\nCancel"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-10.json",
+      "sha256": "9e6e17cc486eb7bcd20fa8c5f05829f417300b9347b90000a7f8f917c714b277",
+      "label": "repeated-static-same-version-3",
+      "at": "2026-10-29T04:26:48.656Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Hypergraph 3-Edge Motifs\n\nIndependent CANDY product: 30 structural motif classes, grouped into 6 OPEN_WEDGE and 24 CLOSED_TRIANGLE classes.\n\nDistinct from Line-Graph Triangles. This section uses the qualified authenticated Runtime and never projects the graph, selects CPU fallback, or applies an update.\n\nCompute 3-edge motifs\n\nExplicit analysis requires a fresh separate confirmation; it never applies the update.\n\nVALIDATED STATIC RESULT\n\nTotal connected 3-edge motifs: 1\n\nBackend CUDA_STATIC \u00b7 graph graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3 version 3\n\nDevice 0: NVIDIA GeForce RTX 5060 \u00b7 sm_120\n\nAll 30 stable motif class counts"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-11.json",
+      "sha256": "0f318dcb2d9c0facf9dff9a783f4ae50287e907a321c4d6ae39ea9c590a6ca9b",
+      "label": "clean-runtime-restart-revokes-browser-authority",
+      "at": "2026-10-29T04:27:18.863Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "CANDY Runtime Companion unavailable\n\nOptional authenticated loopback execution for qualified SSSP and CUDA hypergraph 3-edge motif analysis. CUDA is advertised only when its exact local qualification record, binary and GPU match.\n\nEndpoint\nhttp://127.0.0.1:8791\nRuntime\ncandy-runtime-companion/1\nPairing\nnot paired\nRuntime capability readiness\nunavailable\nActive graph capability\nunavailable\nRuntime-qualified backends\nnone\nExecutable for active graph\nnone\nRuntime-qualified CUDA devices\nnone qualified\nActive graph type\nDynamicHypergraph\nSession pairing credential\nPair and discover\nClear pairing\n\nBACKEND_UNAVAILABLE: Runtime connection lost. Pair and discover explicitly before new analysis.\n\nCUDA SSSP supports INCREMENTAL and COMPARE. Motif STATIC uses CUDA_STATIC; motif INCREMENTAL uses CUDA_INCREMENTAL and requires an authoritative DynamicHypergraph with a pending qualified update. Analysis never applies an update or selects a fallback.\n\nCurrent counts use the committed graph. Change analysis uses only its exact validated pending transition and does not apply it.\n\nAnalysis: STALE\n\nCount 3-edge motifs with CUDA\nOpen pending update panel\n\nNO_VALIDATED_PENDING_UPDATE: Incremental analysis requires the exact validated pending update.\n\nInclude full files in training export\nExport parser training example\nStructured tasks remain non-streaming and schema-validated. Conversational chat may stream, but only deterministic app code can execute actions."
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-12.json",
+      "sha256": "8eaa49f86737e50287d5f4a4a6b98c87c5d03815da644c397ce9b65c6ae543b0",
+      "label": "fresh-validated-native-after-clean-restart",
+      "at": "2026-10-29T04:28:00.509Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Hypergraph 3-Edge Motifs\n\nIndependent CANDY product: 30 structural motif classes, grouped into 6 OPEN_WEDGE and 24 CLOSED_TRIANGLE classes.\n\nDistinct from Line-Graph Triangles. This section uses the qualified authenticated Runtime and never projects the graph, selects CPU fallback, or applies an update.\n\nCompute 3-edge motifs\n\nExplicit analysis requires a fresh separate confirmation; it never applies the update.\n\nVALIDATED STATIC RESULT\n\nTotal connected 3-edge motifs: 1\n\nBackend CUDA_STATIC \u00b7 graph graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3 version 3\n\nDevice 0: NVIDIA GeForce RTX 5060 \u00b7 sm_120\n\nAll 30 stable motif class counts"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-13.json",
+      "sha256": "7102dbf2f3566da75f41ad5a59f50ce67413c97b7a93832113f329e7c79ee750",
+      "label": "unconfirmed-analysis-before-controlled-abrupt-restart",
+      "at": "2026-10-29T04:28:46.368Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Batch Updates\nAdd local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.\nDrop files here or choose files\nLocal text datasets only \u00b7 up to 50 files \u00b7 10 MiB each \u00b7 50 MiB total\nSupported commands\nADD_HYPEREDGE h5: A, B, C \u00b7 REMOVE_HYPEREDGE h2\nADD_VERTEX h1: D \u00b7 REMOVE_VERTEX h3: A\nUPDATE_WEIGHT h4: 2.5 \u00b7 UPDATE_TIME h4: 2027 \u00b7 SET_ATTR h1: priority=high\n\n\nStage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing UPDATE h2: A, B command. Committed graph stays unchanged until separate Apply confirmation.\n\nDynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-493b18ad-bd7\u2026 \u00b7 revision 2\nVERSION\n3 \u2192 4 (proposed)\nOPERATIONS\n2\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED \u00b7 CUDA_INCREMENTAL available\nANALYSIS\nCONFIRMATION_REQUIRED\nCURRENT PENDING DELTA RESULT\nno\nRe-stage edited commands\nInspect pending preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nAnalyze motif delta?\n\nRun the exact CUDA_INCREMENTAL computational action for this pending revision. The graph will not be changed or applied.\n\nRevision 2 \u00b7 3 \u2192 4\n\nConfirm analysis onlyCancel confirmation\n\nNo action has run. Review the separate confirmation below."
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-14.json",
+      "sha256": "3ecd6e2bbd0e46c14e8d145911d90a25ed1a466a68b18e09c2607a4e2fcec64b",
+      "label": "abrupt-restart-revokes-pending-analysis-approval",
+      "at": "2026-10-29T04:29:05.254Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Batch Updates\nAdd local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.\nDrop files here or choose files\nLocal text datasets only \u00b7 up to 50 files \u00b7 10 MiB each \u00b7 50 MiB total\nSupported commands\nADD_HYPEREDGE h5: A, B, C \u00b7 REMOVE_HYPEREDGE h2\nADD_VERTEX h1: D \u00b7 REMOVE_VERTEX h3: A\nUPDATE_WEIGHT h4: 2.5 \u00b7 UPDATE_TIME h4: 2027 \u00b7 SET_ATTR h1: priority=high\n\n\nStage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing UPDATE h2: A, B command. Committed graph stays unchanged until separate Apply confirmation.\n\nDynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-493b18ad-bd7\u2026 \u00b7 revision 2\nVERSION\n3 \u2192 4 (proposed)\nOPERATIONS\n2\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED \u00b7 RUNTIME_UNAVAILABLE\nANALYSIS\nSTALE\nCURRENT PENDING DELTA RESULT\nno\n\nDiscover an authenticated Runtime session first.\n\nRe-stage edited commands\nInspect pending preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nAnalyze motif delta?\n\nRun the exact CUDA_INCREMENTAL computational action for this pending revision. The graph will not be changed or applied.\n\nRevision 2 \u00b7 3 \u2192 4\n\nConfirmation is stale because the update, graph or Runtime session changed. Request a fresh confirmation.\n\nConfirm analysis onlyCancel confirmation\n\nNo action has run. Review the separate confirmation below.\n\nAnalysis stale. Runtime connection lost. Pair and discover explicitly before new analysis. Old results are not current. Request a fresh analysis when available."
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-15.json",
+      "sha256": "3c66cfd208c76e5fa79d0836968b4aab71f9a932b1aa99b474c59840aa7d65eb",
+      "label": "fresh-validated-native-after-abrupt-restart",
+      "at": "2026-10-29T04:29:55.120Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Hypergraph 3-Edge Motifs\n\nIndependent CANDY product: 30 structural motif classes, grouped into 6 OPEN_WEDGE and 24 CLOSED_TRIANGLE classes.\n\nDistinct from Line-Graph Triangles. This section uses the qualified authenticated Runtime and never projects the graph, selects CPU fallback, or applies an update.\n\nCompute 3-edge motifs\n\nExplicit analysis requires a fresh separate confirmation; it never applies the update.\n\nVALIDATED STATIC RESULT\n\nTotal connected 3-edge motifs: 1\n\nBackend CUDA_STATIC \u00b7 graph graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3 version 3\n\nDevice 0: NVIDIA GeForce RTX 5060 \u00b7 sm_120\n\nAll 30 stable motif class counts"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-2.json",
+      "sha256": "d56b16e5ee614e780f75e9be94d05c26b92ea9425bbd8b30422bbfd18cdfdb00",
+      "label": "hypergraph-static-result",
+      "at": "2026-10-29T04:19:50.996Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Hypergraph 3-Edge Motifs\n\nIndependent CANDY product: 30 structural motif classes, grouped into 6 OPEN_WEDGE and 24 CLOSED_TRIANGLE classes.\n\nDistinct from Line-Graph Triangles. This section uses the qualified authenticated Runtime and never projects the graph, selects CPU fallback, or applies an update.\n\nCompute 3-edge motifs"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-3.json",
+      "sha256": "56b04c90d88b5e8b3d781908bee361a8fe04bc3d2f4b5f808b637b9598594561",
+      "label": "validated-static-result-all-30-bins",
+      "at": "2026-10-29T04:20:30.953Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Hypergraph 3-Edge Motifs\n\nIndependent CANDY product: 30 structural motif classes, grouped into 6 OPEN_WEDGE and 24 CLOSED_TRIANGLE classes.\n\nDistinct from Line-Graph Triangles. This section uses the qualified authenticated Runtime and never projects the graph, selects CPU fallback, or applies an update.\n\nCompute 3-edge motifs\n\nExplicit analysis requires a fresh separate confirmation; it never applies the update.\n\nVALIDATED STATIC RESULT\n\nTotal connected 3-edge motifs: 1\n\nBackend CUDA_STATIC \u00b7 graph graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3 version 1\n\nDevice 0: NVIDIA GeForce RTX 5060 \u00b7 sm_120\n\nAll 30 stable motif class counts\nClass ID\tStructural group\tCount\nOPEN_WEDGE\n1\tOPEN_WEDGE\t0\n2\tOPEN_WEDGE\t0\n3\tOPEN_WEDGE\t0\n4\tOPEN_WEDGE\t0\n5\tOPEN_WEDGE\t0\n6\tOPEN_WEDGE\t0\nCLOSED_TRIANGLE\n7\tCLOSED_TRIANGLE\t0\n8\tCLOSED_TRIANGLE\t0\n9\tCLOSED_TRIANGLE\t0\n10\tCLOSED_TRIANGLE\t0\n11\tCLOSED_TRIANGLE\t0\n12\tCLOSED_TRIANGLE\t0\n13\tCLOSED_TRIANGLE\t0\n14\tCLOSED_TRIANGLE\t1\n15\tCLOSED_TRIANGLE\t0\n16\tCLOSED_TRIANGLE\t0\n17\tCLOSED_TRIANGLE\t0\n18\tCLOSED_TRIANGLE\t0\n19\tCLOSED_TRIANGLE\t0\n20\tCLOSED_TRIANGLE\t0\n21\tCLOSED_TRIANGLE\t0\n22\tCLOSED_TRIANGLE\t0\n23\tCLOSED_TRIANGLE\t0\n24\tCLOSED_TRIANGLE\t0\n25\tCLOSED_TRIANGLE\t0\n26\tCLOSED_TRIANGLE\t0\n27\tCLOSED_TRIANGLE\t0\n28\tCLOSED_TRIANGLE\t0\n29\tCLOSED_TRIANGLE\t0\n30\tCLOSED_TRIANGLE\t0"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-4.json",
+      "sha256": "d7fa518f4a970c9a2111ed631829fa61b68c05bb7ad2732ba910fe0baf064097",
+      "label": "dynamic-replacement-staged-before-analysis",
+      "at": "2026-10-29T04:21:13.287Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Batch Updates\nAdd local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.\nDrop files here or choose files\nLocal text datasets only \u00b7 up to 50 files \u00b7 10 MiB each \u00b7 50 MiB total\nSupported commands\nADD_HYPEREDGE h5: A, B, C \u00b7 REMOVE_HYPEREDGE h2\nADD_VERTEX h1: D \u00b7 REMOVE_VERTEX h3: A\nUPDATE_WEIGHT h4: 2.5 \u00b7 UPDATE_TIME h4: 2027 \u00b7 SET_ATTR h1: priority=high\n\n\nStage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing UPDATE h2: A, B command. Committed graph stays unchanged until separate Apply confirmation.\n\nDynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-c1e44dfd-690\u2026 \u00b7 revision 1\nVERSION\n2 \u2192 3 (proposed)\nOPERATIONS\n2\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED \u00b7 CUDA_INCREMENTAL available\nANALYSIS\nSTALE\nCURRENT PENDING DELTA RESULT\nno\nRe-stage edited commands\nInspect pending preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nPending update staged. Committed graph and version are unchanged.\n\nAnalysis stale. Old results are not current. Request a fresh analysis when available."
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-5.json",
+      "sha256": "f63166fc48ecaae402a698def8e25077007d3f775827e34350d1be20e442e4c1",
+      "label": "incremental-analysis-confirmation-no-apply",
+      "at": "2026-10-29T04:21:52.591Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Batch Updates\nAdd local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.\nDrop files here or choose files\nLocal text datasets only \u00b7 up to 50 files \u00b7 10 MiB each \u00b7 50 MiB total\nSupported commands\nADD_HYPEREDGE h5: A, B, C \u00b7 REMOVE_HYPEREDGE h2\nADD_VERTEX h1: D \u00b7 REMOVE_VERTEX h3: A\nUPDATE_WEIGHT h4: 2.5 \u00b7 UPDATE_TIME h4: 2027 \u00b7 SET_ATTR h1: priority=high\n\n\nStage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing UPDATE h2: A, B command. Committed graph stays unchanged until separate Apply confirmation.\n\nDynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-c1e44dfd-690\u2026 \u00b7 revision 1\nVERSION\n2 \u2192 3 (proposed)\nOPERATIONS\n2\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED \u00b7 CUDA_INCREMENTAL available\nANALYSIS\nCONFIRMATION_REQUIRED\nCURRENT PENDING DELTA RESULT\nno\nRe-stage edited commands\nShow committed preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nAnalyze motif delta?\n\nRun the exact CUDA_INCREMENTAL computational action for this pending revision. The graph will not be changed or applied.\n\nRevision 1 \u00b7 2 \u2192 3\n\nConfirm analysis onlyCancel confirmation\n\nNo action has run. Review the separate confirmation below."
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-6.json",
+      "sha256": "620e5b7190205aa3b4c67ca56126ea66887d7f86bb49c587c933e5610834e531",
+      "label": "validated-signed-delta-all-30-bins-before-apply",
+      "at": "2026-10-29T04:22:53.298Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Batch Updates\nAdd local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.\nDrop files here or choose files\nLocal text datasets only \u00b7 up to 50 files \u00b7 10 MiB each \u00b7 50 MiB total\nSupported commands\nADD_HYPEREDGE h5: A, B, C \u00b7 REMOVE_HYPEREDGE h2\nADD_VERTEX h1: D \u00b7 REMOVE_VERTEX h3: A\nUPDATE_WEIGHT h4: 2.5 \u00b7 UPDATE_TIME h4: 2027 \u00b7 SET_ATTR h1: priority=high\n\n\nStage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing UPDATE h2: A, B command. Committed graph stays unchanged until separate Apply confirmation.\n\nDynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-c1e44dfd-690\u2026 \u00b7 revision 1\nVERSION\n2 \u2192 3 (proposed)\nOPERATIONS\n2\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED \u00b7 CUDA_INCREMENTAL available\nANALYSIS\nRESULT_READY\nCURRENT PENDING DELTA RESULT\nyes\nRe-stage edited commands\nShow committed preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nValidated delta describes the proposed pending transition. Graph has not been applied.\n\nRefresh analysis status\nOpen signed delta result\nCancel analysis\nMOTIF CHANGE (DELTA ONLY)\n\nSigned total connected 3-edge motif delta: 0\n\nBackend CUDA_INCREMENTAL \u00b7 graph graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3 version 2\n\nDevice 0: NVIDIA GeForce RTX 5060 \u00b7 sm_120\n\nThis is a signed delta for update pending-c1e44dfd-6900-4478-965f-8f08c4be44a9. It is not a fabricated full count, and the update was not applied.\n\nThis result describes the proposed pending transition. It becomes stale when graph, update or Runtime session authority changes. Graph has not been applied.\n\nAffected / nonzero classes first\nClass 5 \u00b7 OPEN_WEDGE: +1\nClass 14 \u00b7 CLOSED_TRIANGLE: -1\nAll 30 stable motif signed deltas\nClass ID\tStructural group\tDelta\nOPEN_WEDGE\n1\tOPEN_WEDGE\t0\n2\tOPEN_WEDGE\t0\n3\tOPEN_WEDGE\t0\n4\tOPEN_WEDGE\t0\n5\tOPEN_WEDGE\t+1\n6\tOPEN_WEDGE\t0\nCLOSED_TRIANGLE\n7\tCLOSED_TRIANGLE\t0\n8\tCLOSED_TRIANGLE\t0\n9\tCLOSED_TRIANGLE\t0\n10\tCLOSED_TRIANGLE\t0\n11\tCLOSED_TRIANGLE\t0\n12\tCLOSED_TRIANGLE\t0\n13\tCLOSED_TRIANGLE\t0\n14\tCLOSED_TRIANGLE\t-1\n15\tCLOSED_TRIANGLE\t0\n16\tCLOSED_TRIANGLE\t0\n17\tCLOSED_TRIANGLE\t0\n18\tCLOSED_TRIANGLE\t0\n19\tCLOSED_TRIANGLE\t0\n20\tCLOSED_TRIANGLE\t0\n21\tCLOSED_TRIANGLE\t0\n22\tCLOSED_TRIANGLE\t0\n23\tCLOSED_TRIANGLE\t0\n24\tCLOSED_TRIANGLE\t0\n25\tCLOSED_TRIANGLE\t0\n26\tCLOSED_TRIANGLE\t0\n27\tCLOSED_TRIANGLE\t0\n28\tCLOSED_TRIANGLE\t0\n29\tCLOSED_TRIANGLE\t0\n30\tCLOSED_TRIANGLE\t0"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-7.json",
+      "sha256": "0285007abdc885a42e26135c73a49c9c545ade20f47d2996ea763c9ae62bffa9",
+      "label": "separate-apply-confirmation-before-commit",
+      "at": "2026-10-29T04:23:00.117Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Batch Updates\nAdd local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.\nDrop files here or choose files\nLocal text datasets only \u00b7 up to 50 files \u00b7 10 MiB each \u00b7 50 MiB total\nSupported commands\nADD_HYPEREDGE h5: A, B, C \u00b7 REMOVE_HYPEREDGE h2\nADD_VERTEX h1: D \u00b7 REMOVE_VERTEX h3: A\nUPDATE_WEIGHT h4: 2.5 \u00b7 UPDATE_TIME h4: 2027 \u00b7 SET_ATTR h1: priority=high\n\n\nStage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing UPDATE h2: A, B command. Committed graph stays unchanged until separate Apply confirmation.\n\nDynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nVALIDATED\nUPDATE\npending-c1e44dfd-690\u2026 \u00b7 revision 1\nVERSION\n2 \u2192 3 (proposed)\nOPERATIONS\n2\nMOTIF IMPACT\nCHANGED\nVALIDATION / ANALYSIS PREFLIGHT\nVALIDATED \u00b7 CUDA_INCREMENTAL available\nANALYSIS\nRESULT_READY\nCURRENT PENDING DELTA RESULT\nyes\nRe-stage edited commands\nShow committed preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nApply pending DynamicHypergraph update?\n\nThis separately authorized action commits the exact validated pending revision once. It does not run CANDY analysis.\n\nRevision 1 \u00b7 2 \u2192 3\n\nConfirm Apply onlyCancel confirmation\n\nNo action has run. Review the separate confirmation below.\n\nRefresh analysis status\nOpen signed delta result\nCancel analysis\nMOTIF CHANGE (DELTA ONLY)\n\nSigned total connected 3-edge motif delta: 0\n\nBackend CUDA_INCREMENTAL \u00b7 graph graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3 version 2\n\nDevice 0: NVIDIA GeForce RTX 5060 \u00b7 sm_120\n\nThis is a signed delta for update pending-c1e44dfd-6900-4478-965f-8f08c4be44a9. It is not a fabricated full count, and the update was not applied.\n\nThis result describes the proposed pending transition. It becomes stale when graph, update or Runtime session authority changes. Graph has not been applied.\n\nAffected / nonzero classes first\nClass 5 \u00b7 OPEN_WEDGE: +1\nClass 14 \u00b7 CLOSED_TRIANGLE: -1\nAll 30 stable motif signed deltas\nClass ID\tStructural group\tDelta\nOPEN_WEDGE\n1\tOPEN_WEDGE\t0\n2\tOPEN_WEDGE\t0\n3\tOPEN_WEDGE\t0\n4\tOPEN_WEDGE\t0\n5\tOPEN_WEDGE\t+1\n6\tOPEN_WEDGE\t0\nCLOSED_TRIANGLE\n7\tCLOSED_TRIANGLE\t0\n8\tCLOSED_TRIANGLE\t0\n9\tCLOSED_TRIANGLE\t0\n10\tCLOSED_TRIANGLE\t0\n11\tCLOSED_TRIANGLE\t0\n12\tCLOSED_TRIANGLE\t0\n13\tCLOSED_TRIANGLE\t0\n14\tCLOSED_TRIANGLE\t-1\n15\tCLOSED_TRIANGLE\t0\n16\tCLOSED_TRIANGLE\t0\n17\tCLOSED_TRIANGLE\t0\n18\tCLOSED_TRIANGLE\t0\n19\tCLOSED_TRIANGLE\t0\n20\tCLOSED_TRIANGLE\t0\n21\tCLOSED_TRIANGLE\t0\n22\tCLOSED_TRIANGLE\t0\n23\tCLOSED_TRIANGLE\t0\n24\tCLOSED_TRIANGLE\t0\n25\tCLOSED_TRIANGLE\t0\n26\tCLOSED_TRIANGLE\t0\n27\tCLOSED_TRIANGLE\t0\n28\tCLOSED_TRIANGLE\t0\n29\tCLOSED_TRIANGLE\t0\n30\tCLOSED_TRIANGLE\t0"
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-8.json",
+      "sha256": "ced2b84e0ebdd964642e83687476dc84f56c8303d6d6444a8e6ca67f9d7b8cca",
+      "label": "explicit-apply-version-3-and-stale-result-revocation",
+      "at": "2026-10-29T04:23:07.130Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Batch Updates\nAdd local dataset files to the shared batch workspace, or preview command-based edits to the graph already loaded above. Uploading files never changes the graph automatically.\nDrop files here or choose files\nLocal text datasets only \u00b7 up to 50 files \u00b7 10 MiB each \u00b7 50 MiB total\nSupported commands\nADD_HYPEREDGE h5: A, B, C \u00b7 REMOVE_HYPEREDGE h2\nADD_VERTEX h1: D \u00b7 REMOVE_VERTEX h3: A\nUPDATE_WEIGHT h4: 2.5 \u00b7 UPDATE_TIME h4: 2027 \u00b7 SET_ATTR h1: priority=high\n\n\nStage or re-stage these commands in the Dynamic Hypergraph Update panel below. For replacement, use the existing UPDATE h2: A, B command. Committed graph stays unchanged until separate Apply confirmation.\n\nDynamic Hypergraph Update\n\nAuthor Batch Updates commands above, stage a proposal, inspect its preview, then optionally analyze or Apply. Each action is independent.\n\nWorkspace authority belongs to this tab. Other tabs have separate graphs and approvals. Reload clears pending updates, confirmations, jobs and current results; reload the graph and explicitly re-stage any change.\n\nGRAPH TYPE\nDynamicHypergraph\nPENDING STATUS\nNONE\nUPDATE\nnone\nVERSION\n3 (committed)\nOPERATIONS\n0\nMOTIF IMPACT\nnot validated\nVALIDATION / ANALYSIS PREFLIGHT\nnot staged \u00b7 NO_VALIDATED_PENDING_UPDATE\nANALYSIS\nSTALE\nCURRENT PENDING DELTA RESULT\nno\nStage pending update\nInspect pending preview\nEdit commands\nDiscard pending update\nAnalyze motif delta\nApply pending update\n\nPreview uses the existing graph renderer and its render budget. Deleted edges are comparison overlays; the view is non-authoritative. Staging and editing never commit. Opening this panel starts no action.\n\nApplied once. Committed graph version 3. No Runtime job was created.\n\nAnalysis stale. Old results are not current. Request a fresh analysis when available."
+    },
+    {
+      "path": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-dom-9.json",
+      "sha256": "8a995141b935e184227b6d56c7ceeabb80f7eda92fca3c8787cfa8d6f420fa81",
+      "label": "post-apply-static-version-3",
+      "at": "2026-10-29T04:26:31.963Z",
+      "url": "http://127.0.0.1:5173/",
+      "text": "Hypergraph 3-Edge Motifs\n\nIndependent CANDY product: 30 structural motif classes, grouped into 6 OPEN_WEDGE and 24 CLOSED_TRIANGLE classes.\n\nDistinct from Line-Graph Triangles. This section uses the qualified authenticated Runtime and never projects the graph, selects CPU fallback, or applies an update.\n\nCompute 3-edge motifs\n\nExplicit analysis requires a fresh separate confirmation; it never applies the update.\n\nVALIDATED STATIC RESULT\n\nTotal connected 3-edge motifs: 1\n\nBackend CUDA_STATIC \u00b7 graph graph-c6c9af26-7f1d-4102-beb2-1b6e84ef4db3 version 3\n\nDevice 0: NVIDIA GeForce RTX 5060 \u00b7 sm_120\n\nAll 30 stable motif class counts"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-preview.png",
+    "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-signed-delta.png",
+    "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-final-qualification\\artifacts\\candy-v7.3.15-final-release-work\\browser-final-result.png"
+  ],
+  "pagesCompatibilityEvidence": "artifacts/candy-v7.3.15-final-release-pages.json",
+  "nativeWorkloadBound": "Three-edge/four-vertex fixture and one replacement; no scalability claim."
+}

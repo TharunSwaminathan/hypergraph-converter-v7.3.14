@@ -1,0 +1,187 @@
+{
+  "schema": "candy.v7.3.15-final-release-security-review/1",
+  "status": "PASS",
+  "method": "Fresh substantive source review plus current candidate archive, live HTTP/Runtime/native/browser/soak observations. No Codex Security tool invoked.",
+  "candidate": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "recordedAtUtc": "2026-10-29T04:40:10.236336+00:00",
+  "unresolvedCritical": 0,
+  "unresolvedHigh": 0,
+  "reportableFindings": [],
+  "productionAuditVulnerabilities": 0,
+  "sourceAndExtractedAuditPassed": true,
+  "review": [
+    {
+      "surface": "Authentication and session authority",
+      "finding": "No unresolved Critical/High identified. Loopback-only service; 32 random bytes for pairing; length checked timing-safe bearer comparison; exact Origin allowlist is separate from authentication. Session/credential authority is regenerated on Runtime restart.",
+      "source": [
+        "candy-runtime/src/auth/sessionAuth.js",
+        "candy-runtime/src/config.js",
+        "candy-runtime/src/server.js"
+      ],
+      "freshEvidence": [
+        "extracted artifact-route auth controls, ownership isolation and old-token rejection",
+        "browser three fresh generations with authority revoked on both restarts"
+      ]
+    },
+    {
+      "surface": "Artifact ownership, metadata and percent/path aliases",
+      "finding": "Only canonical literal sha256:<64 lowercase hex> or a single encoded colon is accepted on the raw request path. No general percent decode or query/fragment alias normalization. The digest is validated independently and metadata lookup is session-owned in memory.",
+      "source": [
+        "candy-runtime/src/server.js",
+        "candy-runtime/src/artifacts/artifactStore.js",
+        "src/candy/artifactPresence.js"
+      ],
+      "freshEvidence": [
+        "36 malformed raw route spellings rejected; positive literal, %3A and %3a succeed",
+        "wrong auth/origin/method/isolation controls; browser reuse GET encoded metadata 200 without duplicate upload"
+      ]
+    },
+    {
+      "surface": "ZIP traversal, aliases, modes, symlinks and provenance",
+      "finding": "Producer and independent verifier derive pinned committed membership/content separately. Raw path components are checked before normalization; orig_filename is examined; unsafe paths, duplicate/case collisions, symlinks/special entries and unsafe modes are rejected. Git-free checks remain structural-only; default producer refuses ancestor Git metadata.",
+      "source": [
+        "scripts/package-portable-source.py",
+        "scripts/verify-portable-archive.py",
+        "docs/PORTABLE_LOCAL_INSTALL_POLICY.md"
+      ],
+      "freshEvidence": [
+        "clean/populated archives byte-identical and independently commit-bound to candidate",
+        "adversarial alias/extraction and source-input suites passed; structural-only versus commit-bound behavior explicitly checked"
+      ]
+    },
+    {
+      "surface": "Local-install leakage and qualified native identity",
+      "finding": "Private .local/native build/install namespaces and root artifacts are excluded from portable source. Exact records/evidence/source/makefile/binary hashes, protected native tags and live GPU/toolchain identity are checked by production discovery; pure JSON parsing cache confers no qualification authority. Native launch uses fixed trusted paths, shell:false and bounded supervisor handshakes/termination.",
+      "source": [
+        "candy-runtime/src/capabilities/motifQualification.js",
+        "candy-runtime/src/capabilities/qualificationJson.js",
+        "candy-runtime/src/backends/nativeProcessRunner.js"
+      ],
+      "freshEvidence": [
+        "18 qualified inputs retained exactly; both production backends AVAILABLE with expected fingerprints",
+        "portable explicit STATIC/INCREMENTAL requests fail BACKEND_UNAVAILABLE; CPU/projection substitutes rejected",
+        "64 genuine native jobs across smoke, cross-check, browser and soak; no rebuild/substitution/fallback"
+      ]
+    },
+    {
+      "surface": "Stale job/result authority and restart/recovery",
+      "finding": "Exact graph/update/session/request/job/result bindings and epochs gate result acceptance. Analysis carries no Apply authority. Owned roots use a kernel lease and restricted marker/regular-file cleanup; persisted files are not adopted as fresh session authority. Default retention/count/byte budgets remain enforced.",
+      "source": [
+        "src/candy/motifAnalysisController.js",
+        "src/candy/motifResultRegistry.js",
+        "src/candy/motifWorkflow.js",
+        "candy-runtime/src/jobs/jobManager.js",
+        "candy-runtime/src/artifacts/ownedRoot.js"
+      ],
+      "freshEvidence": [
+        "separate browser Analyze/Apply, all-bin parity, stale approval disabled after abrupt restart",
+        "40 native S1 jobs/520 uploads, max 32 jobs and 512 artifacts, completed workspaces zero",
+        "clean/abrupt recovery rejects old auth/artifact/job/result handles and cleans owned orphans"
+      ]
+    },
+    {
+      "surface": "Credentials and secrets",
+      "finding": "No credential candidates from the bounded common-key/private-key scan of all 885 release members. No generated pairing credential or private native state enters the archive. Logs omit bearer headers; transient browser pairing file removed on shutdown. This pattern scan is supporting evidence, not an exhaustive secret-detection guarantee.",
+      "source": [
+        "scripts/package-portable-source.py",
+        "scripts/verify-portable-archive.py",
+        "candy-runtime/src/auth/sessionAuth.js"
+      ],
+      "freshEvidence": [
+        "archive independent forbidden-member checks issueCount 0",
+        "all 885 files scanned for common credential/private-key formats; 0 matches",
+        "fresh production npm audit 0 in source and extracted product"
+      ]
+    }
+  ],
+  "reviewedSources": [
+    {
+      "path": "candy-runtime/src/auth/sessionAuth.js",
+      "sha256": "29daa707400d780e90366b233aadb24b62433e769bcc045d1127a74121807d52"
+    },
+    {
+      "path": "candy-runtime/src/config.js",
+      "sha256": "5ac1eb71557dc9b493383b6b3ecca63a787aa765d506aeb89236236784463d14"
+    },
+    {
+      "path": "candy-runtime/src/server.js",
+      "sha256": "9f8d04479b662ecb3a47c0ef07abc1241d834b6c97e996a3f2e6554756bd58b6"
+    },
+    {
+      "path": "candy-runtime/src/http/httpUtils.js",
+      "sha256": "8ea8d8cb7e6f9f2b0b1f4b9e81bb1fd8d57746f6006a581bcb0f94cb0f66521e"
+    },
+    {
+      "path": "candy-runtime/src/artifacts/artifactStore.js",
+      "sha256": "506a8a311f46aeab461cdab8329dbe2cba8f83201a53278755895d0dbdfb854b"
+    },
+    {
+      "path": "candy-runtime/src/artifacts/ownedRoot.js",
+      "sha256": "f37a056e0fc59034002902cc1e059a359bb00880af267b83e2c6989cbd7bd0f3"
+    },
+    {
+      "path": "candy-runtime/src/capabilities/motifQualification.js",
+      "sha256": "493a95b9ee0efa19acd7090f450c7e7f2e4bdd84b9a2e7f70b3a3ff6e4cd9f8d"
+    },
+    {
+      "path": "candy-runtime/src/capabilities/qualificationJson.js",
+      "sha256": "ca4c8230fca5425ef823c4fdc8fd247eb35c468f7c2161e47ed32c26118010d1"
+    },
+    {
+      "path": "candy-runtime/src/backends/nativeProcessRunner.js",
+      "sha256": "1042582bc0903af715c4096972a872e0c8ebdf08c037f19e4a5dd929999d82ff"
+    },
+    {
+      "path": "candy-runtime/src/jobs/jobManager.js",
+      "sha256": "302998f99fa3159adbe75feb8ac5239510ea54d4f945b3c19f02bb979f088d14"
+    },
+    {
+      "path": "src/candy/client.js",
+      "sha256": "58d9406f3b7ae00e610df770b0dcad303f7b1fd8403a3c41b56267252d5ceddb"
+    },
+    {
+      "path": "src/candy/artifactPresence.js",
+      "sha256": "9d0a20b0200d544d717fcbc2f687cc2c45d7f411efecdde2b8a6ce6b38345965"
+    },
+    {
+      "path": "src/candy/motifAnalysisController.js",
+      "sha256": "bbef5a95c5e262325048c4efa2c30876d64400819362661603c115a73ba245b7"
+    },
+    {
+      "path": "src/candy/motifResultRegistry.js",
+      "sha256": "6548b3708692b07bdbae4c8f2c589905445449721b33a517ad0a0dd74bdef0e3"
+    },
+    {
+      "path": "src/candy/motifWorkflow.js",
+      "sha256": "18b1f95c2d4bec5b3a18f033f642ef0807a3c7712ab5e68fa753a2e7d953f7a7"
+    },
+    {
+      "path": "scripts/package-portable-source.py",
+      "sha256": "b9c04eff5d951c99cfe7f6e2348263dee488ac7a56f92858ae6d70b865882b5f"
+    },
+    {
+      "path": "scripts/verify-portable-archive.py",
+      "sha256": "0be81700ba74fa2558d6d3748f6443a4251759afd6c5da080d097ae8a76e5a98"
+    },
+    {
+      "path": "docs/PORTABLE_LOCAL_INSTALL_POLICY.md",
+      "sha256": "f32a67744697b419dab0fd63ebb4dc1c5d735088c1334299f2ee6c0291e787c1"
+    }
+  ],
+  "archiveCredentialPatternScan": {
+    "files": 885,
+    "families": [
+      "aws_access_key",
+      "github_credential",
+      "openai_credential",
+      "private_key"
+    ],
+    "candidates": [],
+    "archiveSha256": "310f1e2bb1b29f52818f8ca4d2addd10f1b8b127085540854bd789c8ef092249"
+  },
+  "automatedCodexSecuritySeal": "UNAVAILABLE / NOT COMPLETED — accepted infrastructure exception",
+  "automatedScanInvoked": false,
+  "automatedSealClaimedPass": false,
+  "productSecurityFindingsWaived": false,
+  "limits": "Local operator filesystem and qualification-record authority remain trust boundaries. Native workloads stayed within the previously qualified S1 envelope. No cloud/public-CI GPU or broader-scale assurance is claimed."
+}
