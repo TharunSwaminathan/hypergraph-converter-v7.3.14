@@ -1,0 +1,595 @@
+{
+  "schemaVersion": "candy.scope7-persistence-gap-register/1",
+  "auditDate": "2026-10-29",
+  "productSha": "335c320a052eab48d3f0c2d309805d10a5918189",
+  "releaseTag": "v7.3.15",
+  "branch": "candy-integration-scope7-persistence-readiness",
+  "verdict": "READY FOR PHASED IMPLEMENTATION",
+  "severityBasis": "Functional continuity, integrity, privacy and implementation-planning priorities; not CVSS or validated vulnerability counts.",
+  "totalGaps": 20,
+  "counts": {
+    "Critical": 0,
+    "High": 3,
+    "Medium": 14,
+    "Low": 3
+  },
+  "topFivePriorities": [
+    "S7-01",
+    "S7-02",
+    "S7-03",
+    "S7-04",
+    "S7-14"
+  ],
+  "recommendedFirstPhase": "7A",
+  "recommendedOrder": [
+    "7A",
+    "7B",
+    "7C",
+    "7D",
+    "7E",
+    "7F"
+  ],
+  "protectedInvariants": [
+    "deterministic command authority",
+    "typed validation",
+    "explicit mutation confirmation",
+    "stale-context checks",
+    "graph identity/fingerprint checks",
+    "Runtime authentication",
+    "CUDA qualification boundaries",
+    "STATIC/INCREMENTAL separation",
+    "fail-closed behavior",
+    "no implicit projection",
+    "no CPU fallback for qualified CUDA motifs",
+    "Analyze/Apply separation",
+    "local-only Ollama",
+    "no cloud model/API requirement",
+    "Custom Parser review requirements",
+    "historical memory never revives execution authority"
+  ],
+  "gaps": [
+    {
+      "id": "S7-01",
+      "severity": "High",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Origin and launch identity",
+      "currentBehavior": "Unpinned combined launcher chooses 5173–5192. Fixed IDB/localStorage keys have no cross-origin migration. Port/hostname/Pages changes select different storage; Pages paths on one owner share a principal.",
+      "expectedBehavior": "Stable canonical launch origin with explicit conflict/relocation policy plus verified data-only portability; explain same-origin cohost limits.",
+      "evidence": [
+        "run-with-ollama.bat:32",
+        "run-with-ollama.bat:49",
+        "run-with-ollama.bat:144",
+        "scripts/launcher-preflight.mjs:20",
+        "src/persistence/threadStore.js:16",
+        "src/agent/localModelSettings.js:43",
+        "artifacts/candy-scope7-readiness-work/probes.json#P11"
+      ],
+      "userImpact": "Previously saved work appears absent at a new origin; current exports cannot move a full workspace.",
+      "securityImpact": "Do not widen origins, scrape browser profiles or claim path-based isolation; no cross-origin exploit established.",
+      "dataLossRisk": "Old data normally remains at old origin, but users can abandon it or create divergent copies.",
+      "recommendedPhase": "7A origin contract; 7B portability; 7E recovery UX",
+      "proposedTests": [
+        "R09",
+        "R10",
+        "R11",
+        "R48"
+      ],
+      "implementationDependency": "Choose stable-origin and migration contract before introducing durable workspace bytes."
+    },
+    {
+      "id": "S7-02",
+      "severity": "High",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Authoritative workspace data",
+      "currentBehavior": "Thread stores file/graph references and parser drafts; App graph/batches/bytes/history reset. No source/graph object store or complete workspace manifest exists.",
+      "expectedBehavior": "Separate bounded content objects and verified project manifests; persist consented exact bytes/type/lineage and explicit missing-data states.",
+      "evidence": [
+        "src/persistence/threadStateSchema.js:7",
+        "src/persistence/usePersistentThread.js:18",
+        "src/App.jsx:253",
+        "src/App.jsx:269",
+        "src/App.jsx:270",
+        "artifacts/candy-scope7-readiness-work/probes.json#P02"
+      ],
+      "userImpact": "A saved conversation does not resume the actual graph, mapping or uploaded dataset.",
+      "securityImpact": "Current available:false/re-upload behavior is safe and must remain; no phantom graph restoration observed.",
+      "dataLossRisk": "Unsaved graph/source transformations can be lost after frontend destruction; originals may still exist externally.",
+      "recommendedPhase": "7B",
+      "proposedTests": [
+        "R02",
+        "R03",
+        "R05",
+        "R06",
+        "R07",
+        "R16",
+        "R23",
+        "R26"
+      ],
+      "implementationDependency": "7A storage/CAS/schema contracts and existing typed graph normalization."
+    },
+    {
+      "id": "S7-03",
+      "severity": "High",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Project ownership and concurrent writers",
+      "currentBehavior": "Mounted hook saves whole snapshots to shared main without project discriminator, revision CAS or cross-tab merge. Generic saveMessage is not used by the hook. Stale B snapshot overwrites A message in P05.",
+      "expectedBehavior": "App/project namespace, revision CAS or deliberate single writer, safe conflict review and deletion tombstones; keep execution owner isolation.",
+      "evidence": [
+        "src/persistence/usePersistentThread.js:37",
+        "src/persistence/threadStore.js:55",
+        "src/persistence/threadStore.js:59",
+        "tests/candy-scope5-multitab.test.mjs:1",
+        "artifacts/candy-scope7-readiness-work/probes.json#P05"
+      ],
+      "userImpact": "Two normal tabs/projects can silently lose contextual edits or mix intended workspaces.",
+      "securityImpact": "Existing execution-owner separation is not chat/data isolation; no approval replay established.",
+      "dataLossRisk": "Confirmed application snapshot overwrite semantics; real-browser concurrency qualification still required.",
+      "recommendedPhase": "7A",
+      "proposedTests": [
+        "R19",
+        "R40",
+        "R48",
+        "R52"
+      ],
+      "implementationDependency": "Project identity and transactional revision contract, not timestamps alone."
+    },
+    {
+      "id": "S7-04",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Save acknowledgement and close lifecycle",
+      "currentBehavior": "Queue has one in-flight/one latest snapshot; disposal drops latest and suppresses callbacks without canceling issued write. UI generally says chat saved when ready and no error, without dirty/commit receipt.",
+      "expectedBehavior": "Track dirty/enqueued/committed revision; acknowledge transaction completion; warn/export unsaved work; reject late stale-owner publication and deletion resurrection.",
+      "evidence": [
+        "src/persistence/threadSaveQueue.js:3",
+        "src/persistence/threadSaveQueue.js:23",
+        "src/components/AgentChatPanel.jsx:3045",
+        "artifacts/candy-scope7-readiness-work/probes.json#P06"
+      ],
+      "userImpact": "Closing/reloading while writes stall can lose the newest visible state despite a reassuring status.",
+      "securityImpact": "Late saves must not reintroduce deleted private data; current queue callback suppression alone is not storage cancellation.",
+      "dataLossRisk": "Latest queued value is demonstrably dropped on controlled disposal; power-loss durability untested.",
+      "recommendedPhase": "7A",
+      "proposedTests": [
+        "R06",
+        "R08",
+        "R15",
+        "R19",
+        "R40",
+        "R52"
+      ],
+      "implementationDependency": "Revision/CAS receipts and explicit lifecycle contract; no unconditional unload flush promise."
+    },
+    {
+      "id": "S7-05",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Corruption and schema recovery",
+      "currentBehavior": "Thread load rejects unsupported schema/oversize/malformed shapes and hook becomes unavailable. No quarantine, read-only salvage/export, recovery retry or explicit abnormal-close flow exists.",
+      "expectedBehavior": "Preserve unknown/corrupt original, bounded diagnosis/quarantine and last-good recovery; explicit forward-schema incompatibility and migration receipts.",
+      "evidence": [
+        "src/persistence/threadStateSchema.js:23",
+        "src/persistence/threadStore.js:20",
+        "src/persistence/usePersistentThread.js:27",
+        "artifacts/candy-scope7-readiness-work/probes.json#P03"
+      ],
+      "userImpact": "One damaged main record can disable persistence for the mount; user lacks a safe recovery path.",
+      "securityImpact": "Current rejection is fail-closed, not an unsafe restore; future recovery must not execute or destructively normalize unknown fields.",
+      "dataLossRisk": "Current bytes remain but may be inaccessible; improvised manual clearing can lose recoverable history.",
+      "recommendedPhase": "7A",
+      "proposedTests": [
+        "R13",
+        "R17",
+        "R18",
+        "R20",
+        "R45",
+        "R54"
+      ],
+      "implementationDependency": "Typed supported-version policy and non-destructive legacy migration."
+    },
+    {
+      "id": "S7-06",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Storage budgets and serialization scale",
+      "currentBehavior": "Thread is one projected object with synchronous JSON character checks, a render-time workspace stringify, silent truncation and key-order trim. Queue bounds writes but not total byte quota or recovery/backpressure UX.",
+      "expectedBehavior": "Separate metadata/messages/content objects; byte/depth/count limits, chunking, quota headroom, visible retention/unsaved status and measured responsive backpressure.",
+      "evidence": [
+        "src/persistence/threadStateSchema.js:2",
+        "src/persistence/threadStateSchema.js:25",
+        "src/persistence/threadStore.js:5",
+        "src/persistence/usePersistentThread.js:31",
+        "artifacts/candy-scope7-readiness-work/probes.json#P04"
+      ],
+      "userImpact": "History is silently bounded; extending this record to datasets/graphs would create stalls/quota failures.",
+      "securityImpact": "Persistent-record DoS requires an input/storage-write prerequisite; no remote exploit demonstrated.",
+      "dataLossRisk": "Old messages/records can be trimmed; failed larger writes need an explicit authoritative-data policy.",
+      "recommendedPhase": "7A; 7B large-object adapter",
+      "proposedTests": [
+        "R14",
+        "R16",
+        "R39",
+        "R47"
+      ],
+      "implementationDependency": "Measure budgets; keep execution/upload limits independent of persistence capacity."
+    },
+    {
+      "id": "S7-07",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Parser profile storage contract",
+      "currentBehavior": "Profile validation checks only id/name/parserCode. Unknown schema/fields and >60k code survive load; save caps 100 profiles, load/per-profile bytes are unbounded by app. Save can throw; legacy key persists; fingerprint is not cryptographic.",
+      "expectedBehavior": "Typed bounded profile schema, supported migrations/quarantine, error receipts, explicit legacy cleanup and content digests for integrity/identity where required.",
+      "evidence": [
+        "src/agent/parserProfiles.js:39",
+        "src/agent/parserProfiles.js:51",
+        "src/agent/parserProfiles.js:104",
+        "src/agent/parserProfiles.js:127",
+        "src/agent/parserProfiles.js:139",
+        "artifacts/candy-scope7-readiness-work/probes.json#P08",
+        "artifacts/candy-scope7-readiness-work/probes.json#P09"
+      ],
+      "userImpact": "Corrupt/large/foreign profiles or storage denial can impede profile workflows; old data can reappear if only the current key is removed.",
+      "securityImpact": "Profiles remain inert until explicit Use and execution safety checks; no parser sandbox bypass established.",
+      "dataLossRisk": "Corrupt load returns []; failed saves and incomplete legacy deletion have no coherent recovery receipt.",
+      "recommendedPhase": "7A profile adapter; 7B data binding",
+      "proposedTests": [
+        "R12",
+        "R17",
+        "R18",
+        "R40",
+        "R43",
+        "R54"
+      ],
+      "implementationDependency": "Preserve existing parser review/sandbox/output limits and intentional reusable-profile semantics."
+    },
+    {
+      "id": "S7-08",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Model configuration persistence errors",
+      "currentBehavior": "Settings load defaults on parse/access/migration-write failure; save catches errors silently and returns no acknowledgement. Unknown settings versions normalize to current; no total record cap.",
+      "expectedBehavior": "Bounded typed configuration/migrations, distinguish load fallback from intentional reset, preserve incompatible originals, expose failed writes without claiming saved.",
+      "evidence": [
+        "src/agent/localModelSettings.js:99",
+        "src/agent/localModelSettings.js:165",
+        "src/App.jsx:342",
+        "artifacts/candy-scope7-readiness-work/probes.json#P07"
+      ],
+      "userImpact": "Model preferences can silently disappear or fail to persist after restart.",
+      "securityImpact": "Current startup remains disconnected; this is not proof a saved endpoint gains live authority. Actual request timeout/temperature clamps remain.",
+      "dataLossRisk": "Preference changes may be lost; destructive future-version normalization must be avoided.",
+      "recommendedPhase": "7A settings adapter",
+      "proposedTests": [
+        "R12",
+        "R14",
+        "R18",
+        "R45",
+        "R54"
+      ],
+      "implementationDependency": "Explicit configuration schema and migration/error receipt contract."
+    },
+    {
+      "id": "S7-09",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Structured multi-session Assistant memory",
+      "currentBehavior": "Only bounded messages and a 2000-char free-form summary persist. recentTurns and graph references reset; no typed objective/decision/task/completed-event/provenance model exists. Summary may not have run before close.",
+      "expectedBehavior": "Application-owned project memory with objectives, reviewed decisions, verified events/result refs, unresolved tasks, source scope, timestamps and bounded selective prompts.",
+      "evidence": [
+        "src/agent/conversationMemory.js:1",
+        "src/agent/conversationMemory.js:7",
+        "src/persistence/usePersistentThread.js:21",
+        "src/components/AgentChatPanel.jsx:1313",
+        "src/components/AgentChatPanel.jsx:1608"
+      ],
+      "userImpact": "Meaningful continuation depends on lossy text and differs between simple conversation and last-eight-message ReAct context.",
+      "securityImpact": "LLM summaries must remain historical suggestions, never authoritative completed work or approvals.",
+      "dataLossRisk": "Objectives/references can be forgotten through truncation, summarization and changed batch binding.",
+      "recommendedPhase": "7C",
+      "proposedTests": [
+        "R25",
+        "R26",
+        "R37",
+        "R42",
+        "R53"
+      ],
+      "implementationDependency": "7B verified project/source/graph refs and deterministic event ownership."
+    },
+    {
+      "id": "S7-10",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Historical memory trust and provenance",
+      "currentBehavior": "Current prompts mark persistent context as context_only and prioritize live workspace, but durable text has no per-fact source/trust/verification/expiry/lineage fields for richer future memory/import.",
+      "expectedBehavior": "Typed provenance/taint and project/data scope; model may propose facts, deterministic code accepts verified events; never launder a repeated assertion into authority.",
+      "evidence": [
+        "src/agent/prompts/reactOrchestratorPrompt.js:42",
+        "src/agent/prompts/threadMemoryPrompt.js:2",
+        "src/agent/orchestratorObservation.js:83",
+        "src/persistence/threadStateSchema.js:31"
+      ],
+      "userImpact": "Historical claims can mislead explanations/proposals without an explicit factual lineage.",
+      "securityImpact": "No current approval replay demonstrated; persistent prompt injection remains a threat requiring a real dispatcher-control failure for a vulnerability claim.",
+      "dataLossRisk": "Incorrect inferred facts can replace useful context unless provenance/conflicts are retained.",
+      "recommendedPhase": "7C",
+      "proposedTests": [
+        "R35",
+        "R36",
+        "R41",
+        "R42",
+        "R45",
+        "R50"
+      ],
+      "implementationDependency": "7A schemas; 7B identities; current deterministic authorization/confirmation remains the authority."
+    },
+    {
+      "id": "S7-11",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Source reattachment identity",
+      "currentBehavior": "Thread file references include id/name/size, not exact byte digest. Historical graph fingerprint lacks graph bytes and cannot validate a replacement dataset.",
+      "expectedBehavior": "Exact source digest/byte count plus canonical graph type/schema/digest; distinguish renamed same bytes from same-name/same-size different bytes; revalidate mapping/parser applicability.",
+      "evidence": [
+        "src/persistence/threadStateSchema.js:11",
+        "src/persistence/threadStateSchema.js:15",
+        "src/agent/parserProfiles.js:14",
+        "artifacts/candy-scope7-readiness-work/probes.json#P02"
+      ],
+      "userImpact": "References cannot reliably identify which externally retained file should resume a project.",
+      "securityImpact": "Current re-upload does not automatically restore old authority; future digest-free rebinding would create integrity risk.",
+      "dataLossRisk": "Wrong replacement can lose lineage or invalidate historical result meaning.",
+      "recommendedPhase": "7B",
+      "proposedTests": [
+        "R23",
+        "R24",
+        "R25",
+        "R26",
+        "R43"
+      ],
+      "implementationDependency": "Cryptographic source identities and typed canonicalization/versioning; names remain hints."
+    },
+    {
+      "id": "S7-12",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Ollama current liveness and reconnect",
+      "currentBehavior": "App starts disconnected and explicit Connect automatically tries transports. No startup/idle reconnect lifecycle was found; idle prior Connected may remain until a request/probe detects loss. Interrupted generations are not resumed.",
+      "expectedBehavior": "Separate preference/history from verified current liveness with timestamp/epoch; bounded explicit or consented reconnect policy; clear missing-model/service states and no replay.",
+      "evidence": [
+        "src/App.jsx:231",
+        "src/App.jsx:2072",
+        "src/App.jsx:2104",
+        "src/agent/ollamaConnectionManager.js:62",
+        "src/agent/ollamaConnectionManager.js:147",
+        "src/agent/localModelRequestCoordinator.js:10"
+      ],
+      "userImpact": "Every new session needs Connect; idle labels may be stale and interrupted work requires explicit retry.",
+      "securityImpact": "Reprobe before live claims; do not introduce arbitrary endpoints, cloud fallback or silent model substitution.",
+      "dataLossRisk": "Generation drafts/context can be interrupted; do not label partial output completed.",
+      "recommendedPhase": "7D",
+      "proposedTests": [
+        "R29",
+        "R30",
+        "R31",
+        "R32",
+        "R33",
+        "R37"
+      ],
+      "implementationDependency": "7A freshness schema/origin policy and current local-only request validation."
+    },
+    {
+      "id": "S7-13",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Frontend/bridge/Runtime configuration coherence",
+      "currentBehavior": "Bridge URL is build-environment-derived; an existing bundle does not discover a changed bridge port. Combined launcher updates bridge origins, but standard CANDY CLI still permits local :5173 only (plus one Pages origin).",
+      "expectedBehavior": "Reviewed consistent origin/endpoint contract and explicit mismatch recovery across frontend, bridge and Runtime; exact origins and fresh service/schema/model checks.",
+      "evidence": [
+        "src/agent/ollamaConnectionManager.js:16",
+        "run-with-ollama.bat:52",
+        "candy-runtime/src/cli.js:9",
+        "candy-runtime/src/config.js:10",
+        "scripts/launcher-preflight.mjs:42",
+        "artifacts/candy-scope7-readiness-work/probes.json#P11"
+      ],
+      "userImpact": "Fallback :5174 can connect Ollama yet fail CANDY discovery; bridge port changes can leave stale bundle targets.",
+      "securityImpact": "No wildcard origin or health-only authorization; wrong local responder identity remains a conditional threat, not a validated exploit.",
+      "dataLossRisk": "Connectivity can block resumed work; data remains in its original namespace.",
+      "recommendedPhase": "7A contract; 7D implementation",
+      "proposedTests": [
+        "R09",
+        "R11",
+        "R28",
+        "R32",
+        "R33",
+        "R34"
+      ],
+      "implementationDependency": "Stable origin decision and separately reviewed exact-origin companion configuration."
+    },
+    {
+      "id": "S7-14",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Durable analysis/result provenance",
+      "currentBehavior": "Current result registry is in-memory and session/application-bound. Runtime artifact metadata/jobs are RAM and recognized disk artifacts are purged on restart. No validated durable historical output format exists.",
+      "expectedBehavior": "Separate immutable historical result object/manifest with exact input/update/output/provenance; never adopt old job/session/approval ids or reuse the purgeable artifact root as project storage.",
+      "evidence": [
+        "src/candy/motifResultRegistry.js:4",
+        "src/candy/motifResultRegistry.js:18",
+        "candy-runtime/src/artifacts/artifactStore.js:14",
+        "candy-runtime/src/artifacts/ownedRoot.js:46",
+        "candy-runtime/src/jobs/jobManager.js:79"
+      ],
+      "userImpact": "Completed analyses cannot be resumed as verified historical results after frontend/Runtime restart.",
+      "securityImpact": "Current fail-closed session binding is correct; future archive/import must not revive Apply, native availability or current job authority.",
+      "dataLossRisk": "Output not separately downloaded/saved is lost or intentionally cleaned up.",
+      "recommendedPhase": "7B object contract; 7E historical-result UX",
+      "proposedTests": [
+        "R26",
+        "R27",
+        "R28",
+        "R36",
+        "R38",
+        "R44",
+        "R49"
+      ],
+      "implementationDependency": "7A/7B verified objects; separate current-vs-historical evidence type and immutable backend provenance."
+    },
+    {
+      "id": "S7-15",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Privacy retention and deletion scope",
+      "currentBehavior": "Clear chat and Forget saved workspace references have narrow asynchronous effects. Profiles/current+legacy keys/settings/pairing/exports/Runtime resources have separate lifecycles. Text/code can contain sensitive data; no app-wide erasure/retention receipt exists.",
+      "expectedBehavior": "Explicit clear-chat/forget-refs/delete-project/clear-local-data scopes, all relevant keys and objects inventoried, durable tombstones/receipts, retention consent and export privacy; disclose external copies and physical erasure limits.",
+      "evidence": [
+        "src/components/AgentChatPanel.jsx:2852",
+        "src/components/AgentChatPanel.jsx:3052",
+        "src/persistence/usePersistentThread.js:40",
+        "src/agent/parserProfiles.js:39",
+        "src/candy/useCandyRuntime.js:9",
+        "src/utils/downloadLifecycle.js:3"
+      ],
+      "userImpact": "Users lack a comprehensive project/privacy cleanup operation; narrow reference forgetting correctly does not erase everything.",
+      "securityImpact": "Same-origin/profile access and shared exports can disclose content; no false claim that plaintext storage is encrypted or that a narrow button promised full erasure.",
+      "dataLossRisk": "Overbroad improvised deletion can destroy wanted work; incomplete deletion can retain unwanted copies.",
+      "recommendedPhase": "7A deletion contract; 7B/7E implementation",
+      "proposedTests": [
+        "R19",
+        "R22",
+        "R40",
+        "R48",
+        "R50",
+        "R51",
+        "R52"
+      ],
+      "implementationDependency": "Owned object registry/tombstones, consent and clear limits for legacy stores/downloads/host backups."
+    },
+    {
+      "id": "S7-16",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Backup, eviction and origin/machine portability",
+      "currentBehavior": "Browser-managed thread/settings/profile storage has no full workspace backup/import layer or persistent-storage/eviction contract. Profile JSON and selected data downloads are partial exports only.",
+      "expectedBehavior": "Verified bounded data-only workspace export/import, storage durability/eviction disclosure, backup freshness and conflict/migration review. Browser persistence is not a guaranteed backup.",
+      "evidence": [
+        "src/persistence/threadStore.js:16",
+        "src/agent/parserProfiles.js:67",
+        "src/agent/parserProfiles.js:75",
+        "src/App.jsx:3897",
+        "src/utils/downloadLifecycle.js:3"
+      ],
+      "userImpact": "Changing machine/origin or clearing/evicting site storage cannot recover an entire project with current tooling.",
+      "securityImpact": "Workspace imports require schema/path/expansion bounds and must exclude authority/credentials/native installation trust.",
+      "dataLossRisk": "Site-data deletion/eviction can permanently lose contextual work without external copies.",
+      "recommendedPhase": "7B",
+      "proposedTests": [
+        "R07",
+        "R09",
+        "R10",
+        "R11",
+        "R21",
+        "R22",
+        "R44",
+        "R47",
+        "R50"
+      ],
+      "implementationDependency": "7A namespaces/migration and 7B source/result object manifest; source-package security contract preserved."
+    },
+    {
+      "id": "S7-17",
+      "severity": "Low",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "UI preferences and contextual selection",
+      "currentBehavior": "Visualization/layout/selection/algorithm stepping/export-preview state is in local React/refs and resets; no durable preference chain exists.",
+      "expectedBehavior": "Optionally restore compatible non-authoritative preferences and validate selected ids against actual current graph; recompute previews/caches and discard stale handles.",
+      "evidence": [
+        "src/App.jsx:302",
+        "src/App.jsx:315",
+        "src/components/Viz.jsx:67",
+        "src/hooks/useAlgorithms.js:18",
+        "src/derived/derivedProductCache.js:4"
+      ],
+      "userImpact": "Users repeat view/setup choices after returning.",
+      "securityImpact": "Saved selections/export handles must not become actions or facts about an absent graph.",
+      "dataLossRisk": "Low: presentational state lost, not authoritative source bytes.",
+      "recommendedPhase": "7E",
+      "proposedTests": [
+        "R01",
+        "R26",
+        "R46"
+      ],
+      "implementationDependency": "7B validated graph identity and namespaced settings; no need to persist derived caches."
+    },
+    {
+      "id": "S7-18",
+      "severity": "Low",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Configuration versus ephemeral observation naming",
+      "currentBehavior": "activeTransport/activeBaseUrl persist inside model configuration without observedAt/freshness. App status safely starts disconnected, but diagnostics can retain endpoint observations.",
+      "expectedBehavior": "Separate reusable settings, lastKnownConnection history and ephemeral verified connection generation; label old observations explicitly.",
+      "evidence": [
+        "src/agent/localModelSettings.js:145",
+        "src/App.jsx:231",
+        "src/App.jsx:349",
+        "artifacts/candy-scope7-readiness-work/probes.json#P10"
+      ],
+      "userImpact": "Remembered endpoint/transport can be mistaken for live status in future UI changes.",
+      "securityImpact": "Current ordinary startup does not trust them as Connected; preserve that counterevidence.",
+      "dataLossRisk": "Low: misleading interpretation rather than present authoritative data loss.",
+      "recommendedPhase": "7D",
+      "proposedTests": [
+        "R02",
+        "R29",
+        "R30",
+        "R34"
+      ],
+      "implementationDependency": "7A configuration schema and 7D fresh connection-state owner."
+    },
+    {
+      "id": "S7-19",
+      "severity": "Low",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Parser profile export identity",
+      "currentBehavior": "UI download is named parser-profiles-v7-2.json while export schema is hypergraph-parser-profiles-v7.3 and current records use schemaVersion 3.",
+      "expectedBehavior": "Version/schema-consistent naming and explicit compatibility information, without blanket rewriting historical references.",
+      "evidence": [
+        "src/App.jsx:3897",
+        "src/agent/parserProfiles.js:67",
+        "src/agent/parserProfiles.js:23"
+      ],
+      "userImpact": "Export compatibility/version is harder to understand.",
+      "securityImpact": "No execution or authorization bypass demonstrated.",
+      "dataLossRisk": "Low: potential import confusion; bytes remain available.",
+      "recommendedPhase": "7E",
+      "proposedTests": [
+        "R44",
+        "R54"
+      ],
+      "implementationDependency": "Qualified profile format/migration contract; distinguish format version from product release version."
+    },
+    {
+      "id": "S7-20",
+      "severity": "Medium",
+      "classification": "Scope 7 readiness gap; not a validated security vulnerability",
+      "subsystem": "Physical restart and persistence qualification coverage",
+      "currentBehavior": "Existing mounted reload/storage tests use an IDB double/happy-dom; they do not qualify real browser crash, Windows restart, effective ACLs, quota/eviction or full multi-session workspace storage.",
+      "expectedBehavior": "Separate mocked/source, real-browser, actual service/native and physical restart evidence with exact-SHA fixtures and explicit coverage; test every failure boundary.",
+      "evidence": [
+        "tests/fixtures/candy-scope5e-storage.mjs:1",
+        "tests/candy-scope5-recovery.test.mjs:59",
+        "tests/candy-scope5-persistence.test.mjs:14",
+        "artifacts/candy-scope7-restart-recovery-test-plan.md"
+      ],
+      "userImpact": "Without new evidence, future durable-resume promises could exceed tested behavior.",
+      "securityImpact": "Do not infer Windows ACL privacy, power-loss safety or native authority validity from source/fixture passes.",
+      "dataLossRisk": "Unmeasured until implemented and fault-qualified; not a new failure of frozen Scope 6E release qualification.",
+      "recommendedPhase": "Each phase; full 7F",
+      "proposedTests": [
+        "R01-R55"
+      ],
+      "implementationDependency": "Implemented contracts and explicit authorization/window for physical reboot and genuine local-backend qualification."
+    }
+  ]
+}
