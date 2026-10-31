@@ -1,0 +1,322 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "failedParentCandidate": "d3eeb5049941ee606b378a8345e41f1d0fbd7636",
+  "qualifiedScope7DParent": "6bf0f3614987559f93f5c0b7a26d24d976a82ecb",
+  "branch": "candy-integration-scope7e-resume-workspace-ux",
+  "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+  "candidateCommit": null,
+  "recordedAtUtc": "2026-10-31T20:45:00.134758+00:00",
+  "staged": false,
+  "committed": false,
+  "status": "PASS",
+  "passed": 62,
+  "total": 62,
+  "standardSuite": {
+    "passed": 52,
+    "total": 52,
+    "phaseCounts": {
+      "first": 13,
+      "reopen": 10,
+      "auto": 6,
+      "off": 23
+    },
+    "cases": {
+      "first": [
+        {
+          "case": "fresh-App-no-saved-workspace-and-no-network",
+          "startupUsableMs": 413.80000001192093
+        },
+        {
+          "case": "normal-UI-source-committed"
+        },
+        {
+          "case": "normal-UI-graph-committed-without-resume-authority"
+        },
+        {
+          "case": "explicit-project-name-saved"
+        },
+        {
+          "case": "normal-UI-project-memory-durable"
+        },
+        {
+          "case": "actual-qwen3-8b-fresh-runtime-verification",
+          "mocked": false
+        },
+        {
+          "case": "explicit-model-reconnect-ON"
+        },
+        {
+          "case": "startup-auto-resume-OFF-independent-of-model"
+        },
+        {
+          "case": "view-layout-preview-preferences-durable"
+        },
+        {
+          "case": "actual-first-model-request-current-memory",
+          "mocked": false
+        },
+        {
+          "case": "unsent-mutation-left-only-in-session"
+        },
+        {
+          "case": "desktop-resume-panel-semantic-responsive-layout",
+          "rect": {
+            "width": 1440,
+            "panelWidth": 1272,
+            "left": 79,
+            "right": 1351,
+            "top": 88,
+            "height": 408.6875,
+            "label": "desktop"
+          }
+        },
+        {
+          "case": "narrow-resume-panel-semantic-responsive-layout",
+          "rect": {
+            "width": 390,
+            "panelWidth": 352,
+            "left": 14,
+            "right": 366,
+            "top": 84,
+            "height": 595.78125,
+            "label": "narrow"
+          }
+        }
+      ],
+      "reopen": [
+        {
+          "case": "reopen-explicit-Resume-chooser",
+          "chooserMs": 125
+        },
+        {
+          "case": "chooser-configured-is-not-connected-no-probe"
+        },
+        {
+          "case": "explicit-Resume-mounts-current-project",
+          "usableMs": 735.4000000059605
+        },
+        {
+          "case": "actual-App-source-restored"
+        },
+        {
+          "case": "exact-graph-restored-without-regeneration"
+        },
+        {
+          "case": "actual-App-memory-restored"
+        },
+        {
+          "case": "truthful-7D-model-handoff-after-workspace-memory"
+        },
+        {
+          "case": "unsent-query-pending-confirmation-and-action-authority-absent"
+        },
+        {
+          "case": "actual-restored-memory-delivered-to-qwen",
+          "mocked": false
+        },
+        {
+          "case": "startup-auto-resume-ON-durable"
+        }
+      ],
+      "auto": [
+        {
+          "case": "reopen-auto-resume-ON",
+          "usableMs": 385.69999998807907
+        },
+        {
+          "case": "display-preferences-restored-without-selection-authority"
+        },
+        {
+          "case": "native-discovery-restore-performance",
+          "timings": {
+            "modelProfileLoadMs": 1.5999999940395355,
+            "chatLoadMs": 2.199999988079071,
+            "workspaceSourceGraphValidationMs": 8.599999994039536,
+            "memoryValidationMs": 11.599999994039536,
+            "sourceValidationMs": 0,
+            "graphValidationMs": 0.19999998807907104,
+            "resumeMetadataValidationMs": 1.9000000059604645,
+            "totalWorkspaceValidationMs": 2.2000000178813934,
+            "discoveryMs": 11.800000011920929
+          }
+        },
+        {
+          "case": "changed-source-digest-shows-stale-graph-without-transformation"
+        },
+        {
+          "case": "equivalent-source-bytes-do-not-falsely-mark-graph-stale"
+        },
+        {
+          "case": "manual-disconnect-and-startup-OFF-durable-separately"
+        }
+      ],
+      "off": [
+        {
+          "case": "restored-workspace-memory-with-durable-model-OFF"
+        },
+        {
+          "case": "Start-fresh-separate-project-retains-Alpha"
+        },
+        {
+          "case": "fresh-project-has-no-foreign-memory-or-graph"
+        },
+        {
+          "case": "normal-UI-Beta-source-graph-memory"
+        },
+        {
+          "case": "B-to-A-isolation"
+        },
+        {
+          "case": "A-to-B-isolation"
+        },
+        {
+          "case": "semantic-confirmation-Cancel-focus-Escape-return"
+        },
+        {
+          "case": "confirmed-workspace-delete-retains-memory-Alpha-settings"
+        },
+        {
+          "case": "confirmed-memory-clear-retains-Alpha-and-model-profile"
+        },
+        {
+          "case": "two-real-App-tabs-stale-confirmed-delete-rejected"
+        },
+        {
+          "case": "two-real-App-tabs-stale-save-rejected-no-false-ack"
+        },
+        {
+          "case": "workspace-usable-during-controlled-Ollama-outage"
+        },
+        {
+          "case": "bounded-Ollama-unavailable-UX-without-reset"
+        },
+        {
+          "case": "controlled-Ollama-recovery-UX"
+        },
+        {
+          "case": "remembered-model-unavailable-UX-no-substitution"
+        },
+        {
+          "case": "confirmed-global-model-forget-retains-projects"
+        },
+        {
+          "case": "native-missing-graph-partial-source-restore-read-only-no-fabrication"
+        },
+        {
+          "case": "App-usable-after-partial-restore"
+        },
+        {
+          "case": "native-missing-source-recovery-does-not-reset-Alpha"
+        },
+        {
+          "case": "native-original-legacy-quarantine-remains-read-only"
+        },
+        {
+          "case": "fresh-project-isolated-from-original-legacy-quarantine"
+        },
+        {
+          "case": "native-future-startup-preference-preserved-with-auto-resume-OFF"
+        },
+        {
+          "case": "temporary-fresh-after-incompatible-preference-preserves-all-projects"
+        }
+      ]
+    }
+  },
+  "correctiveNativeSuite": {
+    "ok": true,
+    "phase": "first",
+    "cases": [
+      {
+        "case": "native-original-UI-source-graph-and-owner-acknowledged",
+        "revision": 7,
+        "rootSha256": "c6f8e0750d0d0de8a8f38809d4f3c3a1047fd9751c136e6e2614acc3f4491719"
+      },
+      {
+        "case": "separate-project-B-native-root-created",
+        "projectId": "f043714e-bca9-4f4f-bae3-233b3b16ea22",
+        "rootSha256": "7f17e563644e48ace566a495cf3e86e3284b237853fc808e1c077df469e8dcb2"
+      },
+      {
+        "case": "native-peer-newer-revision-with-no-optional-notification",
+        "revision": 8,
+        "rootSha256": "5200d3f9d85eb015f7c5a73bbaec0f017a02a085c5840e09eeaf250c428ff460",
+        "graphFingerprint": "gfp-d02c52de-150"
+      },
+      {
+        "case": "old-owner-has-not-adopted-foreign-source-or-state"
+      },
+      {
+        "case": "normal-delete-confirmation-opens-from-known-owner"
+      },
+      {
+        "case": "former-S7E-EXACT-SHA-001-reproduction-PASS",
+        "reviewedRevision": 7,
+        "foreignRevision": 8,
+        "newerRootRetained": true,
+        "foreignWorkspaceDeleted": false,
+        "projectBUnchanged": true
+      },
+      {
+        "case": "bounded-conflict-no-success-no-auto-retry-requires-review"
+      },
+      {
+        "case": "explicit-reload-review-establishes-new-owner-lineage"
+      },
+      {
+        "case": "acknowledged-same-owner-source-graph-chat-progress-does-not-falsely-conflict"
+      },
+      {
+        "case": "current-owner-delete-PASS-and-project-B-remains-intact"
+      }
+    ],
+    "nativeIndexedDB": true,
+    "notificationFault": "Independent native product-store writer intentionally sends no optional notification; storage transactions are not mocked",
+    "formerBlockerClosed": true,
+    "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7e\\artifacts\\candy-scope7e-stale-delete-work\\browser-profile-frozen-corrective",
+    "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7e\\artifacts\\candy-scope7e-stale-delete-work\\extracted\\candy-scope7e-stale-delete-proposed"
+  },
+  "formerExactReproduction": {
+    "case": "former-S7E-EXACT-SHA-001-reproduction-PASS",
+    "reviewedRevision": 7,
+    "foreignRevision": 8,
+    "newerRootRetained": true,
+    "foreignWorkspaceDeleted": false,
+    "projectBUnchanged": true
+  },
+  "actualQwen3_8b": {
+    "status": "PASS",
+    "realSuccessfulRequests": 2,
+    "restoredScope7CMemoryDelivered": true,
+    "memoryAuthority": "untrusted_context_only",
+    "reconnectOffRespected": true
+  },
+  "mockFaultDistinction": "Ollama discovery/generation to localhost11434 is real. Controlled loopback tags server supplies outage/missing-model faults. The new native peer uses the real product store and deliberately omits optional notification; IndexedDB/CAS are not mocked. Transactional doubles are separately reported.",
+  "freshIsolatedProfilesOnly": true,
+  "realUserStoredDataTouched": false,
+  "allFiveBrowserProcessClosuresGraceful": true,
+  "automaticPriorMutationAuthorityRestored": false,
+  "rawReceipts": [
+    {
+      "path": "candy-scope7e-stale-delete-work/browser-frozen-standard-first.json",
+      "sha256": "420ea6772a7ca57f5f39d970758c5045a9bc360474aaa293508ba5cfba7dddaf"
+    },
+    {
+      "path": "candy-scope7e-stale-delete-work/browser-frozen-standard-reopen.json",
+      "sha256": "bb298620ef39063cb8ce62817f92d8e5f9479ff00af217f481f6e2d481876192"
+    },
+    {
+      "path": "candy-scope7e-stale-delete-work/browser-frozen-standard-auto.json",
+      "sha256": "ecb9cc55e2d3073aaad5c9959c7a3b78048d4628ea33f0e453dac42e2bb110aa"
+    },
+    {
+      "path": "candy-scope7e-stale-delete-work/browser-frozen-standard-off.json",
+      "sha256": "1a026e10eb614adc6eac264b8045e0f74e3b10a460592b6832c4f645c50cdff0"
+    },
+    {
+      "path": "candy-scope7e-stale-delete-work/browser-frozen-corrective-first.json",
+      "sha256": "0fcd3350a6b3b26a666367e2015772b3de9b3a16dabdb1c140c48bf7ea378b3b"
+    }
+  ],
+  "physicalInterruptionQualification": "DEFERRED / Scope7F not started"
+}

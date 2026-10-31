@@ -64,7 +64,7 @@ export function createWorkspaceResumeCoordinator({ store, channel = null }) {
       const value = await inspect(id, token);
       if (snapshot.preferences.selectedProjectId !== id && !(snapshot.preferences.selectedProjectId === null && id === defaultId) && !snapshot.preferenceError) await preference({ selectedProjectId: id });
       if (!current(token)) return false;
-      const active = { projectId: id, key: id + ":" + ++sequence, session: createResumeProjectSession(store, id, id === defaultId), fresh };
+      const active = { projectId: id, key: id + ":" + ++sequence, session: createResumeProjectSession(store, id, id === defaultId, value.revision), fresh };
       emit({ selectedId: id, available: value, active, state: "RESTORING", message: fresh ? "Fresh project created separately. Previous saved projects are retained." : "Restoring validated project data…" }); return true;
     } catch (error) { if (current(token)) emit({ state: "RECOVERY_REQUIRED", active: null, message: "Saved data needs recovery. Original data is preserved. Retry or start a temporary fresh session.", code: fault(error).code }); return false; }
   }
@@ -116,21 +116,25 @@ export function createWorkspaceResumeCoordinator({ store, channel = null }) {
       emit({ live: value, state, message: snapshot.foreignChange ? "Saved project changed in another tab. Reload before saving." : value.workspace.partial ? "Verified sources restored. Saved graph needs recovery and is preserved read-only." : value.workspace.state === "loading" ? "Restoring validated project data…" : !snapshot.active.projectId ? "Temporary session. Original saved projects are retained; local changes are not saved." : state === "RECOVERY_REQUIRED" ? "Saved workspace needs recovery. Other safe categories remain available; originals are preserved." : "Project data is available. Pending actions are never resumed." });
       if (value.workspace.state === "committed" && value.workspace.revision !== previous?.workspace.revision) announce("workspace");
     },
-    async capture() {
+    async capture(category = "workspace") {
       if (!snapshot.active?.projectId || snapshot.foreignChange) throw new StorageFault("CONFLICT", "Reload the current project before clearing saved data.", true);
-      const active = snapshot.active, project = await store.readProject(active.projectId);
+      const active = snapshot.active, review = await active.session.captureDestructive(active.projectId, category);
       if (snapshot.active?.key !== active.key) throw new StorageFault("ABANDONED", "Project changed before confirmation. Nothing was cleared.", true);
-      return { projectId: project.projectId, revision: project.revision, key: active.key };
+      return Object.freeze({ projectId: review.projectId, revision: review.revision, key: active.key, review });
     },
     async clear(token, category, command = { kind: "clear" }) {
       try {
-        if (token.key !== snapshot.active?.key || token.projectId !== snapshot.active?.projectId) throw new StorageFault("ABANDONED", "Project changed. Nothing was cleared.", true);
-        const receipt = category === "workspace" ? await store.deleteWorkspace(token.projectId, token.revision) : await store.saveMemory(token.projectId, token.revision, command);
+        if (!live || token?.key !== snapshot.active?.key || token?.projectId !== snapshot.active?.projectId) throw new StorageFault("ABANDONED", "Project changed. Nothing was cleared.", true);
+        const active = snapshot.active;
+        const receipt = await active.session.clearReviewed(token.review, category, command, () => live && snapshot.active?.key === active.key && !snapshot.foreignChange);
         emit({ event: category === "workspace" ? "workspace-clear-committed" : "memory-clear-committed" });
         announce(category === "workspace" ? "deleted-workspace" : "memory", token.projectId);
         if (token.key === snapshot.active?.key) await open(token.projectId);
         return receipt;
-      } catch (error) { emit({ event: category === "workspace" ? "workspace-clear-rejected" : "memory-clear-rejected", code: fault(error).code }); throw error; }
+      } catch (error) {
+        const conflict = error.code === "CONFLICT" && token?.key === snapshot.active?.key;
+        emit({ event: category === "workspace" ? "workspace-clear-rejected" : "memory-clear-rejected", code: fault(error).code, ...(conflict ? { state: "STALE", foreignChange: true, message: "Saved data changed. Nothing was cleared. Reload and review before clearing saved data." } : {}) }); throw error;
+      }
     },
     label: id => projectLabel(snapshot.preferences, id),
     dispose() { live = false; generation++; listeners.clear(); channel?.close(); },

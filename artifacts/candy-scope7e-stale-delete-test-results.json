@@ -1,0 +1,521 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "failedParentCandidate": "d3eeb5049941ee606b378a8345e41f1d0fbd7636",
+  "qualifiedScope7DParent": "6bf0f3614987559f93f5c0b7a26d24d976a82ecb",
+  "branch": "candy-integration-scope7e-resume-workspace-ux",
+  "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+  "candidateCommit": null,
+  "recordedAtUtc": "2026-10-31T20:45:00.134758+00:00",
+  "staged": false,
+  "committed": false,
+  "status": "PASS",
+  "counts": {
+    "source": {
+      "npm-test": {
+        "passed": 305,
+        "discovered": 305
+      },
+      "scope7a": {
+        "passed": 4,
+        "discovered": 4
+      },
+      "scope7b": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "scope7c": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "scope7d": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "scope7e": {
+        "passed": 4,
+        "discovered": 4
+      }
+    },
+    "extracted": {
+      "npm-test": {
+        "passed": 305,
+        "discovered": 305
+      },
+      "scope7a": {
+        "passed": 4,
+        "discovered": 4
+      },
+      "scope7b": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "scope7c": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "scope7d": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "scope7e": {
+        "passed": 4,
+        "discovered": 4
+      }
+    }
+  },
+  "focused": "7A4/4;7B3/3;7C3/3;7D3/3;7E4/4 in both copies;17/17 each",
+  "newCorrectiveGroupedTests": 12,
+  "sourceGates": [
+    {
+      "phase": "source",
+      "gate": "npm-ci",
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 8.87,
+      "log": "source-npm-ci.txt",
+      "sha256": "fd852222b2fb31eb37f3298244c374e13900214334fe684ff55167a82ead5890",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "npm-test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 213.51,
+      "log": "source-npm-test.txt",
+      "sha256": "0c48bb4bf61041b1255ecc895c90e344adfafa4f2fca496bc38d2940ac36f477",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "lint",
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 11.17,
+      "log": "source-lint.txt",
+      "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "build",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 1.0,
+      "log": "source-build.txt",
+      "sha256": "d0ed8a551556a78f1bc19fde9adafb3ce5cdc3820ece47bee9dcb10e2b726723",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "build-github",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.93,
+      "log": "source-build-github.txt",
+      "sha256": "429251e7ab3bf99f70cb3cd703d0f4b89040967fd0bf62d9d5345d035b55e6c5",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "build-relative",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:relative"
+      ],
+      "exitCode": 0,
+      "seconds": 0.85,
+      "log": "source-build-relative.txt",
+      "sha256": "e868115840a1dbffaaef01b7d20cc334c76159d4e760fc2271d07f80795d34d1",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "production-audit",
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "exitCode": 0,
+      "seconds": 1.37,
+      "log": "source-production-audit.txt",
+      "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "scope7a",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7a"
+      ],
+      "exitCode": 0,
+      "seconds": 2.4,
+      "log": "source-scope7a.txt",
+      "sha256": "d866d8778049af546353e4a5475de376c9051e7f7d92f448be43e282d013f811",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "scope7b",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7b"
+      ],
+      "exitCode": 0,
+      "seconds": 2.46,
+      "log": "source-scope7b.txt",
+      "sha256": "49182c501dc47652d8eee61f05d5ba9cbff4d26126a4b081fdb5cc4b4c0d51c1",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "scope7c",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7c"
+      ],
+      "exitCode": 0,
+      "seconds": 2.2,
+      "log": "source-scope7c.txt",
+      "sha256": "616e53e878c5c2826a6b1051b6c17ad3557d2353db25d5f76c313fa698798b5d",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "scope7d",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7d"
+      ],
+      "exitCode": 0,
+      "seconds": 2.96,
+      "log": "source-scope7d.txt",
+      "sha256": "05e983d7b99db8c466bf47bf897427f7049a152ac6b616cfde9ecc017b94d5ec",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "source",
+      "gate": "scope7e",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7e"
+      ],
+      "exitCode": 0,
+      "seconds": 2.45,
+      "log": "source-scope7e.txt",
+      "sha256": "12fdcee726bd462eba4f09282229c7c4fe7424cef21a947cfb4ace5013518d53",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    }
+  ],
+  "gitFreeExtractedGates": [
+    {
+      "phase": "extracted",
+      "gate": "npm-ci",
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 8.29,
+      "log": "extracted-npm-ci.txt",
+      "sha256": "0f66077bd98cca7e805fbe0f11aa5d6c56e372ea0f4a962d005f41cc2aae323b",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "npm-test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 210.93,
+      "log": "extracted-npm-test.txt",
+      "sha256": "27b0b917446fdd9f82f3fde7274e466a420af8e4150f30729b326496b12c70fc",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "lint",
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 11.08,
+      "log": "extracted-lint.txt",
+      "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "build",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 1.03,
+      "log": "extracted-build.txt",
+      "sha256": "f07dae4be68bae9332e5cc6aa996fceea0003a8012463b42c80f8b7fd730ddb5",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "build-github",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.9,
+      "log": "extracted-build-github.txt",
+      "sha256": "fee9726e7e31c666af7ad85c5be3f9c1aa9456500b2d62bb9f4db8b7bc2549a1",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "build-relative",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:relative"
+      ],
+      "exitCode": 0,
+      "seconds": 0.94,
+      "log": "extracted-build-relative.txt",
+      "sha256": "27de0a1305019ba24767cbe6fc2600f285f5e5b1149a025ec36f70d4ebc60281",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "production-audit",
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "exitCode": 0,
+      "seconds": 1.39,
+      "log": "extracted-production-audit.txt",
+      "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "scope7a",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7a"
+      ],
+      "exitCode": 0,
+      "seconds": 2.19,
+      "log": "extracted-scope7a.txt",
+      "sha256": "a6d81ec05d0899cecad0f854e1a4a73dcf2992b480eba6637e01b8910e704226",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "scope7b",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7b"
+      ],
+      "exitCode": 0,
+      "seconds": 2.24,
+      "log": "extracted-scope7b.txt",
+      "sha256": "157f909e00be57c229128362a1318b8abc0b1ee7b932a8c850895bd4122829c6",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "scope7c",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7c"
+      ],
+      "exitCode": 0,
+      "seconds": 2.04,
+      "log": "extracted-scope7c.txt",
+      "sha256": "3968b6c51281b8ca7f4b1c7a17a6d0a27e1afcd188fadcf46c63c23b001a5d1d",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "scope7d",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7d"
+      ],
+      "exitCode": 0,
+      "seconds": 2.97,
+      "log": "extracted-scope7d.txt",
+      "sha256": "7a8fb5ec340c3bc176403b183e4074873f826faa27244af6ea0c65116dd201fa",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    },
+    {
+      "phase": "extracted",
+      "gate": "scope7e",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7e"
+      ],
+      "exitCode": 0,
+      "seconds": 2.34,
+      "log": "extracted-scope7e.txt",
+      "sha256": "795c19fee477615e6224e895cc484516ff71ae12ba1f47c2460ea8c7f8653e4a",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "candidateCommit": null
+    }
+  ],
+  "coverage": {
+    "A_missing_notification": "PASS; token keeps known revision, native confirmation rejects foreign8 while UI observed7",
+    "B_transactional_double": "PASS; raw committed failed parent freshly reproduces deletion, proposed regression rejects it",
+    "C_native_IndexedDB": "PASS; real native store transactions in two isolated browser contexts, peer deliberately omits optional notification",
+    "D_current_owner_delete": "PASS after explicit refreshed review",
+    "E_acknowledged_same_owner_progression": "PASS; serialized chat/workspace/memory acknowledgements before and after review; native source/graph/chat progression",
+    "F_notification_case": "PASS; unchanged standard browser suite and new unit assertions",
+    "G_other_project": "PASS; B root unchanged both after A conflict and authorized A delete",
+    "H_stale_save": "PASS; existing source/extracted tests and unchanged standard two-App browser case",
+    "replay_double_wrong_category": "PASS; one-use in-memory token identity, exact project/category and active-scene guards",
+    "late_async_cancellation": "PASS; read recheck plus transaction cancellation rollback",
+    "malformed_rollback_future": "PASS; validated project metadata and strict known revision; no persisted ownership schema added"
+  },
+  "formerFinding": "S7E-EXACT-SHA-001 CLOSED in exact proposed source only",
+  "failedParentFreshReproduction": {
+    "candidate": "d3eeb5049941ee606b378a8345e41f1d0fbd7636",
+    "fixture": "transactional storage double; independent writer without optional BroadcastChannel marker",
+    "reviewedUiRevision": 3,
+    "foreignRevision": 4,
+    "capturedRevision": 4,
+    "foreignChangeNotice": false,
+    "error": null,
+    "clearAcknowledged": true,
+    "foreignWorkspaceDeleted": true,
+    "expected": "Stale owner should reject clear instead of adopting unreviewed foreign revision",
+    "pass": false
+  },
+  "package": {
+    "status": "PASS",
+    "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "commitBound": false,
+    "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+    "cleanPopulatedByteIdentical": true,
+    "everyArchiveMemberMatchesFrozenSource": true,
+    "canonicalGitDeltaExactly": [
+      "src/components/WorkspaceExperience.jsx",
+      "src/persistence/projectSession.js",
+      "src/persistence/projectStore.js",
+      "src/persistence/resumeProjectSession.js",
+      "src/persistence/workspaceResumeCoordinator.js",
+      "tests/candy-scope7e-stale-delete.test.mjs",
+      "tests/fixtures/candy-scope7e-stale-delete-browser.html",
+      "tests/fixtures/candy-scope7e-stale-delete-browser.mjs"
+    ],
+    "privateMarkerAbsent": true,
+    "privateInputsExcluded": [
+      ".local/indexeddb/workspace.json",
+      ".local/assistant-memory.json",
+      ".local/ollama-profile.json",
+      ".env.local",
+      "candy-runtime/.local/native-qualification.json",
+      "dist/private-connection.json",
+      "artifacts/private-persistence.json",
+      "node_modules/private-test-marker.json"
+    ],
+    "relativeBuildOutputsIdentical": 23,
+    "archive": {
+      "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+      "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+      "commitBound": false,
+      "commitBoundClosure": "DEFERRED until candidate commit",
+      "sha256": "bbdabc76f21cee2cf7852e4d43159e4437bccc8a16d3bdeecc4559b5058fd9bf",
+      "bytes": 1960485,
+      "entries": 1007,
+      "files": 951,
+      "directories": 56,
+      "allProductPathsExact": true,
+      "privateStateExcluded": true
+    },
+    "producerVerifierPolicyUnchanged": true
+  },
+  "productionVulnerabilities": 0,
+  "securityReview": {
+    "unresolvedCritical": 0,
+    "unresolvedHigh": 0,
+    "unresolvedMedium": 0,
+    "automatedSeal": "NOT RUN / NOT CLAIMED"
+  },
+  "baselineDevelopmentAdvisories": "Unchanged npm ci notice:8 development advisories (6 moderate,2 high), recorded separately; package/lock unchanged; production-only audit0.",
+  "protectedHistory": {
+    "status": "PASS",
+    "failedCommitAndAllRefsImmutable": true,
+    "mainAndLiveOriginTagsUnchanged": true,
+    "trackedHistoricalFilesUnchanged": 1375,
+    "historicalEvidenceFilesByteAndMtimeIdentical": 369,
+    "allExistingRegressionTestsUnchanged": true,
+    "noAmendRebaseForcePushStageCommitTagMergeMainOr7F": true,
+    "historicalGitPathDelta": [],
+    "note": "Existing untracked failed-candidate reports and older work directories remain untouched and outside this proposed corrective boundary."
+  },
+  "noCandidateBoundProvenanceClaim": true
+}

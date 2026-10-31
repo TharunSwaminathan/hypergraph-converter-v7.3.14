@@ -38,7 +38,7 @@ export default function WorkspaceExperience({ component: Scene }) {
     close(false); return run(fn);
   }
   async function clearCategory(category, command) {
-    const coordinator = actor.current, token = await coordinator.capture(), label = coordinator.label(token.projectId);
+    const coordinator = actor.current, token = await coordinator.capture(category), label = coordinator.label(token.projectId);
     const accepted = await confirm({ title: category === "workspace" ? "Delete saved workspace?" : "Forget project memory?", detail: category === "workspace" ? `Delete saved source, graph and checkpoints for “${label}”. This project's Assistant memory, chat, other projects and application preferences are retained.` : `Forget the selected memory in “${label}”. This does not erase existing chat quotes. Source, graph, other projects and model preferences are retained.` });
     if (!accepted) return { ok: false, cancelled: true };
     const receipt = await coordinator.clear(token, category, command); setError(""); return receipt;

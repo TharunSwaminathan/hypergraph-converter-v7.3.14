@@ -176,15 +176,17 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
         done(req.result.map(raw => { try { return { manifest: validateProject(raw) }; } catch { return { unavailable: true }; } }));
       }; });
     },
-    async deleteWorkspace(projectId, expectedRevision) {
+    async deleteWorkspace(projectId, expectedRevision, isCurrent = () => true) {
       checkId(projectId);
       return transaction(["projects", "threads", "workspaceRoots", "workspaceObjects"], "readwrite", (tx, done, abort) => {
         const projects = tx.objectStore("projects"), req = projects.get(projectId);
         req.onsuccess = () => { try {
+          if (!isCurrent()) throw new StorageFault("ABANDONED", "Project review changed. Nothing was cleared.", true);
           if (!req.result) throw new StorageFault("CONFLICT", "Project is missing.", true);
           const next = nextProject(req.result, expectedRevision); projects.put(next); tx.objectStore("workspaceRoots").delete(projectId);
           const objects = tx.objectStore("workspaceObjects"), keys = objects.getAllKeys(); keys.onsuccess = () => { for (const id of keys.result) if (typeof id === "string" && id.startsWith(projectId + "/")) objects.delete(id); };
           const threads = tx.objectStore("threads"), thread = threads.get(projectId); thread.onsuccess = () => { try {
+            if (!isCurrent()) throw new StorageFault("ABANDONED", "Project review changed. Nothing was cleared.", true);
             const record = thread.result ? normalizeThreadRecord(thread.result.record) : normalizeThreadRecord({ schemaVersion: 1, messages: [], workspace: {} });
             threads.put({ projectId, record: normalizeThreadRecord({ ...record, workspace: {} }) });
             done({ ok: true, saved: true, status: "committed", projectId, revision: next.revision, manifest: next });

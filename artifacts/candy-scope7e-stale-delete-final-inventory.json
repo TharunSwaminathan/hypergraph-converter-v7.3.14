@@ -1,0 +1,216 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "failedParentCandidate": "d3eeb5049941ee606b378a8345e41f1d0fbd7636",
+  "qualifiedScope7DParent": "6bf0f3614987559f93f5c0b7a26d24d976a82ecb",
+  "branch": "candy-integration-scope7e-resume-workspace-ux",
+  "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+  "candidateCommit": null,
+  "recordedAtUtc": "2026-10-31T20:45:00.134758+00:00",
+  "staged": false,
+  "committed": false,
+  "verdict": "READY TO CREATE SCOPE 7E STALE-DELETE CORRECTIVE CANDIDATE COMMIT",
+  "proposedPathCount": 13,
+  "productPaths": [
+    "src/components/WorkspaceExperience.jsx",
+    "src/persistence/projectSession.js",
+    "src/persistence/projectStore.js",
+    "src/persistence/resumeProjectSession.js",
+    "src/persistence/workspaceResumeCoordinator.js"
+  ],
+  "regressionPaths": [
+    "tests/candy-scope7e-stale-delete.test.mjs",
+    "tests/fixtures/candy-scope7e-stale-delete-browser.html",
+    "tests/fixtures/candy-scope7e-stale-delete-browser.mjs"
+  ],
+  "evidencePaths": [
+    "artifacts/candy-scope7e-stale-delete-corrective-report.md",
+    "artifacts/candy-scope7e-stale-delete-test-results.json",
+    "artifacts/candy-scope7e-stale-delete-browser-results.json",
+    "artifacts/candy-scope7e-stale-delete-security-review.md",
+    "artifacts/candy-scope7e-stale-delete-final-inventory.json"
+  ],
+  "allProposedGitPaths": [
+    "artifacts/candy-scope7e-stale-delete-browser-results.json",
+    "artifacts/candy-scope7e-stale-delete-corrective-report.md",
+    "artifacts/candy-scope7e-stale-delete-final-inventory.json",
+    "artifacts/candy-scope7e-stale-delete-security-review.md",
+    "artifacts/candy-scope7e-stale-delete-test-results.json",
+    "src/components/WorkspaceExperience.jsx",
+    "src/persistence/projectSession.js",
+    "src/persistence/projectStore.js",
+    "src/persistence/resumeProjectSession.js",
+    "src/persistence/workspaceResumeCoordinator.js",
+    "tests/candy-scope7e-stale-delete.test.mjs",
+    "tests/fixtures/candy-scope7e-stale-delete-browser.html",
+    "tests/fixtures/candy-scope7e-stale-delete-browser.mjs"
+  ],
+  "addedFiles": 8,
+  "modifiedFiles": 5,
+  "deletedFiles": 0,
+  "productTestLineAdditions": 134,
+  "productTestLineDeletions": 19,
+  "rows": [
+    {
+      "path": "artifacts/candy-scope7e-stale-delete-browser-results.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "7a4e5cb47ff0343d46427907565f67c4c692df9b5655244f3d875012515b7f4e",
+      "gitBlob": "014e1d4fcc9ce3399afeb5f12cb15d34b3e78896",
+      "bytes": 10870
+    },
+    {
+      "path": "artifacts/candy-scope7e-stale-delete-corrective-report.md",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "f70dcac1f31f4d2128ac3ec59582ce40398c079ddac78daefbaa9baabe3bcadc",
+      "gitBlob": "f2f9ac57846a05311c47a1f4860e437927765927",
+      "bytes": 5034
+    },
+    {
+      "path": "artifacts/candy-scope7e-stale-delete-final-inventory.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": null,
+      "gitBlob": null,
+      "bytes": null
+    },
+    {
+      "path": "artifacts/candy-scope7e-stale-delete-security-review.md",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "5edfffa79912393184c3ca5865ed5077c318a1ed37a2522ff031cc9f3c1418f5",
+      "gitBlob": "3e451c9f717c6a73c956bac61a17d86c936b8b2f",
+      "bytes": 3560
+    },
+    {
+      "path": "artifacts/candy-scope7e-stale-delete-test-results.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "398fe4748e8bd522e631d7a0afbbb90437ca39fdcdbcfa30af253f2455543f62",
+      "gitBlob": "65f1d7d55a84c3125d64e4b5f0c581c1e5667dbe",
+      "bytes": 17434
+    },
+    {
+      "path": "src/components/WorkspaceExperience.jsx",
+      "category": "product",
+      "change": "modified",
+      "sha256": "3e0897b9a6e2cac53e071f1849abb423d2b406d1a259ac6160c7ea880dd8099b",
+      "gitBlob": "1fe9ad09a358b90dd3003323c13f05fe51c05c92",
+      "bytes": 6656
+    },
+    {
+      "path": "src/persistence/projectSession.js",
+      "category": "product",
+      "change": "modified",
+      "sha256": "3c23ce6afffeb63a03857955c1448283fe29cd1ff885546ff30ba927b60e39d4",
+      "gitBlob": "01402832f81afab3f6dce2f864cb5f7e56912dc2",
+      "bytes": 5521
+    },
+    {
+      "path": "src/persistence/projectStore.js",
+      "category": "product",
+      "change": "modified",
+      "sha256": "2bdc7e2b369e1777a5f5bc341447ea524a3bd237719b50614e1f697be1a35ed6",
+      "gitBlob": "217222f61db4a5f33df7f20a56c209f77d293410",
+      "bytes": 31992
+    },
+    {
+      "path": "src/persistence/resumeProjectSession.js",
+      "category": "product",
+      "change": "modified",
+      "sha256": "ad74d1b3d932727229ad4c999c4bdd0abd2c0e7479000eaba53d375799cc6ad5",
+      "gitBlob": "a2f9ac1ce09012208ca4f282544444d6924e1972",
+      "bytes": 1483
+    },
+    {
+      "path": "src/persistence/workspaceResumeCoordinator.js",
+      "category": "product",
+      "change": "modified",
+      "sha256": "42bd12688d905dba40e5848ccad7ede56008b55590508387aab06743f3f00047",
+      "gitBlob": "1887f2177f6aea26a067dd22278ea04d77394237",
+      "bytes": 14909
+    },
+    {
+      "path": "tests/candy-scope7e-stale-delete.test.mjs",
+      "category": "regression",
+      "change": "added",
+      "sha256": "9edc685a5ef547ef94237b80fa6ee97f4282ad4a1287c19870ed0666b04d155f",
+      "gitBlob": "6888d50b3e60b6d3b9635fd8bdcb64e4dc4ff271",
+      "bytes": 10526
+    },
+    {
+      "path": "tests/fixtures/candy-scope7e-stale-delete-browser.html",
+      "category": "regression",
+      "change": "added",
+      "sha256": "bef0e3fa470e4509f3ec2098f516dbe52bce728512090827f97d37a8a3c36ba9",
+      "gitBlob": "992396dea2bc27bfd538dd2206517f94bcfc0d81",
+      "bytes": 339
+    },
+    {
+      "path": "tests/fixtures/candy-scope7e-stale-delete-browser.mjs",
+      "category": "regression",
+      "change": "added",
+      "sha256": "950564eff251b546803b09fbd080bb662588c4fa0656201dd3049b380bc861cf",
+      "gitBlob": "353b3eaf66e0f41044c2b7343cad2f2d2ba426ab",
+      "bytes": 9067
+    }
+  ],
+  "selfHashNote": "Inventory row is null to avoid self-reference; excluded work/final-digests.json records all13 final physical hashes including this file.",
+  "frozenProductBlobs": {
+    "src/components/WorkspaceExperience.jsx": "1fe9ad09a358b90dd3003323c13f05fe51c05c92",
+    "src/persistence/projectSession.js": "01402832f81afab3f6dce2f864cb5f7e56912dc2",
+    "src/persistence/projectStore.js": "217222f61db4a5f33df7f20a56c209f77d293410",
+    "src/persistence/resumeProjectSession.js": "a2f9ac1ce09012208ca4f282544444d6924e1972",
+    "src/persistence/workspaceResumeCoordinator.js": "1887f2177f6aea26a067dd22278ea04d77394237",
+    "tests/candy-scope7e-stale-delete.test.mjs": "6888d50b3e60b6d3b9635fd8bdcb64e4dc4ff271",
+    "tests/fixtures/candy-scope7e-stale-delete-browser.html": "992396dea2bc27bfd538dd2206517f94bcfc0d81",
+    "tests/fixtures/candy-scope7e-stale-delete-browser.mjs": "353b3eaf66e0f41044c2b7343cad2f2d2ba426ab"
+  },
+  "frozenProductPatchSha256": "bbc0ba0f465a4c88bdc41aa0196163408f7b5174bc0141fd98c0fdf68aa7b93d",
+  "sourceTests": 305,
+  "extractedTests": 305,
+  "browserCases": 62,
+  "coverage": {
+    "A_missing_notification": "PASS; token keeps known revision, native confirmation rejects foreign8 while UI observed7",
+    "B_transactional_double": "PASS; raw committed failed parent freshly reproduces deletion, proposed regression rejects it",
+    "C_native_IndexedDB": "PASS; real native store transactions in two isolated browser contexts, peer deliberately omits optional notification",
+    "D_current_owner_delete": "PASS after explicit refreshed review",
+    "E_acknowledged_same_owner_progression": "PASS; serialized chat/workspace/memory acknowledgements before and after review; native source/graph/chat progression",
+    "F_notification_case": "PASS; unchanged standard browser suite and new unit assertions",
+    "G_other_project": "PASS; B root unchanged both after A conflict and authorized A delete",
+    "H_stale_save": "PASS; existing source/extracted tests and unchanged standard two-App browser case",
+    "replay_double_wrong_category": "PASS; one-use in-memory token identity, exact project/category and active-scene guards",
+    "late_async_cancellation": "PASS; read recheck plus transaction cancellation rollback",
+    "malformed_rollback_future": "PASS; validated project metadata and strict known revision; no persisted ownership schema added"
+  },
+  "protectedHistory": {
+    "status": "PASS",
+    "failedCommitAndAllRefsImmutable": true,
+    "mainAndLiveOriginTagsUnchanged": true,
+    "trackedHistoricalFilesUnchanged": 1375,
+    "historicalEvidenceFilesByteAndMtimeIdentical": 369,
+    "allExistingRegressionTestsUnchanged": true,
+    "noAmendRebaseForcePushStageCommitTagMergeMainOr7F": true,
+    "historicalGitPathDelta": [],
+    "note": "Existing untracked failed-candidate reports and older work directories remain untouched and outside this proposed corrective boundary."
+  },
+  "archive": {
+    "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "sourceDigest": "b25486cac28f042ab69053f2f233fd5b5d8ce485473681a9057867786405d012",
+    "commitBound": false,
+    "commitBoundClosure": "DEFERRED until candidate commit",
+    "sha256": "bbdabc76f21cee2cf7852e4d43159e4437bccc8a16d3bdeecc4559b5058fd9bf",
+    "bytes": 1960485,
+    "entries": 1007,
+    "files": 951,
+    "directories": 56,
+    "allProductPathsExact": true,
+    "privateStateExcluded": true
+  },
+  "excludedTemporaryPaths": [
+    "artifacts/candy-scope7e-stale-delete-work/**",
+    "all pre-existing untracked failed-candidate evidence/work outside this exact13-path boundary"
+  ],
+  "candidateBoundClosure": "DEFERRED until child commit exists",
+  "noStageCommitPushTagMergeMainOr7F": true
+}
