@@ -8,6 +8,7 @@ import { prepareMemoryMutation, verifyMemoryEnvelope } from "./assistantMemorySc
 import { verifiedWorkspaceMemory } from "./assistantMemoryStore.js";
 import { stableStringify } from "../graph/graphFingerprint.js";
 import { CONNECTION_ID, CONNECTION_POLICY, validateConnectionRecord, validateConnectionProfile } from "./modelConnectionSchema.js";
+import { RESUME_PREFERENCE_ID, DEFAULT_RESUME_PREFERENCES, validateResumePreferences, resumePreferences, namedProject } from "./resumePreferenceSchema.js";
 
 const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections"];
 const checkId = id => { if (!isProjectId(id)) throw new StorageFault("CORRUPT", "Invalid project identity.", true); };
@@ -153,6 +154,44 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     });
   }
   const api = Object.freeze({
+    async readResumePreferences() { const value = await read("meta", RESUME_PREFERENCE_ID); return value ? validateResumePreferences(value) : { revision: 0, ...DEFAULT_RESUME_PREFERENCES }; },
+    async saveResumePreferences(expected, values) {
+      const safe = resumePreferences(expected + 1, values);
+      return transaction(["meta"], "readwrite", (tx, done, abort) => {
+        const meta = tx.objectStore("meta"), req = meta.get(RESUME_PREFERENCE_ID);
+        req.onsuccess = () => { try { const current = req.result ? validateResumePreferences(req.result).revision : 0; if (expected !== current) throw new StorageFault("CONFLICT", "Startup preferences changed in another tab. Reload before saving.", true); meta.put(safe); done(safe); } catch (error) { abort(error); } };
+      });
+    },
+    async createFreshProject(expected, values, name = "Untitled workspace") {
+      const project = initialProject(), safe = resumePreferences(expected + 1, { ...namedProject(values, project.projectId, name), selectedProjectId: project.projectId });
+      return transaction(["projects", "meta"], "readwrite", (tx, done, abort) => {
+        const meta = tx.objectStore("meta"), req = meta.get(RESUME_PREFERENCE_ID);
+        req.onsuccess = () => { try { const current = req.result ? validateResumePreferences(req.result).revision : 0; if (expected !== current) throw new StorageFault("CONFLICT", "Startup preferences changed; no fresh project was created. Reload first.", true); const projects = tx.objectStore("projects"), keys = projects.getAllKeys(); keys.onsuccess = () => { if (keys.result.length >= PROJECT_LIMITS.projects) { abort(new StorageFault("LIMIT", "Project retention limit reached.", true)); return; } projects.add(project); meta.put(safe); done({ project, preferences: safe }); }; } catch (error) { abort(error); } };
+      });
+    },
+    async readProject(projectId) { checkId(projectId); const p = await read("projects", projectId); if (!p) throw new StorageFault("CONFLICT", "This saved project is missing.", true); return validateProject(p); },
+    async listProjects() {
+      return transaction(["projects"], "readonly", (tx, done, abort) => { const req = tx.objectStore("projects").getAll(); req.onsuccess = () => {
+        if (req.result.length > PROJECT_LIMITS.projects) { abort(new StorageFault("LIMIT", "Saved project inventory exceeds its limit.", true)); return; }
+        done(req.result.map(raw => { try { return { manifest: validateProject(raw) }; } catch { return { unavailable: true }; } }));
+      }; });
+    },
+    async deleteWorkspace(projectId, expectedRevision) {
+      checkId(projectId);
+      return transaction(["projects", "threads", "workspaceRoots", "workspaceObjects"], "readwrite", (tx, done, abort) => {
+        const projects = tx.objectStore("projects"), req = projects.get(projectId);
+        req.onsuccess = () => { try {
+          if (!req.result) throw new StorageFault("CONFLICT", "Project is missing.", true);
+          const next = nextProject(req.result, expectedRevision); projects.put(next); tx.objectStore("workspaceRoots").delete(projectId);
+          const objects = tx.objectStore("workspaceObjects"), keys = objects.getAllKeys(); keys.onsuccess = () => { for (const id of keys.result) if (typeof id === "string" && id.startsWith(projectId + "/")) objects.delete(id); };
+          const threads = tx.objectStore("threads"), thread = threads.get(projectId); thread.onsuccess = () => { try {
+            const record = thread.result ? normalizeThreadRecord(thread.result.record) : normalizeThreadRecord({ schemaVersion: 1, messages: [], workspace: {} });
+            threads.put({ projectId, record: normalizeThreadRecord({ ...record, workspace: {} }) });
+            done({ ok: true, saved: true, status: "committed", projectId, revision: next.revision, manifest: next });
+          } catch (error) { abort(error); } };
+        } catch (error) { abort(error); } };
+      });
+    },
     async readConnectionProfile() {
       const value = await read("modelConnections", CONNECTION_ID);
       return value ? validateConnectionRecord(value) : { revision: 0, deleted: false, profile: null };
@@ -341,7 +380,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     async clearApplicationData() {
       // Retain minimal identity/revision tombstones and the selection/migration
       // markers. Dropping the database would allow old owners to re-migrate.
-      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections"], "readwrite", (tx, done, abort) => {
+      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections", "meta"], "readwrite", (tx, done, abort) => {
         const projects = tx.objectStore("projects"), req = projects.getAll();
         req.onsuccess = () => {
           try {
@@ -351,7 +390,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
             }
             tx.objectStore("threads").clear(); tx.objectStore("quarantine").clear(); tx.objectStore("workspaceRoots").clear(); tx.objectStore("workspaceObjects").clear(); tx.objectStore("assistantMemories").clear();
             const connections = tx.objectStore("modelConnections"), connection = connections.get(CONNECTION_ID);
-            connection.onsuccess = () => { try { const revision = connection.result ? validateConnectionRecord(connection.result).revision : 0; connections.put(validateConnectionRecord({ id: CONNECTION_ID, schemaVersion: 1, revision: revision + 1, deleted: true, profile: null })); connections.delete("reconnect-lease"); done({ ok: true, saved: true, status: "committed", scope: "project-data and connection intent; identity tombstones retained" }); } catch (error) { abort(error); } };
+            connection.onsuccess = () => { try { const revision = connection.result ? validateConnectionRecord(connection.result).revision : 0; connections.put(validateConnectionRecord({ id: CONNECTION_ID, schemaVersion: 1, revision: revision + 1, deleted: true, profile: null })); connections.delete("reconnect-lease"); const meta = tx.objectStore("meta"), prefs = meta.get(RESUME_PREFERENCE_ID); prefs.onsuccess = () => { try { if (prefs.result) { const current = validateResumePreferences(prefs.result); meta.put(resumePreferences(current.revision + 1, { ...current, autoResume: false, selectedProjectId: null, labels: [] })); } done({ ok: true, saved: true, status: "committed", scope: "project-data and connection intent; identity tombstones retained" }); } catch (error) { abort(error); } }; } catch (error) { abort(error); } };
           } catch (error) { abort(error); }
         };
       });

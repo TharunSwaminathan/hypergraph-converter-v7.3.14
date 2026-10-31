@@ -138,30 +138,37 @@ export async function prepareWorkspace(projectId, revision, input, previous = nu
   const root = await sealRoot(body);
   return { root, records, writeBytes: records.reduce((n, record) => { const header = { ...record }; delete header.data; return n + (record.data?.byteLength ?? 0) + utf8Bytes(stableStringify(header)); }, 0) + utf8Bytes(stableStringify(root)) };
 }
-export async function validateWorkspaceData(bundle) {
+export async function validateWorkspaceData(bundle, { sourceOnly = false } = {}) {
+  const started = performance.now(), timings = { sourceValidationMs: 0, graphValidationMs: 0 };
   const { projectId } = bundle.manifest, root = await verifyRoot(bundle.root, projectId);
+  timings.resumeMetadataValidationMs = performance.now() - started;
   if (bundle.manifest.deleted) fail("DELETED", "Deleted projects cannot restore workspace data.");
   if (root.publicationRevision > bundle.manifest.revision) fail("INCOMPLETE", "Workspace publication is newer than the project manifest.");
   const selected = bundle.checkpointId ? root.history.find(entry => entry.graph.objectId === bundle.checkpointId) : root;
   if (!selected) fail("INCOMPLETE", "Requested graph checkpoint is missing.");
   const data = new Map();
-  for (const h of [...selected.sources, ...(selected.graph ? [selected.graph] : []), selected.derived]) {
+  for (const h of [...selected.sources, ...(selected.graph && !sourceOnly ? [selected.graph] : []), selected.derived]) {
+    const objectStarted = performance.now();
     const stored = bundle.objects.find(item => item?.id === h.id);
     if (!stored || stored.data == null || h.lifecycle === "EXTERNAL") fail(h.objectType === "source" ? "MISSING_SOURCE" : "INCOMPLETE", "Committed workspace bytes are missing; exact recovery is required.");
     const { data: bytes, ...header } = stored;
     if (stableStringify(header) !== stableStringify(h) || !(bytes instanceof ArrayBuffer) || bytes.byteLength !== h.byteLength || await sha256(bytes) !== h.sha256) fail(h.objectType === "source" ? "CORRUPT_SOURCE" : h.objectType === "graph" ? "CORRUPT_GRAPH" : "CORRUPT", "Stored object digest/type/ownership mismatch. Workspace remains unavailable.");
     data.set(h.id, bytes);
+    if (h.objectType === "source") timings.sourceValidationMs += performance.now() - objectStarted;
+    if (h.objectType === "graph") timings.graphValidationMs += performance.now() - objectStarted;
   }
   let graph = null;
-  if (selected.graph) {
+  if (selected.graph && !sourceOnly) {
+    const graphStarted = performance.now();
     const payload = graphPayload(parseBoundedJSON(new TextDecoder("utf-8", { fatal: true }).decode(data.get(selected.graph.id)), graphLimits));
     const owned = createGraphState(payload.hyperedges, { graphType: payload.graphType, explicitVertices: payload.explicitVertices });
     graph = Object.freeze({ ...owned, graphId: payload.graphId, graphVersion: payload.graphVersion, graphFingerprint: payload.graphFingerprint });
+    timings.graphValidationMs += performance.now() - graphStarted;
   }
   const metadata = parseBoundedJSON(new TextDecoder("utf-8", { fatal: true }).decode(data.get(selected.derived.id)), { bytes: L.derivedBytes, depth: 18, nodes: 25000, array: 1000, string: 60000 });
   if (!keys(metadata, ["schemaVersion", "workspace", "mapping"]) || metadata.schemaVersion !== 1) fail("INCOMPATIBLE", "Derived metadata schema is incompatible.");
-  if (selected.graph && await sha256(new TextEncoder().encode(stableStringify(metadata.mapping))) !== selected.graph.provenance.mappingSha256) fail("CORRUPT", "Mapping provenance does not match the graph snapshot.");
-  return { manifest: bundle.manifest, root, graph, sources: selected.sources.map(h => ({ ...h, bytes: data.get(h.id), available: true, requiresReupload: false })), metadata: metadata.workspace, mapping: metadata.mapping,
+  if (selected.graph && !sourceOnly && await sha256(new TextEncoder().encode(stableStringify(metadata.mapping))) !== selected.graph.provenance.mappingSha256) fail("CORRUPT", "Mapping provenance does not match the graph snapshot.");
+  return { manifest: bundle.manifest, root, graph, validationTimings: { ...timings, totalWorkspaceValidationMs: performance.now() - started }, sources: selected.sources.map(h => ({ ...h, bytes: data.get(h.id), available: true, requiresReupload: false })), metadata: metadata.workspace, mapping: metadata.mapping,
     history: root.history.map(entry => ({ graph: entry.graph, verified: false })), missingHistoryIds: bundle.missingHistoryIds ?? [], historical: Boolean(bundle.checkpointId),
     orphanIds: bundle.orphanIds ?? [], orphanStatus: bundle.orphanIds?.length ? "ORPHANED" : "COMPLETE", available: true };
 }
