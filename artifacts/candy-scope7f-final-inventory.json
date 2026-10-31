@@ -1,0 +1,259 @@
+{
+  "baseline": "1d4c3b0659e39ae015f8e85888a1f0f68b14cecf",
+  "recordedAtUtc": "2026-10-31T22:13:05Z",
+  "verdict": "SCOPE 7F PHYSICAL RESTART QUALIFICATION PASSED \u2014 EVIDENCE ONLY",
+  "scope": "Scope 7F qualification of unchanged qualified Scope 7E product",
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "productPaths": [],
+  "testPaths": [],
+  "docCorrectivePaths": [],
+  "evidencePaths": [
+    {
+      "path": "artifacts/candy-scope7f-physical-restart-plan.md",
+      "sha256": "f4e71c767fa89bbbe5f925a31b983616a732c13432e7661ffff16ad35832be3d"
+    },
+    {
+      "path": "artifacts/candy-scope7f-interruption-matrix.json",
+      "sha256": "53e004e30bd2002999c415b3c9d1fa59c693ff8dc8422bd43a581039c585a504"
+    },
+    {
+      "path": "artifacts/candy-scope7f-browser-results.json",
+      "sha256": "5feb9d5f61fcf87ffc4f87e3e9d6b2b6a51e1b96110ea05ed51ec8bea672f495"
+    },
+    {
+      "path": "artifacts/candy-scope7f-restart-soak.json",
+      "sha256": "c832c30296dae38e023b055f2ca0d1954c32ba715a75f0b7dfd2aeeaa3becf87"
+    },
+    {
+      "path": "artifacts/candy-scope7f-memory-results.json",
+      "sha256": "6d8a1ea1fd6c908cc14bb1ac082903298eea5e50a86a3ee468027cc3c6046748"
+    },
+    {
+      "path": "artifacts/candy-scope7f-model-reconnect-results.json",
+      "sha256": "7d77838b93002e3065a747017d431d7dd7077062a678bd1145740f3796c0bb90"
+    },
+    {
+      "path": "artifacts/candy-scope7f-security-review.md",
+      "sha256": "f10f049a6edc8c595fd2e652145c6d645fa0b56bcbc115f2a8d6adad7cb4f5e4"
+    },
+    {
+      "path": "artifacts/candy-scope7f-final-inventory.json",
+      "sha256": null
+    },
+    {
+      "path": "artifacts/candy-scope7f-qualification-report.md",
+      "sha256": "ff6bd8adcc5204cacca115a249dd822efa0db4887d3e2be301acc2b45c58649f"
+    }
+  ],
+  "selfHashMeaning": "Self hash is pinned externally by work/final-evidence-digests.json, avoiding recursive content.",
+  "temporaryToolingExcluded": "artifacts/candy-scope7f-work/**",
+  "protectedHistory": {
+    "pass": true,
+    "head": "1d4c3b0659e39ae015f8e85888a1f0f68b14cecf",
+    "branch": "candy-integration-scope7f-physical-restart-qualification",
+    "mainUnchanged": true,
+    "allLocalRefsAndTagsUnchanged": true,
+    "originMainAndTagsUnchanged": true,
+    "trackedFilesAndMtimesUnchanged": 1388,
+    "historicalUntrackedFilesUnchanged": 0,
+    "previousScope7eExactShaEvidenceDigestsMatch": 8,
+    "indexEmpty": true,
+    "productDelta": [],
+    "noStageCommitPushTagMergeMainChanges": true
+  },
+  "securityUnresolved": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0
+  },
+  "sourceGates": {
+    "installation": {
+      "gate": "npm-ci",
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 6.71,
+      "log": "baseline-npm-ci.txt",
+      "sha256": "ced1c8fad11d15ec19e4b74dfd45df03479c04e55b80a277fcd668ddaead2c5c"
+    },
+    "completed": [
+      {
+        "gate": "tests",
+        "command": [
+          "npm.cmd",
+          "test"
+        ],
+        "exitCode": 0,
+        "seconds": 410.35,
+        "log": "baseline-external-temp-tests.txt",
+        "sha256": "a037e79bdc316f2f848e888102febc2b63f99ababb7946418ab96d4a052c39ec"
+      },
+      {
+        "gate": "scope7a",
+        "command": [
+          "node",
+          "scripts/run-node-tests.mjs",
+          "--match=candy-scope7a"
+        ],
+        "exitCode": 0,
+        "seconds": 13.68,
+        "log": "baseline-external-temp-scope7a.txt",
+        "sha256": "d484515dcdaf2486f165097b4cb26833773b72c7259eb07de21c62d5ab5d167d"
+      },
+      {
+        "gate": "scope7b",
+        "command": [
+          "node",
+          "scripts/run-node-tests.mjs",
+          "--match=candy-scope7b"
+        ],
+        "exitCode": 0,
+        "seconds": 15.47,
+        "log": "baseline-external-temp-scope7b.txt",
+        "sha256": "4d6f1890ff9f22be26c011a393280d18e7dac650b8793149d474b463e8eca1cb"
+      },
+      {
+        "gate": "scope7c",
+        "command": [
+          "node",
+          "scripts/run-node-tests.mjs",
+          "--match=candy-scope7c"
+        ],
+        "exitCode": 0,
+        "seconds": 16.06,
+        "log": "baseline-external-temp-scope7c.txt",
+        "sha256": "d9fe7947d088f8e967f0e0b7269e31dceb11de7b88995071f6c3d027046406b2"
+      },
+      {
+        "gate": "scope7d",
+        "command": [
+          "node",
+          "scripts/run-node-tests.mjs",
+          "--match=candy-scope7d"
+        ],
+        "exitCode": 0,
+        "seconds": 14.71,
+        "log": "baseline-external-temp-scope7d.txt",
+        "sha256": "ff24649f577e52a27f746b1b28707af5f12802bfd6669b955084c2207ae96a57"
+      },
+      {
+        "gate": "scope7e",
+        "command": [
+          "node",
+          "scripts/run-node-tests.mjs",
+          "--match=candy-scope7e"
+        ],
+        "exitCode": 0,
+        "seconds": 14.17,
+        "log": "baseline-external-temp-scope7e.txt",
+        "sha256": "a7658f5de06fe86bd2820975bc8ce4c2ab86cbec06033ae473b048997e1aac51"
+      },
+      {
+        "gate": "lint",
+        "command": [
+          "npm.cmd",
+          "run",
+          "lint"
+        ],
+        "exitCode": 0,
+        "seconds": 67.97,
+        "log": "baseline-external-temp-lint.txt",
+        "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+      },
+      {
+        "gate": "build",
+        "command": [
+          "npm.cmd",
+          "run",
+          "build"
+        ],
+        "exitCode": 0,
+        "seconds": 0.93,
+        "log": "baseline-external-temp-build.txt",
+        "sha256": "3aa1c3f856a67c4ea82693bc457ce53e8822f57f384c0fa5645568b69e8b7d28"
+      },
+      {
+        "gate": "pages",
+        "command": [
+          "npm.cmd",
+          "run",
+          "build:github"
+        ],
+        "exitCode": 0,
+        "seconds": 0.87,
+        "log": "baseline-external-temp-pages.txt",
+        "sha256": "307a2cc4bfb5b02b9d36c7163cd1810203d5e142ab612d423d53e82f1e827b73"
+      },
+      {
+        "gate": "relative",
+        "command": [
+          "npm.cmd",
+          "run",
+          "build:relative"
+        ],
+        "exitCode": 0,
+        "seconds": 0.87,
+        "log": "baseline-external-temp-relative.txt",
+        "sha256": "7c852601bfdec2b43cf8c75b0139a2e21d751601325be321b0cf7b41938c1519"
+      },
+      {
+        "gate": "audit",
+        "command": [
+          "npm.cmd",
+          "audit",
+          "--omit=dev",
+          "--json"
+        ],
+        "exitCode": 0,
+        "seconds": 1.3,
+        "log": "baseline-external-temp-audit.txt",
+        "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+      },
+      {
+        "gate": "diff-check",
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exitCode": 0,
+        "seconds": 0.03,
+        "log": "baseline-external-temp-diff-check.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "sourceTestCount": 305,
+    "focused": {
+      "7A": {
+        "passed": 4,
+        "discovered": 4
+      },
+      "7B": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "7C": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "7D": {
+        "passed": 3,
+        "discovered": 3
+      },
+      "7E": {
+        "passed": 4,
+        "discovered": 4
+      }
+    },
+    "productionVulnerabilities": 0
+  },
+  "truePowerLossCases": 0,
+  "interruptionResultGroups": 27,
+  "requestedCases": 20,
+  "browserRestarts": 35,
+  "rendererCrashes": 2,
+  "faultAssistedGroups": 15,
+  "soakCycles": 12
+}

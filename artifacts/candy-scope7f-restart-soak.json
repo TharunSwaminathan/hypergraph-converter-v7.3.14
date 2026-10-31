@@ -1,0 +1,127 @@
+{
+  "baseline": "1d4c3b0659e39ae015f8e85888a1f0f68b14cecf",
+  "recordedAtUtc": "2026-10-31T22:13:05Z",
+  "verdict": "SCOPE 7F PHYSICAL RESTART QUALIFICATION PASSED \u2014 EVIDENCE ONLY",
+  "scope": "Scope 7F qualification of unchanged qualified Scope 7E product",
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "restartRecoveryCycles": 12,
+  "successfulRecoveries": 12,
+  "failures": 0,
+  "nativeCore": {
+    "cycles": [
+      {
+        "cycle": 1,
+        "lastAcknowledgedRevision": 11,
+        "recoveredRevision": 11,
+        "objects": 15,
+        "memoryRecords": 4,
+        "retrieved": 2,
+        "pass": true
+      },
+      {
+        "cycle": 2,
+        "lastAcknowledgedRevision": 13,
+        "recoveredRevision": 13,
+        "objects": 18,
+        "memoryRecords": 5,
+        "retrieved": 2,
+        "pass": true
+      },
+      {
+        "cycle": 3,
+        "lastAcknowledgedRevision": 15,
+        "recoveredRevision": 15,
+        "objects": 18,
+        "memoryRecords": 6,
+        "retrieved": 2,
+        "pass": true
+      },
+      {
+        "cycle": 4,
+        "lastAcknowledgedRevision": 17,
+        "recoveredRevision": 17,
+        "objects": 18,
+        "memoryRecords": 7,
+        "retrieved": 2,
+        "pass": true
+      },
+      {
+        "cycle": 5,
+        "lastAcknowledgedRevision": 19,
+        "recoveredRevision": 19,
+        "objects": 18,
+        "memoryRecords": 8,
+        "retrieved": 2,
+        "pass": true
+      },
+      {
+        "cycle": 6,
+        "lastAcknowledgedRevision": 21,
+        "recoveredRevision": 21,
+        "objects": 18,
+        "memoryRecords": 9,
+        "retrieved": 2,
+        "pass": true
+      },
+      {
+        "cycle": 7,
+        "lastAcknowledgedRevision": 23,
+        "recoveredRevision": 23,
+        "objects": 18,
+        "memoryRecords": 10,
+        "retrieved": 2,
+        "pass": true
+      },
+      {
+        "cycle": 8,
+        "lastAcknowledgedRevision": 25,
+        "recoveredRevision": 25,
+        "objects": 18,
+        "memoryRecords": 11,
+        "retrieved": 2,
+        "pass": true
+      }
+    ],
+    "durationSeconds": 13.025
+  },
+  "integratedUi": {
+    "cycles": [
+      {
+        "cycle": 1,
+        "revision": 14,
+        "recoveredRevision": 17,
+        "objects": 24,
+        "pass": true
+      },
+      {
+        "cycle": 2,
+        "revision": 22,
+        "recoveredRevision": 25,
+        "objects": 37,
+        "pass": true
+      },
+      {
+        "cycle": 3,
+        "revision": 30,
+        "recoveredRevision": 33,
+        "objects": 39,
+        "pass": true
+      },
+      {
+        "cycle": 4,
+        "revision": 38,
+        "recoveredRevision": 41,
+        "objects": 39,
+        "pass": true
+      }
+    ]
+  },
+  "durationMeaning": "Bounded repeated-cycle qualification, not a long-duration reliability or physical power-loss guarantee. Native core eight-cycle elapsed time is measured; UI events/process timestamps are preserved in raw receipts.",
+  "unexpectedObjectGrowth": false,
+  "objectGrowthEvidence": "Native retained objects reach 18 and remain at 18 for six cycles. UI retained objects stabilize at 39 by cycle three and remain 39 at cycle four, under the unchanged five-checkpoint policy.",
+  "projectRevisionMeaning": "Mounted Resume may advance shared project revision for sanitized chat/reference hydration. Workspace root and memory digests remain unchanged across each restart; no duplicate workspace/memory publication, queued work replay or mutation authority restoration.",
+  "staleWriterEvidence": "candy-scope7f-work/tabs-1-complete.json",
+  "reconnectEvidence": "candy-scope7f-work/ui-1-complete.json",
+  "unexpectedBrowserExceptions": 0,
+  "unhandledPromiseRejectionsObserved": 0
+}

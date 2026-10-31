@@ -1,0 +1,28 @@
+{
+  "baseline": "1d4c3b0659e39ae015f8e85888a1f0f68b14cecf",
+  "recordedAtUtc": "2026-10-31T22:13:05Z",
+  "verdict": "SCOPE 7F PHYSICAL RESTART QUALIFICATION PASSED \u2014 EVIDENCE ONLY",
+  "scope": "Scope 7F qualification of unchanged qualified Scope 7E product",
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "nativeIndexedDB": true,
+  "isolation": "Three fresh synthetic profiles, canonical http://127.0.0.1:5173, strictPort; only owned Chrome PID trees/renderer targets terminated. No personal/default profile opened.",
+  "resultGroupsPassed": 27,
+  "resultGroupsTotal": 27,
+  "browserRestartCycles": 35,
+  "rendererCrashEvents": 2,
+  "unexpectedBrowserExceptions": 0,
+  "unhandledPromiseRejectionsObserved": 0,
+  "expectedNetworkFailures": "Four real local model probes failed during actual service stop; storage quota/abort faults were deliberately injected.",
+  "setupFailuresPreserved": [
+    "candy-scope7f-work/native-1-failure.json",
+    "candy-scope7f-work/native-2-failure.json",
+    "candy-scope7f-work/native-3-failure.json"
+  ],
+  "setupFailureMeaning": "First two selected a built-in background target instead of a page; third supplied a string where authoritative Blob/bytes were required. Corrected temporary harness only; no product defect or product source change.",
+  "receipts": [
+    "candy-scope7f-work/native-4-complete.json",
+    "candy-scope7f-work/ui-1-complete.json",
+    "candy-scope7f-work/tabs-1-complete.json"
+  ],
+  "allOwnedBrowserAndServerProcessesStopped": true
+}
