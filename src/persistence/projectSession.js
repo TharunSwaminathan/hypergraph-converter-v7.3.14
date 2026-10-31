@@ -32,6 +32,7 @@ export function createProjectSession(store) {
     saveThread: (...args) => write("saveThread", ...args),
     publishMigration: (...args) => write("publishMigration", ...args),
     saveWorkspace: (...args) => write("saveWorkspace", ...args),
+    saveMemory: (...args) => write("saveMemory", ...args),
     deleteProject: (...args) => write("deleteProject", ...args),
     reattachSource: (...args) => write("reattachSource", ...args),
     discardWorkspaceOrphans: (...args) => write("discardWorkspaceOrphans", ...args),

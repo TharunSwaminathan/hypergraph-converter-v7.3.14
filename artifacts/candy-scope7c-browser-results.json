@@ -1,0 +1,139 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "b41791766c6042504a8b9fdaa7e677526e7c4fc7",
+  "branch": "candy-integration-scope7c-assistant-memory",
+  "sourceDigest": "7e7ff0abd407eb8fa43c01f771ec9f54997bfc02085210e35d58c604fed3c8c4",
+  "candidateCommit": null,
+  "commitCreated": false,
+  "staged": false,
+  "recordedAtUtc": "2026-10-31T02:54:33.044992+00:00",
+  "status": "PASS",
+  "caseCount": 21,
+  "reports": [
+    {
+      "ok": true,
+      "phase": "first",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "actual-App-disconnected-memory-ready",
+          "modelRequests": 0
+        },
+        {
+          "case": "actual-App-source-graph-intact"
+        },
+        {
+          "case": "actual-App-explicit-remember-native-committed-receipt",
+          "events": [
+            "memory-request-success",
+            "memory-transaction-complete",
+            "visible-committed-receipt"
+          ]
+        },
+        {
+          "case": "hostile-stored-text-no-HTML-or-mutation"
+        },
+        {
+          "case": "actual-Assistant-natural-remember-while-disconnected"
+        },
+        {
+          "case": "actual-App-source-change-stales-derived-memory"
+        },
+        {
+          "case": "real-second-tab-stale-write-and-forget-resurrection-rejected"
+        },
+        {
+          "case": "native-project-A-B-A-context-isolation",
+          "surface": "programmatic project selection; polished project-switch UX deferred"
+        },
+        {
+          "case": "native-future-memory-schema-preserved-rejected"
+        },
+        {
+          "case": "native-abort-and-injected-quota-rollback",
+          "quotaInjected": true,
+          "abortNative": true
+        },
+        {
+          "case": "native-memory-budgets-and-performance",
+          "records": 32,
+          "retrieved": 4,
+          "timing": {
+            "create32Ms": 129.69999998807907,
+            "list32Ms": 1.5,
+            "retrieve32Ms": 0.10000002384185791
+          }
+        },
+        {
+          "case": "native-v2-to-v3-upgrade-preserves-valid-7B-workspace"
+        },
+        {
+          "case": "project-deletion-removes-only-owned-memory"
+        }
+      ],
+      "defaultProjectId": "0e5e4af6-ae99-460f-8378-9050a6ef61fa",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7c\\artifacts\\candy-scope7c-work\\browser-profile-frozen-final",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7c\\artifacts\\candy-scope7c-work\\s-final"
+    },
+    {
+      "ok": true,
+      "phase": "reload",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "actual-App-same-origin-refresh-memory",
+          "restartLoadMs": 10.199999988079071
+        },
+        {
+          "case": "restored-memory-without-model-reconnect",
+          "requests": 0
+        }
+      ],
+      "defaultProjectId": "0e5e4af6-ae99-460f-8378-9050a6ef61fa",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7c\\artifacts\\candy-scope7c-work\\browser-profile-frozen-final",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7c\\artifacts\\candy-scope7c-work\\s-final"
+    },
+    {
+      "ok": true,
+      "phase": "reopen",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "actual-App-browser-process-close-reopen-memory",
+          "restartLoadMs": 11.400000005960464
+        },
+        {
+          "case": "restored-memory-without-model-reconnect",
+          "requests": 0
+        },
+        {
+          "case": "actual-App-manual-Ollama-connect",
+          "fixture": false,
+          "model": "qwen3:8b"
+        },
+        {
+          "case": "actual-Ollama-request-receives-restored-project-memory",
+          "fixture": false,
+          "model": "qwen3:8b"
+        },
+        {
+          "case": "manual-model-disconnect-retains-memory"
+        },
+        {
+          "case": "actual-App-forget-control"
+        }
+      ],
+      "defaultProjectId": "0e5e4af6-ae99-460f-8378-9050a6ef61fa",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7c\\artifacts\\candy-scope7c-work\\browser-profile-frozen-final",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7c\\artifacts\\candy-scope7c-work\\s-final"
+    }
+  ],
+  "actualLocalModel": "qwen3:8b; actual App manual Connect and HTTP 200 chat request containing restored normalized context",
+  "automaticReconnect": false,
+  "realUserProfileAccessed": false,
+  "faultDistinction": "Quota throw injected; abort/transactions/version upgrade/multi-tab/reopen use native IndexedDB. Project A/B/A selection is programmatic, not a new polished project-switch UX.",
+  "physicalPowerLossClaimed": false
+}

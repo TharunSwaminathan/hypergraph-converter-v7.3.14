@@ -10,6 +10,8 @@ import { createProjectStore } from "./persistence/projectStore.js";
 import { createProjectSession } from "./persistence/projectSession.js";
 import { createWorkspaceSourceRegistry, captureWorkspaceInputs, decodeWorkspaceInputs } from "./persistence/workspaceCapture.js";
 import { usePersistentWorkspace } from "./persistence/usePersistentWorkspace.js";
+import { useAssistantMemory } from "./persistence/useAssistantMemory.js";
+import AssistantMemoryPanel from "./components/AssistantMemoryPanel.jsx";
 import { StorageFault } from "./persistence/storageSafety.js";
 import { normalizeParsedHyperedges, autoDetectDetails, parseInputFormat } from "./utils/parsers.js";
 import { arrayMax } from "./utils/numeric.js";
@@ -394,6 +396,7 @@ function AppCore() {
       dynamicUpdateControls.invalidateApply(); pendingHypergraphUpdateControllerRef.current.onGraphTransition(restored.graph, "RESTORED_DATA_WITHOUT_EXECUTION_AUTHORITY");
     }
   } });
+  const assistantMemory = useAssistantMemory({ session: persistenceSession, workspaceReady: workspaceReceipt.state !== "loading", workspaceCurrent: !workspaceReceipt.unsaved && ["clean", "committed"].includes(workspaceReceipt.state) });
   const graphInputsForParse = useCallback((targetFormat, payload) => {
     const pairs = targetFormat === "cornell" ? [["nv", payload.nverts], ["sv", payload.simplices], ["tv", payload.times]] : [["text:" + targetFormat, payload.text]];
     const sources = [];
@@ -4242,6 +4245,7 @@ function AppCore() {
     && customFiles.length > 0;
   const agentState = {
     persistenceSession,
+    assistantMemory,
     candy: candyRuntime.state,
     reactOrchestratorEnabled: reactOrchestratorEnabled(),
     specialistReviewRequired,
@@ -4756,9 +4760,10 @@ function AppCore() {
       return { ok: false, setupRequired: true, error: message };
     }
 
+    const projectMemoryContext = await assistantMemory.context();
     const request = buildConversationPrompt({
       userQuery,
-      sessionContext: buildConversationContext(sessionContext, sessionContext.pendingAction),
+      sessionContext: { ...buildConversationContext(sessionContext, sessionContext.pendingAction), projectMemoryContext },
     });
     setLocalModelLastConversation({ status: "running", message: "Generating conversational reply…", classification: "", updatedAt: new Date().toISOString() });
     return runExclusiveLocalModelTask({
@@ -5590,6 +5595,7 @@ function AppCore() {
 
           {/* Hypergraph Assistant */}
           <div id="tools-panel-assistant" role="tabpanel" aria-labelledby="tools-tab-assistant" hidden={activeToolsSection !== "assistant"} style={{ display: activeToolsSection === "assistant" ? "block" : "none" }}>
+            <AssistantMemoryPanel memory={assistantMemory} />
             <AgentChatPanel
               agentState={agentState}
               agentActions={agentActions}

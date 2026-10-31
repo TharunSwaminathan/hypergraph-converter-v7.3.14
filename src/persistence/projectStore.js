@@ -4,8 +4,11 @@ import { boundedCopy, fault, StorageFault } from "./storageSafety.js";
 import { prepareWorkspace, rootHeaders, validateWorkspaceRoot, verifyRoot, sealRoot } from "./workspaceObjectSchema.js";
 import { WORKSPACE_LIMITS, checkStorageEstimate, requireBudget } from "./storageBudget.js";
 import { sourceBytes, compareSourceIdentity } from "./workspaceProvenance.js";
+import { prepareMemoryMutation, verifyMemoryEnvelope } from "./assistantMemorySchema.js";
+import { verifiedWorkspaceMemory } from "./assistantMemoryStore.js";
+import { stableStringify } from "../graph/graphFingerprint.js";
 
-const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects"];
+const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories"];
 const checkId = id => { if (!isProjectId(id)) throw new StorageFault("CORRUPT", "Invalid project identity.", true); };
 export function createProjectStore(indexedDB = globalThis.indexedDB, databaseName = PROJECT_DATABASE) {
   let opening = null, blocked = null;
@@ -18,7 +21,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
       const pending = new Promise((resolve, reject) => {
         let abandoned = false, request;
         try { request = indexedDB.open(databaseName, PROJECT_DATABASE_VERSION); } catch (error) { reject(fault(error)); return; }
-        request.onupgradeneeded = () => { for (const name of STORES) if (!request.result.objectStoreNames.contains(name)) request.result.createObjectStore(name, { keyPath: ["projects", "threads", "workspaceRoots"].includes(name) ? "projectId" : "id" }); };
+        request.onupgradeneeded = () => { for (const name of STORES) if (!request.result.objectStoreNames.contains(name)) request.result.createObjectStore(name, { keyPath: ["projects", "threads", "workspaceRoots", "assistantMemories"].includes(name) ? "projectId" : "id" }); };
         request.onerror = () => reject(fault(request.error));
         request.onblocked = () => { abandoned = true; reject(new StorageFault("BLOCKED", "Project storage is blocked. Close older tabs, then retry.")); };
         request.onsuccess = () => {
@@ -53,7 +56,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     checkId(projectId);
     const safe = record === undefined ? undefined : normalizeThreadRecord(record);
     const lineage = migration && boundedCopy(migration, { bytes: 2048, depth: 2, nodes: 12, string: 160 });
-    return transaction(["projects", "threads", "migrations", ...(deleting ? ["workspaceRoots", "workspaceObjects"] : [])], "readwrite", (tx, done, abort) => {
+    return transaction(["projects", "threads", "migrations", ...(deleting ? ["workspaceRoots", "workspaceObjects", "assistantMemories"] : [])], "readwrite", (tx, done, abort) => {
       const projects = tx.objectStore("projects"), request = projects.get(projectId);
       request.onsuccess = () => {
         try {
@@ -70,6 +73,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     });
   }
   function removeDurable(tx, projectId) {
+    tx.objectStore("assistantMemories").delete(projectId);
     tx.objectStore("workspaceRoots").delete(projectId);
     const objects = tx.objectStore("workspaceObjects"), keys = objects.getAllKeys();
     keys.onsuccess = () => { for (const id of keys.result) if (typeof id === "string" && id.startsWith(projectId + "/")) objects.delete(id); };
@@ -147,7 +151,60 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
       };
     });
   }
-  return Object.freeze({
+  const api = Object.freeze({
+    async readMemory(projectId) {
+      checkId(projectId);
+      const bundle = await transaction(["projects", "assistantMemories"], "readonly", (tx, done, abort) => {
+        const p = tx.objectStore("projects").get(projectId);
+        p.onsuccess = () => {
+          try {
+            if (!p.result) throw new StorageFault("CONFLICT", "Project is missing.", true);
+            const manifest = validateProject(p.result);
+            if (manifest.deleted) throw new StorageFault("DELETED", "Deleted project memory cannot be restored.", true);
+            const m = tx.objectStore("assistantMemories").get(projectId);
+            m.onsuccess = () => done({ manifest, envelope: m.result ?? null });
+          } catch (error) { abort(error); }
+        };
+      });
+      const envelope = await verifyMemoryEnvelope(bundle.envelope, projectId);
+      if (envelope && envelope.revision > bundle.manifest.revision) throw new StorageFault("CORRUPT", "Memory revision exceeds project revision.", true);
+      return { ...bundle, envelope };
+    },
+    async saveMemory(projectId, expectedRevision, command, isCurrent = () => true) {
+      command = boundedCopy(command, { bytes: 12000, depth: 3, nodes: 25, string: 2000 });
+      const previous = await api.readMemory(projectId);
+      if (previous.manifest.revision !== expectedRevision) throw new StorageFault("CONFLICT", "Memory writer is stale; reload before writing.", true);
+      const workspaceFact = command?.provenance === "WORKSPACE_DERIVED" ? await verifiedWorkspaceMemory(api, projectId) : null;
+      if (command?.provenance === "WORKSPACE_DERIVED" && !workspaceFact) throw new StorageFault("INCOMPLETE", "Verified workspace is required for derived memory.", true);
+      const derived = command?.provenance === "WORKSPACE_DERIVED" ? { ...command, content: workspaceFact.content, memoryType: "TECHNICAL_FACT", topic: "workspace-snapshot" } : command?.provenance === "SYSTEM_DERIVED" ? { ...command, content: "Project memory uses bounded local-only storage and never authorizes execution.", memoryType: "TECHNICAL_FACT", topic: "memory-policy" } : command;
+      const prepared = await prepareMemoryMutation(projectId, expectedRevision + 1, previous.envelope, derived, workspaceFact?.binding ?? null);
+      await checkStorageEstimate(new TextEncoder().encode(stableStringify(prepared)).byteLength);
+      if (!isCurrent()) throw new StorageFault("ABANDONED", "Memory owner changed before publication.", true);
+      return transaction(["projects", "threads", "assistantMemories"], "readwrite", (tx, done, abort) => {
+        const projects = tx.objectStore("projects"), p = projects.get(projectId);
+        p.onsuccess = () => {
+          try {
+            if (!isCurrent()) throw new StorageFault("ABANDONED", "Memory owner changed before publication.", true);
+            if (!p.result) throw new StorageFault("CONFLICT", "Project is missing.", true);
+            const next = nextProject(p.result, expectedRevision), memories = tx.objectStore("assistantMemories"), m = memories.get(projectId);
+            m.onsuccess = () => {
+              try {
+                if (stableStringify(m.result ?? null) !== stableStringify(previous.envelope)) throw new StorageFault("CONFLICT", "Memory changed while preparing the write.", true);
+                const thread = tx.objectStore("threads").get(projectId);
+                thread.onsuccess = () => {
+                  try {
+                    if (!thread.result && p.result.revision > 1) throw new StorageFault("CORRUPT", "Published project thread is missing.", true);
+                    if (!thread.result) tx.objectStore("threads").put({ projectId, record: normalizeThreadRecord({ schemaVersion: 1, messages: [], workspace: {} }) });
+                    memories.put(prepared); projects.put(next);
+                    done({ ok: true, saved: true, status: "committed", projectId, revision: next.revision, manifest: next, envelope: prepared });
+                  } catch (error) { abort(error); }
+                };
+              } catch (error) { abort(error); }
+            };
+          } catch (error) { abort(error); }
+        };
+      });
+    },
     subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); },
     async retry() { if (blocked?.readOnly) throw blocked; blocked = null; await database(); },
     async close() { const db = await opening?.catch(() => null); db?.close(); opening = null; },
@@ -249,7 +306,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     async clearApplicationData() {
       // Retain minimal identity/revision tombstones and the selection/migration
       // markers. Dropping the database would allow old owners to re-migrate.
-      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects"], "readwrite", (tx, done, abort) => {
+      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories"], "readwrite", (tx, done, abort) => {
         const projects = tx.objectStore("projects"), req = projects.getAll();
         req.onsuccess = () => {
           try {
@@ -257,10 +314,11 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
               const current = validateProject(raw);
               if (!current.deleted) { const next = nextProject(current, current.revision); projects.put(validateProject({ ...next, deleted: true, migrationLineage: [], tombstone: { revision: next.revision, deletedAt: next.updatedAt } })); }
             }
-            tx.objectStore("threads").clear(); tx.objectStore("quarantine").clear(); tx.objectStore("workspaceRoots").clear(); tx.objectStore("workspaceObjects").clear(); done({ ok: true, saved: true, status: "committed", scope: "project-data; identity tombstones retained" });
+            tx.objectStore("threads").clear(); tx.objectStore("quarantine").clear(); tx.objectStore("workspaceRoots").clear(); tx.objectStore("workspaceObjects").clear(); tx.objectStore("assistantMemories").clear(); done({ ok: true, saved: true, status: "committed", scope: "project-data; identity tombstones retained" });
           } catch (error) { abort(error); }
         };
       });
     },
   });
+  return api;
 }

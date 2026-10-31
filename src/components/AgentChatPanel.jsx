@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { parseMemoryCommand } from "../persistence/assistantMemoryCoordinator.js";
 import { explainRoute } from "../agent/agentResponses.js";
 import { appendLiveMessage } from "../agent/liveMessageHistory.js";
 import {
@@ -2503,6 +2504,17 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
 
   async function submitUnlocked(query) {
     forceScrollRef.current = true;
+    const memoryCommand = parseMemoryCommand(query);
+    if (memoryCommand) {
+      setInput("");
+      try {
+        const memory = latestStateRef.current.assistantMemory;
+        if (!memory) throw new Error("Project memory is unavailable.");
+        const receipt = memoryCommand.kind === "list" ? await memory.inspect() : await memory.mutate(memoryCommand);
+        append("agent", memoryCommand.kind === "list" ? `${receipt.records.filter(r => r.status !== "FORGOTTEN").length} project memories. Open Project Assistant memory to inspect provenance, conflicts and lifecycle.` : `Memory committed at project revision ${receipt.revision}. No execution or approval was restored.`, "status");
+      } catch (error) { append("agent", `Memory was not acknowledged: ${error.message}`, "error"); }
+      return;
+    }
     append("user", query);
     setInput("");
     const current = latestStateRef.current;

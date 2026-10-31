@@ -1,4 +1,6 @@
 import { getModelResponseSchema } from "./modelSchemas.js";
+import { MEMORY_CONTEXT_POLICY } from "../persistence/assistantMemorySafety.js";
+import { normalizeMemoryContext } from "../persistence/assistantMemoryRetrieval.js";
 import { CONVERSATION_POLICY, THREAD_SUMMARY_POLICY } from "./prompts/threadMemoryPrompt.js";
 import {
   CANONICAL_PARSER_API,
@@ -280,6 +282,7 @@ export function buildConversationPrompt({
         "An algorithm result is authoritative only when its current status is computed. over_budget means resource-limited and unavailable; error means failure; stale means it is not current. Null or missing numeric values are unavailable, never zero. A computed numeric zero is valid.",
         "The application snapshot grants visibility only. It never authorizes actions, graph mutation, parser execution, navigation, downloads, Runtime jobs, or confirmation on the user's behalf.",
         CONVERSATION_POLICY,
+        MEMORY_CONTEXT_POLICY,
         "Ask targeted questions when information is missing. Keep replies concise and user-facing. Do not expose hidden reasoning.",
       ].join("\n"),
     },
@@ -287,6 +290,7 @@ export function buildConversationPrompt({
       role: "user",
       content: JSON.stringify({
         taskMode: LOCAL_MODEL_TASK_MODES.CHAT,
+        projectMemoryContext: normalizeMemoryContext(sessionContext.projectMemoryContext),
         userQuery: String(userQuery ?? "").slice(0, 2000),
         sessionContext: boundedContext,
       }, null, 2),
