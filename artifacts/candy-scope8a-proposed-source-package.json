@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "1d4c3b0659e39ae015f8e85888a1f0f68b14cecf",
+  "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99",
+  "archive": {
+    "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99",
+    "sha256": "539b90683bd2e8d201ee1eb5c03782819eb31b041fc98f51c4a9616ebef9957d",
+    "bytes": 1979418,
+    "entries": 1016,
+    "files": 960,
+    "directories": 56,
+    "projectRoot": "candy-scope8a-proposed-7194025eaa31",
+    "verificationLevel": "structural-only; every payload independently matched frozen proposed-source bytes",
+    "sourceCommit": null,
+    "commitBoundProvenanceClaimed": false,
+    "producer": {
+      "gate": "package-v6-clean-producer",
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "-B",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6\\scripts\\package-portable-source.py",
+        "--root",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+        "--source-mode",
+        "snapshot",
+        "--project-name",
+        "candy-scope8a-proposed-7194025eaa31",
+        "--output",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\package-v6-clean.zip"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+      "exitCode": 0,
+      "seconds": 3.85,
+      "log": "package-v6-clean-producer.txt",
+      "logSha256": "fc6411f8ccfea13a007405d368fcd9b8092eaaa33e4027372bbe224c8dd309d8",
+      "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+    },
+    "verifier": {
+      "gate": "package-v6-clean-verifier",
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "-B",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6\\scripts\\verify-portable-archive.py",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\package-v6-clean.zip",
+        "--expected-root",
+        "candy-scope8a-proposed-7194025eaa31",
+        "--report-output",
+        "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\package-v6-clean-verification.json"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+      "exitCode": 0,
+      "seconds": 0.15,
+      "log": "package-v6-clean-verifier.txt",
+      "logSha256": "faa33adabe8d54d6dbb143dbdd9869c1f6cc7fdc944b767fb90a7488c43049e6",
+      "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+    }
+  },
+  "reproducibility": {
+    "status": "PASS",
+    "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99",
+    "cleanSha256": "539b90683bd2e8d201ee1eb5c03782819eb31b041fc98f51c4a9616ebef9957d",
+    "populatedSha256": "539b90683bd2e8d201ee1eb5c03782819eb31b041fc98f51c4a9616ebef9957d",
+    "byteIdentical": true,
+    "privateMarkerAbsent": true,
+    "syntheticPrivateInputs": [
+      ".local/workspaces/private-database.raw",
+      ".local/assistant-memory/private-record.json",
+      "candy-runtime/.local/qualification/private-evidence.json",
+      "node_modules/private-marker.txt",
+      ".env.local",
+      "dist/private-model-state.json"
+    ],
+    "actualBuildOutputIncludedInPopulatedInput": true,
+    "packagedFilesMatchedFrozenSource": 960
+  },
+  "buildComparison": {
+    "build": {
+      "files": 23,
+      "byteIdentical": true,
+      "testGuardAbsent": true
+    },
+    "pages": {
+      "files": 23,
+      "byteIdentical": true,
+      "testGuardAbsent": true
+    },
+    "relative": {
+      "files": 23,
+      "byteIdentical": true,
+      "testGuardAbsent": true
+    }
+  },
+  "allArchivePayloadsMatchFrozenSource": true,
+  "gitFreeExtractedFiles": 960,
+  "commitBoundProvenanceClaimed": false,
+  "sourceCommit": null,
+  "deferred": [
+    "candidate-SHA production",
+    "commit-bound verification",
+    "candidate-bound remote CI",
+    "final exact-SHA qualification"
+  ],
+  "policyChanges": false
+}

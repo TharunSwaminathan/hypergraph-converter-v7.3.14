@@ -9,6 +9,7 @@ import { verifiedWorkspaceMemory } from "./assistantMemoryStore.js";
 import { stableStringify } from "../graph/graphFingerprint.js";
 import { CONNECTION_ID, CONNECTION_POLICY, validateConnectionRecord, validateConnectionProfile } from "./modelConnectionSchema.js";
 import { RESUME_PREFERENCE_ID, DEFAULT_RESUME_PREFERENCES, validateResumePreferences, resumePreferences, namedProject } from "./resumePreferenceSchema.js";
+import { preparePortablePublication } from "./workspacePortability.js";
 
 const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections"];
 const checkId = id => { if (!isProjectId(id)) throw new StorageFault("CORRUPT", "Invalid project identity.", true); };
@@ -339,6 +340,88 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     publishMigration: (projectId, expectedRevision, record, lineage) => mutate(projectId, expectedRevision, record, lineage),
     deleteProject: (projectId, expectedRevision) => mutate(projectId, expectedRevision, undefined, null, true),
     readWorkspace: workspaceBundle,
+    async readPortableSnapshot(projectId) {
+      checkId(projectId);
+      return transaction(["projects", "workspaceRoots", "workspaceObjects", "assistantMemories", "meta", "modelConnections"], "readonly", (tx, done, abort) => {
+        const project = tx.objectStore("projects").get(projectId);
+        project.onsuccess = () => { try {
+          const manifest = validateProject(project.result);
+          if (manifest.deleted) throw new StorageFault("DELETED", "Deleted project cannot export data.", true);
+          const root = tx.objectStore("workspaceRoots").get(projectId);
+          root.onsuccess = () => { try {
+            if (!root.result) throw new StorageFault("INCOMPLETE", "No saved workspace to export.", true);
+            const valid = validateWorkspaceRoot(root.result, projectId), objects = [], headers = [...new Map(rootHeaders(valid).map(h => [h.id, h])).values()];
+            const memory = tx.objectStore("assistantMemories").get(projectId), preferences = tx.objectStore("meta").get(RESUME_PREFERENCE_ID), model = tx.objectStore("modelConnections").get(CONNECTION_ID);
+            let pending = headers.length + 3, memoryValue, prefsValue, modelValue;
+            function finish() { if (--pending) return; try { const prefs = prefsValue ? validateResumePreferences(prefsValue) : DEFAULT_RESUME_PREFERENCES; done({ project: manifest, root: valid, objects, memory: memoryValue ?? null, name: prefs.labels.find(p => p.projectId === projectId)?.name ?? "Workspace " + projectId.slice(0, 8), modelProfile: modelValue ? validateConnectionRecord(modelValue).profile : null }); } catch (e) { abort(e); } }
+            memory.onsuccess = () => { memoryValue = memory.result; finish(); };
+            preferences.onsuccess = () => { prefsValue = preferences.result; finish(); };
+            model.onsuccess = () => { modelValue = model.result; finish(); };
+            for (const header of headers) { const request = tx.objectStore("workspaceObjects").get(header.id); request.onsuccess = () => { if (!request.result) { abort(new StorageFault("INCOMPLETE", "Saved object is missing; export is unavailable.", true)); return; } objects.push(request.result); finish(); }; }
+          } catch (e) { abort(e); } };
+        } catch (e) { abort(e); } };
+      });
+    },
+    async importWorkspace(stage, { targetId = null, expectedRevision = null, isCurrent = () => true } = {}) {
+      if (targetId !== null) checkId(targetId);
+      const projectId = targetId ?? newProjectId(), base = targetId === null ? 1 : expectedRevision;
+      const preferences = await api.readResumePreferences(), connection = await api.readConnectionProfile();
+      const prepared = await preparePortablePublication(stage, projectId, base + 1);
+      await checkStorageEstimate(prepared.root.totalBytes + new TextEncoder().encode(stableStringify(prepared.memory)).byteLength);
+      if (!isCurrent()) throw new StorageFault("ABANDONED", "Import review changed. Nothing was imported.", true);
+      const marker = `portable/${prepared.digest}/${prepared.sourceProjectId}`;
+      return transaction(["projects", "threads", "workspaceRoots", "workspaceObjects", "assistantMemories", "meta", "modelConnections"], "readwrite", (tx, done, abort) => {
+        const projects = tx.objectStore("projects"), allProjects = projects.getAll();
+        allProjects.onsuccess = () => { try {
+          if (!isCurrent()) throw new StorageFault("ABANDONED", "Import review changed.", true);
+          if (allProjects.result.length > PROJECT_LIMITS.projects) throw new StorageFault("LIMIT", "Project inventory exceeds its limit.", true);
+          const inventory = allProjects.result.map(validateProject), existing = inventory.find(p => p.projectId === projectId);
+          if (inventory.some(p => p.migrationLineage.some(entry => entry.source === marker))) throw new StorageFault("DUPLICATE", "This exact portable file was already imported. Reload its existing project; it will not be replayed.", true);
+          if (targetId === null && existing || targetId !== null && !existing) throw new StorageFault("CONFLICT", "Import destination changed; review again.", true);
+          if (!existing && inventory.length >= PROJECT_LIMITS.projects) throw new StorageFault("LIMIT", "Project retention limit reached.", true);
+          const lineage = existing?.migrationLineage ?? [];
+          if (lineage.length >= PROJECT_LIMITS.lineage) throw new StorageFault("LIMIT", "Project import/migration history is full; use a separate project.", true);
+          const next = nextProject(existing ?? initialProject(projectId), base, { migrationLineage: [...lineage, { source: marker, sourceVersion: prepared.sourceSchema, result: "COPIED_VALIDATED_PUBLISHED", at: new Date().toISOString() }] });
+          const meta = tx.objectStore("meta"), pref = meta.get(RESUME_PREFERENCE_ID);
+          pref.onsuccess = () => { try {
+            const currentPrefs = pref.result ? validateResumePreferences(pref.result) : { revision: 0, ...DEFAULT_RESUME_PREFERENCES };
+            if (currentPrefs.revision !== preferences.revision) throw new StorageFault("CONFLICT", "Startup preferences changed during import; review again.", true);
+            const models = tx.objectStore("modelConnections"), model = models.get(CONNECTION_ID);
+            model.onsuccess = () => { try {
+              const currentModel = model.result ? validateConnectionRecord(model.result) : { revision: 0, profile: null };
+              if (currentModel.revision !== connection.revision) throw new StorageFault("CONFLICT", "Model preferences changed during import; review again.", true);
+              const roots = tx.objectStore("workspaceRoots"), allRoots = roots.getAll();
+              allRoots.onsuccess = () => { try {
+                if (!isCurrent()) throw new StorageFault("ABANDONED", "Import owner changed before publication.", true);
+                const total = allRoots.result.filter(x => x.projectId !== projectId).reduce((sum, x) => sum + validateWorkspaceRoot(x, x.projectId).totalBytes, prepared.root.totalBytes);
+                requireBudget(total, WORKSPACE_LIMITS.applicationBytes, "Application durable bytes");
+                const defaultPointer = meta.get("default-project");
+                defaultPointer.onsuccess = () => { try {
+                  if (defaultPointer.result) {
+                    const pointer = defaultPointer.result;
+                    if (Object.keys(pointer).sort().join() !== "appNamespace,id,projectId,schemaVersion" || pointer.id !== "default-project" || pointer.schemaVersion !== 1 || pointer.appNamespace !== APP_NAMESPACE || !inventory.some(p => p.projectId === pointer.projectId)) throw new StorageFault("CORRUPT", "Original project selection is invalid; import cannot repair it implicitly.", true);
+                  } else if (inventory.length) throw new StorageFault("CORRUPT", "Original project selection is missing; saved projects are preserved.", true);
+                  const objects = tx.objectStore("workspaceObjects"), objectKeys = objects.getAllKeys();
+                objectKeys.onsuccess = () => { try {
+                  if (!isCurrent()) throw new StorageFault("ABANDONED", "Import owner changed before object publication.", true);
+                  for (const id of objectKeys.result) if (typeof id === "string" && id.startsWith(projectId + "/")) objects.delete(id);
+                  for (const record of prepared.records) objects.put(record);
+                  roots.put(prepared.root); projects.put(next); tx.objectStore("assistantMemories").put(prepared.memory);
+                  // Chat and all transient approvals are deliberately not imported.
+                  tx.objectStore("threads").put({ projectId, record: normalizeThreadRecord({ schemaVersion: 1, messages: [], workspace: {} }) });
+                  meta.put(resumePreferences(currentPrefs.revision + 1, namedProject({ ...currentPrefs, selectedProjectId: projectId }, projectId, prepared.name)));
+                  if (!defaultPointer.result) meta.put({ id: "default-project", schemaVersion: 1, appNamespace: APP_NAMESPACE, projectId });
+                  const restoreModel = Boolean(prepared.model && currentModel.revision === 0);
+                  if (restoreModel) models.put(validateConnectionRecord({ id: CONNECTION_ID, schemaVersion: 1, revision: 1, deleted: false, profile: prepared.model }));
+                  done({ ok: true, saved: true, status: "committed", projectId, revision: next.revision, manifest: next, workspace: prepared.root, archiveSha256: prepared.digest, sourceProjectId: prepared.sourceProjectId, modelDisposition: restoreModel ? "restored-off" : "existing-preferences-retained", migratedFrom: prepared.migratedFrom });
+                } catch (e) { abort(e); } };
+                } catch (e) { abort(e); } };
+              } catch (e) { abort(e); } };
+            } catch (e) { abort(e); } };
+          } catch (e) { abort(e); } };
+        } catch (e) { abort(e); } };
+      });
+    },
     async saveWorkspace(projectId, expectedRevision, input) {
       const previous = await workspaceBundle(projectId);
       if (previous.manifest.revision !== expectedRevision) throw new StorageFault("CONFLICT", "Project revision changed before workspace preparation.", true);

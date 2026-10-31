@@ -98,6 +98,14 @@ export function createWorkspaceResumeCoordinator({ store, channel = null }) {
     getSnapshot: () => snapshot, subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); }, initialize,
     async choose(id) { const token = ++generation; try { const value = await inspect(id, token); emit({ selectedId: id, available: value, state: "RESTORE_AVAILABLE", active: null, live: null, foreignChange: false, message: "Selected saved project. Choose Resume to open it." }); return true; } catch (error) { if (current(token)) emit({ state: "RECOVERY_REQUIRED", message: "Selected project needs recovery. Its data is preserved.", code: fault(error).code }); return false; } },
     resume: () => open(snapshot.selectedId), reload: () => { initialized = null; return initialize(); },
+    async reviewImported(projectId) {
+      const token = ++generation;
+      emit({ state: "RESTORING", active: null, live: null, foreignChange: false, message: "Verifying imported workspace…" });
+      const preferences = await store.readResumePreferences(), inventory = await store.listProjects(), value = await inspect(projectId, token);
+      if (!current(token)) return false;
+      emit({ preferences, projects: inventory.filter(x => x.manifest && !x.manifest.deleted).map(x => x.manifest), selectedId: projectId, available: value, state: "RESTORE_AVAILABLE", message: "Import complete. Resume to open validated data; pending actions were not imported." });
+      announce("workspace", projectId); announce("preferences", projectId); return true;
+    },
     async fresh(name) {
       await serial;
       if (snapshot.preferenceError || snapshot.state === "RECOVERY_REQUIRED" && !snapshot.storageAvailable) {

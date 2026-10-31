@@ -3,6 +3,8 @@ import { createProjectStore } from "../persistence/projectStore.js";
 import { createWorkspaceResumeCoordinator } from "../persistence/workspaceResumeCoordinator.js";
 import { DEFAULT_RESUME_PREFERENCES } from "../persistence/resumePreferenceSchema.js";
 import ResumeWorkspacePanel from "./ResumeWorkspacePanel.jsx";
+import WorkspacePortabilityPanel from "./WorkspacePortabilityPanel.jsx";
+import { exportPortableWorkspace } from "../persistence/workspacePortability.js";
 
 function Confirmation({ value, close }) {
   const ref = useRef(null), cancel = useRef(null);
@@ -46,7 +48,25 @@ export default function WorkspaceExperience({ component: Scene }) {
   const mutateMemory = async (command, original) => ["clear", "forget", "forgetType", "supersede"].includes(command.kind) ? clearCategory("memory", command) : original(command);
   const actions = { choose: id => navigate(() => actor.current.choose(id)), resume: () => run(() => actor.current.resume()), fresh: () => navigate(() => actor.current.fresh()), reload: () => navigate(() => actor.current.reload()),
     setAuto: value => run(() => actor.current.setAutoResume(value)), rename: name => run(() => actor.current.rename(name)), deleteWorkspace: () => run(() => clearCategory("workspace")), clearMemory: () => run(() => clearCategory("memory", { kind: "clear" })) };
-  function panel(onForgetModel) { return <><ResumeWorkspacePanel snapshot={snapshot} actions={actions} onForgetModel={onForgetModel} />{error && <p role="alert">{error}</p>}</>; }
+  async function importWorkspace(stage, replace) {
+    const coordinator = actor.current, initial = coordinator?.getSnapshot(), active = initial?.active;
+    if (!coordinator) throw new Error("Workspace storage is not ready.");
+    if (!replace && initial.live?.workspace.unsaved && !await confirm({ title: "Leave unsaved changes?", detail: "Importing a separate workspace leaves uncommitted edits and pending actions behind. Existing saved projects remain intact. Cancel to keep working on the current edits." })) return { cancelled: true };
+    const isCurrent = () => actor.current === coordinator && coordinator.getSnapshot().active?.key === active?.key && coordinator.getSnapshot().selectedId === initial.selectedId && !coordinator.getSnapshot().foreignChange;
+    let receipt;
+    if (replace) {
+      const token = await coordinator.capture("workspace");
+      const accepted = await confirm({ title: "Replace selected workspace?", detail: `Replace saved source, graph, checkpoints and project memory in “${coordinator.label(token.projectId)}” with “${stage.name}”. Current chat and pending actions are cleared. Other projects and existing global model preferences are retained. Imported memory remains untrusted context.` });
+      if (!accepted) return { cancelled: true };
+      receipt = await active.session.importReviewed(token.review, stage, isCurrent);
+    } else receipt = await store.importWorkspace(stage, { isCurrent });
+    // Publication has already completed. A discovery failure must never be
+    // misreported as a rejected transaction or preserved old destination.
+    try { await coordinator.reviewImported(receipt.projectId); }
+    catch { setError("Import committed. Reload saved projects to review the imported workspace."); }
+    return receipt;
+  }
+  function panel(onForgetModel) { return <><ResumeWorkspacePanel snapshot={snapshot} actions={actions} onForgetModel={onForgetModel}><WorkspacePortabilityPanel projectId={snapshot.active?.projectId ?? snapshot.selectedId} canReplace={Boolean(snapshot.active?.projectId && snapshot.live && !snapshot.live.workspace.unsaved && !snapshot.foreignChange)} onExport={() => exportPortableWorkspace(store, snapshot.active?.projectId ?? snapshot.selectedId)} onImport={importWorkspace} /></ResumeWorkspacePanel>{error && <p role="alert">{error}</p>}</>; }
   const onVisualization = useCallback(value => { const coordinator = actor.current; if (coordinator) void coordinator.setVisualization(value).catch(() => setError("Display preferences were not saved. Reload startup settings to review changes.")); }, []);
   return <>{snapshot.active ? <Scene key={snapshot.active.key} experience={{ active: snapshot.active, session: snapshot.active.session, preferences: snapshot.preferences, externalStale: Boolean(snapshot.foreignChange), report, panel, confirm, mutateMemory, onVisualization }} /> : <main className="workspace-startup"><h1>Hypergraph Converter Studio</h1><p>Your work stays in this browser. Choose what to open.</p>{panel(null)}</main>}{confirmation && <Confirmation value={confirmation} close={close} />}</>;
 }

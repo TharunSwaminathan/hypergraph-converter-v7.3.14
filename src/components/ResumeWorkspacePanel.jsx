@@ -5,7 +5,7 @@ import "./ResumeWorkspacePanel.css";
 
 const titles = { NO_SAVED_WORKSPACE: "Your workspace is ready", RESTORE_AVAILABLE: "Pick up where you left off", RESTORING: "Opening your workspace…", RESTORED: "Workspace ready", PARTIALLY_RESTORED: "Workspace partly restored", STALE: "Saved workspace changed", RECOVERY_REQUIRED: "Saved data needs attention", FRESH_SESSION: "Fresh workspace" };
 const modelNames = { loading: "Waiting for workspace and memory", configured: "Configured · not connected", connecting: "Checking Ollama…", reconnecting: "Reconnecting to Ollama…", connected: "Connected", disconnected: "Disconnected", unavailable: "Ollama unavailable", failed: "Connection needs attention", model_unavailable: "Remembered model unavailable" };
-export default function ResumeWorkspacePanel({ snapshot: s, actions, onForgetModel }) {
+export default function ResumeWorkspacePanel({ snapshot: s, actions, onForgetModel, children }) {
   const [name, setName] = useState("");
   useEffect(() => { setName(s.selectedId ? projectLabel(s.preferences, s.selectedId) : ""); }, [s.selectedId, s.preferences]);
   const current = s.live, available = s.available, active = Boolean(s.active), ready = current && current.workspace.state !== "loading";
@@ -35,5 +35,6 @@ export default function ResumeWorkspacePanel({ snapshot: s, actions, onForgetMod
       <p>Workspace deletion removes this project’s saved source, graph and checkpoints. Memory, chat and other projects are retained. Model connection belongs to all projects. Each clear action requires confirmation.</p>
       {s.unavailableProjects > 0 && <p role="alert">Some saved projects have invalid metadata and are preserved for recovery.</p>}
     </details>
+    {children}
   </section>;
 }

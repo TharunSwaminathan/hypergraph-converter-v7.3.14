@@ -48,7 +48,7 @@ export function decodeWorkspaceInputs(restored) {
   const file = key => { const s = source(key), text = decoded(key); return { id: s.provenance.originalId || key, name: s.provenance.name, type: s.provenance.mediaType,
     text, size: s.byteLength, sourceBlob: new Blob([s.bytes], { type: s.provenance.mediaType }), extension: s.provenance.name.split('.').pop().toLowerCase(), requiresReupload: false }; };
   const editors = {};
-  for (const row of m.editors) { if (!row || typeof row.slot !== "string" || !/^(text:[a-z_]+|nv|sv|tv)$/.test(row.slot) || Object.hasOwn(editors, row.slot)) bad(); editors[row.slot] = decoded(row.key); }
+  for (const row of m.editors) { if (!row || typeof row.slot !== "string" || !/^(text:[a-z0-9_]+|nv|sv|tv)$/.test(row.slot) || Object.hasOwn(editors, row.slot)) bad(); editors[row.slot] = decoded(row.key); }
   const ids = new Set();
   const batches = m.batches.map(batch => {
     if (!batch || typeof batch.id !== "string" || batch.id.length > 160 || ids.has(batch.id) || typeof batch.label !== "string" || batch.label.length > 240 || !Number.isSafeInteger(batch.version)
@@ -57,7 +57,7 @@ export function decodeWorkspaceInputs(restored) {
   });
   if (m.activeBatchId !== null && !ids.has(m.activeBatchId)) bad();
   const manualUploads = {};
-  for (const row of m.manual) { if (!row || typeof row.slot !== "string" || !/^(text:[a-z_]+|nv|sv|tv)$/.test(row.slot) || Object.hasOwn(manualUploads, row.slot)) bad(); manualUploads[row.slot] = file(row.key); }
+  for (const row of m.manual) { if (!row || typeof row.slot !== "string" || !/^(text:[a-z0-9_]+|nv|sv|tv)$/.test(row.slot) || Object.hasOwn(manualUploads, row.slot)) bad(); manualUploads[row.slot] = file(row.key); }
   const graphSources = restored.root.graph?.provenance.sources.map(ref => restored.sources.find(s => s.objectId === ref.objectId)) ?? [];
   return { fmt: m.fmt, editors, batches, activeBatchId: m.activeBatchId, manualUploads, customFiles: m.customKeys.map(file), customCode: decoded(m.parserKey), customCodeVersion: m.parserVersion,
     graphBinding: restored.partial ? null : { sources: graphSources.map(s => ({ key: s.provenance.sourceKey, name: s.provenance.name, kind: s.provenance.kind, mediaType: s.provenance.mediaType, originalId: s.provenance.originalId, bytes: new Blob([s.bytes]) })),

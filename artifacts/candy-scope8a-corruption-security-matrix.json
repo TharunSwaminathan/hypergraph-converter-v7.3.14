@@ -1,0 +1,208 @@
+{
+  "baseline": "1d4c3b0659e39ae015f8e85888a1f0f68b14cecf",
+  "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99",
+  "status": "PASS",
+  "scenarioGroups": 32,
+  "rows": [
+    {
+      "scenario": "deterministic export / exact source, graph and provenance",
+      "expectedAndObserved": "Repeated native UI/API export and binary/multi-checkpoint unit round-trip",
+      "evidenceClass": "Native + Web Crypto/transactional double",
+      "status": "PASS"
+    },
+    {
+      "scenario": "fresh installation / distinct local identity / restart",
+      "expectedAndObserved": "Separate clean native importer, normal Resume and browser/server restart",
+      "evidenceClass": "Native",
+      "status": "PASS"
+    },
+    {
+      "scenario": "future and supported older schema",
+      "expectedAndObserved": "Future versions fail; explicit minimal v1 to v2 migration supplies no model intent",
+      "evidenceClass": "Unit + actual Web Crypto",
+      "status": "PASS"
+    },
+    {
+      "scenario": "path traversal / aliases / duplicate names",
+      "expectedAndObserved": "Only canonical objects/<UUID-v4>.bin; no filesystem extraction",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "decompression bomb",
+      "expectedAndObserved": "ZIP/GZIP/foreign magic rejected before decoding/inflation; no inflater",
+      "evidenceClass": "Adversarial unit + source review",
+      "status": "PASS"
+    },
+    {
+      "scenario": "oversized manifest / payload / depth",
+      "expectedAndObserved": "Pre-read and JSON/object/aggregate budgets reject",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "malformed JSON / duplicate keys",
+      "expectedAndObserved": "Canonical JSON plus bounded parser rejects ambiguity",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "prototype pollution",
+      "expectedAndObserved": "Bounded plain-data/strict field validation rejects dangerous keys",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "hash substitution / wrong SHA",
+      "expectedAndObserved": "Actual bytes hashed; rehashed false headers and changed graph relationships rejected",
+      "evidenceClass": "Adversarial unit + actual Web Crypto",
+      "status": "PASS"
+    },
+    {
+      "scenario": "missing / extra / unreferenced payload",
+      "expectedAndObserved": "Exact root/header/payload inventory required",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "duplicate identity / ownership / provenance",
+      "expectedAndObserved": "Duplicate object/path and forged ownership/schema/size rejected",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "project ID collision / A-B isolation",
+      "expectedAndObserved": "Fresh local identity by default; explicit reviewed replacement leaves B unchanged",
+      "evidenceClass": "Native + transactional double",
+      "status": "PASS"
+    },
+    {
+      "scenario": "replay / rollback / tombstone resurrection",
+      "expectedAndObserved": "Exact-file duplicate conflict includes tombstones and later edits",
+      "evidenceClass": "Native + transactional double",
+      "status": "PASS"
+    },
+    {
+      "scenario": "stale revisions / stale memory / queued saves",
+      "expectedAndObserved": "CAS and invalidated replaced owner; surviving App tab cannot delete/save",
+      "evidenceClass": "Native + transactional double",
+      "status": "PASS"
+    },
+    {
+      "scenario": "review change / late owner loss",
+      "expectedAndObserved": "One-use review and active key/revision checks; late loss rolls back categories",
+      "evidenceClass": "Transactional double + source review",
+      "status": "PASS"
+    },
+    {
+      "scenario": "prompt injection / malicious memory",
+      "expectedAndObserved": "Credentials and approvals rejected; instruction-like strings remain bounded untrusted DATA",
+      "evidenceClass": "Adversarial unit; native actual qwen request",
+      "status": "PASS"
+    },
+    {
+      "scenario": "credential export / injection",
+      "expectedAndObserved": "Recognizable source/graph/metadata/model credential material refused; no private stores read",
+      "evidenceClass": "Adversarial unit + source review",
+      "status": "PASS"
+    },
+    {
+      "scenario": "unsafe endpoint / reconnect callback injection",
+      "expectedAndObserved": "Strict loopback preference; fresh imported selection OFF/UNKNOWN; no auto probe",
+      "evidenceClass": "Native + adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "mutation / pending operation / parser-CUDA command smuggling",
+      "expectedAndObserved": "Strict schemas; authority-free chat; ordinary Resume resets actions; parser source stays data",
+      "evidenceClass": "Adversarial unit + native Resume + unchanged App review",
+      "status": "PASS"
+    },
+    {
+      "scenario": "partial publication / abort / quota",
+      "expectedAndObserved": "All-category transaction abort preserves prior data",
+      "evidenceClass": "Transactional IndexedDB double; faults injected",
+      "status": "PASS"
+    },
+    {
+      "scenario": "process death before publication",
+      "expectedAndObserved": "Actual owned Chrome process kill at guarded before-root boundary; prior state recovered",
+      "evidenceClass": "Native IndexedDB + guarded timing",
+      "status": "PASS"
+    },
+    {
+      "scenario": "process death after commit before acknowledgement",
+      "expectedAndObserved": "Actual owned Chrome kill at native completion boundary; full import recovered without prior receipt",
+      "evidenceClass": "Native IndexedDB + guarded timing",
+      "status": "PASS"
+    },
+    {
+      "scenario": "receipt before transaction completion",
+      "expectedAndObserved": "Held transaction completion cannot acknowledge a committed receipt",
+      "evidenceClass": "Transactional IndexedDB double; native completion hook separate",
+      "status": "PASS"
+    },
+    {
+      "scenario": "memory scope / active limits / source validity",
+      "expectedAndObserved": "Only active project memory re-sealed imported/unverified; stale source links remain stale",
+      "evidenceClass": "Unit + actual Web Crypto; native actual qwen",
+      "status": "PASS"
+    },
+    {
+      "scenario": "mutable staging / preparation substitution",
+      "expectedAndObserved": "Public handle and prepared-buffer/model mutation cannot replace private stage",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "current and historical graph/source relationships",
+      "expectedAndObserved": "Each retained checkpoint decoded with its own graph; original binary bytes preserved",
+      "evidenceClass": "Unit + actual Web Crypto",
+      "status": "PASS"
+    },
+    {
+      "scenario": "valid 8 MiB base64 boundary",
+      "expectedAndObserved": "Flat admission + decode/re-encode succeeds without stack overflow",
+      "evidenceClass": "Unit boundary regression",
+      "status": "PASS"
+    },
+    {
+      "scenario": "secret-scan whitespace backtracking",
+      "expectedAndObserved": "Normalization on scanning copy only; eight-MiB whitespace source remains exact",
+      "evidenceClass": "Closed Medium; bounded red diagnostic + unit regression",
+      "status": "PASS"
+    },
+    {
+      "scenario": "metadata reference amplification",
+      "expectedAndObserved": "At most 156 references / 64 MiB expansion checked before Blob/text materialization",
+      "evidenceClass": "Closed Medium; allocation counter + two adversarial limits",
+      "status": "PASS"
+    },
+    {
+      "scenario": "corrupt / missing original default pointer",
+      "expectedAndObserved": "Fail closed; only truly empty install receives new pointer",
+      "evidenceClass": "Adversarial unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "filename / MIME spoofing / actual download",
+      "expectedAndObserved": "Misleading file name accepted only on valid bytes; corrupt bytes rejected; actual download matched",
+      "evidenceClass": "Native + mounted happy-dom unit",
+      "status": "PASS"
+    },
+    {
+      "scenario": "all existing input modes / unsaved edit guard",
+      "expectedAndObserved": "All fourteen editor/manual modes round-trip; Cancel-first separate-import review preserves unsaved source",
+      "evidenceClass": "Unit format regression + native UI (injected write failure)",
+      "status": "PASS"
+    }
+  ],
+  "unresolved": {
+    "Critical": 0,
+    "High": 0,
+    "Medium": 0
+  },
+  "closedMediumFindings": 2,
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "disclosure": "Matrix rows aggregate assertions; they are not an additional independent native-browser test count. Hashes are integrity checks, not publisher signatures. Secret detection is recognizable-pattern screening, not semantic identification of arbitrary secrets."
+}

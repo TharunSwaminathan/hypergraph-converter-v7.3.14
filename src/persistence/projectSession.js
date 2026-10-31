@@ -64,6 +64,21 @@ export function createProjectSession(store, reviewedProject = null) {
         acknowledge(owner, review.projectId, receipt); return receipt;
       });
     },
+    async importReviewed(token, stage, isCurrent = () => true) {
+      const review = reviews.get(token); reviews.delete(token);
+      if (!review || review.category !== "workspace") throw new StorageFault("ABANDONED", "Import confirmation is invalid or already used.", true);
+      return enqueue(async () => {
+        const owner = owners.get(review.projectId);
+        const current = () => isCurrent() && owner === review.owner && !owner.invalid && owner.revision === token.revision;
+        if (!current()) throw new StorageFault("CONFLICT", "Saved workspace changed after import review. Review again.", true);
+        const receipt = await store.importWorkspace(stage, { targetId: review.projectId, expectedRevision: token.revision, isCurrent: current });
+        acknowledge(owner, review.projectId, receipt);
+        // This mount still contains pre-import data. Queued saves may not
+        // overwrite imported bytes; normal Resume creates a new owner.
+        owner.invalid = true;
+        return receipt;
+      });
+    },
     defaultProject: async () => adopt(await store.defaultProject()),
     load: async id => adopt(await store.load(id)),
     readWorkspace: async (...args) => adopt(await store.readWorkspace(...args)),

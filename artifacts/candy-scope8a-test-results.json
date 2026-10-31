@@ -1,0 +1,738 @@
+{
+  "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "1d4c3b0659e39ae015f8e85888a1f0f68b14cecf",
+  "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99",
+  "baselineFull": {
+    "passed": 305,
+    "discovered": 305,
+    "seconds": 205.2,
+    "status": "PASS",
+    "log": "artifacts/candy-scope8a-work/baseline-tests.txt",
+    "sha256": "361d34015769bbf8a43e6d59512e31de1e9158f31fe454d2cc9299d36aa8a84f"
+  },
+  "baselineGates": [
+    {
+      "gate": "npm-ci",
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "exitCode": 0,
+      "seconds": 7.51,
+      "log": "baseline-npm-ci.txt",
+      "sha256": "f0c59161c6faaaa401988e025f1be57e698ea0138bb08aeda9f68ccbd969b157"
+    },
+    {
+      "gate": "tests",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 205.64,
+      "log": "baseline-tests.txt",
+      "sha256": "361d34015769bbf8a43e6d59512e31de1e9158f31fe454d2cc9299d36aa8a84f"
+    },
+    {
+      "gate": "scope7a",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7a"
+      ],
+      "exitCode": 0,
+      "seconds": 2.12,
+      "log": "baseline-scope7a.txt",
+      "sha256": "a6d81ec05d0899cecad0f854e1a4a73dcf2992b480eba6637e01b8910e704226"
+    },
+    {
+      "gate": "scope7b",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7b"
+      ],
+      "exitCode": 0,
+      "seconds": 2.08,
+      "log": "baseline-scope7b.txt",
+      "sha256": "4d5d3c6d19d6ce1ea15c6ae0024b00cbcdeaaf339088b0f78000ce8f7950a805"
+    },
+    {
+      "gate": "scope7c",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7c"
+      ],
+      "exitCode": 0,
+      "seconds": 1.79,
+      "log": "baseline-scope7c.txt",
+      "sha256": "387ed6c29263a67f7ebbf225ae873990474fb3b1f797ad725871a2bbdcf3644d"
+    },
+    {
+      "gate": "scope7d",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7d"
+      ],
+      "exitCode": 0,
+      "seconds": 2.62,
+      "log": "baseline-scope7d.txt",
+      "sha256": "de65057b28ac85056d98ea0b307d399b659cf1606c9e7086d1c14b1ebc9c3c2f"
+    },
+    {
+      "gate": "scope7e",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7e"
+      ],
+      "exitCode": 0,
+      "seconds": 2.28,
+      "log": "baseline-scope7e.txt",
+      "sha256": "5d2b3f9d49f6b805f7cd866d79728351c7f7eb3df0e6989aaa433e41f59f749c"
+    },
+    {
+      "gate": "lint",
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 10.08,
+      "log": "baseline-lint.txt",
+      "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+    },
+    {
+      "gate": "build",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 0.96,
+      "log": "baseline-build.txt",
+      "sha256": "49714164588f254e2521c76c616a8fe3a76d4d237160f39a996794f07f459c3f"
+    },
+    {
+      "gate": "pages",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "exitCode": 0,
+      "seconds": 0.87,
+      "log": "baseline-pages.txt",
+      "sha256": "4c015f2166918dce1a8c3fd6d905d732588dbba2a0debbe74a61890ed10863f2"
+    },
+    {
+      "gate": "relative",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:relative"
+      ],
+      "exitCode": 0,
+      "seconds": 0.85,
+      "log": "baseline-relative.txt",
+      "sha256": "cc75fe750e2ca11cc59ef36680253701e775e943c02f55ed54900e2d468d904b"
+    },
+    {
+      "gate": "audit",
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "exitCode": 0,
+      "seconds": 1.13,
+      "log": "baseline-audit.txt",
+      "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+    },
+    {
+      "gate": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 0.03,
+      "log": "baseline-diff-check.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "phases": {
+    "source-v6": {
+      "full": {
+        "passed": 308,
+        "discovered": 308,
+        "seconds": 224.7,
+        "status": "PASS",
+        "log": "artifacts/candy-scope8a-work/source-v6-tests.txt",
+        "sha256": "0674b588f026dfd08ef4dfdd586a7ddb91aa6d4ae7c8537dece85a223095c8cc"
+      },
+      "focused": {
+        "7a": {
+          "passed": 4,
+          "discovered": 4,
+          "seconds": 2.6,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/source-v6-scope7a.txt",
+          "sha256": "a747fddc6c4ffcb1dba48c6820963619a2dfe4261e0d5424ce4f338ab1d2cb8e"
+        },
+        "7b": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 2.5,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/source-v6-scope7b.txt",
+          "sha256": "f45d2bb9bd01261c1288d8da511939e45c61f1457b3d18885175d729f2aec205"
+        },
+        "7c": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 2.1,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/source-v6-scope7c.txt",
+          "sha256": "88e2e51bcc299043c227244de759b388f211a0f74c8263dc38f0354971fdf9a3"
+        },
+        "7d": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 2.9,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/source-v6-scope7d.txt",
+          "sha256": "7a8fb5ec340c3bc176403b183e4074873f826faa27244af6ea0c65116dd201fa"
+        },
+        "7e": {
+          "passed": 4,
+          "discovered": 4,
+          "seconds": 2.6,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/source-v6-scope7e.txt",
+          "sha256": "e3e2b337a3e304cc14865a9e005aceba76f489dd98fb3a705e4bcb375225484f"
+        },
+        "8a": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 3.6,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/source-v6-scope8a.txt",
+          "sha256": "9fe9be5bc79d10ddb9852e1f63c3d38e4b8a6a3e0b4d7ed090a45f4b7e737b93"
+        }
+      },
+      "productionAudit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 8,
+            "dev": 173,
+            "optional": 27,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 180
+          }
+        }
+      },
+      "gates": [
+        {
+          "gate": "source-v6-npm-ci",
+          "command": [
+            "npm.cmd",
+            "ci"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 7.64,
+          "log": "source-v6-npm-ci.txt",
+          "logSha256": "0f66077bd98cca7e805fbe0f11aa5d6c56e372ea0f4a962d005f41cc2aae323b",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-tests",
+          "command": [
+            "npm.cmd",
+            "test"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 225.12,
+          "log": "source-v6-tests.txt",
+          "logSha256": "0674b588f026dfd08ef4dfdd586a7ddb91aa6d4ae7c8537dece85a223095c8cc",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-scope7a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7a"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 2.6,
+          "log": "source-v6-scope7a.txt",
+          "logSha256": "a747fddc6c4ffcb1dba48c6820963619a2dfe4261e0d5424ce4f338ab1d2cb8e",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-scope7b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7b"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 2.54,
+          "log": "source-v6-scope7b.txt",
+          "logSha256": "f45d2bb9bd01261c1288d8da511939e45c61f1457b3d18885175d729f2aec205",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-scope7c",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7c"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 2.18,
+          "log": "source-v6-scope7c.txt",
+          "logSha256": "88e2e51bcc299043c227244de759b388f211a0f74c8263dc38f0354971fdf9a3",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-scope7d",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7d"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 2.95,
+          "log": "source-v6-scope7d.txt",
+          "logSha256": "7a8fb5ec340c3bc176403b183e4074873f826faa27244af6ea0c65116dd201fa",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-scope7e",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7e"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 2.69,
+          "log": "source-v6-scope7e.txt",
+          "logSha256": "e3e2b337a3e304cc14865a9e005aceba76f489dd98fb3a705e4bcb375225484f",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-scope8a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8a"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 3.69,
+          "log": "source-v6-scope8a.txt",
+          "logSha256": "9fe9be5bc79d10ddb9852e1f63c3d38e4b8a6a3e0b4d7ed090a45f4b7e737b93",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-lint",
+          "command": [
+            "npm.cmd",
+            "run",
+            "lint"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 11.12,
+          "log": "source-v6-lint.txt",
+          "logSha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-build",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 0.95,
+          "log": "source-v6-build.txt",
+          "logSha256": "5272dca7616581538951225a5d753092716771f30bdd0f5be8766bb14bce088c",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-pages",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:github"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 0.88,
+          "log": "source-v6-pages.txt",
+          "logSha256": "3537e6fbfe7e66ecee363ec6d82278dd41df4d1b896e5a6c867f69ba3501bd9f",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-relative",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:relative"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 0.85,
+          "log": "source-v6-relative.txt",
+          "logSha256": "df072056ef1e52e8911c1ef188d88847d6d6b749426a747e94649ef0d9e21f0f",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "source-v6-audit",
+          "command": [
+            "npm.cmd",
+            "audit",
+            "--omit=dev",
+            "--json"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\proposed-source-v6",
+          "exitCode": 0,
+          "seconds": 1.27,
+          "log": "source-v6-audit.txt",
+          "logSha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        }
+      ],
+      "inputPreservation": {
+        "allInputBytesPreserved": true,
+        "files": 1397,
+        "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+      }
+    },
+    "extracted-v6": {
+      "full": {
+        "passed": 308,
+        "discovered": 308,
+        "seconds": 219.5,
+        "status": "PASS",
+        "log": "artifacts/candy-scope8a-work/extracted-v6-tests.txt",
+        "sha256": "0767eae143ad1a6ecaf5226ce85c683ec166f515acad3d724b2791908d8b10d9"
+      },
+      "focused": {
+        "7a": {
+          "passed": 4,
+          "discovered": 4,
+          "seconds": 2.3,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/extracted-v6-scope7a.txt",
+          "sha256": "8f205510426a10d92268cd25123e6aec162db56394d138b5831da4c7fa36e909"
+        },
+        "7b": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 2.3,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/extracted-v6-scope7b.txt",
+          "sha256": "1ab642cc315e6c9cbb57d1db2cfa566d94a75111cd790e3779c957dc69b5b897"
+        },
+        "7c": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 2.1,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/extracted-v6-scope7c.txt",
+          "sha256": "88e2e51bcc299043c227244de759b388f211a0f74c8263dc38f0354971fdf9a3"
+        },
+        "7d": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 2.8,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/extracted-v6-scope7d.txt",
+          "sha256": "db57335c59768bc51a3e7d0e60b1a201d62d0851df3bade62a8cc8bf4f31ba7c"
+        },
+        "7e": {
+          "passed": 4,
+          "discovered": 4,
+          "seconds": 2.3,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/extracted-v6-scope7e.txt",
+          "sha256": "27e9d2ec65a708750d877263f3b2c7ffbacf18b0f9629c54a762f3fff4eb5d2f"
+        },
+        "8a": {
+          "passed": 3,
+          "discovered": 3,
+          "seconds": 3.5,
+          "status": "PASS",
+          "log": "artifacts/candy-scope8a-work/extracted-v6-scope8a.txt",
+          "sha256": "62dd29acb7b2a62d572935ceb73c01e5c9882271afd47e8237d84638d7d75035"
+        }
+      },
+      "productionAudit": {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+          "vulnerabilities": {
+            "info": 0,
+            "low": 0,
+            "moderate": 0,
+            "high": 0,
+            "critical": 0,
+            "total": 0
+          },
+          "dependencies": {
+            "prod": 8,
+            "dev": 173,
+            "optional": 27,
+            "peer": 0,
+            "peerOptional": 0,
+            "total": 180
+          }
+        }
+      },
+      "gates": [
+        {
+          "gate": "extracted-v6-npm-ci",
+          "command": [
+            "npm.cmd",
+            "ci"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 7.14,
+          "log": "extracted-v6-npm-ci.txt",
+          "logSha256": "0f66077bd98cca7e805fbe0f11aa5d6c56e372ea0f4a962d005f41cc2aae323b",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-tests",
+          "command": [
+            "npm.cmd",
+            "test"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 219.96,
+          "log": "extracted-v6-tests.txt",
+          "logSha256": "0767eae143ad1a6ecaf5226ce85c683ec166f515acad3d724b2791908d8b10d9",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-scope7a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7a"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 2.33,
+          "log": "extracted-v6-scope7a.txt",
+          "logSha256": "8f205510426a10d92268cd25123e6aec162db56394d138b5831da4c7fa36e909",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-scope7b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7b"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 2.35,
+          "log": "extracted-v6-scope7b.txt",
+          "logSha256": "1ab642cc315e6c9cbb57d1db2cfa566d94a75111cd790e3779c957dc69b5b897",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-scope7c",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7c"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 2.11,
+          "log": "extracted-v6-scope7c.txt",
+          "logSha256": "88e2e51bcc299043c227244de759b388f211a0f74c8263dc38f0354971fdf9a3",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-scope7d",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7d"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 2.9,
+          "log": "extracted-v6-scope7d.txt",
+          "logSha256": "db57335c59768bc51a3e7d0e60b1a201d62d0851df3bade62a8cc8bf4f31ba7c",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-scope7e",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7e"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 2.38,
+          "log": "extracted-v6-scope7e.txt",
+          "logSha256": "27e9d2ec65a708750d877263f3b2c7ffbacf18b0f9629c54a762f3fff4eb5d2f",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-scope8a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8a"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 3.51,
+          "log": "extracted-v6-scope8a.txt",
+          "logSha256": "62dd29acb7b2a62d572935ceb73c01e5c9882271afd47e8237d84638d7d75035",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-lint",
+          "command": [
+            "npm.cmd",
+            "run",
+            "lint"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 11.15,
+          "log": "extracted-v6-lint.txt",
+          "logSha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-build",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 0.97,
+          "log": "extracted-v6-build.txt",
+          "logSha256": "95b9c7201ee1dc1fac6a38c7e2c0bc718cf75be9a73ace52b2d1bf7033bb0d3b",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-pages",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:github"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 0.91,
+          "log": "extracted-v6-pages.txt",
+          "logSha256": "6f18c6af42966a2d20bc1bdc903a76283621e60e14332631737780a47eec17ba",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-relative",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:relative"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 0.92,
+          "log": "extracted-v6-relative.txt",
+          "logSha256": "c0cb0aed18e7b3a053aa4d958f67e5581ad3fea7e81fa194abd37e5e1ca23597",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        },
+        {
+          "gate": "extracted-v6-audit",
+          "command": [
+            "npm.cmd",
+            "audit",
+            "--omit=dev",
+            "--json"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8a\\artifacts\\candy-scope8a-work\\extracted-v6\\candy-scope8a-proposed-7194025eaa31",
+          "exitCode": 0,
+          "seconds": 1.44,
+          "log": "extracted-v6-audit.txt",
+          "logSha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb",
+          "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+        }
+      ],
+      "inputPreservation": {
+        "allInputBytesPreserved": true,
+        "files": 960,
+        "snapshotSha256": "7194025eaa319fad20dc1daa0b948d875f5d735b1711b4f26d444ba6b8f42a99"
+      }
+    }
+  },
+  "newScope8aGroupedCases": 22,
+  "newScope8aTestFiles": 3,
+  "sourceAndExtractedBuildOutputs": {
+    "build": {
+      "files": 23,
+      "byteIdentical": true,
+      "testGuardAbsent": true
+    },
+    "pages": {
+      "files": 23,
+      "byteIdentical": true,
+      "testGuardAbsent": true
+    },
+    "relative": {
+      "files": 23,
+      "byteIdentical": true,
+      "testGuardAbsent": true
+    }
+  },
+  "baselineDevelopmentDependencyAdvisories": {
+    "total": 8,
+    "moderate": 6,
+    "high": 2,
+    "packageAndLockfilesUnchanged": true
+  },
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED"
+}
