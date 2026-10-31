@@ -49,6 +49,7 @@ export function useMultiUpload(cb) {
         size: f.size,
         type: f.type,
         extension: uploadFileExtension(f.name).replace(/^\./, ""),
+        sourceBlob: f,
       }), { signal: controller.signal });
       if (controller.signal.aborted || abortRef.current !== controller) return;
       cb(records);

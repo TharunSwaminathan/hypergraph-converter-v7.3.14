@@ -38,6 +38,7 @@ export async function readUploadedTextFiles(files, uploadNonce = Date.now(), { s
       type: file.type,
       extension: file.name.includes(".") ? file.name.split(".").pop().toLowerCase() : "",
       lastModified: file.lastModified ?? 0,
+      sourceBlob: typeof Blob !== "undefined" && file instanceof Blob ? file : undefined,
     };
   }, { signal });
 }

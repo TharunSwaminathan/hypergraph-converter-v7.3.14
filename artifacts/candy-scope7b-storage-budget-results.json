@@ -1,0 +1,47 @@
+{
+  "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+  "status": "PASS",
+  "limits": {
+    "sourceBytes": 8388608,
+    "graphBytes": 8388608,
+    "derivedBytes": 262144,
+    "manifestBytes": 131072,
+    "projectBytes": 33554432,
+    "applicationBytes": 134217728,
+    "sources": 24,
+    "checkpoints": 5
+  },
+  "accounting": "Payload bytes + serialized unique headers + workspace root; browser implementation overhead not promised",
+  "budgetTests": "Source/project/source-count/node/depth admission, declared-size global-budget fixtures, conservative browser estimate, explicit quota and atomic rollback",
+  "globalLimitEvidence": "Injected valid root metadata with declared sizes, not a 128 MiB browser quota fill",
+  "measurements": [
+    {
+      "sourceBytes": 0,
+      "hyperedges": 100,
+      "logicalDurableBytes": 12408,
+      "writeIncludingSerializationHashMs": 22.900000005960464,
+      "restoreValidationMs": 5
+    },
+    {
+      "sourceBytes": 131072,
+      "hyperedges": 100,
+      "logicalDurableBytes": 143491,
+      "writeIncludingSerializationHashMs": 6.9000000059604645,
+      "restoreValidationMs": 4.800000011920929
+    },
+    {
+      "sourceBytes": 1048576,
+      "hyperedges": 5000,
+      "logicalDurableBytes": 1503307,
+      "writeIncludingSerializationHashMs": 186.5,
+      "restoreValidationMs": 197.2000000178814
+    }
+  ],
+  "maximumMeasuredSourceBytes": 1048576,
+  "maximumMeasuredHyperedges": 5000,
+  "sourceBodyEncoding": "ArrayBuffer / Blob; no base64",
+  "sources": [
+    "https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria",
+    "https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/estimate"
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "baseline": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+  "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+  "statusMeaning": "Scope-specific closure, not security severity",
+  "counts": {
+    "PARTIALLY_CLOSED": 9,
+    "CLOSED": 4,
+    "DEFERRED": 6,
+    "UNCHANGED": 1
+  },
+  "gaps": [
+    {
+      "id": "S7-01",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Canonical origin preserved; explicit cross-origin portability still absent.",
+      "readinessSeverity": "High"
+    },
+    {
+      "id": "S7-02",
+      "status": "CLOSED",
+      "reason": "Within configured storage policy, exact uploaded/editor bytes, typed canonical graph, deterministic metadata, source/mapping provenance and bounded checkpoints restore only after validation. Oversize sessions remain visibly unsaved in memory.",
+      "readinessSeverity": "High"
+    },
+    {
+      "id": "S7-03",
+      "status": "CLOSED",
+      "reason": "7A CAS/tombstones extend atomically to large objects; shared local chat/workspace lineage never rebases another tab.",
+      "readinessSeverity": "High"
+    },
+    {
+      "id": "S7-04",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Commit completion/unsaved/rollback/retry and graceful browser restart verified; physical power-loss/latest uncommitted data safety and full crash matrix remain 7F.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-05",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Bounded quarantine, typed read-only corruption, exact source repair and historical reads exist; full salvage/management UX remains later.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-06",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Logical project/application/source/graph/history caps and measured bounded cases added; no general scale claim above 1 MiB source / 5000 hyperedges measured.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-07",
+      "status": "CLOSED",
+      "reason": "7A parser adapter retained; restored editor code now additionally requires fresh review before Run; no Apply state restored.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-08",
+      "status": "CLOSED",
+      "reason": "7A bounded settings/error receipts retained; startup remains disconnected.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-09",
+      "status": "DEFERRED",
+      "reason": "Structured Assistant semantic memory belongs to 7C.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-10",
+      "status": "DEFERRED",
+      "reason": "Structured semantic fact/provenance memory belongs to 7C; historical text is not authority.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-11",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Exact SHA-256 source reattachment, snapshot/mapping digests and parser source identity are durable; broad parser-profile matching/applicability UX remains heuristic/reviewed, not cryptographic authority.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-12",
+      "status": "DEFERRED",
+      "reason": "Automatic Ollama reconnect belongs to 7D.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-13",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Origin policy is preserved; advanced Runtime/bridge coherence and origin portability remain later.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-14",
+      "status": "DEFERRED",
+      "reason": "Verified object/provenance foundation exists but no durable historical motif output archive/result object is implemented; current Runtime/result authority remains session-bound.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-15",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Project/clear delete owned source/graph/history/derived/orphan data atomically under tombstones; full privacy/management UX, physical remnants and cross-store atomicity remain limited.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-16",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Versioned bounded integrity/provenance object contract and quota/eviction disclosure exist; full workspace archive export/import and origin/machine backup remain unimplemented as expressly permitted for 7B.",
+      "readinessSeverity": "Medium"
+    },
+    {
+      "id": "S7-17",
+      "status": "DEFERRED",
+      "reason": "Visualization/selection preference persistence remains 7E.",
+      "readinessSeverity": "Low"
+    },
+    {
+      "id": "S7-18",
+      "status": "DEFERRED",
+      "reason": "Model observations/service continuity separation remains 7D; no liveness restored.",
+      "readinessSeverity": "Low"
+    },
+    {
+      "id": "S7-19",
+      "status": "UNCHANGED",
+      "reason": "Historical parser-profile export naming remains unchanged.",
+      "readinessSeverity": "Low"
+    },
+    {
+      "id": "S7-20",
+      "status": "PARTIALLY_CLOSED",
+      "reason": "Real App/native IndexedDB, multitab, upgrade, faults and graceful reopen cases pass; full physical/integrated restart matrix remains 7F.",
+      "readinessSeverity": "Medium"
+    }
+  ]
+}

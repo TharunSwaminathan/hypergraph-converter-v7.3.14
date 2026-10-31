@@ -6,6 +6,11 @@ import BarChart from "./components/BarChart.jsx";
 import Viz from "./components/Viz.jsx";
 import { Pill, StatCard, MappingBox } from "./components/ui.jsx";
 import { useUpload, useMultiUpload } from "./hooks/useFileUpload.js";
+import { createProjectStore } from "./persistence/projectStore.js";
+import { createProjectSession } from "./persistence/projectSession.js";
+import { createWorkspaceSourceRegistry, captureWorkspaceInputs, decodeWorkspaceInputs } from "./persistence/workspaceCapture.js";
+import { usePersistentWorkspace } from "./persistence/usePersistentWorkspace.js";
+import { StorageFault } from "./persistence/storageSafety.js";
 import { normalizeParsedHyperedges, autoDetectDetails, parseInputFormat } from "./utils/parsers.js";
 import { arrayMax } from "./utils/numeric.js";
 import { parseBatchUpdates, applyBatchUpdates, batchUpdatesToMutationOperations } from "./utils/batchUpdates.js";
@@ -211,6 +216,7 @@ function AppCore() {
   useEffect(() => () => downloads.dispose(), [downloads]);
   const [fmt, setFmt] = useState("simple");
   const [texts, setTexts] = useState({});
+  const [manualUploads, setManualUploads] = useState({});
   const [nv, setNv] = useState(""); const [sv, setSv] = useState(""); const [tv, setTv] = useState("");
   // Custom parser state
   const [customCode, setCustomCode] = useState(DEFAULT_CUSTOM_PARSER);
@@ -270,6 +276,9 @@ function AppCore() {
   // Output state
   const [graphState, setGraphState] = useState(() => createGraphState()); const [warnings, setWarnings] = useState([]); const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
   const [graphHistory, setGraphHistory] = useState([]);
+  const [persistenceSession] = useState(() => createProjectSession(createProjectStore()));
+  const [workspaceSources] = useState(createWorkspaceSourceRegistry);
+  const [graphBinding, setGraphBinding] = useState(null);
   const graphStateRef = useRef(graphState);
   graphStateRef.current = graphState;
   const graphHistoryRef = useRef(graphHistory);
@@ -366,6 +375,35 @@ function AppCore() {
   }, [localModelConfig]);
 
   const txt = texts[fmt] ?? "";
+  const workspaceInput = useMemo(() => captureWorkspaceInputs(workspaceSources, { fmt, texts, nv, sv, tv, customCode, customCodeVersion,
+    customFiles, manualUploads, batches: agentFileBatches, activeBatchId, graphBinding }),
+  [workspaceSources, fmt, texts, nv, sv, tv, customCode, customCodeVersion, customFiles, manualUploads, agentFileBatches, activeBatchId, graphBinding]);
+  const workspaceReceipt = usePersistentWorkspace({ session: persistenceSession, input: workspaceInput, graph: graphState, onRestore: restored => {
+    const data = decodeWorkspaceInputs(restored);
+    if (!FMTS.some(format => format.id === data.fmt)) throw new StorageFault("INCOMPATIBLE", "Saved input format is unsupported. Workspace remains unavailable.", true);
+    const batches = data.batches.map(batch => ({ ...buildAgentBatch(batch.files, batch.id, batch.label, batch.parseMode), version: batch.version, status: batch.id === data.activeBatchId ? "active" : "inactive" }));
+    setFmt(data.fmt); setTexts(Object.fromEntries(Object.entries(data.editors).filter(([key]) => key.startsWith("text:")).map(([key, value]) => [key.slice(5), value])));
+    setNv(data.editors.nv ?? ""); setSv(data.editors.sv ?? ""); setTv(data.editors.tv ?? ""); setManualUploads(data.manualUploads);
+    setAgentFileBatches(batches); setActiveBatchId(data.activeBatchId); setLastTouchedBatchId(data.activeBatchId); setBatchVersion(version => version + 1);
+    batchCounterRef.current = Math.max(0, ...batches.map(batch => Number(/^batch-(\d+)$/.exec(batch.id)?.[1] ?? 0)));
+    setCustomFiles(data.customFiles); setCustomCode(data.customCode); setCustomCodeVersion(data.customCodeVersion); setCustomCodeSource("restored");
+    setCustomCodeBinding(null); setCustomResult(null); setCustomResultId(null); setCustomLogs([]); setSpecialistReviewRequired(false);
+    setGraphBinding(data.graphBinding); setGraphHistory([]); setApplyBatch(false); setPendingPreviewRequested(false);
+    if (restored.graph) {
+      graphStateRef.current = restored.graph; setGraphState(restored.graph);
+      dynamicUpdateControls.invalidateApply(); pendingHypergraphUpdateControllerRef.current.onGraphTransition(restored.graph, "RESTORED_DATA_WITHOUT_EXECUTION_AUTHORITY");
+    }
+  } });
+  const graphInputsForParse = useCallback((targetFormat, payload) => {
+    const pairs = targetFormat === "cornell" ? [["nv", payload.nverts], ["sv", payload.simplices], ["tv", payload.times]] : [["text:" + targetFormat, payload.text]];
+    const sources = [];
+    for (const [slot, value] of pairs) if (value) {
+      sources.push(workspaceSources.get(slot, value, slot + ".txt"));
+      const candidates = [manualUploads[slot], ...agentFileBatches.flatMap(batch => batch.files)].filter(Boolean);
+      for (const f of candidates) if (f.text === value && f.sourceBlob) sources.push(workspaceSources.get("file:" + (f.id ?? slot), f.sourceBlob, f.name, "upload", f.id ?? ""));
+    }
+    return [...new Map(sources.map(source => [source.key, source])).values()];
+  }, [workspaceSources, manualUploads, agentFileBatches]);
   const commitGraph = useCallback((nextHyperedges, {
     source = "manual",
     summary = "Graph committed",
@@ -375,6 +413,9 @@ function AppCore() {
     preview = null,
     warnings: nextWarnings = null,
     graphType = undefined,
+    workspaceInputs = null,
+    workspaceMapping = null,
+    workspaceParser = null,
   } = {}) => {
     const previousHyperedges = graphState.hyperedges ?? [];
     const normalizedNext = nextHyperedges?.length ? nextHyperedges : null;
@@ -387,6 +428,9 @@ function AppCore() {
       || nextState.graphType !== graphState.graphType;
     graphStateRef.current = nextState;
     setGraphState(nextState);
+    if (graphAuthorityChanged) setGraphBinding(previous => ({ sources: workspaceInputs ?? previous?.sources ?? [],
+      parser: workspaceParser ?? previous?.parser ?? "manual",
+      mapping: workspaceMapping ?? previous?.mapping ?? {}, transform: source }));
     if (Array.isArray(nextWarnings)) setWarnings(nextWarnings);
     if (graphChanged) {
       setGraphHistory(current => appendGraphHistory(current, createGraphHistoryEvent({
@@ -438,10 +482,11 @@ function AppCore() {
     setCustomCodeVersion(version => version + 1);
   }
 
-  const [fEl, fGo] = useUpload((c, f, error) => { if (error) { showNotice(error.message || "Upload failed."); return; } setTxt(c); showNotice("Loaded: " + f.name); });
-  const [nvEl, nvGo] = useUpload((c, _f, error) => { if (error) showNotice(error.message || "Upload failed."); else setNv(c); });
-  const [svEl, svGo] = useUpload((c, _f, error) => { if (error) showNotice(error.message || "Upload failed."); else setSv(c); });
-  const [tvEl, tvGo] = useUpload((c, _f, error) => { if (error) showNotice(error.message || "Upload failed."); else setTv(c); });
+  function rememberUpload(slot, text, file) { setManualUploads(current => ({ ...current, [slot]: { id: slot, name: file.name, type: file.type, sourceBlob: file, text } })); }
+  const [fEl, fGo] = useUpload((c, f, error) => { if (error) { showNotice(error.message || "Upload failed."); return; } rememberUpload("text:" + fmt, c, f); setTxt(c); showNotice("Loaded: " + f.name); });
+  const [nvEl, nvGo] = useUpload((c, f, error) => { if (error) showNotice(error.message || "Upload failed."); else { rememberUpload("nv", c, f); setNv(c); } });
+  const [svEl, svGo] = useUpload((c, f, error) => { if (error) showNotice(error.message || "Upload failed."); else { rememberUpload("sv", c, f); setSv(c); } });
+  const [tvEl, tvGo] = useUpload((c, f, error) => { if (error) showNotice(error.message || "Upload failed."); else { rememberUpload("tv", c, f); setTv(c); } });
   const [cfEl, cfGo] = useMultiUpload((files, error) => { if (error) { setCustomErr(error.message || "Upload failed."); showNotice("Upload failed."); return; } setCustomFiles(files); setCustomCodeBinding(null); setCustomResult(null); setCustomResultId(null); setCustomErr(""); setCustomLogs([]); showNotice(files.length + " file(s) loaded."); });
 
   function loadEx() {
@@ -489,6 +534,8 @@ function AppCore() {
           summary: `Parsed ${norm.length} hyperedge${norm.length === 1 ? "" : "s"} from ${targetFormat}.`,
           replacement: true,
           warnings: w,
+          workspaceInputs: graphInputsForParse(targetFormat, payload),
+          workspaceParser: `builtin:${targetFormat}@7.3.15`,
         });
         setActiveSection("mappings");
         const vertices = new Set(norm.flatMap(hyperedge => hyperedge.vertices.map(String))).size;
@@ -501,7 +548,7 @@ function AppCore() {
       }
       finally { setLoading(false); }
     }, 10));
-  }, [commitGraph]);
+  }, [commitGraph, graphInputsForParse]);
 
   const parse = useCallback(() => {
     if (fmt === "custom" || fmt === "ai_prompt") {
@@ -3006,6 +3053,7 @@ function AppCore() {
   }
 
   async function runCustom() {
+    if (customCodeSource === "restored") return { ok: false, error: "Review the restored parser draft and choose Use reviewed draft before requesting a fresh Run." };
     const specialistSnapshot = specialistReviewRequired ? specialistExecutionRef.current : null;
     const staleSpecialistRun = () => specialistSnapshot && specialistSnapshot !== specialistExecutionRef.current;
     if (specialistReviewRequired && !customCodeBinding?.modelRunId?.startsWith("specialist-")) {
@@ -3135,6 +3183,10 @@ function AppCore() {
         summary: `Applied custom parser result with ${customResult.hyperedges.length} hyperedge${customResult.hyperedges.length === 1 ? "" : "s"}.`,
         replacement: true,
         warnings: customResult.warnings ?? [],
+        workspaceInputs: [...customFiles.map((file, index) => workspaceSources.get("custom:" + (file.id ?? `${file.name}:${index}`), file.sourceBlob ?? file.text, file.name, file.sourceBlob ? "upload" : "editor", file.id ?? "")),
+          workspaceSources.get("parser", customCode, "parser.js", "parser")],
+        workspaceMapping: activeAgentBatch?.mappingSpec ?? {},
+        workspaceParser: `custom:${customCodeSource}@7.3.15`,
       });
       setActiveSection("mappings");
       setApplyBatch(false);
@@ -4189,6 +4241,7 @@ function AppCore() {
     && validateParserBatchBinding(customCodeBinding, activeAgentBatch, agentFileBatches).ok
     && customFiles.length > 0;
   const agentState = {
+    persistenceSession,
     candy: candyRuntime.state,
     reactOrchestratorEnabled: reactOrchestratorEnabled(),
     specialistReviewRequired,
@@ -5115,6 +5168,12 @@ function AppCore() {
       </header>
 
       <div id="main-content" className="hg-shell">
+        <p role="status" data-workspace-storage={workspaceReceipt.state}>{workspaceReceipt.message}</p>
+        {workspaceReceipt.state === "error" && <button type="button" className="hg-btn" onClick={workspaceReceipt.retry}>Retry workspace storage</button>}
+        {workspaceReceipt.recoverySources?.map(source => <label key={source.objectId} data-workspace-source-id={source.objectId} style={{ display: "block" }}>
+          Reattach exact source {source.name} ({source.byteLength} bytes; SHA-256 {source.sha256})
+          <input type="file" onChange={event => { const file = event.target.files?.[0]; if (file) void workspaceReceipt.reattach(source.objectId, file); event.target.value = ""; }} />
+        </label>)}
 
         {/* Format pills — grouped */}
         <div className="hg-formats">
@@ -5220,8 +5279,9 @@ function AppCore() {
                 )}
               </div>
               <textarea rows={14} value={customCode} onChange={e => updateCustomCode(e.target.value, "user")} style={{ ...inputSt, fontFamily: "monospace", fontSize: 12 }} />
+              {customCodeSource === "restored" && <p role="status">Restored parser text is a draft. Review it before a fresh Run. No parser result or Apply approval was restored. <button type="button" onClick={() => updateCustomCode(customCode, "user")}>Use reviewed draft</button></p>}
               <div style={{ display: "flex", gap: 10, marginTop: 12, alignItems: "center", flexWrap: "wrap" }}>
-                <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Run custom parser in Assistant to review its confirmation.")) : runCustom()} disabled={customRunning} style={{ padding: "9px 24px", borderRadius: 4, background: customRunning ? T.textFaint : T.teal, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: customRunning ? "not-allowed" : "pointer" }}>
+                <button onClick={() => specialistReviewRequired ? (setActiveToolsSection("assistant"), showNotice("Request Run custom parser in Assistant to review its confirmation.")) : runCustom()} disabled={customRunning || customCodeSource === "restored"} style={{ padding: "9px 24px", borderRadius: 4, background: customRunning ? T.textFaint : T.teal, border: "none", color: "#fff", fontWeight: 700, fontSize: 14, cursor: customRunning ? "not-allowed" : "pointer" }}>
                   {customRunning ? "Running…" : "▶ Run Parser"}
                 </button>
                 <button

@@ -1,6 +1,6 @@
 // Deliberate test entry point. Run only in the runner's fresh browser profile.
 import { createProjectStore } from '../../src/persistence/projectStore.js';
-import { PROJECT_DATABASE } from '../../src/persistence/projectSchema.js';
+import { PROJECT_DATABASE, PROJECT_DATABASE_VERSION } from '../../src/persistence/projectSchema.js';
 import { createStorageCoordinator } from '../../src/persistence/storageCoordinator.js';
 import { initializeProjectThread } from '../../src/persistence/storageMigration.js';
 import { loadLocalModelConfigReceipt, MODEL_SETTINGS_PROJECT_KEY } from '../../src/agent/localModelSettings.js';
@@ -65,7 +65,7 @@ if (phase === 'peer') {
       const current = await versioned.defaultProject(); let changed = false;
       versioned.subscribe(error => { changed = error.code === 'VERSION_CHANGED'; });
       await new Promise((resolve, reject) => {
-        const request = indexedDB.open('scope7a-versionchange', 2);
+        const request = indexedDB.open('scope7a-versionchange', PROJECT_DATABASE_VERSION + 1);
         request.onerror = () => reject(request.error);
         request.onsuccess = () => { request.result.close(); resolve(); };
       });

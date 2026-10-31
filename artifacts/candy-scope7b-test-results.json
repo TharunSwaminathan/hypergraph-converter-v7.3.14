@@ -1,0 +1,173 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "b34e6bbf5359a4855db6c9bbf1395f9b25b6d738",
+  "candidateCommit": null,
+  "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+  "status": "PASS",
+  "testFiles": {
+    "discovered": 295,
+    "passed": 295,
+    "total": 295,
+    "seconds": 219.9
+  },
+  "focused7A": 4,
+  "focused7B": 3,
+  "gates": [
+    {
+      "phase": "precommit",
+      "gate": "npm-ci",
+      "command": [
+        "npm.cmd",
+        "ci"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 8.88,
+      "log": "artifacts/candy-scope7b-work/precommit-npm-ci.txt",
+      "sha256": "fd852222b2fb31eb37f3298244c374e13900214334fe684ff55167a82ead5890"
+    },
+    {
+      "phase": "precommit",
+      "gate": "npm-test",
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 220.31,
+      "log": "artifacts/candy-scope7b-work/precommit-npm-test.txt",
+      "sha256": "9b03a8dec98433d65414b6653764b0b0945dacc7506ab464d8fc6231cc8dc216"
+    },
+    {
+      "phase": "precommit",
+      "gate": "lint",
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 10.49,
+      "log": "artifacts/candy-scope7b-work/precommit-lint.txt",
+      "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+    },
+    {
+      "phase": "precommit",
+      "gate": "build",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 0.98,
+      "log": "artifacts/candy-scope7b-work/precommit-build.txt",
+      "sha256": "c8851cbf65877cc59db5290c78742547de95b6023c62a368336db3f627476325"
+    },
+    {
+      "phase": "precommit",
+      "gate": "build-github",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:github"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 0.89,
+      "log": "artifacts/candy-scope7b-work/precommit-build-github.txt",
+      "sha256": "9fc1b93b60d2dc2ada4ab69d60c61707df23e61d3db044485cbe8363805f1997"
+    },
+    {
+      "phase": "precommit",
+      "gate": "build-relative",
+      "command": [
+        "npm.cmd",
+        "run",
+        "build:relative"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 0.98,
+      "log": "artifacts/candy-scope7b-work/precommit-build-relative.txt",
+      "sha256": "5778edbb53024ea33f14f4252c2bb2bdf7c915c43ab265754edd1e5083c39369"
+    },
+    {
+      "phase": "precommit",
+      "gate": "production-audit",
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 1.27,
+      "log": "artifacts/candy-scope7b-work/precommit-production-audit.txt",
+      "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+    },
+    {
+      "phase": "precommit",
+      "gate": "scope7a",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7a"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 2.31,
+      "log": "artifacts/candy-scope7b-work/precommit-scope7a.txt",
+      "sha256": "930cdead397453b23d8beb868c0b99cd2282dceb9637c915dde690118c924e55"
+    },
+    {
+      "phase": "precommit",
+      "gate": "scope7b",
+      "command": [
+        "node",
+        "scripts/run-node-tests.mjs",
+        "--match=candy-scope7b"
+      ],
+      "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s",
+      "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+      "candidateCommit": null,
+      "exitCode": 0,
+      "seconds": 2.3,
+      "log": "artifacts/candy-scope7b-work/precommit-scope7b.txt",
+      "sha256": "05d64c44ba554a1286296cbab347767c803a495c16cb1a6a33db04a3f9b7747e"
+    }
+  ],
+  "productionVulnerabilities": 0,
+  "nonProductionInstallAdvisories": {
+    "high": 2
+  },
+  "realBrowserCases": 20,
+  "schemaAndSecurityChecks": 23,
+  "scope": "14 workspace groups + 9 budget/adversarial groups, mounted lifecycle/authority checks and 20 browser cases; not 23 independent security scans",
+  "gitDiffCheck": "PASS",
+  "sourceBytesPreserved": {
+    "files": 1313,
+    "allBytesPreserved": true
+  },
+  "noAutomatedSecuritySeal": true
+}

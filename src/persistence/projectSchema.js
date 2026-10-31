@@ -2,6 +2,7 @@ import { boundedCopy, StorageFault } from "./storageSafety.js";
 
 export const APP_NAMESPACE = "hypergraph-converter-studio";
 export const PROJECT_DATABASE = "hypergraph-studio-projects";
+export const PROJECT_DATABASE_VERSION = 2;
 export const PROJECT_SCHEMA_VERSION = 1;
 export const PROJECT_LIMITS = Object.freeze({ bytes: 256 * 1024, projects: 80, lineage: 32, quarantine: 40 });
 export const isProjectId = value => typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);

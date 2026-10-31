@@ -5,7 +5,7 @@ import { createStorageCoordinator, storageStatusText } from "./storageCoordinato
 import { workspaceReferences } from "./threadStateSchema.js";
 
 export function usePersistentThread({ messages, setMessages, memory, setMemory, agentState }) {
-  const [store] = useState(() => createProjectStore());
+  const [store] = useState(() => agentState.persistenceSession ?? createProjectStore());
   const [status, setStatus] = useState("loading");
   const [receipt, setReceipt] = useState(null);
   const [attempt, setAttempt] = useState(0);

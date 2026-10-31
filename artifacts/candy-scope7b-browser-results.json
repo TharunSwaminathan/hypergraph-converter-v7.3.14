@@ -1,0 +1,232 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "sourceDigest": "c2d792a2044f6f7057e85670a5b54f019752bee709cc8c092edbb44cbb30a198",
+  "status": "PASS",
+  "caseCount": 20,
+  "reports": [
+    {
+      "ok": true,
+      "phase": "first",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "actual-App-upload-parse-save",
+          "sourceSha256": "1bdfbcd25af9f6769838d99464edd14fae005cf916efa445018eb7cd49debefd",
+          "graphId": "graph-a192cd66-5094-4532-b258-47fc4133e7b1",
+          "graphVersion": 1,
+          "graphSha256": "62a86dfc2f9da847eab78019ed8cca0168dc8dc6bfd78099487ce2cb951a32b4"
+        },
+        {
+          "case": "new-tab-same-origin-App-restore",
+          "graphSha256": "62a86dfc2f9da847eab78019ed8cca0168dc8dc6bfd78099487ce2cb951a32b4"
+        },
+        {
+          "case": "native-publication-receipt",
+          "events": [
+            "complete",
+            "request-success",
+            "request-success",
+            "request-success",
+            "request-success",
+            "request-success",
+            "complete",
+            "receipt"
+          ]
+        },
+        {
+          "case": "two-tab-stale-graph-publication",
+          "code": "CONFLICT"
+        },
+        {
+          "case": "two-tab-stale-source-publication",
+          "code": "CONFLICT"
+        },
+        {
+          "case": "native-IDB-injected-quota",
+          "injected": true,
+          "previousPublicationPreserved": true
+        },
+        {
+          "case": "native-IDB-explicit-abort",
+          "injected": true,
+          "previousPublicationPreserved": true
+        },
+        {
+          "case": "bounded-history-second-tab-open",
+          "checkpoints": 5
+        },
+        {
+          "case": "deletion-during-graph-preparation-and-late-writer",
+          "code": "DELETED"
+        },
+        {
+          "case": "injected-unavailable-API",
+          "injected": true,
+          "scope": "not actual browser policy denial"
+        },
+        {
+          "case": "native-versionchange-revokes-workspace-writer"
+        },
+        {
+          "case": "measured-native-storage-paths",
+          "measurements": [
+            {
+              "sourceBytes": 0,
+              "hyperedges": 100,
+              "logicalDurableBytes": 12408,
+              "writeIncludingSerializationHashMs": 22.900000005960464,
+              "restoreValidationMs": 5
+            },
+            {
+              "sourceBytes": 131072,
+              "hyperedges": 100,
+              "logicalDurableBytes": 143491,
+              "writeIncludingSerializationHashMs": 6.9000000059604645,
+              "restoreValidationMs": 4.800000011920929
+            },
+            {
+              "sourceBytes": 1048576,
+              "hyperedges": 5000,
+              "logicalDurableBytes": 1503307,
+              "writeIncludingSerializationHashMs": 186.5,
+              "restoreValidationMs": 197.2000000178814
+            }
+          ],
+          "scope": "only these bounded sizes; no general large-scale or GPU claim"
+        }
+      ],
+      "defaultProjectId": "c66e1f22-6c9b-434f-874c-68f161216db9",
+      "expectedGraphSha256": "62a86dfc2f9da847eab78019ed8cca0168dc8dc6bfd78099487ce2cb951a32b4",
+      "pendingProjectId": "d94d7bf6-da25-4706-a571-634ba824e667",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\browser-profile-precommit-frozen",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s"
+    },
+    {
+      "ok": true,
+      "phase": "reload",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "same-origin-App-refresh",
+          "graphSha256": "62a86dfc2f9da847eab78019ed8cca0168dc8dc6bfd78099487ce2cb951a32b4",
+          "executionAuthorityRestored": false
+        },
+        {
+          "case": "reload-during-native-publication",
+          "observedRevision": 3,
+          "outcome": "during reload",
+          "partialStatePublished": false
+        }
+      ],
+      "defaultProjectId": "c66e1f22-6c9b-434f-874c-68f161216db9",
+      "expectedGraphSha256": "62a86dfc2f9da847eab78019ed8cca0168dc8dc6bfd78099487ce2cb951a32b4",
+      "pendingProjectId": "d94d7bf6-da25-4706-a571-634ba824e667",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\browser-profile-precommit-frozen",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s"
+    },
+    {
+      "ok": true,
+      "phase": "reopen",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "browser-process-close-reopen-App-restore",
+          "graphSha256": "62a86dfc2f9da847eab78019ed8cca0168dc8dc6bfd78099487ce2cb951a32b4",
+          "executionAuthorityRestored": false
+        },
+        {
+          "case": "actual-App-corrupt-source-exact-reattachment",
+          "changedSourceRejected": true,
+          "automaticTransformation": false
+        },
+        {
+          "case": "actual-App-restored-parser-review-Run-Apply-separation",
+          "automaticRun": false,
+          "restoredApply": false
+        },
+        {
+          "case": "actual-App-corrupt-graph-fails-closed"
+        }
+      ],
+      "defaultProjectId": "c66e1f22-6c9b-434f-874c-68f161216db9",
+      "expectedGraphSha256": "62a86dfc2f9da847eab78019ed8cca0168dc8dc6bfd78099487ce2cb951a32b4",
+      "pendingProjectId": "d94d7bf6-da25-4706-a571-634ba824e667",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\browser-profile-precommit-frozen",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s"
+    },
+    {
+      "ok": true,
+      "phase": "unavailable",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "actual-App-injected-unavailable-storage",
+          "injected": true,
+          "graphAvailable": false
+        }
+      ],
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\browser-profile-precommit-frozen",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s"
+    },
+    {
+      "ok": true,
+      "phase": "upgrade",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "native-valid-Scope7A-v1-to-v2-upgrade",
+          "oldVersion": 1,
+          "newVersion": 2,
+          "legacyConnectionRevoked": true,
+          "chatPreserved": true,
+          "oldReferencesUnavailable": true,
+          "workspacePublishedRevision": 3,
+          "oldClientDowngrade": "VersionError"
+        }
+      ],
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\browser-profile-precommit-upgrade",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7b\\artifacts\\candy-scope7b-work\\s"
+    }
+  ],
+  "distinctions": {
+    "real": "Actual App upload/Convert/source/graph restore, second top-level window, native IndexedDB, refresh, CDP graceful browser reopen, history, versionchange, v1-to-v2 migration and downgrade",
+    "injected": "Null IndexedDB API, synchronous QuotaExceededError and native explicit transaction abort are intentional controlled faults"
+  },
+  "noUserProfileAccess": true,
+  "noPhysicalRestartClaim": true,
+  "shutdowns": [
+    {
+      "run": "first",
+      "method": "CDP Browser.close",
+      "graceful": true,
+      "code": 0,
+      "signal": null
+    },
+    {
+      "run": "reopen",
+      "method": "CDP Browser.close",
+      "graceful": true,
+      "code": 0,
+      "signal": null
+    },
+    {
+      "run": "unavailable",
+      "method": "CDP Browser.close",
+      "graceful": true,
+      "code": 0,
+      "signal": null
+    },
+    {
+      "run": "upgrade",
+      "method": "CDP Browser.close",
+      "graceful": true,
+      "code": 0,
+      "signal": null
+    }
+  ]
+}
