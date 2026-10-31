@@ -1,0 +1,62 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "6bf0f3614987559f93f5c0b7a26d24d976a82ecb",
+  "branch": "candy-integration-scope7e-resume-workspace-ux",
+  "sourceDigest": "cb148f605b7d61dac028e57b9d370a8361b62c061af7418c7035efd8e9b3bb15",
+  "candidateCommit": null,
+  "staged": false,
+  "commitCreated": false,
+  "recordedAtUtc": "2026-10-31T18:10:08.921648+00:00",
+  "states": [
+    "NO_SAVED_WORKSPACE",
+    "RESTORE_AVAILABLE",
+    "RESTORING",
+    "RESTORED",
+    "PARTIALLY_RESTORED",
+    "STALE",
+    "RECOVERY_REQUIRED",
+    "FRESH_SESSION"
+  ],
+  "failedRestoreMapping": "RECOVERY_REQUIRED; no optimistic restored claim",
+  "transitions": [
+    {
+      "from": "startup",
+      "to": "RESTORING",
+      "guard": "project identity + validated preferences + bounded inventory; wait queued local preference writes"
+    },
+    {
+      "from": "RESTORING",
+      "to": "RESTORE_AVAILABLE",
+      "guard": "validated saved categories and startup OFF; no App writer or model probe mounted"
+    },
+    {
+      "from": "RESTORE_AVAILABLE",
+      "to": "RESTORING",
+      "guard": "explicit Resume; capture immutable project session; validate again"
+    },
+    {
+      "from": "RESTORING",
+      "to": "RESTORED",
+      "guard": "actual mounted source/graph and memory receipts; existing 7D live model state reported separately"
+    },
+    {
+      "from": "RESTORING",
+      "to": "PARTIALLY_RESTORED",
+      "guard": "independently verified sources, missing graph, or unavailable category; original bytes retained read-only"
+    },
+    {
+      "from": "any active",
+      "to": "STALE",
+      "guard": "foreign revision marker or rejected strict CAS; reload required; no rebase"
+    },
+    {
+      "from": "any",
+      "to": "FRESH_SESSION",
+      "guard": "explicit separate atomic project creation, or explicit temporary no-project-writes fallback"
+    }
+  ],
+  "authority": "Never resumes pending confirmations/actions/jobs/Apply/parser execution/unsent mutation. Scene identity replaces all old UI authority. Existing controllers remain authoritative.",
+  "preferenceValidationFailure": "Preserve original record; automatic resume OFF; explicit temporary session cannot overwrite it.",
+  "legacyQuarantine": "Original project remains read-only; fresh scoped projects cannot inherit/copy its legacy data.",
+  "diagnostics": "At most16 state/event/code/model markers, plus bounded category/timing summaries; no source/graph/prompt/secret payload logs."
+}

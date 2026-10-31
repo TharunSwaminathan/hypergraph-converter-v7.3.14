@@ -60,6 +60,6 @@ export function decodeWorkspaceInputs(restored) {
   for (const row of m.manual) { if (!row || typeof row.slot !== "string" || !/^(text:[a-z_]+|nv|sv|tv)$/.test(row.slot) || Object.hasOwn(manualUploads, row.slot)) bad(); manualUploads[row.slot] = file(row.key); }
   const graphSources = restored.root.graph?.provenance.sources.map(ref => restored.sources.find(s => s.objectId === ref.objectId)) ?? [];
   return { fmt: m.fmt, editors, batches, activeBatchId: m.activeBatchId, manualUploads, customFiles: m.customKeys.map(file), customCode: decoded(m.parserKey), customCodeVersion: m.parserVersion,
-    graphBinding: { sources: graphSources.map(s => ({ key: s.provenance.sourceKey, name: s.provenance.name, kind: s.provenance.kind, mediaType: s.provenance.mediaType, originalId: s.provenance.originalId, bytes: new Blob([s.bytes]) })),
+    graphBinding: restored.partial ? null : { sources: graphSources.map(s => ({ key: s.provenance.sourceKey, name: s.provenance.name, kind: s.provenance.kind, mediaType: s.provenance.mediaType, originalId: s.provenance.originalId, bytes: new Blob([s.bytes]) })),
       parser: restored.root.graph?.provenance.parser ?? "restored", mapping: restored.mapping, transform: "restored-checkpoint" } };
 }

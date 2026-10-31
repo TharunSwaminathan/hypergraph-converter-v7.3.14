@@ -13,6 +13,9 @@ import { usePersistentWorkspace } from "./persistence/usePersistentWorkspace.js"
 import { useAssistantMemory } from "./persistence/useAssistantMemory.js";
 import { usePersistentModelConnection } from "./persistence/usePersistentModelConnection.js";
 import AssistantMemoryPanel from "./components/AssistantMemoryPanel.jsx";
+import WorkspaceExperience from "./components/WorkspaceExperience.jsx";
+import { restoreWorkspaceCategories, sourceGraphOutOfDate } from "./persistence/workspaceRestore.js";
+import { persistenceStatusText } from "./persistence/workspaceResumeCoordinator.js";
 import { StorageFault } from "./persistence/storageSafety.js";
 import { normalizeParsedHyperedges, autoDetectDetails, parseInputFormat } from "./utils/parsers.js";
 import { arrayMax } from "./utils/numeric.js";
@@ -211,7 +214,7 @@ const EMPTY_FILES = Object.freeze([]);
 const EMPTY_DERIVED_ROWS = Object.freeze([]);
 
 // App
-function AppCore() {
+function AppCore({ experience }) {
   const [downloads] = useState(createDownloadLifecycle);
   useEffect(() => () => downloads.dispose(), [downloads]);
   const [fmt, setFmt] = useState("simple");
@@ -275,7 +278,7 @@ function AppCore() {
   // Output state
   const [graphState, setGraphState] = useState(() => createGraphState()); const [warnings, setWarnings] = useState([]); const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
   const [graphHistory, setGraphHistory] = useState([]);
-  const [persistenceSession] = useState(() => createProjectSession(createProjectStore()));
+  const [persistenceSession] = useState(() => experience?.session ?? createProjectSession(createProjectStore()));
   const [workspaceSources] = useState(createWorkspaceSourceRegistry);
   const [graphBinding, setGraphBinding] = useState(null);
   const graphStateRef = useRef(graphState);
@@ -309,13 +312,13 @@ function AppCore() {
     return () => { dynamicUpdateControls.invalidateApply(); owner.dispose(); };
   }, [dynamicUpdateControls]);
   const [pendingPreviewRequested, setPendingPreviewRequested] = useState(false);
-  const [vizLimit, setVizLimit] = useState(50); const [activeSection, setActiveSection] = useState("mappings");
+  const [vizLimit, setVizLimit] = useState(experience?.preferences.visualization.limit ?? 50); const [activeSection, setActiveSection] = useState("mappings");
   const [selectedMappingId, setSelectedMappingId] = useState("h2v");
   const [expId, setExpId] = useState("h2v_txt");
   const [activeToolsSection, setActiveToolsSection] = useState("advanced");
   const [aiPromptTargetId, setAiPromptTargetId] = useState("canonical");
-  const [graphView, setGraphView] = useState("hypergraph");
-  const [graphLayout, setGraphLayout] = useState("force");
+  const [graphView, setGraphView] = useState(experience?.preferences.visualization.view ?? "hypergraph");
+  const [graphLayout, setGraphLayout] = useState(experience?.preferences.visualization.layout ?? "force");
   const [graphSearch, setGraphSearch] = useState("");
   const [graphResetNonce, setGraphResetNonce] = useState(0);
   const [graphReheatNonce, setGraphReheatNonce] = useState(0);
@@ -372,7 +375,7 @@ function AppCore() {
   const workspaceInput = useMemo(() => captureWorkspaceInputs(workspaceSources, { fmt, texts, nv, sv, tv, customCode, customCodeVersion,
     customFiles, manualUploads, batches: agentFileBatches, activeBatchId, graphBinding }),
   [workspaceSources, fmt, texts, nv, sv, tv, customCode, customCodeVersion, customFiles, manualUploads, agentFileBatches, activeBatchId, graphBinding]);
-  const workspaceReceipt = usePersistentWorkspace({ session: persistenceSession, input: workspaceInput, graph: graphState, onRestore: restored => {
+  const workspaceReceipt = usePersistentWorkspace({ session: persistenceSession, restore: restoreWorkspaceCategories, input: workspaceInput, graph: graphState, onRestore: restored => {
     const data = decodeWorkspaceInputs(restored);
     if (!FMTS.some(format => format.id === data.fmt)) throw new StorageFault("INCOMPATIBLE", "Saved input format is unsupported. Workspace remains unavailable.", true);
     const batches = data.batches.map(batch => ({ ...buildAgentBatch(batch.files, batch.id, batch.label, batch.parseMode), version: batch.version, status: batch.id === data.activeBatchId ? "active" : "inactive" }));
@@ -412,6 +415,18 @@ function AppCore() {
     if (["loading", "failed"].includes(persistentModel.state)) return;
     setModelStorageReceipt(saveLocalModelConfig(JSON.parse(generalModelSettings)));
   }, [generalModelSettings, persistentModel.state]);
+  const projectMemory = { ...assistantMemory, mutate: command => experience ? experience.mutateMemory(command, assistantMemory.mutate) : assistantMemory.mutate(command) };
+  const currentEditorKeys = workspaceInput.metadata.editors.filter(row => row.slot === "text:" + workspaceInput.metadata.fmt).map(row => row.key);
+  const activeSourceKeys = workspaceInput.metadata.fmt === "custom" ? workspaceInput.metadata.customKeys : workspaceInput.metadata.fmt === "cornell" ? workspaceInput.metadata.editors.filter(row => ["nv", "sv", "tv"].includes(row.slot)).map(row => row.key) : currentEditorKeys.length ? currentEditorKeys : workspaceInput.metadata.manual.filter(row => row.slot === "text:" + workspaceInput.metadata.fmt).map(row => row.key);
+  const resumeStatus = JSON.stringify({ workspace: { state: workspaceReceipt.state, unsaved: workspaceReceipt.unsaved, code: workspaceReceipt.code ?? null, revision: workspaceReceipt.revision ?? null, updatedAt: workspaceReceipt.updatedAt ?? null, partial: Boolean(workspaceReceipt.partial) },
+    sourceCount: workspaceInput.sources.filter(source => source.kind !== "parser").length, graphHasData: Boolean(graphState.hyperedges?.length),
+    graphStale: sourceGraphOutOfDate(workspaceReceipt.provenanceSummary, activeSourceKeys),
+    memoryStatus: assistantMemory.status, memoryCount: assistantMemory.records.filter(row => row.status === "ACTIVE").length, staleMemoryCount: assistantMemory.records.filter(row => row.retrievalStatus === "STALE").length,
+    model: persistentModel.profile?.selectedModel ?? null, autoReconnect: persistentModel.profile?.autoReconnectEnabled ?? false, modelState: persistentModel.state });
+  const reportResume = experience?.report, resumeKey = experience?.active.key;
+  useEffect(() => { reportResume?.(resumeKey, JSON.parse(resumeStatus)); }, [reportResume, resumeKey, resumeStatus]);
+  const reportVisualization = experience?.onVisualization;
+  useEffect(() => { reportVisualization?.({ view: graphView, layout: graphLayout, limit: vizLimit }); }, [reportVisualization, graphView, graphLayout, vizLimit]);
   const graphInputsForParse = useCallback((targetFormat, payload) => {
     const pairs = targetFormat === "cornell" ? [["nv", payload.nverts], ["sv", payload.simplices], ["tv", payload.times]] : [["text:" + targetFormat, payload.text]];
     const sources = [];
@@ -2093,6 +2108,7 @@ function AppCore() {
   }
 
   async function forgetPersistentConnection() {
+    if (experience && !await experience.confirm({ title: "Forget local model connection?", detail: "Forget the application-wide model profile and reconnect preference for every project. Saved workspaces, source, graphs and Assistant memory are retained." })) return { ok: false, cancelled: true };
     const receipt = await persistentModel.forget();
     if (!receipt.ok) return receipt;
     const reset = { ...localModelConfig, enabled: false, model: RECOMMENDED_OLLAMA_MODEL,
@@ -4198,7 +4214,8 @@ function AppCore() {
     && customFiles.length > 0;
   const agentState = {
     persistenceSession,
-    assistantMemory,
+    persistenceStale: Boolean(experience?.externalStale),
+    assistantMemory: projectMemory,
     modelConnection: { ...persistentModel, forget: forgetPersistentConnection },
     candy: candyRuntime.state,
     reactOrchestratorEnabled: reactOrchestratorEnabled(),
@@ -5130,7 +5147,8 @@ function AppCore() {
       </header>
 
       <div id="main-content" className="hg-shell">
-        <p role="status" data-workspace-storage={workspaceReceipt.state}>{workspaceReceipt.message}</p>
+        {experience?.panel(forgetPersistentConnection)}
+        <p role="status" hidden={Boolean(experience)} data-workspace-storage={workspaceReceipt.state}>{experience?.externalStale ? "Saved project changed in another tab. Reload before saving." : persistenceStatusText(workspaceReceipt)}</p>
         {workspaceReceipt.state === "error" && <button type="button" className="hg-btn" onClick={workspaceReceipt.retry}>Retry workspace storage</button>}
         {workspaceReceipt.recoverySources?.map(source => <label key={source.objectId} data-workspace-source-id={source.objectId} style={{ display: "block" }}>
           Reattach exact source {source.name} ({source.byteLength} bytes; SHA-256 {source.sha256})
@@ -5552,7 +5570,7 @@ function AppCore() {
 
           {/* Hypergraph Assistant */}
           <div id="tools-panel-assistant" role="tabpanel" aria-labelledby="tools-tab-assistant" hidden={activeToolsSection !== "assistant"} style={{ display: activeToolsSection === "assistant" ? "block" : "none" }}>
-            <AssistantMemoryPanel memory={assistantMemory} />
+            <AssistantMemoryPanel memory={projectMemory} />
             <AgentChatPanel
               agentState={agentState}
               agentActions={agentActions}
@@ -5566,4 +5584,4 @@ function AppCore() {
   );
 }
 
-export default function App() { return <ErrorBoundary><AppCore /></ErrorBoundary>; }
+export default function App() { return <ErrorBoundary><WorkspaceExperience component={AppCore} /></ErrorBoundary>; }

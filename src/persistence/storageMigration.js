@@ -4,6 +4,7 @@ import { clearStoredModelSettings } from "../agent/localModelSettings.js";
 import { clearStoredParserProfiles } from "../agent/parserProfiles.js";
 
 export async function initializeProjectThread(store, legacy = createThreadStore()) {
+  if (store.initializeCurrentProject) { await legacy.close?.(); return store.initializeCurrentProject(); }
   const project = await store.defaultProject();
   if (project.deleted) throw new StorageFault("DELETED", "The saved project is deleted. This session is not saved.", true);
   if (await store.recovery()) throw new StorageFault("QUARANTINED", "Legacy thread needs recovery. Original data is preserved; storage is read-only.", true);

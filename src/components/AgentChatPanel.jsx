@@ -1,3 +1,4 @@
+import { persistenceStatusText } from "../persistence/workspaceResumeCoordinator.js";
 import { useEffect, useRef, useState } from "react";
 import ModelConnectionControls from "./ModelConnectionControls.jsx";
 import { parseMemoryCommand } from "../persistence/assistantMemoryCoordinator.js";
@@ -2514,7 +2515,8 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
         const memory = latestStateRef.current.assistantMemory;
         if (!memory) throw new Error("Project memory is unavailable.");
         const receipt = memoryCommand.kind === "list" ? await memory.inspect() : await memory.mutate(memoryCommand);
-        append("agent", memoryCommand.kind === "list" ? `${receipt.records.filter(r => r.status !== "FORGOTTEN").length} project memories. Open Project Assistant memory to inspect provenance, conflicts and lifecycle.` : `Memory committed at project revision ${receipt.revision}. No execution or approval was restored.`, "status");
+        if (receipt?.ok === false) { append("agent", "No project memory was changed.", "status"); return; }
+        append("agent", memoryCommand.kind === "list" ? `${receipt.records.filter(r => r.status !== "FORGOTTEN").length} project memories. Open Project Assistant memory to inspect provenance, conflicts and lifecycle.` : "Project memory committed. No execution or approval was restored.", "status");
       } catch (error) { append("agent", `Memory was not acknowledged: ${error.message}`, "error"); }
       return;
     }
@@ -3057,11 +3059,11 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
             </div>
             {agentState.selectionNotice && <div className="agent-selection-notice">{agentState.selectionNotice}</div>}
             <div role="status" className="agent-status">
-              {persistence.error || persistence.message}
+              {agentState.persistenceStale ? "Saved project changed in another tab. Reload before saving." : persistence.error ? "Chat is not saved. Original records are preserved; reload or retry storage." : "Chat: " + persistenceStatusText(persistence.receipt)}
               {(persistence.receipt?.state === "error" || persistence.status === "unavailable") && <button type="button" onClick={persistence.retryStorage}>Retry storage</button>}
             </div>
             {agentState.localModel?.storageReceipt?.ok === false && <p role="status">Model settings were not saved: {agentState.localModel.storageReceipt.error}</p>}
-            {persistence.restoredWorkspace && <p role="status">Restored messages are historical context. No graph, pending update, confirmation, Runtime job or current result was restored. Reload the graph and review any requested change again.</p>}
+            {persistence.restoredWorkspace && <p role="status">Restored chat is historical context. Source and graph availability are shown above. Pending actions, confirmations, Runtime jobs and current result authority are not restored.</p>}
             {persistence.restoredWorkspace?.requiresReupload && !agentState.agentFileCount && <details className="agent-upload">
               <summary>Saved workspace requires re-upload</summary>
               <p>Re-upload {persistence.restoredWorkspace.files.map(file => file.name).join(", ")}. Saved parser and graph references are historical; no files or approvals were restored.</p>

@@ -1,0 +1,375 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "6bf0f3614987559f93f5c0b7a26d24d976a82ecb",
+  "branch": "candy-integration-scope7e-resume-workspace-ux",
+  "sourceDigest": "cb148f605b7d61dac028e57b9d370a8361b62c061af7418c7035efd8e9b3bb15",
+  "candidateCommit": null,
+  "staged": false,
+  "commitCreated": false,
+  "recordedAtUtc": "2026-10-31T18:10:08.921648+00:00",
+  "status": "READY TO CREATE SCOPE 7E RESUME WORKSPACE UX CANDIDATE COMMIT",
+  "proposedPathCount": 29,
+  "productTestDocPathCount": 21,
+  "evidencePathCount": 8,
+  "addedFiles": 20,
+  "modifiedFiles": 9,
+  "deletedFiles": 0,
+  "productLineAdditions": 625,
+  "productLineDeletions": 33,
+  "productPaths": [
+    "docs/CANDY_SCOPE7E_WORKSPACE_RESUME.md",
+    "src/App.jsx",
+    "src/components/AgentChatPanel.jsx",
+    "src/components/AssistantMemoryPanel.jsx",
+    "src/components/ResumeWorkspacePanel.css",
+    "src/components/ResumeWorkspacePanel.jsx",
+    "src/components/WorkspaceExperience.jsx",
+    "src/persistence/projectStore.js",
+    "src/persistence/resumePreferenceSchema.js",
+    "src/persistence/resumeProjectSession.js",
+    "src/persistence/storageMigration.js",
+    "src/persistence/usePersistentWorkspace.js",
+    "src/persistence/workspaceCapture.js",
+    "src/persistence/workspaceObjectSchema.js",
+    "src/persistence/workspaceRestore.js",
+    "src/persistence/workspaceResumeCoordinator.js",
+    "tests/candy-scope7e-mounted.test.mjs",
+    "tests/candy-scope7e-preferences-store.test.mjs",
+    "tests/candy-scope7e-resume.test.mjs",
+    "tests/fixtures/candy-scope7e-browser.html",
+    "tests/fixtures/candy-scope7e-browser.mjs"
+  ],
+  "evidencePaths": [
+    "artifacts/candy-scope7e-implementation-report.md",
+    "artifacts/candy-scope7e-test-results.json",
+    "artifacts/candy-scope7e-browser-results.json",
+    "artifacts/candy-scope7e-security-review.md",
+    "artifacts/candy-scope7e-resume-state-machine.json",
+    "artifacts/candy-scope7e-preference-results.json",
+    "artifacts/candy-scope7e-gap-closure.json",
+    "artifacts/candy-scope7e-final-inventory.json"
+  ],
+  "allProposedGitPaths": [
+    "artifacts/candy-scope7e-browser-results.json",
+    "artifacts/candy-scope7e-final-inventory.json",
+    "artifacts/candy-scope7e-gap-closure.json",
+    "artifacts/candy-scope7e-implementation-report.md",
+    "artifacts/candy-scope7e-preference-results.json",
+    "artifacts/candy-scope7e-resume-state-machine.json",
+    "artifacts/candy-scope7e-security-review.md",
+    "artifacts/candy-scope7e-test-results.json",
+    "docs/CANDY_SCOPE7E_WORKSPACE_RESUME.md",
+    "src/App.jsx",
+    "src/components/AgentChatPanel.jsx",
+    "src/components/AssistantMemoryPanel.jsx",
+    "src/components/ResumeWorkspacePanel.css",
+    "src/components/ResumeWorkspacePanel.jsx",
+    "src/components/WorkspaceExperience.jsx",
+    "src/persistence/projectStore.js",
+    "src/persistence/resumePreferenceSchema.js",
+    "src/persistence/resumeProjectSession.js",
+    "src/persistence/storageMigration.js",
+    "src/persistence/usePersistentWorkspace.js",
+    "src/persistence/workspaceCapture.js",
+    "src/persistence/workspaceObjectSchema.js",
+    "src/persistence/workspaceRestore.js",
+    "src/persistence/workspaceResumeCoordinator.js",
+    "tests/candy-scope7e-mounted.test.mjs",
+    "tests/candy-scope7e-preferences-store.test.mjs",
+    "tests/candy-scope7e-resume.test.mjs",
+    "tests/fixtures/candy-scope7e-browser.html",
+    "tests/fixtures/candy-scope7e-browser.mjs"
+  ],
+  "rows": [
+    {
+      "path": "artifacts/candy-scope7e-browser-results.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "0c3c27c8bd941f4d5c800556c5cbaadee0a5e4b3c79cd11b38acbacf41c0e458",
+      "gitBlob": "8d633fd3a7147aa340eb583efdd3d7a7ed09ed3d",
+      "bytes": 12144
+    },
+    {
+      "path": "artifacts/candy-scope7e-final-inventory.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": null,
+      "gitBlob": null,
+      "bytes": null
+    },
+    {
+      "path": "artifacts/candy-scope7e-gap-closure.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "134428d6947ef11a2d94433608e534370fd1f2770b7f76a81b618ab33460186e",
+      "gitBlob": "484763528643794adfeab8130855c4f9ce0cc421",
+      "bytes": 6920
+    },
+    {
+      "path": "artifacts/candy-scope7e-implementation-report.md",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "625627bb030f11c15dac877bef5eb8266ed4bb9bbbb4242d6bfa8f7a69dc123d",
+      "gitBlob": "fa2afefec8aaacbdc1afc264d8af9e3f3071ca70",
+      "bytes": 5400
+    },
+    {
+      "path": "artifacts/candy-scope7e-preference-results.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "1032a86a3b194d62344fe5e998594535aa8a482dc8940418404f4393944c3ba0",
+      "gitBlob": "f5c7acca9e599973940fa92091de4b75d9b70109",
+      "bytes": 2231
+    },
+    {
+      "path": "artifacts/candy-scope7e-resume-state-machine.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "6fe2d8b0945ed232ceadd7d76f2b67fe63602659b9bf72501f94e6685f142c85",
+      "gitBlob": "29e7b61c05b6e5a873880e52f4f871efd2165529",
+      "bytes": 2551
+    },
+    {
+      "path": "artifacts/candy-scope7e-security-review.md",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "dff341248cef1d7131f0aabfd4ec8c1cc6912f3ea605b7852b028c0fb17cc459",
+      "gitBlob": "9e837d41b94614923aea5b9c932728933bd29eaf",
+      "bytes": 4774
+    },
+    {
+      "path": "artifacts/candy-scope7e-test-results.json",
+      "category": "evidence",
+      "change": "added",
+      "sha256": "9ec639a714ac9b347dc1acf66ecb396a562ff0d91931fd52b8bd157f81ef52f9",
+      "gitBlob": "01d6c74233f4b7fe249ec5c0a878d62abedac4b6",
+      "bytes": 16723
+    },
+    {
+      "path": "docs/CANDY_SCOPE7E_WORKSPACE_RESUME.md",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "dc7b6ec709840d5af29361f6092e8310ea4ee1842e042b9c58743258e4ac0687",
+      "gitBlob": "68bdf17fbfc1c4e33e5ea372d74c2c2f71361547",
+      "bytes": 8483
+    },
+    {
+      "path": "src/App.jsx",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "b12f09eb2436a5025d37b33bae26863e6d3118e2615d217929a7e9f940ebae6b",
+      "gitBlob": "b03186e7e09ec68c11955f48c09c7fc3d91ef032",
+      "bytes": 284809
+    },
+    {
+      "path": "src/components/AgentChatPanel.jsx",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "13245eafaa0f88d21962669f01f305d084fe2a21b54b390832167e6c2e08b9bf",
+      "gitBlob": "5ef45b4c2cd4493f64ea0bbf36fe0231a7d80f2f",
+      "bytes": 219853
+    },
+    {
+      "path": "src/components/AssistantMemoryPanel.jsx",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "a58ef3c37405bb690b55d25f036b2d4f5a53cd12ba1dbc79cbdadc8a99e20edc",
+      "gitBlob": "3be756680d06faffd2964a55d8d39f40fd1b62c4",
+      "bytes": 3191
+    },
+    {
+      "path": "src/components/ResumeWorkspacePanel.css",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "9ddd25f57999b19964824dbbabef53157b19dc5dba717525ed152cf45b4879d5",
+      "gitBlob": "45e174373976ad0538349dbca445ce19ef8991c8",
+      "bytes": 3486
+    },
+    {
+      "path": "src/components/ResumeWorkspacePanel.jsx",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "a0f2c89529a913bd8e794e73234ce5532b6621a005dfa4791fb4f6dcd2664a65",
+      "gitBlob": "89a03827a3d5e898c0d574721c2012ad99fbeecf",
+      "bytes": 7824
+    },
+    {
+      "path": "src/components/WorkspaceExperience.jsx",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "f577dfaddc12dca748b708b775b114581576f8956b1bbe10fbf3fe7a60c283f5",
+      "gitBlob": "85ea674cea8eeeaa1b9f6d79d73dad15eebac341",
+      "bytes": 6648
+    },
+    {
+      "path": "src/persistence/projectStore.js",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "60a993176770cc5befc8666b884708e6d99d903d1f76b2af16614ab9fc603ad5",
+      "gitBlob": "b81932041035f8494b4f54a0a52b4d355376e399",
+      "bytes": 31726
+    },
+    {
+      "path": "src/persistence/resumePreferenceSchema.js",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "148d3e0950c2592598d4abf707a40c0f80b0bdf5dcdbba9f0916f90a78e8c511",
+      "gitBlob": "647a14d56e9101ae2d6ea1f75dd1fac03650b4a7",
+      "bytes": 2747
+    },
+    {
+      "path": "src/persistence/resumeProjectSession.js",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "7a1ce64aedc39a6410fb6a6107f4409c132daac64dd1447bce528525dce2de19",
+      "gitBlob": "ce152c62abf15f4cbfcc2aae9fa4222c4ae15991",
+      "bytes": 1380
+    },
+    {
+      "path": "src/persistence/storageMigration.js",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "eee085fd8bc796dd4a307c8798d0a348a6e3544763087ab7f110a56f9fd9baa6",
+      "gitBlob": "5eba655f758fcfea62092434f9adda6db192f537",
+      "bytes": 3871
+    },
+    {
+      "path": "src/persistence/usePersistentWorkspace.js",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "dd0a0667cb9fe57afcf060cdbc5a9fad9c59f649c3bcc7dc91310ce39f428c22",
+      "gitBlob": "0b7caff14cb4d31a4a75c479d180599c1410ce13",
+      "bytes": 7632
+    },
+    {
+      "path": "src/persistence/workspaceCapture.js",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "1eeec57ff93aee7ac54a330bb74b8ce6144ecfd513ff49de44dc98e286390ae7",
+      "gitBlob": "804b0c49a000feef10cd13c1f17e623440d514bc",
+      "bytes": 6339
+    },
+    {
+      "path": "src/persistence/workspaceObjectSchema.js",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "4a451231c6b683c6079c848ccd6cd265db0269bce82f1b95ba5a1e419e806cfd",
+      "gitBlob": "cb523e61e5bfb37ecd8741c005330abbf6d367c2",
+      "bytes": 16857
+    },
+    {
+      "path": "src/persistence/workspaceRestore.js",
+      "category": "product/test/doc",
+      "change": "modified",
+      "sha256": "e55ca9580edc79d0d926c2224e33ab3e02b577ba9a0cc84f50752e5485d3e840",
+      "gitBlob": "265dbe68004b36cef8d00298014ed05adede8e25",
+      "bytes": 2617
+    },
+    {
+      "path": "src/persistence/workspaceResumeCoordinator.js",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "fb8d180ba0943f8789d53d1c8c059aa0ed97fdd6e7d692bbfdb56ff236e98cca",
+      "gitBlob": "fd9336feec2ecc60b65aef42f7879f167caf4c3d",
+      "bytes": 14513
+    },
+    {
+      "path": "tests/candy-scope7e-mounted.test.mjs",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "0bf809391714596df7138e388430ad1910cd9e245c97bd21b120ffa878d80b5f",
+      "gitBlob": "c979569e4b54b2c2b168d840d67edf724ebd3e5a",
+      "bytes": 4883
+    },
+    {
+      "path": "tests/candy-scope7e-preferences-store.test.mjs",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "41e4e081431a5520d9c333219579c26c0575fc1712647112771cd2b48b77a8f5",
+      "gitBlob": "007d43e7cc0a082483d922dd360d4dbfffe3046a",
+      "bytes": 7213
+    },
+    {
+      "path": "tests/candy-scope7e-resume.test.mjs",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "b9bdbfb8631dd0ac8813d3c0d677820575a1b7e7aa3b9d4d0b1d2b857f2b6141",
+      "gitBlob": "aedfe322cfc7f8f7a8369395cc509efaabf5c3d9",
+      "bytes": 9987
+    },
+    {
+      "path": "tests/fixtures/candy-scope7e-browser.html",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "f24c7f72aabf2b3010136768c9066089226c9a09b34650b6e08624394d705ea6",
+      "gitBlob": "6b7ac5ad599e8e156526f8584c5331df3ba86023",
+      "bytes": 316
+    },
+    {
+      "path": "tests/fixtures/candy-scope7e-browser.mjs",
+      "category": "product/test/doc",
+      "change": "added",
+      "sha256": "3d5d453b82ae4bcfe139d00f887158ed68fc7ae7d2b46c0757ad8d3929a05dca",
+      "gitBlob": "9b741bde3813ea5b85e8c4b9624cecd6f208507d",
+      "bytes": 24737
+    }
+  ],
+  "selfHashNote": "This inventory cannot contain its own content hash; its row hashes are null. Final external digest list is retained in excluded work evidence. All other28 proposed files have physical SHA256 and normalized read-only Git blob identity.",
+  "temporaryWorkExcluded": "artifacts/candy-scope7e-work/**",
+  "frozenSourceManifest": "candy-scope7e-work/frozen-source-v4.json",
+  "frozenPatchSha256": "450a8510d31f8097205fd80b03a926841902315d6518b61d0b05260cf6896053",
+  "protected": {
+    "status": "PASS",
+    "initialTrackedCount": 1360,
+    "unchangedTrackedCount": 1351,
+    "unchangedBytesAndMtimes": true,
+    "historicalEvidenceFilesPreserved": 424,
+    "allExistingTestsUnchanged": true,
+    "allLocalRefsUnchanged": true,
+    "allLiveOriginTagsUnchanged": true,
+    "originMainUnchanged": true,
+    "originBranchUnchanged": true,
+    "parentQualificationTagPeel": "6bf0f3614987559f93f5c0b7a26d24d976a82ecb",
+    "changedTrackedPaths": [
+      "src/App.jsx",
+      "src/components/AgentChatPanel.jsx",
+      "src/components/AssistantMemoryPanel.jsx",
+      "src/persistence/projectStore.js",
+      "src/persistence/storageMigration.js",
+      "src/persistence/usePersistentWorkspace.js",
+      "src/persistence/workspaceCapture.js",
+      "src/persistence/workspaceObjectSchema.js",
+      "src/persistence/workspaceRestore.js"
+    ],
+    "protectedCategories": [
+      "deterministic command/graph/action authority and confirmations",
+      "Runtime authentication/protocol",
+      "CUDA STATIC/INCREMENTAL and no CPU fallback",
+      "Analyze/Apply and parser review/Run/Apply separation",
+      "local-only Ollama endpoint/profile/FSM authority",
+      "package producer/verifier and launcher origin policy",
+      "all historical PASS/NON-PASS qualification evidence and tags"
+    ],
+    "proof": "Every initially tracked file outside the 9 explicit modified paths has identical physical SHA256 and mtime; all existing tests/scripts/Runtime/workflows are unchanged. App changes are limited to scoped persistence UX wiring and presentation."
+  },
+  "archive": {
+    "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "sourceDigest": "cb148f605b7d61dac028e57b9d370a8361b62c061af7418c7035efd8e9b3bb15",
+    "commitBound": false,
+    "commitBoundClosure": "DEFERRED until candidate commit",
+    "sha256": "a880b71c169dc5447be72be8e3c3c4ba1ad8f9d8c96ba5c035834addf6c613dc",
+    "bytes": 1926478,
+    "entries": 1004,
+    "files": 948,
+    "directories": 56,
+    "allProductPathsExact": true,
+    "privateStateExcluded": true
+  },
+  "deferred": [
+    "Exact candidate-SHA package production",
+    "Commit-bound package verification",
+    "Candidate remote CI",
+    "Final exact-SHA qualification"
+  ],
+  "noStageCommitPushTagMergeMainOr7F": true
+}

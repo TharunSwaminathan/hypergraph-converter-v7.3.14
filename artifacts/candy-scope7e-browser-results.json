@@ -1,0 +1,350 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "6bf0f3614987559f93f5c0b7a26d24d976a82ecb",
+  "branch": "candy-integration-scope7e-resume-workspace-ux",
+  "sourceDigest": "cb148f605b7d61dac028e57b9d370a8361b62c061af7418c7035efd8e9b3bb15",
+  "candidateCommit": null,
+  "staged": false,
+  "commitCreated": false,
+  "recordedAtUtc": "2026-10-31T18:10:08.921648+00:00",
+  "status": "PASS",
+  "functionalCases": 52,
+  "caseCounts": {
+    "first": 13,
+    "reopen": 10,
+    "auto": 6,
+    "off": 23
+  },
+  "source": "Git-free extraction of package-clean-v4.zip; all product bytes match immutable snapshot",
+  "isolatedNativeBrowser": true,
+  "origin": "http://127.0.0.1:5173",
+  "realOllama": {
+    "selectedModel": "qwen3:8b",
+    "actualSuccessfulRequests": 2,
+    "restoredBoundedProjectMemoryDelivered": true,
+    "discoveryAndGenerationMocked": false
+  },
+  "controlledFaultBoundary": "Separate owned loopback tags server supplies outage/recovery/missing-model scenarios. Missing graph/source/future preference/quarantine cases deliberately modify only the guarded synthetic profile native IndexedDB. No user profile or Ollama process is touched.",
+  "cases": {
+    "first": [
+      {
+        "case": "fresh-App-no-saved-workspace-and-no-network",
+        "startupUsableMs": 344.40000000596046
+      },
+      {
+        "case": "normal-UI-source-committed"
+      },
+      {
+        "case": "normal-UI-graph-committed-without-resume-authority"
+      },
+      {
+        "case": "explicit-project-name-saved"
+      },
+      {
+        "case": "normal-UI-project-memory-durable"
+      },
+      {
+        "case": "actual-qwen3-8b-fresh-runtime-verification",
+        "mocked": false
+      },
+      {
+        "case": "explicit-model-reconnect-ON"
+      },
+      {
+        "case": "startup-auto-resume-OFF-independent-of-model"
+      },
+      {
+        "case": "view-layout-preview-preferences-durable"
+      },
+      {
+        "case": "actual-first-model-request-current-memory",
+        "mocked": false
+      },
+      {
+        "case": "unsent-mutation-left-only-in-session"
+      },
+      {
+        "case": "desktop-resume-panel-semantic-responsive-layout",
+        "rect": {
+          "width": 1440,
+          "panelWidth": 1272,
+          "left": 79,
+          "right": 1351,
+          "top": 88,
+          "height": 408.6875,
+          "label": "desktop"
+        }
+      },
+      {
+        "case": "narrow-resume-panel-semantic-responsive-layout",
+        "rect": {
+          "width": 390,
+          "panelWidth": 352,
+          "left": 14,
+          "right": 366,
+          "top": 84,
+          "height": 595.78125,
+          "label": "narrow"
+        }
+      }
+    ],
+    "reopen": [
+      {
+        "case": "reopen-explicit-Resume-chooser",
+        "chooserMs": 122
+      },
+      {
+        "case": "chooser-configured-is-not-connected-no-probe"
+      },
+      {
+        "case": "explicit-Resume-mounts-current-project",
+        "usableMs": 729.1999999880791
+      },
+      {
+        "case": "actual-App-source-restored"
+      },
+      {
+        "case": "exact-graph-restored-without-regeneration"
+      },
+      {
+        "case": "actual-App-memory-restored"
+      },
+      {
+        "case": "truthful-7D-model-handoff-after-workspace-memory"
+      },
+      {
+        "case": "unsent-query-pending-confirmation-and-action-authority-absent"
+      },
+      {
+        "case": "actual-restored-memory-delivered-to-qwen",
+        "mocked": false
+      },
+      {
+        "case": "startup-auto-resume-ON-durable"
+      }
+    ],
+    "auto": [
+      {
+        "case": "reopen-auto-resume-ON",
+        "usableMs": 377.60000002384186
+      },
+      {
+        "case": "display-preferences-restored-without-selection-authority"
+      },
+      {
+        "case": "native-discovery-restore-performance",
+        "timings": {
+          "modelProfileLoadMs": 1.300000011920929,
+          "chatLoadMs": 1.7000000178813934,
+          "workspaceSourceGraphValidationMs": 7.800000011920929,
+          "memoryValidationMs": 10.800000011920929,
+          "sourceValidationMs": 0,
+          "graphValidationMs": 0.20000001788139343,
+          "resumeMetadataValidationMs": 1.5,
+          "totalWorkspaceValidationMs": 1.9000000059604645,
+          "discoveryMs": 11.099999994039536
+        }
+      },
+      {
+        "case": "changed-source-digest-shows-stale-graph-without-transformation"
+      },
+      {
+        "case": "equivalent-source-bytes-do-not-falsely-mark-graph-stale"
+      },
+      {
+        "case": "manual-disconnect-and-startup-OFF-durable-separately"
+      }
+    ],
+    "off": [
+      {
+        "case": "restored-workspace-memory-with-durable-model-OFF"
+      },
+      {
+        "case": "Start-fresh-separate-project-retains-Alpha"
+      },
+      {
+        "case": "fresh-project-has-no-foreign-memory-or-graph"
+      },
+      {
+        "case": "normal-UI-Beta-source-graph-memory"
+      },
+      {
+        "case": "B-to-A-isolation"
+      },
+      {
+        "case": "A-to-B-isolation"
+      },
+      {
+        "case": "semantic-confirmation-Cancel-focus-Escape-return"
+      },
+      {
+        "case": "confirmed-workspace-delete-retains-memory-Alpha-settings"
+      },
+      {
+        "case": "confirmed-memory-clear-retains-Alpha-and-model-profile"
+      },
+      {
+        "case": "two-real-App-tabs-stale-confirmed-delete-rejected"
+      },
+      {
+        "case": "two-real-App-tabs-stale-save-rejected-no-false-ack"
+      },
+      {
+        "case": "workspace-usable-during-controlled-Ollama-outage"
+      },
+      {
+        "case": "bounded-Ollama-unavailable-UX-without-reset"
+      },
+      {
+        "case": "controlled-Ollama-recovery-UX"
+      },
+      {
+        "case": "remembered-model-unavailable-UX-no-substitution"
+      },
+      {
+        "case": "confirmed-global-model-forget-retains-projects"
+      },
+      {
+        "case": "native-missing-graph-partial-source-restore-read-only-no-fabrication"
+      },
+      {
+        "case": "App-usable-after-partial-restore"
+      },
+      {
+        "case": "native-missing-source-recovery-does-not-reset-Alpha"
+      },
+      {
+        "case": "native-original-legacy-quarantine-remains-read-only"
+      },
+      {
+        "case": "fresh-project-isolated-from-original-legacy-quarantine"
+      },
+      {
+        "case": "native-future-startup-preference-preserved-with-auto-resume-OFF"
+      },
+      {
+        "case": "temporary-fresh-after-incompatible-preference-preserves-all-projects"
+      }
+    ]
+  },
+  "receipts": {
+    "first": {
+      "path": "candy-scope7e-work/browser-frozen-v4-first.json",
+      "sha256": "0d88638d708e52b48107ae15c1e2037ffb109a37042a82d2ad6dc8ff86ae17ad",
+      "gracefulClose": true
+    },
+    "reopen": {
+      "path": "candy-scope7e-work/browser-frozen-v4-reopen.json",
+      "sha256": "ae027ea719e4c9d81455d148cac1a8730f1c146aef801b4b3daa58ce6204cd23",
+      "gracefulClose": true
+    },
+    "auto": {
+      "path": "candy-scope7e-work/browser-frozen-v4-auto.json",
+      "sha256": "7d2718ff50167e1065b4007866c73b1c0101b6273db50f5ffebe4cb311259b56",
+      "gracefulClose": true
+    },
+    "off": {
+      "path": "candy-scope7e-work/browser-frozen-v4-off.json",
+      "sha256": "9a8099e84b97b51796b45c8996cf150a545d342c9b2bb39090eb110afb49d5a9",
+      "gracefulClose": true
+    }
+  },
+  "visualReview": {
+    "status": "PASS",
+    "desktop": "1440x1000; panel width1272, no panel overflow",
+    "narrow": "390x844; panel width352, no panel overflow",
+    "images": [
+      "candy-scope7e-work/visual-frozen-v4-desktop.png",
+      "candy-scope7e-work/visual-frozen-v4-narrow.png"
+    ],
+    "humanStyleVisualInspection": "Both final screenshots inspected for hierarchy, readable category states, fitting controls and compact layout."
+  },
+  "performance": {
+    "separateReplayCases": 29,
+    "addedToFunctionalCount": false,
+    "navigationMeasurements": {
+      "first": {
+        "navigation": {
+          "observerAttachedMs": 25.69999998807907,
+          "clock": "navigation-relative performance.now; DOM milestones include module load; manual Resume includes chooser wait",
+          "resumeUiAvailableMs": 1174.0999999940395,
+          "workspaceUsableMs": 1174.0999999940395
+        },
+        "nativeProfileReadMs": [
+          0.800000011920929,
+          0.29999998211860657,
+          0.20000001788139343,
+          0.19999998807907104,
+          0.20000001788139343,
+          0.19999998807907104,
+          0.19999998807907104,
+          0.30000001192092896,
+          0.30000001192092896,
+          0.19999998807907104
+        ],
+        "profileReadKind": "post-startup native transaction reads; not cold-launch guarantee",
+        "discovery": [],
+        "notes": "Native Chrome resource timing; controlled server is distinguished in case receipts. Whole-App restore and reconnect milestones are in browser reports."
+      },
+      "reopen": {
+        "navigation": {
+          "observerAttachedMs": 8.300000011920929,
+          "clock": "navigation-relative performance.now; DOM milestones include module load; manual Resume includes chooser wait",
+          "resumeUiAvailableMs": 361.60000002384186,
+          "workspaceUsableMs": 866.8000000119209
+        },
+        "nativeProfileReadMs": [
+          1,
+          0.30000001192092896,
+          0.29999998211860657,
+          0.30000001192092896,
+          0.29999998211860657,
+          0.20000001788139343,
+          0.29999998211860657,
+          0.30000001192092896,
+          0.30000001192092896,
+          0.19999998807907104
+        ],
+        "profileReadKind": "post-startup native transaction reads; not cold-launch guarantee",
+        "discovery": [],
+        "notes": "Native Chrome resource timing; controlled server is distinguished in case receipts. Whole-App restore and reconnect milestones are in browser reports."
+      },
+      "auto": {
+        "navigation": {
+          "observerAttachedMs": 24.099999994039536,
+          "clock": "navigation-relative performance.now; DOM milestones include module load; manual Resume includes chooser wait",
+          "resumeUiAvailableMs": 485,
+          "workspaceUsableMs": 485
+        },
+        "nativeProfileReadMs": [
+          0.699999988079071,
+          0.30000001192092896,
+          0.19999998807907104,
+          0.5,
+          0.30000001192092896,
+          0.19999998807907104,
+          0.20000001788139343,
+          0.19999998807907104,
+          0.4000000059604645,
+          0.29999998211860657
+        ],
+        "profileReadKind": "post-startup native transaction reads; not cold-launch guarantee",
+        "discovery": [],
+        "notes": "Native Chrome resource timing; controlled server is distinguished in case receipts. Whole-App restore and reconnect milestones are in browser reports."
+      }
+    },
+    "validatedWorkspaceTimings": {
+      "modelProfileLoadMs": 1.300000011920929,
+      "chatLoadMs": 1.7000000178813934,
+      "workspaceSourceGraphValidationMs": 7.800000011920929,
+      "memoryValidationMs": 10.800000011920929,
+      "sourceValidationMs": 0,
+      "graphValidationMs": 0.20000001788139343,
+      "resumeMetadataValidationMs": 1.5,
+      "totalWorkspaceValidationMs": 1.9000000059604645,
+      "discoveryMs": 11.099999994039536
+    },
+    "interpretation": "Representative small synthetic workspaces; navigation-relative DOM milestones include module loading and manual chooser wait. Functional usableMs/chooserMs are post-module-start observations. Validation timings include digest checks and canonical graph construction, not separate source/graph paint guarantees. Performance replay occurred alongside repository qualification; not a cold OS, scale, quota, fsync or availability guarantee."
+  },
+  "physicalPowerLossOrForcedInterruptionQualification": "NOT RUN / DEFERRED to 7F"
+}

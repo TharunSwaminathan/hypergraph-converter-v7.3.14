@@ -1,9 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { initializeProjectThread } from "./storageMigration.js";
-import { restoreWorkspace } from "./workspaceRestore.js";
+import { restoreWorkspace, sourceGraphSummary } from "./workspaceRestore.js";
 import { fault, StorageFault } from "./storageSafety.js";
 
-export function usePersistentWorkspace({ session, input, graph, onRestore }) {
+export function usePersistentWorkspace({ session, input, graph, onRestore, restore = restoreWorkspace }) {
   const [receipt, setReceipt] = useState({ state: "loading", unsaved: false, message: "Validating saved workspace data…" });
   const [ready, setReady] = useState(false);
   const [retryTick, setRetryTick] = useState(0), [openAttempt, setOpenAttempt] = useState(0);
@@ -24,22 +24,24 @@ export function usePersistentWorkspace({ session, input, graph, onRestore }) {
       }
     };
     const unsubscribe = session.subscribe(error);
-    initializeProjectThread(session).then(async ({ manifest }) => {
+    (session.workspaceProject ? session.workspaceProject().then(manifest => ({ manifest })) : initializeProjectThread(session)).then(async ({ manifest }) => {
       state.projectId = manifest.projectId; state.revision = manifest.revision;
-      const restored = await restoreWorkspace(session, manifest.projectId, () => state.active && !changed.current);
+      const restored = await restore(session, manifest.projectId, () => state.active && !changed.current);
       if (!state.active || state.failed) return;
       if (changed.current) throw new StorageFault("CONFLICT", "Workspace changed before restore completed. Reload to review saved data; local edits are not overwritten.", true);
       if (restored.available) apply.current(restored);
-      state.revision = restored.manifest.revision; state.ready = true; skipHydration.current = true;
+      state.revision = restored.manifest.revision; state.ready = !restored.partial; state.failed = Boolean(restored.partial); skipHydration.current = true;
       setReady(true);
-      setReceipt({ state: restored.available ? "committed" : "clean", unsaved: false, revision: state.revision, message: restored.available ? `Workspace restored from verified bytes at project revision ${state.revision}.` : "No durable workspace data yet. New data will be saved within the browser storage budget." });
+      setReceipt({ state: restored.partial ? "read_only" : restored.available ? "committed" : "clean", partial: Boolean(restored.partial), sourceRestored: restored.available, graphRestored: Boolean(restored.graph), sourceCount: restored.sources.filter(s => s.provenance.kind !== "parser").length, unsaved: false, revision: state.revision, updatedAt: restored.root?.updatedAt ?? restored.manifest.updatedAt, provenanceSummary: sourceGraphSummary(restored.root), message: restored.partial ? "Sources restored; saved graph unavailable. Original saved data is preserved and remains read-only." : restored.available ? `Workspace restored from verified bytes at project revision ${state.revision}.` : "No durable workspace data yet. New data will be saved within the browser storage budget." });
     }).catch(error);
     return () => { state.active = false; state.latest = null; unsubscribe(); };
-  }, [session, openAttempt]);
+  }, [session, openAttempt, restore]);
   useLayoutEffect(() => {
     const state = owner.current;
-    if (!state?.active || !state.ready || state.failed) return;
+    if (!state?.active) return;
     if (skipHydration.current) { skipHydration.current = false; return; }
+    if (state.failed) { setReceipt(value => value.unsaved ? value : { ...value, unsaved: true }); return; }
+    if (!state.ready) return;
     state.latest = { ...input, graph };
     setReceipt({ state: "queued", unsaved: true, message: "Workspace changes are not committed yet." });
     async function drain() {
@@ -55,7 +57,7 @@ export function usePersistentWorkspace({ session, input, graph, onRestore }) {
           if (!state.active || state.failed) return;
           state.revision = saved.revision;
           writing = null;
-          setReceipt({ state: state.latest ? "queued" : "committed", unsaved: Boolean(state.latest), revision: saved.revision,
+          setReceipt({ state: state.latest ? "queued" : "committed", unsaved: Boolean(state.latest), revision: saved.revision, updatedAt: saved.manifest?.updatedAt, provenanceSummary: sourceGraphSummary(saved.workspace),
             message: state.latest ? "More workspace changes are pending." : `Workspace committed at project revision ${saved.revision}.` });
         }
       } catch (value) { state.latest ??= writing; const failure = fault(value); state.failed = true; if (state.active) setReceipt({ state: failure.readOnly ? "read_only" : "error", unsaved: true, code: failure.code, message: failure.message }); }
