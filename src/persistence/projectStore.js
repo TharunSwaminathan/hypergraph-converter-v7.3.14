@@ -7,8 +7,9 @@ import { sourceBytes, compareSourceIdentity } from "./workspaceProvenance.js";
 import { prepareMemoryMutation, verifyMemoryEnvelope } from "./assistantMemorySchema.js";
 import { verifiedWorkspaceMemory } from "./assistantMemoryStore.js";
 import { stableStringify } from "../graph/graphFingerprint.js";
+import { CONNECTION_ID, CONNECTION_POLICY, validateConnectionRecord, validateConnectionProfile } from "./modelConnectionSchema.js";
 
-const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories"];
+const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections"];
 const checkId = id => { if (!isProjectId(id)) throw new StorageFault("CORRUPT", "Invalid project identity.", true); };
 export function createProjectStore(indexedDB = globalThis.indexedDB, databaseName = PROJECT_DATABASE) {
   let opening = null, blocked = null;
@@ -152,6 +153,40 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     });
   }
   const api = Object.freeze({
+    async readConnectionProfile() {
+      const value = await read("modelConnections", CONNECTION_ID);
+      return value ? validateConnectionRecord(value) : { revision: 0, deleted: false, profile: null };
+    },
+    async saveConnectionProfile(expectedRevision, profile) {
+      const safe = profile === null ? null : validateConnectionProfile(profile);
+      return transaction(["modelConnections"], "readwrite", (tx, done, abort) => {
+        const store = tx.objectStore("modelConnections"), req = store.get(CONNECTION_ID);
+        req.onsuccess = () => {
+          try {
+            const current = req.result ? validateConnectionRecord(req.result) : { revision: 0 };
+            if (!Number.isSafeInteger(expectedRevision) || expectedRevision !== current.revision) throw new StorageFault("CONFLICT", "Connection preferences changed in another tab; reload before writing.", true);
+            const next = validateConnectionRecord({ id: CONNECTION_ID, schemaVersion: 1, revision: current.revision + 1, deleted: safe === null, profile: safe });
+            store.put(next); done({ ok: true, saved: true, status: "committed", ...next });
+          } catch (error) { abort(error); }
+        };
+      });
+    },
+    async acquireConnectionLease(owner, now = Date.now()) {
+      checkId(owner);
+      if (!Number.isSafeInteger(now) || now < 0) throw new StorageFault("CORRUPT", "Invalid reconnect lease clock.", true);
+      return transaction(["modelConnections"], "readwrite", (tx, done, abort) => {
+        const store = tx.objectStore("modelConnections"), req = store.get("reconnect-lease");
+        req.onsuccess = () => {
+          const lease = req.result;
+          if (lease && (Object.keys(lease).sort().join() !== "expiresAt,id,owner" || !isProjectId(lease.owner) || !Number.isSafeInteger(lease.expiresAt) || lease.expiresAt > now + CONNECTION_POLICY.leaseMs)) { abort(new StorageFault("CORRUPT", "Reconnect lease is malformed or the clock moved backwards.", true)); return; }
+          if (lease && lease.owner !== owner && lease.expiresAt > now) { done(false); return; }
+          store.put({ id: "reconnect-lease", owner, expiresAt: now + CONNECTION_POLICY.leaseMs }); done(true);
+        };
+      });
+    },
+    async releaseConnectionLease(owner) {
+      return transaction(["modelConnections"], "readwrite", (tx, done) => { const store = tx.objectStore("modelConnections"), req = store.get("reconnect-lease"); req.onsuccess = () => { if (req.result?.owner === owner) store.delete("reconnect-lease"); done(true); }; });
+    },
     async readMemory(projectId) {
       checkId(projectId);
       const bundle = await transaction(["projects", "assistantMemories"], "readonly", (tx, done, abort) => {
@@ -306,7 +341,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     async clearApplicationData() {
       // Retain minimal identity/revision tombstones and the selection/migration
       // markers. Dropping the database would allow old owners to re-migrate.
-      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories"], "readwrite", (tx, done, abort) => {
+      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections"], "readwrite", (tx, done, abort) => {
         const projects = tx.objectStore("projects"), req = projects.getAll();
         req.onsuccess = () => {
           try {
@@ -314,7 +349,9 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
               const current = validateProject(raw);
               if (!current.deleted) { const next = nextProject(current, current.revision); projects.put(validateProject({ ...next, deleted: true, migrationLineage: [], tombstone: { revision: next.revision, deletedAt: next.updatedAt } })); }
             }
-            tx.objectStore("threads").clear(); tx.objectStore("quarantine").clear(); tx.objectStore("workspaceRoots").clear(); tx.objectStore("workspaceObjects").clear(); tx.objectStore("assistantMemories").clear(); done({ ok: true, saved: true, status: "committed", scope: "project-data; identity tombstones retained" });
+            tx.objectStore("threads").clear(); tx.objectStore("quarantine").clear(); tx.objectStore("workspaceRoots").clear(); tx.objectStore("workspaceObjects").clear(); tx.objectStore("assistantMemories").clear();
+            const connections = tx.objectStore("modelConnections"), connection = connections.get(CONNECTION_ID);
+            connection.onsuccess = () => { try { const revision = connection.result ? validateConnectionRecord(connection.result).revision : 0; connections.put(validateConnectionRecord({ id: CONNECTION_ID, schemaVersion: 1, revision: revision + 1, deleted: true, profile: null })); connections.delete("reconnect-lease"); done({ ok: true, saved: true, status: "committed", scope: "project-data and connection intent; identity tombstones retained" }); } catch (error) { abort(error); } };
           } catch (error) { abort(error); }
         };
       });

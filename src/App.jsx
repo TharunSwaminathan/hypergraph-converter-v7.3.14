@@ -11,6 +11,7 @@ import { createProjectSession } from "./persistence/projectSession.js";
 import { createWorkspaceSourceRegistry, captureWorkspaceInputs, decodeWorkspaceInputs } from "./persistence/workspaceCapture.js";
 import { usePersistentWorkspace } from "./persistence/usePersistentWorkspace.js";
 import { useAssistantMemory } from "./persistence/useAssistantMemory.js";
+import { usePersistentModelConnection } from "./persistence/usePersistentModelConnection.js";
 import AssistantMemoryPanel from "./components/AssistantMemoryPanel.jsx";
 import { StorageFault } from "./persistence/storageSafety.js";
 import { normalizeParsedHyperedges, autoDetectDetails, parseInputFormat } from "./utils/parsers.js";
@@ -71,9 +72,6 @@ import {
   runtimeCommandLabel,
 } from "./agent/localRuntimeDiagnostics.js";
 import {
-  connectOllamaAutomatically,
-  DIRECT_OLLAMA_BASE_URL,
-  BRIDGE_OLLAMA_BASE_URL,
   getOllamaAttemptOrder,
   listModelsForTransport,
 } from "./agent/ollamaConnectionManager.js";
@@ -83,7 +81,7 @@ import {
   LOCAL_MODEL_TASK_TIMEOUTS,
   LOCAL_MODEL_SETTINGS_VERSION,
   RECOMMENDED_OLLAMA_MODEL, LOCAL_MODEL_DISABLED_MESSAGE,
-  isEmptyOrPlaceholderModel, loadLocalModelConfigReceipt, saveLocalModelConfig,
+  isEmptyOrPlaceholderModel, loadLocalModelConfigReceipt, saveLocalModelConfig, LOCAL_MODEL_STORAGE_KEY,
 } from "./agent/localModelSettings.js";
 import { createLocalModelRequestCoordinator } from "./agent/localModelRequestCoordinator.js";
 import {
@@ -237,8 +235,7 @@ function AppCore() {
   const [parserProfileNotice, setParserProfileNotice] = useState(initialProfileStorage.error ?? "");
   // Optional local-model assist. Settings contain no keys and requests remain local-only.
   const [modelStorageReceipt, setModelStorageReceipt] = useState(loadLocalModelConfigReceipt);
-  const [localModelConfig, setLocalModelConfig] = useState(() => modelStorageReceipt.value);
-  const [localModelStatus, setLocalModelStatus] = useState("disconnected");
+  const [localModelConfig, setLocalModelConfig] = useState(() => ({ ...modelStorageReceipt.value, activeBaseUrl: "", activeTransport: null }));
   const [localModelMessage, setLocalModelMessage] = useState(
     localModelConfig.enabled === false ? LOCAL_MODEL_DISABLED_MESSAGE : "Settings loaded. Start Ollama, then click Connect.",
   );
@@ -352,12 +349,7 @@ function AppCore() {
     activeBatchRef.current = { id: activeBatchId, version: activeAgentBatch?.version ?? 0 };
   }, [activeAgentBatch?.version, activeBatchId]);
 
-  useEffect(() => {
-    setModelStorageReceipt(saveLocalModelConfig({
-      ...localModelConfig,
-      settingsVersion: localModelConfig.settingsVersion ?? LOCAL_MODEL_SETTINGS_VERSION,
-    }));
-  }, [localModelConfig]);
+
 
   useEffect(() => {
     setRuntimeDiagnostics(current => {
@@ -397,6 +389,29 @@ function AppCore() {
     }
   } });
   const assistantMemory = useAssistantMemory({ session: persistenceSession, workspaceReady: workspaceReceipt.state !== "loading", workspaceCurrent: !workspaceReceipt.unsaved && ["clean", "committed"].includes(workspaceReceipt.state) });
+  const persistentModel = usePersistentModelConnection({
+    initialModel: modelStorageReceipt.value.model,
+    ready: workspaceReceipt.state !== "loading" && assistantMemory.status !== "loading",
+    scopeKey: assistantMemory.projectId ?? "unavailable",
+    onState: value => {
+      setLocalModelMessage(value.message); setLocalModelModels(value.models ?? []);
+      if (value.state !== "connected") stopLocalModelRequest();
+      setLocalModelConfig(current => {
+        const next = { ...current, ...(value.profile ? { model: value.profile.selectedModel } : {}),
+          enabled: value.state === "connected" ? true : current.enabled,
+          activeBaseUrl: value.state === "connected" ? value.profile.endpoint : "",
+          activeTransport: value.state === "connected" ? value.profile.transport : null,
+          lastSuccessfulTransport: value.state === "connected" ? value.profile.transport : current.lastSuccessfulTransport };
+        return Object.keys(next).every(key => next[key] === current[key]) ? current : next;
+      });
+    },
+  });
+  const generalModelSettings = JSON.stringify({ ...localModelConfig, model: RECOMMENDED_OLLAMA_MODEL,
+    activeBaseUrl: "", activeTransport: null, lastSuccessfulTransport: null, settingsVersion: LOCAL_MODEL_SETTINGS_VERSION });
+  useEffect(() => {
+    if (["loading", "failed"].includes(persistentModel.state)) return;
+    setModelStorageReceipt(saveLocalModelConfig(JSON.parse(generalModelSettings)));
+  }, [generalModelSettings, persistentModel.state]);
   const graphInputsForParse = useCallback((targetFormat, payload) => {
     const pairs = targetFormat === "cornell" ? [["nv", payload.nverts], ["sv", payload.simplices], ["tv", payload.times]] : [["text:" + targetFormat, payload.text]];
     const sources = [];
@@ -1164,7 +1179,7 @@ function AppCore() {
     if (!activeAgentBatch?.datasetProfile) return { ok: false, error: "Upload an active file batch first." };
     if (localModelConfig.enabled === false) return { ok: false, error: LOCAL_MODEL_DISABLED_MESSAGE };
     if (!localModelConfig.model.trim()) return { ok: false, error: "No local model name is selected." };
-    if (localModelStatus !== "connected") return { ok: false, error: "Connect Ollama before requesting model interpretation. Deterministic profiling still works offline." };
+    if (persistentModel.state !== "connected") return { ok: false, error: "Connect Ollama before requesting model interpretation. Deterministic profiling still works offline." };
     const batchSnapshot = activeAgentBatch;
     return runExclusiveLocalModelTask({
       task: "plan_dataset_interpretation",
@@ -1442,12 +1457,12 @@ function AppCore() {
 
     const canUseModel = localModelConfig.enabled !== false
       && Boolean(localModelConfig.model.trim())
-      && localModelStatus === "connected";
+      && persistentModel.state === "connected";
 
     if (!canUseModel) {
       return runDeterministicFallback({
         modelAttempted: false,
-        modelOutcome: localModelConfig.enabled === false ? "disabled" : localModelStatus === "connected" ? "model_missing" : "disconnected",
+        modelOutcome: localModelConfig.enabled === false ? "disabled" : persistentModel.state === "connected" ? "model_missing" : "disconnected",
         fallbackReason: localModelConfig.enabled === false ? LOCAL_MODEL_DISABLED_MESSAGE : "local model not connected",
       });
     }
@@ -2072,8 +2087,27 @@ function AppCore() {
     return { ...safeResult, suspiciousWarnings };
   }
 
+  function setLocalModelStatus() {
+    // Legacy diagnostic/generation observations never grant live authority.
+    // The connection coordinator owns liveness; task failures revalidate below.
+  }
+
+  async function forgetPersistentConnection() {
+    const receipt = await persistentModel.forget();
+    if (!receipt.ok) return receipt;
+    const reset = { ...localModelConfig, enabled: false, model: RECOMMENDED_OLLAMA_MODEL,
+      activeBaseUrl: "", activeTransport: null, lastSuccessfulTransport: null };
+    setLocalModelConfig(reset);
+    const saved = saveLocalModelConfig(reset); setModelStorageReceipt(saved);
+    try { globalThis.localStorage.removeItem(LOCAL_MODEL_STORAGE_KEY); }
+    catch { return { ok: false, error: "Approved connection forgotten; legacy hint cleanup failed. Project data remains intact." }; }
+    return saved.ok ? receipt : { ok: false, error: "Approved connection forgotten; general settings are read-only and legacy hints may remain." };
+  }
+
   function updateLocalModelSettings(patch) {
     const current = localModelConfig;
+    if (Object.hasOwn(patch, "model") && patch.model !== current.model) return { ok: false, error: "Select and validate a model using Connect selected model in Assistant Settings." };
+    if (patch.enabled === false) void persistentModel.disconnect();
     const next = {
       ...current,
       ...patch,
@@ -2114,6 +2148,8 @@ function AppCore() {
     return {
       ...localModelConfig,
       ...overrides,
+      activeBaseUrl: persistentModel.state === "connected" ? persistentModel.profile.endpoint : "",
+      activeTransport: persistentModel.state === "connected" ? persistentModel.profile.transport : null,
       enabled: overrides.enabled ?? localModelConfig.enabled,
       runtime: "ollama",
       transportPreference: "auto",
@@ -2122,84 +2158,7 @@ function AppCore() {
   }
 
   async function testConfiguredLocalModel(overrides = {}) {
-    const effective = effectiveLocalModelConfig(overrides);
-    if (effective.enabled === false) {
-      return {
-        ok: false,
-        classification: "assistant_disabled",
-        error: "Local assistant is disabled. Click Enable local assistant first, then Connect.",
-      };
-    }
-    setLocalModelBusy(true);
-    setLocalModelStatus("connecting");
-    setLocalModelMessage(`Connecting to ${effective.model || RECOMMENDED_OLLAMA_MODEL} through direct Ollama or the local bridge...`);
-    try {
-      const result = await connectOllamaAutomatically(effective, {
-        preferTransport: overrides.preferTransport ?? null,
-      });
-      if (!result.ok) {
-        const failureSnapshot = {
-          ...createRuntimeDiagnosticsSnapshot(effective),
-          ranAt: new Date().toISOString(),
-          mode: "connect",
-          attempts: result.attempts,
-          lastConnectionErrorClassification: result.classification,
-          suggestedFix: result.suggestedFix,
-          summary: `${result.message}\n${result.details || ""}`.trim(),
-          overallStatus: "failed",
-        };
-        setRuntimeDiagnostics(failureSnapshot);
-        setLocalModelStatus("error");
-        setLocalModelMessage(failureSnapshot.summary);
-        return { ok: false, error: failureSnapshot.summary, ...result };
-      }
-      const nextConfig = {
-        ...effective,
-        enabled: true,
-        activeTransport: result.transport,
-        activeBaseUrl: result.baseUrl,
-        lastSuccessfulTransport: result.transport,
-      };
-      setLocalModelConfig(nextConfig);
-      setRuntimeDiagnostics({
-        ...createRuntimeDiagnosticsSnapshot(nextConfig),
-        ranAt: new Date().toISOString(),
-        mode: "connect",
-        attempts: result.attempts,
-        directRuntimeReachability: result.transport === "direct"
-          ? { status: "ok", message: "Direct Ollama connected.", baseUrl: DIRECT_OLLAMA_BASE_URL }
-          : { status: "not_tested", message: "Direct Ollama was not required after the remembered transport succeeded." },
-        bridgeReachability: result.transport === "bridge"
-          ? { status: "ok", message: "Local bridge connected.", baseUrl: BRIDGE_OLLAMA_BASE_URL }
-          : { status: "not_tested", message: "Local bridge was not required after direct Ollama succeeded." },
-        modelListingStatus: { status: "ok", message: `Model listing returned ${result.models.length} model${result.models.length === 1 ? "" : "s"}.`, models: result.models },
-        generationStatus: { status: "ok", message: "Tiny structured generation returned JSON status ok." },
-        overallStatus: "ok",
-        summary: result.message,
-      });
-      setLocalModelStatus("connected");
-      setLocalModelMessage(result.message);
-      setLocalModelModels(result.models);
-      return result;
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      const classified = formatActionableRuntimeError(error, effective);
-      const failureSnapshot = {
-        ...createRuntimeDiagnosticsSnapshot(effective),
-        ranAt: new Date().toISOString(),
-        mode: "connect",
-        lastConnectionErrorClassification: classified.classification,
-        suggestedFix: classified.suggestedFix,
-        summary: `${message}\n${classified.suggestedFix}`.trim(),
-        overallStatus: "failed",
-      };
-      setRuntimeDiagnostics(failureSnapshot);
-      setLocalModelStatus("error");
-      setLocalModelMessage(failureSnapshot.summary);
-      return { ok: false, error: message };
-    } finally {
-      setLocalModelBusy(false);
-    }
+    return persistentModel.connect(overrides.model ?? localModelConfig.model);
   }
 
   async function listConfiguredLocalModels(overrides = {}) {
@@ -2304,13 +2263,7 @@ function AppCore() {
         setRuntimeDiagnostics(current => mergeRuntimeDiagnosticEvidence(current, result));
         const readOnly = ["full", "current-connection", "generation"].includes(mode);
         if (!readOnly && diagnosticsEstablishConnection(result)) {
-          setLocalModelConfig(current => ({
-            ...current,
-            enabled: true,
-            activeTransport: result.activeTransport,
-            activeBaseUrl: result.baseUrl,
-            lastSuccessfulTransport: result.activeTransport,
-          }));
+          // Diagnostics are observations; only the continuity coordinator establishes a live connection.
           setLocalModelStatus("connected");
           setLocalModelModels(result.modelListingStatus?.models ?? []);
         } else if (!readOnly && result.overallStatus === "failed") {
@@ -2381,7 +2334,7 @@ function AppCore() {
 
   async function runGraphPlannerReadinessDiagnostic({ record = true, requireConnected = true } = {}) {
     const effective = effectiveLocalModelConfig();
-    if (requireConnected && localModelStatus !== "connected") {
+    if (requireConnected && persistentModel.state !== "connected") {
       return { ok: false, error: "Connect Ollama before running the full graph-planner readiness test." };
     }
     const testHyperedges = [{ id: "h0", vertices: ["4", "5"] }];
@@ -2497,7 +2450,7 @@ function AppCore() {
 
     if (localModelConfig.enabled === false) return saveDraftFallback(LOCAL_MODEL_DISABLED_MESSAGE);
     if (!localModelConfig.model.trim()) return saveDraftFallback("No local model name is selected.");
-    if (localModelStatus !== "connected") return saveDraftFallback("The local model connection is not ready.");
+    if (persistentModel.state !== "connected") return saveDraftFallback("The local model connection is not ready.");
     if (repair && !batchSnapshot.mappingSpec) return saveDraftFallback("There was no prior model mapping to repair.");
 
     let request = null;
@@ -2710,7 +2663,7 @@ function AppCore() {
         error: `The Ollama model name is missing; this release expects ${RECOMMENDED_OLLAMA_MODEL}. Restart from run-with-ollama after restoring settings.`,
       };
     }
-    if (localModelStatus !== "connected") return { ok: false, error: "Test the local model connection before requesting model assistance." };
+    if (persistentModel.state !== "connected") return { ok: false, error: "Test the local model connection before requesting model assistance." };
     if (["generate_custom_parser", "repair_custom_parser"].includes(task)
       && agentFiles.length > 1
       && activeAgentBatch.parseMode === "unknown") {
@@ -3394,7 +3347,7 @@ function AppCore() {
     const pendingAction = options.pendingAction ?? null;
     const conversation = options.conversation ?? [];
     const canUseModelPlanner = localModelConfig.enabled !== false
-      && localModelStatus === "connected"
+      && persistentModel.state === "connected"
       && localModelConfig.runtime === "ollama"
       && Boolean(localModelConfig.activeBaseUrl)
       && Boolean(String(localModelConfig.model ?? "").trim())
@@ -4215,7 +4168,7 @@ function AppCore() {
     runtimeError: customErr,
     parserBinding: customCodeBinding, parserCode: customCode, running: customRunning, resultId: customResultId,
     requestModel: async request => {
-      if (localModelConfig.enabled === false || localModelStatus !== "connected") throw new Error("Connect the local Ollama model before generating a parser draft.");
+      if (localModelConfig.enabled === false || persistentModel.state !== "connected") throw new Error("Connect the local Ollama model before generating a parser draft.");
       const result = await runExclusiveLocalModelTask({
         task: "custom_parser_specialist", message: "Generating a reviewed parser draft…", timeoutMs: localModelConfig.timeoutMs,
         run: async callbacks => ({ ok: true, raw: await generateWithLocalModel(effectiveLocalModelConfig(), request, callbacks), request }),
@@ -4246,6 +4199,7 @@ function AppCore() {
   const agentState = {
     persistenceSession,
     assistantMemory,
+    modelConnection: { ...persistentModel, forget: forgetPersistentConnection },
     candy: candyRuntime.state,
     reactOrchestratorEnabled: reactOrchestratorEnabled(),
     specialistReviewRequired,
@@ -4406,7 +4360,7 @@ function AppCore() {
     localModel: {
       config: localModelConfig,
       storageReceipt: modelStorageReceipt,
-      status: localModelStatus,
+      status: persistentModel.state,
       message: localModelMessage,
       models: localModelModels,
       busy: localModelBusy,
@@ -4415,7 +4369,7 @@ function AppCore() {
       requestHistory: localModelRequestHistory,
       banner: runtimeBannerText({
         model: localModelConfig.model,
-        connectionStatus: localModelStatus,
+        connectionStatus: persistentModel.state,
         generation: localModelGeneration,
       }),
       diagnostics: runtimeDiagnostics,
@@ -4450,7 +4404,7 @@ function AppCore() {
       modelStatus: sessionContext.modelStatus ?? {
         runtime: "ollama",
         model: localModelConfig.model,
-        status: localModelStatus,
+        status: persistentModel.state,
         message: localModelMessage,
       },
     };
@@ -4603,6 +4557,7 @@ function AppCore() {
     externalSignal = null,
     run,
   }) {
+    try { await persistentModel.assertReady(); } catch (error) { return { ok: false, classification: error.code, error: error.message }; }
     const abortController = new AbortController();
     const startedAt = new Date().toISOString();
     const begun = localModelCoordinatorRef.current.begin({
@@ -4648,6 +4603,7 @@ function AppCore() {
               : "success";
       const finished = localModelCoordinatorRef.current.finish(requestId, outcome);
       if (!finished.ok) return { ok: false, aborted: true, classification: "request_aborted", requestId, error: "This local model request is no longer current." };
+      if (result?.ok === false && !result?.aborted) persistentModel.requestFailed();
       refreshLocalModelCoordinatorSnapshot();
       setLocalModelMessage(outcome === "aborted" ? "Stopped. Deterministic controls are ready; the graph was unchanged by this request." : outcome === "success" ? "Local model request completed." : result?.error || "Local model request finished. Review its diagnostics before retrying.");
       pushLocalModelDiagnostic(createLocalModelRequestDiagnostic({
@@ -4754,7 +4710,7 @@ function AppCore() {
       setLocalModelLastConversation({ status: "setup_required", message, classification: "model_name_missing", updatedAt: new Date().toISOString() });
       return { ok: false, setupRequired: true, error: message, classification: "model_name_missing" };
     }
-    if (localModelStatus !== "connected") {
+    if (persistentModel.state !== "connected") {
       const message = "Test the local model connection successfully before using model-backed conversation. Deterministic dashboard commands still work.";
       setLocalModelLastConversation({ status: "setup_required", message, classification: "not_connected", updatedAt: new Date().toISOString() });
       return { ok: false, setupRequired: true, error: message };
@@ -4828,7 +4784,7 @@ function AppCore() {
 
   async function summarizeLocalConversation(conversation = [], sessionContext = {}) {
     const effective = effectiveLocalModelConfig();
-    if (effective.enabled === false || localModelStatus !== "connected" || !effective.model.trim()) {
+    if (effective.enabled === false || persistentModel.state !== "connected" || !effective.model.trim()) {
       return { ok: false, skipped: true, error: "Local model summarization is unavailable." };
     }
     const request = buildSessionSummaryPrompt({
@@ -4865,7 +4821,7 @@ function AppCore() {
     if (!effective.model.trim()) {
       return { ok: false, fallbackAllowed: true, error: `The Ollama model name is missing; this release expects ${RECOMMENDED_OLLAMA_MODEL}.` };
     }
-    if (localModelStatus !== "connected") {
+    if (persistentModel.state !== "connected") {
       return { ok: false, fallbackAllowed: true, error: "Test the Ollama connection successfully before using Ollama orchestration." };
     }
 
@@ -4997,7 +4953,7 @@ function AppCore() {
   async function runReactOrchestratorStep({ userQuery, observation, threadContext = {} } = {}) {
     const effective = effectiveLocalModelConfig();
     if (!reactOrchestratorEnabled()) return { ok: false, fallbackAllowed: true, classification: "feature_disabled", error: "The ReAct orchestrator feature is disabled." };
-    if (effective.runtime !== "ollama" || !effective.model.trim() || localModelStatus !== "connected") {
+    if (effective.runtime !== "ollama" || !effective.model.trim() || persistentModel.state !== "connected") {
       return { ok: false, fallbackAllowed: true, classification: "model_unavailable", error: "The connected local Ollama model is unavailable for ReAct orchestration." };
     }
     return runExclusiveLocalModelTask({
@@ -5089,6 +5045,7 @@ function AppCore() {
     runReactOrchestratorStep,
     stopLocalModelRequest,
     updateLocalModelSettings,
+    selectPersistentLocalModel: model => persistentModel.connect(model),
     testConfiguredLocalModel,
     listConfiguredLocalModels,
     runLocalRuntimeDiagnostics,

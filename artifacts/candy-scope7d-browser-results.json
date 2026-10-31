@@ -1,0 +1,370 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "4f165ea3049e41c46da60ff9264ac04a613edc7a",
+  "branch": "candy-integration-scope7d-model-reconnect",
+  "sourceDigest": "02038050f9feeac9e52cba7790a0aa2ad7b5b3429d24523c5b9a744064b47382",
+  "candidateCommit": null,
+  "commitCreated": false,
+  "staged": false,
+  "recordedAtUtc": "2026-10-31T07:22:13.531780+00:00",
+  "status": "PASS",
+  "caseCount": 27,
+  "applicationContinuityCases": 23,
+  "supplementaryNativeUpgradeCases": 4,
+  "reports": [
+    {
+      "ok": true,
+      "phase": "first",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "fresh-App-no-probe-or-inference-without-consent",
+          "startupMs": 215.09999999403954
+        },
+        {
+          "case": "actual-App-workspace-source-graph-saved"
+        },
+        {
+          "case": "actual-App-7C-memory-committed"
+        },
+        {
+          "case": "actual-manual-qwen-connect-discovery-only",
+          "probeMs": 452.59999999403954
+        },
+        {
+          "case": "explicit-auto-reconnect-consent-committed"
+        },
+        {
+          "case": "actual-first-qwen-request-current-memory",
+          "model": "qwen3:8b",
+          "mocked": false
+        }
+      ],
+      "network": [
+        {
+          "url": "http://localhost:11434/api/tags",
+          "status": 200,
+          "method": "GET",
+          "atMs": 452.59999999403954,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://localhost:11434/api/chat",
+          "status": 200,
+          "method": "POST",
+          "atMs": 8919,
+          "model": "qwen3:8b",
+          "memory": {
+            "authority": "untrusted_context_only",
+            "projectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+            "items": [
+              {
+                "memoryId": "638b0f4c-ca7a-4137-b3c1-8aae7060f3fd",
+                "projectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+                "type": "USER_DECISION",
+                "topic": "projection",
+                "provenance": "USER_EXPLICIT",
+                "confidence": "USER_STATED",
+                "content": "This project forbids implicit projection."
+              }
+            ],
+            "excluded": 0,
+            "conflicts": 0,
+            "stale": 0
+          }
+        }
+      ],
+      "defaultProjectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+      "workspaceSha": "c099639669a0f3687927a129370ab3d951325f8c61e4b8d89dcf0c33c2c65334",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\browser-profile-frozen-final",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\s-final"
+    },
+    {
+      "ok": true,
+      "phase": "reload",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "reload-workspace-and-memory-restored",
+          "profileRestoreMs": 196.80000001192093
+        },
+        {
+          "case": "reload-automatic-qwen-reconnect-after-restoration",
+          "reconnectMs": 197.2000000178814,
+          "processAutoStarted": false
+        },
+        {
+          "case": "reload-actual-qwen-request-rebuilt-current-memory",
+          "mocked": false
+        }
+      ],
+      "network": [
+        {
+          "url": "http://localhost:11434/api/tags",
+          "status": 200,
+          "method": "GET",
+          "atMs": 160.80000001192093,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://localhost:11434/api/chat",
+          "status": 200,
+          "method": "POST",
+          "atMs": 597.4000000059605,
+          "model": "qwen3:8b",
+          "memory": {
+            "authority": "untrusted_context_only",
+            "projectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+            "items": [
+              {
+                "memoryId": "638b0f4c-ca7a-4137-b3c1-8aae7060f3fd",
+                "projectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+                "type": "USER_DECISION",
+                "topic": "projection",
+                "provenance": "USER_EXPLICIT",
+                "confidence": "USER_STATED",
+                "content": "This project forbids implicit projection."
+              }
+            ],
+            "excluded": 0,
+            "conflicts": 0,
+            "stale": 0
+          }
+        }
+      ],
+      "defaultProjectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+      "workspaceSha": "c099639669a0f3687927a129370ab3d951325f8c61e4b8d89dcf0c33c2c65334",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\browser-profile-frozen-final",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\s-final"
+    },
+    {
+      "ok": true,
+      "phase": "reopen",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "reopen-workspace-and-memory-restored",
+          "profileRestoreMs": 254.7999999821186
+        },
+        {
+          "case": "reopen-automatic-qwen-reconnect-after-restoration",
+          "reconnectMs": 255,
+          "processAutoStarted": false
+        },
+        {
+          "case": "reopen-actual-qwen-request-rebuilt-current-memory",
+          "mocked": false
+        },
+        {
+          "case": "manual-disconnect-stops-network-and-persists-OFF"
+        }
+      ],
+      "network": [
+        {
+          "url": "http://localhost:11434/api/tags",
+          "status": 200,
+          "method": "GET",
+          "atMs": 210.5,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://localhost:11434/api/chat",
+          "status": 200,
+          "method": "POST",
+          "atMs": 413.7999999821186,
+          "model": "qwen3:8b",
+          "memory": {
+            "authority": "untrusted_context_only",
+            "projectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+            "items": [
+              {
+                "memoryId": "638b0f4c-ca7a-4137-b3c1-8aae7060f3fd",
+                "projectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+                "type": "USER_DECISION",
+                "topic": "projection",
+                "provenance": "USER_EXPLICIT",
+                "confidence": "USER_STATED",
+                "content": "This project forbids implicit projection."
+              }
+            ],
+            "excluded": 0,
+            "conflicts": 0,
+            "stale": 0
+          }
+        }
+      ],
+      "defaultProjectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+      "workspaceSha": "c099639669a0f3687927a129370ab3d951325f8c61e4b8d89dcf0c33c2c65334",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\browser-profile-frozen-final",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\s-final"
+    },
+    {
+      "ok": true,
+      "phase": "off-restart",
+      "origin": "http://127.0.0.1:5173",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "cases": [
+        {
+          "case": "off-restart-workspace-and-memory-restored",
+          "profileRestoreMs": 249.7999999821186
+        },
+        {
+          "case": "restart-respects-user-disconnect-no-probe"
+        },
+        {
+          "case": "explicit-manual-reconnect-after-OFF",
+          "mocked": false
+        },
+        {
+          "case": "controlled-local-service-outage-nonblocking",
+          "code": "REQUEST_FAILED"
+        },
+        {
+          "case": "controlled-outage-recovers-on-bounded-retry",
+          "recoveryMs": 1530.199999988079
+        },
+        {
+          "case": "remembered-model-missing-no-substitution"
+        },
+        {
+          "case": "real-controlled-bounded-four-attempt-exhaustion",
+          "elapsedMs": 18540.30000001192,
+          "attempts": 4
+        },
+        {
+          "case": "controlled-service-recovery-after-passive-stop"
+        },
+        {
+          "case": "native-second-tab-stale-profile-write-rejected"
+        },
+        {
+          "case": "actual-App-forget-connection-preserves-project-memory-graph"
+        }
+      ],
+      "network": [
+        {
+          "url": "http://localhost:11434/api/tags",
+          "status": 200,
+          "method": "GET",
+          "atMs": 2101.5999999940395,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 503,
+          "method": "GET",
+          "atMs": 2128.0999999940395,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 200,
+          "method": "GET",
+          "atMs": 3638.5,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 200,
+          "method": "GET",
+          "atMs": 3658.199999988079,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 503,
+          "method": "GET",
+          "atMs": 3661.4000000059605,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 503,
+          "method": "GET",
+          "atMs": 5177.199999988079,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 503,
+          "method": "GET",
+          "atMs": 10190.40000000596,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 503,
+          "method": "GET",
+          "atMs": 22200,
+          "model": null,
+          "memory": null
+        },
+        {
+          "url": "http://127.0.0.1:63828/ollama/api/tags",
+          "status": 200,
+          "method": "GET",
+          "atMs": 22203.09999999404,
+          "model": null,
+          "memory": null
+        }
+      ],
+      "defaultProjectId": "7164287c-0e8c-4c81-af91-76aacc706388",
+      "workspaceSha": "c099639669a0f3687927a129370ab3d951325f8c61e4b8d89dcf0c33c2c65334",
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\browser-profile-frozen-final",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\s-final"
+    },
+    {
+      "ok": true,
+      "phase": "upgrade",
+      "origin": "http://127.0.0.1:5173",
+      "cases": [
+        {
+          "case": "native-v3-eight-store-to-v4-nine-store-upgrade-preserves-workspace-memory"
+        },
+        {
+          "case": "native-legacy-choice-migration-is-configured-with-reconnect-OFF-and-no-network"
+        },
+        {
+          "case": "actual-qwen-GET-discovery-and-restart-reconnect-native-timings",
+          "inferenceSent": false,
+          "pendingActionRestored": false
+        },
+        {
+          "case": "native-future-database-versionchange-blocks-old-connection-writer"
+        }
+      ],
+      "measurements": {
+        "additiveUpgradeAndEmptyProfileReadMs": 0.9000000059604645,
+        "configuredProfileStartupMs": 1.300000011920929,
+        "initialManualConnectDiscoveryAndCommitMs": 9.5,
+        "actualLocalModelDiscoveryMs": 2.5999999940395355,
+        "approvedProfileRestoreMs": 0.4000000059604645,
+        "initialAutomaticReconnectMs": 11.599999994039536
+      },
+      "sourceLayout": "Version-3 layout reconstructed from unchanged valid v1 project/workspace/memory records; not an old application binary run",
+      "physicalPowerLossClaimed": false,
+      "profile": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\browser-profile-frozen-upgrade",
+      "sourceRoot": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope7d\\artifacts\\candy-scope7d-work\\s-final"
+    }
+  ],
+  "actualLocalModel": "qwen3:8b: actual manual Connect, three successful actual App chat requests with restored current bounded project memory, automatic refresh/reopen reconnect and manual reconnect after OFF",
+  "controlledServer": "Owned ephemeral loopback bridge test server: HTTP 503 outage/recovery, missing model, four-attempt exhaustion and explicit recovery; real Ollama process was neither stopped nor started.",
+  "isolatedProfiles": true,
+  "realUserProfileAccessed": false,
+  "actualOllamaProcessStarted": false,
+  "faultDistinction": "27 native Chrome cases; controlled HTTP service failures are intentionally injected. happy-dom mounted lifecycle, fake clocks and transactional doubles are separate unit evidence. Version-3 native layout is reconstructed from unchanged valid project/workspace/memory schemas, not an old application binary.",
+  "physicalPowerLossClaimed": false
+}

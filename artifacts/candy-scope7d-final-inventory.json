@@ -1,0 +1,312 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "4f165ea3049e41c46da60ff9264ac04a613edc7a",
+  "branch": "candy-integration-scope7d-model-reconnect",
+  "sourceDigest": "02038050f9feeac9e52cba7790a0aa2ad7b5b3429d24523c5b9a744064b47382",
+  "candidateCommit": null,
+  "commitCreated": false,
+  "staged": false,
+  "recordedAtUtc": "2026-10-31T07:22:13.531780+00:00",
+  "verdict": "READY TO CREATE SCOPE 7D MODEL CONNECTION CONTINUITY CANDIDATE COMMIT",
+  "productTestDocPathCount": 15,
+  "newProductPaths": 11,
+  "modifiedTrackedPaths": 4,
+  "evidencePathCount": 8,
+  "totalProposedPaths": 23,
+  "productAdditions": 534,
+  "productDeletions": 118,
+  "proposedCommitPaths": [
+    "artifacts/candy-scope7d-browser-results.json",
+    "artifacts/candy-scope7d-connection-state-machine.json",
+    "artifacts/candy-scope7d-final-inventory.json",
+    "artifacts/candy-scope7d-gap-closure.json",
+    "artifacts/candy-scope7d-implementation-report.md",
+    "artifacts/candy-scope7d-reconnect-results.json",
+    "artifacts/candy-scope7d-security-review.md",
+    "artifacts/candy-scope7d-test-results.json",
+    "docs/LOCAL_MODEL_CONNECTION_CONTINUITY.md",
+    "src/App.jsx",
+    "src/agent/modelConnectionProbe.js",
+    "src/agent/modelReconnectCoordinator.js",
+    "src/components/AgentChatPanel.jsx",
+    "src/components/ModelConnectionControls.jsx",
+    "src/persistence/modelConnectionSchema.js",
+    "src/persistence/projectSchema.js",
+    "src/persistence/projectStore.js",
+    "src/persistence/usePersistentModelConnection.js",
+    "tests/candy-scope7d-mounted.test.mjs",
+    "tests/candy-scope7d-profile-probe.test.mjs",
+    "tests/candy-scope7d-reconnect.test.mjs",
+    "tests/fixtures/candy-scope7d-browser.html",
+    "tests/fixtures/candy-scope7d-browser.mjs"
+  ],
+  "productInventory": [
+    {
+      "path": "docs/LOCAL_MODEL_CONNECTION_CONTINUITY.md",
+      "kind": "NEW",
+      "bytes": 4653,
+      "sha256": "3cd2305fc14be66ef906afb1144c540249d59dd60e624acdbd1377b0b9b5a861",
+      "proposedGitBlob": "fd61b1ea1a2eb75031b08c3d263678c0c31a4d15"
+    },
+    {
+      "path": "src/App.jsx",
+      "kind": "MODIFIED",
+      "bytes": 281641,
+      "sha256": "2ae18d0ec8b1d46b3509b41035f48d4c2d9eda8ce4cf1b7a29dba8485ed5b9e5",
+      "proposedGitBlob": "393e7bef5005dd5253aa765258c596684f9af83d"
+    },
+    {
+      "path": "src/agent/modelConnectionProbe.js",
+      "kind": "NEW",
+      "bytes": 3802,
+      "sha256": "22419f406456c14264cd03668cccf6d7631841af961d0b308dc6298f8cb9618e",
+      "proposedGitBlob": "648498299b49a4529f4d666ecdaf29b28132c5bc"
+    },
+    {
+      "path": "src/agent/modelReconnectCoordinator.js",
+      "kind": "NEW",
+      "bytes": 9823,
+      "sha256": "d27e7161ef455f16a29b923ab0ea860a051d38145a2b064b02bcab0c70d94c30",
+      "proposedGitBlob": "3adbc673a0d019dd5ee05bad1317eab8eac40335"
+    },
+    {
+      "path": "src/components/AgentChatPanel.jsx",
+      "kind": "MODIFIED",
+      "bytes": 219488,
+      "sha256": "1de565514e9de1814f34c672209bd6226ad4dc1ff979155c75973fed773be19a",
+      "proposedGitBlob": "0fbb889686a2e23bcb3620bf9bc5ede18817fe34"
+    },
+    {
+      "path": "src/components/ModelConnectionControls.jsx",
+      "kind": "NEW",
+      "bytes": 2434,
+      "sha256": "00ae15055b5a167cf0bb3392a5679055b3edaac149ed947379723c3729215cef",
+      "proposedGitBlob": "01a228e1ace8f5c5416129948951a9ff8358a887"
+    },
+    {
+      "path": "src/persistence/modelConnectionSchema.js",
+      "kind": "NEW",
+      "bytes": 3838,
+      "sha256": "02db00bba91642060b7ea6589a500ff2e7d6586482e52593ee26f4868ee8ce78",
+      "proposedGitBlob": "4222289d5aabe8128e8011140ee4bfc3337c24be"
+    },
+    {
+      "path": "src/persistence/projectSchema.js",
+      "kind": "MODIFIED",
+      "bytes": 3923,
+      "sha256": "1eb7da68a22d0362708b0cfc51f0669c96c146ca1ce6e9234f81969cd0a5971d",
+      "proposedGitBlob": "03c588555b84f28c5370e1549a513881093816bf"
+    },
+    {
+      "path": "src/persistence/projectStore.js",
+      "kind": "MODIFIED",
+      "bytes": 27230,
+      "sha256": "2c93db191879dc1601f6944bd30c4f185ef9cef93d0ebc6e00c4f94bd3546901",
+      "proposedGitBlob": "62bb82f70294fff56d4c498a3cea20f461674281"
+    },
+    {
+      "path": "src/persistence/usePersistentModelConnection.js",
+      "kind": "NEW",
+      "bytes": 2199,
+      "sha256": "44ed1a255b24d5073c620f74d129f1661e5076fdb6c8a8574e12764f507f9337",
+      "proposedGitBlob": "19176d162838007b7b67c25eadebc182e6d1e273"
+    },
+    {
+      "path": "tests/candy-scope7d-mounted.test.mjs",
+      "kind": "NEW",
+      "bytes": 3342,
+      "sha256": "708dcf505773c3fba7fefbae0df6a3e50c41ad73d1019d071a96e8146196a7e6",
+      "proposedGitBlob": "ce75c5eed8496d9e3554ec0c116ba8552e93d04d"
+    },
+    {
+      "path": "tests/candy-scope7d-profile-probe.test.mjs",
+      "kind": "NEW",
+      "bytes": 6037,
+      "sha256": "c4bff59490b49560ab2cfc134251ddd93a446a2d9c7dabbeee212547d00423ac",
+      "proposedGitBlob": "2f307a68c72beb29d3d16c6c12a228ff3295334c"
+    },
+    {
+      "path": "tests/candy-scope7d-reconnect.test.mjs",
+      "kind": "NEW",
+      "bytes": 7527,
+      "sha256": "011c89adcbedcd447049f79bd830d3485c353d11d58b38c1a169ab66b82c9e82",
+      "proposedGitBlob": "8da151d8732bab9ab19adc164a8887a6023c6de6"
+    },
+    {
+      "path": "tests/fixtures/candy-scope7d-browser.html",
+      "kind": "NEW",
+      "bytes": 232,
+      "sha256": "6e6a2e1b8cac0c469c5d6e7251f1ed2e283a711041ac1e126ef89a2b15d9c05f",
+      "proposedGitBlob": "9fce187c2cd7682e1e81177aeab398e79ff71c0e"
+    },
+    {
+      "path": "tests/fixtures/candy-scope7d-browser.mjs",
+      "kind": "NEW",
+      "bytes": 13275,
+      "sha256": "556fb796f6c93a4ec47e36944d995d323d0a8942c3f45e8a192fede164d35c59",
+      "proposedGitBlob": "af920693069a54e2c938b6d26f42cb74150c9142"
+    }
+  ],
+  "evidencePaths": [
+    "artifacts/candy-scope7d-implementation-report.md",
+    "artifacts/candy-scope7d-test-results.json",
+    "artifacts/candy-scope7d-browser-results.json",
+    "artifacts/candy-scope7d-security-review.md",
+    "artifacts/candy-scope7d-connection-state-machine.json",
+    "artifacts/candy-scope7d-reconnect-results.json",
+    "artifacts/candy-scope7d-gap-closure.json",
+    "artifacts/candy-scope7d-final-inventory.json"
+  ],
+  "workToolingExcluded": "artifacts/candy-scope7d-work/** including source/extraction, packages, dependencies, profiles and temporary harnesses",
+  "nativeRuntimeCudaDelta": "NONE",
+  "modelClientAndBridgeImplementationDelta": "NONE; new GET-only probe/coordinator plus App orchestration",
+  "packageManifestWorkflowAndPolicyDelta": "NONE",
+  "historicalEvidenceDelta": "NONE",
+  "protectedTrackedFilesByteAndMtimeUnchanged": 1337,
+  "historicalArtifactFilesByteAndMtimeUnchanged": 416,
+  "historicalTagCount": 38,
+  "allLocalRefsUnchanged": true,
+  "liveRemoteMainBranchAndTagsUnchanged": true,
+  "liveRemoteRefs": "4f165ea3049e41c46da60ff9264ac04a613edc7a\trefs/heads/candy-integration-scope7d-model-reconnect\n4f165ea3049e41c46da60ff9264ac04a613edc7a\trefs/heads/main\n1d987f19888f919b907879c0b7c5841624af38c4\trefs/tags/candy-integration-scope1-qualified\n54c134f30d1bbe50019c17437d9ad5ff58d16530\trefs/tags/candy-integration-scope1-qualified^{}\n598d1458b36842651ce5af7268901fcc41e7a56b\trefs/tags/candy-integration-scope2-qualified\n50a9ae227dd965aa6b8de2b352b1d0f91b3dd5c3\trefs/tags/candy-integration-scope2-qualified^{}\n380bdb14810a60e8751f48f1e552667cdc24e93f\trefs/tags/candy-integration-scope3-cuda-env-blocked\n81491e4a04b4d33adb3ebd0679cbe196ce109288\trefs/tags/candy-integration-scope3-cuda-env-blocked^{}\n29ad8df1922b3ed9d4f8fd6bd8a2953b8466cdcb\trefs/tags/candy-integration-scope3-cuda-qualified\n48b78c106615add75128832236ccc07e0bcff6cc\trefs/tags/candy-integration-scope3-cuda-qualified^{}\nb644fea22d1cfabd1ee05b3086fb15767534cbe1\trefs/tags/candy-integration-scope4a-qualified\n7b4206ba66f38df18b0a0fe33d55800f79ef0000\trefs/tags/candy-integration-scope4a-qualified^{}\nc6262835f4b4268c620d6583a371a69a4ae73868\trefs/tags/candy-integration-scope4a-security-blocked\n9b70bd2f2ede2130857822d0603b1c394bb6c557\trefs/tags/candy-integration-scope4a-security-blocked^{}\n33fe4019aa8a122443cf8ab019e97a41a72e3980\trefs/tags/candy-integration-scope4b1-cuda-static-qualified\na27eb1246e342097de448408ffa0a4775545c4ae\trefs/tags/candy-integration-scope4b1-cuda-static-qualified^{}\nf8cf150b68dc3f9cc74db181aefd58bbeb3f4195\trefs/tags/candy-integration-scope4b2-cuda-incremental-qualified\nfebf3ec1aa97917f7fc989511078ec8013817bf8\trefs/tags/candy-integration-scope4b2-cuda-incremental-qualified^{}\n61982f88d029eee849ce1f3a3daa378791627250\trefs/tags/candy-integration-scope4c-runtime-integration-qualified\nfaeca1053f95a61bfe03ac88295c563d32f91969\trefs/tags/candy-integration-scope4c-runtime-integration-qualified^{}\neb829fb627de349be99d440ebfed11990f76837e\trefs/tags/candy-integration-scope5a-graph-state-qualified\n3379e0102704521960a5ccc1185a14a2beb2725d\trefs/tags/candy-integration-scope5b-pending-update-qualified\nadad84847dac54261f3036dc488c35ed4caef3e7\trefs/tags/candy-integration-scope5c-runtime-binding-qualified\n18fa9aebd7c91b22c7415519a56ec160a88d2956\trefs/tags/candy-integration-scope5d-ui-assistant-qualified\n1e8f7fa2eac97f9cadf72224ae9e99febdea85df\trefs/tags/candy-integration-scope5e-hardening-qualified\nbf0240a54fb6ac8284bd9ac371306511158a1a2e\trefs/tags/candy-integration-scope5f-browser-blocked\n54dd4d3edb73681f51bf8bb69b9708778a46a502\trefs/tags/candy-integration-scope5f-final-qualified\n117ed4b9d8caa929ead5df3d6af59ad70a878cb2\trefs/tags/candy-integration-scope6a-release-hardening-qualified\ne6dfaa8ba0e2f09b2b09015e721b07856873f2a6\trefs/tags/candy-integration-scope6b-browser-scalability-qualified\n61e3dda985b74be35e98f1e6b3886d33b58a4bfd\trefs/tags/candy-integration-scope6b-browser-scalability-qualified^{}\n46ae55173407bb71683614ef212d9d4d4127ecc3\trefs/tags/candy-integration-scope6c-runtime-reuse-recovery-qualified\nf3fa7dc3d0c1ac3ef927b080da79b004ce93f0f0\trefs/tags/candy-integration-scope6d-tranche1-native-qualified\nc294ed0cea093bb8933d06e6e23177a7f1409952\trefs/tags/candy-integration-scope6d-tranche1-qualified\n51e8a46ad527760b838bd92e78e19404d07acf40\trefs/tags/candy-integration-scope6e-artifact-metadata-route-corrective-qualified\nd2a2bdb86ebf785ed2d7b43a9cca3a80ee7eb0d2\trefs/tags/candy-integration-scope6e-extracted-snapshot-corrective-qualified\n51e8a46ad527760b838bd92e78e19404d07acf40\trefs/tags/candy-integration-scope6e-final-integrated-qualified\nd22b9c89f79446fbfea2480e98e807f8da4dfbf4\trefs/tags/candy-integration-scope6e-package-corrective-qualified\ne84f06cdaa750803a06007ade63124b6bce693c8\trefs/tags/candy-integration-scope6e-v2-package-input-qualified\nc4890d00166242a8da48ac0dc54db5d099ae6522\trefs/tags/candy-integration-scope7a-persistence-foundation-qualified\nb34e6bbf5359a4855db6c9bbf1395f9b25b6d738\trefs/tags/candy-integration-scope7a-persistence-foundation-qualified^{}\n7e1789add193eec64bdb8cfafa7077cf08c97b4e\trefs/tags/candy-integration-scope7b-durable-workspace-qualified\nb41791766c6042504a8b9fdaa7e677526e7c4fc7\trefs/tags/candy-integration-scope7b-durable-workspace-qualified^{}\n975b6b036094902ebffb3e1cda8f5470cef2f9f3\trefs/tags/candy-integration-scope7c-assistant-memory-qualified\n4f165ea3049e41c46da60ff9264ac04a613edc7a\trefs/tags/candy-integration-scope7c-assistant-memory-qualified^{}\n9d79d9f9027b338096d7cf62d67c2a22e9cab247\trefs/tags/candy-v7.3.14-rc2-qualified\n6556c3bc12c26bfdec8803aa12188f5aabd3402a\trefs/tags/candy-v7_4-merged-baseline-qualified\nda4629b1f4204fbfc8f8e6d14941d29319d79e90\trefs/tags/candy-v7_4-merged-baseline-qualified^{}\n57daa23050c89cd0d2c74328766d284311376da4\trefs/tags/post-diagnosis-full-corrective-qualified\n8040a0b259c25862179a01149ace0ae788f0f7da\trefs/tags/post-scope4c-chatbot-ui-corrective-qualified\n4a2ca6ca535a4f8d78f6f6d0b61150b6fe9c0302\trefs/tags/post-scope4c-chatbot-ui-corrective-qualified^{}\na56a720ecf6195c982d86a4b78239631d74ab630\trefs/tags/to-be-chatbot-final-qualified\ncdaa0b3798bfe14de0e19ca55404bc94facc8bb9\trefs/tags/to-be-chatbot-final-qualified^{}\n97ff3873aff621226c1781799097b4babad23460\trefs/tags/to-be-chatbot-live-ollama-qualified\n7b8fd71e2951482b3c30a6be9ec8886e86d2c1be\trefs/tags/to-be-chatbot-live-ollama-qualified^{}\n6158b6c04dd41278e33c22b24a16b39d04f43ce5\trefs/tags/to-be-chatbot-scope1-qualified\n3464a12ab6d420cbaca12e5bf387172f2ac8e379\trefs/tags/to-be-chatbot-scope1-qualified^{}\naf3911c505a510ae7b0a90bcfcbd5db47d0921a4\trefs/tags/v7.3.14\n9d79d9f9027b338096d7cf62d67c2a22e9cab247\trefs/tags/v7.3.14^{}\nfdbacde9361fbbb4f6bfc456d088fc068609b1aa\trefs/tags/v7.3.15\n335c320a052eab48d3f0c2d309805d10a5918189\trefs/tags/v7.3.15^{}",
+  "headUnchanged": true,
+  "mainUnchanged": true,
+  "stagedChanges": false,
+  "productPushed": false,
+  "tests": {
+    "source-final/npm-test": {
+      "passed": 301,
+      "total": 301,
+      "seconds": 214.1
+    },
+    "source-final/scope7a": {
+      "passed": 4,
+      "total": 4,
+      "seconds": 2.3
+    },
+    "source-final/scope7b": {
+      "passed": 3,
+      "total": 3,
+      "seconds": 2.3
+    },
+    "source-final/scope7c": {
+      "passed": 3,
+      "total": 3,
+      "seconds": 2.0
+    },
+    "source-final/scope7d": {
+      "passed": 3,
+      "total": 3,
+      "seconds": 2.9
+    },
+    "extracted-final/npm-test": {
+      "passed": 301,
+      "total": 301,
+      "seconds": 207.2
+    },
+    "extracted-final/scope7a": {
+      "passed": 4,
+      "total": 4,
+      "seconds": 2.1
+    },
+    "extracted-final/scope7b": {
+      "passed": 3,
+      "total": 3,
+      "seconds": 2.0
+    },
+    "extracted-final/scope7c": {
+      "passed": 3,
+      "total": 3,
+      "seconds": 1.8
+    },
+    "extracted-final/scope7d": {
+      "passed": 3,
+      "total": 3,
+      "seconds": 2.6
+    }
+  },
+  "browserCases": 27,
+  "productionVulnerabilities": 0,
+  "security": {
+    "method": "manual complete Scope 7D production-delta source/data-flow review plus adversarial and native tests",
+    "status": "PASS",
+    "unresolvedCritical": 0,
+    "unresolvedHigh": 0,
+    "automatedSeal": "NOT RUN / NOT CLAIMED"
+  },
+  "package": {
+    "status": "PASS",
+    "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "sourceDigest": "02038050f9feeac9e52cba7790a0aa2ad7b5b3429d24523c5b9a744064b47382",
+    "candidateCommit": null,
+    "commitBound": false,
+    "cleanPopulatedByteIdentical": true,
+    "allArchiveBytesMatchFrozenSource": true,
+    "changedCanonicalGitBlobs": [
+      "docs/LOCAL_MODEL_CONNECTION_CONTINUITY.md",
+      "src/App.jsx",
+      "src/agent/modelConnectionProbe.js",
+      "src/agent/modelReconnectCoordinator.js",
+      "src/components/AgentChatPanel.jsx",
+      "src/components/ModelConnectionControls.jsx",
+      "src/persistence/modelConnectionSchema.js",
+      "src/persistence/projectSchema.js",
+      "src/persistence/projectStore.js",
+      "src/persistence/usePersistentModelConnection.js",
+      "tests/candy-scope7d-mounted.test.mjs",
+      "tests/candy-scope7d-profile-probe.test.mjs",
+      "tests/candy-scope7d-reconnect.test.mjs",
+      "tests/fixtures/candy-scope7d-browser.html",
+      "tests/fixtures/candy-scope7d-browser.mjs"
+    ],
+    "privateSyntheticPathsExcluded": [
+      "artifacts/private-connection.json",
+      "candy-runtime/.local/private-connection.json",
+      ".env.local",
+      "credentials.json",
+      "pairing-token.txt",
+      "tmp/private-connection.json",
+      "dist/private-connection.json",
+      "node_modules/private-connection.json",
+      "candy-runtime/native/hypergraph-motif-cuda/build/private-state.json",
+      "candy-runtime/native/hypergraph-motif-cuda-incremental/build/private-state.json",
+      "local-model.gguf"
+    ],
+    "syntheticPrivateMarkerAbsent": true,
+    "relativeBuildFilesByteIdentical": 23,
+    "extractedIsGitFree": true,
+    "archive": {
+      "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+      "sourceDigest": "02038050f9feeac9e52cba7790a0aa2ad7b5b3429d24523c5b9a744064b47382",
+      "commitBound": false,
+      "commitBoundClosure": "DEFERRED until candidate commit",
+      "sha256": "f0dd9b25ccc16ea0f44f5660dd0427b7dd28a63f4e4f48e2c307d040229fd604",
+      "bytes": 1891713,
+      "entries": 992,
+      "files": 936,
+      "directories": 56,
+      "allProductPathsExact": true,
+      "privateStateExcluded": true
+    },
+    "policyModified": false,
+    "normalization": "Every ZIP file matches its frozen physical SHA256. Read-only Git attribute normalization proves exactly the reviewed 15 proposed canonical blobs differ from baseline.",
+    "deferred": [
+      "Exact candidate-SHA package production",
+      "Commit-bound package verification",
+      "Candidate remote CI",
+      "Final exact-SHA qualification"
+    ]
+  },
+  "gaps": {
+    "CLOSED": 8,
+    "PARTIALLY_CLOSED": 9,
+    "DEFERRED": 2,
+    "UNCHANGED": 1
+  },
+  "deferred": [
+    "Exact candidate-SHA package production",
+    "Commit-bound package verification",
+    "Candidate remote CI",
+    "Final exact-SHA qualification"
+  ],
+  "evidenceSelfHash": "Full 23-path manifest is external in work/proposed-commit-manifest.json to avoid circular self-hashing"
+}

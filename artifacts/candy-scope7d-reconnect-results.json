@@ -1,0 +1,117 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "4f165ea3049e41c46da60ff9264ac04a613edc7a",
+  "branch": "candy-integration-scope7d-model-reconnect",
+  "sourceDigest": "02038050f9feeac9e52cba7790a0aa2ad7b5b3429d24523c5b9a744064b47382",
+  "candidateCommit": null,
+  "commitCreated": false,
+  "staged": false,
+  "recordedAtUtc": "2026-10-31T07:22:13.531780+00:00",
+  "status": "PASS",
+  "actualOllamaContinuity": "PASS",
+  "controlledOutageRecovery": "PASS",
+  "durableOFF": "PASS",
+  "manualConnectAfterOFF": "PASS",
+  "missingModelNoSubstitution": "PASS",
+  "boundedExhaustion": "PASS",
+  "nativeMultiTabCAS": "PASS",
+  "legacyHintForget": "PASS",
+  "nativeUpgrade": "PASS",
+  "measuredCaseMilestones": [
+    {
+      "case": "fresh-App-no-probe-or-inference-without-consent",
+      "startupMs": 215.09999999403954
+    },
+    {
+      "case": "actual-manual-qwen-connect-discovery-only",
+      "probeMs": 452.59999999403954
+    },
+    {
+      "case": "reload-workspace-and-memory-restored",
+      "profileRestoreMs": 196.80000001192093
+    },
+    {
+      "case": "reload-automatic-qwen-reconnect-after-restoration",
+      "reconnectMs": 197.2000000178814,
+      "processAutoStarted": false
+    },
+    {
+      "case": "reopen-workspace-and-memory-restored",
+      "profileRestoreMs": 254.7999999821186
+    },
+    {
+      "case": "reopen-automatic-qwen-reconnect-after-restoration",
+      "reconnectMs": 255,
+      "processAutoStarted": false
+    },
+    {
+      "case": "off-restart-workspace-and-memory-restored",
+      "profileRestoreMs": 249.7999999821186
+    },
+    {
+      "case": "controlled-outage-recovers-on-bounded-retry",
+      "recoveryMs": 1530.199999988079
+    },
+    {
+      "case": "real-controlled-bounded-four-attempt-exhaustion",
+      "elapsedMs": 18540.30000001192,
+      "attempts": 4
+    }
+  ],
+  "nativeOperationTimings": {
+    "additiveUpgradeAndEmptyProfileReadMs": 0.9000000059604645,
+    "configuredProfileStartupMs": 1.300000011920929,
+    "initialManualConnectDiscoveryAndCommitMs": 9.5,
+    "actualLocalModelDiscoveryMs": 2.5999999940395355,
+    "approvedProfileRestoreMs": 0.4000000059604645,
+    "initialAutomaticReconnectMs": 11.599999994039536
+  },
+  "nativeReadSamples": {
+    "first": [
+      1,
+      0.29999998211860657,
+      0.4000000059604645,
+      0.19999998807907104,
+      0.30000001192092896,
+      0.19999998807907104,
+      0.30000001192092896,
+      0.09999999403953552,
+      0.30000001192092896,
+      0.19999998807907104
+    ],
+    "reopen": [
+      0.800000011920929,
+      0.4000000059604645,
+      0.19999998807907104,
+      0.19999998807907104,
+      0.30000001192092896,
+      0.19999998807907104,
+      0.20000001788139343,
+      0.19999998807907104,
+      0.09999999403953552,
+      0.20000001788139343
+    ],
+    "off-restart": [
+      0.699999988079071,
+      0.20000001788139343,
+      0.19999998807907104,
+      0.30000001192092896,
+      0.29999998211860657,
+      0.7000000178813934,
+      0.4000000059604645,
+      0.19999998807907104,
+      0.09999999403953552,
+      4.4000000059604645
+    ]
+  },
+  "timingMeaning": "Single-machine observed timings, warm running Ollama. Case milestones include workspace/memory/UI restoration. Native operation timings separately measure profile initialization, actual GET discovery, manual Connect commit and automatic reconnect. Not latency/availability or cold-OS-start guarantees.",
+  "clockAndLifecycleTests": "Injected clocks exercise bounded timers; happy-dom mounts exercise gating/StrictMode/A→B/late callbacks. Native Chrome supplies refresh, graceful close/reopen, transactional CAS and versionchange.",
+  "memoryAndAuthority": "Actual requests rebuild current bounded Scope 7C memory; no stored prompt blob and no automatic action continuation. Source/graph/memory survive outage and Forget.",
+  "physicalRestartOrPowerLoss": "DEFERRED to 7F",
+  "deferred": [
+    "Exact candidate-SHA package production",
+    "Commit-bound package verification",
+    "Candidate remote CI",
+    "Final exact-SHA qualification"
+  ]
+}

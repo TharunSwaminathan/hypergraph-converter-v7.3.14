@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ModelConnectionControls from "./ModelConnectionControls.jsx";
 import { parseMemoryCommand } from "../persistence/assistantMemoryCoordinator.js";
 import { explainRoute } from "../agent/agentResponses.js";
 import { appendLiveMessage } from "../agent/liveMessageHistory.js";
@@ -797,9 +798,11 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
       return executionOutcome({ ok: result.ok, outcome: result.ok ? "settings_updated" : "failed", stateMutationCommitted: Boolean(result.changedState), details: result });
     }
     if (plan.kind === "set_local_model_name") {
-      const result = executeModelSelectionPlan({ plan, updateLocalModelSettings: agentActions.updateLocalModelSettings });
+      const result = agentActions.selectPersistentLocalModel
+        ? await agentActions.selectPersistentLocalModel(plan.modelName)
+        : executeModelSelectionPlan({ plan, updateLocalModelSettings: agentActions.updateLocalModelSettings });
       append("agent", result.ok ? plan.message : `The local model name was not updated: ${result.error}`, result.ok ? "status" : "error");
-      return executionOutcome({ ok: result.ok, outcome: result.outcome, stateMutationCommitted: result.changedState, details: result });
+      return executionOutcome({ ok: result.ok, outcome: result.outcome ?? (result.ok ? "model_name_updated" : "failed"), stateMutationCommitted: result.changedState ?? result.ok, details: result });
     }
     if (plan.kind === "test_local_model") {
       setBusy(true);
@@ -3509,6 +3512,7 @@ export default function AgentChatPanel({ agentState, agentActions, externalMotif
             </div>
             <span className="agent-model__future">{RECOMMENDED_OLLAMA_MODEL}</span>
           </div>
+          {agentState.modelConnection && <ModelConnectionControls connection={agentState.modelConnection} selectedModel={agentState.localModel?.config?.model ?? RECOMMENDED_OLLAMA_MODEL} />}
           <div className="agent-model__connection-card">
             <div>
               <span>Model</span>

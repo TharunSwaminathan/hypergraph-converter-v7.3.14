@@ -1,0 +1,138 @@
+{
+  "qualification": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "4f165ea3049e41c46da60ff9264ac04a613edc7a",
+  "branch": "candy-integration-scope7d-model-reconnect",
+  "sourceDigest": "02038050f9feeac9e52cba7790a0aa2ad7b5b3429d24523c5b9a744064b47382",
+  "candidateCommit": null,
+  "commitCreated": false,
+  "staged": false,
+  "recordedAtUtc": "2026-10-31T07:22:13.531780+00:00",
+  "ownership": {
+    "connectionProfile": "application/origin-level single local-ollama record",
+    "selectedModel": "application-level, matching prior behavior",
+    "assistantMemory": "project-level, unchanged",
+    "lease": "application-level coordination only; no action authority"
+  },
+  "database": {
+    "previousVersion": 3,
+    "version": 4,
+    "addedStore": "modelConnections",
+    "unchangedSchemas": [
+      "project v1",
+      "workspace",
+      "assistant memory"
+    ],
+    "profileRevision": "native readwrite CAS; completion-only receipt; no timestamp overwrite"
+  },
+  "profileFields": [
+    "schemaVersion",
+    "provider",
+    "endpoint",
+    "transport",
+    "selectedModel",
+    "autoReconnectEnabled",
+    "lastSuccessfulConnectionAt",
+    "lastKnownModelAvailability",
+    "timeoutMs",
+    "policy"
+  ],
+  "recordFields": [
+    "id",
+    "schemaVersion",
+    "revision",
+    "deleted",
+    "profile"
+  ],
+  "safeEndpoints": [
+    "http://localhost:11434",
+    "http://127.0.0.1:11434",
+    "existing configured loopback bridge /ollama endpoint only"
+  ],
+  "states": [
+    "loading",
+    "configured",
+    "connecting",
+    "connected",
+    "reconnecting",
+    "disconnected",
+    "unavailable",
+    "failed",
+    "model_unavailable"
+  ],
+  "transitions": [
+    {
+      "trigger": "restore",
+      "result": "workspace + memory first; configuration restored without liveness; fresh approved probe only if explicit auto ON"
+    },
+    {
+      "trigger": "legacy selection",
+      "result": "once-only syntactically valid unverified draft; auto OFF; no probe; tombstone prevents resurrection"
+    },
+    {
+      "trigger": "manual Connect/model change",
+      "result": "cancel older generation; GET fresh model inventory; exact selected model exists; CAS commit; CONNECTED"
+    },
+    {
+      "trigger": "auto ON",
+      "result": "durably commit explicit preference; no inference; preserve connected state or fresh probe if offline"
+    },
+    {
+      "trigger": "healthy background check",
+      "result": "preserve CONNECTED while checking; do not abort active inference"
+    },
+    {
+      "trigger": "transient probe failure",
+      "result": "RECONNECTING with bounded delays, then UNAVAILABLE without a retry timer"
+    },
+    {
+      "trigger": "missing model",
+      "result": "terminal MODEL_UNAVAILABLE, no model/provider/transport substitution"
+    },
+    {
+      "trigger": "Disconnect",
+      "result": "abort work immediately; commit auto OFF; retain safe profile"
+    },
+    {
+      "trigger": "Forget",
+      "result": "abort; CAS tombstone; clean legacy hints; preserve workspace/memory"
+    },
+    {
+      "trigger": "foreign revision",
+      "result": "cancel connectivity, CONFLICT, explicit reload required; no rebase"
+    },
+    {
+      "trigger": "unmount/project lifecycle",
+      "result": "generation invalidation, abort, timer/channel cleanup and own lease release"
+    }
+  ],
+  "policy": {
+    "attempts": 4,
+    "delaysMs": [
+      1500,
+      5000,
+      12000
+    ],
+    "wholeDiscoveryTimeoutMs": 4000,
+    "healthyMonitorMs": 30000,
+    "sharedLeaseMs": 6000,
+    "responseBytes": 65536,
+    "modelInventoryLimit": 128,
+    "diagnosticTransitionLimit": 16
+  },
+  "failureCategories": [
+    "SERVICE_UNREACHABLE",
+    "TIMEOUT",
+    "MODEL_UNAVAILABLE",
+    "INVALID_ENDPOINT",
+    "ABORTED",
+    "PROTOCOL_ERROR",
+    "REQUEST_FAILED",
+    "CONFLICT",
+    "LEASE_BUSY"
+  ],
+  "lastSuccessfulConnectionAt": "Historical successful explicit manual Connect only, never current liveness",
+  "restoredExecutionAuthority": false,
+  "processLaunch": false,
+  "cloudFallback": false,
+  "automaticTransportFallback": false
+}

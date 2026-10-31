@@ -1,0 +1,16 @@
+import assert from'node:assert/strict';import{Window}from'happy-dom';import{createServer}from'vite';import{projectIndexedDB,turn}from'./fixtures/candy-scope7a-storage.mjs';
+const window=new Window({url:'http://127.0.0.1:5173/'});Object.assign(globalThis,{window,document:window.document,HTMLElement:window.HTMLElement,Event:window.Event,IS_REACT_ACT_ENVIRONMENT:true});Object.defineProperty(globalThis,'navigator',{configurable:true,value:window.navigator});const originalFetch=globalThis.fetch,originalDB=globalThis.indexedDB;const vite=await createServer({server:{middlewareMode:true},appType:'custom',logLevel:'error'});
+try{
+ const React=await import('react'),{act}=React,{createRoot}=await import('react-dom/client');const{createProjectStore}=await vite.ssrLoadModule('/src/persistence/projectStore.js'),{initialConnectionProfile}=await vite.ssrLoadModule('/src/persistence/modelConnectionSchema.js'),{usePersistentModelConnection}=await vite.ssrLoadModule('/src/persistence/usePersistentModelConnection.js');
+ const db=projectIndexedDB();globalThis.indexedDB=db;const store=createProjectStore(db);await store.saveConnectionProfile(0,{...initialConnectionProfile('qwen3:8b'),autoReconnectEnabled:true});const requests=[];globalThis.fetch=(_url,options)=>new Promise(resolve=>requests.push({options,resolve}));let view;const published=[];
+ function Host({ready,scopeKey}){view=usePersistentModelConnection({ready,scopeKey,onState:value=>published.push({scopeKey,state:value.state})});return React.createElement('p',null,view.state);}
+ const root=createRoot(document.body.appendChild(document.createElement('div')));async function spin(fn){for(let n=0;n<200;n++){await act(async()=>{await turn();});if(fn())return;}throw Error('Mounted reconnect timeout '+JSON.stringify(view));}
+ await act(async()=>root.render(React.createElement(React.StrictMode,null,React.createElement(Host,{ready:false,scopeKey:'A'}))));assert.equal(requests.length,0);
+ await act(async()=>root.render(React.createElement(Host,{ready:true,scopeKey:'A'})));await spin(()=>requests.length===1);assert.equal(view.state,'connecting');
+ await act(async()=>root.render(React.createElement(Host,{ready:false,scopeKey:'B'})));await spin(()=>requests[0].options.signal.aborted);for(let i=0;i<5;i++)await act(async()=>{await turn();});
+ await act(async()=>root.render(React.createElement(Host,{ready:true,scopeKey:'B'})));await spin(()=>requests.length===2);await act(async()=>requests[0].resolve(new Response(JSON.stringify({models:[{name:'qwen3:8b'}]}))));assert.notEqual(view.state,'connected');
+ await act(async()=>requests[1].resolve(new Response(JSON.stringify({models:[{name:'qwen3:8b'}]}))));await spin(()=>view.state==='connected');assert.equal(published.filter(x=>x.state==='connected').every(x=>x.scopeKey==='B'),true);
+ await act(async()=>{await view.disconnect();});assert.equal(view.state,'disconnected');assert.equal((await store.readConnectionProfile()).profile.autoReconnectEnabled,false);
+ await act(async()=>root.unmount());await store.close();
+}finally{globalThis.fetch=originalFetch;globalThis.indexedDB=originalDB;await vite.close();await window.happyDOM.close();}
+console.log('Scope 7D mounted startup gating, StrictMode cleanup, A→B obsolete probe suppression, fresh discovery only and durable disconnect PASS (happy-dom + transactional doubles).');
