@@ -1,0 +1,193 @@
+{
+  "mode": "READ-ONLY READINESS / SCOPE-DEFINITION AUDIT ONLY",
+  "verdict": "READY TO FREEZE SCOPE 8C IMPLEMENTATION CONTRACT",
+  "baseline": "4237de4c768daa98f81536423e9bf6ff787f09ce",
+  "branch": "candy-integration-scope8c-readiness",
+  "predecessorTag": "candy-integration-scope8b-analysis-history-qualified",
+  "predecessorTagObject": "20f100a0469a1919abdc21f333ec970843c45998",
+  "createdAtUtc": "2026-11-02T03:59:05.605414+00:00",
+  "recommendedTitle": "Standalone Analysis History Portability",
+  "recommendedImplementationBranch": "candy-integration-scope8c-history-portability",
+  "recommendedWorktree": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8c-history-portability",
+  "readinessBranchDisposition": "retain evidence-only; no worktree created/renamed",
+  "expectedImplementationBoundary": [
+    {
+      "operation": "new",
+      "path": "src/persistence/analysisHistoryPortability.js",
+      "responsibility": "Independent bounded history wire codec; private staged handles; rebase through existing validator."
+    },
+    {
+      "operation": "new",
+      "path": "src/components/AnalysisHistoryPortabilityPanel.jsx",
+      "responsibility": "Explicit download, dynamic file picker, preview, confirm import-as-new, cancellation/status."
+    },
+    {
+      "operation": "modify",
+      "path": "src/persistence/projectStore.js",
+      "responsibility": "History-only atomic export snapshot and new-project atomic publication; no root or memory/model writes."
+    },
+    {
+      "operation": "modify",
+      "path": "src/persistence/workspaceResumeCoordinator.js",
+      "responsibility": "Fresh bounded history summary/invalid-category refresh bound to selected owner."
+    },
+    {
+      "operation": "modify",
+      "path": "src/components/WorkspaceExperience.jsx",
+      "responsibility": "Unsaved-edit/current-owner integration; expose import/download and truthful post-commit discovery."
+    },
+    {
+      "operation": "modify",
+      "path": "src/components/ResumeWorkspacePanel.jsx",
+      "responsibility": "Append historical result count/error category and disclose history retained by workspace-only deletion."
+    },
+    {
+      "operation": "new",
+      "path": "tests/candy-scope8c-history-portability.test.mjs",
+      "responsibility": "Codec, determinism, ID rebasing, import transaction, compatibility/budget tests."
+    },
+    {
+      "operation": "new",
+      "path": "tests/candy-scope8c-adversarial.test.mjs",
+      "responsibility": "Malformed input, spoofing, races, replay, rollback, quotas, authority exclusions."
+    },
+    {
+      "operation": "new",
+      "path": "tests/candy-scope8c-ui.test.mjs",
+      "responsibility": "Mounted control ownership, Cancel-first confirmation, stale callback, escaping and accessible status."
+    },
+    {
+      "operation": "new",
+      "path": "tests/fixtures/candy-scope8c-history-portability.mjs",
+      "responsibility": "Bounded CPU/motif history fixtures and declared transactional doubles."
+    },
+    {
+      "operation": "new",
+      "path": "tests/fixtures/candy-scope8c-browser.html",
+      "responsibility": "Isolated native-browser qualification entry point."
+    },
+    {
+      "operation": "new",
+      "path": "tests/fixtures/candy-scope8c-browser.mjs",
+      "responsibility": "Real IndexedDB/browser cases, profile handoff, restart, instrumented authority counters."
+    },
+    {
+      "operation": "new",
+      "path": "docs/CANDY_SCOPE8C_HISTORY_PORTABILITY.md",
+      "responsibility": "Wire format, lifecycle/limits, authority model and exact qualification obligations."
+    }
+  ],
+  "boundaryStatus": "Proposed contract planning only; not frozen candidate blobs or authorization to implement",
+  "schemaImpact": "No DB v5/project1/history1/workspace1/2/3 migration/change; new separate history wire1",
+  "gapSeverityCounts": {
+    "Critical": 0,
+    "High": 0,
+    "Medium": 1,
+    "Low": 10
+  },
+  "confirmedSecurityVulnerabilitiesInScopedReview": 0,
+  "securityCoverage": "Architecture/source review, not a full audit/scan certification",
+  "baselineTestFileDiscovery": 312,
+  "newTestsExecuted": 0,
+  "plannedNativeBrowserGroups": 36,
+  "browserExecuted": false,
+  "qwenRequirement": "Required in eventual implementation qualification; not run in readiness",
+  "cudaRequirement": "LIVE CUDA EXECUTION NOT REQUIRED / NOT CLAIMED",
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "protectedHistory": {
+    "atUtc": "2026-11-02T03:59:05.605414+00:00",
+    "mode": "READ-ONLY AUDIT / SCOPE DEFINITION",
+    "baseline": "4237de4c768daa98f81536423e9bf6ff787f09ce",
+    "branch": "candy-integration-scope8c-readiness",
+    "trackedCount": 1437,
+    "trackedPhysicalShaBytesMtimeUnchanged": true,
+    "trackedChanges": [],
+    "allLocalRefsUnchanged": true,
+    "liveOriginMainReadinessAndAllTagsUnchanged": true,
+    "trackedDiffEmpty": true,
+    "stagedDiffEmpty": true,
+    "gitDiffCheck": "PASS",
+    "unexpectedUntracked": [],
+    "allPriorTrackedEvidencePreserved": true,
+    "mainCheckoutUntrackedScope6Tools": "Not accessed or modified",
+    "failedScope8bCandidate": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6 remains immutable and permanently NON-PASS; audit makes no new qualification claim",
+    "oldRefsSha256": "56bff17440a00577f527229f9a373c7a50a7622521fea56c08003257460c9d69",
+    "liveRemoteRefsSha256": "2d3cea8474d45eb5dc8efb6cad50504ad4e61e8b471ba2c9bba44f8dd085f2b2"
+  },
+  "citationValidation": {
+    "path": "artifacts/candy-scope8c-work/citation-validation.json",
+    "verifiedDistinctReferences": 237,
+    "errors": 0
+  },
+  "auditEvidence": [
+    {
+      "path": "artifacts/candy-scope8c-readiness-audit.md",
+      "classification": "additive untracked audit evidence; not candidate product",
+      "bytes": 6811,
+      "sha256": "9ecce466a4bf3ad90b2b5eb3b6a97a6312f0de2a34bab7243e9833648d7af085",
+      "canonicalGitBlobSha1": "aea6bb3c3710f425c60b61b894691ed44333b576"
+    },
+    {
+      "path": "artifacts/candy-scope8c-current-state.md",
+      "classification": "additive untracked audit evidence; not candidate product",
+      "bytes": 10377,
+      "sha256": "836102f028579ceac418d2049725476ccb307a79cc2c636b20f191b1232e0a9d",
+      "canonicalGitBlobSha1": "9e0d82c85021056c17b4d4f8b7982a932b51daf5"
+    },
+    {
+      "path": "artifacts/candy-scope8c-gap-register.json",
+      "classification": "additive untracked audit evidence; not candidate product",
+      "bytes": 20475,
+      "sha256": "8d030bba21c71191b7c1ca04e52340c6bed1f7e8dfb6aa9ce531fa81c25cd175",
+      "canonicalGitBlobSha1": "ad913f9a082343aca267ace2b4e2ade4442e2da0"
+    },
+    {
+      "path": "artifacts/candy-scope8c-proposed-scope.md",
+      "classification": "additive untracked audit evidence; not candidate product",
+      "bytes": 12770,
+      "sha256": "d028d628ec8496d0a925e07f48ffeb099e4790b43ea3fd80d22187048aff51c1",
+      "canonicalGitBlobSha1": "167ba58b5853fe2d8f0058b97488cce45a4dab43"
+    },
+    {
+      "path": "artifacts/candy-scope8c-threat-model.md",
+      "classification": "additive untracked audit evidence; not candidate product",
+      "bytes": 84661,
+      "sha256": "2c2a83f648f2b5484419468abd83e15db29d5e5849615d2d45707dcbfe7eba93",
+      "canonicalGitBlobSha1": "a795c492ad9e0056610e9918c6e48a8999f90a06"
+    },
+    {
+      "path": "artifacts/candy-scope8c-qualification-plan.md",
+      "classification": "additive untracked audit evidence; not candidate product",
+      "bytes": 15777,
+      "sha256": "066e63292a5915b8d9874b41ec878f015094a6ccabd6367ddfeda979f505769c",
+      "canonicalGitBlobSha1": "7000928e1059ef5344fabf4f6db34eff6e698b2f"
+    },
+    {
+      "path": "artifacts/candy-scope8c-final-inventory.json",
+      "classification": "additive untracked audit inventory",
+      "selfHashPolicy": "No recursive self-hash; final bytes/SHA256/Git blob retained in artifacts/candy-scope8c-work/final-evidence-receipt.json"
+    }
+  ],
+  "independentReview": {
+    "path": "artifacts/candy-scope8c-work/independent-architecture-review.json",
+    "sha256": "f5b48585767a2888b96a357ec92207c9e71261289448dcbd33be88b21f35c7ac",
+    "effectiveResourceRows": 13,
+    "distinctReviewerReferences": 197
+  },
+  "operationsNotPerformed": [
+    "implementation",
+    "product/test writes",
+    "test/build execution",
+    "browser/model/native execution",
+    "automated security scan",
+    "staging",
+    "commit",
+    "tag",
+    "merge",
+    "push",
+    "main modification",
+    "history rewrite",
+    "Scope8D"
+  ],
+  "hardStop": "Stop after readiness verdict; implementation requires a separate authorized task."
+}

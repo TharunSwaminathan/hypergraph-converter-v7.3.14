@@ -1,0 +1,464 @@
+{
+  "mode": "READ-ONLY READINESS AUDIT; not implementation qualification",
+  "baseline": "4237de4c768daa98f81536423e9bf6ff787f09ce",
+  "severityMeaning": "Product capability/UX/operability/documentation priority; not vulnerability severity. Deferred wishes are not defects.",
+  "severityCounts": {
+    "Critical": 0,
+    "High": 0,
+    "Medium": 1,
+    "Low": 10
+  },
+  "confirmedSecurityVulnerabilities": 0,
+  "securityCoverage": "Scoped architecture/source review only; no full security scan or seal",
+  "rankingScale": "1..5; higher favors selection; correctness/safety ranks actual current impact, not hypothetical future exploit severity. Final rank includes scope/dependency judgment.",
+  "selectionReason": "No confirmed high-safety prerequisite overrides G01. G02 is minimal supporting UX. G03 ledger behavior is intentional protection, and G10 is unsupported corrupt-state recovery rather than an observed defect.",
+  "gaps": [
+    {
+      "id": "G01",
+      "severity": "Medium",
+      "title": "Standalone history portability",
+      "rank": 1,
+      "kind": "deferred capability",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "History-only projects are saved/resumable, but full-workspace export rejects a missing root before reading history.",
+      "desiredBehavior": "Export validated retained history independently and import it as a new history-only project.",
+      "sources": [
+        "src/persistence/projectStore.js:423",
+        "src/persistence/workspaceResumeCoordinator.js:38"
+      ],
+      "tests": [
+        "tests/candy-scope8b-adversarial.test.mjs:70",
+        "tests/candy-scope8b-history.test.mjs:49"
+      ],
+      "impacts": {
+        "user": "Users cannot transfer valid results after workspace-only deletion without a source/graph root.",
+        "dataIntegrity": "Existing retained results remain intact; absent export is not corruption.",
+        "securityAuthority": "New file admission must never create authority.",
+        "persistence": "Makes history independently portable without changing retention.",
+        "portability": "Closes history-only transfer gap.",
+        "concurrency": "Atomic new-project publication, duplicate marker and selection CAS needed.",
+        "backwardCompatibility": "Keep full workspace v1/v2/v3 and DB/history schemas unchanged."
+      },
+      "blocksLaterWork": "Foundational for portable history workflows, not prerequisite to existing qualified behavior.",
+      "proposedClosure": "8C primary: separate bounded codec and atomic new-project import.",
+      "scopeDisposition": "8C primary",
+      "ranking": {
+        "correctnessSafety": 2,
+        "userValue": 5,
+        "architecturalDependency": 5,
+        "lowRegressionRisk": 4,
+        "smallImplementation": 4,
+        "qualificationFeasibility": 5,
+        "programFit": 5
+      }
+    },
+    {
+      "id": "G02",
+      "severity": "Low",
+      "title": "History lifecycle visibility/disclosure",
+      "rank": 2,
+      "kind": "presentation gap",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Inspector computes historyCount/historyError; Resume categories omit history and workspace deletion text does not say history survives.",
+      "desiredBehavior": "Show bounded current history count/error, rootless availability and explicit history-retention disclosure.",
+      "sources": [
+        "src/persistence/workspaceResumeCoordinator.js:39",
+        "src/components/ResumeWorkspacePanel.jsx:26",
+        "src/components/ResumeWorkspacePanel.jsx:35"
+      ],
+      "tests": [
+        "tests/candy-scope8b-adversarial.test.mjs:70",
+        "tests/candy-scope8b-ui.test.mjs:24"
+      ],
+      "impacts": {
+        "user": "History-only state is harder to understand.",
+        "dataIntegrity": "No lost data demonstrated.",
+        "securityAuthority": "Truthful status reduces mistaken deletion assumptions.",
+        "persistence": "Clarifies existing independent category lifetime.",
+        "portability": "Supports understandable standalone transfer.",
+        "concurrency": "Refresh must be generation guarded; no revision adoption.",
+        "backwardCompatibility": "Append UI category; keep source/graph ordering and delete semantics."
+      },
+      "blocksLaterWork": "Supports G01; broader lifecycle management deferred.",
+      "proposedClosure": "8C supporting UX only; no new deletion modes.",
+      "scopeDisposition": "8C supporting UX",
+      "ranking": {
+        "correctnessSafety": 2,
+        "userValue": 4,
+        "architecturalDependency": 4,
+        "lowRegressionRisk": 5,
+        "smallImplementation": 5,
+        "qualificationFeasibility": 5,
+        "programFit": 5
+      }
+    },
+    {
+      "id": "G03",
+      "severity": "Low",
+      "title": "Retention occupancy and management",
+      "rank": 3,
+      "kind": "deferred UX capability",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Static limit note explains 24/2MiB/512, but no ledger occupancy/eviction forecast or management beyond delete/clear.",
+      "desiredBehavior": "Explain capacity and export before future retention decisions; richer occupancy management later.",
+      "sources": [
+        "src/components/AnalysisHistoryPanel.jsx:35",
+        "src/persistence/projectStore.js:270",
+        "src/persistence/projectStore.js:282"
+      ],
+      "tests": [
+        "tests/candy-scope8b-history.test.mjs:34",
+        "tests/candy-scope8b-adversarial.test.mjs:44"
+      ],
+      "impacts": {
+        "user": "Surprise at retained-result eviction or lifetime admission limit.",
+        "dataIntegrity": "Intentional bounded eviction; private replay ledger correctly survives.",
+        "securityAuthority": "Never reset replay ledger to free capacity.",
+        "persistence": "Policy unchanged.",
+        "portability": "8C export gives manual data escape.",
+        "concurrency": "Any future retention change needs shared CAS.",
+        "backwardCompatibility": "Do not change caps/eviction ordering."
+      },
+      "blocksLaterWork": "No blocker to G01; prerequisite policy for pinning.",
+      "proposedClosure": "Defer occupancy/retention controls; disclose unchanged limits in 8C.",
+      "scopeDisposition": "deferred except explicit limits disclosure",
+      "ranking": {
+        "correctnessSafety": 2,
+        "userValue": 4,
+        "architecturalDependency": 4,
+        "lowRegressionRisk": 3,
+        "smallImplementation": 3,
+        "qualificationFeasibility": 4,
+        "programFit": 5
+      }
+    },
+    {
+      "id": "G04",
+      "severity": "Low",
+      "title": "History pinning/favorites",
+      "rank": 8,
+      "kind": "feature wish",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "No pin field; retention evicts oldest completion/UUID.",
+      "desiredBehavior": "Bounded pins with an explicit eviction and replay policy, if later authorized.",
+      "sources": [
+        "src/persistence/analysisHistorySchema.js:8",
+        "src/persistence/projectStore.js:272"
+      ],
+      "tests": [
+        "tests/candy-scope8b-history.test.mjs:34"
+      ],
+      "impacts": {
+        "user": "Cannot keep preferred result in retained list.",
+        "dataIntegrity": "Unbounded pinning could block retention; not a current defect.",
+        "securityAuthority": "Metadata cannot authorize execution.",
+        "persistence": "Needs bounded sidecar/schema design.",
+        "portability": "Pin transfer semantics unresolved.",
+        "concurrency": "Pin CAS and stale delete policy required.",
+        "backwardCompatibility": "Must preserve sealed historical payload."
+      },
+      "blocksLaterWork": "Retention policy needed first.",
+      "proposedClosure": "Deferred outside 8C.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 1,
+        "userValue": 3,
+        "architecturalDependency": 2,
+        "lowRegressionRisk": 2,
+        "smallImplementation": 3,
+        "qualificationFeasibility": 4,
+        "programFit": 4
+      }
+    },
+    {
+      "id": "G05",
+      "severity": "Low",
+      "title": "Editable notes/labels",
+      "rank": 7,
+      "kind": "feature wish",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Algorithm labels are strict schema-derived names, not user notes.",
+      "desiredBehavior": "Separate bounded editable metadata, without rewriting sealed results.",
+      "sources": [
+        "src/persistence/analysisHistorySchema.js:9",
+        "src/persistence/analysisHistorySchema.js:143",
+        "src/components/AnalysisHistoryPanel.jsx:24"
+      ],
+      "tests": [
+        "tests/candy-scope8b-adversarial.test.mjs:28"
+      ],
+      "impacts": {
+        "user": "No user annotation.",
+        "dataIntegrity": "Notes must not corrupt result digests.",
+        "securityAuthority": "Untrusted text must not become instructions/approvals.",
+        "persistence": "New sidecar policy required.",
+        "portability": "Wire treatment would need separate contract.",
+        "concurrency": "Metadata CAS needed.",
+        "backwardCompatibility": "Avoid modifying schema-1 historical outcome."
+      },
+      "blocksLaterWork": "No immediate prerequisite.",
+      "proposedClosure": "Deferred; no editable labels/notes in 8C.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 1,
+        "userValue": 3,
+        "architecturalDependency": 2,
+        "lowRegressionRisk": 3,
+        "smallImplementation": 3,
+        "qualificationFeasibility": 4,
+        "programFit": 4
+      }
+    },
+    {
+      "id": "G06",
+      "severity": "Low",
+      "title": "Richer inspection/filter/search",
+      "rank": 4,
+      "kind": "deferred UX capability",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Bounded 24-entry list plus raw JSON details; backend/input/origin are already presented.",
+      "desiredBehavior": "Usability improvements with explicit semantics and bounded filtering.",
+      "sources": [
+        "src/components/AnalysisHistoryPanel.jsx:22",
+        "src/components/AnalysisHistoryPanel.jsx:25",
+        "src/components/AnalysisHistoryPanel.jsx:29"
+      ],
+      "tests": [
+        "tests/candy-scope8b-ui.test.mjs:24",
+        "tests/candy-scope8b-ui.test.mjs:27"
+      ],
+      "impacts": {
+        "user": "Long outcomes less convenient to inspect.",
+        "dataIntegrity": "No integrity failure.",
+        "securityAuthority": "Plain text rendering must remain.",
+        "persistence": "No storage required for transient filter.",
+        "portability": "No prerequisite for independent file transfer.",
+        "concurrency": "View state scoped to owner.",
+        "backwardCompatibility": "Keep labels and raw provenance truthful."
+      },
+      "blocksLaterWork": "Not blocking.",
+      "proposedClosure": "Deferred; existing provenance display preserved.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 1,
+        "userValue": 3,
+        "architecturalDependency": 2,
+        "lowRegressionRisk": 5,
+        "smallImplementation": 4,
+        "qualificationFeasibility": 5,
+        "programFit": 4
+      }
+    },
+    {
+      "id": "G07",
+      "severity": "Low",
+      "title": "Deterministic rerun comparison/link",
+      "rank": 5,
+      "kind": "deferred comparison capability",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Rerun enters fresh safe request with new UUID but no record-to-record comparison; k-core usage.elapsedMs is retained in result payload.",
+      "desiredBehavior": "Define semantic comparison projections and link separately authorized reruns.",
+      "sources": [
+        "src/App.jsx:3824",
+        "src/hooks/useAlgorithms.js:58",
+        "src/persistence/analysisHistorySchema.js:10",
+        "src/algorithms/kCore.js:114"
+      ],
+      "tests": [
+        "tests/candy-scope8b-ui.test.mjs:25"
+      ],
+      "impacts": {
+        "user": "No explicit equality/difference report.",
+        "dataIntegrity": "Raw result SHA equality is not universal semantic equality.",
+        "securityAuthority": "Comparison must not adopt previous execution authority.",
+        "persistence": "Possible new comparison metadata only after policy.",
+        "portability": "Imported unverified claims need clear labels.",
+        "concurrency": "Current result/rerun races must remain generation bound.",
+        "backwardCompatibility": "No retrospective rewrite of historical payload."
+      },
+      "blocksLaterWork": "Comparator contract before comparison, not before G01.",
+      "proposedClosure": "Deferred; 8C preserves fresh rerun path.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 2,
+        "userValue": 3,
+        "architecturalDependency": 3,
+        "lowRegressionRisk": 2,
+        "smallImplementation": 2,
+        "qualificationFeasibility": 3,
+        "programFit": 4
+      }
+    },
+    {
+      "id": "G08",
+      "severity": "Low",
+      "title": "Cross-revision result comparison",
+      "rank": 9,
+      "kind": "feature wish",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Changed input disables historical rerun; no cross-revision comparison contract.",
+      "desiredBehavior": "Explicit comparability of vertices, graph changes, parameters and backend outputs.",
+      "sources": [
+        "src/components/AnalysisHistoryPanel.jsx:26",
+        "src/components/AnalysisHistoryPanel.jsx:30",
+        "src/App.jsx:3824"
+      ],
+      "tests": [
+        "tests/candy-scope8b-ui.test.mjs:26"
+      ],
+      "impacts": {
+        "user": "Cannot compare changed graph revisions in dedicated UI.",
+        "dataIntegrity": "Must not imply graph identity from matching labels.",
+        "securityAuthority": "Historical revision claims cannot authorize replacement.",
+        "persistence": "Needs bounded relation metadata if persisted.",
+        "portability": "Imported provenance stays unverified.",
+        "concurrency": "Current vs historical context race important.",
+        "backwardCompatibility": "No relaxation of input equivalence."
+      },
+      "blocksLaterWork": "G07 semantics prerequisite.",
+      "proposedClosure": "Deferred outside 8C.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 2,
+        "userValue": 3,
+        "architecturalDependency": 2,
+        "lowRegressionRisk": 1,
+        "smallImplementation": 1,
+        "qualificationFeasibility": 3,
+        "programFit": 3
+      }
+    },
+    {
+      "id": "G09",
+      "severity": "Low",
+      "title": "Additional analysis families in history",
+      "rank": 10,
+      "kind": "future scope",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Six CPU families plus validated STATIC/INCREMENTAL motif outcomes; automatic recomputation/stats not explicit archival intent. Ordinary native SSSP lacks current authoritative ordinary graph path in UI.",
+      "desiredBehavior": "Only add families with exact bounded result contracts and safe current execution path.",
+      "sources": [
+        "src/algorithms/registry.js:13",
+        "src/persistence/analysisHistorySchema.js:9",
+        "src/candy/useCandyRuntime.js:149"
+      ],
+      "tests": [
+        "tests/candy-scope8b-history.test.mjs:14",
+        "tests/candy-scope8b-motif.test.mjs:27"
+      ],
+      "impacts": {
+        "user": "Other analyses not archived.",
+        "dataIntegrity": "No result loss promised for unsupported family.",
+        "securityAuthority": "No implicit projection/CPU fallback/native authority restoration.",
+        "persistence": "New schema/contract admission would need design.",
+        "portability": "Future wire compatibility needed.",
+        "concurrency": "Detach observer from live authority.",
+        "backwardCompatibility": "Existing family contracts untouched."
+      },
+      "blocksLaterWork": "No prerequisite to selected scope.",
+      "proposedClosure": "Deferred; no CPU/native algorithm additions.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 1,
+        "userValue": 3,
+        "architecturalDependency": 1,
+        "lowRegressionRisk": 1,
+        "smallImplementation": 1,
+        "qualificationFeasibility": 2,
+        "programFit": 3
+      }
+    },
+    {
+      "id": "G10",
+      "severity": "Low",
+      "title": "Corrupt-history salvage workflow",
+      "rank": 6,
+      "kind": "operability gap",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "Whole-envelope verification fails closed; cached coordinator initialization and validated mutation reads do not offer record salvage.",
+      "desiredBehavior": "Separately reviewed recovery preserving original corrupt bytes and avoiding unverified admission.",
+      "sources": [
+        "src/persistence/analysisHistorySchema.js:113",
+        "src/persistence/analysisHistoryCoordinator.js:16",
+        "src/persistence/projectStore.js:258"
+      ],
+      "tests": [
+        "tests/candy-scope8b-history.test.mjs:45",
+        "tests/candy-scope8b-adversarial.test.mjs:38"
+      ],
+      "impacts": {
+        "user": "Corrupt history is unavailable; no corruption observed in this audit.",
+        "dataIntegrity": "Preservation is correct; salvage could discard evidence if unsafe.",
+        "securityAuthority": "Fail-closed behavior must not be bypassed by exporter.",
+        "persistence": "Future explicit recovery/quarantine policy needed.",
+        "portability": "8C exports only valid history; no forensic export.",
+        "concurrency": "Recovery ownership/review CAS needed.",
+        "backwardCompatibility": "Future schema still refuses downgrade."
+      },
+      "blocksLaterWork": "Not prerequisite for valid-history G01; revisit if actual corruption found.",
+      "proposedClosure": "Deferred; show truthful category error only.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 2,
+        "userValue": 3,
+        "architecturalDependency": 3,
+        "lowRegressionRisk": 2,
+        "smallImplementation": 2,
+        "qualificationFeasibility": 3,
+        "programFit": 4
+      }
+    },
+    {
+      "id": "G11",
+      "severity": "Low",
+      "title": "Startup/native documentation discrepancies",
+      "rank": 11,
+      "kind": "documentation gap",
+      "isConfirmedImplementationDefect": false,
+      "isSecurityFinding": false,
+      "currentBehavior": "README generic incremental path and removal claim differ from consumer; launcher says export/import deferred beyond 7A although 8A/B supports files.",
+      "desiredBehavior": "Correct operational descriptions in a separate documentation maintenance boundary.",
+      "sources": [
+        "candy-runtime/README.md:23",
+        "candy-runtime/README.md:32",
+        "candy-runtime/src/capabilities/motifQualification.js:25",
+        "candy-runtime/src/artifacts/artifactStore.js:168",
+        "run-with-ollama.bat:52"
+      ],
+      "tests": [
+        "tests/candy-scope8b-motif.test.mjs:27"
+      ],
+      "impacts": {
+        "user": "Operator expectations can differ from runtime.",
+        "dataIntegrity": "No product data loss shown.",
+        "securityAuthority": "Mode declarations do not prove ACLs; no new vulnerability established.",
+        "persistence": "Stable runtime root reconciliation differs from deletion.",
+        "portability": "Explicit file transfer already supported.",
+        "concurrency": "No tab policy change.",
+        "backwardCompatibility": "Historical evidence never rewritten to correct prose."
+      },
+      "blocksLaterWork": "Not a blocker to G01; independent maintenance.",
+      "proposedClosure": "Deferred outside expected 13 paths; preserve both sides in threat model.",
+      "scopeDisposition": "deferred",
+      "ranking": {
+        "correctnessSafety": 2,
+        "userValue": 2,
+        "architecturalDependency": 1,
+        "lowRegressionRisk": 5,
+        "smallImplementation": 5,
+        "qualificationFeasibility": 5,
+        "programFit": 2
+      }
+    }
+  ]
+}
