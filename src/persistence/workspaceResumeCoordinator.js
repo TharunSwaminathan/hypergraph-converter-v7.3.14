@@ -36,7 +36,7 @@ export async function inspectResumeProject(store, id) {
   const profile = results[2].status === "fulfilled" ? results[2].value.profile : null;
   return { projectId: id, revision: manifest.revision, updatedAt: workspace?.root?.updatedAt ?? manifest.updatedAt,
     saved: Boolean(workspace?.available || results[0].status === "rejected" || memory?.records.length || results[3].status === "fulfilled" && results[3].value.record?.messages.length || results[4].status === "rejected" || results[4].value?.envelope?.records.length),
-    historyCount: results[4].status === "fulfilled" ? results[4].value?.envelope?.records.length ?? 0 : 0, historyError: results[4].status === "rejected",
+    historyCount: results[4].status === "fulfilled" ? results[4].value?.envelope?.records.length ?? 0 : 0, historyError: results[4].status === "rejected", historyCode: results[4].status === "rejected" ? fault(results[4].reason).code : null,
     workspaceAvailable: Boolean(workspace?.available), partial: Boolean(workspace?.partial), workspaceError: results[0].status === "rejected" ? fault(results[0].reason).code : null,
     sourceCount: workspace?.sources.filter(s => s.provenance.kind !== "parser").length ?? 0, graphAvailable: Boolean(workspace?.graph), graphEmpty: !workspace?.graph?.hyperedges?.length,
     memoryAvailable: Boolean(memory), memoryCount: memory?.records.filter(row => row.status === "ACTIVE").length ?? 0, staleMemoryCount: memory?.records.filter(row => row.retrievalStatus === "STALE").length ?? 0,
@@ -44,10 +44,18 @@ export async function inspectResumeProject(store, id) {
     timings: { ...timings, ...workspace?.validationTimings, discoveryMs: performance.now() - start } };
 }
 export function createWorkspaceResumeCoordinator({ store, channel = null }) {
-  let live = true, generation = 0, serial = Promise.resolve(), initialized = null, defaultId = null, sequence = 0;
+  let live = true, generation = 0, serial = Promise.resolve(), initialized = null, defaultId = null, sequence = 0, summaryGeneration = 0;
   let snapshot = { state: "RESTORING", preferences: { revision: 0, ...DEFAULT_RESUME_PREFERENCES }, preferenceError: "", projects: [], selectedId: null, available: null, active: null, live: null, message: "Checking saved workspaces…", diagnostics: [] };
   const owner = globalThis.crypto?.randomUUID?.(), listeners = new Set(), current = token => live && token === generation;
-  function emit(patch) { if (!live) return; const marker = { state: patch.state ?? snapshot.state, event: patch.event ?? (patch.live ? "category-update" : patch.preferences ? "preferences-validated" : patch.available ? "discovery-result" : "state-change"), code: patch.code ?? patch.available?.workspaceError ?? patch.live?.workspace.code ?? null, modelState: patch.live?.modelState ?? null }; snapshot = { ...snapshot, ...patch, diagnostics: [...snapshot.diagnostics, marker].slice(-16) }; for (const fn of listeners) fn(snapshot); }
+  function emit(patch) { if (!live) return; const marker = { state: patch.state ?? snapshot.state, event: patch.event ?? (patch.live ? "category-update" : patch.preferences ? "preferences-validated" : patch.available ? "discovery-result" : "state-change"), code: patch.code ?? patch.available?.workspaceError ?? patch.live?.workspace.code ?? null, modelState: patch.live?.modelState ?? null }; snapshot = { ...snapshot, ...patch, ...(patch.available ? { historySummary: { projectId: patch.available.projectId, historyCount: patch.available.historyCount, historyError: patch.available.historyError, historyCode: patch.available.historyCode } } : {}), diagnostics: [...snapshot.diagnostics, marker].slice(-16) }; for (const fn of listeners) fn(snapshot); }
+  async function refreshHistory() {
+    const token = generation, summary = ++summaryGeneration, id = snapshot.active?.projectId ?? snapshot.selectedId, key = snapshot.active?.key;
+    if (!id) return;
+    let result;
+    try { const value = await store.readAnalysisHistory(id); result = { projectId: id, historyCount: value?.envelope?.records.length ?? 0, historyError: false, historyCode: null }; }
+    catch (e) { result = { projectId: id, historyCount: 0, historyError: true, historyCode: fault(e).code }; }
+    if (current(token) && summary === summaryGeneration && snapshot.active?.key === key && (snapshot.active?.projectId ?? snapshot.selectedId) === id) emit({ historySummary: result });
+  }
   function announce(kind, projectId = snapshot.active?.projectId) { channel?.postMessage({ kind, projectId, owner }); }
   async function preference(patch) {
     const run = serial.then(async () => {
@@ -94,7 +102,7 @@ export function createWorkspaceResumeCoordinator({ store, channel = null }) {
     const v = event.data;
     if (!v || v.owner === owner || !["preferences", "workspace", "memory", "deleted-workspace"].includes(v.kind)) return;
     if (v.kind === "preferences") { emit({ preferenceError: "Startup preferences changed in another tab. Reload to review them." }); return; }
-    if (v.projectId === snapshot.active?.projectId) emit({ state: "STALE", foreignChange: true, message: "This saved project changed in another tab. Reload before saving or deleting." });
+    if (v.projectId === snapshot.active?.projectId) { emit({ state: "STALE", foreignChange: true, message: "This saved project changed in another tab. Reload before saving or deleting." }); void refreshHistory(); }
   };
   return Object.freeze({
     getSnapshot: () => snapshot, subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); }, initialize,
@@ -146,7 +154,7 @@ export function createWorkspaceResumeCoordinator({ store, channel = null }) {
         emit({ event: category === "workspace" ? "workspace-clear-rejected" : "memory-clear-rejected", code: fault(error).code, ...(conflict ? { state: "STALE", foreignChange: true, message: "Saved data changed. Nothing was cleared. Reload and review before clearing saved data." } : {}) }); throw error;
       }
     },
-    historyChanged(key) { if (snapshot.active?.key === key) announce("workspace"); },
+    historyChanged(key) { if (snapshot.active?.key === key) { announce("workspace"); return refreshHistory(); } },
     label: id => projectLabel(snapshot.preferences, id),
     dispose() { live = false; generation++; listeners.clear(); channel?.close(); },
   });

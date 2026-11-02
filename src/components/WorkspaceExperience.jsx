@@ -5,6 +5,8 @@ import { DEFAULT_RESUME_PREFERENCES } from "../persistence/resumePreferenceSchem
 import ResumeWorkspacePanel from "./ResumeWorkspacePanel.jsx";
 import WorkspacePortabilityPanel from "./WorkspacePortabilityPanel.jsx";
 import { exportPortableWorkspace } from "../persistence/workspacePortability.js";
+import AnalysisHistoryPortabilityPanel from "./AnalysisHistoryPortabilityPanel.jsx";
+import { exportAnalysisHistory } from "../persistence/analysisHistoryPortability.js";
 
 function Confirmation({ value, close }) {
   const ref = useRef(null), cancel = useRef(null);
@@ -42,7 +44,7 @@ export default function WorkspaceExperience({ component: Scene }) {
   }
   async function clearCategory(category, command) {
     const coordinator = actor.current, token = await coordinator.capture(category), label = coordinator.label(token.projectId);
-    const accepted = await confirm({ title: category === "workspace" ? "Delete saved workspace?" : "Forget project memory?", detail: category === "workspace" ? `Delete saved source, graph and checkpoints for “${label}”. This project's Assistant memory, chat, other projects and application preferences are retained.` : `Forget the selected memory in “${label}”. This does not erase existing chat quotes. Source, graph, other projects and model preferences are retained.` });
+    const accepted = await confirm({ title: category === "workspace" ? "Delete saved workspace?" : "Forget project memory?", detail: category === "workspace" ? `Delete saved source, graph and checkpoints for “${label}”. This project's analysis history, Assistant memory, chat, other projects and application preferences are retained.` : `Forget the selected memory in “${label}”. This does not erase existing chat quotes. Source, graph, other projects and model preferences are retained.` });
     if (!accepted) return { ok: false, cancelled: true };
     const receipt = await coordinator.clear(token, category, command); setError(""); return receipt;
   }
@@ -67,7 +69,21 @@ export default function WorkspaceExperience({ component: Scene }) {
     catch { setError("Import committed. Reload saved projects to review the imported workspace."); }
     return receipt;
   }
-  function panel(onForgetModel) { return <><ResumeWorkspacePanel snapshot={snapshot} actions={actions} onForgetModel={onForgetModel}><WorkspacePortabilityPanel projectId={snapshot.active?.projectId ?? snapshot.selectedId} canReplace={Boolean(snapshot.active?.projectId && snapshot.live && !snapshot.live.workspace.unsaved && !snapshot.foreignChange)} onExport={() => exportPortableWorkspace(store, snapshot.active?.projectId ?? snapshot.selectedId)} onImport={importWorkspace} /></ResumeWorkspacePanel>{error && <p role="alert">{error}</p>}</>; }
+  async function importHistory(stage) {
+    const coordinator = actor.current, initial = coordinator?.getSnapshot(), active = initial?.active;
+    if (!coordinator) throw new Error("Project storage is not ready.");
+    const isCurrent = () => actor.current === coordinator && coordinator.getSnapshot().active?.key === active?.key && coordinator.getSnapshot().selectedId === initial.selectedId && coordinator.getSnapshot().preferences.revision === initial.preferences.revision && !coordinator.getSnapshot().preferenceError && !coordinator.getSnapshot().foreignChange;
+    if (initial.live?.workspace.unsaved && !await confirm({ title: "Leave unsaved changes?", detail: "Importing a new history-only project leaves uncommitted edits and pending actions behind. Cancel to keep working. Existing saved projects remain intact." })) return { cancelled: true };
+    if (!isCurrent()) throw new Error("History review is stale. Review the current project again.");
+    if (!await confirm({ title: "Create history-only project?", detail: `Import “${stage.name}” as a new project with ${stage.recordCount} historical results. Imported execution claims are unverified. No source, graph, memory, model settings or action authority will be restored. Resume will remain an explicit choice.` })) return { cancelled: true };
+    const receipt = await store.importAnalysisHistory(stage, { isCurrent });
+    try {
+      const discovered = await coordinator.reviewImported(receipt.projectId);
+      if (!discovered) return { ...receipt, discoveryFailed: true };
+    } catch { setError("History saved but discovery failed. Reload saved projects. The import was committed."); return { ...receipt, discoveryFailed: true }; }
+    return receipt;
+  }
+  function panel(onForgetModel) { return <><ResumeWorkspacePanel snapshot={snapshot} actions={actions} onForgetModel={onForgetModel}><WorkspacePortabilityPanel projectId={snapshot.active?.projectId ?? snapshot.selectedId} canReplace={Boolean(snapshot.active?.projectId && snapshot.live && !snapshot.live.workspace.unsaved && !snapshot.foreignChange)} onExport={() => exportPortableWorkspace(store, snapshot.active?.projectId ?? snapshot.selectedId)} onImport={importWorkspace} /><AnalysisHistoryPortabilityPanel key={snapshot.active?.key ?? snapshot.selectedId ?? "startup"} projectId={snapshot.active?.projectId ?? snapshot.selectedId} onExport={() => exportAnalysisHistory(store, snapshot.active?.projectId ?? snapshot.selectedId)} onImport={importHistory} /></ResumeWorkspacePanel>{error && <p role="alert">{error}</p>}</>; }
   const onVisualization = useCallback(value => { const coordinator = actor.current; if (coordinator) void coordinator.setVisualization(value).catch(() => setError("Display preferences were not saved. Reload startup settings to review changes.")); }, []);
   return <>{snapshot.active ? <Scene key={snapshot.active.key} experience={{ active: snapshot.active, session: snapshot.active.session, preferences: snapshot.preferences, externalStale: Boolean(snapshot.foreignChange), report, historyChanged, panel, confirm, mutateMemory, onVisualization }} /> : <main className="workspace-startup"><h1>Hypergraph Converter Studio</h1><p>Your work stays in this browser. Choose what to open.</p>{panel(null)}</main>}{confirmation && <Confirmation value={confirmation} close={close} />}</>;
 }

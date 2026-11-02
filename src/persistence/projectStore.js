@@ -10,6 +10,7 @@ import { stableStringify } from "../graph/graphFingerprint.js";
 import { CONNECTION_ID, CONNECTION_POLICY, validateConnectionRecord, validateConnectionProfile } from "./modelConnectionSchema.js";
 import { RESUME_PREFERENCE_ID, DEFAULT_RESUME_PREFERENCES, validateResumePreferences, resumePreferences, namedProject } from "./resumePreferenceSchema.js";
 import { preparePortablePublication } from "./workspacePortability.js";
+import { takeHistoryPublication } from "./analysisHistoryPortability.js";
 import { HISTORY_LIMITS, historyBytes, sealHistoryRecord, validateHistoryRecord, sealHistoryEnvelope, verifyHistoryEnvelope } from "./analysisHistorySchema.js";
 
 const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections", "analysisHistories"];
@@ -411,6 +412,58 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     publishMigration: (projectId, expectedRevision, record, lineage) => mutate(projectId, expectedRevision, record, lineage),
     deleteProject: (projectId, expectedRevision) => mutate(projectId, expectedRevision, undefined, null, true),
     readWorkspace: workspaceBundle,
+    async readHistoryPortableSnapshot(projectId) {
+      checkId(projectId);
+      return transaction(["projects", "analysisHistories", "meta"], "readonly", (tx, done, abort) => {
+        const project = tx.objectStore("projects").get(projectId), history = tx.objectStore("analysisHistories").get(projectId), prefs = tx.objectStore("meta").get(RESUME_PREFERENCE_ID);
+        let pending = 3;
+        const finish = () => { if (--pending) return; try {
+          const manifest = validateProject(project.result);
+          if (manifest.deleted) throw new StorageFault("DELETED", "Deleted project cannot export history.", true);
+          const settings = prefs.result ? validateResumePreferences(prefs.result) : DEFAULT_RESUME_PREFERENCES;
+          done({ project: manifest, history: history.result ?? null, name: settings.labels.find(p => p.projectId === projectId)?.name ?? "Workspace " + projectId.slice(0, 8) });
+        } catch (e) { abort(e); } };
+        project.onsuccess = history.onsuccess = prefs.onsuccess = finish;
+      });
+    },
+    async importAnalysisHistory(stage, { isCurrent = () => true } = {}) {
+      const preferences = await api.readResumePreferences(), projectId = newProjectId();
+      const prepared = await takeHistoryPublication(stage, projectId, 2);
+      await checkStorageEstimate(historyBytes(prepared.history));
+      if (!isCurrent()) throw new StorageFault("ABANDONED", "History review changed. Nothing was imported.", true);
+      const marker = `history-portable/${prepared.fileSha256}/${prepared.sourceProjectId}`;
+      return transaction(["projects", "threads", "meta", "analysisHistories", "workspaceRoots"], "readwrite", (tx, done, abort) => {
+        const projects = tx.objectStore("projects"), all = projects.getAll();
+        all.onsuccess = () => { try {
+          const inventory = all.result.map(validateProject);
+          if (!isCurrent()) throw new StorageFault("ABANDONED", "History import owner changed.", true);
+          if (inventory.some(p => p.migrationLineage.some(entry => entry.source === marker))) throw new StorageFault("DUPLICATE", "This history file was already imported; it cannot be replayed, including after deletion.", true);
+          if (inventory.length >= PROJECT_LIMITS.projects) throw new StorageFault("LIMIT", "Project inventory is full.", true);
+          if (inventory.some(p => p.projectId === projectId)) throw new StorageFault("CONFLICT", "New project identity already exists.", true);
+          const next = nextProject(initialProject(projectId), 1, { migrationLineage: [{ source: marker, sourceVersion: 1, result: "COPIED_VALIDATED_PUBLISHED", at: new Date().toISOString() }] });
+          const meta = tx.objectStore("meta"), pref = meta.get(RESUME_PREFERENCE_ID), pointer = meta.get("default-project"), roots = tx.objectStore("workspaceRoots").getAll(), histories = tx.objectStore("analysisHistories").getAll();
+          let pending = 4;
+          const finish = () => { if (--pending) return; try {
+            const currentPrefs = pref.result ? validateResumePreferences(pref.result) : { revision: 0, ...DEFAULT_RESUME_PREFERENCES };
+            if (currentPrefs.revision !== preferences.revision) throw new StorageFault("CONFLICT", "Startup preferences changed during history review. Review again.", true);
+            if (pointer.result) {
+              const p = pointer.result;
+              if (Object.keys(p).sort().join() !== "appNamespace,id,projectId,schemaVersion" || p.id !== "default-project" || p.schemaVersion !== 1 || p.appNamespace !== APP_NAMESPACE || !inventory.some(x => x.projectId === p.projectId)) throw new StorageFault("CORRUPT", "Original project selection is invalid; history import cannot repair it.", true);
+            } else if (inventory.length) throw new StorageFault("CORRUPT", "Original project selection is missing. Saved data is preserved.", true);
+            const workspaceBytes = roots.result.reduce((n, root) => n + validateWorkspaceRoot(root, root.projectId).totalBytes, 0);
+            checkHistoryBudget(histories.result, workspaceBytes, projectId, prepared.history);
+            if (!isCurrent()) throw new StorageFault("ABANDONED", "History review changed before publication.", true);
+            projects.put(next);
+            tx.objectStore("analysisHistories").put(prepared.history);
+            tx.objectStore("threads").put({ projectId, record: normalizeThreadRecord({ schemaVersion: 1, messages: [], workspace: {} }) });
+            meta.put(resumePreferences(currentPrefs.revision + 1, namedProject({ ...currentPrefs, selectedProjectId: projectId }, projectId, prepared.name)));
+            if (!pointer.result) meta.put({ id: "default-project", schemaVersion: 1, appNamespace: APP_NAMESPACE, projectId });
+            done(Object.freeze({ ok: true, saved: true, status: "committed", projectId, revision: next.revision, manifest: next, archiveSha256: prepared.fileSha256, sourceProjectId: prepared.sourceProjectId }));
+          } catch (e) { abort(e); } };
+          pref.onsuccess = pointer.onsuccess = roots.onsuccess = histories.onsuccess = finish;
+        } catch (e) { abort(e); } };
+      });
+    },
     async readPortableSnapshot(projectId) {
       checkId(projectId);
       return transaction(["projects", "workspaceRoots", "workspaceObjects", "assistantMemories", "meta", "modelConnections", "analysisHistories"], "readonly", (tx, done, abort) => {
