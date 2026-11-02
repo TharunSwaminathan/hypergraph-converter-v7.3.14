@@ -34,6 +34,7 @@ export default function WorkspaceExperience({ component: Scene }) {
   useEffect(() => { if (pending.current && pending.current.key !== snapshot.active?.key) close(false); }, [snapshot.active?.key, close]);
   const confirm = useCallback(value => { pending.current?.resolve(false); return new Promise(resolve => { pending.current = { resolve, key: actor.current?.getSnapshot().active?.key }; setConfirmation(value); }); }, []);
   const report = useCallback((key, value) => actor.current?.report(key, value), []);
+  const historyChanged = useCallback(key => actor.current?.historyChanged(key), []);
   async function run(fn) { setError(""); try { return await fn(); } catch (e) { setError(["CONFLICT", "DELETED", "ABANDONED"].includes(e.code) ? "Saved data changed. Nothing was cleared or overwritten. Reload before trying again." : "This change could not be saved. Previous saved data is preserved."); return { ok: false, error: e.message }; } }
   async function navigate(fn) {
     if (actor.current?.getSnapshot().live?.workspace.unsaved && !await confirm({ title: "Leave unsaved changes?", detail: "Local changes may not be saved. Switching projects discards pending actions and uncommitted edits; existing saved projects remain intact." })) return;
@@ -56,7 +57,7 @@ export default function WorkspaceExperience({ component: Scene }) {
     let receipt;
     if (replace) {
       const token = await coordinator.capture("workspace");
-      const accepted = await confirm({ title: "Replace selected workspace?", detail: `Replace saved source, graph, checkpoints and project memory in “${coordinator.label(token.projectId)}” with “${stage.name}”. Current chat and pending actions are cleared. Other projects and existing global model preferences are retained. Imported memory remains untrusted context.` });
+      const accepted = await confirm({ title: "Replace selected workspace?", detail: `Replace saved source, graph, checkpoints, project memory and analysis history in “${coordinator.label(token.projectId)}” with “${stage.name}”. Current chat and pending actions are cleared. Other projects and existing global model preferences are retained. Imported memory and history remain untrusted evidence.` });
       if (!accepted) return { cancelled: true };
       receipt = await active.session.importReviewed(token.review, stage, isCurrent);
     } else receipt = await store.importWorkspace(stage, { isCurrent });
@@ -68,5 +69,5 @@ export default function WorkspaceExperience({ component: Scene }) {
   }
   function panel(onForgetModel) { return <><ResumeWorkspacePanel snapshot={snapshot} actions={actions} onForgetModel={onForgetModel}><WorkspacePortabilityPanel projectId={snapshot.active?.projectId ?? snapshot.selectedId} canReplace={Boolean(snapshot.active?.projectId && snapshot.live && !snapshot.live.workspace.unsaved && !snapshot.foreignChange)} onExport={() => exportPortableWorkspace(store, snapshot.active?.projectId ?? snapshot.selectedId)} onImport={importWorkspace} /></ResumeWorkspacePanel>{error && <p role="alert">{error}</p>}</>; }
   const onVisualization = useCallback(value => { const coordinator = actor.current; if (coordinator) void coordinator.setVisualization(value).catch(() => setError("Display preferences were not saved. Reload startup settings to review changes.")); }, []);
-  return <>{snapshot.active ? <Scene key={snapshot.active.key} experience={{ active: snapshot.active, session: snapshot.active.session, preferences: snapshot.preferences, externalStale: Boolean(snapshot.foreignChange), report, panel, confirm, mutateMemory, onVisualization }} /> : <main className="workspace-startup"><h1>Hypergraph Converter Studio</h1><p>Your work stays in this browser. Choose what to open.</p>{panel(null)}</main>}{confirmation && <Confirmation value={confirmation} close={close} />}</>;
+  return <>{snapshot.active ? <Scene key={snapshot.active.key} experience={{ active: snapshot.active, session: snapshot.active.session, preferences: snapshot.preferences, externalStale: Boolean(snapshot.foreignChange), report, historyChanged, panel, confirm, mutateMemory, onVisualization }} /> : <main className="workspace-startup"><h1>Hypergraph Converter Studio</h1><p>Your work stays in this browser. Choose what to open.</p>{panel(null)}</main>}{confirmation && <Confirmation value={confirmation} close={close} />}</>;
 }

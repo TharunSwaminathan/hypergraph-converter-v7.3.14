@@ -1,0 +1,331 @@
+{
+  "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+  "branch": "candy-integration-scope8b-analysis-history",
+  "snapshotSha256": "99e382a3a4dfec517c313bc6be2e723afa9cff0f2c698a69a8c42b3a2ae4aa20",
+  "candidateCommit": null,
+  "commitBoundProvenanceClaimed": false,
+  "createdAtUtc": "2026-11-02T01:14:32Z",
+  "status": "PASS",
+  "scope8b": {
+    "passedGroups": 27,
+    "totalGroups": 27
+  },
+  "scope8aRegression": {
+    "passedGroups": 19,
+    "totalGroups": 19
+  },
+  "combined": {
+    "passedGroups": 46,
+    "totalGroups": 46
+  },
+  "runs": [
+    {
+      "kind": "8B history/restart/portability/model",
+      "attempt": "native-frozen-v1-retry",
+      "passedGroups": 23,
+      "totalGroups": 23,
+      "sourceRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+      "origin": "http://127.0.0.1:5173",
+      "isolatedProfiles": true,
+      "actualIndexedDB": true,
+      "cases": [
+        "fresh-native-project-has-no-history-and-no-automatic-analysis",
+        "all-six-actual-CPU-algorithms-archive-normalized-outcomes-without-graph-mutation",
+        "historical-inspection-provenance-equivalence-and-read-only-result",
+        "intentional-rerun-uses-current-safe-path-and-fresh-operation-identity",
+        "same-origin-reload-Resume-restores-history-without-live-result-or-rerun",
+        "actual-browser-and-server-close-reopen-Resume-preserve-exact-history",
+        "Cancel-first-history-delete-retains-records-and-authority",
+        "reviewed-history-delete-commits-without-clearing-source-graph-or-memory",
+        "project-A-B-switch-isolation-restores-only-own-history",
+        "stale-real-tab-clear-and-append-cannot-overwrite-newer-history",
+        "guarded-native-write-failure-separates-completed-analysis-from-unsaved-history",
+        "project-switch-during-real-crypto-preparation-abandons-late-history-callback",
+        "actual-browser-kill-before-history-publication-rolls-back",
+        "actual-browser-kill-after-history-commit-before-receipt-recovers-whole-record",
+        "deterministic-v3-history-export-excludes-private-ledger-and-authority",
+        "actual-UI-v3-workspace-download-matches-validated-history-file",
+        "history-export-controls-desktop-and-narrow",
+        "genuinely-separate-profile-atomic-import-rebases-history-as-unverified-data",
+        "imported-history-inspection-does-not-restore-live-results-authority-or-rerun",
+        "actual-qwen3-8b-restored-memory-and-model-continuity-unaffected-by-history",
+        "imported-history-survives-full-browser-restart-with-durable-reconnect-OFF",
+        "confirmed-project-history-clear-retains-replay-protection-and-data-only-authority",
+        "history-import-controls-desktop-and-narrow"
+      ],
+      "nativeMatrix": {
+        "path": "artifacts/candy-scope8b-work/native-frozen-v1-retry-complete.json",
+        "bytes": 68011,
+        "sha256": "d8803eaf9db4c8c474107590a992603a5a2e20af2b98e6e5534a67d0b3377fb3"
+      },
+      "shutdownReceipt": {
+        "path": "artifacts/candy-scope8b-work/native-frozen-v1-retry-shutdown.json",
+        "bytes": 2583,
+        "sha256": "731cdbc9e3b4837e520b41ed709aa91b3ac444d8ef39abde61c2ec1b760f01c8"
+      },
+      "processTerminations": [
+        {
+          "kind": "browser",
+          "pid": 23312,
+          "launcherPid": 23312,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 23312 has been terminated.\r\n",
+          "at": "2026-11-02T01:06:57.664Z"
+        },
+        {
+          "kind": "dev-server",
+          "pid": 26908,
+          "launcherPid": 26908,
+          "method": "Windows taskkill /PID owned-server /T /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 26908 (child process of PID 21288) has been terminated.\r\n",
+          "at": "2026-11-02T01:06:58.196Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 23192,
+          "launcherPid": 23192,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 23192 has been terminated.\r\n",
+          "at": "2026-11-02T01:07:16.189Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 25092,
+          "launcherPid": 25092,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 25092 has been terminated.\r\n",
+          "at": "2026-11-02T01:07:18.103Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 9808,
+          "launcherPid": 9808,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 9808 has been terminated.\r\n",
+          "at": "2026-11-02T01:07:20.520Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 2196,
+          "launcherPid": 2196,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 2196 has been terminated.\r\n",
+          "at": "2026-11-02T01:07:28.595Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 27444,
+          "launcherPid": 27444,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 27444 has been terminated.\r\n",
+          "at": "2026-11-02T01:07:31.091Z"
+        },
+        {
+          "kind": "dev-server",
+          "pid": 23652,
+          "launcherPid": 23652,
+          "method": "Windows taskkill /PID owned-server /T /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 23652 (child process of PID 21288) has been terminated.\r\n",
+          "at": "2026-11-02T01:07:31.585Z"
+        }
+      ]
+    },
+    {
+      "kind": "8B stale/corrupt/current-result",
+      "attempt": "native-additional-frozen-v1",
+      "passedGroups": 4,
+      "totalGroups": 4,
+      "sourceRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+      "origin": "http://127.0.0.1:5173",
+      "isolatedProfiles": true,
+      "actualIndexedDB": true,
+      "cases": [
+        "actual-CPU-live-result-placeholder-remains-empty-on-reload-and-Resume",
+        "changed-real-current-graph-marks-old-input-stale-and-disables-rerun-without-history-rewrite",
+        "native-workspace-only-clear-and-Resume-retain-stale-read-only-history-and-independent-memory",
+        "future-schema-real-IndexedDB-history-fails-closed-without-rewrite-or-memory-loss"
+      ],
+      "nativeMatrix": {
+        "path": "artifacts/candy-scope8b-work/native-additional-frozen-v1-complete.json",
+        "bytes": 1522,
+        "sha256": "b72de1458f79a83544db78c92e7d40dd1eb6149f974f694b6b663b8a9dbff42f"
+      },
+      "shutdownReceipt": {
+        "path": "artifacts/candy-scope8b-work/native-additional-frozen-v1-shutdown.json",
+        "bytes": 661,
+        "sha256": "021097647c75559b5aef19bce7f09e275aa61e4d55b6dc20894f40d2261e898d"
+      },
+      "processTerminations": [
+        {
+          "kind": "browser",
+          "pid": 24456,
+          "launcherPid": 24456,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 24456 has been terminated.\r\n",
+          "at": "2026-11-02T01:11:50.303Z"
+        },
+        {
+          "kind": "dev-server",
+          "pid": 18980,
+          "launcherPid": 18980,
+          "method": "Windows taskkill /PID owned-server /T /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 18980 (child process of PID 31960) has been terminated.\r\n",
+          "at": "2026-11-02T01:11:50.787Z"
+        }
+      ]
+    },
+    {
+      "kind": "preserved 8A regression",
+      "attempt": "native-8a-exact-frozen-v1",
+      "passedGroups": 19,
+      "totalGroups": 19,
+      "sourceRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+      "origin": "http://127.0.0.1:5173",
+      "isolatedProfiles": true,
+      "actualIndexedDB": true,
+      "cases": [
+        "fresh-exporter-profile-native-source-graph-memory",
+        "deterministic-export-preserves-saved-bytes-and-omits-transient-model-and-authority",
+        "actual-UI-export-download-matches-deterministic-API-file",
+        "export-portability-controls-desktop-and-narrow",
+        "genuinely-separate-clean-importer-profile",
+        "misleading-extension-and-MIME-accepted-only-after-full-validation-no-publication",
+        "native-atomic-fresh-install-import-source-graph-provenance-memory-and-local-identity",
+        "normal-Resume-data-not-authority-imported-model-stays-disconnected",
+        "actual-qwen3-8b-receives-only-permitted-portable-project-memory-after-fresh-probe",
+        "forced-browser-and-server-restart-normal-auto-Resume-retains-import-and-reconnect-OFF",
+        "duplicate-file-explicit-conflict-no-replay-or-project-growth",
+        "explicit-replacement-review-Cancel-safe-focus-retains-A-and-B",
+        "unsaved-edit-review-Cancel-preserves-source-and-current-project-before-import",
+        "explicit-atomic-replacement-retains-unrelated-project",
+        "surviving-real-App-tab-cannot-delete-or-save-over-import",
+        "native-UI-corrupt-file-rejected-without-publishing",
+        "actual-process-kill-before-native-import-root-publication-rolls-back-all-state",
+        "actual-process-kill-after-native-import-commit-before-ack-recovers-complete-import",
+        "imported-portability-controls-desktop-and-narrow"
+      ],
+      "nativeMatrix": {
+        "path": "artifacts/candy-scope8b-work/native-8a-exact-frozen-v1-complete.json",
+        "bytes": 86726,
+        "sha256": "5716429cc79fc529ab541f5f4aff85f8de91ff8d7eb81be1915175deb78b3e05"
+      },
+      "shutdownReceipt": {
+        "path": "artifacts/candy-scope8b-work/native-8a-exact-frozen-v1-shutdown.json",
+        "bytes": 2579,
+        "sha256": "35605d279d22ce295dc161aebfa96428be5024344ac72fe31e4cc6367171115f"
+      },
+      "processTerminations": [
+        {
+          "kind": "browser",
+          "pid": 28492,
+          "launcherPid": 28492,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 28492 has been terminated.\r\n",
+          "at": "2026-11-02T01:10:15.381Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 8144,
+          "launcherPid": 8144,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 8144 has been terminated.\r\n",
+          "at": "2026-11-02T01:10:31.380Z"
+        },
+        {
+          "kind": "dev-server",
+          "pid": 21920,
+          "launcherPid": 21920,
+          "method": "Windows taskkill /PID owned-server /T /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 21920 (child process of PID 34320) has been terminated.\r\n",
+          "at": "2026-11-02T01:10:31.866Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 11580,
+          "launcherPid": 11580,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 11580 has been terminated.\r\n",
+          "at": "2026-11-02T01:10:35.991Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 17872,
+          "launcherPid": 17872,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 17872 has been terminated.\r\n",
+          "at": "2026-11-02T01:11:02.083Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 20104,
+          "launcherPid": 20104,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 20104 has been terminated.\r\n",
+          "at": "2026-11-02T01:11:03.796Z"
+        },
+        {
+          "kind": "browser",
+          "pid": 24452,
+          "launcherPid": 24452,
+          "method": "Windows taskkill /PID CDP-verified-owned-browser /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 24452 has been terminated.\r\n",
+          "at": "2026-11-02T01:11:05.787Z"
+        },
+        {
+          "kind": "dev-server",
+          "pid": 5492,
+          "launcherPid": 5492,
+          "method": "Windows taskkill /PID owned-server /T /F",
+          "exitCode": 0,
+          "output": "SUCCESS: The process with PID 5492 (child process of PID 34320) has been terminated.\r\n",
+          "at": "2026-11-02T01:11:06.280Z"
+        }
+      ]
+    }
+  ],
+  "actualQwen3_8b": "PASS \u2014 real API discovery and inference with permitted restored untrusted project memory; existing local Ollama; reconnect OFF survives browser restart",
+  "actualCudaExecution": "NOT CLAIMED \u2014 STATIC/INCREMENTAL observer tests use explicit transport/result doubles; unavailable Runtime tested",
+  "nativeFaultClassification": "Actual IndexedDB/Chrome plus guarded injected write/crypto faults and actual owned-browser process kills; no actual disk quota exhaustion claim",
+  "personalProfilesTouched": false,
+  "preliminaryAttemptsPreserved": [
+    {
+      "attempt": "development-1",
+      "result": "STOPPED",
+      "reason": "Owned-profile test marker was not flushed before rapid browser kill; harness refused existing IndexedDB. No product recovery bypass."
+    },
+    {
+      "attempt": "development-2",
+      "result": "STOPPED",
+      "reason": "Actual local Ollama unavailable."
+    },
+    {
+      "attempt": "development-3",
+      "result": "INVALIDATED",
+      "reason": "Source edits during preliminary Vite run caused target navigation; final runs use immutable frozen source."
+    },
+    {
+      "attempt": "native-frozen-v1",
+      "result": "STOPPED",
+      "reason": "WSL/Ollama unavailable; user confirmed service running before full retry."
+    }
+  ],
+  "modelAvailabilityIntervention": "Automatic approval review rejected a bounded WSL hold with blocked by policy. No retry of rejected action. User subsequently confirmed Ubuntu/Ollama running; actual-model full frozen retry passed."
+}

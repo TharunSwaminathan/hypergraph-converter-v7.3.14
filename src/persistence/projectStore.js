@@ -10,8 +10,9 @@ import { stableStringify } from "../graph/graphFingerprint.js";
 import { CONNECTION_ID, CONNECTION_POLICY, validateConnectionRecord, validateConnectionProfile } from "./modelConnectionSchema.js";
 import { RESUME_PREFERENCE_ID, DEFAULT_RESUME_PREFERENCES, validateResumePreferences, resumePreferences, namedProject } from "./resumePreferenceSchema.js";
 import { preparePortablePublication } from "./workspacePortability.js";
+import { HISTORY_LIMITS, historyBytes, sealHistoryRecord, validateHistoryRecord, sealHistoryEnvelope, verifyHistoryEnvelope } from "./analysisHistorySchema.js";
 
-const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections"];
+const STORES = ["projects", "threads", "meta", "migrations", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections", "analysisHistories"];
 const checkId = id => { if (!isProjectId(id)) throw new StorageFault("CORRUPT", "Invalid project identity.", true); };
 export function createProjectStore(indexedDB = globalThis.indexedDB, databaseName = PROJECT_DATABASE) {
   let opening = null, blocked = null;
@@ -24,7 +25,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
       const pending = new Promise((resolve, reject) => {
         let abandoned = false, request;
         try { request = indexedDB.open(databaseName, PROJECT_DATABASE_VERSION); } catch (error) { reject(fault(error)); return; }
-        request.onupgradeneeded = () => { for (const name of STORES) if (!request.result.objectStoreNames.contains(name)) request.result.createObjectStore(name, { keyPath: ["projects", "threads", "workspaceRoots", "assistantMemories"].includes(name) ? "projectId" : "id" }); };
+        request.onupgradeneeded = () => { for (const name of STORES) if (!request.result.objectStoreNames.contains(name)) request.result.createObjectStore(name, { keyPath: ["projects", "threads", "workspaceRoots", "assistantMemories", "analysisHistories"].includes(name) ? "projectId" : "id" }); };
         request.onerror = () => reject(fault(request.error));
         request.onblocked = () => { abandoned = true; reject(new StorageFault("BLOCKED", "Project storage is blocked. Close older tabs, then retry.")); };
         request.onsuccess = () => {
@@ -59,7 +60,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     checkId(projectId);
     const safe = record === undefined ? undefined : normalizeThreadRecord(record);
     const lineage = migration && boundedCopy(migration, { bytes: 2048, depth: 2, nodes: 12, string: 160 });
-    return transaction(["projects", "threads", "migrations", ...(deleting ? ["workspaceRoots", "workspaceObjects", "assistantMemories"] : [])], "readwrite", (tx, done, abort) => {
+    return transaction(["projects", "threads", "migrations", ...(deleting ? ["workspaceRoots", "workspaceObjects", "assistantMemories", "analysisHistories"] : [])], "readwrite", (tx, done, abort) => {
       const projects = tx.objectStore("projects"), request = projects.get(projectId);
       request.onsuccess = () => {
         try {
@@ -76,10 +77,18 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     });
   }
   function removeDurable(tx, projectId) {
+    tx.objectStore("analysisHistories").delete(projectId);
     tx.objectStore("assistantMemories").delete(projectId);
     tx.objectStore("workspaceRoots").delete(projectId);
     const objects = tx.objectStore("workspaceObjects"), keys = objects.getAllKeys();
     keys.onsuccess = () => { for (const id of keys.result) if (typeof id === "string" && id.startsWith(projectId + "/")) objects.delete(id); };
+  }
+  function checkHistoryBudget(histories, workspaceBytes, replacementId = null, replacement = null) {
+    if (histories.length > PROJECT_LIMITS.projects) throw new StorageFault("LIMIT", "History project count exceeds its limit.", true);
+    let bytes = replacement ? historyBytes(replacement) : 0;
+    for (const row of histories) if (row.projectId !== replacementId) bytes += historyBytes(boundedCopy(row, { bytes: HISTORY_LIMITS.projectBytes, depth: 24, nodes: 150000, array: 10000, string: 60000 }));
+    requireBudget(bytes, HISTORY_LIMITS.applicationBytes, "Application analysis history bytes");
+    requireBudget(workspaceBytes + bytes, WORKSPACE_LIMITS.applicationBytes, "Application workspace/history bytes");
   }
   async function workspaceBundle(projectId, checkpointId = null) {
     checkId(projectId);
@@ -119,18 +128,19 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     });
   }
   async function publishDurable(projectId, expectedRevision, prepared, previousSha) {
-    return transaction(["projects", "threads", "workspaceRoots", "workspaceObjects"], "readwrite", (tx, done, abort) => {
+    return transaction(["projects", "threads", "workspaceRoots", "workspaceObjects", "analysisHistories"], "readwrite", (tx, done, abort) => {
       const projects = tx.objectStore("projects"), req = projects.get(projectId);
       req.onsuccess = () => {
         try {
           if (!req.result) throw new StorageFault("CONFLICT", "Project is missing; publication cannot create it.", true);
-          const next = nextProject(req.result, expectedRevision), roots = tx.objectStore("workspaceRoots"), all = roots.getAll();
+          const next = nextProject(req.result, expectedRevision), histories = tx.objectStore("analysisHistories").getAll(), roots = tx.objectStore("workspaceRoots"), all = roots.getAll();
           all.onsuccess = () => {
             try {
               const current = all.result.find(root => root.projectId === projectId);
               if ((current?.sha256 ?? null) !== previousSha || prepared.root.publicationRevision !== next.revision) throw new StorageFault("CONFLICT", "Workspace changed while data was prepared.", true);
               const total = all.result.filter(root => root.projectId !== projectId).reduce((sum, root) => sum + validateWorkspaceRoot(root, root.projectId).totalBytes, prepared.root.totalBytes);
               requireBudget(total, WORKSPACE_LIMITS.applicationBytes, "Application durable bytes");
+              checkHistoryBudget(histories.result, total);
               const objects = tx.objectStore("workspaceObjects"), keys = objects.getAllKeys();
               keys.onsuccess = () => {
                 try {
@@ -228,6 +238,67 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     },
     async releaseConnectionLease(owner) {
       return transaction(["modelConnections"], "readwrite", (tx, done) => { const store = tx.objectStore("modelConnections"), req = store.get("reconnect-lease"); req.onsuccess = () => { if (req.result?.owner === owner) store.delete("reconnect-lease"); done(true); }; });
+    },
+    async readAnalysisHistory(projectId) {
+      checkId(projectId);
+      const snapshot = await transaction(["projects", "analysisHistories"], "readonly", (tx, done, abort) => {
+        const p = tx.objectStore("projects").get(projectId);
+        p.onsuccess = () => { try {
+          const manifest = validateProject(p.result);
+          if (manifest.deleted) throw new StorageFault("DELETED", "Deleted project has no readable history.", true);
+          const h = tx.objectStore("analysisHistories").get(projectId);
+          h.onsuccess = () => done({ manifest, envelope: h.result ?? null });
+        } catch (error) { abort(error); } };
+      });
+      const envelope = await verifyHistoryEnvelope(snapshot.envelope, projectId);
+      if (envelope && envelope.revision > snapshot.manifest.revision) throw new StorageFault("CORRUPT", "History is newer than its owner.", true);
+      return { manifest: snapshot.manifest, envelope };
+    },
+    async mutateAnalysisHistory(projectId, expectedRevision, command, isCurrent = () => true) {
+      const previous = await api.readAnalysisHistory(projectId);
+      if (previous.manifest.revision !== expectedRevision) throw new StorageFault("CONFLICT", "History changed in another owner. Reload before writing.", true);
+      const old = previous.envelope, seen = [...(old?.seen ?? [])]; let records = [...(old?.records ?? [])], record = null;
+      if (command.kind === "append") {
+        if (command.record?.projectId !== projectId) throw new StorageFault("CORRUPT", "Completion belongs to a different project.", true);
+        await validateHistoryRecord(command.record, projectId);
+        record = await validateHistoryRecord(await sealHistoryRecord({ ...command.record, projectId, projectRevisionAtCapture: expectedRevision }), projectId);
+        const duplicate = seen.find(x => x.id === record.recordId);
+        if (duplicate) {
+          if (duplicate.digest !== record.completionSha256) throw new StorageFault("CONFLICT", "Completion identity was replayed with different content.", true);
+          return { ok: true, saved: false, duplicate: true, status: "already-committed", projectId, recordId: record.recordId };
+        }
+        if (seen.length >= HISTORY_LIMITS.ledger) throw new StorageFault("LIMIT", "History completion ledger is full. Use a separate project; replay protection is retained.", true);
+        seen.push({ id: record.recordId, digest: record.completionSha256 }); records.push(record);
+        records.sort((x, y) => x.completedAt.localeCompare(y.completedAt) || x.recordId.localeCompare(y.recordId));
+        while (records.length > HISTORY_LIMITS.records || historyBytes({ records, seen }) + 1024 > HISTORY_LIMITS.projectBytes) {
+          if (records.length <= 1) throw new StorageFault("LIMIT", "Analysis history cannot fit its project budget.", true);
+          records.shift();
+        }
+        if (!records.some(x => x.recordId === record.recordId)) throw new StorageFault("LIMIT", "Completion cannot be retained under the current history policy.", true);
+      } else if (command.kind === "delete") {
+        record = records.find(x => x.recordId === command.recordId);
+        if (!record || record.sha256 !== command.recordSha256) throw new StorageFault("CONFLICT", "Reviewed historical result changed.", true);
+        records = records.filter(x => x !== record);
+      } else if (command.kind === "clear") records = [];
+      else throw new StorageFault("CORRUPT", "Unsupported history mutation.", true);
+      const prepared = await sealHistoryEnvelope(projectId, expectedRevision + 1, records, seen);
+      await checkStorageEstimate(historyBytes(prepared));
+      if (!isCurrent()) throw new StorageFault("ABANDONED", "History owner changed before publication.", true);
+      return transaction(["projects", "analysisHistories", "workspaceRoots", "threads"], "readwrite", (tx, done, abort) => {
+        const p = tx.objectStore("projects").get(projectId);
+        p.onsuccess = () => { try {
+          const next = nextProject(p.result, expectedRevision), histories = tx.objectStore("analysisHistories"), all = histories.getAll(), thread = tx.objectStore("threads").get(projectId), roots = tx.objectStore("workspaceRoots").getAll();
+          roots.onsuccess = () => { try {
+            const current = all.result.find(x => x.projectId === projectId) ?? null;
+            if (!isCurrent() || stableStringify(current) !== stableStringify(old)) throw new StorageFault("CONFLICT", "History review changed before publication.", true);
+            const total = roots.result.reduce((sum, x) => sum + validateWorkspaceRoot(x, x.projectId).totalBytes, 0);
+            checkHistoryBudget(all.result, total, projectId, prepared);
+            if (!thread.result) tx.objectStore("threads").put({ projectId, record: normalizeThreadRecord({ schemaVersion: 1, messages: [], workspace: {} }) });
+            histories.put(prepared); tx.objectStore("projects").put(next);
+            done({ ok: true, saved: true, status: "committed", projectId, revision: next.revision, manifest: next, history: prepared, recordId: record?.recordId ?? null });
+          } catch (error) { abort(error); } };
+        } catch (error) { abort(error); } };
+      });
     },
     async readMemory(projectId) {
       checkId(projectId);
@@ -342,7 +413,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     readWorkspace: workspaceBundle,
     async readPortableSnapshot(projectId) {
       checkId(projectId);
-      return transaction(["projects", "workspaceRoots", "workspaceObjects", "assistantMemories", "meta", "modelConnections"], "readonly", (tx, done, abort) => {
+      return transaction(["projects", "workspaceRoots", "workspaceObjects", "assistantMemories", "meta", "modelConnections", "analysisHistories"], "readonly", (tx, done, abort) => {
         const project = tx.objectStore("projects").get(projectId);
         project.onsuccess = () => { try {
           const manifest = validateProject(project.result);
@@ -352,8 +423,10 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
             if (!root.result) throw new StorageFault("INCOMPLETE", "No saved workspace to export.", true);
             const valid = validateWorkspaceRoot(root.result, projectId), objects = [], headers = [...new Map(rootHeaders(valid).map(h => [h.id, h])).values()];
             const memory = tx.objectStore("assistantMemories").get(projectId), preferences = tx.objectStore("meta").get(RESUME_PREFERENCE_ID), model = tx.objectStore("modelConnections").get(CONNECTION_ID);
-            let pending = headers.length + 3, memoryValue, prefsValue, modelValue;
-            function finish() { if (--pending) return; try { const prefs = prefsValue ? validateResumePreferences(prefsValue) : DEFAULT_RESUME_PREFERENCES; done({ project: manifest, root: valid, objects, memory: memoryValue ?? null, name: prefs.labels.find(p => p.projectId === projectId)?.name ?? "Workspace " + projectId.slice(0, 8), modelProfile: modelValue ? validateConnectionRecord(modelValue).profile : null }); } catch (e) { abort(e); } }
+            const history = tx.objectStore("analysisHistories").get(projectId);
+            let pending = headers.length + 4, memoryValue, prefsValue, modelValue, historyValue;
+            function finish() { if (--pending) return; try { const prefs = prefsValue ? validateResumePreferences(prefsValue) : DEFAULT_RESUME_PREFERENCES; done({ project: manifest, root: valid, objects, memory: memoryValue ?? null, history: historyValue ?? null, name: prefs.labels.find(p => p.projectId === projectId)?.name ?? "Workspace " + projectId.slice(0, 8), modelProfile: modelValue ? validateConnectionRecord(modelValue).profile : null }); } catch (e) { abort(e); } }
+            history.onsuccess = () => { historyValue = history.result; finish(); };
             memory.onsuccess = () => { memoryValue = memory.result; finish(); };
             preferences.onsuccess = () => { prefsValue = preferences.result; finish(); };
             model.onsuccess = () => { modelValue = model.result; finish(); };
@@ -367,10 +440,15 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
       const projectId = targetId ?? newProjectId(), base = targetId === null ? 1 : expectedRevision;
       const preferences = await api.readResumePreferences(), connection = await api.readConnectionProfile();
       const prepared = await preparePortablePublication(stage, projectId, base + 1);
+      const oldHistory = targetId ? await api.readAnalysisHistory(targetId) : { envelope: null };
+      const combinedSeen = new Map((oldHistory.envelope?.seen ?? []).map(x => [x.id, x]));
+      for (const entry of prepared.history.seen) { const old = combinedSeen.get(entry.id); if (old && old.digest !== entry.digest) throw new StorageFault("CONFLICT", "Imported completion identity conflicts with retained replay protection.", true); combinedSeen.set(entry.id, entry); }
+      if (combinedSeen.size > HISTORY_LIMITS.ledger) throw new StorageFault("LIMIT", "Combined import completion ledger is full; use a separate project.", true);
+      prepared.history = await sealHistoryEnvelope(projectId, base + 1, prepared.history.records, [...combinedSeen.values()]);
       await checkStorageEstimate(prepared.root.totalBytes + new TextEncoder().encode(stableStringify(prepared.memory)).byteLength);
       if (!isCurrent()) throw new StorageFault("ABANDONED", "Import review changed. Nothing was imported.", true);
       const marker = `portable/${prepared.digest}/${prepared.sourceProjectId}`;
-      return transaction(["projects", "threads", "workspaceRoots", "workspaceObjects", "assistantMemories", "meta", "modelConnections"], "readwrite", (tx, done, abort) => {
+      return transaction(["projects", "threads", "workspaceRoots", "workspaceObjects", "assistantMemories", "meta", "modelConnections", "analysisHistories"], "readwrite", (tx, done, abort) => {
         const projects = tx.objectStore("projects"), allProjects = projects.getAll();
         allProjects.onsuccess = () => { try {
           if (!isCurrent()) throw new StorageFault("ABANDONED", "Import review changed.", true);
@@ -390,11 +468,13 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
             model.onsuccess = () => { try {
               const currentModel = model.result ? validateConnectionRecord(model.result) : { revision: 0, profile: null };
               if (currentModel.revision !== connection.revision) throw new StorageFault("CONFLICT", "Model preferences changed during import; review again.", true);
-              const roots = tx.objectStore("workspaceRoots"), allRoots = roots.getAll();
+              const allHistories = tx.objectStore("analysisHistories").getAll(), roots = tx.objectStore("workspaceRoots"), allRoots = roots.getAll();
               allRoots.onsuccess = () => { try {
                 if (!isCurrent()) throw new StorageFault("ABANDONED", "Import owner changed before publication.", true);
                 const total = allRoots.result.filter(x => x.projectId !== projectId).reduce((sum, x) => sum + validateWorkspaceRoot(x, x.projectId).totalBytes, prepared.root.totalBytes);
                 requireBudget(total, WORKSPACE_LIMITS.applicationBytes, "Application durable bytes");
+                if (stableStringify(allHistories.result.find(x => x.projectId === projectId) ?? null) !== stableStringify(oldHistory.envelope)) throw new StorageFault("CONFLICT", "History changed during import review.", true);
+                checkHistoryBudget(allHistories.result, total, projectId, prepared.history);
                 const defaultPointer = meta.get("default-project");
                 defaultPointer.onsuccess = () => { try {
                   if (defaultPointer.result) {
@@ -407,6 +487,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
                   for (const id of objectKeys.result) if (typeof id === "string" && id.startsWith(projectId + "/")) objects.delete(id);
                   for (const record of prepared.records) objects.put(record);
                   roots.put(prepared.root); projects.put(next); tx.objectStore("assistantMemories").put(prepared.memory);
+                  tx.objectStore("analysisHistories").put(prepared.history);
                   // Chat and all transient approvals are deliberately not imported.
                   tx.objectStore("threads").put({ projectId, record: normalizeThreadRecord({ schemaVersion: 1, messages: [], workspace: {} }) });
                   meta.put(resumePreferences(currentPrefs.revision + 1, namedProject({ ...currentPrefs, selectedProjectId: projectId }, projectId, prepared.name)));
@@ -465,7 +546,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
     async clearApplicationData() {
       // Retain minimal identity/revision tombstones and the selection/migration
       // markers. Dropping the database would allow old owners to re-migrate.
-      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections", "meta"], "readwrite", (tx, done, abort) => {
+      return transaction(["projects", "threads", "quarantine", "workspaceRoots", "workspaceObjects", "assistantMemories", "modelConnections", "meta", "analysisHistories"], "readwrite", (tx, done, abort) => {
         const projects = tx.objectStore("projects"), req = projects.getAll();
         req.onsuccess = () => {
           try {
@@ -473,7 +554,7 @@ export function createProjectStore(indexedDB = globalThis.indexedDB, databaseNam
               const current = validateProject(raw);
               if (!current.deleted) { const next = nextProject(current, current.revision); projects.put(validateProject({ ...next, deleted: true, migrationLineage: [], tombstone: { revision: next.revision, deletedAt: next.updatedAt } })); }
             }
-            tx.objectStore("threads").clear(); tx.objectStore("quarantine").clear(); tx.objectStore("workspaceRoots").clear(); tx.objectStore("workspaceObjects").clear(); tx.objectStore("assistantMemories").clear();
+            tx.objectStore("threads").clear(); tx.objectStore("quarantine").clear(); tx.objectStore("workspaceRoots").clear(); tx.objectStore("workspaceObjects").clear(); tx.objectStore("assistantMemories").clear(); tx.objectStore("analysisHistories").clear();
             const connections = tx.objectStore("modelConnections"), connection = connections.get(CONNECTION_ID);
             connection.onsuccess = () => { try { const revision = connection.result ? validateConnectionRecord(connection.result).revision : 0; connections.put(validateConnectionRecord({ id: CONNECTION_ID, schemaVersion: 1, revision: revision + 1, deleted: true, profile: null })); connections.delete("reconnect-lease"); const meta = tx.objectStore("meta"), prefs = meta.get(RESUME_PREFERENCE_ID); prefs.onsuccess = () => { try { if (prefs.result) { const current = validateResumePreferences(prefs.result); meta.put(resumePreferences(current.revision + 1, { ...current, autoResume: false, selectedProjectId: null, labels: [] })); } done({ ok: true, saved: true, status: "committed", scope: "project-data and connection intent; identity tombstones retained" }); } catch (error) { abort(error); } }; } catch (error) { abort(error); } };
           } catch (error) { abort(error); }

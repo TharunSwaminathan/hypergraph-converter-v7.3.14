@@ -14,7 +14,7 @@ const ANIMATION_STEP_MS = 500;
  *
  * @param {Array} hyperedges
  */
-export function useAlgorithms(hyperedges) {
+export function useAlgorithms(hyperedges, { onCompleted = null, historyContext = null } = {}) {
   const [algorithmId, setAlgorithmId] = useState(ALGORITHM_REGISTRY[0].id);
   const [requestedStartVertex, setRequestedStartVertex] = useState(null);
   const [requestedTargetVertex, setRequestedTargetVertex] = useState(null);
@@ -22,6 +22,7 @@ export function useAlgorithms(hyperedges) {
   const [stepIndex, setStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const timerRef = useRef(null);
+  const [historyIntent, setHistoryIntent] = useState(null), deliveredHistory = useRef(null);
 
   const vertices = useMemo(() => getAllVertices(hyperedges ?? []), [hyperedges]);
   const algorithm = getAlgorithm(algorithmId);
@@ -58,7 +59,15 @@ export function useAlgorithms(hyperedges) {
     stopAnimation();
     setStepIndex(0);
     setRunToken(t => t + 1);
-  }, [stopAnimation]);
+    if (onCompleted) { let operationId = "unavailable"; try { operationId = globalThis.crypto?.randomUUID?.() ?? operationId; } catch { /* Analysis remains usable without durable identity. */ } setHistoryIntent({ operationId, createdAt: new Date().toISOString(), input: hyperedges, algorithmId, startVertex, targetVertex, context: historyContext }); }
+  }, [stopAnimation, onCompleted, hyperedges, algorithmId, startVertex, targetVertex, historyContext]);
+  const runSelection = useCallback((id, parameters) => {
+    const selected = ALGORITHM_REGISTRY.find(x => x.id === id);
+    if (!selected || selected.needsStartVertex && !vertices.includes(parameters.startVertex) || selected.needsTargetVertex && !vertices.includes(parameters.targetVertex)) throw new Error("Historical algorithm inputs are not available in the current graph.");
+    const start = selected.needsStartVertex ? parameters.startVertex : startVertex, target = selected.needsTargetVertex ? parameters.targetVertex : null;
+    stopAnimation(); setStepIndex(0); setAlgorithmId(id); if (selected.needsStartVertex) setRequestedStartVertex(start); setRequestedTargetVertex(target); setRunToken(t => t + 1);
+    if (onCompleted) { let operationId = "unavailable"; try { operationId = globalThis.crypto?.randomUUID?.() ?? operationId; } catch { /* History reports unavailable secure identity. */ } setHistoryIntent({ operationId, createdAt: new Date().toISOString(), input: hyperedges, algorithmId: id, startVertex: start, targetVertex: target, context: historyContext }); }
+  }, [vertices, startVertex, stopAnimation, onCompleted, hyperedges, historyContext]);
 
   // The result recomputes automatically whenever the graph, algorithm, or
   // start/target vertex changes — as long as the user has run at least
@@ -74,6 +83,11 @@ export function useAlgorithms(hyperedges) {
       return { result: null, error: e.message || "Algorithm failed to run." };
     }
   }, [runToken, hyperedges, algorithm, startVertex, targetVertex]);
+  const completion = useMemo(() => {
+    if (!result || error || !historyIntent || historyIntent.input !== hyperedges || historyIntent.algorithmId !== algorithmId || historyIntent.startVertex !== startVertex || historyIntent.targetVertex !== targetVertex || result.status === "over_budget") return null;
+    return { operationId: historyIntent.operationId, createdAt: historyIntent.createdAt, context: historyIntent.context, hyperedges, algorithm: algorithmId, parameters: { startVertex: algorithm.needsStartVertex ? String(startVertex) : null, targetVertex: algorithm.needsTargetVertex ? String(targetVertex) : null }, result };
+  }, [historyIntent, result, error, hyperedges, algorithm, algorithmId, startVertex, targetVertex]);
+  useEffect(() => { if (!completion || !onCompleted || deliveredHistory.current === completion.operationId) return; deliveredHistory.current = completion.operationId; void onCompleted({ ...completion, completedAt: new Date().toISOString() }); }, [completion, onCompleted]);
 
   const totalSteps = result?.steps?.length ?? 0;
   const currentStep = useMemo(() => {
@@ -149,6 +163,7 @@ export function useAlgorithms(hyperedges) {
     targetVertex,
     setTargetVertex: setRequestedTargetVertex,
     run,
+    runSelection,
     result,
     error,
     highlight,

@@ -13,7 +13,7 @@ export default function WorkspacePortabilityPanel({ projectId, canReplace, onExp
     try {
       const prepared = await stagePortableWorkspace(file);
       if (!live.current || operation.current !== token) return;
-      setStage(prepared); setState({ status: "ready", message: `Ready to import “${prepared.name}”: ${prepared.payloadCount} verified payloads, ${prepared.memoryCount} active memories.${prepared.migratedFrom ? " Older format migrated to the current schema." : ""}` });
+      setStage(prepared); setState({ status: "ready", message: `Ready to import “${prepared.name}”: ${prepared.payloadCount} verified payloads, ${prepared.memoryCount} active memories, ${prepared.historyCount ?? 0} historical analyses.${prepared.migratedFrom ? " Older format migrated to the current schema." : ""}` });
     } catch (e) { if (live.current && operation.current === token) setState({ status: "rejected", message: "Import rejected. " + e.message }); }
   }
   function choose() {

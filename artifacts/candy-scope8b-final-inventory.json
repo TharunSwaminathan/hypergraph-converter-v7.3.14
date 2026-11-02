@@ -1,0 +1,461 @@
+{
+  "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "verdict": "READY TO CREATE SCOPE 8B DURABLE ANALYSIS HISTORY CANDIDATE COMMIT",
+  "baseline": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+  "branch": "candy-integration-scope8b-analysis-history",
+  "candidateCommit": null,
+  "snapshotSha256": "99e382a3a4dfec517c313bc6be2e723afa9cff0f2c698a69a8c42b3a2ae4aa20",
+  "frozenManifest": "artifacts/candy-scope8b-work/frozen-source-v1.json",
+  "productTestDocPathCount": 25,
+  "evidencePathCount": 11,
+  "proposedCandidatePathCount": 36,
+  "frozenProductTestDocAdditions": 723,
+  "frozenProductTestDocDeletions": 39,
+  "implementationPaths": [
+    {
+      "path": "docs/CANDY_SCOPE8B_ANALYSIS_HISTORY.md",
+      "classification": "documentation",
+      "status": "added",
+      "gitBlob": "085129485b3c2434a2c1d8204908e6b48273f2e4",
+      "sha256": "e7bbd4a399fcf3b0ae53df56676748e962e8ffac4b2caca6506110c0a8e8b316",
+      "worktreeSha256": "26e1651c00db77d2d17f93e3bc3370e8a87e330b26234f6a122e9e149f564d14",
+      "bytes": 6237,
+      "additions": 29,
+      "deletions": 0
+    },
+    {
+      "path": "src/App.jsx",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "f5f599f497f833e85889c950cbe6831e266fd604",
+      "sha256": "5597bee1a9fa16316415f2062ca380e6c2104d67152e013003f2df6951fad029",
+      "worktreeSha256": "df64417a246a36e3e8d6e57240329b6aa904d102aa22e94e4ef5c69ef523d6a3",
+      "bytes": 281719,
+      "additions": 21,
+      "deletions": 2
+    },
+    {
+      "path": "src/candy/motifAnalysisController.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "7f3b158be92c9254013643e21715eb479724d9d8",
+      "sha256": "2b0dbd14b727ed8d10b8022399eb3b3be0f0107d6f3956a0690855f442fb89b0",
+      "worktreeSha256": "7f195996a6c9a84964ee8770363cffb4ca627a3945ae3dc4bd24f42c80186f90",
+      "bytes": 13170,
+      "additions": 10,
+      "deletions": 2
+    },
+    {
+      "path": "src/candy/useCandyRuntime.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "50b58d212350a86b1cb8b8601d7249f72e7bad2f",
+      "sha256": "541df7653efed5aef72014a00c209728e4d0ae168ae81a24f97856c76ed3f991",
+      "worktreeSha256": "61b36474648ed0f59d8a453a15475c31e2f39afb94ecd3da1ce3bd0f9064ed9f",
+      "bytes": 12173,
+      "additions": 4,
+      "deletions": 4
+    },
+    {
+      "path": "src/components/AnalysisHistoryPanel.css",
+      "classification": "product",
+      "status": "added",
+      "gitBlob": "7709c86ff06e8585f0c1572312b8aa6301f4e8c9",
+      "sha256": "65a00252fa84cfa4c00c2403ed008afcc6028d8b1f0aaba8050993255189d214",
+      "worktreeSha256": "65a00252fa84cfa4c00c2403ed008afcc6028d8b1f0aaba8050993255189d214",
+      "bytes": 852,
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "path": "src/components/AnalysisHistoryPanel.jsx",
+      "classification": "product",
+      "status": "added",
+      "gitBlob": "f092a766423b081892650d0a14c6a0e18f6f79f3",
+      "sha256": "1df0fb5fb6e5087e1e40ec2bb2d60d9549d26066be1d2db804f22402b185e32e",
+      "worktreeSha256": "1df0fb5fb6e5087e1e40ec2bb2d60d9549d26066be1d2db804f22402b185e32e",
+      "bytes": 4362,
+      "additions": 37,
+      "deletions": 0
+    },
+    {
+      "path": "src/components/WorkspaceExperience.jsx",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "33456b0fe43b3d5b2ea3747762400dddef252742",
+      "sha256": "c442c3efd0f368e56a86abc6809a69b2810ab6a2172a31e083cc574af485490f",
+      "worktreeSha256": "a7426a031b9863dd813225723d0c4d22b5f6d225de49808fb5e724f8cc689dee",
+      "bytes": 9098,
+      "additions": 3,
+      "deletions": 2
+    },
+    {
+      "path": "src/components/WorkspacePortabilityPanel.jsx",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "aa1219f2829a6b0ed49b68a44407413bf290c460",
+      "sha256": "9b4ed7b82fc7b87a6b2dbed1c26178d342ff4cf19e31b94e31f51539a16387da",
+      "worktreeSha256": "a3f92d2a7af2859b5e731e9abd10827e9d1f367aabf52c7d51e6f787fd9296af",
+      "bytes": 5439,
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "path": "src/hooks/useAlgorithms.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "3ebc42283c229b1ecd15bba4316204f4d8476cda",
+      "sha256": "445bdd9f68b6d3f994212dccd7d7bea57a19667984a38c3f76340e295e682810",
+      "worktreeSha256": "79ae98b904b69521c535df1a3c3767811ea35ef5b926b239de760df43ede4054",
+      "bytes": 9382,
+      "additions": 17,
+      "deletions": 2
+    },
+    {
+      "path": "src/persistence/analysisHistoryCoordinator.js",
+      "classification": "product",
+      "status": "added",
+      "gitBlob": "cb8a0be34160eb010999d51c2860511b3bf10aca",
+      "sha256": "6bf6f8c3699d07c15130c780211e25726093a8b504080f5b294ef131c11c5f5c",
+      "worktreeSha256": "6bf6f8c3699d07c15130c780211e25726093a8b504080f5b294ef131c11c5f5c",
+      "bytes": 4911,
+      "additions": 61,
+      "deletions": 0
+    },
+    {
+      "path": "src/persistence/analysisHistorySchema.js",
+      "classification": "product",
+      "status": "added",
+      "gitBlob": "65d407869ae5d0d3c44a147157af7a1bf43b4dab",
+      "sha256": "1908d682fc1193eb5112c26b476179c619e6fb85435567a73e561d364a79b005",
+      "worktreeSha256": "1908d682fc1193eb5112c26b476179c619e6fb85435567a73e561d364a79b005",
+      "bytes": 20982,
+      "additions": 148,
+      "deletions": 0
+    },
+    {
+      "path": "src/persistence/projectSchema.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "8776770a387070c59d7959ab0e0c13c9c54ffd0a",
+      "sha256": "76d94ece83dc1035a126e6d4fd7fa119efed5a29065514e68dbbfb16a6fe85b9",
+      "worktreeSha256": "00fbb36942d3798deada108fdff50d6e196f36d1d79a37362a9e0196611fd089",
+      "bytes": 3876,
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "path": "src/persistence/projectSession.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "6186ed952a06cb06d0bb4282adbeac7053750955",
+      "sha256": "37812b4eccdb40665a39b6c59c3e402bbe21684b98ba4a13039874b95d88a17a",
+      "worktreeSha256": "8bd3cb542b27c080bb6c9f3327ede67b13f93d9c2886ed15a44c65e1c7c926a4",
+      "bytes": 7082,
+      "additions": 8,
+      "deletions": 5
+    },
+    {
+      "path": "src/persistence/projectStore.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "354904ea5662c38a090c7301e24b04ec5dafe9c2",
+      "sha256": "aa0ef63e932c657d55ff918f3c164bf7e5fb5f358a2c5863a5c1f0123a67ac37",
+      "worktreeSha256": "ca725d2cb0b0841fdb1b42c3021c351cda1673275cc30a38a6362268224a5ad9",
+      "bytes": 48567,
+      "additions": 93,
+      "deletions": 12
+    },
+    {
+      "path": "src/persistence/useAnalysisHistory.js",
+      "classification": "product",
+      "status": "added",
+      "gitBlob": "26f52c8f3a73e372e4eb7ed243227db700a53d36",
+      "sha256": "67f6e540d258b016b07bbd6d6757170f0f11d3064ca27a06051a65af31cc0d7f",
+      "worktreeSha256": "67f6e540d258b016b07bbd6d6757170f0f11d3064ca27a06051a65af31cc0d7f",
+      "bytes": 1568,
+      "additions": 16,
+      "deletions": 0
+    },
+    {
+      "path": "src/persistence/workspacePortability.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "56f6d33c0d7ea1e00814ee3cd2c9899501d39142",
+      "sha256": "5d9969604446b07a22b78841889522b3debf5e783fce9bccf781c7dafb02b2eb",
+      "worktreeSha256": "e191365e44d359e0fe41e54b0c3f23150b54c091627e0b253c57e30425242d1d",
+      "bytes": 17117,
+      "additions": 19,
+      "deletions": 7
+    },
+    {
+      "path": "src/persistence/workspaceResumeCoordinator.js",
+      "classification": "product",
+      "status": "modified",
+      "gitBlob": "558c5260a28d5d73b06450414e28d88376407de4",
+      "sha256": "ad827162c2a8b5992f2e404bee31c5f655b4daea8f4c16737139815e86d03c00",
+      "worktreeSha256": "be57cc1901ba17c6014db91a61cbadc4b724c2b02d0b4b0758b68990126cec66",
+      "bytes": 15987,
+      "additions": 4,
+      "deletions": 1
+    },
+    {
+      "path": "tests/candy-scope8b-adversarial.test.mjs",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "fb24bb180cf8fef01b2f40f4bc7a4db7053e3605",
+      "sha256": "f3bdc0233af933b5d3112c959bda8969bb237c039ab08cca01151a7629bafc8a",
+      "worktreeSha256": "ef760a3770fbe6431503ac589ecba827f22af238edd9a1f3817515f837941527",
+      "bytes": 11554,
+      "additions": 78,
+      "deletions": 0
+    },
+    {
+      "path": "tests/candy-scope8b-history.test.mjs",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "690306b2461277010191fbc021bf96c8237335b6",
+      "sha256": "9d9a9d1dd4525a85bdd72038e09e90af59958f8f506c0c377b7fbd20d8137891",
+      "worktreeSha256": "9d9a9d1dd4525a85bdd72038e09e90af59958f8f506c0c377b7fbd20d8137891",
+      "bytes": 11779,
+      "additions": 63,
+      "deletions": 0
+    },
+    {
+      "path": "tests/candy-scope8b-motif.test.mjs",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "6125467ffc00fdf40c2c858cac4629bf8771fd51",
+      "sha256": "f6578a8f7bbbdeac9b5c6cd7cbd7895475f1f319633c4ed09c4e00172d930bb5",
+      "worktreeSha256": "f6578a8f7bbbdeac9b5c6cd7cbd7895475f1f319633c4ed09c4e00172d930bb5",
+      "bytes": 4146,
+      "additions": 27,
+      "deletions": 0
+    },
+    {
+      "path": "tests/candy-scope8b-ui.test.mjs",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "b08ff850605b372b9705b1eae34d5e2f074a1472",
+      "sha256": "67bb60848c85455b7e924a78b538166cf3f2a1a2297b99e6fdee0ef65117692d",
+      "worktreeSha256": "67bb60848c85455b7e924a78b538166cf3f2a1a2297b99e6fdee0ef65117692d",
+      "bytes": 5576,
+      "additions": 31,
+      "deletions": 0
+    },
+    {
+      "path": "tests/fixtures/candy-scope8b-browser.html",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "a4107084a71d0ae0c9740a9ed232ca8e07ea48ed",
+      "sha256": "c1a8eebe0bb09a41e56e50aec8fdc6ab86cbf33263f061cb0fb970e3c752ec2b",
+      "worktreeSha256": "c1a8eebe0bb09a41e56e50aec8fdc6ab86cbf33263f061cb0fb970e3c752ec2b",
+      "bytes": 286,
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "path": "tests/fixtures/candy-scope8b-browser.mjs",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "cec8826692de2217b2673102e180c5075eee80c1",
+      "sha256": "9700f4d970acec51ee1520e059975cc0bf7126d1354c548f53c1ad6154be4d31",
+      "worktreeSha256": "9700f4d970acec51ee1520e059975cc0bf7126d1354c548f53c1ad6154be4d31",
+      "bytes": 6917,
+      "additions": 35,
+      "deletions": 0
+    },
+    {
+      "path": "tests/fixtures/candy-scope8b-history.mjs",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "6f7a90ab77a4a87fb7c1f5b8212c6948d7726d02",
+      "sha256": "a7d0e2d08477f3ad95028589e9d1cc64d27591321ef144aec78ad02c2492de1a",
+      "worktreeSha256": "a7d0e2d08477f3ad95028589e9d1cc64d27591321ef144aec78ad02c2492de1a",
+      "bytes": 1063,
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "path": "tests/fixtures/candy-scope8b-pre8b-workspace.json",
+      "classification": "test/fixture",
+      "status": "added",
+      "gitBlob": "f4d5dd39c2afde033297edeb15adb5d213051a69",
+      "sha256": "645953e6922e2016ad9d42e70df94d2a985e5cab538b78975c902d3d13239166",
+      "worktreeSha256": "2bce7a9e0b558da1bd2c9d7688c300c5b37421f9fa6c01dd2306ef4504f1a403",
+      "bytes": 17785,
+      "additions": 7,
+      "deletions": 0
+    }
+  ],
+  "additiveEvidencePaths": [
+    {
+      "path": "artifacts/candy-scope8b-browser-results.json",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 14561,
+      "sha256": "83f80b9a23f2e0b801537976317bece8eb3f92851631524793f7b35f614acbe4",
+      "gitBlob": "1927e4cca3712f1251bcf88791a1419719ea82d6",
+      "additions": 331,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-current-analysis-flow.md",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 8293,
+      "sha256": "f82aa8b68db6668517b2b7e55d6fc9cc9e5e9c2ca62ed30be5104da4fb8bc603",
+      "gitBlob": "213c837eb1d48e486a2b3fd5d03726a0da483fcf",
+      "additions": 53,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-design.md",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 6989,
+      "sha256": "14ad6ca1f978c3ac5b12e3e29ff945a4c0742df0ac98ecfe49bb22563a2591b4",
+      "gitBlob": "87cf269575f451846015cebe69faebbbf3b2747f",
+      "additions": 33,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-gap-closure.json",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 2871,
+      "sha256": "50a5e7a60f38bf9dbde56acfeabc0d989d3aa967756bd7ed2760272b77a3a994",
+      "gitBlob": "45dfe8570e2261dbd92534acb1ac96dd95be77ef",
+      "additions": 70,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-history-schema.json",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 49453,
+      "sha256": "8f80515e147e73aeaa008ded9885e9c2e82fd8bb92d09acbad09484d62f7e875",
+      "gitBlob": "7c65db88f8bbf975098cf8f0d088d40b4ad6d6a6",
+      "additions": 1478,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-implementation-report.md",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 9974,
+      "sha256": "d117f1852b9b6188b18b72054524fc7cfdb20291d178957f32c57a32b6076a8e",
+      "gitBlob": "366725399cf689c8b1635f3dddc885e171c6ad91",
+      "additions": 84,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-portability-results.json",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 4666,
+      "sha256": "2e325502c504c9d003374952a8d8045403dfcda251327d84c8db506d964b38fb",
+      "gitBlob": "075a8543a0ffcc9d4a010a052873a0b7802fe7d1",
+      "additions": 103,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-security-review.md",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 6437,
+      "sha256": "3f5c3d5e9df8e1d548ec4da66f1adf4930e0173440db83826814476b9c71824d",
+      "gitBlob": "a047ef07d749fe235e412f66c416098dee990374",
+      "additions": 30,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-test-results.json",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 23283,
+      "sha256": "d628bcf6341ad6dd37063f840309c1aac1b4fbf810e14b8e96bcde22650b3ee2",
+      "gitBlob": "26c194bf24c6254afe0dbcfa50a46309b2d39843",
+      "additions": 709,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-threat-model.md",
+      "classification": "qualification evidence",
+      "status": "added",
+      "bytes": 8361,
+      "sha256": "0928fd07733f91a78ae17eb82341f29fd365af34c8c69e098f18252c5214cdc0",
+      "gitBlob": "8712d2473a0dbc6ab20f8bb9fdac6fbf33f39027",
+      "additions": 46,
+      "deletions": 0
+    },
+    {
+      "path": "artifacts/candy-scope8b-final-inventory.json",
+      "classification": "qualification evidence / self inventory",
+      "status": "added",
+      "identityReceipt": "artifacts/candy-scope8b-work/final-boundary-receipt.json",
+      "reason": "Self hash cannot be embedded recursively; external exact-boundary receipt includes this file byte size, SHA256 and Git blob."
+    }
+  ],
+  "excludedTemporaryNamespace": "artifacts/candy-scope8b-work/**",
+  "commitBoundProvenanceClaimed": false,
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "proposedArchive": {
+    "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "snapshotSha256": "99e382a3a4dfec517c313bc6be2e723afa9cff0f2c698a69a8c42b3a2ae4aa20",
+    "sourceCommit": null,
+    "commitBoundProvenanceClaimed": false,
+    "unchangedVerifierLevel": "structural-only",
+    "independentVerification": "exact frozen proposed-source membership, payload SHA256, modes, CRC, safe paths and extracted bytes PASS",
+    "reproducibility": [
+      {
+        "label": "clean",
+        "sha256": "7f272e81f1a9dedd8481b4af44876e87a9fdad0faac8003aadc19ea5894f8bd3",
+        "bytes": 2019325
+      },
+      {
+        "label": "populated",
+        "sha256": "7f272e81f1a9dedd8481b4af44876e87a9fdad0faac8003aadc19ea5894f8bd3",
+        "bytes": 2019325
+      }
+    ],
+    "sha256": "7f272e81f1a9dedd8481b4af44876e87a9fdad0faac8003aadc19ea5894f8bd3",
+    "bytes": 2019325,
+    "entries": 1030,
+    "files": 974,
+    "directories": 56,
+    "archive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b\\artifacts\\candy-scope8b-work\\package-v1\\clean.zip",
+    "extractedRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+    "requiredNewPaths": [
+      "docs/CANDY_SCOPE8B_ANALYSIS_HISTORY.md",
+      "src/components/AnalysisHistoryPanel.css",
+      "src/components/AnalysisHistoryPanel.jsx",
+      "src/persistence/analysisHistoryCoordinator.js",
+      "src/persistence/analysisHistorySchema.js",
+      "src/persistence/useAnalysisHistory.js",
+      "tests/candy-scope8b-adversarial.test.mjs",
+      "tests/candy-scope8b-history.test.mjs",
+      "tests/candy-scope8b-motif.test.mjs",
+      "tests/candy-scope8b-ui.test.mjs",
+      "tests/fixtures/candy-scope8b-browser.html",
+      "tests/fixtures/candy-scope8b-browser.mjs",
+      "tests/fixtures/candy-scope8b-history.mjs",
+      "tests/fixtures/candy-scope8b-pre8b-workspace.json"
+    ],
+    "privateQualificationStateExcluded": true
+  },
+  "sourceAndExtractedTestFiles": 312,
+  "nativeScope8bGroups": 27,
+  "nativeScope8aRegressionGroups": 19,
+  "unresolvedFindings": {
+    "Critical": 0,
+    "High": 0,
+    "Medium": 0
+  },
+  "productionVulnerabilities": 0,
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "tagged": false,
+  "mainModified": false
+}

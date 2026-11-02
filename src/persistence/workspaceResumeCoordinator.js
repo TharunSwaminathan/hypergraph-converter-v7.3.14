@@ -30,11 +30,13 @@ export async function inspectResumeProject(store, id) {
     measured("workspaceSourceGraphValidationMs", () => restoreWorkspaceCategories(store, id)),
     measured("memoryValidationMs", async () => { const memory = createMemoryCoordinator(store, id); try { return await memory.initialize(); } finally { memory.dispose(); } }),
     measured("modelProfileLoadMs", () => store.readConnectionProfile()), measured("chatLoadMs", () => store.load(id)),
+    measured("analysisHistoryValidationMs", () => store.readAnalysisHistory ? store.readAnalysisHistory(id) : Promise.resolve(null)),
   ]);
   const workspace = results[0].status === "fulfilled" ? results[0].value : null, memory = results[1].status === "fulfilled" ? results[1].value : null;
   const profile = results[2].status === "fulfilled" ? results[2].value.profile : null;
   return { projectId: id, revision: manifest.revision, updatedAt: workspace?.root?.updatedAt ?? manifest.updatedAt,
-    saved: Boolean(workspace?.available || results[0].status === "rejected" || memory?.records.length || results[3].status === "fulfilled" && results[3].value.record?.messages.length),
+    saved: Boolean(workspace?.available || results[0].status === "rejected" || memory?.records.length || results[3].status === "fulfilled" && results[3].value.record?.messages.length || results[4].status === "rejected" || results[4].value?.envelope?.records.length),
+    historyCount: results[4].status === "fulfilled" ? results[4].value?.envelope?.records.length ?? 0 : 0, historyError: results[4].status === "rejected",
     workspaceAvailable: Boolean(workspace?.available), partial: Boolean(workspace?.partial), workspaceError: results[0].status === "rejected" ? fault(results[0].reason).code : null,
     sourceCount: workspace?.sources.filter(s => s.provenance.kind !== "parser").length ?? 0, graphAvailable: Boolean(workspace?.graph), graphEmpty: !workspace?.graph?.hyperedges?.length,
     memoryAvailable: Boolean(memory), memoryCount: memory?.records.filter(row => row.status === "ACTIVE").length ?? 0, staleMemoryCount: memory?.records.filter(row => row.retrievalStatus === "STALE").length ?? 0,
@@ -144,6 +146,7 @@ export function createWorkspaceResumeCoordinator({ store, channel = null }) {
         emit({ event: category === "workspace" ? "workspace-clear-rejected" : "memory-clear-rejected", code: fault(error).code, ...(conflict ? { state: "STALE", foreignChange: true, message: "Saved data changed. Nothing was cleared. Reload and review before clearing saved data." } : {}) }); throw error;
       }
     },
+    historyChanged(key) { if (snapshot.active?.key === key) announce("workspace"); },
     label: id => projectLabel(snapshot.preferences, id),
     dispose() { live = false; generation++; listeners.clear(); channel?.close(); },
   });

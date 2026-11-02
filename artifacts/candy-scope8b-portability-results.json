@@ -1,0 +1,103 @@
+{
+  "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+  "branch": "candy-integration-scope8b-analysis-history",
+  "snapshotSha256": "99e382a3a4dfec517c313bc6be2e723afa9cff0f2c698a69a8c42b3a2ae4aa20",
+  "candidateCommit": null,
+  "commitBoundProvenanceClaimed": false,
+  "createdAtUtc": "2026-11-02T01:14:32Z",
+  "status": "PASS",
+  "proposedArchive": {
+    "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "snapshotSha256": "99e382a3a4dfec517c313bc6be2e723afa9cff0f2c698a69a8c42b3a2ae4aa20",
+    "sourceCommit": null,
+    "commitBoundProvenanceClaimed": false,
+    "unchangedVerifierLevel": "structural-only",
+    "independentVerification": "exact frozen proposed-source membership, payload SHA256, modes, CRC, safe paths and extracted bytes PASS",
+    "reproducibility": [
+      {
+        "label": "clean",
+        "sha256": "7f272e81f1a9dedd8481b4af44876e87a9fdad0faac8003aadc19ea5894f8bd3",
+        "bytes": 2019325
+      },
+      {
+        "label": "populated",
+        "sha256": "7f272e81f1a9dedd8481b4af44876e87a9fdad0faac8003aadc19ea5894f8bd3",
+        "bytes": 2019325
+      }
+    ],
+    "sha256": "7f272e81f1a9dedd8481b4af44876e87a9fdad0faac8003aadc19ea5894f8bd3",
+    "bytes": 2019325,
+    "entries": 1030,
+    "files": 974,
+    "directories": 56,
+    "archive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b\\artifacts\\candy-scope8b-work\\package-v1\\clean.zip",
+    "extractedRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+    "requiredNewPaths": [
+      "docs/CANDY_SCOPE8B_ANALYSIS_HISTORY.md",
+      "src/components/AnalysisHistoryPanel.css",
+      "src/components/AnalysisHistoryPanel.jsx",
+      "src/persistence/analysisHistoryCoordinator.js",
+      "src/persistence/analysisHistorySchema.js",
+      "src/persistence/useAnalysisHistory.js",
+      "tests/candy-scope8b-adversarial.test.mjs",
+      "tests/candy-scope8b-history.test.mjs",
+      "tests/candy-scope8b-motif.test.mjs",
+      "tests/candy-scope8b-ui.test.mjs",
+      "tests/fixtures/candy-scope8b-browser.html",
+      "tests/fixtures/candy-scope8b-browser.mjs",
+      "tests/fixtures/candy-scope8b-history.mjs",
+      "tests/fixtures/candy-scope8b-pre8b-workspace.json"
+    ],
+    "privateQualificationStateExcluded": true
+  },
+  "verifierReceipt": {
+    "path": "artifacts/candy-scope8b-work/package-v1/verification.json",
+    "bytes": 914,
+    "sha256": "910d1ae84f23427ff0cf8a9e8c8f56fda9f7e052a0ac6c5db9a4f4f3144ceb8f"
+  },
+  "payloadManifestReceipt": {
+    "path": "artifacts/candy-scope8b-work/package-v1/archive-manifest.json",
+    "bytes": 250118,
+    "sha256": "32a044b815aeb1d369d4bec10aae244f2b17e31f90d604bd6c0a31ef54b4c906"
+  },
+  "legacyArchiveFixture": {
+    "path": "tests/fixtures/candy-scope8b-pre8b-workspace.json",
+    "sourceProductSha": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+    "sha256": "4d7783cc151a7556af303c7cdafc40cf23d68c6707d8dd7f687e496dcb49b533",
+    "importResult": "PASS \u2014 actual prior native Scope8A export; imported history empty; memory untrusted and reconnect OFF"
+  },
+  "formats": {
+    "v1": "accepted with empty history; existing regression PASS",
+    "v2": "history-free export retained; original semantic budgets retained",
+    "v3": "history records strictly validated, deterministic owner/record remint, IMPORTED/unverified, no adoptable authority/revisions/private ledger"
+  },
+  "nativeSeparateProfileHistoryImport": "PASS",
+  "allCategoryImportAbortAndUnrelatedProjectIsolation": "PASS",
+  "oldestByteCountRetentionAndPrivateReplayLedger": "PASS",
+  "largeOutcomeRegression": {
+    "case": "2000-vertex supported CPU outcome exports/imports",
+    "red": {
+      "path": "artifacts/candy-scope8b-work/large-portability-red.txt",
+      "bytes": 1878,
+      "sha256": "5fc77f94c1267e16f6d4cdcc35963f9897ffea997c674633219eced4509b07dc"
+    },
+    "green": {
+      "path": "artifacts/candy-scope8b-work/frozen-v1-scope8b.txt",
+      "bytes": 3005,
+      "sha256": "5171eea0906c77dc65682a5e27bbe3c0370bb21a526f8c492ebea106e50f1091"
+    },
+    "resolution": "Explicit v3 bounded array/node extension with export decoder-budget prevalidation; v1/v2 budgets unchanged"
+  },
+  "excludedState": [
+    "root artifacts/** including qualification work/profiles",
+    "node_modules",
+    "dist",
+    "Git metadata",
+    ".codex",
+    ".local",
+    "native build outputs",
+    "models/credentials/environment files"
+  ],
+  "commitBoundClosure": "DEFERRED until authorized candidate commit; producer/verifier policy unchanged"
+}

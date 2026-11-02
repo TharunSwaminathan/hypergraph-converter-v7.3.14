@@ -1,5 +1,6 @@
 import { StorageFault } from "./storageSafety.js";
 import { isProjectId } from "./projectSchema.js";
+import { stableStringify } from "../graph/graphFingerprint.js";
 
 // One tab shares a serialized local writer lineage. Local chat-only commits may
 // advance the CAS revision without changing workspace bytes, and vice versa.
@@ -39,27 +40,28 @@ export function createProjectSession(store, reviewedProject = null) {
     });
   }
   return Object.freeze({ ...store,
-    captureDestructive(projectId, category) {
+    captureDestructive(projectId, category, command = null) {
       return enqueue(() => {
         const owner = owners.get(projectId);
-        if (!owner?.reviewed || owner.invalid || !["workspace", "memory"].includes(category)) throw new StorageFault("CONFLICT", "Reload and review this project before clearing saved data.", true);
+        if (!owner?.reviewed || owner.invalid || !["workspace", "memory", "history"].includes(category)) throw new StorageFault("CONFLICT", "Reload and review this project before clearing saved data.", true);
         // No durable read may silently rebase the active UI's authority.
         const token = Object.freeze({ projectId, revision: owner.revision });
-        reviews.set(token, { owner, projectId, category }); return token;
+        reviews.set(token, { owner, projectId, category, command: category === "history" ? stableStringify(command) : null }); return token;
       });
     },
     async clearReviewed(token, category, command, isCurrent = () => true) {
       const review = reviews.get(token); reviews.delete(token);
-      if (!review || review.category !== category) throw new StorageFault("ABANDONED", "Confirmation is invalid or already used. Nothing was cleared.", true);
+      if (!review || review.category !== category || category === "history" && review.command !== stableStringify(command)) throw new StorageFault("ABANDONED", "Confirmation is invalid or already used. Nothing was cleared.", true);
       return enqueue(async () => {
         const owner = owners.get(review.projectId);
         const check = () => { if (!isCurrent() || owner !== review.owner || owner.invalid) throw new StorageFault("ABANDONED", "Project review changed. Nothing was cleared.", true); };
         check();
+        if (category === "history" && owner.revision !== token.revision) throw new StorageFault("CONFLICT", "History changed after review. Review again before deleting.", true);
         const durable = await store.readProject(review.projectId); check();
         if (durable.deleted || durable.revision !== owner.revision) throw new StorageFault("CONFLICT", "Saved data changed outside this writer. Reload and review before clearing.", true);
         // Only acknowledged writes in this serialized owner may advance the
         // reviewed token. Native CAS still enforces this revision transactionally.
-        const receipt = category === "workspace" ? await store.deleteWorkspace(review.projectId, owner.revision, isCurrent) : await store.saveMemory(review.projectId, owner.revision, command, isCurrent);
+        const receipt = category === "workspace" ? await store.deleteWorkspace(review.projectId, owner.revision, isCurrent) : category === "history" ? await store.mutateAnalysisHistory(review.projectId, owner.revision, command, isCurrent) : await store.saveMemory(review.projectId, owner.revision, command, isCurrent);
         if (!receipt.ok || !receipt.saved) throw new StorageFault("ABORTED", "Saved data was not cleared.");
         acknowledge(owner, review.projectId, receipt); return receipt;
       });
@@ -87,6 +89,7 @@ export function createProjectSession(store, reviewedProject = null) {
     publishMigration: (...args) => write("publishMigration", ...args),
     saveWorkspace: (...args) => write("saveWorkspace", ...args),
     saveMemory: (...args) => write("saveMemory", ...args),
+    mutateAnalysisHistory: (...args) => write("mutateAnalysisHistory", ...args),
     deleteProject: (...args) => write("deleteProject", ...args),
     reattachSource: (...args) => write("reattachSource", ...args),
     discardWorkspaceOrphans: (...args) => write("discardWorkspaceOrphans", ...args),

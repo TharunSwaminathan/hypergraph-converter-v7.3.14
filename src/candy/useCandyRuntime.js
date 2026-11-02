@@ -31,18 +31,18 @@ function createLiveContext(initial) {
 
 export function useCandyRuntime({ graphState = null, getGraphState = null, pendingController = null,
   graphType = null, graphId = null, graphVersion = 0, graphFingerprint = null, vertexCount = 0, edgeCount = 0,
-  graphValue = null, pendingUpdate = null } = {}) {
+  graphValue = null, pendingUpdate = null, onHistoryCompleted = null, historyContext = null } = {}) {
   const enabled = candyRuntimeEnabled();
   const [state, setState] = useState(() => ({ featureEnabled:enabled,status:enabled?"not_discovered":"disabled",
     baseUrl:DEFAULT_CANDY_RUNTIME_URL,authorized:false,runtimeVersion:null,runtimeSessionId:null,
     capabilityStatus:"unavailable",capabilityReason:null,runtimeCapabilityStatus:"unavailable",
     capabilities:[],runtimeCapabilities:[],lastError:null }));
-  const [live] = useState(() => createLiveContext({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,token:pairingStorage()}));
+  const [live] = useState(() => createLiveContext({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,onHistoryCompleted,historyContext,token:pairingStorage()}));
   const [controller] = useState(() => createMotifAnalysisController({
     getContext:()=>{
       const current=live.get();
       const graph=current.getGraphState?.() ?? current.graphState ?? {...current.graphValue,graphFingerprint:current.graphFingerprint};
-      return {graph,pendingUpdate:current.pendingController?.getCurrent() ?? (current.pendingController ? null : current.pendingUpdate),runtime:current.state};
+      return {graph,pendingUpdate:current.pendingController?.getCurrent() ?? (current.pendingController ? null : current.pendingUpdate),runtime:current.state,onHistoryCompleted:current.onHistoryCompleted,historyContext:current.historyContext};
     },
     getClient:({signal}={})=>{
       const generation=live.generation();
@@ -61,7 +61,7 @@ export function useCandyRuntime({ graphState = null, getGraphState = null, pendi
     controller.invalidate();setState(next);
   },[controller,live]);
   useLayoutEffect(() => {
-    live.update({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,connectionFailure});
+    live.update({graphState,getGraphState,pendingController,graphValue,pendingUpdate,graphType,graphFingerprint,state,connectionFailure,onHistoryCompleted,historyContext});
     controller.synchronize();
   });
   const analysis=useSyncExternalStore(controller.subscribe,controller.getSnapshot,controller.getSnapshot);

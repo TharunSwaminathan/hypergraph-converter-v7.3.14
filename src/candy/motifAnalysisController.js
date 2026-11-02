@@ -103,8 +103,9 @@ export function createMotifAnalysisController({ getContext, getClient }) {
         const accepted=await submitMotifWorkflow({client,graphValue:motifGraphValue(captured.graph),pendingUpdate:captured.pendingUpdate?.motifUpdate,
           argumentsValue,runtimeSessionId:captured.runtime.runtimeSessionId,applicationBinding:captured.applicationBinding,isCurrent:()=>isCurrent(captured,generation),artifactPresence});
         if (!isCurrent(captured,generation)) { cancelBestEffort({...accepted.binding,client}); fail("STALE_GRAPH_VERSION","Analysis changed before job attachment."); }
-        jobBinding={...accepted.binding,binding:accepted.binding,client,context:captured,epoch:generation};
+        jobBinding={...accepted.binding,binding:accepted.binding,client,context:captured,epoch:generation,localOperationId:confirmation.id,createdAt:new Date(confirmation.createdAt).toISOString(),timeoutMs:argumentsValue.timeoutMs};
         emit({status:"RUNNING",job:boundedCandyJobObservation(accepted.job),resultEvidence:null});
+        if (accepted.job.status === "completed" && typeof captured.onHistoryCompleted === "function") void controller.openResult(accepted.job.jobId);
         return {ok:true,job:state.job,nativeJobCreated:true,workspaceMutated:false};
       } catch(error) {
         if (generation!==undefined && generation===epoch) {
@@ -123,7 +124,7 @@ export function createMotifAnalysisController({ getContext, getClient }) {
         if (["failed","cancelled"].includes(job.status)) {
           jobBinding=null; approval=null; registry.clear();
           emit({status:job.status==="cancelled"?"CANCELLED":"FAILED",job:observation,resultEvidence:null,lastError:job.error ?? null});
-        } else emit({job:observation});
+        } else { emit({job:observation}); if (job.status === "completed" && typeof binding.context.onHistoryCompleted === "function" && !binding.historyDelivered) { const opened = await controller.openResult(jobId); if (!opened.ok) return opened; } }
         return {ok:true,job:observation,workspaceMutated:false};
       } catch(error) {
         if (binding && jobBinding===binding) {
@@ -164,6 +165,13 @@ export function createMotifAnalysisController({ getContext, getClient }) {
         const evidence=await registry.accept(result,binding.binding,()=>readGeneration===resultReadEpoch && isCurrent(binding.context,binding.epoch) && jobBinding===binding);
         requireJob(jobId); checkRead();
         emit({status:"RESULT_READY",resultEvidence:evidence,job:boundedCandyJobObservation(evidence.result)});
+        if (typeof binding.context.onHistoryCompleted === "function" && !binding.historyDelivered) {
+          binding.historyDelivered = true;
+          const event = { operationId: binding.localOperationId, createdAt: binding.createdAt, completedAt: new Date().toISOString(), context: { ...binding.context.historyContext, graph: binding.context.graph, preview: false }, hyperedges: binding.context.graph.hyperedges, evidence,
+            parameters: { mode: binding.mode, deviceId: binding.deviceId, timeoutMs: binding.timeoutMs, pendingUpdateDigest: null }, pendingUpdate: binding.context.pendingUpdate?.motifUpdate ?? null, runtimeVersion: binding.context.runtime.runtimeVersion ?? null };
+          // Archival failure never turns a validated analysis into failed compute.
+          try { void Promise.resolve(binding.context.onHistoryCompleted(event)).catch(() => {}); } catch { /* The history observer owns its separate receipt/error UI. */ }
+        }
         return {ok:true,observation:state.job,workspaceMutated:false};
       } catch(error) {
         if (readGeneration===resultReadEpoch && binding && jobBinding===binding) { registry.clear(); jobBinding=null; emit({status:"FAILED",resultEvidence:null,lastError:{classification:error.code ?? error.classification,message:error.message}}); }

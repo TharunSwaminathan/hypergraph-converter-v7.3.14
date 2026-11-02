@@ -1,0 +1,709 @@
+{
+  "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "baseline": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+  "branch": "candy-integration-scope8b-analysis-history",
+  "snapshotSha256": "99e382a3a4dfec517c313bc6be2e723afa9cff0f2c698a69a8c42b3a2ae4aa20",
+  "candidateCommit": null,
+  "commitBoundProvenanceClaimed": false,
+  "createdAtUtc": "2026-11-02T01:14:32Z",
+  "status": "PASS",
+  "phases": {
+    "baseline": {
+      "result": "PASS",
+      "fullSuite": {
+        "passedFiles": 308,
+        "discoveredFiles": 308
+      },
+      "focused": {
+        "7a": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "7b": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7c": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7d": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7e": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "8a": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        }
+      },
+      "productionVulnerabilities": 0,
+      "gates": [
+        {
+          "gate": "npm-ci",
+          "command": [
+            "npm.cmd",
+            "ci"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 10.44,
+          "log": "baseline-npm-ci.txt",
+          "sha256": "e49e55b44ef16797b1b3e0c5730148a2c9f21a1f10616052038b44d595e934fc"
+        },
+        {
+          "gate": "tests",
+          "command": [
+            "npm.cmd",
+            "test"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 215.8,
+          "log": "baseline-tests.txt",
+          "sha256": "36f7f6187ee854b7dbcdf4a896e975af9f9213ec48b5ef56d155980eb559deb3"
+        },
+        {
+          "gate": "scope7a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7a"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 2.19,
+          "log": "baseline-scope7a.txt",
+          "sha256": "a6d81ec05d0899cecad0f854e1a4a73dcf2992b480eba6637e01b8910e704226"
+        },
+        {
+          "gate": "scope7b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7b"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 2.04,
+          "log": "baseline-scope7b.txt",
+          "sha256": "4d5d3c6d19d6ce1ea15c6ae0024b00cbcdeaaf339088b0f78000ce8f7950a805"
+        },
+        {
+          "gate": "scope7c",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7c"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 1.88,
+          "log": "baseline-scope7c.txt",
+          "sha256": "d8945b38efcb7764af249bb1a3fa0f0d99f62eb6df340e2e7a6100c22456dffe"
+        },
+        {
+          "gate": "scope7d",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7d"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 2.8,
+          "log": "baseline-scope7d.txt",
+          "sha256": "c91b170c417f7d27b657beccc322ccb4a1d2183f2da449ac091326ff52f2567b"
+        },
+        {
+          "gate": "scope7e",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7e"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 2.21,
+          "log": "baseline-scope7e.txt",
+          "sha256": "5d2b3f9d49f6b805f7cd866d79728351c7f7eb3df0e6989aaa433e41f59f749c"
+        },
+        {
+          "gate": "scope8a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8a"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 3.34,
+          "log": "baseline-scope8a.txt",
+          "sha256": "0f090dddf660451728c8559bea3dd2658a5e929fc03e472315da4d2930f3a47d"
+        },
+        {
+          "gate": "lint",
+          "command": [
+            "npm.cmd",
+            "run",
+            "lint"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 11.09,
+          "log": "baseline-lint.txt",
+          "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+        },
+        {
+          "gate": "build",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 1.0,
+          "log": "baseline-build.txt",
+          "sha256": "2dd3b62ab3b09c02beba6e2fd0f8deb616d1fb6915cf5e49969fadb053dc5801"
+        },
+        {
+          "gate": "pages",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:github"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 0.93,
+          "log": "baseline-pages.txt",
+          "sha256": "75b00be91b36c1806b3f57a061534429acda327a759bea883c41f2c5e3202ae2"
+        },
+        {
+          "gate": "relative",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:relative"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 0.88,
+          "log": "baseline-relative.txt",
+          "sha256": "9f1e29c614399f2064d5a16802d0c641432ca9bc7e3f74eb28f7babf11ec4492"
+        },
+        {
+          "gate": "audit",
+          "command": [
+            "npm.cmd",
+            "audit",
+            "--omit=dev",
+            "--json"
+          ],
+          "cwd": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b",
+          "exitCode": 0,
+          "seconds": 1.1,
+          "log": "baseline-audit.txt",
+          "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+        }
+      ]
+    },
+    "frozen-v1": {
+      "result": "PASS",
+      "fullSuite": {
+        "passedFiles": 312,
+        "discoveredFiles": 312
+      },
+      "focused": {
+        "7a": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "7b": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7c": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7d": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7e": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "8a": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "8b": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        }
+      },
+      "productionVulnerabilities": 0,
+      "gates": [
+        {
+          "gate": "npm-ci",
+          "command": [
+            "npm.cmd",
+            "ci"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 7.57,
+          "log": "frozen-v1-npm-ci.txt",
+          "sha256": "0f66077bd98cca7e805fbe0f11aa5d6c56e372ea0f4a962d005f41cc2aae323b"
+        },
+        {
+          "gate": "tests",
+          "command": [
+            "npm.cmd",
+            "test"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 263.29,
+          "log": "frozen-v1-tests.txt",
+          "sha256": "851881349c4f5b44e34ea92d5abdb3dd4763bdfb9671a7e71810f35c85500ab6"
+        },
+        {
+          "gate": "scope7a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 2.22,
+          "log": "frozen-v1-scope7a.txt",
+          "sha256": "a8141cf561269fa4655fc006bd286d5103369c652ecc20b2b675f107b8965f02"
+        },
+        {
+          "gate": "scope7b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 2.28,
+          "log": "frozen-v1-scope7b.txt",
+          "sha256": "05d64c44ba554a1286296cbab347767c803a495c16cb1a6a33db04a3f9b7747e"
+        },
+        {
+          "gate": "scope7c",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7c"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 2.02,
+          "log": "frozen-v1-scope7c.txt",
+          "sha256": "62d971448c8f0b9c57c9185b97b62357e2ac3b9ab84f6684b42a30fc0f3cff3a"
+        },
+        {
+          "gate": "scope7d",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7d"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 2.73,
+          "log": "frozen-v1-scope7d.txt",
+          "sha256": "c91b170c417f7d27b657beccc322ccb4a1d2183f2da449ac091326ff52f2567b"
+        },
+        {
+          "gate": "scope7e",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7e"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 2.51,
+          "log": "frozen-v1-scope7e.txt",
+          "sha256": "8fef04c5d001b0c6c7728091f0bb2467d87f4e437c4e435755be80822133e260"
+        },
+        {
+          "gate": "scope8a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 3.69,
+          "log": "frozen-v1-scope8a.txt",
+          "sha256": "9fe9be5bc79d10ddb9852e1f63c3d38e4b8a6a3e0b4d7ed090a45f4b7e737b93"
+        },
+        {
+          "gate": "scope8b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 3.88,
+          "log": "frozen-v1-scope8b.txt",
+          "sha256": "5171eea0906c77dc65682a5e27bbe3c0370bb21a526f8c492ebea106e50f1091"
+        },
+        {
+          "gate": "lint",
+          "command": [
+            "npm.cmd",
+            "run",
+            "lint"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 11.17,
+          "log": "frozen-v1-lint.txt",
+          "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+        },
+        {
+          "gate": "build",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 0.98,
+          "log": "frozen-v1-build.txt",
+          "sha256": "e52ccc10da862f601e0aad654490a64d33811a29000d87bb380f265b5571e54e"
+        },
+        {
+          "gate": "pages",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:github"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 0.87,
+          "log": "frozen-v1-pages.txt",
+          "sha256": "76536cd655ebac2748192647fb0a5a9bec8cbbf8aec1d45bf4dd1bc99442824e"
+        },
+        {
+          "gate": "relative",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:relative"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 0.95,
+          "log": "frozen-v1-relative.txt",
+          "sha256": "2fd04f7404aee7e8367f10426866a87dfadeea2c6a81ff00e386887cf8a7ac2f"
+        },
+        {
+          "gate": "audit",
+          "command": [
+            "npm.cmd",
+            "audit",
+            "--omit=dev",
+            "--json"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\frozen-v1",
+          "exitCode": 0,
+          "seconds": 1.09,
+          "log": "frozen-v1-audit.txt",
+          "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+        }
+      ]
+    },
+    "extracted-v1": {
+      "result": "PASS",
+      "fullSuite": {
+        "passedFiles": 312,
+        "discoveredFiles": 312
+      },
+      "focused": {
+        "7a": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "7b": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7c": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7d": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7e": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "8a": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "8b": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        }
+      },
+      "productionVulnerabilities": 0,
+      "gates": [
+        {
+          "gate": "npm-ci",
+          "command": [
+            "npm.cmd",
+            "ci"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 7.42,
+          "log": "extracted-v1-npm-ci.txt",
+          "sha256": "0f66077bd98cca7e805fbe0f11aa5d6c56e372ea0f4a962d005f41cc2aae323b"
+        },
+        {
+          "gate": "tests",
+          "command": [
+            "npm.cmd",
+            "test"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 226.39,
+          "log": "extracted-v1-tests.txt",
+          "sha256": "c832e65639bfdae6b6e5187e3cb16536990622e8dd8a61b0b0f348d95519852f"
+        },
+        {
+          "gate": "scope7a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 2.9,
+          "log": "extracted-v1-scope7a.txt",
+          "sha256": "78b2f7d28970e0543866fc9c7920818bb47187b884255fb6cef3e896fdff70e2"
+        },
+        {
+          "gate": "scope7b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 2.1,
+          "log": "extracted-v1-scope7b.txt",
+          "sha256": "4d5d3c6d19d6ce1ea15c6ae0024b00cbcdeaaf339088b0f78000ce8f7950a805"
+        },
+        {
+          "gate": "scope7c",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7c"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 1.84,
+          "log": "extracted-v1-scope7c.txt",
+          "sha256": "d8945b38efcb7764af249bb1a3fa0f0d99f62eb6df340e2e7a6100c22456dffe"
+        },
+        {
+          "gate": "scope7d",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7d"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 2.63,
+          "log": "extracted-v1-scope7d.txt",
+          "sha256": "de65057b28ac85056d98ea0b307d399b659cf1606c9e7086d1c14b1ebc9c3c2f"
+        },
+        {
+          "gate": "scope7e",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7e"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 2.11,
+          "log": "extracted-v1-scope7e.txt",
+          "sha256": "f04323786ab97c978cb880206599ed32b4868bf47f0bfbb9606321ac92226d0d"
+        },
+        {
+          "gate": "scope8a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 3.2,
+          "log": "extracted-v1-scope8a.txt",
+          "sha256": "a334d82490f51861eebbb5d8fd2355ec72ca9acc970c3c3856dea2018c548ace"
+        },
+        {
+          "gate": "scope8b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 3.63,
+          "log": "extracted-v1-scope8b.txt",
+          "sha256": "d232d3a31a9e86f00541ddf05182334865e7fbfdc93a0e4d33ae9226334111f5"
+        },
+        {
+          "gate": "lint",
+          "command": [
+            "npm.cmd",
+            "run",
+            "lint"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 10.74,
+          "log": "extracted-v1-lint.txt",
+          "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+        },
+        {
+          "gate": "build",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 1.08,
+          "log": "extracted-v1-build.txt",
+          "sha256": "692dfde2a45c8dd9641edc27a1c845c30c03780b04fe144873f4efcea0893b9d"
+        },
+        {
+          "gate": "pages",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:github"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 0.9,
+          "log": "extracted-v1-pages.txt",
+          "sha256": "047bf08350a8fe8c45bb2f8809729654aa2c84efea7eebb5ff1a4b099e4acb4f"
+        },
+        {
+          "gate": "relative",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:relative"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 0.93,
+          "log": "extracted-v1-relative.txt",
+          "sha256": "b4426e11544ca1da5113d1db17bab9bf95f4f35ec9d1c12c6d052f84558c3908"
+        },
+        {
+          "gate": "audit",
+          "command": [
+            "npm.cmd",
+            "audit",
+            "--omit=dev",
+            "--json"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-es0rrqi2\\extracted-v1\\candy-scope8b-proposed-99e382a3a4df",
+          "exitCode": 0,
+          "seconds": 1.09,
+          "log": "extracted-v1-audit.txt",
+          "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+        }
+      ]
+    }
+  },
+  "sourceFiles": 1420,
+  "productTestDocPaths": 25,
+  "additions": 723,
+  "deletions": 39,
+  "scope8bGroupedChecks": {
+    "history": 11,
+    "adversarial": 9,
+    "motifTransport": 3,
+    "mountedUi": 1,
+    "testFiles": 4
+  },
+  "diffCheck": "PASS",
+  "protectedHistory": {
+    "status": "PASS",
+    "baseline": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+    "branch": "candy-integration-scope8b-analysis-history",
+    "head": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+    "main": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+    "localRefsIdentical": true,
+    "remoteMainBranchAndHistoricalTagsIdentical": true,
+    "allUnmodifiedTrackedPhysicalSha256AndMtimePreserved": 1395,
+    "scope7fTagUnchanged": true,
+    "v7315TagUnchanged": true,
+    "scope7And8aTagsUnchanged": true,
+    "stagedPaths": [],
+    "diffCheck": "PASS",
+    "noWorkflowRuntimeNativeCudaModelOrPackagePolicySourceChanged": true,
+    "checkedAtUtc": "2026-11-02T01:12:56Z"
+  },
+  "inputAndBuildIntegrity": {
+    "path": "artifacts/candy-scope8b-work/input-and-build-integrity.json",
+    "bytes": 10211,
+    "sha256": "2720584c6496e4d1724e6b8cbf4839151547cee0c017da647326035a223c6689"
+  },
+  "frozenInventory": {
+    "path": "artifacts/candy-scope8b-work/frozen-source-v1.json",
+    "bytes": 394963,
+    "sha256": "32946dc675a7724931c2276506c252a03b7a371c7b29afb4030ecdb4f3cb2911"
+  },
+  "protectedHistoryReceipt": {
+    "path": "artifacts/candy-scope8b-work/protected-history-final.json",
+    "bytes": 98835,
+    "sha256": "f42fa2a49dcd1286234ef12b091383cc5ca1ac0bf5b914d02481be51e6065b08"
+  },
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "unresolvedFindings": {
+    "Critical": 0,
+    "High": 0,
+    "Medium": 0
+  },
+  "allRequiredGatesComplete": true
+}

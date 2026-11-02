@@ -1,4 +1,4 @@
-import { parseBoundedJSON, StorageFault } from "./storageSafety.js";
+import { parseBoundedJSON, boundedCopy, StorageFault } from "./storageSafety.js";
 import { isProjectId } from "./projectSchema.js";
 import { rootHeaders, verifyRoot, validateWorkspaceData, sealRoot } from "./workspaceObjectSchema.js";
 import { validateProject } from "./projectSchema.js";
@@ -10,6 +10,7 @@ import { validateConnectionProfile, initialConnectionProfile } from "./modelConn
 import { decodeWorkspaceInputs } from "./workspaceCapture.js";
 import { WORKSPACE_LIMITS } from "./storageBudget.js";
 import { getFormatDetails } from "../agent/fileDetection.js";
+import { HISTORY_LIMITS, verifyHistoryEnvelope, validateHistoryRecord, rebasePortableHistory, historyBytes } from "./analysisHistorySchema.js";
 
 export const PORTABLE_MAGIC = "CANDY-WORKSPACE\n";
 export const PORTABLE_LIMITS = Object.freeze({ containerBytes: 48 * 1024 * 1024, payloadBytes: WORKSPACE_LIMITS.projectBytes, payloads: 156, references: 156, expandedBytes: 2 * WORKSPACE_LIMITS.projectBytes });
@@ -96,9 +97,14 @@ export async function exportPortableWorkspace(store, projectId) {
   if (!snapshot.root) bad("There is no saved workspace to export.", "INCOMPLETE");
   const verified = await validateSnapshot(snapshot.project, snapshot.root, snapshot.objects, snapshot.memory);
   const name = label(snapshot.name), manifest = { schemaVersion: 2, project: { schemaVersion: 1, projectId, name, createdAt: snapshot.project.createdAt }, workspace: { schemaVersion: 1, root: verified.root }, memory: verified.memory, modelPreferences: portableModel(snapshot.modelProfile) };
+  const history = await verifyHistoryEnvelope(snapshot.history, projectId);
+  if (history?.records.length) { manifest.schemaVersion = 3; manifest.analysisHistory = { schemaVersion: 1, records: history.records }; }
   sensitive(utf8.encode(stableStringify(manifest)));
   const payloads = [...verified.objects].sort((x, y) => x.objectId.localeCompare(y.objectId, "en")).map(o => ({ schemaVersion: 1, path: `objects/${o.objectId}.bin`, encoding: "base64", data: base64(new Uint8Array(o.data)) }));
   const text = PORTABLE_MAGIC + stableStringify({ format: "candy.workspace", manifest, manifestSha256: await digest(manifest), payloads });
+  // v3 adds bounded plain history arrays. Legacy versions keep their original
+  // semantic JSON budgets; no file is emitted that this decoder cannot admit.
+  parseBoundedJSON(text.slice(PORTABLE_MAGIC.length), { bytes: PORTABLE_LIMITS.containerBytes, depth: 24, nodes: manifest.schemaVersion === 3 ? 120000 : 70000, array: manifest.schemaVersion === 3 ? 10000 : 1000, string: 12 * 1024 * 1024 });
   const bytes = utf8.encode(text); if (bytes.byteLength > PORTABLE_LIMITS.containerBytes) bad("Portable container exceeds its limit.", "LIMIT");
   return Object.freeze({ bytes, sha256: await sha256(bytes), filename: `candy-workspace-${projectId}.candy-workspace`, name, payloadCount: payloads.length });
 }
@@ -112,12 +118,13 @@ export async function stagePortableWorkspace(input) {
   if (bytes.length < prefix.length || prefix.some((value, index) => bytes[index] !== value)) bad("Unsupported container. Only uncompressed CANDY workspace files are accepted.", "INCOMPATIBLE");
   let text; try { text = new TextDecoder("utf-8", { fatal: true }).decode(bytes); } catch { bad("Portable file is not valid UTF-8."); }
   if (!text.startsWith(PORTABLE_MAGIC)) bad("Unsupported container. Only uncompressed CANDY workspace files are accepted.", "INCOMPATIBLE");
-  const body = text.slice(PORTABLE_MAGIC.length), envelope = parseBoundedJSON(body, { bytes: PORTABLE_LIMITS.containerBytes, depth: 24, nodes: 70000, array: 1000, string: 12 * 1024 * 1024 });
+  const body = text.slice(PORTABLE_MAGIC.length), envelope = parseBoundedJSON(body, { bytes: PORTABLE_LIMITS.containerBytes, depth: 24, nodes: 120000, array: 10000, string: 12 * 1024 * 1024 });
+  if (envelope.manifest?.schemaVersion !== 3) boundedCopy(envelope, { bytes: PORTABLE_LIMITS.containerBytes, depth: 24, nodes: 70000, array: 1000, string: 12 * 1024 * 1024 });
   if (stableStringify(envelope) !== body) bad("Portable JSON must be canonical; duplicate or ambiguous names are rejected.");
   if (!keys(envelope, "format manifest manifestSha256 payloads") || envelope.format !== "candy.workspace") bad("Invalid portable container schema.");
   let m = envelope.manifest;
-  if (![1, 2].includes(m?.schemaVersion)) bad("Unsupported portable schema version; no data was changed.", "INCOMPATIBLE");
-  if (!keys(m, m.schemaVersion === 1 ? "schemaVersion project workspace memory" : "schemaVersion project workspace memory modelPreferences")) bad("Unknown portable manifest field.");
+  if (![1, 2, 3].includes(m?.schemaVersion)) bad("Unsupported portable schema version; no data was changed.", "INCOMPATIBLE");
+  if (!keys(m, m.schemaVersion === 1 ? "schemaVersion project workspace memory" : m.schemaVersion === 3 ? "schemaVersion project workspace memory modelPreferences analysisHistory" : "schemaVersion project workspace memory modelPreferences")) bad("Unknown portable manifest field.");
   if (await digest(m) !== envelope.manifestSha256) bad("Portable manifest SHA-256 mismatch.");
   sensitive(utf8.encode(stableStringify(m)));
   const migratedFrom = m.schemaVersion === 1 ? 1 : null;
@@ -125,6 +132,10 @@ export async function stagePortableWorkspace(input) {
   if (!keys(m.project, "schemaVersion projectId name createdAt") || m.project.schemaVersion !== 1 || !isProjectId(m.project.projectId)) bad("Invalid portable project identity.");
   label(m.project.name);
   if (!keys(m.workspace, "schemaVersion root") || m.workspace.schemaVersion !== 1) bad("Invalid portable workspace schema.");
+  const history = m.schemaVersion === 3 ? m.analysisHistory : { schemaVersion: 1, records: [] };
+  if (!keys(history, "schemaVersion records") || history.schemaVersion !== 1 || !Array.isArray(history.records) || history.records.length > HISTORY_LIMITS.records || historyBytes(history) > HISTORY_LIMITS.projectBytes) bad("Invalid portable history collection.");
+  const historyIds = new Set();
+  for (const record of history.records) { await validateHistoryRecord(record, m.project.projectId); if (historyIds.has(record.recordId)) bad("Duplicate portable analysis identity."); historyIds.add(record.recordId); }
   if (m.memory !== null && (!m.memory || typeof m.memory !== "object" || Array.isArray(m.memory))) bad("Invalid portable memory collection.");
   const root = await verifyRoot(m.workspace.root, m.project.projectId), memory = await verifyMemoryEnvelope(m.memory, m.project.projectId), model = validateModel(m.modelPreferences);
   const headers = new Map(rootHeaders(root).map(h => [h.objectId, h]));
@@ -141,8 +152,8 @@ export async function stagePortableWorkspace(input) {
   // revision never enters the database or grants an imported owner authority.
   const revision = Math.max(root.publicationRevision, memory?.revision ?? 1), project = { appNamespace: "hypergraph-converter-studio", schemaVersion: 1, projectId: m.project.projectId, revision, previousRevision: revision - 1, createdAt: m.project.createdAt, updatedAt: root.updatedAt, deleted: false, tombstone: null, storageState: "committed", migrationLineage: [] };
   await validateSnapshot(archiveProject(project, root, memory), root, objects, memory);
-  const handle = Object.freeze({ name: m.project.name, sourceProjectId: project.projectId, sha256: await sha256(bytes), payloadCount: objects.length, memoryCount: memory?.records.filter(x => x.status === "ACTIVE").length ?? 0, model: model?.selectedModel ?? null, migratedFrom });
-  stages.set(handle, { root, objects, memory, model, name: handle.name, digest: handle.sha256, sourceProjectId: project.projectId, migratedFrom });
+  const handle = Object.freeze({ name: m.project.name, sourceProjectId: project.projectId, sha256: await sha256(bytes), payloadCount: objects.length, memoryCount: memory?.records.filter(x => x.status === "ACTIVE").length ?? 0, historyCount: history.records.length, model: model?.selectedModel ?? null, migratedFrom });
+  stages.set(handle, { root, objects, memory, model, history: history.records, name: handle.name, digest: handle.sha256, sourceProjectId: project.projectId, migratedFrom, sourceSchema: m.schemaVersion });
   return handle;
 }
 export async function preparePortablePublication(handle, projectId, revision) {
@@ -155,6 +166,7 @@ export async function preparePortablePublication(handle, projectId, revision) {
   const records = stage.objects.map(o => ({ ...sealedHeaders.get(o.objectId), data: o.data.slice(0) }));
   const memories = (stage.memory?.records ?? []).filter(x => x.status === "ACTIVE").map(x => ({ ...x, projectId, revision, supersedes: null, provenance: "IMPORTED", confidence: "UNVERIFIED", sourceRefs: x.sourceRefs.map(ref => ({ ...ref, projectId, workspaceDigest: ref.workspaceDigest === stage.root.sha256 ? root.sha256 : ref.workspaceDigest })) }));
   const memory = await sealMemoryEnvelope(projectId, revision, memories);
-  return { root, records, memory, model: stage.model ? initialConnectionProfile(stage.model.selectedModel, stage.model.endpoint, stage.model.transport) : null, name: stage.name, digest: stage.digest, sourceProjectId: stage.sourceProjectId, migratedFrom: stage.migratedFrom, sourceSchema: 2 };
+  const history = await rebasePortableHistory(stage.history, stage.sourceProjectId, projectId, revision);
+  return { root, records, memory, history, model: stage.model ? initialConnectionProfile(stage.model.selectedModel, stage.model.endpoint, stage.model.transport) : null, name: stage.name, digest: stage.digest, sourceProjectId: stage.sourceProjectId, migratedFrom: stage.migratedFrom, sourceSchema: stage.sourceSchema };
 }
 export function portableStageValid(handle) { return stages.has(handle); }

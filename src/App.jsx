@@ -1,4 +1,7 @@
-﻿import { useState, useCallback, useMemo, useRef, useEffect } from "react";
+﻿import { useState, useCallback, useMemo, useRef, useEffect, useLayoutEffect } from "react";
+import { useAnalysisHistory } from "./persistence/useAnalysisHistory.js";
+import { analysisInputDigest } from "./persistence/analysisHistorySchema.js";
+import AnalysisHistoryPanel from "./components/AnalysisHistoryPanel.jsx";
 import { T, inputSt } from "./theme.js";
 import { createDownloadLifecycle } from "./utils/downloadLifecycle.js";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
@@ -3747,7 +3750,12 @@ function AppCore({ experience }) {
     };
   }
 
-  const algo = useAlgorithms(finalHes);
+  const analysisHistory = useAnalysisHistory({ session: persistenceSession, ready: workspaceReceipt.state !== "loading", stale: Boolean(experience?.externalStale), hyperedges: finalHes });
+  const analysisHistoryContext = { projectId: experience?.active.projectId ?? persistenceSession.scopeProjectId ?? null, graph: graphState, workspacePublicationRevision: workspaceReceipt.unsaved ? null : workspaceReceipt.revision ?? null, preview: Boolean(batchPreviewActive || workspaceReceipt.unsaved) };
+  const algo = useAlgorithms(finalHes, { onCompleted: analysisHistory.complete, historyContext: analysisHistoryContext });
+  const historyInput = useRef(finalHes); useLayoutEffect(() => { historyInput.current = finalHes; }, [finalHes]);
+  const notifyHistory = experience?.historyChanged, historyOwnerKey = experience?.active.key;
+  useEffect(() => { if (analysisHistory.publicationRevision !== null) notifyHistory?.(historyOwnerKey); }, [notifyHistory, historyOwnerKey, analysisHistory.publicationRevision]);
 
   const [derivedCache] = useState(createDerivedProductCache);
   derivedCache.activateGraph(graphVersion, finalHes);
@@ -3801,6 +3809,8 @@ function AppCore({ experience }) {
   // The committed application graph type is explicit authority. CANDY must
   // not infer it from edge cardinality or implicitly project it.
   const candyRuntime = useCandyRuntime({
+    onHistoryCompleted: analysisHistory.complete,
+    historyContext: analysisHistoryContext,
     graphId: graphIdentity.graphId,
     graphVersion, graphType: graphState.graphType,
     graphFingerprint: graphState.graphFingerprint,
@@ -3811,6 +3821,14 @@ function AppCore({ experience }) {
     edgeCount: hes?.length ?? 0,
   });
   candyRuntimeRef.current = candyRuntime;
+  async function rerunHistoricalAnalysis(record) {
+    const currentInput = finalHes;
+    if (!currentInput || await analysisInputDigest(currentInput) !== record.input.contentSha256 || historyInput.current !== currentInput) throw new Error("Current input changed. Review it before requesting a new analysis.");
+    if (record.execution.backend === "CPU") { algo.runSelection(record.algorithm, record.parameters); return; }
+    const runtime = candyRuntimeRef.current;
+    if (record.execution.backend !== "CUDA_STATIC" || !runtime.state.staticAvailability?.ready || await analysisInputDigest(graphStateRef.current.hyperedges) !== record.input.contentSha256 || historyInput.current !== currentInput) throw new Error("A fresh available Runtime and matching current graph are required. Recreate incremental updates separately.");
+    requestStaticMotifFromStatistics({ mode: "STATIC", backend: "CUDA_STATIC", deviceId: runtime.state.staticAvailability.capability.devices[0].id, timeoutMs: 5000 });
+  }
   const pendingDynamicUpdate = dynamicUpdateControls.observe();
   const pendingPreview = useMemo(() => pendingPreviewRequested
     ? dynamicUpdatePreview(graphState, pendingHypergraphUpdate) : null,
@@ -5566,6 +5584,7 @@ function AppCore({ experience }) {
                 Convert a dataset to run graph algorithms.
               </div>
             )}
+            <AnalysisHistoryPanel history={analysisHistory} confirm={experience?.confirm} onRerun={rerunHistoricalAnalysis} nativeReady={Boolean(candyRuntime.state.staticAvailability?.ready)} />
           </div>
 
           {/* Hypergraph Assistant */}
