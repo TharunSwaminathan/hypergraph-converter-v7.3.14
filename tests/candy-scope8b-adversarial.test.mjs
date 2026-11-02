@@ -75,4 +75,3 @@ await test('v4 upgrade adds history without rewriting old data; future collectio
  const s=setup(),id=await seed(s.store);await s.store.close();const info=s.db.databases.get(PROJECT_DATABASE);info.version=4;info.stores.delete('analysisHistories');const old=[...info.stores].map(([k,v])=>[k,stableStringify([...v.values])]);const reopened=createProjectStore(s.db);assert.equal((await reopened.readAnalysisHistory(id)).envelope,null);for(const[k,v]of old)assert.equal(stableStringify([...info.stores.get(k).values]),v);const p=await reopened.readProject(id);info.stores.get('analysisHistories').values.set(id,{schemaVersion:99,projectId:id});await assert.rejects(()=>reopened.readAnalysisHistory(id),e=>e.code==='INCOMPATIBLE');assert.equal((await reopened.readProject(id)).revision,p.revision);
 });
 console.log(JSON.stringify({scope:'8B adversarial',status:'PASS',groups:checks.length,checks,evidence:'transactional IndexedDB double, actual Web Crypto; native separately'}));
-

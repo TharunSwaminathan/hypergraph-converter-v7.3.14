@@ -1,0 +1,719 @@
+{
+  "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+  "verdict": "NON-PASS \u2014 SCOPE 8B DIFF-CHECK CORRECTIVE BLOCKED",
+  "failedCandidate": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6",
+  "failedCandidatePromotionStatus": "NON-PASS; immutable; prior CI success does not override failed diff-check gate",
+  "correctiveParent": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6",
+  "qualifiedScope8a": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+  "branch": "candy-integration-scope8b-analysis-history",
+  "proposedChildCommit": null,
+  "parentChildRelationship": "Next authorized commit must be a direct child of the failed candidate; no child commit exists yet",
+  "snapshotSha256": "4e8d9c41644bb00eac2a8fa4f2f07eee681b94643705be9e795a9569399a6a37",
+  "commitBoundProvenanceClaimed": false,
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "createdAtUtc": "2026-11-02T01:57:31Z",
+  "status": "NON-PASS",
+  "firstRemainingBlocker": "Actual local Ollama/qwen3:8b unavailable",
+  "userReportedStagedGate": {
+    "command": "git diff --cached --check",
+    "output": "tests/candy-scope8b-adversarial.test.mjs:78: new blank line at EOF.\n",
+    "stop": "STOP: staged diff check failed.",
+    "notReexecutedAgainstRealIndex": true
+  },
+  "freshReadOnlyDiffChecks": [
+    {
+      "label": "failed-candidate",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+        "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6"
+      ],
+      "exitCode": 2,
+      "stdout": "tests/candy-scope8b-adversarial.test.mjs:78: new blank line at EOF.\n",
+      "stderr": ""
+    },
+    {
+      "label": "corrective-only",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "HEAD"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'tests/candy-scope8b-adversarial.test.mjs', LF will be replaced by CRLF the next time Git touches it\n"
+    },
+    {
+      "label": "corrected-cumulative",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "f1e040e90764eac925d04c78d734a884dc4cd6cc"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'tests/candy-scope8b-adversarial.test.mjs', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  ],
+  "exactOneByteAndPayloadProof": {
+    "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/one-byte-and-payload-proof.json",
+    "bytes": 547,
+    "sha256": "e6c8ac2fcea6ba6a91a32c6638a35d289768a3df6849d37c9a6a16871660053c"
+  },
+  "phases": {
+    "source": {
+      "status": "PASS",
+      "fullSuite": {
+        "passed": 312,
+        "discovered": 312
+      },
+      "focused": {
+        "7a": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "7b": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7c": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7d": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7e": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "8a": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "8b": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        }
+      },
+      "productionVulnerabilities": 0,
+      "gates": [
+        {
+          "gate": "npm-ci",
+          "command": [
+            "npm.cmd",
+            "ci"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 6.2,
+          "log": "source-npm-ci.txt",
+          "sha256": "ced1c8fad11d15ec19e4b74dfd45df03479c04e55b80a277fcd668ddaead2c5c"
+        },
+        {
+          "gate": "tests",
+          "command": [
+            "npm.cmd",
+            "test"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 215.58,
+          "log": "source-tests.txt",
+          "sha256": "710b3f1548b4721ef038b9f1098d7c715f10cb241e4f84325e889f4fd087e2b7"
+        },
+        {
+          "gate": "scope7a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 2.09,
+          "log": "source-scope7a.txt",
+          "sha256": "e69eadfcf299114876d64370463cfd39691af64445236c2ed73c6c3a218706d1"
+        },
+        {
+          "gate": "scope7b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 2.07,
+          "log": "source-scope7b.txt",
+          "sha256": "4d5d3c6d19d6ce1ea15c6ae0024b00cbcdeaaf339088b0f78000ce8f7950a805"
+        },
+        {
+          "gate": "scope7c",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7c"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 2.07,
+          "log": "source-scope7c.txt",
+          "sha256": "430346beedd824eab72c8a6c07dd1bb90159547b2e7318c9a1b88e5203a9e695"
+        },
+        {
+          "gate": "scope7d",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7d"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 2.72,
+          "log": "source-scope7d.txt",
+          "sha256": "c91b170c417f7d27b657beccc322ccb4a1d2183f2da449ac091326ff52f2567b"
+        },
+        {
+          "gate": "scope7e",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7e"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 2.25,
+          "log": "source-scope7e.txt",
+          "sha256": "5d2b3f9d49f6b805f7cd866d79728351c7f7eb3df0e6989aaa433e41f59f749c"
+        },
+        {
+          "gate": "scope8a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 3.36,
+          "log": "source-scope8a.txt",
+          "sha256": "0f090dddf660451728c8559bea3dd2658a5e929fc03e472315da4d2930f3a47d"
+        },
+        {
+          "gate": "scope8b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 3.55,
+          "log": "source-scope8b.txt",
+          "sha256": "c2a27b5e91ff8836f8647a0ec2682ace448b58252da08a8f2458ae4086522963"
+        },
+        {
+          "gate": "lint",
+          "command": [
+            "npm.cmd",
+            "run",
+            "lint"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 10.46,
+          "log": "source-lint.txt",
+          "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+        },
+        {
+          "gate": "build",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 0.95,
+          "log": "source-build.txt",
+          "sha256": "9a5c2473ebb99b2ce3307f40258a970cf58ed4fa4fc04d09bfe78defab04acc9"
+        },
+        {
+          "gate": "pages",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:github"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 0.86,
+          "log": "source-pages.txt",
+          "sha256": "12a34e0356b28ba53ad11da6af14250abc57e879ccb3c043224305853e3d1bc5"
+        },
+        {
+          "gate": "relative",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:relative"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 0.86,
+          "log": "source-relative.txt",
+          "sha256": "d8828e68c8ff6c713222f1d33945a7622e5703f0676f1b2e4f93a8d7fc88ae7d"
+        },
+        {
+          "gate": "audit",
+          "command": [
+            "npm.cmd",
+            "audit",
+            "--omit=dev",
+            "--json"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\frozen",
+          "exitCode": 0,
+          "seconds": 1.06,
+          "log": "source-audit.txt",
+          "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+        }
+      ]
+    },
+    "extracted": {
+      "status": "PASS",
+      "fullSuite": {
+        "passed": 312,
+        "discovered": 312
+      },
+      "focused": {
+        "7a": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "7b": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7c": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7d": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "7e": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        },
+        "8a": {
+          "passedFiles": 3,
+          "discoveredFiles": 3
+        },
+        "8b": {
+          "passedFiles": 4,
+          "discoveredFiles": 4
+        }
+      },
+      "productionVulnerabilities": 0,
+      "gates": [
+        {
+          "gate": "npm-ci",
+          "command": [
+            "npm.cmd",
+            "ci"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 5.84,
+          "log": "extracted-npm-ci.txt",
+          "sha256": "548092ef285e3c87252f1dd404fa15d568b2a375b0ef7bba744b1f31bea37bae"
+        },
+        {
+          "gate": "tests",
+          "command": [
+            "npm.cmd",
+            "test"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 210.95,
+          "log": "extracted-tests.txt",
+          "sha256": "6d34d7309f539c9559265a9990e61c00984c258ec1171ea4531dfb1aa49dd318"
+        },
+        {
+          "gate": "scope7a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 2.01,
+          "log": "extracted-scope7a.txt",
+          "sha256": "e69eadfcf299114876d64370463cfd39691af64445236c2ed73c6c3a218706d1"
+        },
+        {
+          "gate": "scope7b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 1.97,
+          "log": "extracted-scope7b.txt",
+          "sha256": "c26466e510fccf7ab7485ad07945503753113c9f4cc90f1bcf6523be0d5d2b7e"
+        },
+        {
+          "gate": "scope7c",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7c"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 1.75,
+          "log": "extracted-scope7c.txt",
+          "sha256": "387ed6c29263a67f7ebbf225ae873990474fb3b1f797ad725871a2bbdcf3644d"
+        },
+        {
+          "gate": "scope7d",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7d"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 2.54,
+          "log": "extracted-scope7d.txt",
+          "sha256": "f474b224c2571b474b1813fd9f83f5766a6c966a492996977093db0576a02716"
+        },
+        {
+          "gate": "scope7e",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope7e"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 2.1,
+          "log": "extracted-scope7e.txt",
+          "sha256": "f04323786ab97c978cb880206599ed32b4868bf47f0bfbb9606321ac92226d0d"
+        },
+        {
+          "gate": "scope8a",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8a"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 3.19,
+          "log": "extracted-scope8a.txt",
+          "sha256": "a334d82490f51861eebbb5d8fd2355ec72ca9acc970c3c3856dea2018c548ace"
+        },
+        {
+          "gate": "scope8b",
+          "command": [
+            "node",
+            "scripts/run-node-tests.mjs",
+            "--match=candy-scope8b"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 3.56,
+          "log": "extracted-scope8b.txt",
+          "sha256": "c2a27b5e91ff8836f8647a0ec2682ace448b58252da08a8f2458ae4086522963"
+        },
+        {
+          "gate": "lint",
+          "command": [
+            "npm.cmd",
+            "run",
+            "lint"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 9.92,
+          "log": "extracted-lint.txt",
+          "sha256": "0a8a916dc4365f2f81e42f5acd5630ef3d8536e993f155e4f1377d0e4452a405"
+        },
+        {
+          "gate": "build",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 0.92,
+          "log": "extracted-build.txt",
+          "sha256": "0303732749862858b21aaf307645183493daad4967b1b8c348724e2be6246da8"
+        },
+        {
+          "gate": "pages",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:github"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 0.87,
+          "log": "extracted-pages.txt",
+          "sha256": "047bf08350a8fe8c45bb2f8809729654aa2c84efea7eebb5ff1a4b099e4acb4f"
+        },
+        {
+          "gate": "relative",
+          "command": [
+            "npm.cmd",
+            "run",
+            "build:relative"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 0.98,
+          "log": "extracted-relative.txt",
+          "sha256": "896b539351de73b9a465bc56b87b4c22bcf977fa73b8a93bd62f1bc72242bc28"
+        },
+        {
+          "gate": "audit",
+          "command": [
+            "npm.cmd",
+            "audit",
+            "--omit=dev",
+            "--json"
+          ],
+          "cwd": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+          "exitCode": 0,
+          "seconds": 1.24,
+          "log": "extracted-audit.txt",
+          "sha256": "3f7303fe3ba82b1656cee73c78c7de97e902af547fb43512c7e63892d798d0bb"
+        }
+      ]
+    }
+  },
+  "native": [
+    {
+      "attempt": "native-additional",
+      "status": "PASS",
+      "passedGroups": 4,
+      "requiredGroups": 4,
+      "cases": [
+        "actual-CPU-live-result-placeholder-remains-empty-on-reload-and-Resume",
+        "changed-real-current-graph-marks-old-input-stale-and-disables-rerun-without-history-rewrite",
+        "native-workspace-only-clear-and-Resume-retain-stale-read-only-history-and-independent-memory",
+        "future-schema-real-IndexedDB-history-fails-closed-without-rewrite-or-memory-loss"
+      ],
+      "receipt": {
+        "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/native-additional-complete.json",
+        "bytes": 1544,
+        "sha256": "046f0c90740d705071b659841dbfa9dae1195ac09cbc9fed92394a475d22b504"
+      },
+      "shutdown": {
+        "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/native-additional-shutdown.json",
+        "bytes": 661,
+        "sha256": "005ff14819bb749863cf1446f11bfc0e0730ab0094c1ddc95d3875199f023200"
+      }
+    },
+    {
+      "attempt": "native-history",
+      "status": "BLOCKED",
+      "passedGroups": 19,
+      "requiredGroups": 23,
+      "cases": [
+        "fresh-native-project-has-no-history-and-no-automatic-analysis",
+        "all-six-actual-CPU-algorithms-archive-normalized-outcomes-without-graph-mutation",
+        "historical-inspection-provenance-equivalence-and-read-only-result",
+        "intentional-rerun-uses-current-safe-path-and-fresh-operation-identity",
+        "same-origin-reload-Resume-restores-history-without-live-result-or-rerun",
+        "actual-browser-and-server-close-reopen-Resume-preserve-exact-history",
+        "Cancel-first-history-delete-retains-records-and-authority",
+        "reviewed-history-delete-commits-without-clearing-source-graph-or-memory",
+        "project-A-B-switch-isolation-restores-only-own-history",
+        "stale-real-tab-clear-and-append-cannot-overwrite-newer-history",
+        "guarded-native-write-failure-separates-completed-analysis-from-unsaved-history",
+        "project-switch-during-real-crypto-preparation-abandons-late-history-callback",
+        "actual-browser-kill-before-history-publication-rolls-back",
+        "actual-browser-kill-after-history-commit-before-receipt-recovers-whole-record",
+        "deterministic-v3-history-export-excludes-private-ledger-and-authority",
+        "actual-UI-v3-workspace-download-matches-validated-history-file",
+        "history-export-controls-desktop-and-narrow",
+        "genuinely-separate-profile-atomic-import-rebases-history-as-unverified-data",
+        "imported-history-inspection-does-not-restore-live-results-authority-or-rerun"
+      ],
+      "receipt": {
+        "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/native-history-failure.json",
+        "bytes": 56295,
+        "sha256": "3b9b9e0a73ecbb5e90d3f01f88d9f421c11879f58709a6eeb16c06ace8c5767d"
+      },
+      "shutdown": {
+        "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/native-history-shutdown.json",
+        "bytes": 2287,
+        "sha256": "8a5cdcfa2f8f29433fb65227c80c534c003093e97c97a32209b4bb2a030be4cf"
+      }
+    },
+    {
+      "attempt": "native-8a",
+      "status": "NOT RUN",
+      "passedGroups": 0,
+      "requiredGroups": 19,
+      "cases": [],
+      "receipt": null,
+      "shutdown": null
+    }
+  ],
+  "nativePassedGroups": 23,
+  "nativeRequiredGroups": 46,
+  "actualQwen3_8b": "BLOCKED \u2014 required existing local Ollama/qwen3:8b service unavailable; no earlier evidence substituted",
+  "productionVulnerabilities": 0,
+  "manualSecurity": {
+    "status": "PASS",
+    "reviewType": "Manual scoped corrective security review; no automated Security scan",
+    "failedCandidate": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6",
+    "correctiveParent": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6",
+    "snapshotSha256": "4e8d9c41644bb00eac2a8fa4f2f07eee681b94643705be9e795a9569399a6a37",
+    "exactImplementationDelta": {
+      "path": "tests/candy-scope8b-adversarial.test.mjs",
+      "beforeBytes": 11554,
+      "beforeSha256": "f3bdc0233af933b5d3112c959bda8969bb237c039ab08cca01151a7629bafc8a",
+      "beforeGitBlob": "fb24bb180cf8fef01b2f40f4bc7a4db7053e3605",
+      "afterBytes": 11553,
+      "afterSha256": "6fc0a1c014387e1f2b7bef9ddeb4f2ec89a0c32a2053c7d34ddd90128804dd88",
+      "afterGitBlob": "f946068c0facaae7d9a5f542e8a65416209d35be",
+      "worktreeSha256": "d9ec05c1d5a5bfff2d69b5ce8a9ed545b6b3b1444687a86d687e575aa2fec291",
+      "canonicalDelta": "Exactly one final LF removed; all preceding bytes identical; single final newline retained"
+    },
+    "reasoning": [
+      "All 1430 other committed blobs remain byte-identical in the frozen proposed source.",
+      "The sole test correction removes exactly one final LF; executable test statements, assertions, imports and all product bytes are unchanged.",
+      "No dependency, workflow, Runtime authentication, native/CUDA qualification, model reconnect policy, parser/Apply or package verifier/producer change.",
+      "Fresh 312/312 source and extracted suites include strict Scope8B corruption, replay/CAS, authority-isolation, quota and portability tests; focused7A-8B pass.",
+      "New corrective artifacts are additive evidence only; prior failed candidate and historical PASS/NON-PASS files are preserved.",
+      "Diff-check coverage is corrected additively by both parent-to-working-tree and qualified-Scope8A-to-working-tree checks, plus independent untracked-file EOF controls."
+    ],
+    "unresolvedFindings": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0
+    },
+    "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+    "realModelGateIndependent": "Not inferred from this review or prior evidence; requires current actual request",
+    "reviewedAtUtc": "2026-11-02T01:48:15Z"
+  },
+  "manualSecurityReceipt": {
+    "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/manual-security-review.json",
+    "bytes": 2195,
+    "sha256": "0f46a9c07f38b78e927b96a4e88787aa5632f51dd1fdba2dc764c3507ca18b5c"
+  },
+  "protectedHistory": {
+    "status": "PASS",
+    "failedCandidate": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6",
+    "correctiveParent": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6",
+    "qualifiedScope8a": "f1e040e90764eac925d04c78d734a884dc4cd6cc",
+    "localRefsUnchanged": true,
+    "liveRemoteMainBranchAndAllTagsUnchanged": true,
+    "mainUnchanged": true,
+    "failedCandidatePreserved": true,
+    "allTrackedPhysicalBytesAndMtimesUnchangedSinceTaskStart": 1431,
+    "priorScope8bEvidencePreserved": [
+      "artifacts/candy-scope8b-browser-results.json",
+      "artifacts/candy-scope8b-current-analysis-flow.md",
+      "artifacts/candy-scope8b-design.md",
+      "artifacts/candy-scope8b-final-inventory.json",
+      "artifacts/candy-scope8b-gap-closure.json",
+      "artifacts/candy-scope8b-history-schema.json",
+      "artifacts/candy-scope8b-implementation-report.md",
+      "artifacts/candy-scope8b-portability-results.json",
+      "artifacts/candy-scope8b-security-review.md",
+      "artifacts/candy-scope8b-test-results.json",
+      "artifacts/candy-scope8b-threat-model.md"
+    ],
+    "noProductRuntimeNativeCudaWorkflowModelOrPackagePolicyChange": true,
+    "onlyTrackedDelta": "tests/candy-scope8b-adversarial.test.mjs",
+    "stagedPaths": [],
+    "frozenSourceHashesUnchanged": 1431,
+    "checkedAtUtc": "2026-11-02T01:57:30Z"
+  },
+  "protectedHistoryReceipt": {
+    "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/protected-history-final.json",
+    "bytes": 37603,
+    "sha256": "59c2c222b6bdfb135d6dfc76e0fd9a0cbab2898180691a4bd22c1fba32d932b7"
+  },
+  "priorEvidenceRewritten": false,
+  "proposedArchive": {
+    "qualificationLevel": "PRE-COMMIT / PROPOSED-SOURCE QUALIFICATION",
+    "snapshotSha256": "4e8d9c41644bb00eac2a8fa4f2f07eee681b94643705be9e795a9569399a6a37",
+    "sourceCommit": null,
+    "commitBoundProvenanceClaimed": false,
+    "unchangedVerifierLevel": "structural-only",
+    "independentVerification": "exact frozen proposed-source membership, payload SHA256, modes, CRC, safe paths and extracted bytes PASS",
+    "reproducibility": [
+      {
+        "label": "clean",
+        "sha256": "603cd970ec9d1fb22e8a24afccb0707934e140ea486b586c48d85cb51a455d0d",
+        "bytes": 2039924
+      },
+      {
+        "label": "populated",
+        "sha256": "603cd970ec9d1fb22e8a24afccb0707934e140ea486b586c48d85cb51a455d0d",
+        "bytes": 2039924
+      }
+    ],
+    "sha256": "603cd970ec9d1fb22e8a24afccb0707934e140ea486b586c48d85cb51a455d0d",
+    "bytes": 2039924,
+    "entries": 1030,
+    "files": 974,
+    "directories": 56,
+    "archive": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8b\\artifacts\\candy-scope8b-work\\diffcheck-corrective-v1\\package-v1\\clean.zip",
+    "extractedRoot": "C:\\Users\\tharu\\AppData\\Local\\Temp\\candy-scope8b-diffcheck-9_fsvc67\\extracted\\candy-scope8b-diffcheck-proposed-4e8d9c41644b",
+    "requiredNewPaths": [
+      "tests/candy-scope8b-adversarial.test.mjs"
+    ],
+    "privateQualificationStateExcluded": true
+  },
+  "verifierReceipt": {
+    "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/package-v1/verification.json",
+    "bytes": 924,
+    "sha256": "71379b836ac53cd57f7846e909eacc7c1992ab185e5c85d37c81a0df8f8997af"
+  },
+  "archiveManifestReceipt": {
+    "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/package-v1/archive-manifest.json",
+    "bytes": 260428,
+    "sha256": "c56e9ed47e1ab82fbeae4af3eb1d360ac410feae6005c1c871c3462bbb112379"
+  },
+  "frozenManifestReceipt": {
+    "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/frozen-source.json",
+    "bytes": 390580,
+    "sha256": "5e545651f9e6e2c8ed53fb34734672d480add85cc9c22d863d16b5e5992caedc"
+  },
+  "pr19ObservationReceipt": {
+    "path": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/pr19-observation.json",
+    "bytes": 1298,
+    "sha256": "e995c600b747a36ffcdb56cf4332a3e2c0c735279dbf4e6c7c0ff06e064aa41b"
+  },
+  "futureChildCI": "DEFERRED \u2014 no corrective child SHA created",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "tagged": false,
+  "merged": false,
+  "mainModified": false,
+  "scope8cStarted": false,
+  "externalExactBoundaryReceipt": "artifacts/candy-scope8b-work/diffcheck-corrective-v1/final-boundary-receipt.json"
+}
