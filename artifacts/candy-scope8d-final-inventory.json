@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "timeZone": "America/Chicago",
+  "repository": "TharunSwaminathan/hypergraph-converter-v7.3.14",
+  "worktree": "C:\\Users\\tharu\\OneDrive\\Documents\\Candi\\hypergraph-converter-v7.3.15-scope8d-readiness",
+  "branch": "candy-integration-scope8d-readiness",
+  "qualifiedBaseline": "339f62c09821a227937ec3eb1653d1e34cbf46e8",
+  "tree": "5a90a1bb30fda50c131bc088c2978a4045ba7ce1",
+  "decision": "READY TO FREEZE SCOPE 8D IMPLEMENTATION CONTRACT",
+  "recommendedScope": "Search and filter retained analysis history",
+  "proposedPathCount": 4,
+  "proposedBoundary": [
+    {
+      "path": "src/components/AnalysisHistoryPanel.jsx",
+      "change": "MODIFY",
+      "baselineEntry": "100644 blob f092a766423b081892650d0a14c6a0e18f6f79f3"
+    },
+    {
+      "path": "src/components/AnalysisHistoryPanel.css",
+      "change": "MODIFY",
+      "baselineEntry": "100644 blob 7709c86ff06e8585f0c1572312b8aa6301f4e8c9"
+    },
+    {
+      "path": "tests/candy-scope8d-history-search.test.mjs",
+      "change": "NEW",
+      "baselineEntry": null
+    },
+    {
+      "path": "docs/CANDY_SCOPE8D_ANALYSIS_HISTORY_SEARCH.md",
+      "change": "NEW",
+      "baselineEntry": null
+    }
+  ],
+  "confirmedCounts": {
+    "implementationDefects": 1,
+    "documentationDiscrepancies": 1,
+    "selectedCapabilityGaps": 1,
+    "confirmedSecurityFindings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    }
+  },
+  "protectionChecks": {
+    "verifiedAtUtc": "2026-11-15T21:22:48.143163+00:00",
+    "allInitialPinsMatch": true,
+    "trackedFiles": 1446,
+    "trackedEvidenceFiles": 463,
+    "externalPriorEvidenceFiles": 56,
+    "historicalScope8CReceiptFilesVerified": 8,
+    "localTags": 44,
+    "remoteTagObjectsMatchLocal": true,
+    "indexHashAndMtimeUnchanged": true,
+    "headAndLocalAndRemoteMain": "339f62c09821a227937ec3eb1653d1e34cbf46e8",
+    "tree": "5a90a1bb30fda50c131bc088c2978a4045ba7ce1",
+    "scope8cQualificationTagObject": "7d1d891cbb316b49f463560bc8311cbbb8535caa",
+    "scope8cQualificationTagPeeled": "339f62c09821a227937ec3eb1653d1e34cbf46e8",
+    "readinessOriginRef": null,
+    "failed8B": "2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6",
+    "failed8BAuditDisposition": "NON-PASS preserved",
+    "trackedOrStagedChanges": false
+  },
+  "baselineTestFileInventoryCount": 315,
+  "sourceReferencesCheckedAgainstBaseline": 93,
+  "generatedEvidenceCount": 7,
+  "evidence": [
+    {
+      "path": "artifacts/candy-scope8d-readiness-audit.md",
+      "bytes": 6835,
+      "sha256": "4b3714e69d939f5820f50542eb16c75cf8dfa2e333a0418b56e812b78c7ffe0d"
+    },
+    {
+      "path": "artifacts/candy-scope8d-current-state.md",
+      "bytes": 10352,
+      "sha256": "6eefcfce74b9cca2fffb6f1d0198d7b1f8025cc4671395c6c847d9a92355dd00"
+    },
+    {
+      "path": "artifacts/candy-scope8d-gap-register.json",
+      "bytes": 8205,
+      "sha256": "5ad92ae45343f663c10d38abff4f7f45df1c6bce5faf2e9ef44164b52d610f87"
+    },
+    {
+      "path": "artifacts/candy-scope8d-proposed-scope.md",
+      "bytes": 7558,
+      "sha256": "b90296e8c1225619fe8e317df8ca9b5e8db75113260c119429666cf70caf5c82"
+    },
+    {
+      "path": "artifacts/candy-scope8d-threat-model.md",
+      "bytes": 11342,
+      "sha256": "d6a655d005aa6ee301eb9039255d805132bb5315e231d2943bbd9561950603cf"
+    },
+    {
+      "path": "artifacts/candy-scope8d-qualification-plan.md",
+      "bytes": 9644,
+      "sha256": "9b7697eecbf4456e90b8ee1884cf648d5ba550ada96c70e6c25281d9ae8641c9"
+    },
+    {
+      "path": "artifacts/candy-scope8d-final-inventory.json",
+      "bytes": 4613,
+      "sha256": "dda50e0a53fa42c81aa4605c6ee89ca46f1d8332fe52af9dbe3783eb76979ef5",
+      "hashBasis": "SHA-256 of canonical UTF-8 JSON for the complete inventory with only this sha256 field set to null. Detached physical-file hash is recorded in the specified receipt."
+    }
+  ],
+  "temporaryVerificationRecords": [
+    {
+      "path": "artifacts/candy-scope8d-work/initial-protected-state.json",
+      "bytes": 301106,
+      "sha256": "2420a2459bd76245b3ed1fda47e7962146304b036a47f67cb52c6c1dfb6153e4"
+    },
+    {
+      "path": "artifacts/candy-scope8d-work/protection-check.json",
+      "bytes": 802,
+      "sha256": "9d483adda1396929f5cd9bc16973754f8598f5e910fea6c05618b5a17132de22"
+    }
+  ],
+  "physicalInventoryReceipt": "artifacts/candy-scope8d-work/final-inventory-file-receipt.json",
+  "runtimeTestsRun": false,
+  "productImplementationPerformed": false,
+  "previousQualificationUsedAsHistoricalEvidenceOnly": true,
+  "automatedSecuritySeal": "NOT RUN / NOT CLAIMED",
+  "liveCuda": "NOT REQUIRED / NOT CLAIMED"
+}

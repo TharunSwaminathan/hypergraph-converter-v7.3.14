@@ -1,0 +1,34 @@
+# Scope 8D readiness audit
+
+Qualified Scope 8C baseline `339f62c09821a227937ec3eb1653d1e34cbf46e8`, tree `5a90a1bb30fda50c131bc088c2978a4045ba7ce1`, repository `TharunSwaminathan/hypergraph-converter-v7.3.14`. Audit date 2026-11-15 (America/Chicago).
+
+The local `candy-integration-scope8d-readiness` branch has zero commits ahead of main and points directly to the qualified Scope 8C baseline. Local main, origin/main and live remote main resolve to that SHA. The local and remote Scope 8C tag object `7d1d891cbb316b49f463560bc8311cbbb8535caa` peels to it. Origin has no readiness branch. All 44 local tag object IDs agree with origin. Scope 8C's direct parent is qualified `4237de4c768daa98f81536423e9bf6ff787f09ce`. The failed `2d5ae411dfe3dcff73dde18ab0197d22b8cf2fe6` remains in ancestry and remains permanently NON-PASS. Its tracked closure report explicitly preserves that disposition. The corrective evidence remains referenced from current history.
+
+Verified 1,446 tracked physical files and the Git index against start-of-audit hash, size and mtime, all local refs and remote main/tags against initial values, and 56 external prior evidence files across earlier worktrees. The eight Scope 8C restart evidence files also match their earlier independent receipt. Relevant historical releases were read from qualification evidence and Git object identity. No runtime, browser, model, build, suite, package or security scan ran in this readiness phase. Git inspections and evidence validation ran. The scoped threat model used sequential source inspection plus a fresh independent architectural check. It is stored only at the requested repository evidence path.
+
+## Decision
+
+**Recommend Scope 8D — Search and filter retained analysis history.** This lets a user find a result by its label, backend or local/imported origin in the active project's existing bounded list. It adds four paths and keeps all matching and selection logic at the view boundary. It works for projects with and without a saved workspace root. Loading, failed discovery, a genuinely empty archive and a filtered result set are distinguishable.
+
+| Candidate | User value and fit | Dependency, integrity, security and compatibility | Testability and independent qualification | Paths and complexity |
+|---|---|---|---|---|
+| **Search/filter retained history** | Directly helps operators locate imported or repeated results. Reuses the verified list and current owner. | Low dependency and authority impact. Derived UI only. No schema, writes, data migration, workflow or release-policy change. | Purely deterministic filtering through the mounted view, isolated native Chrome and existing regression harness. Measure zero filtering-triggered authority, storage and network actions. | Exactly 4 proposed paths. Small UI, CSS, one test and one doc. |
+| Durable favorites | Helps repeated revisits. Pins are valuable if retained through restart and portable transfer. | Needs an owner-bound preference/metadata design with eviction/deletion, CAS, orphan behavior and import ID rebasing decisions. Storing it in validated history would affect hashes/compatibility. | Can qualify independently after the persistence/transfer contracts are frozen. Requires concurrency, tombstone and reconnect/Resume regression coverage. | Roughly 7–11 paths for candidate designs, including panel, persistence, tests/docs and possibly codecs. Moderate complexity. Deferred. |
+| Local notes or editable result labels | Highly useful customization. The present fixed label encodes algorithm contract, so a separate user annotation is the safe fit. | Adds user text admission, failure acknowledgement, stale edits and data/portability decisions. Needs a separate keyed metadata contract rather than modifying validated labels. | Needs cross-tab, import/rebase, adversarial text, delete/retention and backward-compatibility gates before qualification. | Roughly 8–12 paths depending on storage and export policy. Moderate-to-high complexity. Deferred. |
+| Read-only result comparison | Useful for examining two runs, especially when provenance and inputs differ. Existing record payloads vary by algorithm/backend. | No storage change necessary for a narrow comparator, but result compatibility and units/input/backend semantics need agreement before the UI can communicate truthful differences. | Testable with family-specific comparability rules, incompatible pairs, bounded rendering and resident/current-input authority checks. | Roughly 5–8 paths for a single-family first comparator, including fixtures/docs. Moderate complexity. Deferred. |
+
+Alternative counts are estimates, not authorized file boundaries. Working scope is one in-panel discovery capability. The larger gap register also covers retention use, transfer/recovery, performance, accessibility, Assistant continuity and native/browser limits. Existing protections and deferrals do not establish vulnerabilities.
+
+## Confirmed observations and open questions
+
+One implementation defect is confirmed by static control flow. The panel renders an empty archive sentence from a zero length array alone. The history coordinator initially supplies an empty array while loading and retains it on an initial read error. This can present an unsupported absence claim. Inspect `src/components/AnalysisHistoryPanel.jsx:19–21` alongside `src/persistence/analysisHistoryCoordinator.js:6–17`. Correcting that specific status distinction is part of the proposed view change.
+
+One documentation discrepancy is confirmed. README text implies automatic frontend port selection on conflict, while both combined launchers intentionally check one port and stop on conflict. The explicit guidance in the Scope 7A documentation matches implementation. Tracking a README-only correction separately preserves the four-path boundary. Inspect `README.md:552,558`, `run-with-ollama.sh:22–41` and `run-with-ollama.bat:32–54`.
+
+One confirmed capability gap motivates this scope. The retained list has no label search, backend facet or provenance facet. No scoped security vulnerability was confirmed by inspection. The register separates known facts, unresolved questions and deferred work.
+
+Qualification still needs native keyboard/focus and assistive-technology behavior, isolation and timing at the 24-record limit, and explicit evidence that filtering alone produces no database writes, requests or authority. The 80-code-unit limit and three filter dimensions are proposed for contract review. Usage demand and physical/browser eviction behavior remain unmeasured. No later scope is authorized here.
+
+The exact path contract, threat model and gates are in the companion evidence. READY here means the implementation contract is reviewable for a separate freeze decision.
+
+READY TO FREEZE SCOPE 8D IMPLEMENTATION CONTRACT

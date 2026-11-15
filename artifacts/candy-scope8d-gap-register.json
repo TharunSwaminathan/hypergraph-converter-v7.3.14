@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "baseline": "339f62c09821a227937ec3eb1653d1e34cbf46e8",
+  "tree": "5a90a1bb30fda50c131bc088c2978a4045ba7ce1",
+  "method": "Source inspection and prior evidence verification. No new runtime measurements or security validation.",
+  "confirmedIssueCounts": {
+    "implementationDefects": 1,
+    "documentationDiscrepancies": 1,
+    "selectedCapabilityGaps": 1,
+    "confirmedSecurityFindings": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    }
+  },
+  "confirmed": [
+    {
+      "id": "D-01",
+      "classification": "implementation defect",
+      "observation": "Zero-length records triggers the empty archive claim while initial discovery is loading or has failed. Inspect initial empty snapshot and its error patch against the unconditional list-length branch.",
+      "evidence": "src/persistence/analysisHistoryCoordinator.js:6–17; src/components/AnalysisHistoryPanel.jsx:19–21",
+      "disposition": "Within proposed view states"
+    },
+    {
+      "id": "D-02",
+      "classification": "documentation discrepancy",
+      "observation": "README implies a port fallback on conflict although both combined launchers check exactly one port and stop. The launcher's fail-closed behavior remains the intended policy.",
+      "evidence": "README.md:552,558; run-with-ollama.sh:22–41; run-with-ollama.bat:32–54; docs/CANDY_SCOPE7A_PERSISTENCE_FOUNDATION.md:7–11",
+      "disposition": "Separate documentation scope"
+    },
+    {
+      "id": "C-01",
+      "classification": "demonstrated capability gap",
+      "observation": "History lists every retained row in reverse retained order and exposes details on explicit selection. It has no label query, backend facet or origin facet.",
+      "evidence": "src/components/AnalysisHistoryPanel.jsx:5–33",
+      "disposition": "Selected"
+    },
+    {
+      "id": "C-02",
+      "classification": "user-experience improvement",
+      "observation": "The current retention note states age eviction and a finite replay ledger. It lacks an eviction history or a per-project remaining ledger meter. The panel receives retained rows rather than an eviction journal.",
+      "evidence": "src/components/AnalysisHistoryPanel.jsx:35; src/persistence/analysisHistoryCoordinator.js:10–14; src/persistence/projectStore.js:267–280",
+      "disposition": "Deferred"
+    },
+    {
+      "id": "C-03",
+      "classification": "existing capability boundary",
+      "observation": "Rootless history-only projects can transfer history but lack the saved workspace root required for full workspace export. Current two-file distinction is intentional. Support for v1/v2/v3 full and v1 standalone already exists.",
+      "evidence": "src/persistence/workspacePortability.js:95–110,125–131; src/persistence/analysisHistoryPortability.js:71–87",
+      "disposition": "Preserve"
+    },
+    {
+      "id": "C-04",
+      "classification": "existing capability boundary",
+      "observation": "Browser/CPU users can read qualified historical native outcomes; live STATIC and INCREMENTAL require current explicit Runtime/native authority. Browser-only usage does not satisfy that requirement.",
+      "evidence": "src/components/AnalysisHistoryPanel.jsx:27–32; src/App.jsx:3824–3847; src/candy/motifAnalysisController.js:65–107",
+      "disposition": "Preserve"
+    },
+    {
+      "id": "C-05",
+      "classification": "existing capability boundary",
+      "observation": "Workspace recovery preserves original invalid data; unknown/future schemas and missing roots can limit available data. Explicit reattachment and temporary fresh work exist. Automatic salvage is absent.",
+      "evidence": "src/persistence/storageMigration.js:7–38; src/persistence/workspaceResumeCoordinator.js:71–79,119–134; docs/CANDY_SCOPE7B_DURABLE_WORKSPACE.md:63–91",
+      "disposition": "Preserve"
+    },
+    {
+      "id": "C-06",
+      "classification": "existing capability boundary",
+      "observation": "Assistant continuity is bounded by project-specific current memory and app-wide durable model intent. Browse or import of standalone history does not promote historical text into prompts.",
+      "evidence": "src/persistence/assistantMemoryRetrieval.js:14–33; src/agent/modelPromptBuilder.js:293; src/persistence/projectStore.js:429–461",
+      "disposition": "Preserve"
+    }
+  ],
+  "uncertain": [
+    {
+      "id": "U-01",
+      "classification": "performance risk",
+      "observation": "Scanning nested result payloads or indexing across projects could increase latency and expose text. No timing baseline was collected.",
+      "disposition": "Proposed contract touches only fixed labels/enums, with O(retained rows), a cap and future native trace."
+    },
+    {
+      "id": "U-02",
+      "classification": "accessibility hypothesis",
+      "observation": "No current native evidence for count announcements or focus fallback after a selected row is removed by filtering.",
+      "disposition": "Measure with keyboard, accessibility tree and a screen reader in future qualification."
+    },
+    {
+      "id": "U-03",
+      "classification": "security risk hypothesis",
+      "observation": "A future implementation could leak owner-local query state, treat imported metadata as trusted, retarget an action, or send query text to the Assistant. No such future code exists.",
+      "disposition": "Threat model and authority-isolation assertions."
+    },
+    {
+      "id": "U-04",
+      "classification": "unsupported hypothesis",
+      "observation": "User demand for pinning, annotations or comparisons and ideal query dimensions have not been measured.",
+      "disposition": "Freeze the proposed metadata semantics before coding. No claim of user demand measurements."
+    },
+    {
+      "id": "U-05",
+      "classification": "reliability risk",
+      "observation": "Physical power-loss, true quota exhaustion, long soak and platform eviction/physical backup behavior remain unqualified here.",
+      "disposition": "Keep historical qualification limits. Future injected failures explicitly labeled."
+    }
+  ],
+  "deferred": [
+    {
+      "id": "F-01",
+      "classification": "deferred",
+      "feature": "Durable favorites, pinning and categories",
+      "reason": "Owner metadata, CAS, retention/delete interaction and transfer semantics."
+    },
+    {
+      "id": "F-02",
+      "classification": "deferred",
+      "feature": "Notes and editable labels",
+      "reason": "Keep canonical algorithm label. Separate bounded text, CAS and transfer policy need design."
+    },
+    {
+      "id": "F-03",
+      "classification": "deferred",
+      "feature": "Result comparison",
+      "reason": "Define comparable result shapes, provenance and input semantics first."
+    },
+    {
+      "id": "F-04",
+      "classification": "deferred",
+      "feature": "New analysis families",
+      "reason": "Registry, result format, runtime and evidence qualification would expand scope."
+    },
+    {
+      "id": "F-05",
+      "classification": "deferred",
+      "feature": "Retention, larger history and salvage",
+      "reason": "Needs ledger, resource budget, clear/eviction and recovery contracts."
+    },
+    {
+      "id": "F-06",
+      "classification": "deferred",
+      "feature": "History merge/replacement and other transfer redesign",
+      "reason": "Changes ownership and replay behavior. Existing full-workspace reviewed replacement remains available."
+    },
+    {
+      "id": "F-07",
+      "classification": "deferred",
+      "feature": "Cross-project, persisted, payload or semantic search",
+      "reason": "Would widen the authorized data, lifecycle and possibly model surface."
+    },
+    {
+      "id": "F-08",
+      "classification": "deferred",
+      "feature": "Automatic context, cloud sync, and model or native redesign",
+      "reason": "System boundaries are preserved. User consent, prompt trust and Runtime/native authority are separate."
+    },
+    {
+      "id": "F-09",
+      "classification": "deferred",
+      "feature": "README launcher discrepancy",
+      "reason": "Documentation-only follow-up outside the selected four paths."
+    }
+  ],
+  "confirmedScopedSecurityFindings": []
+}
